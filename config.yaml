@@ -1,0 +1,18 @@
+baseurl: "http://bramp.net/blog"
+altbaseurl: "https://bramp.github.io/"
+languageCode: "en-gb"
+title: "bramp.net"
+disqusShortname: "bramp"
+theme: "bramp"
+author:
+  name: "Andrew Brampton"
+params:
+  github: "bramp"
+  twitter: "@TheBramp"
+  linkedin: "bramp"
+  facebook: "bramp"
+  GoogleAnalytics: "UA-136478-5"
+
+permalinks:
+  posts: /:year/:month/:day/:slug/
+  publications: /:year/:month/:day/:slug/

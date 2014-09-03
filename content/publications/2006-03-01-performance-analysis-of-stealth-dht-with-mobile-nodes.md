@@ -1,0 +1,21 @@
+---
+title: Performance analysis of Stealth DHT with mobile nodes.
+author: bramp
+layout: post
+date: 2006-03-01
+permalink: /2006/03/01/performance-analysis-of-stealth-dht-with-mobile-nodes/
+categories:
+  - Publications
+tags:
+  - publication
+  - stealthdht
+---
+Andrew MacQuire, Andrew Brampton, Idris A. Rai, and Laurent Mathy.
+
+In proceedings of the 3rd International Workshop on Mobile Peer-to-Peer Computing (MP2P&#8217;06)
+
+The advances in wireless networking and the consequent emergence of new applications that wireless networks increasingly support inevitably leads to low capability mobile nodes connecting to peer-to-peer networks. However, the characteristics of mobile nodes and limitations of access point coverage often cause mobile nodes to lose connectivity, which can cause many mobile nodes to simultaneously rejoin the network. Continuous departures and joins due to the mobility of nodes leads to mobility churn, which can often degrade the performance of the underlying peer-to-peer network significantly. In this paper, we use simulations to demonstrate that the Stealth Distributed Hash Table (Stealth DHT) algorithm is ideally suited for networks with mobile nodes. By avoiding storing state in unreliable nodes, a Stealth DHT prevents mobile nodes from being used by other nodes to provide services. Consequently, Stealth DHTs eliminate the mobility churn effect and significantly reduce the amount of overhead as compared to a generic DHT. This paper demonstrates this using simulation results that compare the performance of Stealth DHTs to a generic DHT, Pastry.
+
+[Download][1]
+
+ [1]: /papers/MP2P_MacQuire_A.pdf
