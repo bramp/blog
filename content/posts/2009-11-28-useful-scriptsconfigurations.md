@@ -26,7 +26,7 @@ Make [nano][2] colourful
 
 <pre>cp /usr/local/share/examples/nano/nanorc.sample ~/.nanorc
 or
- zcat /usr/share/doc/nano/examples/nanorc.sample.gz >~/.nanorc 
+ zcat /usr/share/doc/nano/examples/nanorc.sample.gz >~/.nanorc
 then
  nano ~/.nanorc
 </pre>
@@ -47,7 +47,7 @@ export LSCOLORS="ExGxFxdxCxDxDxhbadExEx"
 
 To ensure the http_proxy environmental variable is passed to sudo. Edit the sudoers file by running visudo. Then add the following.
 
-<pre>Defaults env_keep += â€œftp_proxy http_proxy https_proxyâ€
+<pre>Defaults env_keep += "ftp_proxy http_proxy https_proxy"
 </pre>
 
 Bash autocompletion on FreeBSD:

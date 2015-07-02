@@ -44,7 +44,7 @@ This is what you will need to build such wings:
 
 To make the wings flexible yet strong enough they have a frame made from flat strips of flexible metal. We found that these cheap collapsible laundry baskets contained wire prefect for the job, and each large hamper contained four 2 metre lengths.
 
-It is easy to remove the wire from the baskets. We originally spent a couple of hours unpicking the stitching so that we could use the mesh material, but in the end we decided we werenâ€™t going to use the material so cutting the baskets open would been far quicker.
+It is easy to remove the wire from the baskets. We originally spent a couple of hours unpicking the stitching so that we could use the mesh material, but in the end we decided we weren't going to use the material so cutting the baskets open would been far quicker.
 
 <div class ="clear">
 </div>
@@ -57,13 +57,13 @@ It is easy to remove the wire from the baskets. We originally spent a couple of 
 
 Since we had no idea what we were doing we decided to make only one wing to begin with. To help design the first wing we taped the metal wire to the wall to get a feel of the size and style. Once we had finalised the shape we started constructing a wing from the design on the wall.
 
-To make the frame stronger we doubled up the metal on all the main vertical pieces, and used only a single wire for the horizontal pieces. Some of the pieces of metal required to be shortened and this was achieved by flexing the metal with a pair of pliers until the metal snapped. Iâ€™m sure a saw would have been better, but snapping it was quick and easy.
+To make the frame stronger we doubled up the metal on all the main vertical pieces, and used only a single wire for the horizontal pieces. Some of the pieces of metal required to be shortened and this was achieved by flexing the metal with a pair of pliers until the metal snapped. I'm sure a saw would have been better, but snapping it was quick and easy.
 
 <div class="figure" style="float: right">
   <a href="/projects/wings/STA40103.JPG"><img src="/projects/wings/STA40103_tiny.JPG" width="225" height="300" alt="Mock of the wings stuck to the wall" /><br />Mock of the wings stuck to the wall</a>
 </div>
 
-We used black gaffer tape at each of the joints to hold everything together. We looked at using metal glue but found it to be too brittle. We also considered welding the frame, but we didnâ€™t have a welder. Since there was tape at the joints we felt it would look better with black gaffer tape covering the whole frame. This hide the fact it was metal, and to gave it a nice texture.
+We used black gaffer tape at each of the joints to hold everything together. We looked at using metal glue but found it to be too brittle. We also considered welding the frame, but we didn't have a welder. Since there was tape at the joints we felt it would look better with black gaffer tape covering the whole frame. This hide the fact it was metal, and to gave it a nice texture.
 
 To make it easier to wrap all the tape around the frame we hung the frame up with some left over basket material.
 

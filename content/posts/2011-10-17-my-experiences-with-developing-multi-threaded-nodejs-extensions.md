@@ -69,7 +69,7 @@ int WiiMote::Connect(eio_req* req) {
 }
 
 int WiiMote::AfterConnect(eio_req* req) {
-  // Once the â€œConnectâ€ method has finished, this method will be called on
+  // Once the "Connect" method has finished, this method will be called on
   // the main nodejs thread. This means we can now use normal V8 methods.
 
   HandleScope scope;

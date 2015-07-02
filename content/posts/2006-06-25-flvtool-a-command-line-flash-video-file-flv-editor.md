@@ -16,8 +16,8 @@ This is a c++ re-write of a similar closed source tool [FLVMDI][1] and a open so
 This tool has the following features:
 
   * Large file support while using minimum memory
-  * Add â€œindexingâ€ metadata, useful for [streaming applications][3]
-  * Add other metadata such as the videoâ€™s duration, or frames per second, etc
+  * Add "indexing" metadata, useful for [streaming applications][3]
+  * Add other metadata such as the video's duration, or frames per second, etc
   * Displays all the metadata within a FLV file
   * Displays all the tags within a FLV file
   * Displays interesting statistics about the FLV file

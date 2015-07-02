@@ -60,13 +60,13 @@ So to start with the basics there are 8 different sequences to pick:
 
 Each sequence of flips is equally likely, and on face value you would expect a 1 in 8 chance of any of these combinations to occur. Now this is true, however, if you play the game in the same way that Derren Brown does, then a different outcome will happen. 
 
-The difference in Derrenâ€™s game is what happens when you fail to flip the correct face. Instead of starting from the beginning you are allowed to carry on. So instead of having to get 3 in a row from scratch, you have to get your sequence from the last 3 attempts. The player would score a point with the combination HTT if they had previous flipped HTHTT. 
+The difference in Derren's game is what happens when you fail to flip the correct face. Instead of starting from the beginning you are allowed to carry on. So instead of having to get 3 in a row from scratch, you have to get your sequence from the last 3 attempts. The player would score a point with the combination HTT if they had previous flipped HTHTT. 
 
 This can be used to your advance by picking a sequence which starts and ends with different sides. If, for example, your sequence starts with a head and ends in a tail, then if you fail to flip the 3rd coin correctly, then you have already successfully flipped once for the next attempt.
 
 The worst combinations to pick are HHH and TTT because you can never capitalise on a previous bad flip. The next worst are HTH or THT, as with these you can capitalise on one previous flip if you fail to flip the 2nd coin. Finally the best combinations are, HHT, HTT, THH, TTH, as here you can always capitalise on a bad flip regardless if it is the second or third flip.
 
-Because Iâ€™m too lazy to work out the exact odds, I used Monte-Carlo simulations to generate this table of results:
+Because I'm too lazy to work out the exact odds, I used Monte-Carlo simulations to generate this table of results:
 
 <div class="figure">
   <table align=center border=1 cellpadding=3 cellspacing=0> <tr>
