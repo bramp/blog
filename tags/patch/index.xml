@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Patch on bramp.net</title>
+    <link>http://bramp.net/blog/tags/patch/</link>
+    <description>Recent content in Patch on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sat, 05 Apr 2008 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/patch/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Linux kernel patch for TCP timestamping</title>
+      <link>http://bramp.net/blog/2008/04/05/linux-kernel-patch-for-tcp-timestamping/</link>
+      <pubDate>Sat, 05 Apr 2008 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2008/04/05/linux-kernel-patch-for-tcp-timestamping/</guid>
+      <description>&lt;p&gt;Recently I needed to measure the time it takes a packet to travel though the Linux network stack. To begin with I thought I&amp;#8217;ll hack the kernel to add my own timing measurements, but then I found this was already built in! I could use the SIOCGSTAMP or SIOCGSTAMPNS ioctl calls to retrieve the timestamp assigned by the network driver when the packet first enters the stack.&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;SOCKET s;
+struct timeval tv = {0,0};
+if ( ioctl(s, SIOCGSTAMP, &amp;tv) )
+   return 0; // error
+printf( &#34;%ld seconds and %ld nanoseconds&#34;,  tv.tv_sec,  tv.tv_usec );
+&lt;/pre&gt;
+
+&lt;p&gt;This works great for UDP packets or RAW sockets, but does not work for TCP. There are many good reasons why TCP isn&amp;#8217;t supported, mainly because TCP is a stream protocol, whereas UDP and RAW sockets typically operate on discrete packets.&lt;/p&gt;
+
+&lt;p&gt;Ignoring this fact I decided to hack the kernel anyway to record the timestamps for TCP. It is a simple patch which hopefully others might find useful if they ever need to profile the TCP stack. It applys cleanly to 2.6.24 kernels.&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;--- a/linux-2.6.24/net/ipv4/tcp.c  2008-01-24 22:58:37.000000000 +0000
++++ b/linux-2.6.24/net/ipv4/tcp.c   2008-02-11 19:40:41.000000000 +0000
+@@ -1180,6 +1180,10 @@
+        /* Next get a buffer. */
+ 
+        skb = skb_peek(&amp;sk-&amp;gt;sk_receive_queue);
++       
++       if (skb)
++           sock_recv_timestamp(msg, sk, skb); /* HACK */
++           
+        do {
+            if (!skb)
+                break;
+&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

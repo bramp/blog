@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sms on bramp.net</title>
+    <link>http://bramp.net/blog/tags/sms/</link>
+    <description>Recent content in Sms on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sun, 25 Aug 2013 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/sms/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>SMS Character Count</title>
+      <link>http://bramp.net/blog/2013/08/25/sms-character-count/</link>
+      <pubDate>Sun, 25 Aug 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2013/08/25/sms-character-count/</guid>
+      <description>&lt;p&gt;It is commonly known that Twitter allows 140 character messages, and some will tell you that a single SMS message is limited to 160 characters. However, it&amp;#8217;s not as simple as that. In the US a single SMS message can contain 140 bytes of data, which if using &lt;a href=&#34;http://en.wikipedia.org/wiki/GSM_03.38&#34;&gt;GSM encoding&lt;/a&gt;, we can squeeze up to 160 7-bit characters. Those 7-bit GSM characters don&amp;#8217;t match up with normal ASCII characters, and even worse, not all characters take 7 bits, some take up 14 bits (for example the { character)!&lt;/p&gt;
+
+&lt;p&gt;When we start talking about messaging in non-latin scripts, such as Chinese, then a different encoding must be used. In the SMS world the encoding of choice is [UCS-2][2], which uses 16 bits per character. This limits a single part message to 70 characters (down from 160).&lt;/p&gt;
+
+&lt;p&gt;On top of that, most SMS clients will let you send concatenated SMS messages. That is, multiple message parts that appear as one long SMS message. A two part message allow up to 304 characters, not the 320 (160&amp;#215;2) you might expect. This is due to the overhead required to store meta data about each part.&lt;/p&gt;
+
+&lt;p&gt;This all makes it very hard to count how long a SMS message will be, what characters are allowed, and how many parts it will take. To help with these isuses, I&amp;#8217;ve created this simple tool which allows you to type out your message, and see how well it&amp;#8217;ll fit&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://bramp.net/blog/wp-content/uploads/sms-count.png&#34; alt=&#34;SMS Character Count&#34; width=&#34;741&#34; height=&#34;196&#34; class=&#34;aligncenter size-full wp-image-661&#34; /&gt;&lt;/p&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://bramp.net/sms/&#34;&gt;http://bramp.net/sms/&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[2]: &lt;a href=&#34;http://en.wikipedia.org/wiki/UTF-16&#34;&gt;http://en.wikipedia.org/wiki/UTF-16&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

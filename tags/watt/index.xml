@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Watt on bramp.net</title>
+    <link>http://bramp.net/blog/tags/watt/</link>
+    <description>Recent content in Watt on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Mon, 26 Oct 2009 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/watt/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Power Consumption</title>
+      <link>http://bramp.net/blog/2009/10/26/power-consumption/</link>
+      <pubDate>Mon, 26 Oct 2009 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2009/10/26/power-consumption/</guid>
+      <description>
+
+&lt;p&gt;I have mentioned many times that I would like to know how much current something is drawing, so today Nic brought me a mains power meter. It is a very simple meter which plugs between the mains and the device and can measure volts, amps, watts, frequency, and a few other metrics. I decided to run around my house measuring everything I could.&lt;/p&gt;
+
+&lt;h3 id=&#34;methodology:5b73a8938321839a6e535990b74cc8eb&#34;&gt;Methodology&lt;/h3&gt;
+
+&lt;p&gt;A couple notes about my methodology, firstly, I was very lazy in my measurement taking. I repeated some of the measurements, but not all. However, when I did repeat the measurements they always seem to have the same value, so this discouraged me from repeating.&lt;/p&gt;
+
+&lt;p&gt;To test a device I would plug the meter between it and the mains electricity and give it a some time to settle. Once settled I would take the reading. Sometimes the reading would flicker between two values, in these cases I took the higher of the two. Finally, I noticed that after I turned the devices off the meter would always read 8W. Either the meter was unable to read less than 8W, or zero was not calibrated correctly on the meter.&lt;/p&gt;
+
+&lt;p&gt;All these measurements were taken in my house in the UK, which according to my meter has mains electricity at 248V and at a AC frequency of 59.9Hz&lt;/p&gt;
+
+&lt;h3 id=&#34;results:5b73a8938321839a6e535990b74cc8eb&#34;&gt;Results&lt;/h3&gt;
+
+&lt;table align=&#34;center&#34;&gt;
+  &lt;tr&gt;
+    &lt;td&gt;
+      &lt;b&gt;Device (status)&lt;/b&gt;
+    &lt;/td&gt;
+    
+    &lt;td&gt;
+      &lt;b&gt;Power Usage (watts)&lt;/b&gt;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      xTune Speakers (standby)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      24W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      xTune Speakers (on no music)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      25W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      xTune Speakers (on vol30)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      25W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      xTune Speakers (on vol60)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      50W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td colspan=2&gt;&amp;nbsp;&lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      TFT Monitor 15&amp;#8243; (standby)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      11W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      TFT Monitor 15&amp;#8243; (on)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      27W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td colspan=2&gt;&amp;nbsp;&lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      TFT Monitor 17&amp;#8243; (standby)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      9W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      TFT Monitor 17&amp;#8243; (on)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      38W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td colspan=2&gt;&amp;nbsp;&lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      Nic&amp;#8217;s laptop (web browsing)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      35W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      Nic&amp;#8217;s laptop (playing game)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      59W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td colspan=2&gt;&amp;nbsp;&lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      xbox 360 (standby)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      10W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      xbox 360 (dashboard)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      150W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      xbox 360 (game)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      158W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td colspan=2&gt;&amp;nbsp;&lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      Sky+ Box (standby)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      20W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      Sky+ Box (on)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      29W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td colspan=2&gt;&amp;nbsp;&lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      Wii (standby &amp;#8211; red light)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      9W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      Wii (on)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      24W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td colspan=2&gt;&amp;nbsp;&lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      TV (standby)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      9W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      TV (on)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      95W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td colspan=2&gt;&amp;nbsp;&lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      Kettle
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      2300W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td colspan=2&gt;&amp;nbsp;&lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      My PC (off)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      10W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      My PC (booting during POST)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      230W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      My PC (booting)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      130W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      My PC (idle &amp;#8211; Windows)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      128W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      My PC (game)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      154W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      My PC (1 core prime #)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      142W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      My PC (2 core prime #)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      152W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      My PC (3 core prime #)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      160W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      My PC (4 core prime #)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      163W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      My PC (sleep)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      13W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;
+      My PC (idle &amp;#8211; Linux)
+    &lt;/td&gt;
+    
+    &lt;td align=&#34;center&#34;&gt;
+      150W
+    &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Some observations I made about these results:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;My speakers use the same amount of power playing music as when they aren&amp;#8217;t. I assume this is because the amps in them are always trying to amplify the signal.&lt;/li&gt;
+&lt;li&gt;My Sky+ box is pretty poor at conserving power. I found this interesting because Sky made a big deal about the Sky box automatically turning off at night. It even advertises this fact in big letters on the side of the packaging.&lt;/li&gt;
+&lt;li&gt;My PC which has a 800W power supply, with a quad core Intel, 4GB of RAM, and 6 harddrives, obviously doesn&amp;#8217;t need 800W of power. The peak value, which I found during POST, was only 230W, with it idling (in Windows) at 128W.&lt;/li&gt;
+&lt;li&gt;Linux uses more power than Windows! This is using the latest Debian testing (2.6.30-8), and Windows Server 2008. Clearly, Linux has less energy efficient drivers, or is not powering something down that Windows is.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

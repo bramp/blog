@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Memcmp on bramp.net</title>
+    <link>http://bramp.net/blog/tags/memcmp/</link>
+    <description>Recent content in Memcmp on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Mon, 10 Aug 2009 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/memcmp/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>memcmp broken in the FreeBSD kernel</title>
+      <link>http://bramp.net/blog/2009/08/10/memcmp-broken-in-the-freebsd-kernel/</link>
+      <pubDate>Mon, 10 Aug 2009 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2009/08/10/memcmp-broken-in-the-freebsd-kernel/</guid>
+      <description>&lt;p&gt;I&amp;#8217;ve spent a day tracking down a bug in a FreeBSD kernel module I&amp;#8217;m developing, and to my surprise the bug was due to memcmp being broken! For those that don&amp;#8217;t know, memcmp is used to compare two byte strings and returns 0 if they are identical, a negative number of the first string is less than the second, and a positive number of the first string is greater than the second.&lt;/p&gt;
+
+&lt;p&gt;However, the implementation of memcmp in the FreeBSD kernel looks like this:&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;static __inline int
+memcmp(const void *b1, const void *b2, size_t len)
+{
+    return (bcmp(b1, b2, len));
+}
+&lt;/pre&gt;
+
+&lt;p&gt;The problem with this is that bcmp is defined to return 0 if the strings are identical, otherwise returns a non-zero integer. This is not the same as memcmp, and you would only notice this if you are testing the signedness of the return value. I suspect this has not been noticed because traditionally FreeBSD has favoured bcmp, and in the few cases it does uses memcmp it only compares it with zero.&lt;/p&gt;
+
+&lt;p&gt;There is some good news, obrien@ noticed this problem in September 2008 and commited a patch (svn r183299). However, it looks like this fix won&amp;#8217;t be included until FreeBSD 8.0. In the mean time I&amp;#8217;m implementing a minor hack to fix this.&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;int my_memcmp(const void *s1, const void *s2, size_t n) {
+    if (n != 0) {
+        const unsigned char *p1 = s1, *p2 = s2;
+
+        do {
+            if (*p1++ != *p2++)
+                return (*--p1 - *--p2);
+        } while (--n != 0);
+    }
+    return (0);
+}
+#define memcmp my_memcmp
+&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Github on bramp.net</title>
+    <link>http://bramp.net/blog/tags/github/</link>
+    <description>Recent content in Github on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Tue, 26 Mar 2013 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Most starred project this week, and second most forked.</title>
+      <link>http://bramp.net/blog/2013/03/26/most-starred-project-this-week-and-second-most-forked./</link>
+      <pubDate>Tue, 26 Mar 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2013/03/26/most-starred-project-this-week-and-second-most-forked./</guid>
+      <description>&lt;p&gt;After getting my &lt;a href=&#34;http://bramp.github.com/js-sequence-diagrams/&#34;&gt;js-sequence-diagrams&lt;/a&gt; project onto &lt;a href=&#34;https://news.ycombinator.com/item?id=5432110&#34;&gt;Hacker News&lt;/a&gt;, the popularity has gone viral.&lt;/p&gt;
+
+&lt;p&gt;[&lt;img src=&#34;http://bramp.net/blog/wp-content/uploads/github-most-starred.png&#34; alt=&#34;github-most-starred&#34; width=&#34;619&#34; height=&#34;678&#34; class=&#34;aligncenter size-full wp-image-621&#34; /&gt;][3]&lt;/p&gt;
+
+&lt;p&gt;[3]: &lt;a href=&#34;https://github.com/languages/JavaScript&#34;&gt;https://github.com/languages/JavaScript&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

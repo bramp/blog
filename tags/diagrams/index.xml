@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Diagrams on bramp.net</title>
+    <link>http://bramp.net/blog/tags/diagrams/</link>
+    <description>Recent content in Diagrams on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sun, 24 Mar 2013 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/diagrams/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Draw UML Sequence Diagrams with Javascript</title>
+      <link>http://bramp.net/blog/2013/03/24/draw-uml-sequence-diagrams-with-javascript/</link>
+      <pubDate>Sun, 24 Mar 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2013/03/24/draw-uml-sequence-diagrams-with-javascript/</guid>
+      <description>&lt;p&gt;I&amp;#8217;m happy to announce one of my projects, [js-sequence-diagrams][1]. This uses Javascript to draw UML sequence diagrams in SVG format. Here is an example:&lt;/p&gt;
+
+&lt;p&gt;[&lt;img src=&#34;http://bramp.net/blog/wp-content/uploads/sample-with-editor.png&#34; alt=&#34;js-sequence-diagram example&#34; width=&#34;865&#34; height=&#34;333&#34; class=&#34;aligncenter size-full wp-image-613&#34; /&gt;][1]&lt;/p&gt;
+
+&lt;p&gt;You can alter the diagram in real time, and I even have a simple jQuery plugin to make this easy to use on your own sites.&lt;/p&gt;
+
+&lt;pre&gt;&amp;lt;script src=&#34;sequence-diagram-min.js&#34;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;div class=&#34;diagram&#34;&amp;gt;A-&amp;gt;B: Message&amp;lt;/div&amp;gt;
+&amp;lt;script&amp;gt;
+$(&#34;.diagram&#34;).sequenceDiagram({theme: &amp;#39;hand&amp;#39;});
+&amp;lt;/script&amp;gt;&lt;/pre&gt;
+
+&lt;p&gt;[1]: &lt;a href=&#34;http://bramp.github.com/js-sequence-diagrams/&#34;&gt;http://bramp.github.com/js-sequence-diagrams/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

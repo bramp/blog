@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Grub2 on bramp.net</title>
+    <link>http://bramp.net/blog/tags/grub2/</link>
+    <description>Recent content in Grub2 on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Thu, 10 Sep 2009 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/grub2/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Grub2 and Windows</title>
+      <link>http://bramp.net/blog/2009/09/10/grub2-and-windows/</link>
+      <pubDate>Thu, 10 Sep 2009 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2009/09/10/grub2-and-windows/</guid>
+      <description>&lt;p&gt;I&amp;#8217;ve just installed grub2 on my Debian laptop, and I wanted to write a quick note on how to get dual booting working. Grub2 seems to have a far more complex configuration system than grub, this may be a good or a bad thing. One feature of this is a /etc/grub.d directory which contains a set of scripts to configure what items should be listed on the boot menu.&lt;/p&gt;
+
+&lt;pre&gt;bramp@Andrew-laptop:~$ ls /etc/grub.d/
+00_header  05_debian_theme  10_linux  30_os-prober  40_custom  README
+&lt;/pre&gt;
+
+&lt;p&gt;The scripts get run in order, each adding features to the boot menu. To dual boot Windows you can acheive this in two ways.&lt;br /&gt;
+1) Write a script which manual adds windows&lt;br /&gt;
+2) Use the os-prober script.&lt;/p&gt;
+
+&lt;p&gt;I opted for option 2 since it seemed the easiest. However, this os-prober script does not work unless the package os-prober is installed. So:&lt;/p&gt;
+
+&lt;pre&gt;bramp@Andrew-laptop:~$ sudo apt-get install os-prober
+&lt;/pre&gt;
+
+&lt;p&gt;Once that is installed you can reconfigure grub by doing:&lt;/p&gt;
+
+&lt;pre&gt;bramp@Andrew-laptop:~$ sudo update-grub2
+Generating grub.cfg ...
+Found Debian background: moreblue-orbit-grub.png
+Found linux image: /boot/vmlinuz-2.6.30-1-amd64
+Found initrd image: /boot/initrd.img-2.6.30-1-amd64
+Found Microsoft Windows XP Professional on /dev/sda1
+done
+&lt;/pre&gt;
+
+&lt;p&gt;When you reboot you should now have Windows on your boot menu.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

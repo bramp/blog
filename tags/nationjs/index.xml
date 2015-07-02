@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nationjs on bramp.net</title>
+    <link>http://bramp.net/blog/tags/nationjs/</link>
+    <description>Recent content in Nationjs on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sun, 21 Dec 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/nationjs/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>NationJS talk on NodeJs now on Vimeo</title>
+      <link>http://bramp.net/blog/2014/12/21/nationjs-talk-on-nodejs-now-on-vimeo/</link>
+      <pubDate>Sun, 21 Dec 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2014/12/21/nationjs-talk-on-nodejs-now-on-vimeo/</guid>
+      <description>&lt;p&gt;It&amp;#8217;s a bit late, but finally my NationJS talk is on Vimeo:&lt;/p&gt;
+
+&lt;p&gt;&lt;iframe src=&#34;//player.vimeo.com/video/93754470&#34; width=&#34;500&#34; height=&#34;281&#34; frameborder=&#34;0&#34; webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;&lt;br&gt;
+&lt;a href=&#34;http://vimeo.com/93754470&#34;&gt;Node.js + WebSockets + Wiimote = Fun&lt;/a&gt; from Andrew Brampton on &lt;a href=&#34;https://vimeo.com&#34;&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Slides here: &lt;a href=&#34;http://bramp.github.io/nodewii-talk/&#34;&gt;http://bramp.github.io/nodewii-talk/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

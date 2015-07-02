@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gantt on bramp.net</title>
+    <link>http://bramp.net/blog/tags/gantt/</link>
+    <description>Recent content in Gantt on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Tue, 27 Jul 2010 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/gantt/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Sonisphere 2010 Running Order</title>
+      <link>http://bramp.net/blog/2010/07/27/sonisphere-2010-running-order/</link>
+      <pubDate>Tue, 27 Jul 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2010/07/27/sonisphere-2010-running-order/</guid>
+      <description>&lt;p&gt;I spent some time today writing a PHP script to generate a running order for a festival. Here is this year&amp;#8217;s [Sonisphere][1]&amp;#8216;s running order in a nice Gantt chart.&lt;/p&gt;
+
+&lt;div class=&#34;figure&#34;&gt;
+  &lt;a href=&#34;http://bramp.net/projects/running-order/sonisphere-2010.pdf&#34;&gt;&lt;br /&gt; &lt;img src=&#34;http://bramp.net/projects/running-order/sonisphere-2010.png&#34; width=&#34;438&#34; height=&#34;338&#34; alt=&#34;Sonisphere 2010 Running Order thumbnail&#34; /&gt;&lt;br /&gt; &lt;/a&gt;&lt;br /&gt; Download &lt;a href=&#34;http://bramp.net/projects/running-order/sonisphere-2010.pdf&#34;&gt;pdf (33,186 bytes)&lt;/a&gt; or &lt;a href=&#34;http://bramp.net/projects/running-order/sonisphere-2010.htm&#34;&gt;html (75,532 bytes)&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;[1]: &lt;a href=&#34;http://uk.sonispherefestivals.com/&#34;&gt;http://uk.sonispherefestivals.com/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Bloodstock 2009 Running Order</title>
+      <link>http://bramp.net/blog/2009/08/11/bloodstock-2009-running-order/</link>
+      <pubDate>Tue, 11 Aug 2009 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2009/08/11/bloodstock-2009-running-order/</guid>
+      <description>&lt;p&gt;I spent a hour or so today creating a Gantt chart of which bands are on and when at Bloodstock. I hope someone finds this chart of use.&lt;/p&gt;
+
+&lt;div class=&#34;figure&#34;&gt;
+  &lt;a href=&#34;http://bramp.net/blog/projects/running-order/Running%20Order%20-%20Bloodstock%202009.pdf&#34;&gt;&lt;br /&gt; &lt;img src=&#34;http://bramp.net/blog/projects/running-order/Running%20Order%20-%20Bloodstock%202009.pdf.png&#34; width=&#34;438&#34; height=&#34;258&#34; alt=&#34;bloodstock running order thumbnail&#34; /&gt;&lt;br /&gt; &lt;/a&gt;&lt;br /&gt; Download &lt;a href=&#34;http://bramp.net/blog/projects/running-order/Running%20Order%20-%20Bloodstock%202009.pdf&#34;&gt;pdf (73,625 bytes)&lt;/a&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

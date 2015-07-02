@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Html5 on bramp.net</title>
+    <link>http://bramp.net/blog/tags/html5/</link>
+    <description>Recent content in Html5 on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Wed, 16 May 2012 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/html5/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>MRI scan of my brain</title>
+      <link>http://bramp.net/blog/2012/05/16/mri-scan-of-my-brain/</link>
+      <pubDate>Wed, 16 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2012/05/16/mri-scan-of-my-brain/</guid>
+      <description>&lt;p&gt;I had a &lt;a href=&#34;http://en.wikipedia.org/wiki/Magnetic_resonance_imaging&#34;&gt;MRI&lt;/a&gt; today, and afterwards I was given a CD of my scan. The data on the CD was stored in &lt;a href=&#34;http://en.wikipedia.org/wiki/DICOM&#34;&gt;DICOM&lt;/a&gt; format, and after some searching I was able to find some open source software to view the data. I especially liked &lt;a href=&#34;http://aeskulap.nongnu.org/&#34;&gt;Aeskulap&lt;/a&gt; which allowed interactive viewing of the data in multiple dimensions.&lt;/p&gt;
+
+&lt;p&gt;I wanted to put my scans online, so I found another set of tools, &lt;a href=&#34;http://xmedcon.sourceforge.net/&#34;&gt;medcon&lt;/a&gt;, that allowed me to convert the DICOM images into png/gif format, and then I used [ffmpeg][5] to create the following videos:&lt;/p&gt;
+
+&lt;video width=&#34;256&#34; height=&#34;256&#34; controls=&#34;controls&#34; style=&#34;float:left; padding: 10px&#34;&gt;&lt;source src=&#34;//bramp.net/blog/wp-content/uploads/001.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;//bramp.net/blog/wp-content/uploads/001.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+
+&lt;video width=&#34;256&#34; height=&#34;256&#34; controls=&#34;controls&#34; style=&#34;float:left; padding: 10px&#34;&gt;&lt;source src=&#34;//bramp.net/blog/wp-content/uploads/003.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;//bramp.net/blog/wp-content/uploads/003.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+
+&lt;video width=&#34;288&#34; height=&#34;288&#34; controls=&#34;controls&#34; style=&#34;float:left; padding: 10px&#34;&gt;&lt;source src=&#34;//bramp.net/blog/wp-content/uploads/004.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;//bramp.net/blog/wp-content/uploads/004.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+
+&lt;video width=&#34;288&#34; height=&#34;288&#34; controls=&#34;controls&#34; style=&#34;float:left; padding: 10px&#34;&gt;&lt;source src=&#34;//bramp.net/blog/wp-content/uploads/000.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;//bramp.net/blog/wp-content/uploads/000.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+
+&lt;video width=&#34;256&#34; height=&#34;256&#34; controls=&#34;controls&#34; style=&#34;float:left; padding: 10px&#34;&gt;&lt;source src=&#34;//bramp.net/blog/wp-content/uploads/008.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;//bramp.net/blog/wp-content/uploads/008.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+
+&lt;div style=&#34;clear: both&#34;&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I don&amp;#8217;t know the exact layout, but on the CD I seemed to have 12 different scans, each with a series of images. The name of the files were all 8 digits numbers, with the first three being the scan number (0 to 11), and the following five digits being (0 to whatever). For example:&lt;/p&gt;
+
+&lt;pre&gt;DICOM/185723/00000000: DICOM medical imaging data
+DICOM/185723/00000001: DICOM medical imaging data
+DICOM/185723/00000002: DICOM medical imaging data
+...
+DICOM/185723/00100000: DICOM medical imaging data
+DICOM/185723/00100001: DICOM medical imaging data
+DICOM/185723/00100002: DICOM medical imaging data
+...
+&lt;/pre&gt;
+
+&lt;p&gt;To create videos the first thing I did was to convert the images from DICOM to PNG&lt;/p&gt;
+
+&lt;pre&gt;sudo apt-get install medcon
+mkdir png
+for i in DICOM/185723/*; do medcon -f $i -c png -o png/`basename $i`.png ; done;
+&lt;/pre&gt;
+
+&lt;p&gt;Now to batch the images I started by creating animated gifs.&lt;/p&gt;
+
+&lt;pre&gt;sudo apt-get install imagemagick
+
+# Create animated gifs
+for i in `seq -w 000 011`; do convert -delay 20 -loop 0 png/$i*.png $i.gif; done;
+&lt;/pre&gt;
+
+&lt;p&gt;However, those gifs were huge, up to 20mb. So next I created a set of videos (that were a order of magnitude smaller than the gifs):&lt;/p&gt;
+
+&lt;pre&gt;sudo apt-get install ffmpeg
+
+# Create MP4
+for i in `seq -w 000 011`; do avconv -r 5 -i png/$i%05d.png -r 24 $i.mp4; done;
+
+# Create webm
+for i in `seq -w 000 011`; do avconv -r 5 -i png/$i%05d.png -r 24 $i.webm; done;
+
+# Create ogg video
+for i in `seq -w 000 011`; do avconv -r 5 -i png/$i%05d.png -r 24 $i.ogg; done;
+&lt;/pre&gt;
+
+&lt;p&gt;easy!&lt;/p&gt;
+
+&lt;p&gt;[5]: &lt;a href=&#34;http://ffmpeg.org/&#34;&gt;http://ffmpeg.org/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>HTML5 Canvas: Lunch Wheel</title>
+      <link>http://bramp.net/blog/2011/07/27/html5-canvas-lunch-wheel/</link>
+      <pubDate>Wed, 27 Jul 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2011/07/27/html5-canvas-lunch-wheel/</guid>
+      <description>&lt;p&gt;In the on going battle to make my lunch time more optimised I decided to learn some Javascript, and how to use the HTML5 &lt;a href=&#34;http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html&#34;&gt;Canvas&lt;/a&gt; element. Turns out it&amp;#8217;s not that hard, and I have now created&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://bramp.net/javascript/lunchwheel.html&#34;&gt;&lt;br /&gt;
+&lt;img src=&#34;http://bramp.net/javascript/lunchwheel.png&#34; alt=&#34;&#34; title=&#34;Click to win&#34; /&gt;&lt;br /&gt;
+The Lunch Wheel&lt;/a&gt;. It helps me find lunch close to my office in the &lt;a href=&#34;http://maps.google.com/maps?q=Courthouse,+Arlington,+VA&amp;amp;hl=en&amp;amp;sll=37.0625,-95.677068&amp;amp;sspn=59.206892,135.263672&amp;amp;z=15&#34;&gt;Courthouse area of Arlington, VA&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;While making this I found that information on the Canvas element seemed to be lacking. For example, not many sites talked about ways to optimise or profile the javascript. Also I was disappointed to see that not all browsers supported the Canvas completely. Here is a quick list of the problems:&lt;/p&gt;
+
+&lt;p&gt;1) Firefox 3.5 (linux) doubled the size of the fonts when I was setting the font in &amp;#8220;pt&amp;#8221;. When I switched to &amp;#8220;em&amp;#8221; things seemed to work consistently across browsers. 30fps&lt;/p&gt;
+
+&lt;p&gt;2) Android 2.2 (Droid 2) works well but slowly. It also didn&amp;#8217;t support the &lt;a href=&#34;https://developer.mozilla.org/En/HTML/Element/audio&#34;&gt;Audio&lt;/a&gt; tag. 6fps&lt;/p&gt;
+
+&lt;p&gt;3) Android 3.0 (Xoom Tablet) seemed to have some issues rendering half of the wheel. It looked like a bug with the hardware acceleration. I made some minor tweaks to the rendering and things started to work. 15fps&lt;/p&gt;
+
+&lt;p&gt;4) iPhone 3 didn&amp;#8217;t render any of the text, but played the sound and spun the wheel. 3fps&lt;/p&gt;
+
+&lt;p&gt;5) iPhone 4 rendered fine but as slowly as the Android 2.2 device. 5fps&lt;/p&gt;
+
+&lt;p&gt;6) Chrome (linux) worked great, and was the platform I was developing on. 30fps (max)&lt;/p&gt;
+
+&lt;p&gt;I was also using the &lt;a href=&#34;http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-clip&#34;&gt;clip()&lt;/a&gt; method to ensure the text didn&amp;#8217;t go outside of the wheel, but this heavily impacted performance. So instead I just chopped the text manually and performance doubled.&lt;/p&gt;
+
+&lt;p&gt;I realise HTML5 is new, but I&amp;#8217;m really hoping all browsers will start to support it consistently and across the board. I&amp;#8217;d hate to start writing large blocks of code to cope with all the browser quirks.&lt;/p&gt;
+
+&lt;p&gt;Also, thanks to &lt;a href=&#34;http://jquery.com/&#34;&gt;jQuery&lt;/a&gt;, &lt;a href=&#34;http://tinysort.sjeiti.com/&#34;&gt;TinySort&lt;/a&gt; and &lt;a href=&#34;http://excanvas.sourceforge.net/&#34;&gt;ExplorerCanvas&lt;/a&gt; (which I still haven&amp;#8217;t made work).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; Soon to come, the ability to find your own lunch places, as well as integration with [foursquare][10] so you can see how popular the venues are with your friends.&lt;/p&gt;
+
+&lt;p&gt;[10]: &lt;a href=&#34;https://foursquare.com/&#34;&gt;https://foursquare.com/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on bramp.net</title>
+    <link>http://bramp.net/blog/tags/java/</link>
+    <description>Recent content in Java on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sat, 16 Aug 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Grabbing a Certificate with OpenSSL and importing it into Java</title>
+      <link>http://bramp.net/blog/2014/08/16/grabbing-a-certificate-with-openssl-and-importing-it-into-java/</link>
+      <pubDate>Sat, 16 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2014/08/16/grabbing-a-certificate-with-openssl-and-importing-it-into-java/</guid>
+      <description>&lt;p&gt;Occasionally I have to grab a SSL cert from a server, and turn it into something that Java can use. Here are the quick instructions&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;# Store the cert issued by a web server
+openssl s_client -showcerts -connect www.google.com:443 &amp;gt; www.google.com.pem
+
+# Convert it from PEM format to DER format
+openssl x509 -in www.google.com.pem -inform PEM -out www.google.com.der -outform DER
+
+# Import it into your keystore
+sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.der -keystore /usr/java6/jre/lib/security/cacerts
+
+# The keystore password is by default &#34;changeit&#34;
+&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Groovy / Grails</title>
+      <link>http://bramp.net/blog/2012/07/04/groovy-/-grails/</link>
+      <pubDate>Wed, 04 Jul 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2012/07/04/groovy-/-grails/</guid>
+      <description>
+
+&lt;p&gt;Over the past couple of weeks I&amp;#8217;ve been playing with Groovy and Grails, and after a somewhat frustrainting week I thought I&amp;#8217;d share my thoughts. &lt;a href=&#34;http://groovy.codehaus.org/&#34; title=&#34;Groovy&#34;&gt;Groovy&lt;/a&gt; is a dynamic language that runs in a standard JVM, and effectively extends the Java langugage. This makes it easy for existing Java programmer to pick it up and ease into it. &lt;a href=&#34;http://grails.org/&#34;&gt;Grails&lt;/a&gt; is the Groovy equilivant of &lt;a href=&#34;http://rubyonrails.org/&#34;&gt;Ruby on Rails&lt;/a&gt;, a rapid web development framework. I had high hopes for both as Groovy adds lots of interesting features to Java, such as &lt;a href=&#34;http://en.wikipedia.org/wiki/Closure_(computer_science)&#34;&gt;Closures&lt;/a&gt;, &lt;a href=&#34;http://en.wikipedia.org/wiki/Type_system&#34;&gt;Dynamic typing&lt;/a&gt;, &lt;a href=&#34;http://en.wikipedia.org/wiki/Mixin&#34;&gt;Mixins&lt;/a&gt;, and lots of clever syntax to reduce code and to speed up the average developer. On top of this Grails can quickly scaffold a &lt;a href=&#34;http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller&#34;&gt;MVC&lt;/a&gt; framework, allowing you to literally build a &lt;a href=&#34;http://en.wikipedia.org/wiki/Create,_read,_update_and_delete&#34;&gt;CRUD&lt;/a&gt; based application in minutes.&lt;/p&gt;
+
+&lt;p&gt;This all sounds great but I think both of these technologies are still young and there are a lot of things to work out. I was consistently hitting bugs in Grails, and I found the support for Groovy to be lacking in my IDE of choice Ecplise, forcing me to move to IntelliJ which did a lot better job.&lt;/p&gt;
+
+&lt;h1 id=&#34;groovy:3c667ab411b201f728af02293c4d56f8&#34;&gt;Groovy&lt;/h1&gt;
+
+&lt;h2 id=&#34;dynamic-typing:3c667ab411b201f728af02293c4d56f8&#34;&gt;Dynamic typing&lt;/h2&gt;
+
+&lt;p&gt;The dynamic variable typing allows you to create a variable and not declare what type it is. Then as you use the variable you can very easily convert it between types. To be honest, and maybe I miss the point, but I&amp;#8217;ve never been fond of dynamic typing in other languages. I tend to create a variable and ensure I keep it a particular type. I do this because dynamic typing can introduce all sorts of errors, and you have to truely understand the rules. For example, if I try and convert a String to a boolean (as I might do in a condition), what type of Strings evaluate to true and false? In Groovy a empty string is false, but a string with a single whitespace char would be true.&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;def someString = &#34;&#34;
+if (someString) {
+...
+}
+// a useful example of String-&amp;gt;boolean conversion&lt;/pre&gt;
+
+&lt;p&gt;Groovy also adds &lt;a href=&#34;http://en.wikipedia.org/wiki/Duck_typing&#34;&gt;duck typing&lt;/a&gt;. If a variable walks like a duck, quacks like a duck then it must be a duck. This is effectively a way to avoid having to implement a interface by checking at runtime if the class has a particular method. This is only useful because at runtime Groovy allows methods to be add (and removed) from classes. This thus allow from some interesting programming, however I find it very error prone. As a method could be added to a class at runtime there is no compile-time checking.&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;class SomeObject {
+
+}
+SomeObject o = new SomeObject();
+o.someMethod();
+// This code is valid at compile time, but only at runtime with an MissingMethod exception be thrown.
+&lt;/pre&gt;
+
+&lt;p&gt;Because of the dynamic nature a lot of the silly typo errors that should be caught at compile time, will only now be found at run time. Mistyping a method name wasn&amp;#8217;t caught until that line of code was reached. Also, due to dynamic typing, errors such as calling a method with the wrong argument types were not caught. I found this very frustrating as it slowed down my development.  This also makes me dread what will happen if this code is pushed into production without a very rigorous 100% line test coverage.&lt;/p&gt;
+
+&lt;p&gt;It looks like Groovy 2.0 is trying to resolve this concern with &lt;a href=&#34;http://docs.codehaus.org/display/GroovyJSR/GEP+8+-+Static+type+checking&#34;&gt;GEP 8&lt;/a&gt;, a new type of annotation that will force Groovy to statically check your class/method at compile time.&lt;/p&gt;
+
+&lt;h1 id=&#34;grails:3c667ab411b201f728af02293c4d56f8&#34;&gt;Grails&lt;/h1&gt;
+
+&lt;h2 id=&#34;gorm:3c667ab411b201f728af02293c4d56f8&#34;&gt;GORM&lt;/h2&gt;
+
+&lt;p&gt;The GORM is Grails&amp;#8217;s &lt;a href=&#34;http://en.wikipedia.org/wiki/Object-relational_mapping&#34;&gt;ORM&lt;/a&gt;, which sits on top of &lt;a href=&#34;http://www.hibernate.org/&#34;&gt;Hibernate&lt;/a&gt;. It takes advantage of Groovy&amp;#8217;s &lt;a href=&#34;http://groovy.codehaus.org/Collections&#34;&gt;collection syntax&lt;/a&gt; to make configuring a model easy. However, I think due to the young nature of Grails I found multiple problems with GORM. I started by using the super convenient &lt;a href=&#34;http://www.h2database.com/&#34;&gt;H2&lt;/a&gt; data source for testing. Then as I progressed I moved to MySQL. However, the code that worked perfectly with with H2 stopped working in MySQL. There were little things, like reserved keywords being different, which tripped up MySQL. Looking at the generated SQL the MySQL queries weren&amp;#8217;t being escaped, which would have solved this issue. Secondly, and a bigger issue, but I was using hierarchical data models. That is, I had a generic abstract Base model, and multiple specific models that extended from the base. This worked well in H2 and avoided a lot of duplication of code, but with the MySQL data source it was handled incorrectly, causing me to spend hours investigating and modifying the code.&lt;/p&gt;
+
+&lt;p&gt;I also tried the &lt;a href=&#34;http://grails.org/plugin/mongodb&#34;&gt;MongoDB plugin&lt;/a&gt;, as the document store concept works great for my heirachy concept. However it wasn&amp;#8217;t a direct drop in replacement for H2/MySQL, and I even found some bugs, which I [reported][16].&lt;/p&gt;
+
+&lt;h2 id=&#34;scaffolding:3c667ab411b201f728af02293c4d56f8&#34;&gt;Scaffolding&lt;/h2&gt;
+
+&lt;p&gt;This was one of the coolest features, but also one of the biggest let downs. Scaffolding generates all the code you quickly need for a simple CRUD application. There are two modes, dynamic and static. A dynaimic one literally allows you to create a controller in just a few lines, with all the code for create/read/update/delete hidden behind the scenes. Static scaffolding is very similar in features, but placed all the code in the groovy file ready for you to edit.&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;class SomeController {
+    static scaffold = Author
+}
+// This is all you need for a CRUD controller that maps to the Author model&lt;/pre&gt;
+
+&lt;p&gt;The problem I found here is that it dynamic scaffolding served little purpose than showing off how little you could write. To actually customise it you would have to use static scaffolding. Even then, the static scaffolding didn&amp;#8217;t seem particular neat and simple (as compared to other rapid dev frameworks I&amp;#8217;ve used), and you eventually had to throw 90% of that generated code away and write it all yourself.&lt;/p&gt;
+
+&lt;h2 id=&#34;closures:3c667ab411b201f728af02293c4d56f8&#34;&gt;Closures&lt;/h2&gt;
+
+&lt;p&gt;The concept of closures and anonymous functions is a very cool one, which in fact I have quite liked using in Python and JavaScript. The implementation here also seemed quite good, except for some minor pet pevs I had. The real issue I had with closures is how it polluted the call stack. Some of my call stacks were now chains of methods like:&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;at _GrailsCompile_groovy$_run_closure2.doCall(_GrailsCompile_groovy:46)
+at com.springsource.loaded.ri.ReflectiveInterceptor.jlrMethodInvoke(ReflectiveInterceptor.java:1231)
+at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:133)
+at com.springsource.loaded.ri.ReflectiveInterceptor.jlrMethodInvoke(ReflectiveInterceptor.java:1231)
+at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:133)&lt;/pre&gt;
+
+&lt;p&gt;This is no doubt a limitation of being built onto of the JVM that couldn&amp;#8217;t provide more helpful output.&lt;/p&gt;
+
+&lt;h2 id=&#34;run-app:3c667ab411b201f728af02293c4d56f8&#34;&gt;Run-app&lt;/h2&gt;
+
+&lt;p&gt;Grails comes with a CLI tool that does a lot of the code generation for you. One of the useful commands is &lt;code&gt;grails run-app&lt;/code&gt;, this will start up an embedded webserver which runs your application, and better yet, allows you to make code changes without recompiling/redeploying. This truly makes it quicker to develop and test your Java/Groovy, and allows those minor tweaks to your Controllers, etc without a wait. However, yet again I was let down by this feature. Lots of simple changes would cause the run-app to stop serving my pages with odd exception. The solution was to stop the webserver and start it again, which defeats the purpose. Even worse, I sometimes had to &lt;code&gt;grails clean&lt;/code&gt; as it did not always pick up my code changes.&lt;/p&gt;
+
+&lt;h1 id=&#34;conclusion:3c667ab411b201f728af02293c4d56f8&#34;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;I liked everything that Groovy and Grails was trying to do, but I think their implementation isn&amp;#8217;t good enough yet, and there are too many gotchas for me to considering using this in a production environment. I no doubt will follow it&amp;#8217;s progress and play with it every so often.&lt;/p&gt;
+
+&lt;p&gt;[16]: &lt;a href=&#34;http://jira.grails.org/browse/GPMONGODB-210&#34;&gt;http://jira.grails.org/browse/GPMONGODB-210&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

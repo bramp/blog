@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Phone on bramp.net</title>
+    <link>http://bramp.net/blog/tags/phone/</link>
+    <description>Recent content in Phone on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Tue, 27 Jan 2009 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/phone/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>What happens when you mix…</title>
+      <link>http://bramp.net/blog/2009/01/27/what-happens-when-you-mix/</link>
+      <pubDate>Tue, 27 Jan 2009 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2009/01/27/what-happens-when-you-mix/</guid>
+      <description>&lt;p&gt;What happens when you mix; Haggis, Vodka, a room full of nerds, and a average of 1.4 laptops per person?&lt;/p&gt;
+
+&lt;div class=&#34;figure&#34;&gt;
+  &lt;img src=&#34;http://bramp.net/blog/projects/google-phone.jpg&#34; title=&#34;someone buys a phone at 1am while drunk&#34; /&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

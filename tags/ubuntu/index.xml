@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ubuntu on bramp.net</title>
+    <link>http://bramp.net/blog/tags/ubuntu/</link>
+    <description>Recent content in Ubuntu on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sun, 29 Apr 2012 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Failed Ubuntu update</title>
+      <link>http://bramp.net/blog/2012/04/29/failed-ubuntu-update/</link>
+      <pubDate>Sun, 29 Apr 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2012/04/29/failed-ubuntu-update/</guid>
+      <description>&lt;p&gt;While trying to do a &amp;#8220;do-release-upgrade&amp;#8221;, to upgrade to [Ubuntu Precise][1], I encountered a error that Google did not find a satisfactory answer for:&lt;/p&gt;
+
+&lt;pre&gt;An unresolvable problem occurred while calculating the upgrade:
+E:Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+
+This can be caused by:
+* Upgrading to a pre-release version of Ubuntu
+* Running the current pre-release version of Ubuntu
+* Unofficial software packages not provided by Ubuntu
+
+If none of this applies, then please report this bug using the command &#39;ubuntu-bug update-manager&#39; in a terminal.&lt;/pre&gt;
+
+&lt;p&gt;The problem was I had some packages installed that had no upgrade path, that is, are not available in Precise. To debug this I looked in the &lt;code&gt;/var/log/dist-upgrade/apt.log&lt;/code&gt; file, and it identifies the packages that were &amp;#8220;broken&amp;#8221;. I just had to &amp;#8220;apt-get remove&amp;#8221; them, do the release upgrade, and afterwards I could reinstall them.&lt;/p&gt;
+
+&lt;p&gt;Problem solved.&lt;/p&gt;
+
+&lt;p&gt;[1]: &lt;a href=&#34;http://releases.ubuntu.com/12.04/&#34;&gt;http://releases.ubuntu.com/12.04/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
