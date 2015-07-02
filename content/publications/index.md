@@ -3,6 +3,7 @@ title: Publications
 author: bramp
 layout: page
 date: 2013-02-16
+permalink: /publications
 weight: 1
 ---
 Most of the LaTeX for these publications, as well as associated conference presentations can be found at [github.com/bramp/publication][1].
