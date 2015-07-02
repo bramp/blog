@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Adobe on bramp.net</title>
+    <link>http://bramp.net/blog/tags/adobe/</link>
+    <description>Recent content in Adobe on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Wed, 24 Sep 2008 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/adobe/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Please notify the author of the software that produced this file</title>
+      <link>http://bramp.net/blog/2008/09/24/please-notify-the-author-of-the-software-that-produced-this-file/</link>
+      <pubDate>Wed, 24 Sep 2008 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2008/09/24/please-notify-the-author-of-the-software-that-produced-this-file/</guid>
+      <description>&lt;p&gt;While compiling my LaTeX document I received a message which made me chuckle:&lt;/p&gt;
+
+&lt;pre&gt;**** This file had errors that were repaired or ignored.
+   **** The file was produced by: 
+   **** &gt;&gt;&gt;&gt; MicrosoftÂ® Office VisioÂ® 2007 &amp;lt;&amp;lt;&amp;lt;&amp;lt;
+   **** Please notify the author of the software that produced this
+   **** file that it does not conform to Adobe&#39;s published PDF
+   **** specification.
+&lt;/pre&gt;
+
+&lt;p&gt;This is printed because Visio is not embedding fonts which LaTeX needs.&lt;/p&gt;
+
+&lt;p&gt;So Microsoft, I hereby inform you that your software does not produce PDFs which conform to Adobe&amp;rsquo;s specifications.&lt;/p&gt;
+
+&lt;p&gt;Until you fix your products I have to open and save the PDFs with Adobe Acrobat. This actually reduces the file size in most cases, so I might have done this anyway.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

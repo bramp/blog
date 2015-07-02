@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Utf8 on bramp.net</title>
+    <link>http://bramp.net/blog/tags/utf8/</link>
+    <description>Recent content in Utf8 on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Thu, 23 Sep 2010 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/utf8/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>UTF-8 Directory Listing</title>
+      <link>http://bramp.net/blog/2010/09/23/utf-8-directory-listing/</link>
+      <pubDate>Thu, 23 Sep 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2010/09/23/utf-8-directory-listing/</guid>
+      <description>&lt;p&gt;I had a need to create a directory listing with all the UTF-8 characters intact. This seems quite a chore on Windows, as doing anything via the shell seems to mangle the characters and show ???? instead of the real characters. For example, both the built in &lt;strong&gt;dir&lt;/strong&gt; and Cygwin &lt;strong&gt;ls&lt;/strong&gt; or &lt;strong&gt;find&lt;/strong&gt; seemed affected. This turns out to be a [limitation in the windows shell][1].&lt;/p&gt;
+
+&lt;p&gt;To solve this problem I wrote a bit of python to read the file names in full UTF-8 and output the results directly to a file (and not via a pipe, which would again be via the shell). The resulting very simple script is as follows:&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;import os
+import codecs
+
+log = codecs.open(&#39;listing&#39;, mode=&#39;w&#39;, encoding=&#34;utf-8&#34;)
+
+for root, dirs, files in os.walk(u&#39;.&#39;):
+    log.write(root + u&#34;\n&#34;)
+
+    for file in sorted(files):
+        log.write(os.path.join(root, file) + u&#34;\n&#34;)
+
+log.close()
+
+&lt;/pre&gt;
+
+&lt;p&gt;[1]: &lt;a href=&#34;http://stackoverflow.com/questions/379240/is-there-a-windows-command-shell-that-will-display-unicode-characters&#34;&gt;http://stackoverflow.com/questions/379240/is-there-a-windows-command-shell-that-will-display-unicode-characters&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

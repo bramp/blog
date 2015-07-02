@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gzip on bramp.net</title>
+    <link>http://bramp.net/blog/tags/gzip/</link>
+    <description>Recent content in Gzip on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sun, 10 Jan 2010 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/gzip/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Follow HTTP Stream (with decompression)</title>
+      <link>http://bramp.net/blog/2010/01/10/follow-http-stream-with-decompression/</link>
+      <pubDate>Sun, 10 Jan 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2010/01/10/follow-http-stream-with-decompression/</guid>
+      <description>&lt;p&gt;I was using &lt;a href=&#34;http://www.wireshark.org/&#34;&gt;Wireshark&lt;/a&gt; to capture an exchange of HTTP packets, however, some of the HTTP responses were using &amp;#8220;content-encoding: gzip&amp;#8221;, which meant I couldn&amp;#8217;t view them decompressed in the &amp;#8220;Follow TCP Stream&amp;#8221;. Wireshark does decompress them in Packet Details view, but it is hard to follow the full stream like this.&lt;/p&gt;
+
+&lt;p&gt;The solution was to write some &lt;a href=&#34;http://www.python.org/&#34;&gt;Python&lt;/a&gt; which made use of the &lt;a href=&#34;http://code.google.com/p/dpkt/&#34;&gt;dpkt library&lt;/a&gt;. My code naively reassembles the TCP flow and then assumes traffic on port 80 is HTTP. Therefore there is much room for improvement, but here is the code anyway.&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;#!/usr/bin/env python
+# Turns a pcap file with http gzip compressed data into plain text, making it
+# easier to follow.
+
+import dpkt
+
+def tcp_flags(flags):
+    ret = &#39;&#39;
+    if flags &amp; dpkt.tcp.TH_FIN:
+        ret = ret + &#39;F&#39;
+    if flags &amp; dpkt.tcp.TH_SYN:
+        ret = ret + &#39;S&#39;
+    if flags &amp; dpkt.tcp.TH_RST:
+        ret = ret + &#39;R&#39;
+    if flags &amp; dpkt.tcp.TH_PUSH:
+        ret = ret + &#39;P&#39;
+    if flags &amp; dpkt.tcp.TH_ACK:
+        ret = ret + &#39;A&#39;
+    if flags &amp; dpkt.tcp.TH_URG:
+        ret = ret + &#39;U&#39;
+    if flags &amp; dpkt.tcp.TH_ECE:
+        ret = ret + &#39;E&#39;
+    if flags &amp; dpkt.tcp.TH_CWR:
+        ret = ret + &#39;C&#39;
+
+    return ret
+
+def parse_http_stream(stream):
+    while len(stream) &amp;gt; 0:
+        if stream[:4] == &#39;HTTP&#39;:
+            http = dpkt.http.Response(stream)
+            print http.status
+        else:
+            http = dpkt.http.Request(stream)
+            print http.method, http.uri
+        stream = stream[len(http):]
+
+def parse_pcap_file(filename):
+    # Open the pcap file
+    f = open(&#39;market.pcap&#39;, &#39;rb&#39;)
+    pcap = dpkt.pcap.Reader(f)
+    
+    # I need to reassmble the TCP flows before decoding the HTTP
+    conn = dict() # Connections with current buffer
+    for ts, buf in pcap:
+        eth = dpkt.ethernet.Ethernet(buf)
+        if eth.type != dpkt.ethernet.ETH_TYPE_IP:
+            continue
+    
+        ip = eth.data
+        if ip.p != dpkt.ip.IP_PROTO_TCP:
+            continue
+    
+        tcp = ip.data
+    
+        tupl = (ip.src, ip.dst, tcp.sport, tcp.dport)
+        #print tupl, tcp_flags(tcp.flags)
+    
+        # Ensure these are in order! TODO change to a defaultdict
+        if tupl in conn:
+            conn[ tupl ] = conn[ tupl ] + tcp.data
+        else:
+            conn[ tupl ] = tcp.data
+    
+        # TODO Check if it is a FIN, if so end the connection
+    
+        # Try and parse what we have
+        try:
+            stream = conn[ tupl ]
+            if stream[:4] == &#39;HTTP&#39;:
+                http = dpkt.http.Response(stream)
+                #print http.status
+            else:
+                http = dpkt.http.Request(stream)
+                #print http.method, http.uri
+    
+            print http
+            print
+
+            # If we reached this part an exception hasn&#39;t been thrown
+            stream = stream[len(http):]
+            if len(stream) == 0:
+                del conn[ tupl ]
+            else:
+                conn[ tupl ] = stream
+        except dpkt.UnpackError:
+            pass
+
+    f.close()
+
+if __name__ == &#39;__main__&#39;:
+    import sys
+    if len(sys.argv) &amp;lt;= 1:
+        print &#34;%s &amp;lt;pcap filename&amp;gt;&#34; % sys.argv[0]
+        sys.exit(2)
+
+    parse_pcap_file(sys.argv[1])
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;, I had to make a couple of changes to the dpkt library, which I have submitted &lt;a href=&#34;http://groups.google.com/group/dpkt/browse_thread/thread/5315199f9749b91a&#34;&gt;back for review&lt;/a&gt;. Those changes can be found in the following patches &lt;a href=&#34;http://bramp.net/blog/patches/dpkt-pcap-snaplen.patch&#34;&gt;1&lt;/a&gt; &lt;a href=&#34;http://bramp.net/blog/patches/dpkt-http-len.patch&#34;&gt;2&lt;/a&gt; [3][7]. I will update this code if/when the patches get accepted.&lt;/p&gt;
+
+&lt;p&gt;[7]: /patches/dpkt-http-gz.patch&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

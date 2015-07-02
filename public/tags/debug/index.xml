@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Debug on bramp.net</title>
+    <link>http://bramp.net/blog/tags/debug/</link>
+    <description>Recent content in Debug on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sun, 11 Jan 2009 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/debug/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Autoload symbols for FreeBSD kernel module</title>
+      <link>http://bramp.net/blog/2009/01/11/autoload-symbols-for-freebsd-kernel-module/</link>
+      <pubDate>Sun, 11 Jan 2009 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2009/01/11/autoload-symbols-for-freebsd-kernel-module/</guid>
+      <description>&lt;p&gt;When debugging FreeBSD kernel modules with GDB, you have to tell GDB the correct symbols for the module, and the location the module is loaded in RAM. This is helpfully explained in the &lt;a href=&#34;http://www.freebsd.org/doc/en/books/developers-handbook/kerneldebug-kld.html&#34;&gt;FreeBSD Developers&amp;#8217; Handbook&lt;/a&gt;. First you must load the module, then run kldstat, note down the address the module is loaded at, and finally execute a command in GDB that looks like the following.&lt;/p&gt;
+
+&lt;pre&gt;add-symbol-file /sys/modules/linux/linux.ko 0xc0ae22d0&lt;/pre&gt;
+
+&lt;p&gt;However, I find this process tedious, so instead I wrote a quick python script which can be used with an [experimental gdb built with python scripting support][2].&lt;/p&gt;
+
+&lt;p&gt;So here is the script:&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;import gdb
+class FreeBSD_ReloadModuleSymbols (gdb.Command):
+    &#34;Reloads the symbol files for all loaded kernel modules&#34;
+
+    def __init__ (self):
+        super (FreeBSD_ReloadModuleSymbols, self).__init__ (&#34;reload-freebsd-module-symbols&#34;,
+            gdb.COMMAND_FILES,
+            gdb.COMPLETE_NONE)
+
+    def invoke (self, arg, from_tty):
+        link = gdb.parse_and_eval(&#34;linker_files-&amp;gt;tqh_first&#34;)
+        while link != 0:
+            print link[&#39;filename&#39;].string()
+            if link[&#39;filename&#39;].string() != &#34;kernel&#34;:
+                gdb.execute( &#34;add-symbol-file &#34; + 
+                    link[&#39;pathname&#39;].string() + &#34; &#34; +  
+                    str(link[&#39;address&#39;].address()) )
+            link = link[&#39;link&#39;][&#39;tqe_next&#39;]
+
+FreeBSD_ReloadModuleSymbols ()
+&lt;/pre&gt;
+
+&lt;p&gt;You load this by running the following command in GDB:&lt;/p&gt;
+
+&lt;pre&gt;source freebsd_load_modules.py&lt;/pre&gt;
+
+&lt;p&gt;Then the command &amp;#8220;reload-freebsd-module-symbols&amp;#8221; is magically added to GDB. Running this command will parse the linker table inside the FreeBSD kernel, determine which modules are loaded, and attempt to load their symbols.&lt;/p&gt;
+
+&lt;p&gt;[2]: &lt;a href=&#34;http://sourceware.org/gdb/wiki/PythonGdb&#34;&gt;http://sourceware.org/gdb/wiki/PythonGdb&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

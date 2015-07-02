@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Configuration on bramp.net</title>
+    <link>http://bramp.net/blog/tags/configuration/</link>
+    <description>Recent content in Configuration on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sat, 28 Nov 2009 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/configuration/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Useful scripts/configurations</title>
+      <link>http://bramp.net/blog/2009/11/28/useful-scripts/configurations/</link>
+      <pubDate>Sat, 28 Nov 2009 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2009/11/28/useful-scripts/configurations/</guid>
+      <description>&lt;p&gt;Make &lt;a href=&#34;http://git-scm.com&#34;&gt;git&lt;/a&gt; colourful&lt;/p&gt;
+
+&lt;pre&gt;git config --global color.diff auto
+git config --global color.status auto
+git config --global color.branch auto
+&lt;/pre&gt;
+
+&lt;p&gt;Make &lt;a href=&#34;http://www.nano-editor.org/&#34;&gt;nano&lt;/a&gt; colourful&lt;/p&gt;
+
+&lt;pre&gt;cp /usr/local/share/examples/nano/nanorc.sample ~/.nanorc
+or
+ zcat /usr/share/doc/nano/examples/nanorc.sample.gz &gt;~/.nanorc 
+then
+ nano ~/.nanorc
+&lt;/pre&gt;
+
+&lt;p&gt;To trim trailing whitespace from *.cc on Linux (taken from &lt;a href=&#34;http://zebert.blogspot.com/2009/06/clean-up-trailing-whitespaces-in.html&#34;&gt;this blog&lt;/a&gt;):&lt;/p&gt;
+
+&lt;pre&gt;find . -name &#39;*.cc&#39; -exec sed -i {} -e &#39;s/[ \t]*$//&#39; &#39;;&#39;&lt;/pre&gt;
+
+&lt;p&gt;and on BSDs:&lt;/p&gt;
+
+&lt;pre&gt;find . -name &#39;*.cc&#39; -exec sed -i &#39;&#39; -e &#39;s/\ *$//&#39; {} &#39;;&#39;&lt;/pre&gt;
+
+&lt;p&gt;Linux style &amp;#8216;ls&amp;#8217; colours on FreeBSD (taken from [here][4]):&lt;/p&gt;
+
+&lt;pre&gt;export CLICOLOR=&#34;YES&#34;
+export LSCOLORS=&#34;ExGxFxdxCxDxDxhbadExEx&#34;
+&lt;/pre&gt;
+
+&lt;p&gt;To ensure the http_proxy environmental variable is passed to sudo. Edit the sudoers file by running visudo. Then add the following.&lt;/p&gt;
+
+&lt;pre&gt;Defaults env_keep += â€œftp_proxy http_proxy https_proxyâ€
+&lt;/pre&gt;
+
+&lt;p&gt;Bash autocompletion on FreeBSD:&lt;/p&gt;
+
+&lt;pre&gt;cd  /usr/ports/shells/bash-completion
+sudo make install clean
+&lt;/pre&gt;
+
+&lt;p&gt;Edit ~/.bashrc and add&lt;/p&gt;
+
+&lt;pre&gt;if [ -f /usr/local/etc/bash_completion ]; then
+    . /usr/local/etc/bash_completion
+fi
+&lt;/pre&gt;
+
+&lt;p&gt;Make svn output colorful&lt;br /&gt;
+Edit ~/.subversion/config&lt;/p&gt;
+
+&lt;pre&gt;[helpers]
+diff-cmd = /usr/bin/colordiff
+&lt;/pre&gt;
+
+&lt;p&gt;Create diffs with function names and ignoring whitespace&lt;/p&gt;
+
+&lt;pre&gt;svn diff -x -uwp
+&lt;/pre&gt;
+
+&lt;p&gt;To be continued&amp;#8230;&lt;/p&gt;
+
+&lt;p&gt;[4]: &lt;a href=&#34;http://www.puresimplicity.net/~hemi/freebsd/misc.html&#34;&gt;http://www.puresimplicity.net/~hemi/freebsd/misc.html&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

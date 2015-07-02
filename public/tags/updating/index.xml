@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Updating on bramp.net</title>
+    <link>http://bramp.net/blog/tags/updating/</link>
+    <description>Recent content in Updating on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sat, 19 Dec 2009 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/updating/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Updating…/-\|/-|</title>
+      <link>http://bramp.net/blog/2009/12/19/updating/-/-/</link>
+      <pubDate>Sat, 19 Dec 2009 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2009/12/19/updating/-/-/</guid>
+      <description>&lt;p&gt;Do people other than me find updating their servers to be relaxing? At every opportunity I run &amp;#8220;apt-get update&amp;#8221;. Today I&amp;#8217;m updating 7 different machines simultaneously.&lt;/p&gt;
+
+&lt;p&gt;My Debian machines I simply issue the following commands:&lt;/p&gt;
+
+&lt;pre&gt;apt-get update
+ apt-get upgrade
+&lt;/pre&gt;
+
+&lt;p&gt;My FreeBSD machines:&lt;/p&gt;
+
+&lt;pre&gt;portsnap fetch update
+ portmanager -u
+&lt;/pre&gt;
+
+&lt;p&gt;I think the Debian process is easier (and clearly the fastest) but it obviously has to do less work because I&amp;#8217;m downloading precompiled code. Portmanager is just as easy but seems to randomly ask me questions through the process whereas apt-get seems to get them out of the way early on. Either way I find this all very easy and relaxing&amp;#8230; until I have to reboot the machines and find something is broken :/&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

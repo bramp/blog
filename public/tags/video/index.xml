@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Video on bramp.net</title>
+    <link>http://bramp.net/blog/tags/video/</link>
+    <description>Recent content in Video on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Wed, 16 May 2012 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/video/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>MRI scan of my brain</title>
+      <link>http://bramp.net/blog/2012/05/16/mri-scan-of-my-brain/</link>
+      <pubDate>Wed, 16 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2012/05/16/mri-scan-of-my-brain/</guid>
+      <description>&lt;p&gt;I had a &lt;a href=&#34;http://en.wikipedia.org/wiki/Magnetic_resonance_imaging&#34;&gt;MRI&lt;/a&gt; today, and afterwards I was given a CD of my scan. The data on the CD was stored in &lt;a href=&#34;http://en.wikipedia.org/wiki/DICOM&#34;&gt;DICOM&lt;/a&gt; format, and after some searching I was able to find some open source software to view the data. I especially liked &lt;a href=&#34;http://aeskulap.nongnu.org/&#34;&gt;Aeskulap&lt;/a&gt; which allowed interactive viewing of the data in multiple dimensions.&lt;/p&gt;
+
+&lt;p&gt;I wanted to put my scans online, so I found another set of tools, &lt;a href=&#34;http://xmedcon.sourceforge.net/&#34;&gt;medcon&lt;/a&gt;, that allowed me to convert the DICOM images into png/gif format, and then I used [ffmpeg][5] to create the following videos:&lt;/p&gt;
+
+&lt;video width=&#34;256&#34; height=&#34;256&#34; controls=&#34;controls&#34; style=&#34;float:left; padding: 10px&#34;&gt;&lt;source src=&#34;//bramp.net/blog/wp-content/uploads/001.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;//bramp.net/blog/wp-content/uploads/001.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+
+&lt;video width=&#34;256&#34; height=&#34;256&#34; controls=&#34;controls&#34; style=&#34;float:left; padding: 10px&#34;&gt;&lt;source src=&#34;//bramp.net/blog/wp-content/uploads/003.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;//bramp.net/blog/wp-content/uploads/003.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+
+&lt;video width=&#34;288&#34; height=&#34;288&#34; controls=&#34;controls&#34; style=&#34;float:left; padding: 10px&#34;&gt;&lt;source src=&#34;//bramp.net/blog/wp-content/uploads/004.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;//bramp.net/blog/wp-content/uploads/004.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+
+&lt;video width=&#34;288&#34; height=&#34;288&#34; controls=&#34;controls&#34; style=&#34;float:left; padding: 10px&#34;&gt;&lt;source src=&#34;//bramp.net/blog/wp-content/uploads/000.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;//bramp.net/blog/wp-content/uploads/000.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+
+&lt;video width=&#34;256&#34; height=&#34;256&#34; controls=&#34;controls&#34; style=&#34;float:left; padding: 10px&#34;&gt;&lt;source src=&#34;//bramp.net/blog/wp-content/uploads/008.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;//bramp.net/blog/wp-content/uploads/008.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+
+&lt;div style=&#34;clear: both&#34;&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I don&amp;#8217;t know the exact layout, but on the CD I seemed to have 12 different scans, each with a series of images. The name of the files were all 8 digits numbers, with the first three being the scan number (0 to 11), and the following five digits being (0 to whatever). For example:&lt;/p&gt;
+
+&lt;pre&gt;DICOM/185723/00000000: DICOM medical imaging data
+DICOM/185723/00000001: DICOM medical imaging data
+DICOM/185723/00000002: DICOM medical imaging data
+...
+DICOM/185723/00100000: DICOM medical imaging data
+DICOM/185723/00100001: DICOM medical imaging data
+DICOM/185723/00100002: DICOM medical imaging data
+...
+&lt;/pre&gt;
+
+&lt;p&gt;To create videos the first thing I did was to convert the images from DICOM to PNG&lt;/p&gt;
+
+&lt;pre&gt;sudo apt-get install medcon
+mkdir png
+for i in DICOM/185723/*; do medcon -f $i -c png -o png/`basename $i`.png ; done;
+&lt;/pre&gt;
+
+&lt;p&gt;Now to batch the images I started by creating animated gifs.&lt;/p&gt;
+
+&lt;pre&gt;sudo apt-get install imagemagick
+
+# Create animated gifs
+for i in `seq -w 000 011`; do convert -delay 20 -loop 0 png/$i*.png $i.gif; done;
+&lt;/pre&gt;
+
+&lt;p&gt;However, those gifs were huge, up to 20mb. So next I created a set of videos (that were a order of magnitude smaller than the gifs):&lt;/p&gt;
+
+&lt;pre&gt;sudo apt-get install ffmpeg
+
+# Create MP4
+for i in `seq -w 000 011`; do avconv -r 5 -i png/$i%05d.png -r 24 $i.mp4; done;
+
+# Create webm
+for i in `seq -w 000 011`; do avconv -r 5 -i png/$i%05d.png -r 24 $i.webm; done;
+
+# Create ogg video
+for i in `seq -w 000 011`; do avconv -r 5 -i png/$i%05d.png -r 24 $i.ogg; done;
+&lt;/pre&gt;
+
+&lt;p&gt;easy!&lt;/p&gt;
+
+&lt;p&gt;[5]: &lt;a href=&#34;http://ffmpeg.org/&#34;&gt;http://ffmpeg.org/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

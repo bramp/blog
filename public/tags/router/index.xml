@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Router on bramp.net</title>
+    <link>http://bramp.net/blog/tags/router/</link>
+    <description>Recent content in Router on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sun, 22 Jan 2012 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/router/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Obtaining the firmware for Linksys E4200v2</title>
+      <link>http://bramp.net/blog/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/</link>
+      <pubDate>Sun, 22 Jan 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/</guid>
+      <description>&lt;p&gt;I recently got a Linksys E4200v2 wireless router. It&amp;#8217;s pretty cool, supports IPv6, 2.4Ghz and 5Ghz wifi networks, VPN, etc. The one downside is that the firmware for the router is not available from &lt;a href=&#34;http://homesupport.cisco.com/en-us/wireless/linksys/E4200&#34;&gt;Linksys&amp;#8217;s website&lt;/a&gt;, and the &lt;a href=&#34;http://homesupport.cisco.com/en-us/gplcodecenter&#34;&gt;GPL code&lt;/a&gt; has not been made available, yet&amp;#8230; However, the router has been able to pull updates itself from the Internet.&lt;/p&gt;
+
+&lt;p&gt;So I wanted to acquire the firmware to see if I could do something fun with the router. I set about to figure out how the router does this. My plan was to set my laptop up between Internet interface on the router, and the cable modem. Since my laptop doesn&amp;#8217;t have two network cards, I plugged into a switch and used &lt;a href=&#34;http://ettercap.sourceforge.net/&#34;&gt;Ethercap&lt;/a&gt; to ARP poison to redirect traffic via the laptop.&lt;/p&gt;
+
+&lt;p&gt;Then using &lt;a href=&#34;http://www.wireshark.org/&#34;&gt;Wireshark&lt;/a&gt; I could see the traffic coming out of the router. All I needed to do now was to hit the &amp;#8220;check for updates button&amp;#8221;.&lt;/p&gt;
+
+&lt;p&gt;Firstly I saw two DNS requests, one for the AAAA (IPv6) record for update.linksys.com, then a A request for update.linksys.com. Clearly the updates are coming from there. Secondly I saw a HTTPS connection form to that domain. That makes this a little more complex, as I am unable to see the encrypted traffic, and thus see what is being transferred.&lt;/p&gt;
+
+&lt;p&gt;So, I grabbed a &lt;a href=&#34;http://code.activestate.com/recipes/491264-mini-fake-dns-server/&#34;&gt;simple DNS server&lt;/a&gt;, and set up a simple SSL server following [these instructions][6].&lt;/p&gt;
+
+&lt;p&gt;Now with DNS spoofing, and a fake SSL server, I could intercept encrypted traffic from the router, as long as it does not validate the SSL certificate. Luckily it didn&amp;#8217;t check the validity, and thus I was able to capture the request: (BTW Not checking the cert completely defeats the point of using SSL&amp;#8230; bad Linksys!).&lt;/p&gt;
+
+&lt;pre&gt;POST /cds/update HTTP/1.1
+Host: update.linksys.com
+Accept: */*
+Content-Type: text/xml
+Content-Length: 573
+
+&amp;lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&#34;http://schemas.xmlsoap.org/soap/envelope/&#34;&amp;gt;
+  &amp;lt;SOAP-ENV:Header/&amp;gt;
+  &amp;lt;SOAP-ENV:Body&amp;gt;
+    &amp;lt;ns:GetFirmwareFromDeviceRequest xmlns:ns=&#34;http://cisco.com/schemas&#34;&amp;gt;
+      &amp;lt;ns:LanguageCode&amp;gt;en&amp;lt;/ns:LanguageCode&amp;gt;
+      &amp;lt;ns:CountryCode&amp;gt;us&amp;lt;/ns:CountryCode&amp;gt;
+      &amp;lt;ns:MacAddress&amp;gt;12:34:56:78:90:ab&amp;lt;/ns:MacAddress&amp;gt;
+      &amp;lt;ns:ModelNo&amp;gt;E4200&amp;lt;/ns:ModelNo&amp;gt;
+      &amp;lt;ns:HardwareVersion&amp;gt;2&amp;lt;/ns:HardwareVersion&amp;gt;
+      &amp;lt;ns:CurrentFirmwareVersion&amp;gt;2.0.36.126507&amp;lt;/ns:CurrentFirmwareVersion&amp;gt;
+    &amp;lt;/ns:GetFirmwareFromDeviceRequest&amp;gt;
+  &amp;lt;/SOAP-ENV:Body&amp;gt;
+&amp;lt;/SOAP-ENV:Envelope&amp;gt;
+&lt;/pre&gt;
+
+&lt;p&gt;and the response:&lt;/p&gt;
+
+&lt;pre&gt;&amp;lt;soapenv:Envelope
+ xmlns:soapenv=&#34;http://schemas.xmlsoap.org/soap/envelope/&#34;
+ xmlns:soapenc=&#34;http://schemas.xmlsoap.org/soap/encoding/&#34;
+ xmlns:xsd=&#34;http://www.w3.org/2001/XMLSchema&#34;
+ xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;&amp;gt;
+  &amp;lt;soapenv:Header/&amp;gt;
+  &amp;lt;soapenv:Body&amp;gt;
+    &amp;lt;ns:GetFirmwareFromDeviceResponse xmlns:ns=&#34;http://cisco.com/schemas&#34;&amp;gt;
+      &amp;lt;ns:FirmwareList xmlns:ns=&#34;http://cisco.com/schemas&#34;&amp;gt;
+        &amp;lt;ns:Firmware xmlns:ns=&#34;http://cisco.com/schemas&#34;&amp;gt;
+          &amp;lt;ns:Version xmlns:ns=&#34;http://cisco.com/schemas&#34;&amp;gt;2.0.36.126507&amp;lt;/ns:Version&amp;gt;
+          &amp;lt;ns:Revision xmlns:ns=&#34;http://cisco.com/schemas&#34;&amp;gt;D&amp;lt;/ns:Revision&amp;gt;
+          &amp;lt;ns:ReleaseDate xmlns:ns=&#34;http://cisco.com/schemas&#34;&amp;gt;2012-01-06T16:48:08Z&amp;lt;/ns:ReleaseDate&amp;gt;
+          &amp;lt;ns:DownloadURI xmlns:ns=&#34;http://cisco.com/schemas&#34;&amp;gt;http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA&amp;lt;/ns:DownloadURI&amp;gt;
+          &amp;lt;ns:DateFormat xmlns:ns=&#34;http://cisco.com/schemas&#34;&amp;gt;yyyy-MM-dd&#39;;T&#39;;HH:mm:ss&#39;;Z&#39;;&amp;lt;/ns:DateFormat&amp;gt;
+          &amp;lt;ns:Checksum xmlns:ns=&#34;http://cisco.com/schemas&#34;&amp;gt;1958710861&amp;lt;/ns:Checksum&amp;gt;
+        &amp;lt;/ns:Firmware&amp;gt;
+      &amp;lt;/ns:FirmwareList&amp;gt;
+    &amp;lt;/ns:GetFirmwareFromDeviceResponse&amp;gt;
+  &amp;lt;/soapenv:Body&amp;gt;
+&amp;lt;/soapenv:Envelope&amp;gt;
+&lt;/pre&gt;
+
+&lt;p&gt;(I slightly modified portions of the request and response to hide the identify of my router.).&lt;/p&gt;
+
+&lt;p&gt;I might write a script to make fake requests, but until then you can easily create a request with curl:&lt;/p&gt;
+
+&lt;pre&gt;curl -d @request.raw https://update.linksys.com/cds/update&lt;/pre&gt;
+
+&lt;p&gt;Then you just extract the DownloadURI and&lt;/p&gt;
+
+&lt;pre&gt;curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA&lt;/pre&gt;
+
+&lt;p&gt;Voila I now have the firmware. Now I need to figure out what to do with it.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;: As requested I fetched the more recent version of the file:&lt;br /&gt;
+2.0.37.131047 &amp;#8211; &lt;a href=&#34;http://download.linksys.com/updates/to0040829450.pdx/FW_E4200_2.0.37.131047.SSA&#34;&gt;http://download.linksys.com/updates/to0040829450.pdx/FW_E4200_2.0.37.131047.SSA&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[6]: &lt;a href=&#34;http://wirewatcher.wordpress.com/2010/07/20/decrypting-ssl-traffic-with-wireshark-and-ways-to-prevent-it/&#34;&gt;http://wirewatcher.wordpress.com/2010/07/20/decrypting-ssl-traffic-with-wireshark-and-ways-to-prevent-it/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Verizon FiOS MI424WR rev. F Router</title>
+      <link>http://bramp.net/blog/2010/11/25/verizon-fios-mi424wr-rev.-f-router/</link>
+      <pubDate>Thu, 25 Nov 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2010/11/25/verizon-fios-mi424wr-rev.-f-router/</guid>
+      <description>&lt;p&gt;I just got a FiOS wifi router and I must say I really like it. The web interface has many more options than any home router I&amp;#8217;ve ever played with, and it seems like it&amp;#8217;d be easy for a beginner but doesn&amp;#8217;t get in the way of an expert. It also telnet access (optionally over SSL), which puts you into a custom shell. Poking around the commands I find one awesome one:&lt;/p&gt;
+
+&lt;pre&gt;Wireless Broadband Router&gt; help system shell
+shell   Spawn busybox shell in foreground
+
+Wireless Broadband Router&gt; system shell
+BusyBox v1.01 (2005.09.07-07:38+0000) Built-in shell (lash)
+Enter &#39;help&#39; for a list of built-in commands.
+
+/ # 
+&lt;/pre&gt;
+
+&lt;p&gt;This is very clearly running Linux, with BusyBox. For those interested here are some interesting bits of information:&lt;/p&gt;
+
+&lt;pre&gt;/ # cat /proc/version 
+Linux version 2.6.16.14 #1 SMP Sat Nov 28 00:38:50 PST 2009
+&lt;/pre&gt;
+
+&lt;p&gt;A four year old kernel. Well what do you expect from this kind of device &lt;img src=&#34;http://bramp.net/blog/wp-includes/images/smilies/icon_smile.gif&#34; alt=&#34;:)&#34; class=&#34;wp-smiley&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;/ # cat /proc/cpuinfo 
+system type     : MC524WR
+processor       : 0
+cpu model       : Cavium Networks Octeon CN50XX V0.1
+BogoMIPS        : 1000.48
+wait instruction    : yes
+microsecond timers  : yes
+tlb_entries     : 64
+extra interrupt vector  : yes
+hardware watchpoint : yes
+ASEs implemented    :
+VCED exceptions     : not available
+VCEI exceptions     : not available
+processor       : 1
+cpu model       : Cavium Networks Octeon CN50XX V0.1
+BogoMIPS        : 1000.48
+wait instruction    : yes
+microsecond timers  : yes
+tlb_entries     : 64
+extra interrupt vector  : yes
+hardware watchpoint : yes
+ASEs implemented    :
+VCED exceptions     : not available
+VCEI exceptions     : not available
+&lt;/pre&gt;
+
+&lt;p&gt;w00t, a &lt;a href=&#34;http://www.caviumnetworks.com/OCTEON-Plus_CN50XX.html&#34;&gt;Dual Cores 64bit MIPS chip&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;/ # cat /proc/meminfo 
+MemTotal:        53200 kB
+MemFree:         11588 kB
+Buffers:          9252 kB
+Cached:           9228 kB
+SwapCached:          0 kB
+Active:           7796 kB
+Inactive:        16220 kB
+HighTotal:           0 kB
+HighFree:            0 kB
+LowTotal:        53200 kB
+LowFree:         11588 kB
+SwapTotal:           0 kB
+SwapFree:            0 kB
+Dirty:               0 kB
+Writeback:           0 kB
+Mapped:          11272 kB
+Slab:            13700 kB
+CommitLimit:     26600 kB
+Committed_AS:    11384 kB
+PageTables:        196 kB
+VmallocTotal: 1073741824 kB
+VmallocUsed:      2752 kB
+VmallocChunk: 1073738692 kB
+HugePages_Total:     0
+HugePages_Free:      0
+Hugepagesize:     2048 kB
+&lt;/pre&gt;
+
+&lt;p&gt;Only ~53MB of RAM if I&amp;#8217;m reading that right. Seems most likely to be 64MB to me, but I will investigate further.&lt;/p&gt;
+
+&lt;p&gt;Also, as this is Linux, the &lt;a href=&#34;http://opensource.actiontec.com/#bhr&#34;&gt;source code&lt;/a&gt; has been made available. The [README][3] reveals it is a MC524 Router (MI424WR-GEN2 REV E/F).&lt;/p&gt;
+
+&lt;p&gt;The device doesn&amp;#8217;t seem to have many of the standard Linux tools, no doubt to save space. It does however have an external USB port. My plan is to compile more of busybox, as well as some other binaries, and run them from an external USB stick.&lt;/p&gt;
+
+&lt;p&gt;Hacking an router has never been so easy! I&amp;#8217;ll post more when I know more!&lt;/p&gt;
+
+&lt;p&gt;[3]: &lt;a href=&#34;http://opensource.actiontec.com/mi1424wr/MI424WR-FW-20.10.7.5-README&#34;&gt;http://opensource.actiontec.com/mi1424wr/MI424WR-FW-20.10.7.5-README&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

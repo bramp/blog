@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Clip on bramp.net</title>
+    <link>http://bramp.net/blog/tags/clip/</link>
+    <description>Recent content in Clip on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sat, 26 Nov 2011 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/clip/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>PHP Polygon Clipper using the Sutherland-Hodgman algorithm</title>
+      <link>http://bramp.net/blog/2011/11/26/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/</link>
+      <pubDate>Sat, 26 Nov 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2011/11/26/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/</guid>
+      <description>&lt;p&gt;I wrote this recently and thought it might be useful to someone:&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>About-Mes on bramp.net</title>
+    <link>http://bramp.net/blog/about-me/</link>
+    <description>Recent content in About-Mes on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sun, 20 Sep 2009 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/about-me/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>About Me</title>
+      <link>http://bramp.net/blog/about-me/</link>
+      <pubDate>Sun, 20 Sep 2009 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/about-me/</guid>
+      <description>
+
+&lt;!--
+&lt;div class=&#34;figure&#34; style=&#34;float: left;&#34;&gt;
+  &lt;a href=&#34;http://bramp.net/blog/wp-content/uploads/me.jpg&#34;&gt;&lt;img class=&#34;alignleft size-medium wp-image-274&#34; title=&#34;Me&#34; alt=&#34;&#34; src=&#34;http://bramp.net/blog/wp-content/uploads/me-213x300.jpg&#34; width=&#34;213&#34; height=&#34;300&#34; /&gt;&lt;/a&gt;&lt;br /&gt; Photo of Andrew Brampton
+&lt;/div&gt;
+--&gt;
+
+&lt;p&gt;Andrew Brampton Ph.D lives in the Bay Area, previously lived in Washington DC, but is originally from the United Kingdom. Enjoys playing with new technologies, loves working on large scale, high performance applications. Currently works at Google on the Android/Play SRE teams.&lt;/p&gt;
+
+&lt;p&gt;Spends his weekends working on fun and novel projects, most of which he &lt;a href=&#34;http://bramp.net/blog/opensource-projects/&#34;&gt;open sources&lt;/a&gt;. He can occasionally be found at tech &lt;a href=&#34;http://www.meetup.com/&#34;&gt;Meetups&lt;/a&gt;, and sometimes he even speaks.&lt;/p&gt;
+
+&lt;p&gt;Previously he was a researcher within the computer science department at &lt;a href=&#34;http://www.lancs.ac.uk/&#34;&gt;Lancaster University&lt;/a&gt;, where he obtained his Ph.D at age 26. His &lt;a href=&#34;http://bramp.net/blog/publications/&#34;&gt;areas of research&lt;/a&gt; revolve around distributed systems, in particular peer-to-peer, distributed hash tables (DHTs), and content distribution networks (CDNs).&lt;/p&gt;
+
+&lt;h2 id=&#34;my-curricula-vitae-résumé:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;My Curricula Vitae / Résumé&lt;/h2&gt;
+
+&lt;p&gt;This may be a little out of date since I only it when needed. If you require a more up to date copy then please contact me &amp;#8211; &lt;a href=&#34;https://github.com/bramp/curriculum-vitae/blob/master/cv.pdf?raw=true&#34;&gt;PDF&lt;/a&gt; &amp;#8211; &lt;a href=&#34;https://github.com/bramp/curriculum-vitae/&#34;&gt;LaTeX source&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;contact-me:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Contact Me&lt;/h2&gt;
+
+&lt;p&gt;I can be reached at &amp;#8220;me &lt;img src=&#34;http://bramp.net/blog/about.old/a.png&#34; alt=&#34;&#34; /&gt; bramp.net&amp;#8221;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

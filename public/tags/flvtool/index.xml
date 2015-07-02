@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Flvtool on bramp.net</title>
+    <link>http://bramp.net/blog/tags/flvtool/</link>
+    <description>Recent content in Flvtool on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sun, 25 Jun 2006 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/flvtool/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>flvtool&#43;&#43; A command line Flash Video file (FLV) editor</title>
+      <link>http://bramp.net/blog/2006/06/25/flvtool-a-command-line-flash-video-file-flv-editor/</link>
+      <pubDate>Sun, 25 Jun 2006 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2006/06/25/flvtool-a-command-line-flash-video-file-flv-editor/</guid>
+      <description>
+
+&lt;p&gt;Download Version 0.1: **Sorry flvtool++ is no longer available &lt;img src=&#34;http://bramp.net/blog/wp-includes/images/smilies/icon_sad.gif&#34; alt=&#34;:(&#34; class=&#34;wp-smiley&#34; /&gt; **&lt;/p&gt;
+
+&lt;p&gt;This is a c++ re-write of a similar closed source tool &lt;a href=&#34;http://www.buraks.com/flvmdi/&#34;&gt;FLVMDI&lt;/a&gt; and a open source Ruby app named &lt;a href=&#34;http://rubyforge.org/projects/flvtool2/&#34;&gt;flvtool2&lt;/a&gt;. I originally wrote flvtool++ due to the lack of large file support in the two previous tools. Well those tools do support large files, however it seems they require at least as much RAM as the size of the file, and when I was working with &amp;gt;1GB files this became a problem. Additionally this tool compiles cleanly on different OSes so I was not limited to just windows.&lt;/p&gt;
+
+&lt;p&gt;This tool has the following features:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Large file support while using minimum memory&lt;/li&gt;
+&lt;li&gt;Add â€œindexingâ€ metadata, useful for &lt;a href=&#34;http://www.flashcomguru.com/index.cfm/2005/11/2/Streaming-flv-video-via-PHP-take-two&#34;&gt;streaming applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add other metadata such as the videoâ€™s duration, or frames per second, etc&lt;/li&gt;
+&lt;li&gt;Displays all the metadata within a FLV file&lt;/li&gt;
+&lt;li&gt;Displays all the tags within a FLV file&lt;/li&gt;
+&lt;li&gt;Displays interesting statistics about the FLV file&lt;/li&gt;
+&lt;li&gt;Can chop the FLV file at arbitrary timecodes&lt;/li&gt;
+&lt;li&gt;Very fast processing time, the main bottleneck is the disk speed&lt;/li&gt;
+&lt;li&gt;Supports &lt;a href=&#34;http://www.microsoft.com/windows/&#34;&gt;Windows&lt;/a&gt;, &lt;a href=&#34;http://www.linux.org/&#34;&gt;Linux&lt;/a&gt; and &lt;a href=&#34;http://www.freebsd.org/&#34;&gt;FreeBSD&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Source is provided under the &lt;a href=&#34;http://www.opensource.org/licenses/bsd-license.php&#34;&gt;BSD licence&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Has been programmed in a way allowing other apps to easily use my FLV decode/encoding classes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I will add soon:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ability to add arbitrary metadata&lt;/li&gt;
+&lt;li&gt;Demux the FLV into different video and audio files&lt;/li&gt;
+&lt;li&gt;And whatever [you request][8]&amp;#8230;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;usage:58bd2f08b766614b942fda12ff3e160b&#34;&gt;Usage&lt;/h4&gt;
+
+&lt;p&gt;flvtool++ is used from the command line, so far it has a few simple parameters&lt;/p&gt;
+
+&lt;p&gt;Takes the input file, indexes it and writes it out to the output file. The start and end times may optionally specify timecodes in seconds that are used to chop the FLV file.&lt;/p&gt;
+
+&lt;pre&gt;flvtool++ &amp;lt;input file&amp;gt; &amp;lt;output file&amp;gt; (&amp;lt;start time&amp;gt; &amp;lt;end time&amp;gt;)&lt;/pre&gt;
+
+&lt;p&gt;Displays all the metadata and tag information about the input file.&lt;/p&gt;
+
+&lt;pre&gt;flvtool++ -i &amp;lt;input file&amp;gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;compiling:58bd2f08b766614b942fda12ff3e160b&#34;&gt;Compiling&lt;/h4&gt;
+
+&lt;p&gt;&lt;strong&gt;Windows:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Download the source package and locate the flvtool++.sln file. This is a Visual Studio 2003 solution and should build cleanly without modification. I have not tested this under Visual Studio 2005 or later, but I believe it should compile fine.&lt;/p&gt;
+
+&lt;p&gt;It should also be possible to compile this with other compilers under windows (such as GCC) however this is a exercise I leave to the reader&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Linux/FreeBSD:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;flvtool++ compiles cleanly under GCC, a makefile is provided such that you only need to extract the source package, and then type make.&lt;/p&gt;
+
+&lt;p&gt;[8]: /about#contact&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

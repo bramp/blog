@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Panic on bramp.net</title>
+    <link>http://bramp.net/blog/tags/panic/</link>
+    <description>Recent content in Panic on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Fri, 16 Oct 2009 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/panic/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>FreeBSD Software Watchdog</title>
+      <link>http://bramp.net/blog/2009/10/16/freebsd-software-watchdog/</link>
+      <pubDate>Fri, 16 Oct 2009 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2009/10/16/freebsd-software-watchdog/</guid>
+      <description>&lt;p&gt;Recently I&amp;#8217;ve been doing some kernel hacking and I managed to deadlock my system. The system still responded to pings but the terminal was unresponsive, and it needed a hard reboot to fix. I would have loved to drop into a debugger or panic&amp;#8217;ed the kernel to get a suitable back-trace.&lt;/p&gt;
+
+&lt;p&gt;I found that FreeBSD has a software watchdog feature, that will panic the kernel if a problem like this occurs. The watchdog does not seem to be built into the kernel by default, and I found the documentation a bit lacking. So here is what I did:&lt;/p&gt;
+
+&lt;p&gt;Firstly, build and install a custom kernel which includes:&lt;/p&gt;
+
+&lt;pre&gt;options SW_WATCHDOG&lt;/pre&gt;
+
+&lt;p&gt;Secondly, edit the&lt;/p&gt;
+
+&lt;pre&gt;/etc/rc.conf&lt;/pre&gt;
+
+&lt;p&gt;file and add a line:&lt;/p&gt;
+
+&lt;pre&gt;watchdogd_enable=&#34;YES&#34;&lt;/pre&gt;
+
+&lt;p&gt;When you next reboot, the watchdogd daemon will run, enabling the watchdog feature. Every second the watchdogd will reset a timer within the kernel. If after 16 seconds the timer has not been reset, the kernel will print out some interrupt information, and panic.&lt;/p&gt;
+
+&lt;p&gt;Watchdogd seems to have some useful features, for example, you can configure it to execute a specific command every second, and if that command fails the timer will not be reset. The configuration option I use is:&lt;/p&gt;
+
+&lt;pre&gt;watchdogd_flags=&#34;-e /bin/ps&#34;&lt;/pre&gt;
+
+&lt;p&gt;Read [WATCHDOGD(8)][1] for more information.&lt;/p&gt;
+
+&lt;p&gt;[1]: &lt;a href=&#34;http://www.freebsd.org/cgi/man.cgi?query=watchdogd&amp;amp;sektion=8&#34;&gt;http://www.freebsd.org/cgi/man.cgi?query=watchdogd&amp;amp;sektion=8&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

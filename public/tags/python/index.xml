@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on bramp.net</title>
+    <link>http://bramp.net/blog/tags/python/</link>
+    <description>Recent content in Python on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Mon, 24 Jan 2011 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Intel ucode firmware version parser</title>
+      <link>http://bramp.net/blog/2011/01/24/intel-ucode-firmware-version-parser/</link>
+      <pubDate>Mon, 24 Jan 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2011/01/24/intel-ucode-firmware-version-parser/</guid>
+      <description>&lt;p&gt;Out of fun I wrote a simple Python script to pull the version number out of Intel&amp;#8217;s ucode firmware, for example, the firmware used by my wifi driver. I needed this so I could see what version I was running versus a new version I had downloaded from [Intel&amp;#8217;s Linux Wireless site][1].&lt;/p&gt;
+
+&lt;p&gt;So here is the code if anyone finds it interesting:&lt;/p&gt;
+
+&lt;p&gt;and example of using it is:&lt;/p&gt;
+
+&lt;pre&gt;&gt; ./ucode.py /lib/firmware/*.ucode
+iwlwifi-1000-3.ucode    : ver 128.50.3.1
+iwlwifi-3945-1.ucode    : ver 15.28.1.6
+iwlwifi-3945-2.ucode    : ver 15.32.2.9
+iwlwifi-4965-1.ucode    : ver 228.57.1.21
+iwlwifi-4965-2.ucode    : ver 228.61.2.24
+iwlwifi-5000-1.ucode    : ver 5.4.1.16
+iwlwifi-5000-2.ucode    : ver 8.24.2.12
+iwlwifi-5150-2.ucode    : ver 8.24.2.2
+iwlwifi-6000-4.ucode    : ver 9.221.4.1
+iwlwifi-6000g2a-5.ucode : ver 17.168.5.1 (6000g2a fw v17.168.5.1 build 33993)
+iwlwifi-6000g2b-5.ucode : ver 17.168.5.1 (6000g2b fw v17.168.5.1 build 33993)
+iwlwifi-6050-4.ucode    : ver 9.201.4.1
+iwlwifi-6050-5.ucode    : ver 41.28.5.1 (6050 fw v41.28.5.1 build 33926)
+&lt;/pre&gt;
+
+&lt;p&gt;[1]: &lt;a href=&#34;http://intellinuxwireless.org/?n=Downloads&#34;&gt;http://intellinuxwireless.org/?n=Downloads&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>UTF-8 Directory Listing</title>
+      <link>http://bramp.net/blog/2010/09/23/utf-8-directory-listing/</link>
+      <pubDate>Thu, 23 Sep 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2010/09/23/utf-8-directory-listing/</guid>
+      <description>&lt;p&gt;I had a need to create a directory listing with all the UTF-8 characters intact. This seems quite a chore on Windows, as doing anything via the shell seems to mangle the characters and show ???? instead of the real characters. For example, both the built in &lt;strong&gt;dir&lt;/strong&gt; and Cygwin &lt;strong&gt;ls&lt;/strong&gt; or &lt;strong&gt;find&lt;/strong&gt; seemed affected. This turns out to be a [limitation in the windows shell][1].&lt;/p&gt;
+
+&lt;p&gt;To solve this problem I wrote a bit of python to read the file names in full UTF-8 and output the results directly to a file (and not via a pipe, which would again be via the shell). The resulting very simple script is as follows:&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;import os
+import codecs
+
+log = codecs.open(&#39;listing&#39;, mode=&#39;w&#39;, encoding=&#34;utf-8&#34;)
+
+for root, dirs, files in os.walk(u&#39;.&#39;):
+    log.write(root + u&#34;\n&#34;)
+
+    for file in sorted(files):
+        log.write(os.path.join(root, file) + u&#34;\n&#34;)
+
+log.close()
+
+&lt;/pre&gt;
+
+&lt;p&gt;[1]: &lt;a href=&#34;http://stackoverflow.com/questions/379240/is-there-a-windows-command-shell-that-will-display-unicode-characters&#34;&gt;http://stackoverflow.com/questions/379240/is-there-a-windows-command-shell-that-will-display-unicode-characters&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Persec python script</title>
+      <link>http://bramp.net/blog/2010/08/31/persec-python-script/</link>
+      <pubDate>Tue, 31 Aug 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2010/08/31/persec-python-script/</guid>
+      <description>&lt;p&gt;A while ago I wrote a python script that does a similar job to GNU&amp;#8217;s &lt;a href=&#34;http://linux.die.net/man/1/watch&#34;&gt;watch&lt;/a&gt; command. You use it like so:&lt;/p&gt;
+
+&lt;pre&gt;./persec.py [--interval=&amp;lt;n&amp;gt;] &amp;lt;command&amp;gt;
+&lt;/pre&gt;
+
+&lt;p&gt;so for example&lt;/p&gt;
+
+&lt;pre&gt;./persec.py ifconfig
+&lt;/pre&gt;
+
+&lt;p&gt;Now in a similar way to watch, it executes the command every second, and highlights the differences between each execution. However, in addition to this it finds any numbers that have changed and works out the rate at which they are changing. So for example, ifconfig would typically output this:&lt;/p&gt;
+
+&lt;pre&gt;usb0      Link encap:Ethernet  HWaddr 02:04:4b:00:d3:cf
+          inet addr:10.0.0.2  Bcast:10.0.0.255  Mask:255.255.255.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:1017422291 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:549382406 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:1910704266 (1.9 GB)  TX bytes:1834667124 (1.8 GB)
+&lt;/pre&gt;
+
+&lt;p&gt;but now outputs something like:&lt;/p&gt;
+
+&lt;pre&gt;usb0      Link encap:Ethernet  HWaddr 02:04:4b:00:d3:cf
+          inet addr:10.0.0.2  Bcast:10.0.0.255  Mask:255.255.255.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:&lt;b&gt;2001/s&lt;/b&gt; errors:0 dropped:0 overruns:0 frame:0
+          TX packets:&lt;b&gt;2002/s&lt;/b&gt; errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:&lt;b&gt;168120/s&lt;/b&gt; (1.9 GB)  TX bytes:&lt;b&gt;217144/s&lt;/b&gt; (1.8 GB)
+&lt;/pre&gt;
+
+&lt;p&gt;Notice the per second (/s) values for RX/TX packets and RX/TX bytes. I have found this quite useful many times in the past, on commands such as:&lt;/p&gt;
+
+&lt;pre&gt;./persec.py cat /proc/interrupts
+./persec.py df
+./persec.py ls -l somefile
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://raw.github.com/gist/1275275/2da6db303e784bdbdb8a095cec2a374465a28779/persec.py&#34;&gt;Download version 1.1&lt;/a&gt; or [View on Github][3]&lt;/p&gt;
+
+&lt;p&gt;[3]: &lt;a href=&#34;https://gist.github.com/1275275&#34;&gt;https://gist.github.com/1275275&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Python close_fds issue</title>
+      <link>http://bramp.net/blog/2010/05/11/python-close_fds-issue/</link>
+      <pubDate>Tue, 11 May 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2010/05/11/python-close_fds-issue/</guid>
+      <description>&lt;p&gt;So I spent the better part of my evening trying to track down a bug, which turns out to be a &amp;#8220;feature&amp;#8221; of python.&lt;/p&gt;
+
+&lt;p&gt;I had just installed the &lt;a href=&#34;http://trac-hacks.org/wiki/GitPlugin&#34;&gt;GitPlugin&lt;/a&gt; for &lt;a href=&#34;http://trac.edgewall.org/&#34;&gt;trac&lt;/a&gt; but I started to experience problems. When browsing the source inside trac it was taking over 30seconds to load the page and sometimes it would fail completely. A lot of searching didn&amp;#8217;t help much, so I attempted to debug the problem myself. The first thing I noticed was Apache was taking 100% of the processor for a good 30seconds. I attached &lt;a href=&#34;http://en.wikipedia.org/wiki/Strace&#34;&gt;strace&lt;/a&gt; to it and saw something like this:&lt;/p&gt;
+
+&lt;pre&gt;[pid 22682] close(43029)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43030)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43031)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43032)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43033)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43034)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43035)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43036)                = -1 EBADF (Bad file descriptor)
+&lt;/pre&gt;
+
+&lt;p&gt;This obviously didn&amp;#8217;t look good! After some tinkering I found the problem went away when I ran trac &lt;a href=&#34;http://trac.edgewall.org/wiki/TracStandalone&#34;&gt;standalone&lt;/a&gt;, instead of using &lt;a href=&#34;http://www.modpython.org/&#34;&gt;mod_python&lt;/a&gt; or &lt;a href=&#34;http://en.wikipedia.org/wiki/FastCGI&#34;&gt;fcgi&lt;/a&gt;. This turned out to be a bit of a red herring because I spent my time trying to figure out what was different between a standalone executable and one being run inside Apache.&lt;/p&gt;
+
+&lt;p&gt;After playing around with environment variables, I gave up and attempted to printf debug the trac git plugin. I found that the actual call to git was taking on the order of seconds, whereas calling it myself from the command took milliseconds. The line of code (in PyGIT.py) looked a bit like this:&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;p = Popen(self.__build_git_cmd(git_cmd, *cmd_args), stdin=None, 
+        stdout=PIPE, stderr=PIPE, close_fds=True)
+&lt;/pre&gt;
+
+&lt;p&gt;Now, when I removed the close_fds argument the problems went away! After some more digging I found this &lt;a href=&#34;http://bugs.python.org/issue8052&#34;&gt;bug report&lt;/a&gt; which describes the behaviour of close_fds. Python will spin in a tight loop calling close for all possible valid fd number. WTF! You can see the python &lt;a href=&#34;http://svn.python.org/projects/python/tags/r311/Lib/subprocess.py&#34;&gt;code here&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;def _close_fds(self, but):
+            os.closerange(3, but)
+            os.closerange(but + 1, MAXFD)
+&lt;/pre&gt;
+
+&lt;p&gt;So the simple fix to this was to remove the close_fds, so that Python doesn&amp;#8217;t stupidly spin calling close(). I suspect the reason I only noticed this when running inside Apache, is because Apache must have a larger MAXFD. Hopefully in the future Python will change this behaviour and find a more sensible way to close all file descriptors, especially when I read this [bug report][9] which advises changing close_fds default to true.&lt;/p&gt;
+
+&lt;p&gt;[9]: &lt;a href=&#34;http://bugs.python.org/issue7213&#34;&gt;http://bugs.python.org/issue7213&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Follow HTTP Stream (with decompression)</title>
+      <link>http://bramp.net/blog/2010/01/10/follow-http-stream-with-decompression/</link>
+      <pubDate>Sun, 10 Jan 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2010/01/10/follow-http-stream-with-decompression/</guid>
+      <description>&lt;p&gt;I was using &lt;a href=&#34;http://www.wireshark.org/&#34;&gt;Wireshark&lt;/a&gt; to capture an exchange of HTTP packets, however, some of the HTTP responses were using &amp;#8220;content-encoding: gzip&amp;#8221;, which meant I couldn&amp;#8217;t view them decompressed in the &amp;#8220;Follow TCP Stream&amp;#8221;. Wireshark does decompress them in Packet Details view, but it is hard to follow the full stream like this.&lt;/p&gt;
+
+&lt;p&gt;The solution was to write some &lt;a href=&#34;http://www.python.org/&#34;&gt;Python&lt;/a&gt; which made use of the &lt;a href=&#34;http://code.google.com/p/dpkt/&#34;&gt;dpkt library&lt;/a&gt;. My code naively reassembles the TCP flow and then assumes traffic on port 80 is HTTP. Therefore there is much room for improvement, but here is the code anyway.&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;#!/usr/bin/env python
+# Turns a pcap file with http gzip compressed data into plain text, making it
+# easier to follow.
+
+import dpkt
+
+def tcp_flags(flags):
+    ret = &#39;&#39;
+    if flags &amp; dpkt.tcp.TH_FIN:
+        ret = ret + &#39;F&#39;
+    if flags &amp; dpkt.tcp.TH_SYN:
+        ret = ret + &#39;S&#39;
+    if flags &amp; dpkt.tcp.TH_RST:
+        ret = ret + &#39;R&#39;
+    if flags &amp; dpkt.tcp.TH_PUSH:
+        ret = ret + &#39;P&#39;
+    if flags &amp; dpkt.tcp.TH_ACK:
+        ret = ret + &#39;A&#39;
+    if flags &amp; dpkt.tcp.TH_URG:
+        ret = ret + &#39;U&#39;
+    if flags &amp; dpkt.tcp.TH_ECE:
+        ret = ret + &#39;E&#39;
+    if flags &amp; dpkt.tcp.TH_CWR:
+        ret = ret + &#39;C&#39;
+
+    return ret
+
+def parse_http_stream(stream):
+    while len(stream) &amp;gt; 0:
+        if stream[:4] == &#39;HTTP&#39;:
+            http = dpkt.http.Response(stream)
+            print http.status
+        else:
+            http = dpkt.http.Request(stream)
+            print http.method, http.uri
+        stream = stream[len(http):]
+
+def parse_pcap_file(filename):
+    # Open the pcap file
+    f = open(&#39;market.pcap&#39;, &#39;rb&#39;)
+    pcap = dpkt.pcap.Reader(f)
+    
+    # I need to reassmble the TCP flows before decoding the HTTP
+    conn = dict() # Connections with current buffer
+    for ts, buf in pcap:
+        eth = dpkt.ethernet.Ethernet(buf)
+        if eth.type != dpkt.ethernet.ETH_TYPE_IP:
+            continue
+    
+        ip = eth.data
+        if ip.p != dpkt.ip.IP_PROTO_TCP:
+            continue
+    
+        tcp = ip.data
+    
+        tupl = (ip.src, ip.dst, tcp.sport, tcp.dport)
+        #print tupl, tcp_flags(tcp.flags)
+    
+        # Ensure these are in order! TODO change to a defaultdict
+        if tupl in conn:
+            conn[ tupl ] = conn[ tupl ] + tcp.data
+        else:
+            conn[ tupl ] = tcp.data
+    
+        # TODO Check if it is a FIN, if so end the connection
+    
+        # Try and parse what we have
+        try:
+            stream = conn[ tupl ]
+            if stream[:4] == &#39;HTTP&#39;:
+                http = dpkt.http.Response(stream)
+                #print http.status
+            else:
+                http = dpkt.http.Request(stream)
+                #print http.method, http.uri
+    
+            print http
+            print
+
+            # If we reached this part an exception hasn&#39;t been thrown
+            stream = stream[len(http):]
+            if len(stream) == 0:
+                del conn[ tupl ]
+            else:
+                conn[ tupl ] = stream
+        except dpkt.UnpackError:
+            pass
+
+    f.close()
+
+if __name__ == &#39;__main__&#39;:
+    import sys
+    if len(sys.argv) &amp;lt;= 1:
+        print &#34;%s &amp;lt;pcap filename&amp;gt;&#34; % sys.argv[0]
+        sys.exit(2)
+
+    parse_pcap_file(sys.argv[1])
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;, I had to make a couple of changes to the dpkt library, which I have submitted &lt;a href=&#34;http://groups.google.com/group/dpkt/browse_thread/thread/5315199f9749b91a&#34;&gt;back for review&lt;/a&gt;. Those changes can be found in the following patches &lt;a href=&#34;http://bramp.net/blog/patches/dpkt-pcap-snaplen.patch&#34;&gt;1&lt;/a&gt; &lt;a href=&#34;http://bramp.net/blog/patches/dpkt-http-len.patch&#34;&gt;2&lt;/a&gt; [3][7]. I will update this code if/when the patches get accepted.&lt;/p&gt;
+
+&lt;p&gt;[7]: /patches/dpkt-http-gz.patch&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Autoload symbols for FreeBSD kernel module</title>
+      <link>http://bramp.net/blog/2009/01/11/autoload-symbols-for-freebsd-kernel-module/</link>
+      <pubDate>Sun, 11 Jan 2009 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2009/01/11/autoload-symbols-for-freebsd-kernel-module/</guid>
+      <description>&lt;p&gt;When debugging FreeBSD kernel modules with GDB, you have to tell GDB the correct symbols for the module, and the location the module is loaded in RAM. This is helpfully explained in the &lt;a href=&#34;http://www.freebsd.org/doc/en/books/developers-handbook/kerneldebug-kld.html&#34;&gt;FreeBSD Developers&amp;#8217; Handbook&lt;/a&gt;. First you must load the module, then run kldstat, note down the address the module is loaded at, and finally execute a command in GDB that looks like the following.&lt;/p&gt;
+
+&lt;pre&gt;add-symbol-file /sys/modules/linux/linux.ko 0xc0ae22d0&lt;/pre&gt;
+
+&lt;p&gt;However, I find this process tedious, so instead I wrote a quick python script which can be used with an [experimental gdb built with python scripting support][2].&lt;/p&gt;
+
+&lt;p&gt;So here is the script:&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;import gdb
+class FreeBSD_ReloadModuleSymbols (gdb.Command):
+    &#34;Reloads the symbol files for all loaded kernel modules&#34;
+
+    def __init__ (self):
+        super (FreeBSD_ReloadModuleSymbols, self).__init__ (&#34;reload-freebsd-module-symbols&#34;,
+            gdb.COMMAND_FILES,
+            gdb.COMPLETE_NONE)
+
+    def invoke (self, arg, from_tty):
+        link = gdb.parse_and_eval(&#34;linker_files-&amp;gt;tqh_first&#34;)
+        while link != 0:
+            print link[&#39;filename&#39;].string()
+            if link[&#39;filename&#39;].string() != &#34;kernel&#34;:
+                gdb.execute( &#34;add-symbol-file &#34; + 
+                    link[&#39;pathname&#39;].string() + &#34; &#34; +  
+                    str(link[&#39;address&#39;].address()) )
+            link = link[&#39;link&#39;][&#39;tqe_next&#39;]
+
+FreeBSD_ReloadModuleSymbols ()
+&lt;/pre&gt;
+
+&lt;p&gt;You load this by running the following command in GDB:&lt;/p&gt;
+
+&lt;pre&gt;source freebsd_load_modules.py&lt;/pre&gt;
+
+&lt;p&gt;Then the command &amp;#8220;reload-freebsd-module-symbols&amp;#8221; is magically added to GDB. Running this command will parse the linker table inside the FreeBSD kernel, determine which modules are loaded, and attempt to load their symbols.&lt;/p&gt;
+
+&lt;p&gt;[2]: &lt;a href=&#34;http://sourceware.org/gdb/wiki/PythonGdb&#34;&gt;http://sourceware.org/gdb/wiki/PythonGdb&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

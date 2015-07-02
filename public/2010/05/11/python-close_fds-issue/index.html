@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Python close_fds issue</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo"/>
+  <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
+  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  
+  
+    
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-136478-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+</head>
+<body>
+
+<div id = "wrapper">
+
+  <div class="navbar navbar-default" role="navigation">
+      <div class="container">
+
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="navbar-brand">
+            <a href="http://bramp.net/blog">
+              <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
+            </a>
+            <div>
+              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+
+              <div id="social-wrapper">
+              
+                <a href="https://twitter.com/@TheBramp"><i class="fa fa-twitter-square"></i></a>
+              
+              
+                <a href="https://www.linkedin.com/in/bramp"><i class="fa fa-linkedin-square"></i></a>
+              
+              
+                <a href="https://www.facebook.com/bramp"><i class="fa fa-facebook-square"></i></a>
+              
+                <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
+              
+                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+             </div>
+            </div>
+          </div>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
+            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
+            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
+            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
+            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+     <div class="container main">
+
+
+  <div id="article">
+   <h1>Python close_fds issue</h1>
+   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2010-05-11</small> 425 words</p> <hr/>
+   <div class="post">
+     <p>So I spent the better part of my evening trying to track down a bug, which turns out to be a &#8220;feature&#8221; of python.</p>
+
+<p>I had just installed the <a href="http://trac-hacks.org/wiki/GitPlugin">GitPlugin</a> for <a href="http://trac.edgewall.org/">trac</a> but I started to experience problems. When browsing the source inside trac it was taking over 30seconds to load the page and sometimes it would fail completely. A lot of searching didn&#8217;t help much, so I attempted to debug the problem myself. The first thing I noticed was Apache was taking 100% of the processor for a good 30seconds. I attached <a href="http://en.wikipedia.org/wiki/Strace">strace</a> to it and saw something like this:</p>
+
+<pre>[pid 22682] close(43029)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43030)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43031)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43032)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43033)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43034)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43035)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43036)                = -1 EBADF (Bad file descriptor)
+</pre>
+
+<p>This obviously didn&#8217;t look good! After some tinkering I found the problem went away when I ran trac <a href="http://trac.edgewall.org/wiki/TracStandalone">standalone</a>, instead of using <a href="http://www.modpython.org/">mod_python</a> or <a href="http://en.wikipedia.org/wiki/FastCGI">fcgi</a>. This turned out to be a bit of a red herring because I spent my time trying to figure out what was different between a standalone executable and one being run inside Apache.</p>
+
+<p>After playing around with environment variables, I gave up and attempted to printf debug the trac git plugin. I found that the actual call to git was taking on the order of seconds, whereas calling it myself from the command took milliseconds. The line of code (in PyGIT.py) looked a bit like this:</p>
+
+<pre class="prettyprint">p = Popen(self.__build_git_cmd(git_cmd, *cmd_args), stdin=None, 
+        stdout=PIPE, stderr=PIPE, close_fds=True)
+</pre>
+
+<p>Now, when I removed the close_fds argument the problems went away! After some more digging I found this <a href="http://bugs.python.org/issue8052">bug report</a> which describes the behaviour of close_fds. Python will spin in a tight loop calling close for all possible valid fd number. WTF! You can see the python <a href="http://svn.python.org/projects/python/tags/r311/Lib/subprocess.py">code here</a>:</p>
+
+<pre class="prettyprint">def _close_fds(self, but):
+            os.closerange(3, but)
+            os.closerange(but + 1, MAXFD)
+</pre>
+
+<p>So the simple fix to this was to remove the close_fds, so that Python doesn&#8217;t stupidly spin calling close(). I suspect the reason I only noticed this when running inside Apache, is because Apache must have a larger MAXFD. Hopefully in the future Python will change this behaviour and find a more sensible way to close all file descriptors, especially when I read this [bug report][9] which advises changing close_fds default to true.</p>
+
+<p>[9]: <a href="http://bugs.python.org/issue7213">http://bugs.python.org/issue7213</a></p>
+
+   </div>
+ </div>
+
+
+ <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
+ <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+ <ul class="pager">
+      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/">&larr; Android Linux SDK revision 6 aapt library bug</a></li>
+      &nbsp;<li class="next"><a href="http://bramp.net/blog/2010/05/07/humble-indie-bundle-md5sums/"> Humble Indie Bundle md5sums &rarr;</a></li>
+</ul>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost" || window.location.port == 1313) 
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = '';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    <footer>
+        <p class="text-muted credit">&copy; 2015. All rights reserved. </p>
+    </footer>
+
+    </div> 
+    </div> 
+
+	
+    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
+    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

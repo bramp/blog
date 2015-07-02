@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Talk on bramp.net</title>
+    <link>http://bramp.net/blog/tags/talk/</link>
+    <description>Recent content in Talk on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Wed, 04 Feb 2009 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/talk/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>A Practical Introduction to Version Control Systems</title>
+      <link>http://bramp.net/blog/2009/02/04/a-practical-introduction-to-version-control-systems/</link>
+      <pubDate>Wed, 04 Feb 2009 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2009/02/04/a-practical-introduction-to-version-control-systems/</guid>
+      <description>&lt;p&gt;Today I presented a CAKES talk in our department to help teach people about version control systems. I hope by sharing my knowledge on a subject, that others will share theirs. Below is the abstract and slides for my tak:&lt;/p&gt;
+
+&lt;p&gt;This talk aims to explain what version control systems (VCS) also known as source control management (SCM) are, how they work, and how to use them. This includes explaining why you should use VCS for your every day projects, even if they don&amp;#8217;t include any source code. The differences between the main two classes of VCS; centralised and decentralised systems will be discussed, outlining both their benefits and disadvantages. This presentation will give you practical knowledge to start using systems such as subversion (SVN) or git, as well as many example use cases. Bottom line is that using a VCS can help you keep your work organised, backed up, revertible, whilst allowing contributions from multiple users. This talk is for anyone that has heard about CVS/SVN/git but was never quite sure what it was, or how to use it.&lt;/p&gt;
+
+&lt;p&gt;[Download Slides][1]&lt;/p&gt;
+
+&lt;p&gt;[1]: /projects/version_control.pdf&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Install on bramp.net</title>
+    <link>http://bramp.net/blog/tags/install/</link>
+    <description>Recent content in Install on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Mon, 01 Sep 2008 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/install/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ASUS X56Se Linux</title>
+      <link>http://bramp.net/blog/2008/09/01/asus-x56se-linux/</link>
+      <pubDate>Mon, 01 Sep 2008 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2008/09/01/asus-x56se-linux/</guid>
+      <description>&lt;p&gt;My girlfriend just purchased a &lt;a href=&#34;http://www.ebuyer.com/product/147001&#34;&gt;ASUS X56Se from eBuyer&lt;/a&gt; and I wanted to install Linux on it.&lt;/p&gt;
+
+&lt;p&gt;If you google for this laptop you won&amp;#8217;t find many pages about it, in fact I could find no information about the laptop on all of ASUS&amp;#8217;s website. However, there is the &lt;a href=&#34;http://www.asus.com/products.aspx?l1=5&amp;amp;l2=74&amp;amp;l3=604&amp;amp;l4=0&amp;amp;model=2109&amp;amp;modelmenu=1&#34;&gt;ASUS M51Se&lt;/a&gt; which looks very similar in the photographs. I&amp;#8217;ve even &lt;a href=&#34;http://vip.asus.com/forum/view.aspx?board_id=3&amp;amp;model=X53Se&amp;amp;id=20080831051338546&amp;amp;page=1&amp;amp;SLanguage=en-us&#34;&gt;asked on the ASUS forums&lt;/a&gt; if anyone know more information.&lt;/p&gt;
+
+&lt;p&gt;Using Vista (which was pre-installed) I was able to get this list of hardware, which should help me with the installation process:&lt;/p&gt;
+
+&lt;pre&gt;Atheros L1 Gigabit Ethernet
+Intel Wireless 3945ABG
+JMicron JMB36X
+ATI Mobility Radeon HD 3470
+Intel ICH8
+Intel(R) 82801HBM/HEM I/O controller hub (ICH8M) SATA Controller
+Intel ICH8M Ultra ATA Storage Controller 2850
+Realtek HD Audio
+Intel(R) GM965 Express Chipset
+Intel 82GM965 Memory Controller
+Intel(R) 965GM Graphics And Memory Controller Hub(GMCH)
+&lt;/pre&gt;
+
+&lt;p&gt;Regardless of knowing if Linux would install or not, I went ahead and tried [Debian lenny beta 2][4]. However, as it was booting it would crash and fill the screen with &amp;#8220;pretty&amp;#8221; colours. I then tried a old Debian disc I had lying around, then a new and old Ubuntu disk, and all these failed to load. So then I tried different kernel options, and eventually I found this command worked:&lt;/p&gt;
+
+&lt;pre&gt;acpi=off&lt;/pre&gt;
+
+&lt;p&gt;To make it clear, at the Debian boot menu for the installer, you select &amp;#8220;Install&amp;#8221;, but then press tab instead of enter. Then select the 2nd line, press e, and then type the command on the very end. After this press enter, then b to boot the installer.&lt;/p&gt;
+
+&lt;p&gt;This command disables most power management controls, but at least allows Linux to be installed and boot. Here comes the next problem, X won&amp;#8217;t start. When X attempts to start it again dies either with pretty colours, or with just a full black screen. I haven&amp;#8217;t finished debugging this, but I&amp;#8217;ve tried the Radeon driver, the Radeonhd driver, and the official ATI fglrx.&lt;/p&gt;
+
+&lt;p&gt;[4]: &lt;a href=&#34;http://www.debian.org/devel/debian-installer/&#34;&gt;http://www.debian.org/devel/debian-installer/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Create Bootable Windows Server 2008 USB Stick</title>
+      <link>http://bramp.net/blog/2008/06/23/create-bootable-windows-server-2008-usb-stick/</link>
+      <pubDate>Mon, 23 Jun 2008 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2008/06/23/create-bootable-windows-server-2008-usb-stick/</guid>
+      <description>&lt;p&gt;I recently had the need to install Windows Server 2008 from a USB stick. This was because I didn&amp;#8217;t have a working DVD drive to hand. I found a couple of &lt;a href=&#34;http://blogs.dirteam.com/blogs/sanderberkouwer/archive/2008/05/01/installing-windows-server-2008.aspx&#34;&gt;tutorials&lt;/a&gt; &lt;a href=&#34;http://www.jesscoburn.com/archives/2007/10/15/installing-windows-2008-via-usb-thumbdrive/&#34;&gt;online&lt;/a&gt; explaining how to create the disk. They generally explained this technique:&lt;/p&gt;
+
+&lt;pre&gt;C:\&gt; diskpart
+
+DISKPART&gt; list disk
+
+     Select the USB device from the list and substitute the disk number below
+     when necessary
+
+DISKPART&gt; select disk 1
+DISKPART&gt; clean
+DISKPART&gt; create partition primary
+DISKPART&gt; select partition 1
+DISKPART&gt; active
+DISKPART&gt; format fs=fat32
+DISKPART&gt; assign
+DISKPART&gt; exit
+
+xcopy X:\*.* /s/e/f Y:\
+
+     where X:\ is your mounted image or physical DVD and Y:\ is your USB
+     device
+&lt;/pre&gt;
+
+&lt;p&gt;However it appears diskpart is unable to see USB sticks under Windows XP. I have later tried on Vista and this limitation appears removed. But for those using Windows XP I have found an alternative method.&lt;/p&gt;
+
+&lt;p&gt;Firstly find the bootsect.exe tool on the Windows Server disc (in the boot directory). Then run this command where U is the drive letter of the USB stick.&lt;/p&gt;
+
+&lt;pre&gt;D:\boot&gt; bootsect.exe /nt60 U:
+&lt;/pre&gt;
+
+&lt;p&gt;Now copy all the files from the Windows Server disc onto the USB stick. This can be done by dragging in the GUI or using the xcopy method shown previously.&lt;/p&gt;
+
+&lt;p&gt;I have yet to repeat this procedure and I might have previous partitioned or formatted my USB stick in a unique way. So if this method doesn&amp;#8217;t work [drop me a mail][3] and I&amp;#8217;ll see what I can do.&lt;/p&gt;
+
+&lt;p&gt;[3]: /about/#contact&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

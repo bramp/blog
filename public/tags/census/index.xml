@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Census on bramp.net</title>
+    <link>http://bramp.net/blog/tags/census/</link>
+    <description>Recent content in Census on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Mon, 31 Oct 2011 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/census/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>2010 Census TIGER/Line&lt;sup&gt;®&lt;/sup&gt; Shapefiles Code Names</title>
+      <link>http://bramp.net/blog/2011/10/31/2010-census-tiger/linesup/sup-shapefiles-code-names/</link>
+      <pubDate>Mon, 31 Oct 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2011/10/31/2010-census-tiger/linesup/sup-shapefiles-code-names/</guid>
+      <description>&lt;p&gt;I&amp;#8217;ve been playing with the Tiger shapefiles to generate some interesting plots. While doing this I kept wondering what all the [different geographies][1] were. I couldn&amp;#8217;t find a single concise list, so I made my own (but not yet complete) list from various source of information:&lt;/p&gt;
+
+&lt;dl class=&#34;inline&#34;&gt;
+  &lt;dt&gt;
+    cbsa
+  &lt;/dt&gt;
+  
+  &lt;dd&gt;
+    Metropolitan/Micropolitan Statistical Area
+  &lt;/dd&gt;
+  
+  &lt;dt&gt;
+    bg
+  &lt;/dt&gt;
+  
+  &lt;dd&gt;
+    Block Group
+  &lt;/dd&gt;
+  
+  &lt;dt&gt;
+    csa
+  &lt;/dt&gt;
+  
+  &lt;dd&gt;
+    Combined Statistical Area
+  &lt;/dd&gt;
+  
+  &lt;dt&gt;
+    cd
+  &lt;/dt&gt;
+  
+  &lt;dd&gt;
+    Congress Districts
+  &lt;/dd&gt;
+  
+  &lt;dt&gt;
+    state
+  &lt;/dt&gt;
+  
+  &lt;dd&gt;
+    State
+  &lt;/dd&gt;
+  
+  &lt;dt&gt;
+    county
+  &lt;/dt&gt;
+  
+  &lt;dd&gt;
+    County
+  &lt;/dd&gt;
+  
+  &lt;dt&gt;
+    cnecta
+  &lt;/dt&gt;
+  
+  &lt;dd&gt;
+    Combined New England City and Town Area
+  &lt;/dd&gt;
+  
+  &lt;dt&gt;
+    necta
+  &lt;/dt&gt;
+  
+  &lt;dd&gt;
+    New England City and Town Area
+  &lt;/dd&gt;
+  
+  &lt;dt&gt;
+    elsd
+  &lt;/dt&gt;
+  
+  &lt;dd&gt;
+    Elementary School District
+  &lt;/dd&gt;
+  
+  &lt;dt&gt;
+    scsd
+  &lt;/dt&gt;
+  
+  &lt;dd&gt;
+    Secondary School District
+  &lt;/dd&gt;
+  
+  &lt;dt&gt;
+    unsd
+  &lt;/dt&gt;
+  
+  &lt;dd&gt;
+    Unified School District
+  &lt;/dd&gt;
+  
+  &lt;dt&gt;
+    sldl
+  &lt;/dt&gt;
+  
+  &lt;dd&gt;
+    State Legislative District Lower Chamber
+  &lt;/dd&gt;
+  
+  &lt;dt&gt;
+    sldu
+  &lt;/dt&gt;
+  
+  &lt;dd&gt;
+    State Legislative District Upper Chamber
+  &lt;/dd&gt;
+  
+  &lt;dt&gt;
+    submcd
+  &lt;/dt&gt;
+  
+  &lt;dd&gt;
+    Subminor Civil Division
+  &lt;/dd&gt;
+  
+  &lt;dt&gt;
+    vtd
+  &lt;/dt&gt;
+  
+  &lt;dd&gt;
+    Voting Districting
+  &lt;/dd&gt;
+  
+  &lt;dt&gt;
+    zcta5
+  &lt;/dt&gt;
+  
+  &lt;dd&gt;
+    ZIP Code Tabulation Areas
+  &lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;div style=&#34;clear: both&#34;&gt;
+&lt;/div&gt;
+
+&lt;p&gt;More to be added later, as well as some tools for processing Tiger 2010.&lt;/p&gt;
+
+&lt;p&gt;[1]: &lt;a href=&#34;ftp://ftp2.census.gov/geo/tiger/TIGER2010/&#34;&gt;ftp://ftp2.census.gov/geo/tiger/TIGER2010/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

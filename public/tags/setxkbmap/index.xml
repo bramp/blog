@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Setxkbmap on bramp.net</title>
+    <link>http://bramp.net/blog/tags/setxkbmap/</link>
+    <description>Recent content in Setxkbmap on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Fri, 19 Mar 2010 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/setxkbmap/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>VMWare breaks shift key</title>
+      <link>http://bramp.net/blog/2010/03/19/vmware-breaks-shift-key/</link>
+      <pubDate>Fri, 19 Mar 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2010/03/19/vmware-breaks-shift-key/</guid>
+      <description>&lt;p&gt;I came into my office today to find that my keyboard would no longer type capital letters. The shift, caps lock, and even num lock keys seemed to be broken. After a quick WTF &lt;a href=&#34;http://www.evolution-systems.co.uk/blogs/matt/view_post&amp;amp;id=37/&#34;&gt;it was pointed out to me&lt;/a&gt; that VMWare occasionally does this to Linux machines. Thanks to [Matt][2] who showed me a quick solution. In a terminal just type:&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;setxkbmap&lt;/pre&gt;
+
+&lt;p&gt;And everything should be back to normal. After using VMWare on Linux for a couple of years I&amp;#8217;ve never encountered this problem!&lt;/p&gt;
+
+&lt;p&gt;[2]: &lt;a href=&#34;http://twitter.com/bigkebabman&#34;&gt;http://twitter.com/bigkebabman&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

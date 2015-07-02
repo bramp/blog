@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Windows on bramp.net</title>
+    <link>http://bramp.net/blog/tags/windows/</link>
+    <description>Recent content in Windows on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Thu, 23 Sep 2010 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/windows/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>UTF-8 Directory Listing</title>
+      <link>http://bramp.net/blog/2010/09/23/utf-8-directory-listing/</link>
+      <pubDate>Thu, 23 Sep 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2010/09/23/utf-8-directory-listing/</guid>
+      <description>&lt;p&gt;I had a need to create a directory listing with all the UTF-8 characters intact. This seems quite a chore on Windows, as doing anything via the shell seems to mangle the characters and show ???? instead of the real characters. For example, both the built in &lt;strong&gt;dir&lt;/strong&gt; and Cygwin &lt;strong&gt;ls&lt;/strong&gt; or &lt;strong&gt;find&lt;/strong&gt; seemed affected. This turns out to be a [limitation in the windows shell][1].&lt;/p&gt;
+
+&lt;p&gt;To solve this problem I wrote a bit of python to read the file names in full UTF-8 and output the results directly to a file (and not via a pipe, which would again be via the shell). The resulting very simple script is as follows:&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;import os
+import codecs
+
+log = codecs.open(&#39;listing&#39;, mode=&#39;w&#39;, encoding=&#34;utf-8&#34;)
+
+for root, dirs, files in os.walk(u&#39;.&#39;):
+    log.write(root + u&#34;\n&#34;)
+
+    for file in sorted(files):
+        log.write(os.path.join(root, file) + u&#34;\n&#34;)
+
+log.close()
+
+&lt;/pre&gt;
+
+&lt;p&gt;[1]: &lt;a href=&#34;http://stackoverflow.com/questions/379240/is-there-a-windows-command-shell-that-will-display-unicode-characters&#34;&gt;http://stackoverflow.com/questions/379240/is-there-a-windows-command-shell-that-will-display-unicode-characters&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Converting MBR to GPT without deleting your partitions</title>
+      <link>http://bramp.net/blog/2010/08/30/converting-mbr-to-gpt-without-deleting-your-partitions/</link>
+      <pubDate>Mon, 30 Aug 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2010/08/30/converting-mbr-to-gpt-without-deleting-your-partitions/</guid>
+      <description>&lt;p&gt;Today I tired to convert my Windows 2TB RAID disk from a &lt;a href=&#34;http://en.wikipedia.org/wiki/Master_boot_record&#34;&gt;master boot record&lt;/a&gt; (MBR) layout to a &lt;a href=&#34;http://en.wikipedia.org/wiki/GUID_Partition_Table&#34;&gt;GUID partition table&lt;/a&gt; (GPT) one. The reason I wanted to swap is that GPT supports partitions larger than 2TB. Normally it is easy to convert a MBR disk to a GPT one by &lt;a href=&#34;http://technet.microsoft.com/en-us/library/cc738416(WS.10).aspx&#34;&gt;using the Disk Management GUI&lt;/a&gt;. However, Microsoft do not allow you to convert you disk if you have any partitions on the disk.&lt;/p&gt;
+
+&lt;p&gt;After some searching I found that you could &lt;a href=&#34;https://bbs.archlinux.org/viewtopic.php?id=62984&#34;&gt;convert the disk non-destructively on Linux&lt;/a&gt;, but due to various reasons, my RAID &lt;a href=&#34;http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=411172&#34;&gt;does not work&lt;/a&gt; inside my Debian Linux &lt;img src=&#34;http://bramp.net/blog/wp-includes/images/smilies/icon_sad.gif&#34; alt=&#34;:(&#34; class=&#34;wp-smiley&#34; /&gt; I had also read a &lt;a href=&#34;http://www.rodsbooks.com/gdisk/mbr2gpt.html&#34;&gt;document outlining how to the conversion works&lt;/a&gt;, and it seems such a simple process I was surprised that Microsoft didn&amp;#8217;t support it.&lt;/p&gt;
+
+&lt;p&gt;Some more searching and I found a Linux/Windows tool that will convert MBR to GPT quite easily. &lt;a href=&#34;http://sourceforge.net/projects/gptgen/&#34;&gt;Gptgen&lt;/a&gt; is a simple command line tool that seemed to work like a charm. I will quickly outline the steps I took to use it &amp;#8220;safely&amp;#8221;.&lt;/p&gt;
+
+&lt;p&gt;Firstly I identified with disk I wanted to alter. This is done by looking at which number the disk is in Disk Management. I then quickly tested the tool without writing the changes&lt;/p&gt;
+
+&lt;pre&gt;gptgen.exe \\.\\physicaldrive1&lt;/pre&gt;
+
+&lt;p&gt;This outputted quite a few lines, including the following:&lt;/p&gt;
+
+&lt;pre&gt;Write primary.img to LBA address 0.
+Write secondary.img to LBA address 4395431903.&lt;/pre&gt;
+
+&lt;p&gt;When you don&amp;#8217;t write the changes to disk, gptgen creates two binary files &amp;#8220;primary.img&amp;#8221;, and &amp;#8220;secondary.img&amp;#8221;, which contain what it would have written to disk. The console output from gptgen tells me it would have written primary to &lt;a href=&#34;http://en.wikipedia.org/wiki/Logical_block_addressing&#34;&gt;LBA address&lt;/a&gt; 0, and secondary.img to LBA address 4395431903. So I figured it was a good idea to make a backup of those sections first. To do this I use the [Windows version of the classic tool dd][9]&lt;/p&gt;
+
+&lt;pre&gt;dd if=\\.\\physicaldrive1 of=primary-backup.img bs=512 count=&lt;b&gt;34&lt;/b&gt;&lt;br /&gt;
+dd if=\\.\\physicaldrive1 of=secondary-backup.img bs=512 count=&lt;b&gt;33&lt;/b&gt; skip=&lt;b&gt;4395431903&lt;/b&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;The numbers I&amp;#8217;ve highlighted in bold are ones you might have to change. The first and second relate to the file sizes of primary.img and secondary.img. Find their file sizes and divide them by 512. In my case, primary.img was exactly 17,408 bytes, so 17408 / 512 = 34. Do the same for secondary.img. The final highlighted number is the LBA address shown by gptgen just a minute ago.&lt;/p&gt;
+
+&lt;p&gt;Ok, if you have run dd ok, you should have backups of the two sections it is going to overwrite. Now you can tell gptgen to actually make the changes:&lt;/p&gt;
+
+&lt;pre&gt;gptgen.exe -w \\.\\physicaldrive1&lt;/pre&gt;
+
+&lt;p&gt;That should be it, BUT if you need to (for whatever reason) restore the backups issue these commands:&lt;/p&gt;
+
+&lt;pre&gt;dd if=primary-backup.img   of=\\.\\physicaldrive1 bs=512 count=34
+dd if=secondary-backup.img of=\\.\\physicaldrive1 bs=512 count=33 seek=4395431903
+&lt;/pre&gt;
+
+&lt;p&gt;(notice how the &amp;#8220;if&amp;#8221; and &amp;#8220;of&amp;#8221; arguments have swapped, and the word &amp;#8220;skip&amp;#8221; has changed to &amp;#8220;seek&amp;#8221;.)&lt;/p&gt;
+
+&lt;p&gt;[9]: &lt;a href=&#34;http://www.chrysocome.net/dd&#34;&gt;http://www.chrysocome.net/dd&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Humble Indie Bundle md5sums</title>
+      <link>http://bramp.net/blog/2010/05/07/humble-indie-bundle-md5sums/</link>
+      <pubDate>Fri, 07 May 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2010/05/07/humble-indie-bundle-md5sums/</guid>
+      <description>&lt;p&gt;I just purchased the &lt;a href=&#34;http://www.wolfire.com/humble&#34;&gt;Humble Indie Bundle&lt;/a&gt;, 5 games which run on Windows, Linux and Mac. They kindly offered md5 hashes, however they weren&amp;#8217;t in a convenient format, so I created a md5sums file.&lt;/p&gt;
+
+&lt;pre&gt;187287db6226ef6a306a4cd0cfa8dd45 *Aquaria111.2008.12.12.exe
+8b24ddeeb553e028bbd501102f891cc2 *aquaria-lnx-humble-bundle.mojo.run
+336d89eb431e0b00535a2b50146c579d *WorldOfGooSetup.1.30.exe
+f5afa40893d0fbcc37885191404f6d8c *WorldOfGooSetup.1.41.tar.gz
+b373132f6e78665f1076752b038a8218 *gish153-1.tar.gz
+94e82d53e2104914f19ec97f7cf5da42 *gish1531.zip
+41ea2e41fe42c40b5ad017ae1afb45c7 *lugaru-full-linux-x86-1.0c.bin
+d40d4076ed3ffa2a9bc9913202c55a06 *lugaru-windows.zip
+56060bb550e0cd7e90bc7bc60d7c4c23 *penumbra_overture_1.1.exe
+539567b590cf53e65a8e8f1b2bc728b3 *penumbra_overture_1.1.sh
+&lt;/pre&gt;
+
+&lt;p&gt;and for those that prefer sha1:&lt;/p&gt;
+
+&lt;pre&gt;ec8fd66bb44c6f67eab40f73e57838dcb5e2f4dd *Aquaria111.2008.12.12.exe
+48267967b3a57fb406fa6545261f8b758edb8fb5 *aquaria-lnx-humble-bundle.mojo.run
+70fad514746d6fc482fc3d681a7e9d498374bdad *WorldOfGooSetup.1.30.exe
+4f7202a4ac17dd1665a1ab7f90153e5b813e16f1 *WorldOfGooSetup.1.41.tar.gz
+27b862939b6a01c29b1b146ed1307c0027217855 *gish153-1.tar.gz
+7a1341822d4d4e0010cc1e8cce68da6bb02ea904 *gish1531.zip
+2349bdea3d595c3aaedca0810229d12f96323874 *lugaru-full-linux-x86-1.0c.bin
+73f09414e0cabd371802eea1b9c75c76522c5934 *lugaru-windows.zip
+557c6988eda16c6269d09a35031fd1754e042c02 *penumbra_overture_1.1.exe
+e115f7cfcf9710d7aa5b2a5a9186b3736bb55cf2 *penumbra_overture_1.1.sh
+&lt;/pre&gt;
+
+&lt;p&gt;Note, these were correct and validated on the 8th of May, however, if any of the files have been updated the hashes might no longer much. Feel free to [contact me][2] to tell me if this happens.&lt;/p&gt;
+
+&lt;p&gt;[2]: &lt;a href=&#34;http://bramp.net/blog/about-me#contact&#34;&gt;http://bramp.net/blog/about-me#contact&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Threadnetperf v1.0</title>
+      <link>http://bramp.net/blog/2009/06/01/threadnetperf-v1.0/</link>
+      <pubDate>Mon, 01 Jun 2009 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2009/06/01/threadnetperf-v1.0/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; I&amp;#8217;ve now put this project on &lt;a href=&#34;http://github.com/bramp/threadnetperf&#34;&gt;github&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Today I am proud to announce that I&amp;#8217;m releasing a tool I&amp;#8217;ve used privately for well over a year now. It is a multi-threaded network testing tool which gives the user great control over how many connections, threads and processes the tool uses, and which CPU cores the threads/processes are allowed to execute on.&lt;/p&gt;
+
+&lt;p&gt;Currently the tool runs on Linux, FreeBSD, and Windows, and has performance as good as (if not better) than other similar tools, such as netperf, iperf, but with the added flexibility. Additionally, Threadnetperf has been completely written from scratch in C, using modern programming techniques and APIs (such as ePoll on Linux) which ensures the program runs as far as possible with minimal overheads.&lt;/p&gt;
+
+&lt;p&gt;You can download the source here, which contains instructions on how to build it.&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;[threadnetperf.r2713.tar.bz2][2] &amp;#8211; 31,087 bytes.&lt;/p&gt;
+
+&lt;p&gt;So that you get an extra idea of it&amp;#8217;s features here is the README.txt&lt;/p&gt;
+
+&lt;pre&gt;****** Threadnetperf ******
+A multi-threaded network benchmark tool
+ by  Andrew Brampton (2007-2009)
+ and Mathew Faulkner (2007-2009)
+
+Threadnetperf is a highly customisable high performance network benchmarking
+tool. The key difference from previous tools is that the user is able to control
+how many threads threadnetperf uses, as well as which cores these threads are
+pinned to. This tool was useful in our research for measuring the effect of
+sending or receiving from one core, and having the OS network stack run on
+another core. Additionally the tool can be configured to use an unlimited number
+of connections, threads or processes, which scale considerably well due to the
+use of the epoll API.
+
+Threadnetperf has previously worked on Windows, Linux, and FreeBSD, however, we
+do not test it very rigorously so one of these platforms may be broken. All
+patches are welcome.
+
+To build on a *nix style system just use the simple &#34;Makefile&#34; by executing the
+command &#34;make&#34; or &#34;gmake&#34;. To build on Windows just use the provided
+threadnetperf.2008.sln file.
+
+All the commands of Threadnetperf are documented within the application, but a
+quick overview is here:
+
+Usage: threadnetperf [options] tests
+Usage: threadnetperf -D [options]
+       -c level,interval   Confidence level, must be 95 or 99
+       -D         Use daemon mode (wait for incoming tests)
+       -d time    Set duration to run the test for
+       -e         Eat the data (i.e. dirty it)
+       -H host    Set the remote host(and port) to connect to
+       -h         Display this help
+       -i min,max Set the minimum and maximum iterations
+       -m [t,p]   What programming model to use, [thread or process]
+       -n         Disable Nagle&#39;s algorithm (e.g no delay)
+       -p port    Set the port number for the first server thread to use
+       -s size    Set the send/recv size
+       -T         Timestamp packets, and measure latency (only on *nix)
+       -t         Use TCP
+       -r         Packets per second rate (default: ~0)
+       -u         Use UDP
+       -v         Verbose
+       -V         Display version only
+
+       tests      Combination of cores and clients
+       tests      Core numbers are masks, for example 1 is core 0, 3 is core 0
+and core 1
+               N{c-s}   N connections
+                        c client cores mask
+                        s server cores mask
+
+You can run tests locally, or across two machines. Here are some examples:
+
+    threadnetperf -n -s 10000 1{1-1}
+
+Will run a local TCP test, with Nagle&#39;s algorithm disabled, a send size of
+10,000, and 1 TCP connection between cores 0 and 0.
+
+    threadnetperf 10{1-1} 10{2-2} 10{4-4}
+
+Will again run a local TCP test, however this time 10 connection from core 0 to
+core 0, 10 connections from core 1 to core 1, and 10 connections from core 2 to
+core 2
+
+To run across a network just start the threadnetperf daemon on one of the
+machines like so:
+
+     threadnetperf -D
+
+and on the other machine execute:
+
+     threadnetperf -H serverIP 1{1-2}
+
+which will conduct a TCP test from the client to the server, with one thread
+executing on client&#39;s core 0, and the server&#39;s core 1.
+
+There is no need to give the threadnetperf daemon any options, as the options
+configured on the server will be passed over the network. This make running many
+tests very easy as the daemon will continue to wait for new tests until it is
+told otherwise.
+
+If you find this tool useful, or you have any suggestions for improvements then
+please contact us.
+&lt;/pre&gt;
+
+&lt;p&gt;[2]: /threadnetperf/threadnetperf.r2713.tar.bz2&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

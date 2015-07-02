@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Verizon on bramp.net</title>
+    <link>http://bramp.net/blog/tags/verizon/</link>
+    <description>Recent content in Verizon on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Thu, 25 Nov 2010 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/verizon/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Verizon FiOS MI424WR rev. F Router</title>
+      <link>http://bramp.net/blog/2010/11/25/verizon-fios-mi424wr-rev.-f-router/</link>
+      <pubDate>Thu, 25 Nov 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2010/11/25/verizon-fios-mi424wr-rev.-f-router/</guid>
+      <description>&lt;p&gt;I just got a FiOS wifi router and I must say I really like it. The web interface has many more options than any home router I&amp;#8217;ve ever played with, and it seems like it&amp;#8217;d be easy for a beginner but doesn&amp;#8217;t get in the way of an expert. It also telnet access (optionally over SSL), which puts you into a custom shell. Poking around the commands I find one awesome one:&lt;/p&gt;
+
+&lt;pre&gt;Wireless Broadband Router&gt; help system shell
+shell   Spawn busybox shell in foreground
+
+Wireless Broadband Router&gt; system shell
+BusyBox v1.01 (2005.09.07-07:38+0000) Built-in shell (lash)
+Enter &#39;help&#39; for a list of built-in commands.
+
+/ # 
+&lt;/pre&gt;
+
+&lt;p&gt;This is very clearly running Linux, with BusyBox. For those interested here are some interesting bits of information:&lt;/p&gt;
+
+&lt;pre&gt;/ # cat /proc/version 
+Linux version 2.6.16.14 #1 SMP Sat Nov 28 00:38:50 PST 2009
+&lt;/pre&gt;
+
+&lt;p&gt;A four year old kernel. Well what do you expect from this kind of device &lt;img src=&#34;http://bramp.net/blog/wp-includes/images/smilies/icon_smile.gif&#34; alt=&#34;:)&#34; class=&#34;wp-smiley&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;/ # cat /proc/cpuinfo 
+system type     : MC524WR
+processor       : 0
+cpu model       : Cavium Networks Octeon CN50XX V0.1
+BogoMIPS        : 1000.48
+wait instruction    : yes
+microsecond timers  : yes
+tlb_entries     : 64
+extra interrupt vector  : yes
+hardware watchpoint : yes
+ASEs implemented    :
+VCED exceptions     : not available
+VCEI exceptions     : not available
+processor       : 1
+cpu model       : Cavium Networks Octeon CN50XX V0.1
+BogoMIPS        : 1000.48
+wait instruction    : yes
+microsecond timers  : yes
+tlb_entries     : 64
+extra interrupt vector  : yes
+hardware watchpoint : yes
+ASEs implemented    :
+VCED exceptions     : not available
+VCEI exceptions     : not available
+&lt;/pre&gt;
+
+&lt;p&gt;w00t, a &lt;a href=&#34;http://www.caviumnetworks.com/OCTEON-Plus_CN50XX.html&#34;&gt;Dual Cores 64bit MIPS chip&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;/ # cat /proc/meminfo 
+MemTotal:        53200 kB
+MemFree:         11588 kB
+Buffers:          9252 kB
+Cached:           9228 kB
+SwapCached:          0 kB
+Active:           7796 kB
+Inactive:        16220 kB
+HighTotal:           0 kB
+HighFree:            0 kB
+LowTotal:        53200 kB
+LowFree:         11588 kB
+SwapTotal:           0 kB
+SwapFree:            0 kB
+Dirty:               0 kB
+Writeback:           0 kB
+Mapped:          11272 kB
+Slab:            13700 kB
+CommitLimit:     26600 kB
+Committed_AS:    11384 kB
+PageTables:        196 kB
+VmallocTotal: 1073741824 kB
+VmallocUsed:      2752 kB
+VmallocChunk: 1073738692 kB
+HugePages_Total:     0
+HugePages_Free:      0
+Hugepagesize:     2048 kB
+&lt;/pre&gt;
+
+&lt;p&gt;Only ~53MB of RAM if I&amp;#8217;m reading that right. Seems most likely to be 64MB to me, but I will investigate further.&lt;/p&gt;
+
+&lt;p&gt;Also, as this is Linux, the &lt;a href=&#34;http://opensource.actiontec.com/#bhr&#34;&gt;source code&lt;/a&gt; has been made available. The [README][3] reveals it is a MC524 Router (MI424WR-GEN2 REV E/F).&lt;/p&gt;
+
+&lt;p&gt;The device doesn&amp;#8217;t seem to have many of the standard Linux tools, no doubt to save space. It does however have an external USB port. My plan is to compile more of busybox, as well as some other binaries, and run them from an external USB stick.&lt;/p&gt;
+
+&lt;p&gt;Hacking an router has never been so easy! I&amp;#8217;ll post more when I know more!&lt;/p&gt;
+
+&lt;p&gt;[3]: &lt;a href=&#34;http://opensource.actiontec.com/mi1424wr/MI424WR-FW-20.10.7.5-README&#34;&gt;http://opensource.actiontec.com/mi1424wr/MI424WR-FW-20.10.7.5-README&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

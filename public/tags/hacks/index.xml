@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hacks on bramp.net</title>
+    <link>http://bramp.net/blog/tags/hacks/</link>
+    <description>Recent content in Hacks on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Mon, 24 May 2010 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/hacks/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Fullscreen Hack for Flash 10.1</title>
+      <link>http://bramp.net/blog/2010/05/24/fullscreen-hack-for-flash-10.1/</link>
+      <pubDate>Mon, 24 May 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2010/05/24/fullscreen-hack-for-flash-10.1/</guid>
+      <description>&lt;p&gt;After watching a few hours of &lt;a href=&#34;http://www.channel4.com/programmes/4od&#34;&gt;4oD&lt;/a&gt; today I got annoyed that i couldn&amp;#8217;t do something on one monitor while my other monitor plays full screen flash. The reason, flash will instantly lose full screen if another application gains focus (e.g the web browser on my other monitor.)&lt;/p&gt;
+
+&lt;p&gt;After a bit of googling I found these links &lt;a href=&#34;http://my.opera.com/d.i.z./blog/2009/04/22/watch-fullscreen-flash-while-working-on-another-screen&#34;&gt;&lt;a href=&#34;http://www.channel4.com/programmes/4od&#34;&gt;1&lt;/a&gt;&lt;/a&gt; [&lt;a href=&#34;http://my.opera.com/d.i.z./blog/2009/04/22/watch-fullscreen-flash-while-working-on-another-screen&#34;&gt;2&lt;/a&gt;][3]. However, both of these sites only support flash 9 and flash 10.0, whereas I&amp;#8217;m currently on 10.1.53.38. Additionally the second link mentioned no one has been able to hack this into 10.1, so I instantly recongised a challenge.&lt;/p&gt;
+
+&lt;p&gt;About 4 hours later I figure it out:&lt;/p&gt;
+
+&lt;pre&gt;On win32 open
+C:\Windows\System32\Macromed\Flash\NPSWF32.dll
+
+On win64 open
+C:\Windows\SysWOW64\Macromed\Flash\NPSWF32.dll
+
+or if using Google Chrome (as Chrome now comes with the Flash plugin) open
+C:\Users\Andrew\AppData\Local\Google\Chrome\Application\6.0.408.1\gcswf32.dll
+
+or if using Google Chrome on Windows XP:
+C:\Documents and Settings\Andrew\Local Settings\Application Data\Google\Chrome\Application\6.0.408.1
+&lt;/pre&gt;
+
+&lt;p&gt;On version 10.1.53.38&lt;br /&gt;
+Jump to offset &lt;strong&gt;0&amp;#215;180227&lt;/strong&gt; and change bytes &lt;strong&gt;74 2A&lt;/strong&gt; to &lt;strong&gt;90 90&lt;/strong&gt;, and voila.&lt;/p&gt;
+
+&lt;p&gt;On version 10.1.53.55&lt;br /&gt;
+Jump to offset &lt;strong&gt;0&amp;#215;180410&lt;/strong&gt; and change bytes &lt;strong&gt;74 39&lt;/strong&gt; to &lt;strong&gt;90 90&lt;/strong&gt;, and voila.&lt;/p&gt;
+
+&lt;p&gt;On version 10.1.53.64 (Chrome version &amp;#8211; gcswf32.dll)&lt;br /&gt;
+Jump to offset &lt;strong&gt;0&amp;#215;180753&lt;/strong&gt; and change bytes &lt;strong&gt;74 39&lt;/strong&gt; to &lt;strong&gt;90 90&lt;/strong&gt;, and voila.&lt;/p&gt;
+
+&lt;p&gt;On version 10.1.53.64 (Normal version &amp;#8211; NPSWF32.dll &amp;#8211; thanks Medlir)&lt;br /&gt;
+Jump to offset &lt;strong&gt;0x180A15&lt;/strong&gt; and change bytes &lt;strong&gt;74 39&lt;/strong&gt; to &lt;strong&gt;90 90&lt;/strong&gt;, and voila.&lt;/p&gt;
+
+&lt;p&gt;Thanks to all the commenter who worked this out before me &lt;img src=&#34;http://bramp.net/blog/wp-includes/images/smilies/icon_smile.gif&#34; alt=&#34;:)&#34; class=&#34;wp-smiley&#34; /&gt;&lt;br /&gt;
+On version 10.1.82.76 (Chrome version &amp;#8211; gcswf32.dll)&lt;br /&gt;
+Jump to offset &lt;strong&gt;0x180FAF&lt;/strong&gt; and change bytes &lt;strong&gt;74 39&lt;/strong&gt; to &lt;strong&gt;90 90&lt;/strong&gt;, and voila.&lt;/p&gt;
+
+&lt;p&gt;On version 10.1.82.76 (Normal version &amp;#8211; NPSWF32.dll)&lt;br /&gt;
+Jump to offset &lt;strong&gt;0x180AAF&lt;/strong&gt; and change bytes &lt;strong&gt;74 39&lt;/strong&gt; to &lt;strong&gt;90 90&lt;/strong&gt;, and voila.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note this method is unsupported, and will most likely break when Flash gets updated again. It is always a good idea to backup any file first, and make sure you are on the same version as me.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;For the curious this changes some code that looks like this:&lt;/p&gt;
+
+&lt;pre&gt;if (msg == WM_KILLFOCUS)
+  jump to kill_focus
+if (msg == WM_PAINT)
+  jump to paint
+&lt;/pre&gt;
+
+&lt;p&gt;to&lt;/p&gt;
+
+&lt;pre&gt;if (msg == WM_KILLFOCUS)
+  nop nop
+if (msg == WM_PAINT)
+  jump to paint
+&lt;/pre&gt;
+
+&lt;p&gt;and for some context the version 10.1.53.64 surrounding code looked like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;b&gt;74&lt;/b&gt; 39 83 E8 07 &lt;b&gt;74&lt;/b&gt; 11 83 E8 05 &lt;b&gt;75&lt;/b&gt; 13 8B
+&lt;/pre&gt;
+
+&lt;p&gt;The 74s and 75 should be the same between versions, but all the other bytes might change.&lt;/p&gt;
+
+&lt;p&gt;[3]: &lt;a href=&#34;http://jmaxxz.com/index.php?option=com_content&amp;amp;view=article&amp;amp;id=89:flashhacker&amp;amp;catid=16:downloads&amp;amp;Itemid=32&#34;&gt;http://jmaxxz.com/index.php?option=com_content&amp;amp;view=article&amp;amp;id=89:flashhacker&amp;amp;catid=16:downloads&amp;amp;Itemid=32&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

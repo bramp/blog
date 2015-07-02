@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pdo on bramp.net</title>
+    <link>http://bramp.net/blog/tags/pdo/</link>
+    <description>Recent content in Pdo on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Tue, 25 Oct 2011 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/pdo/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>SQLSTATE[HY000]: General error: 2053</title>
+      <link>http://bramp.net/blog/2011/10/25/sqlstatehy000-general-error-2053/</link>
+      <pubDate>Tue, 25 Oct 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2011/10/25/sqlstatehy000-general-error-2053/</guid>
+      <description>&lt;p&gt;I encountered the following odd exception:&lt;/p&gt;
+
+&lt;pre&gt;PHP Fatal error:  Uncaught exception &#39;PDOException&#39; with message &#39;SQLSTATE[HY000]: General error: 2053 &#39; in /home/bramp/my.php:29
+Stack trace:
+#0 /home/bramp/my.php(29): PDOStatement-&gt;fetch(2)
+&lt;/pre&gt;
+
+&lt;p&gt;Searching on Google didn&amp;#8217;t reveal much help, but I eventually figure out the root cause. Spot the mistake:&lt;/p&gt;
+
+&lt;pre&gt;...
+$sql = &#39;SELECT TRIGGER_NAME, TRIGGER_GROUP, JOB_NAME FROM QRTZ_TRIGGERS&#39;;
+$sth = $dbh-&gt;prepare($sql) or die(&#39;Failed to prepare SELECT TRIGGER query&#39;);
+while ($row = $sth-&gt;fetch(PDO::FETCH_ASSOC)) {
+...
+&lt;/pre&gt;
+
+&lt;p&gt;I am missing a&lt;/p&gt;
+
+&lt;pre&gt;$sth-&gt;execute();&lt;/pre&gt;
+
+&lt;p&gt;in between the prepare and the fetch. Easy fix. For reference I&amp;#8217;m using a old version of PHP 5.1.6, and MySQL client 5.0.45.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

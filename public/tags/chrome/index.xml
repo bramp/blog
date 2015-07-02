@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chrome on bramp.net</title>
+    <link>http://bramp.net/blog/tags/chrome/</link>
+    <description>Recent content in Chrome on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Tue, 02 Aug 2011 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/chrome/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Google Chrome Javascript console.log bug?</title>
+      <link>http://bramp.net/blog/2011/08/02/google-chrome-javascript-console.log-bug/</link>
+      <pubDate>Tue, 02 Aug 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2011/08/02/google-chrome-javascript-console.log-bug/</guid>
+      <description>&lt;p&gt;I recently stumbled across this issue while debugging some Javascript. Take the following example code:&lt;/p&gt;
+
+&lt;pre&gt;var array = [1,2,3,4,5,6,7,8,9,10];
+    var i = 0;
+    while(array.length &gt; 0) {
+        console.log(i++, array);
+        //alert(&#34;pause&#34;);
+        array.pop();
+    }
+&lt;/pre&gt;
+
+&lt;p&gt;If you run it in your browser you would expect to see the following printed (in your Javascript console):&lt;/p&gt;
+
+&lt;pre&gt;0 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    1 [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    2 [1, 2, 3, 4, 5, 6, 7, 8]
+    3 [1, 2, 3, 4, 5, 6, 7]
+    4 [1, 2, 3, 4, 5, 6]
+    5 [1, 2, 3, 4, 5]
+    6 [1, 2, 3, 4]
+    7 [1, 2, 3]
+    8 [1, 2]
+    9 [1]
+&lt;/pre&gt;
+
+&lt;p&gt;However, I instead saw:&lt;/p&gt;
+
+&lt;pre&gt;1 []
+    2 []
+    3 []
+    4 []
+    5 []
+    6 []
+    7 []
+    8 []
+    9 []
+&lt;/pre&gt;
+
+&lt;p&gt;The issue seems to be that console.log() does not log straight away. In fact it most likely logs in a background thread for performance reasons. Thus by the time it actually logs the array it has changed. I tested this in Firefox (with Firebug) and it logged everything correctly. I also tried slowing down the loop by adding a alert() call. That fixed the issue at the cost of a popup every iterations.&lt;/p&gt;
+
+&lt;p&gt;What really should happen is either&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;console.log() should block until the logging is complete&lt;/li&gt;
+&lt;li&gt;console.log() should copy all objects to avoid them being changed after log() returns but before they are printed.&lt;/li&gt;
+&lt;li&gt;add a console.flush() and make me aware this race condition could occur.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I filed this as a &lt;a href=&#34;http://code.google.com/p/chromium/issues/detail?id=91303&#34;&gt;bug report&lt;/a&gt; on the Chromium site, but I suspect I should have filed it over at the Webkit site.&lt;/p&gt;
+
+&lt;p&gt;For the moment I came up with a &amp;#8220;fix&amp;#8221;. I copy the array before I log it, so in this case I do the following:&lt;/p&gt;
+
+&lt;pre&gt;console.log(i++, array.slice(0));
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; I previously searched for this bug, but didn&amp;#8217;t find it before writing this article. However, I have just found someone else had [reported][2] it a few days ago:&lt;/p&gt;
+
+&lt;p&gt;[2]: &lt;a href=&#34;http://code.google.com/p/chromium/issues/detail?id=50316&#34;&gt;http://code.google.com/p/chromium/issues/detail?id=50316&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Old school’s not cool.</title>
+      <link>http://bramp.net/blog/2010/06/09/old-schools-not-cool./</link>
+      <pubDate>Wed, 09 Jun 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2010/06/09/old-schools-not-cool./</guid>
+      <description>&lt;p&gt;Google Chrome today pestered me with a message which I thought was quite funny. It reads:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Old school&amp;#8217;s not cool. Google Chrome is woefully out of date because it hasn&amp;#8217;t crashed or restarted in at least two weeks. Restart to apply update.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&#34;figure&#34;&gt;
+  &lt;img src=&#34;http://bramp.net/images/chrome-old-school.jpg&#34; width=&#34;664&#34; height=&#34;411&#34; alt=&#34;Old school&#39;s not cool&#34; /&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

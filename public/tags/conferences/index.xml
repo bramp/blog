@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Conferences on bramp.net</title>
+    <link>http://bramp.net/blog/tags/conferences/</link>
+    <description>Recent content in Conferences on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Mon, 07 Apr 2008 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/conferences/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Networking Conference Calendar</title>
+      <link>http://bramp.net/blog/2008/04/07/networking-conference-calendar/</link>
+      <pubDate>Mon, 07 Apr 2008 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2008/04/07/networking-conference-calendar/</guid>
+      <description>&lt;p&gt;I was thinking about publishing but wanted to know the time frame for different conferences. So I spent a hour and compiled a list at Google Calendars. All the big names are on there, such as Infocom, Sigcomm, ACM Multimedia, CoNext, etc&lt;/p&gt;
+
+&lt;p&gt;Or the full page &lt;a href=&#34;http://www.google.com/calendar/embed?src=9op851c1neqk0qf90pq40s6sss%40group.calendar.google.com&#34;&gt;HTML link&lt;/a&gt;, &lt;a href=&#34;http://www.google.com/calendar/ical/9op851c1neqk0qf90pq40s6sss%40group.calendar.google.com/public/basic.ics&#34;&gt;iCal link&lt;/a&gt;, and [XML link][3].&lt;/p&gt;
+
+&lt;p&gt;I&amp;#8217;m hoping that this will be of use to others, and that I will receive feedback on conference that I&amp;#8217;ve missed.&lt;/p&gt;
+
+&lt;p&gt;[3]: &lt;a href=&#34;http://www.google.com/calendar/feeds/9op851c1neqk0qf90pq40s6sss%40group.calendar.google.com/public/basic&#34;&gt;http://www.google.com/calendar/feeds/9op851c1neqk0qf90pq40s6sss%40group.calendar.google.com/public/basic&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

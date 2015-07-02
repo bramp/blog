@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Last.Fm on bramp.net</title>
+    <link>http://bramp.net/blog/tags/last/index.fm/</link>
+    <description>Recent content in Last.Fm on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Wed, 25 Mar 2009 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/last.fm/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Last.fm’s Boffin &#43; Wordle</title>
+      <link>http://bramp.net/blog/2009/03/25/last.fms-boffin--wordle/</link>
+      <pubDate>Wed, 25 Mar 2009 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2009/03/25/last.fms-boffin--wordle/</guid>
+      <description>&lt;p&gt;Today I catagorigised my music with &lt;a href=&#34;http://last.fm/&#34;&gt;Last.fm&lt;/a&gt;&amp;#8216;s &lt;a href=&#34;http://blog.last.fm/2009/03/11/introducing-boffin-lastfms-music-knowledge-meets-your-mp3-collection&#34;&gt;Boffin&lt;/a&gt;, and then took the resulting list of genres with their respective frequencies and plugged it into [Wordle][3].&lt;/p&gt;
+
+&lt;div class=&#34;figure&#34;&gt;
+  &lt;a href=&#34;http://www.wordle.net/gallery/wrdl/687741/Metal&#34; title=&#34;Wordle: Metal&#34;&gt;&lt;img src=&#34;http://bramp.net/blog/images/metal.pdf.png&#34; alt=&#34;Wordle: Metal&#34; /&gt;&lt;/a&gt;&lt;br /&gt; &lt;br /&gt; &lt;a href=&#34;http://bramp.net/blog/images/metal.pdf&#34;&gt;Also available as a PDF&lt;/a&gt;&lt;br /&gt; The first randomly generated image
+&lt;/div&gt;
+
+&lt;div class=&#34;figure&#34;&gt;
+  &lt;a href=&#34;http://www.wordle.net/gallery/wrdl/687752/Metal_2&#34; title=&#34;Wordle: Metal 2&#34;&gt;&lt;img src=&#34;http://bramp.net/blog/images/metal%202.pdf.png&#34; alt=&#34;Wordle: Metal 2&#34; /&gt;&lt;/a&gt;&lt;br /&gt; &lt;a href=&#34;http://bramp.net/blog/images/metal%202.pdf&#34;&gt;Also available as a PDF&lt;/a&gt;&lt;br /&gt; With a little bit of effort, I then generated this one
+&lt;/div&gt;
+
+&lt;p&gt;[3]: &lt;a href=&#34;http://www.wordle.net/&#34;&gt;http://www.wordle.net/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

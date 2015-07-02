@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Trac on bramp.net</title>
+    <link>http://bramp.net/blog/tags/trac/</link>
+    <description>Recent content in Trac on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Tue, 11 May 2010 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://bramp.net/blog/tags/trac/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Python close_fds issue</title>
+      <link>http://bramp.net/blog/2010/05/11/python-close_fds-issue/</link>
+      <pubDate>Tue, 11 May 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://bramp.net/blog/2010/05/11/python-close_fds-issue/</guid>
+      <description>&lt;p&gt;So I spent the better part of my evening trying to track down a bug, which turns out to be a &amp;#8220;feature&amp;#8221; of python.&lt;/p&gt;
+
+&lt;p&gt;I had just installed the &lt;a href=&#34;http://trac-hacks.org/wiki/GitPlugin&#34;&gt;GitPlugin&lt;/a&gt; for &lt;a href=&#34;http://trac.edgewall.org/&#34;&gt;trac&lt;/a&gt; but I started to experience problems. When browsing the source inside trac it was taking over 30seconds to load the page and sometimes it would fail completely. A lot of searching didn&amp;#8217;t help much, so I attempted to debug the problem myself. The first thing I noticed was Apache was taking 100% of the processor for a good 30seconds. I attached &lt;a href=&#34;http://en.wikipedia.org/wiki/Strace&#34;&gt;strace&lt;/a&gt; to it and saw something like this:&lt;/p&gt;
+
+&lt;pre&gt;[pid 22682] close(43029)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43030)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43031)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43032)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43033)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43034)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43035)                = -1 EBADF (Bad file descriptor)
+[pid 22682] close(43036)                = -1 EBADF (Bad file descriptor)
+&lt;/pre&gt;
+
+&lt;p&gt;This obviously didn&amp;#8217;t look good! After some tinkering I found the problem went away when I ran trac &lt;a href=&#34;http://trac.edgewall.org/wiki/TracStandalone&#34;&gt;standalone&lt;/a&gt;, instead of using &lt;a href=&#34;http://www.modpython.org/&#34;&gt;mod_python&lt;/a&gt; or &lt;a href=&#34;http://en.wikipedia.org/wiki/FastCGI&#34;&gt;fcgi&lt;/a&gt;. This turned out to be a bit of a red herring because I spent my time trying to figure out what was different between a standalone executable and one being run inside Apache.&lt;/p&gt;
+
+&lt;p&gt;After playing around with environment variables, I gave up and attempted to printf debug the trac git plugin. I found that the actual call to git was taking on the order of seconds, whereas calling it myself from the command took milliseconds. The line of code (in PyGIT.py) looked a bit like this:&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;p = Popen(self.__build_git_cmd(git_cmd, *cmd_args), stdin=None, 
+        stdout=PIPE, stderr=PIPE, close_fds=True)
+&lt;/pre&gt;
+
+&lt;p&gt;Now, when I removed the close_fds argument the problems went away! After some more digging I found this &lt;a href=&#34;http://bugs.python.org/issue8052&#34;&gt;bug report&lt;/a&gt; which describes the behaviour of close_fds. Python will spin in a tight loop calling close for all possible valid fd number. WTF! You can see the python &lt;a href=&#34;http://svn.python.org/projects/python/tags/r311/Lib/subprocess.py&#34;&gt;code here&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre class=&#34;prettyprint&#34;&gt;def _close_fds(self, but):
+            os.closerange(3, but)
+            os.closerange(but + 1, MAXFD)
+&lt;/pre&gt;
+
+&lt;p&gt;So the simple fix to this was to remove the close_fds, so that Python doesn&amp;#8217;t stupidly spin calling close(). I suspect the reason I only noticed this when running inside Apache, is because Apache must have a larger MAXFD. Hopefully in the future Python will change this behaviour and find a more sensible way to close all file descriptors, especially when I read this [bug report][9] which advises changing close_fds default to true.&lt;/p&gt;
+
+&lt;p&gt;[9]: &lt;a href=&#34;http://bugs.python.org/issue7213&#34;&gt;http://bugs.python.org/issue7213&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
