@@ -1,0 +1,59 @@
+body {
+	font-family: Raleway, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.container {
+	max-width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.jumbotron {
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+#article .post {
+	text-align: justify;
+}
+
+#social-wrapper .fa {
+	font-size: 28px;
+}
+
+table.opensource td {
+	padding: 10px;
+}
+
+.navbar {
+	background-color: rgb(237, 236, 255);
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+	background-color: #fff
+}
+
+.navbar-header {
+	height: 100px;
+}
+
+.navbar-brand {
+	line-height: 1.5em;
+	width: 280px;
+}
+
+.navbar-nav, .navbar-toggle {
+	/*margin-top: 20px;*/
+}
+
+img.profile-image {
+	height: 64px;
+	width: 64px;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+	-webkit-background-clip: padding-box;
+	float: left;
+	margin-right: 10px;
+}

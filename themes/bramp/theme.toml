@@ -1,0 +1,8 @@
+name = "bramp.net"
+license = "MIT"
+source_repo = ""
+author = "bramp"
+original_author = "arnp"
+ported_from = "http://www.github.com/arnp/herring-cove"
+description = "bramp.net adapted from Herring Cove, ported from the jekyll theme of the same name"
+tags = ["blog", "bramp.net"]

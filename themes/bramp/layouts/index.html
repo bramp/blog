@@ -1,0 +1,18 @@
+{{ template "theme/partials/header.html" . }}
+
+	<div class="jumbotron">
+	<h2>Welcome to my site.</h2>
+	<p>Below are some recent ramblings, above you can find my android apps, open source work and academic publications.</p>
+	Andrew Brampton
+	</div>
+
+	<h1>Recent Articles</h1>
+	<div id="article">
+		{{ range first 10 .Data.Pages }}
+		<p><span><a href="{{ .Permalink }}">{{ .Title }}</a><time class="pull-right post-list">{{ .Date.Format "Mon, Jan 2, 2006" }}</h4></time></span></span></p>
+		<!--<p>{{ .Summary }} <a href="{{ .Permalink }}">Read more…</a></p>-->
+		{{ end }}
+		<a href="{{ .Site.BaseURL }}/posts/">View more…</a>
+	</div>
+
+{{ template "theme/partials/footer.html" . }}
