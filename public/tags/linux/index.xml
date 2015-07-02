@@ -626,7 +626,7 @@ git config --global color.branch auto
 
 &lt;pre&gt;cp /usr/local/share/examples/nano/nanorc.sample ~/.nanorc
 or
- zcat /usr/share/doc/nano/examples/nanorc.sample.gz &gt;~/.nanorc 
+ zcat /usr/share/doc/nano/examples/nanorc.sample.gz &gt;~/.nanorc
 then
  nano ~/.nanorc
 &lt;/pre&gt;
@@ -647,7 +647,7 @@ export LSCOLORS=&#34;ExGxFxdxCxDxDxhbadExEx&#34;
 
 &lt;p&gt;To ensure the http_proxy environmental variable is passed to sudo. Edit the sudoers file by running visudo. Then add the following.&lt;/p&gt;
 
-&lt;pre&gt;Defaults env_keep += â€œftp_proxy http_proxy https_proxyâ€
+&lt;pre&gt;Defaults env_keep += &#34;ftp_proxy http_proxy https_proxy&#34;
 &lt;/pre&gt;
 
 &lt;p&gt;Bash autocompletion on FreeBSD:&lt;/p&gt;

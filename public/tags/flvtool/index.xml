@@ -25,8 +25,8 @@
 
 &lt;ul&gt;
 &lt;li&gt;Large file support while using minimum memory&lt;/li&gt;
-&lt;li&gt;Add â€œindexingâ€ metadata, useful for &lt;a href=&#34;http://www.flashcomguru.com/index.cfm/2005/11/2/Streaming-flv-video-via-PHP-take-two&#34;&gt;streaming applications&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Add other metadata such as the videoâ€™s duration, or frames per second, etc&lt;/li&gt;
+&lt;li&gt;Add &amp;ldquo;indexing&amp;rdquo; metadata, useful for &lt;a href=&#34;http://www.flashcomguru.com/index.cfm/2005/11/2/Streaming-flv-video-via-PHP-take-two&#34;&gt;streaming applications&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add other metadata such as the video&amp;rsquo;s duration, or frames per second, etc&lt;/li&gt;
 &lt;li&gt;Displays all the metadata within a FLV file&lt;/li&gt;
 &lt;li&gt;Displays all the tags within a FLV file&lt;/li&gt;
 &lt;li&gt;Displays interesting statistics about the FLV file&lt;/li&gt;
