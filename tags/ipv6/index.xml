@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ipv6 on bramp.net</title>
-    <link>http://bramp.net/blog/tags/ipv6/</link>
+    <link>http://localhost:1313/blog/tags/ipv6/</link>
     <description>Recent content in Ipv6 on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Wed, 27 Jun 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/tags/ipv6/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/tags/ipv6/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>I have native IPv6</title>
-      <link>http://bramp.net/blog/2012/06/27/i-have-native-ipv6/</link>
+      <link>http://localhost:1313/blog/2012/06/27/i-have-native-ipv6/</link>
       <pubDate>Wed, 27 Jun 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2012/06/27/i-have-native-ipv6/</guid>
+      <guid>http://localhost:1313/blog/2012/06/27/i-have-native-ipv6/</guid>
       <description>&lt;p&gt;I&amp;#8217;m more excited than I should be, but today I noticed that Comcast has enabled IPv6 on my home internet connection. All my devices in the home have picked up one or more Internet routable IPv6 addresses. Here are a few screen shots:&lt;/p&gt;
 
 &lt;div id=&#34;attachment_360&#34; style=&#34;width: 713px&#34; class=&#34;wp-caption alignleft&#34;&gt;

@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2012/10/21/libcec-daemon/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,28 +86,32 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>libcec-daemon</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2012-10-21</small> 167 words</p> <hr/>
-   <div class="post">
-     <p>Many months ago I purchased this cool little device from <a href="www.pulse-eight.com">Pulse Eight</a>, called a <a href="http://www.pulse-eight.com/store/products/104-usb-hdmi-cec-adapter.aspx">USB CEC Adapter</a>. Basically it allows your computer to speak to a HDMI device over a protocol called <a href="http://en.wikipedia.org/wiki/HDMI#CEC">CEC</a>. This is useful for using your PC to control your TV, and for using your TV remote to control your PC. This device now allows me to use my normal TV remote to control XBMC, and to turn my PC on standby if I turn my TV off.</p>
 
-<p>It&#8217;s all pretty neat, but each application needed to add libcec support, which means many applications do not support this little adapter. So I decided to write a simple uinput daemon that bridged Linux input events, and this CEC device. My project, <a href="https://github.com/bramp/libcec-daemon">libcec-daemon</a>, has been [available for many months][5] now, and I&#8217;ve been using it successfully on my television. I just had forgotten to write a quick blog post about it <img src="http://bramp.net/blog/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /></p>
+
+<div id="article">
+	<h1>libcec-daemon</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2012-10-21</small>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>Many months ago I purchased this cool little device from <a href="http://www.pulse-eight.com">Pulse Eight</a>, called a <a href="http://www.pulse-eight.com/store/products/104-usb-hdmi-cec-adapter.aspx">USB CEC Adapter</a>. Basically it allows your computer to speak to a HDMI device over a protocol called <a href="http://en.wikipedia.org/wiki/HDMI#CEC">CEC</a>. This is useful for using your PC to control your TV, and for using your TV remote to control your PC. This device now allows me to use my normal TV remote to control XBMC, and to turn my PC on standby if I turn my TV off.</p>
+
+<p>It&#8217;s all pretty neat, but each application needed to add libcec support, which means many applications do not support this little adapter. So I decided to write a simple uinput daemon that bridged Linux input events, and this CEC device. My project, <a href="https://github.com/bramp/libcec-daemon">libcec-daemon</a>, has been <a href="http://forums.pulse-eight.com/default.aspx?g=posts&amp;t=430">available for many months</a> now, and I&#8217;ve been using it successfully on my television. I just had forgotten to write a quick blog post about it <img src="http://bramp.net/blog/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /></p>
 
 <p>So please check it out, and support the great guys at Pulse Eight.</p>
 
-<p>[5]: <a href="http://forums.pulse-eight.com/default.aspx?g=posts&amp;t=430">http://forums.pulse-eight.com/default.aspx?g=posts&amp;t=430</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2012/11/14/nodewii-talk-at-node-dc/">&larr; Nodewii talk at Node DC</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2012/09/30/pt-kill-centos-init.d-script/"> pt-kill CentOS init.d script &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2012/09/30/pt-kill-centos-init.d-script/">&larr; pt-kill CentOS init.d script</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2012/11/14/nodewii-talk-at-node-dc/"> Nodewii talk at Node DC &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -127,8 +140,11 @@
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

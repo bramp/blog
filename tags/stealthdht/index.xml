@@ -2,100 +2,106 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Stealthdht on bramp.net</title>
-    <link>http://bramp.net/blog/tags/stealthdht/</link>
+    <link>http://localhost:1313/blog/tags/stealthdht/</link>
     <description>Recent content in Stealthdht on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Thu, 01 Mar 2007 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/tags/stealthdht/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/tags/stealthdht/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Performance modelling of peer-to-peer routing</title>
-      <link>http://bramp.net/blog/2007/03/01/performance-modelling-of-peer-to-peer-routing/</link>
+      <link>http://localhost:1313/blog/publications/performance-modelling-of-peer-to-peer-routing/</link>
       <pubDate>Thu, 01 Mar 2007 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2007/03/01/performance-modelling-of-peer-to-peer-routing/</guid>
+      <guid>http://localhost:1313/blog/publications/performance-modelling-of-peer-to-peer-routing/</guid>
       <description>&lt;p&gt;Idris A. Rai, Andrew Brampton, Andrew MacQuire, and Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In proceedings of the 4th International Workshop on Peer-to-Peer Systems (HOTP2P&amp;#8217;07)&lt;/p&gt;
 
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
+
 &lt;p&gt;We propose several models based on discrete-time Markov chains for the analysis of Distributed Hash Tables (DHTs). Specifically, we examine the Pastry routing protocol, as well as a Stealth DHT adaptation of Pastry to compute their exact expressions for average number of lookup hops. We show that our analytical models match with the protocols&amp;rsquo; simulation results almost perfectly, making them ideal for rapid evaluation.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;[Download][1]&lt;/p&gt;
-
-&lt;p&gt;[1]: /papers/models.pdf&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/HOTP2P07/models.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/HOTP2P07&#34;&gt;LaTeX Source&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/HOTP2P07-slides&#34;&gt;Slides Source&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Stealth Distributed Hash Table: A robust and flexible super-peered DHT</title>
-      <link>http://bramp.net/blog/2006/12/01/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/</link>
+      <link>http://localhost:1313/blog/publications/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/</link>
       <pubDate>Fri, 01 Dec 2006 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2006/12/01/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/</guid>
+      <guid>http://localhost:1313/blog/publications/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/</guid>
       <description>&lt;p&gt;Andrew Brampton, Andrew MacQuire, Idris A. Rai, Nicholas J. P. Race, and Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In proceedings of the 2nd Conference on Future Networking Technologies (CoNEXT&amp;#8217;06)&lt;/p&gt;
 
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
+
 &lt;p&gt;Most Distributed Hash Tables (DHTs) simply consider interconnecting homogeneous nodes on the same overlay. However, realistically nodes on a network are heterogeneous in terms of their capabilities. Because of this, traditional DHTs have been shown to exhibit poor performance in a real-world environment. Additionally, we believe that it is this approach that contributes to a limited exploitation of peer-to-peer technologies. Previous work on super-peers in DHTs was proposed to address these performance issues, however the strategy used is often based on locally clustering peers around individual super-peers. This method of superpeering, however, compromises fundamental features such as load-balancing, resilience and routing efficiency, which traditional DHTs originally promised to offer. We propose a Stealth DHT which addresses the deficiencies of previous super-peer approaches by using the DHT algorithm itself to select the most appropriate super-peer for each message sent by peers. Through simulations and measurements, we show the fitness for purpose of our proposal.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;[Download][1]&lt;/p&gt;
-
-&lt;p&gt;[1]: /papers/conext.pdf&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/CoNEXT-2006/conext.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/CoNEXT-2006&#34;&gt;LaTeX Source&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/blob/master/stealth-dht/CoNEXT-2006-slides/slides.ppt&#34;&gt;Slides&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/CoNEXT-2006-slides&#34;&gt;Slides Source&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Authentication in Stealth Distributed Hash Tables</title>
-      <link>http://bramp.net/blog/2006/07/01/authentication-in-stealth-distributed-hash-tables/</link>
+      <link>http://localhost:1313/blog/publications/authentication-in-stealth-distributed-hash-tables/</link>
       <pubDate>Sat, 01 Jul 2006 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2006/07/01/authentication-in-stealth-distributed-hash-tables/</guid>
+      <guid>http://localhost:1313/blog/publications/authentication-in-stealth-distributed-hash-tables/</guid>
       <description>&lt;p&gt;Andrew MacQuire, Andrew Brampton, Idris A. Rai, and Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In Proceedings of the 32nd Euromicro Conference on Software Engineering and Advanced Applications&lt;/p&gt;
 
-&lt;p&gt;Most existing DHT algorithms assume that all nodes have equal capabilities. This assumption has previously been shown to be untrue in real deployments, where the heterogeneity of nodes can actually have a detrimental effect upon performance. In this paper, we acknowledge that nodes on the same overlay may also differ in terms of their trustworthiness. However, implementing and enforcing security policies in a network where all nodes are treated&lt;br /&gt;
-equally is a non-trivial task. We therefore extend our previous work on Stealth DHTs to consider the differentiation&lt;br /&gt;
-of nodes based on their trustworthiness rather than their capabilities alone.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;[Download][1]&lt;/p&gt;
+&lt;p&gt;Most existing DHT algorithms assume that all nodes have equal capabilities. This assumption has previously been shown to be untrue in real deployments, where the heterogeneity of nodes can actually have a detrimental effect upon performance. In this paper, we acknowledge that nodes on the same overlay may also differ in terms of their trustworthiness. However, implementing and enforcing security policies in a network where all nodes are treated equally is a non-trivial task. We therefore extend our previous work on Stealth DHTs to consider the differentiation of nodes based on their trustworthiness rather than their capabilities alone.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;[1]: /papers/MacQuireA-Authentication.pdf&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/Euromicro2006/Camera%20Ready/MacQuireA-Authentication.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/Euromicro2006&#34;&gt;LaTeX Source&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/Euromicro2006-slides/authslides.pdf&#34;&gt;Slides&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/Euromicro2006-slides&#34;&gt;Slides Source&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/Euromicro2006/Journal%20Version/JSA-S-07-00036-1.pdf&#34;&gt;Journal PDF&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/Euromicro2006/Journal%20Version&#34;&gt;Journal LaTeX Source&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Performance analysis of Stealth DHT with mobile nodes.</title>
-      <link>http://bramp.net/blog/2006/03/01/performance-analysis-of-stealth-dht-with-mobile-nodes./</link>
+      <link>http://localhost:1313/blog/publications/performance-analysis-of-stealth-dht-with-mobile-nodes./</link>
       <pubDate>Wed, 01 Mar 2006 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2006/03/01/performance-analysis-of-stealth-dht-with-mobile-nodes./</guid>
+      <guid>http://localhost:1313/blog/publications/performance-analysis-of-stealth-dht-with-mobile-nodes./</guid>
       <description>&lt;p&gt;Andrew MacQuire, Andrew Brampton, Idris A. Rai, and Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In proceedings of the 3rd International Workshop on Mobile Peer-to-Peer Computing (MP2P&amp;#8217;06)&lt;/p&gt;
 
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
+
 &lt;p&gt;The advances in wireless networking and the consequent emergence of new applications that wireless networks increasingly support inevitably leads to low capability mobile nodes connecting to peer-to-peer networks. However, the characteristics of mobile nodes and limitations of access point coverage often cause mobile nodes to lose connectivity, which can cause many mobile nodes to simultaneously rejoin the network. Continuous departures and joins due to the mobility of nodes leads to mobility churn, which can often degrade the performance of the underlying peer-to-peer network significantly. In this paper, we use simulations to demonstrate that the Stealth Distributed Hash Table (Stealth DHT) algorithm is ideally suited for networks with mobile nodes. By avoiding storing state in unreliable nodes, a Stealth DHT prevents mobile nodes from being used by other nodes to provide services. Consequently, Stealth DHTs eliminate the mobility churn effect and significantly reduce the amount of overhead as compared to a generic DHT. This paper demonstrates this using simulation results that compare the performance of Stealth DHTs to a generic DHT, Pastry.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;[Download][1]&lt;/p&gt;
-
-&lt;p&gt;[1]: /papers/MP2P_MacQuire_A.pdf&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/MP2P06/Camera%20Ready/MP2P_MacQuire_A.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/MP2P06&#34;&gt;LaTeX Source&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/MP2P06-slides/mp2pslides.pdf&#34;&gt;Slides&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/MP2P06-slides&#34;&gt;Slides Source&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Stealth Distributed Hash Table: Unleashing the Real Potential of Peer-to-Peer</title>
-      <link>http://bramp.net/blog/2005/10/01/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/</link>
+      <link>http://localhost:1313/blog/publications/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/</link>
       <pubDate>Sat, 01 Oct 2005 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2005/10/01/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/</guid>
+      <guid>http://localhost:1313/blog/publications/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/</guid>
       <description>&lt;p&gt;Andrew Brampton, Andrew MacQuire, Idris A. Rai, Nicholas J. P. Race, and Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In Proceedings of the ACM Conference on Emerging Network Experiments and Technology (CoNEXT) (Student Workshop Session), Toulouse, France, October 2005.&lt;/p&gt;
 
-&lt;p&gt;[Download][1]&lt;/p&gt;
-
-&lt;p&gt;[1]: /papers/sw13-brampton.pdf&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/CoNEXT-2005/sw13-brampton.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/CoNEXT-2005&#34;&gt;LaTeX Source&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/CoNEXT-2005-poster/CoNEXT%20Poster.pdf&#34;&gt;Poster&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/CoNEXT-2005-poster&#34;&gt;Poster Source&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

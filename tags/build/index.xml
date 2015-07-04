@@ -2,68 +2,63 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Build on bramp.net</title>
-    <link>http://bramp.net/blog/tags/build/</link>
+    <link>http://localhost:1313/blog/tags/build/</link>
     <description>Recent content in Build on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 22 Nov 2011 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/tags/build/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/tags/build/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Building PHP’s Debian package nightmare</title>
-      <link>http://bramp.net/blog/2011/11/22/building-phps-debian-package-nightmare/</link>
+      <link>http://localhost:1313/blog/2011/11/22/building-phps-debian-package-nightmare/</link>
       <pubDate>Tue, 22 Nov 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2011/11/22/building-phps-debian-package-nightmare/</guid>
+      <guid>http://localhost:1313/blog/2011/11/22/building-phps-debian-package-nightmare/</guid>
       <description>&lt;p&gt;I just tried to compile the Debian PHP packages, so I could make some &lt;a href=&#34;http://www.howtoforge.com/recompiling-php5-with-bundled-support-for-gd-on-ubuntu&#34;&gt;minor tweaks&lt;/a&gt; to the source, to fix a bug I&amp;#8217;m hopefully going to document shortly. This turned out to be very problematic, mainly due to the testing phase!&lt;/p&gt;
 
 &lt;p&gt;To build the Debian packages you typically do the following:&lt;/p&gt;
-
-&lt;pre class=&#34;prettyprint&#34;&gt;mkdir php
-cd php
-apt-get source php5
-cd php5-*
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;mkdir php
+&lt;span class=&#34;nb&#34;&gt;cd &lt;/span&gt;php
+apt-get &lt;span class=&#34;nb&#34;&gt;source &lt;/span&gt;php5
+&lt;span class=&#34;nb&#34;&gt;cd &lt;/span&gt;php5-*
 debuild -us -uc -j4
-&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;While testing, the debian/setup_mysql.sh script is called, to create a temporary MySQL database. This however failed to execute correctly because I had some custom options in my [~/.my.cnf][2]. Thus it failed like so:&lt;/p&gt;
-
-&lt;pre&gt;# start our own mysql server for the tests
-/bin/sh debian/setup-mysql.sh 1029 /home/bramp/vendor/php/php5-5.3.8.0/mysql_db
-mysqladmin: connect to server at &#39;localhost&#39; failed
-error: &#39;Access denied for user &#39;root&#39;@&#39;localhost&#39; (using password: YES)&#39;
-make: *** [test-results.txt] Error 1
-dpkg-buildpackage: error: debian/rules build gave error exit status 2
+&lt;p&gt;While testing, the debian/setup_mysql.sh script is called, to create a temporary MySQL database. This however failed to execute correctly because I had some custom options in my &lt;a href=&#34;http://dev.mysql.com/doc/refman/5.1/en/option-files.html&#34;&gt;~/.my.cnf&lt;/a&gt;. Thus it failed like so:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;# start our own mysql server for the tests&lt;/span&gt;
+/bin/sh debian/setup-mysql.sh &lt;span class=&#34;m&#34;&gt;1029&lt;/span&gt; /home/bramp/vendor/php/php5-5.3.8.0/mysql_db
+mysqladmin: connect to server at &lt;span class=&#34;s1&#34;&gt;&amp;#39;localhost&amp;#39;&lt;/span&gt; failed
+error: &lt;span class=&#34;s1&#34;&gt;&amp;#39;Access denied for user &amp;#39;&lt;/span&gt;root&lt;span class=&#34;s1&#34;&gt;&amp;#39;@&amp;#39;&lt;/span&gt;localhost&lt;span class=&#34;s1&#34;&gt;&amp;#39; (using password: YES)&amp;#39;&lt;/span&gt;
+make: *** &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt;-results.txt&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; Error 1
+dpkg-buildpackage: error: debian/rules build gave error &lt;span class=&#34;nb&#34;&gt;exit &lt;/span&gt;status 2
 debuild: fatal error at line 1348:
 dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed
-&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;After removing the my.cnf things were ok. The below patch fixes it in a more general way:&lt;/p&gt;
-
-&lt;pre class=&#34;prettyprint&#34;&gt;--- debian/setup-mysql.sh.org  2011-11-21 21:57:07.244481175 -0500
-+++ debian/setup-mysql.sh   2011-11-21 21:40:39.384455880 -0500
-@@ -16,7 +16,7 @@
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;gd&#34;&gt;-- debian/setup-mysql.sh.org	2011-11-21 21:57:07.244481175 -0500&lt;/span&gt;
+&lt;span class=&#34;gi&#34;&gt;+++ debian/setup-mysql.sh	2011-11-21 21:40:39.384455880 -0500&lt;/span&gt;
+&lt;span class=&#34;gu&#34;&gt;@@ -16,7 +16,7 @@&lt;/span&gt;
  
  socket=$datadir/mysql.sock
  # Commands:
--mysqladmin=&#34;mysqladmin -u root -P $port -h localhost --socket=$socket&#34;
-+mysqladmin=&#34;mysqladmin --no-defaults -u root -P $port -h localhost --socket=$socket&#34;
- mysqld=&#34;/usr/sbin/mysqld --no-defaults --bind-address=localhost --port=$port --socket=$socket --datadir=$datadir&#34;
+&lt;span class=&#34;gd&#34;&gt;-mysqladmin=&amp;quot;mysqladmin -u root -P $port -h localhost --socket=$socket&amp;quot;&lt;/span&gt;
+&lt;span class=&#34;gi&#34;&gt;+mysqladmin=&amp;quot;mysqladmin --no-defaults -u root -P $port -h localhost --socket=$socket&amp;quot;&lt;/span&gt;
+ mysqld=&amp;quot;/usr/sbin/mysqld --no-defaults --bind-address=localhost --port=$port --socket=$socket --datadir=$datadir&amp;quot;
  
  # Main code #
-&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The next problem I encountered is that all the automated PHP unit tests were failing, and they would eventually get stuck and use all my RAM and swap space (at least 16GiB of it) &lt;img src=&#34;http://bramp.net/blog/wp-includes/images/smilies/icon_sad.gif&#34; alt=&#34;:(&#34; class=&#34;wp-smiley&#34; /&gt; I&amp;#8217;m not sure what made the machine run out of RAM, but the tests were failing because the version of PHP that was running the tests was incorrectly loading extensions from my system. The quick fix for this was to disable any extensions I had installed to my system. I just&lt;/p&gt;
-
-&lt;pre&gt;sudo mv /etc/php5/conf.d /etc/php5/conf.d.tmp&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;sudo mv /etc/php5/conf.d /etc/php5/conf.d.tmp
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;to do that.&lt;/p&gt;
 
 &lt;p&gt;This made me think that in future I should perhaps find a cleaner environment to build these packages. In fact, it makes me wonder if the builds are just broken if my environment clearly impacts the successful run of tests.&lt;/p&gt;
 
 &lt;p&gt;One trick I found while building again and again, is that you can pass &amp;#8220;-nc&amp;#8221; to debuild so that it does not clean, and thus reuses the existing build materials for a faster build. Either way, I now have my own version of PHP built and installed! Next time I might just ignore the .deb files and build direct from source.&lt;/p&gt;
-
-&lt;p&gt;[2]: &lt;a href=&#34;http://dev.mysql.com/doc/refman/5.1/en/option-files.html&#34;&gt;http://dev.mysql.com/doc/refman/5.1/en/option-files.html&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

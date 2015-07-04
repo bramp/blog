@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2010/05/11/python-close_fds-issue/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,15 +86,26 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>Python close_fds issue</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2010-05-11</small> 425 words</p> <hr/>
-   <div class="post">
-     <p>So I spent the better part of my evening trying to track down a bug, which turns out to be a &#8220;feature&#8221; of python.</p>
+
+
+<div id="article">
+	<h1>Python close_fds issue</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2010-05-11</small>
+		
+		| <a href="http://localhost:1313/blog//tags/git">Git</a>
+		
+		| <a href="http://localhost:1313/blog//tags/python">python</a>
+		
+		| <a href="http://localhost:1313/blog//tags/trac">trac</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>So I spent the better part of my evening trying to track down a bug, which turns out to be a &#8220;feature&#8221; of python.</p>
 
 <p>I had just installed the <a href="http://trac-hacks.org/wiki/GitPlugin">GitPlugin</a> for <a href="http://trac.edgewall.org/">trac</a> but I started to experience problems. When browsing the source inside trac it was taking over 30seconds to load the page and sometimes it would fail completely. A lot of searching didn&#8217;t help much, so I attempted to debug the problem myself. The first thing I noticed was Apache was taking 100% of the processor for a good 30seconds. I attached <a href="http://en.wikipedia.org/wiki/Strace">strace</a> to it and saw something like this:</p>
-
-<pre>[pid 22682] close(43029)                = -1 EBADF (Bad file descriptor)
+<div class="highlight"><pre>[pid 22682] close(43029)                = -1 EBADF (Bad file descriptor)
 [pid 22682] close(43030)                = -1 EBADF (Bad file descriptor)
 [pid 22682] close(43031)                = -1 EBADF (Bad file descriptor)
 [pid 22682] close(43032)                = -1 EBADF (Bad file descriptor)
@@ -93,37 +113,33 @@
 [pid 22682] close(43034)                = -1 EBADF (Bad file descriptor)
 [pid 22682] close(43035)                = -1 EBADF (Bad file descriptor)
 [pid 22682] close(43036)                = -1 EBADF (Bad file descriptor)
-</pre>
+</pre></div>
 
 <p>This obviously didn&#8217;t look good! After some tinkering I found the problem went away when I ran trac <a href="http://trac.edgewall.org/wiki/TracStandalone">standalone</a>, instead of using <a href="http://www.modpython.org/">mod_python</a> or <a href="http://en.wikipedia.org/wiki/FastCGI">fcgi</a>. This turned out to be a bit of a red herring because I spent my time trying to figure out what was different between a standalone executable and one being run inside Apache.</p>
 
 <p>After playing around with environment variables, I gave up and attempted to printf debug the trac git plugin. I found that the actual call to git was taking on the order of seconds, whereas calling it myself from the command took milliseconds. The line of code (in PyGIT.py) looked a bit like this:</p>
+<div class="highlight"><pre><span class="n">p</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__build_git_cmd</span><span class="p">(</span><span class="n">git_cmd</span><span class="p">,</span> <span class="o">*</span><span class="n">cmd_args</span><span class="p">),</span> <span class="n">stdin</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span>
+			                                        <span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">close_fds</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
 
-<pre class="prettyprint">p = Popen(self.__build_git_cmd(git_cmd, *cmd_args), stdin=None, 
-        stdout=PIPE, stderr=PIPE, close_fds=True)
-</pre>
+<p>Now, when I removed the close_fds argument the problems went away! After some more digging I found this <a href="http://bugs.python.org/issue8052">bug report</a> which describes the behaviour of close_fds. Python will spin in a tight loop calling close for all possible valid fd number just incase it was previously used. WTF! You can see the python <a href="http://svn.python.org/projects/python/tags/r311/Lib/subprocess.py">code here</a>:</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">_close_fds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">but</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">closerange</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">but</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">closerange</span><span class="p">(</span><span class="n">but</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">MAXFD</span><span class="p">)</span>
+</pre></div>
 
-<p>Now, when I removed the close_fds argument the problems went away! After some more digging I found this <a href="http://bugs.python.org/issue8052">bug report</a> which describes the behaviour of close_fds. Python will spin in a tight loop calling close for all possible valid fd number. WTF! You can see the python <a href="http://svn.python.org/projects/python/tags/r311/Lib/subprocess.py">code here</a>:</p>
+<p>So the simple fix to this was to remove the close_fds, so that Python doesn&#8217;t stupidly spin calling close(). I suspect the reason I only noticed this when running inside Apache, is because Apache must have a larger MAXFD. Hopefully in the future Python will change this behaviour and find a more sensible way to close all file descriptors, especially when I read this <a href="http://bugs.python.org/issue7213">bug report</a> which advises changing close_fds default to true.</p>
 
-<pre class="prettyprint">def _close_fds(self, but):
-            os.closerange(3, but)
-            os.closerange(but + 1, MAXFD)
-</pre>
-
-<p>So the simple fix to this was to remove the close_fds, so that Python doesn&#8217;t stupidly spin calling close(). I suspect the reason I only noticed this when running inside Apache, is because Apache must have a larger MAXFD. Hopefully in the future Python will change this behaviour and find a more sensible way to close all file descriptors, especially when I read this [bug report][9] which advises changing close_fds default to true.</p>
-
-<p>[9]: <a href="http://bugs.python.org/issue7213">http://bugs.python.org/issue7213</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/">&larr; Android Linux SDK revision 6 aapt library bug</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2010/05/07/humble-indie-bundle-md5sums/"> Humble Indie Bundle md5sums &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2010/05/07/humble-indie-bundle-md5sums/">&larr; Humble Indie Bundle md5sums</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/"> Android Linux SDK revision 6 aapt library bug &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -152,8 +168,11 @@
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

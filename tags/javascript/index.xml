@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Javascript on bramp.net</title>
-    <link>http://bramp.net/blog/tags/javascript/</link>
+    <link>http://localhost:1313/blog/tags/javascript/</link>
     <description>Recent content in Javascript on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 25 Aug 2013 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>SMS Character Count</title>
-      <link>http://bramp.net/blog/2013/08/25/sms-character-count/</link>
+      <link>http://localhost:1313/blog/2013/08/25/sms-character-count/</link>
       <pubDate>Sun, 25 Aug 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2013/08/25/sms-character-count/</guid>
+      <guid>http://localhost:1313/blog/2013/08/25/sms-character-count/</guid>
       <description>&lt;p&gt;It is commonly known that Twitter allows 140 character messages, and some will tell you that a single SMS message is limited to 160 characters. However, it&amp;#8217;s not as simple as that. In the US a single SMS message can contain 140 bytes of data, which if using &lt;a href=&#34;http://en.wikipedia.org/wiki/GSM_03.38&#34;&gt;GSM encoding&lt;/a&gt;, we can squeeze up to 160 7-bit characters. Those 7-bit GSM characters don&amp;#8217;t match up with normal ASCII characters, and even worse, not all characters take 7 bits, some take up 14 bits (for example the { character)!&lt;/p&gt;
 
-&lt;p&gt;When we start talking about messaging in non-latin scripts, such as Chinese, then a different encoding must be used. In the SMS world the encoding of choice is [UCS-2][2], which uses 16 bits per character. This limits a single part message to 70 characters (down from 160).&lt;/p&gt;
+&lt;p&gt;When we start talking about messaging in non-latin scripts, such as Chinese, then a different encoding must be used. In the SMS world the encoding of choice is &lt;a href=&#34;http://en.wikipedia.org/wiki/UTF-16&#34;&gt;UCS-2&lt;/a&gt;, which uses 16 bits per character. This limits a single part message to 70 characters (down from 160).&lt;/p&gt;
 
 &lt;p&gt;On top of that, most SMS clients will let you send concatenated SMS messages. That is, multiple message parts that appear as one long SMS message. A two part message allow up to 304 characters, not the 320 (160&amp;#215;2) you might expect. This is due to the overhead required to store meta data about each part.&lt;/p&gt;
 
@@ -26,65 +26,62 @@
 &lt;p&gt;&lt;img src=&#34;http://bramp.net/blog/wp-content/uploads/sms-count.png&#34; alt=&#34;SMS Character Count&#34; width=&#34;741&#34; height=&#34;196&#34; class=&#34;aligncenter size-full wp-image-661&#34; /&gt;&lt;/p&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://bramp.net/sms/&#34;&gt;http://bramp.net/sms/&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;[2]: &lt;a href=&#34;http://en.wikipedia.org/wiki/UTF-16&#34;&gt;http://en.wikipedia.org/wiki/UTF-16&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Draw UML Sequence Diagrams with Javascript</title>
-      <link>http://bramp.net/blog/2013/03/24/draw-uml-sequence-diagrams-with-javascript/</link>
+      <link>http://localhost:1313/blog/2013/03/24/draw-uml-sequence-diagrams-with-javascript/</link>
       <pubDate>Sun, 24 Mar 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2013/03/24/draw-uml-sequence-diagrams-with-javascript/</guid>
-      <description>&lt;p&gt;I&amp;#8217;m happy to announce one of my projects, [js-sequence-diagrams][1]. This uses Javascript to draw UML sequence diagrams in SVG format. Here is an example:&lt;/p&gt;
+      <guid>http://localhost:1313/blog/2013/03/24/draw-uml-sequence-diagrams-with-javascript/</guid>
+      <description>&lt;p&gt;I&amp;#8217;m happy to announce one of my projects, &lt;a href=&#34;https://bramp.github.io/js-sequence-diagrams/&#34;&gt;js-sequence-diagrams&lt;/a&gt;. This uses Javascript to draw UML sequence diagrams in SVG format. Here is an example:&lt;/p&gt;
 
-&lt;p&gt;[&lt;img src=&#34;http://bramp.net/blog/wp-content/uploads/sample-with-editor.png&#34; alt=&#34;js-sequence-diagram example&#34; width=&#34;865&#34; height=&#34;333&#34; class=&#34;aligncenter size-full wp-image-613&#34; /&gt;][1]&lt;/p&gt;
+&lt;div class=&#34;text-center&#34;&gt;
+    &lt;a href=&#34;https://bramp.github.io/js-sequence-diagrams/&#34;&gt;
+        &lt;img src=&#34;http://bramp.net/blog/wp-content/uploads/sample-with-editor.png&#34; alt=&#34;js-sequence-diagram example&#34; width=&#34;865&#34; height=&#34;333&#34; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
 
 &lt;p&gt;You can alter the diagram in real time, and I even have a simple jQuery plugin to make this easy to use on your own sites.&lt;/p&gt;
-
-&lt;pre&gt;&amp;lt;script src=&#34;sequence-diagram-min.js&#34;&amp;gt;&amp;lt;/script&amp;gt;
-&amp;lt;div class=&#34;diagram&#34;&amp;gt;A-&amp;gt;B: Message&amp;lt;/div&amp;gt;
-&amp;lt;script&amp;gt;
-$(&#34;.diagram&#34;).sequenceDiagram({theme: &amp;#39;hand&amp;#39;});
-&amp;lt;/script&amp;gt;&lt;/pre&gt;
-
-&lt;p&gt;[1]: &lt;a href=&#34;http://bramp.github.com/js-sequence-diagrams/&#34;&gt;http://bramp.github.com/js-sequence-diagrams/&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;src=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;sequence-diagram-min.js&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;diagram&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;A-&amp;gt;B: Message&lt;span class=&#34;nt&#34;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;.diagram&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;sequenceDiagram&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;theme&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;hand&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 </description>
     </item>
     
     <item>
       <title>JSHint ‘x’ is an implied global variable</title>
-      <link>http://bramp.net/blog/2012/11/23/jshint-x-is-an-implied-global-variable/</link>
+      <link>http://localhost:1313/blog/2012/11/23/jshint-x-is-an-implied-global-variable/</link>
       <pubDate>Fri, 23 Nov 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2012/11/23/jshint-x-is-an-implied-global-variable/</guid>
+      <guid>http://localhost:1313/blog/2012/11/23/jshint-x-is-an-implied-global-variable/</guid>
       <description>&lt;p&gt;I&amp;#8217;ve started using &lt;a href=&#34;http://www.jshint.com/&#34;&gt;JSHint&lt;/a&gt; to check my javascript. One error I encountered was:&lt;/p&gt;
-
-&lt;pre&gt;Errors:
-     85,5:&#39;grammar&#39; is not defined.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;Errors:
+     85,5:&amp;#39;grammar&amp;#39; is not defined.
 Warning:
-     85,1: &#39;grammar&#39; is an implied global variable.
-&lt;/pre&gt;
+     85,1: &amp;#39;grammar&amp;#39; is an implied global variable.
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This is saying that I&amp;#8217;m using some variable that I&amp;#8217;ve not declared in my javascript file. In most cases that would be a mistake, but in my case I was expecting it to be in the global scope included from another javascript file.&lt;/p&gt;
 
 &lt;p&gt;To make JSHint stop complaining about this, you can simply place the following at the top of your javascript document:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;cm&#34;&gt;/*global grammar */&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
-&lt;pre&gt;/*global grammar */&lt;/pre&gt;
-
-&lt;p&gt;This will tell it that the variable is declared at a global scope. Check out one of [my projects][2] for example.&lt;/p&gt;
-
-&lt;p&gt;[2]: &lt;a href=&#34;https://github.com/bramp/js-sequence-diagrams/blob/master/diagram.js&#34;&gt;https://github.com/bramp/js-sequence-diagrams/blob/master/diagram.js&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This will tell it that the variable is declared at a global scope. Check out one of &lt;a href=&#34;https://github.com/bramp/js-sequence-diagrams/blob/master/diagram.js&#34;&gt;my projects&lt;/a&gt; for example.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>My experiences with developing multi-threaded nodejs addon</title>
-      <link>http://bramp.net/blog/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/</link>
+      <link>http://localhost:1313/blog/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/</link>
       <pubDate>Mon, 17 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/</guid>
+      <guid>http://localhost:1313/blog/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/</guid>
       <description>
 
 &lt;p&gt;I&amp;#8217;ve been modifying an &lt;a href=&#34;https://github.com/tbranyen/nodewii&#34;&gt;existing nodejs extension&lt;/a&gt;, that wraps &lt;a href=&#34;http://abstrakraft.org/cwiid/wiki/libcwiid&#34;&gt;libcwiid&lt;/a&gt; (a C library written to interface with a &lt;a href=&#34;http://en.wikipedia.org/wiki/Wii_Remote&#34;&gt;Wiimote&lt;/a&gt;). This extension uses polling to check if the state of the Wiimote has changed (such as a button being pressed). Libcwiid however provides a callback mechanism to be alerted as soon as a state change occurs. This has the benefit of being instantaneous, instead of at the polling interval.&lt;/p&gt;
@@ -94,211 +91,201 @@ Warning:
 &lt;h4 id=&#34;1-all-v8-operations-must-run-from-the-main-thread:e499f9e6850a25dae3a7acbe432b8d5f&#34;&gt;1) All V8 operations must run from the main thread&lt;/h4&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://nodejs.org/&#34;&gt;Nodejs&lt;/a&gt; uses a single thread for executing the &lt;a href=&#34;http://code.google.com/p/v8/&#34;&gt;V8 JavaScript engine&lt;/a&gt;, and multiple worker threads to execute longer running non-JavaScript blocking tasks. Because V8 is not thread safe, all V8 operations must be executed from this single V8 thread. That means you are not allowed to create V8 objects, integers, strings, etc, from any other thread. If you try, race conditions happen, memory get corrupted and nodejs is likely to crash. Helpfully, nodejs does provide a mechanism to simplify using these threads:&lt;/p&gt;
-
-&lt;pre class=&#34;prettyprint&#34;&gt;eio_custom(eio_cb execute, int pri, eio_cb cb, void *data);&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;n&#34;&gt;eio_custom&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;eio_cb&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;execute&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pri&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;eio_cb&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This function allows you to execute a blocking task in a worker thread. Once that task is finished another callback is called on the main JavaScript thread. Multiple extensions use it, and this is the basis for how nodejs provides it&amp;#8217;s callback mechanism. Here is a very short example (adapted from &lt;a href=&#34;https://github.com/bramp/nodewii/blob/master/src/wiimote.cc&#34;&gt;wiimote.cc&lt;/a&gt;) of how to use eio_custom.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;n&#34;&gt;Handle&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;WiiMote&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Connect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Arguments&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;WiiMote&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;wiimote&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ObjectWrap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Unwrap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;WiiMote&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;This&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;Local&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Function&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;callback&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 
-&lt;pre class=&#34;prettyprint&#34;&gt;Handle&amp;lt;Value&amp;gt; WiiMote::Connect(const Arguments&amp; args) {
-  WiiMote* wiimote = ObjectWrap::Unwrap&amp;lt;WiiMote&amp;gt;(args.This());
-  Local&amp;lt;Function&amp;gt; callback;
+  &lt;span class=&#34;n&#34;&gt;HandleScope&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;scope&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 
-  HandleScope scope;
+  &lt;span class=&#34;c1&#34;&gt;// Pass the arguments like you would any other method&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Length&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;IsFunction&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ThrowException&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+      &lt;span class=&#34;n&#34;&gt;Exception&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;New&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;Callback is required and must be a Function.&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
-  // Pass the arguments like you would any other method
-  if(args.Length() == 0 || !args[0]-&amp;gt;IsFunction()) {
-    return ThrowException(
-      Exception::Error(String::New(&#34;Callback is required and must be a Function.&#34;))
-    );
-  }
+  &lt;span class=&#34;n&#34;&gt;callback&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Local&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Function&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Cast&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]);&lt;/span&gt;
 
-  callback = Local&amp;lt;Function&amp;gt;::Cast(args[0]);
+  &lt;span class=&#34;c1&#34;&gt;// Create a struct to pass into worker thread&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;connect_request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;connect_request&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;wiimote&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;wiimote&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;callback&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Persistent&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Function&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;New&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;callback&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 
-  // Create a struct to pass into worker thread
-  connect_request* ar = new connect_request();
-  ar-&amp;gt;wiimote = wiimote;
-  ar-&amp;gt;callback = Persistent&amp;lt;Function&amp;gt;::New(callback);
+  &lt;span class=&#34;c1&#34;&gt;// Add a reference to the wiimote, so it isn&amp;#39;t garbage collected between now&lt;/span&gt;
+  &lt;span class=&#34;c1&#34;&gt;// and the callback being run&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;wiimote&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Ref&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
 
-  // Add a reference to the wiimote, so it isn&#39;t garbage collected between now
-  // and the callback being run
-  wiimote-&amp;gt;Ref();
+  &lt;span class=&#34;c1&#34;&gt;// Add reference to the EV (JavaScript) thread&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;ev_ref&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EV_DEFAULT_UC&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 
-  // Add reference to the EV (JavaScript) thread
-  ev_ref(EV_DEFAULT_UC);
+  &lt;span class=&#34;c1&#34;&gt;// Schedule the Connect function to be called.&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;eio_custom&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Connect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;EIO_PRI_DEFAULT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;AfterConnect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 
-  // Schedule the Connect function to be called.
-  eio_custom(Connect, EIO_PRI_DEFAULT, AfterConnect, ar);
-
-  return Undefined();
-}
+  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;Undefined&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
 
-int WiiMote::Connect(eio_req* req) {
-  // This method is running in a worker thread, and NOT the main nodejs
-  // thread. This mean you can&#39;t use any V8 methods.
+&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;WiiMote&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Connect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;eio_req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;c1&#34;&gt;// This method is running in a worker thread, and NOT the main nodejs&lt;/span&gt;
+  &lt;span class=&#34;c1&#34;&gt;// thread. This mean you can&amp;#39;t use any V8 methods.&lt;/span&gt;
 
-  connect_request* ar = static_cast&amp;lt;connect_request* &amp;gt;(req-&amp;gt;data);
-  // Do some work with the connect_request, and put the results back into the struct
-  ...
+  &lt;span class=&#34;n&#34;&gt;connect_request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;static_cast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;connect_request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+  &lt;span class=&#34;c1&#34;&gt;// Do some work with the connect_request, and put the results back into the struct&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;
 
-  return 0;
-}
+  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
-int WiiMote::AfterConnect(eio_req* req) {
-  // Once the &#34;Connect&#34; method has finished, this method will be called on
-  // the main nodejs thread. This means we can now use normal V8 methods.
+&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;WiiMote&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;AfterConnect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;eio_req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;c1&#34;&gt;// Once the &amp;quot;Connect&amp;quot; method has finished, this method will be called on&lt;/span&gt;
+  &lt;span class=&#34;c1&#34;&gt;// the main nodejs thread. This means we can now use normal V8 methods.&lt;/span&gt;
 
-  HandleScope scope;
+  &lt;span class=&#34;n&#34;&gt;HandleScope&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;scope&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 
-  // Retrieve the info from the request
-  connect_request* ar = static_cast&amp;lt;connect_request* &amp;gt;(req-&amp;gt;data);
-  WiiMote * wiimote = ar-&amp;gt;wiimote;
+  &lt;span class=&#34;c1&#34;&gt;// Retrieve the info from the request&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;connect_request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;static_cast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;connect_request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;WiiMote&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;wiimote&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;wiimote&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 
-  // We no longer need a reference to the follow things
-  ev_ref(EV_DEFAULT_UC);
-  wiimote-&amp;gt;Unref();
+  &lt;span class=&#34;c1&#34;&gt;// We no longer need a reference to the follow things&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;ev_ref&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EV_DEFAULT_UC&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;wiimote&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Unref&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
 
-  // Create some JavaScript objects, and call the callback
-  Local&amp;lt;Value&amp;gt; argv[1] = { Integer::New(ar-&amp;gt;err) };
+  &lt;span class=&#34;c1&#34;&gt;// Create some JavaScript objects, and call the callback&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;Local&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;argv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;New&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;err&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
 
-  TryCatch try_catch;
+  &lt;span class=&#34;n&#34;&gt;TryCatch&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;try_catch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 
-  ar-&amp;gt;callback-&amp;gt;Call(Context::GetCurrent()-&amp;gt;Global(), 1, argv);
+  &lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;callback&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Call&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Context&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;GetCurrent&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Global&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(),&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;argv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 
-  if(try_catch.HasCaught())
-    FatalException(try_catch);
+  &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;try_catch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HasCaught&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;FatalException&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;try_catch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 
-  // Now cleanup!
-  ar-&amp;gt;callback.Dispose();
-  delete ar;
+  &lt;span class=&#34;c1&#34;&gt;// Now cleanup!&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;callback&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Dispose&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;delete&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 
-  return 0;
-}
-&lt;/pre&gt;
+  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This simple pattern makes writing callback code relatively simple. However, this only works well if you are in control of creating the callback.&lt;/p&gt;
 
 &lt;h4 id=&#34;2-how-to-run-something-on-the-main-thread-without-eio-custom:e499f9e6850a25dae3a7acbe432b8d5f&#34;&gt;2) How to run something on the main thread without eio_custom&lt;/h4&gt;
 
 &lt;p&gt;Libcwiid creates it&amp;#8217;s own thread, which is uses to read data from the wiimote. When data is received, it invokes a callback function passing this new data. This callback function is run on the libcwiid thread. This restricts us from interacting with V8. We ideally need this callback function running in the context of the main thread. The answer to this problem is:&lt;/p&gt;
-
-&lt;pre class=&#34;prettyprint&#34;&gt;eio_req *eio_nop       (int pri, eio_cb cb, void *data);&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;n&#34;&gt;eio_req&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;eio_nop&lt;/span&gt;       &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pri&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;eio_cb&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;It is safe to call this function from any thread. It will place the eio_cb callback task on the main event queue. This task is then eventually executed on the V8&amp;#8242;s thread. An example of this follows:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;WiiMote&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HandleMessages&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;cwiid_wiimote_t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;wiimote&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;union&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cwiid_mesg&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mesgs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[])&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;c1&#34;&gt;// This thread is running on the libcwiid&amp;#39;s thread, and thus we can not use V8 operations&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;WiiMote&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;self&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const_cast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;WiiMote&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;static_cast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;WiiMote&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cwiid_get_data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;wiimote&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)));&lt;/span&gt;
 
-&lt;pre class=&#34;prettyprint&#34;&gt;void WiiMote::HandleMessages(cwiid_wiimote_t *wiimote, int len, union cwiid_mesg mesgs[]) {
-  // This thread is running on the libcwiid&#39;s thread, and thus we can not use V8 operations
-  WiiMote *self = const_cast&amp;lt;WiiMote*&amp;gt;(static_cast&amp;lt;const WiiMote*&amp;gt;(cwiid_get_data(wiimote)));
+  &lt;span class=&#34;c1&#34;&gt;// Create a struct to pass to the V8 thread&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;message_request&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;message_request&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;malloc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mesgs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 
-  // Create a struct to pass to the V8 thread
-  struct message_request * req = (struct message_request *)malloc( sizeof(*req) + sizeof(req-&amp;gt;mesgs) * (len - 1) );
+  &lt;span class=&#34;c1&#34;&gt;// Copy all the data into this struct&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;wiimote&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;memcpy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mesgs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mesgs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;union&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cwiid_mesg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
 
-  // Copy all the data into this struct
-  req-&amp;gt;wiimote = self;
-  req-&amp;gt;len = len;
-  memcpy(req-&amp;gt;mesgs, mesgs, len * sizeof(union cwiid_mesg));
+  &lt;span class=&#34;c1&#34;&gt;// Now pass this over to the main V8 thread&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;eio_nop&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;EIO_PRI_DEFAULT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;WiiMote&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HandleMessagesAfter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
-  // Now pass this over to the main V8 thread
-  eio_nop (EIO_PRI_DEFAULT, WiiMote::HandleMessagesAfter, req);
-}
+&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;WiiMote&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HandleMessagesAfter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;eio_req&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;c1&#34;&gt;// We are now running in the V8 thread.&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;message_request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;r&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;static_cast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;message_request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;WiiMote&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;self&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;wiimote&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 
-int WiiMote::HandleMessagesAfter(eio_req *req) {
-  // We are now running in the V8 thread.
-  message_request* r = static_cast&amp;lt;message_request* &amp;gt;(req-&amp;gt;data);
-  WiiMote * self = r-&amp;gt;wiimote;
+  &lt;span class=&#34;n&#34;&gt;HandleScope&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;scope&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 
-  HandleScope scope;
+  &lt;span class=&#34;c1&#34;&gt;// Create JavaScript objects with the message_request&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;
 
-  // Create JavaScript objects with the message_request
-  ...
-
-  // Emit this event to a JavaScript callback.
-  this-&amp;gt;Emit(event, 1, argv);
-}
-&lt;/pre&gt;
+  &lt;span class=&#34;c1&#34;&gt;// Emit this event to a JavaScript callback.&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Emit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;event&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;argv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Using a combination of eio_custom and eio_nop you should be able to interface with any external library of service. You just have to make sure you always know what thread you are on, and what methods you are allowed to use in that context.&lt;/p&gt;
 
-&lt;p&gt;Finally, writing correct thread-safe code is hard. From the various nodejs extensions I have come across I regularlly find memory management, or threading issues with them. So I suggest you rigorously use [valgrind][8] while developing, and simplify your designs so that most of the heavily lifting is done by nodejs itself.&lt;/p&gt;
-
-&lt;p&gt;[8]: &lt;a href=&#34;http://valgrind.org/&#34;&gt;http://valgrind.org/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Finally, writing correct thread-safe code is hard. From the various nodejs extensions I have come across I regularlly find memory management, or threading issues with them. So I suggest you rigorously use &lt;a href=&#34;http://valgrind.org/&#34;&gt;valgrind&lt;/a&gt; while developing, and simplify your designs so that most of the heavily lifting is done by nodejs itself.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Google Chrome Javascript console.log bug?</title>
-      <link>http://bramp.net/blog/2011/08/02/google-chrome-javascript-console.log-bug/</link>
+      <link>http://localhost:1313/blog/2011/08/02/google-chrome-javascript-console.log-bug/</link>
       <pubDate>Tue, 02 Aug 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2011/08/02/google-chrome-javascript-console.log-bug/</guid>
+      <guid>http://localhost:1313/blog/2011/08/02/google-chrome-javascript-console.log-bug/</guid>
       <description>&lt;p&gt;I recently stumbled across this issue while debugging some Javascript. Take the following example code:&lt;/p&gt;
-
-&lt;pre&gt;var array = [1,2,3,4,5,6,7,8,9,10];
-    var i = 0;
-    while(array.length &gt; 0) {
-        console.log(i++, array);
-        //alert(&#34;pause&#34;);
-        array.pop();
-    }
-&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;array&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;c1&#34;&gt;//alert(&amp;quot;pause&amp;quot;);&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;pop&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;If you run it in your browser you would expect to see the following printed (in your Javascript console):&lt;/p&gt;
-
-&lt;pre&gt;0 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    1 [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    2 [1, 2, 3, 4, 5, 6, 7, 8]
-    3 [1, 2, 3, 4, 5, 6, 7]
-    4 [1, 2, 3, 4, 5, 6]
-    5 [1, 2, 3, 4, 5]
-    6 [1, 2, 3, 4]
-    7 [1, 2, 3]
-    8 [1, 2]
-    9 [1]
-&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;0 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+1 [1, 2, 3, 4, 5, 6, 7, 8, 9]
+2 [1, 2, 3, 4, 5, 6, 7, 8]
+3 [1, 2, 3, 4, 5, 6, 7]
+4 [1, 2, 3, 4, 5, 6]
+5 [1, 2, 3, 4, 5]
+6 [1, 2, 3, 4]
+7 [1, 2, 3]
+8 [1, 2]
+9 [1]
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;However, I instead saw:&lt;/p&gt;
-
-&lt;pre&gt;1 []
-    2 []
-    3 []
-    4 []
-    5 []
-    6 []
-    7 []
-    8 []
-    9 []
-&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;1 []
+2 []
+3 []
+4 []
+5 []
+6 []
+7 []
+8 []
+9 []
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The issue seems to be that console.log() does not log straight away. In fact it most likely logs in a background thread for performance reasons. Thus by the time it actually logs the array it has changed. I tested this in Firefox (with Firebug) and it logged everything correctly. I also tried slowing down the loop by adding a alert() call. That fixed the issue at the cost of a popup every iterations.&lt;/p&gt;
 
 &lt;p&gt;What really should happen is either&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;console.log() should block until the logging is complete&lt;/li&gt;
-&lt;li&gt;console.log() should copy all objects to avoid them being changed after log() returns but before they are printed.&lt;/li&gt;
-&lt;li&gt;add a console.flush() and make me aware this race condition could occur.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;console.log()&lt;/code&gt; should block until the logging is complete&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;console.log()&lt;/code&gt; should copy all objects to avoid them being changed after log() returns but before they are printed.&lt;/li&gt;
+&lt;li&gt;add a &lt;code&gt;console.flush()&lt;/code&gt; and make me aware this race condition could occur.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;I filed this as a &lt;a href=&#34;http://code.google.com/p/chromium/issues/detail?id=91303&#34;&gt;bug report&lt;/a&gt; on the Chromium site, but I suspect I should have filed it over at the Webkit site.&lt;/p&gt;
+&lt;p&gt;I filed this as a &lt;a href=&#34;https://code.google.com/p/chromium/issues/detail?id=91303&#34;&gt;bug report&lt;/a&gt; on the Chromium site, but I suspect I should have filed it over at the Webkit site.&lt;/p&gt;
 
 &lt;p&gt;For the moment I came up with a &amp;#8220;fix&amp;#8221;. I copy the array before I log it, so in this case I do the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;slice&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
-&lt;pre&gt;console.log(i++, array.slice(0));
-&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; I previously searched for this bug, but didn&amp;#8217;t find it before writing this article. However, I have just found someone else had [reported][2] it a few days ago:&lt;/p&gt;
-
-&lt;p&gt;[2]: &lt;a href=&#34;http://code.google.com/p/chromium/issues/detail?id=50316&#34;&gt;http://code.google.com/p/chromium/issues/detail?id=50316&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; I previously searched for this bug, but didn&amp;#8217;t find it before writing this article. However, I have just found someone else had &lt;a href=&#34;https://code.google.com/p/chromium/issues/detail?id=50316&#34;&gt;reported&lt;/a&gt; it a few days ago:&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>HTML5 Canvas: Lunch Wheel</title>
-      <link>http://bramp.net/blog/2011/07/27/html5-canvas-lunch-wheel/</link>
+      <link>http://localhost:1313/blog/2011/07/27/html5-canvas-lunch-wheel/</link>
       <pubDate>Wed, 27 Jul 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2011/07/27/html5-canvas-lunch-wheel/</guid>
-      <description>&lt;p&gt;In the on going battle to make my lunch time more optimised I decided to learn some Javascript, and how to use the HTML5 &lt;a href=&#34;http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html&#34;&gt;Canvas&lt;/a&gt; element. Turns out it&amp;#8217;s not that hard, and I have now created&lt;/p&gt;
+      <guid>http://localhost:1313/blog/2011/07/27/html5-canvas-lunch-wheel/</guid>
+      <description>&lt;p&gt;In the on going battle to make my lunch time more optimised I decided to learn some Javascript, and how to use the HTML5 &lt;a href=&#34;https://html.spec.whatwg.org/multipage/scripting.html#the-canvas-element&#34;&gt;Canvas&lt;/a&gt; element. Turns out it&amp;#8217;s not that hard, and I have now created&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://bramp.net/javascript/lunchwheel.html&#34;&gt;&lt;br /&gt;
 &lt;img src=&#34;http://bramp.net/javascript/lunchwheel.png&#34; alt=&#34;&#34; title=&#34;Click to win&#34; /&gt;&lt;br /&gt;
@@ -318,15 +305,13 @@ The Lunch Wheel&lt;/a&gt;. It helps me find lunch close to my office in the &lt;
 
 &lt;p&gt;6) Chrome (linux) worked great, and was the platform I was developing on. 30fps (max)&lt;/p&gt;
 
-&lt;p&gt;I was also using the &lt;a href=&#34;http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-clip&#34;&gt;clip()&lt;/a&gt; method to ensure the text didn&amp;#8217;t go outside of the wheel, but this heavily impacted performance. So instead I just chopped the text manually and performance doubled.&lt;/p&gt;
+&lt;p&gt;I was also using the &lt;a href=&#34;https://html.spec.whatwg.org/multipage/scripting.html#dom-context-2d-clip&#34;&gt;clip()&lt;/a&gt; method to ensure the text didn&amp;#8217;t go outside of the wheel, but this heavily impacted performance. So instead I just chopped the text manually and performance doubled.&lt;/p&gt;
 
 &lt;p&gt;I realise HTML5 is new, but I&amp;#8217;m really hoping all browsers will start to support it consistently and across the board. I&amp;#8217;d hate to start writing large blocks of code to cope with all the browser quirks.&lt;/p&gt;
 
 &lt;p&gt;Also, thanks to &lt;a href=&#34;http://jquery.com/&#34;&gt;jQuery&lt;/a&gt;, &lt;a href=&#34;http://tinysort.sjeiti.com/&#34;&gt;TinySort&lt;/a&gt; and &lt;a href=&#34;http://excanvas.sourceforge.net/&#34;&gt;ExplorerCanvas&lt;/a&gt; (which I still haven&amp;#8217;t made work).&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; Soon to come, the ability to find your own lunch places, as well as integration with [foursquare][10] so you can see how popular the venues are with your friends.&lt;/p&gt;
-
-&lt;p&gt;[10]: &lt;a href=&#34;https://foursquare.com/&#34;&gt;https://foursquare.com/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; Soon to come, the ability to find your own lunch places, as well as integration with &lt;a href=&#34;https://foursquare.com/&#34;&gt;foursquare&lt;/a&gt; so you can see how popular the venues are with your friends.&lt;/p&gt;
 </description>
     </item>
     

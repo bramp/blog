@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2006/06/25/flvtool-a-command-line-flash-video-file-flv-editor/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,13 +86,21 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>flvtool&#43;&#43; A command line Flash Video file (FLV) editor</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2006-06-25</small> 390 words</p> <hr/>
-   <div class="post">
-     
 
-<p>Download Version 0.1: **Sorry flvtool++ is no longer available <img src="http://bramp.net/blog/wp-includes/images/smilies/icon_sad.gif" alt=":(" class="wp-smiley" /> **</p>
+
+<div id="article">
+	<h1>flvtool&#43;&#43; A command line Flash Video file (FLV) editor</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2006-06-25</small>
+		
+		| <a href="http://localhost:1313/blog//tags/flvtool">flvtool&#43;&#43;</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		
+
+<p><a href="https://github.com/bramp/flvtool-plus-plus">Download from GitHub</a></p>
 
 <p>This is a c++ re-write of a similar closed source tool <a href="http://www.buraks.com/flvmdi/">FLVMDI</a> and a open source Ruby app named <a href="http://rubyforge.org/projects/flvtool2/">flvtool2</a>. I originally wrote flvtool++ due to the lack of large file support in the two previous tools. Well those tools do support large files, however it seems they require at least as much RAM as the size of the file, and when I was working with &gt;1GB files this became a problem. Additionally this tool compiles cleanly on different OSes so I was not limited to just windows.</p>
 
@@ -108,7 +125,7 @@
 <ul>
 <li>Ability to add arbitrary metadata</li>
 <li>Demux the FLV into different video and audio files</li>
-<li>And whatever [you request][8]&#8230;</li>
+<li>And whatever <a href="https://github.com/bramp/flvtool-plus-plus/issues">you request</a>&#8230;</li>
 </ul>
 
 <h4 id="usage:58bd2f08b766614b942fda12ff3e160b">Usage</h4>
@@ -116,12 +133,12 @@
 <p>flvtool++ is used from the command line, so far it has a few simple parameters</p>
 
 <p>Takes the input file, indexes it and writes it out to the output file. The start and end times may optionally specify timecodes in seconds that are used to chop the FLV file.</p>
-
-<pre>flvtool++ &lt;input file&gt; &lt;output file&gt; (&lt;start time&gt; &lt;end time&gt;)</pre>
+<div class="highlight"><pre>flvtool++ &lt;input file&gt; &lt;output file&gt; <span class="o">(</span>&lt;start <span class="nb">time</span>&gt; &lt;end <span class="nb">time</span>&gt;<span class="o">)</span>
+</pre></div>
 
 <p>Displays all the metadata and tag information about the input file.</p>
-
-<pre>flvtool++ -i &lt;input file&gt;</pre>
+<div class="highlight"><pre>flvtool++ -i &lt;input file&gt;
+</pre></div>
 
 <h4 id="compiling:58bd2f08b766614b942fda12ff3e160b">Compiling</h4>
 
@@ -133,20 +150,18 @@
 
 <p><strong>Linux/FreeBSD:</strong></p>
 
-<p>flvtool++ compiles cleanly under GCC, a makefile is provided such that you only need to extract the source package, and then type make.</p>
+<p>flvtool++ compiles cleanly under GCC, a makefile is provided such that you only need to extract the source package, and then type <code>make</code>.</p>
 
-<p>[8]: /about#contact</p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2006/07/01/authentication-in-stealth-distributed-hash-tables/">&larr; Authentication in Stealth Distributed Hash Tables</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2006/03/01/performance-analysis-of-stealth-dht-with-mobile-nodes./"> Performance analysis of Stealth DHT with mobile nodes. &rarr;</a></li>
+     
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2006/07/02/how-to-build-wings/"> How to Build Wings &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -175,8 +190,11 @@
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

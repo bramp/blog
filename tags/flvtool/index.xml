@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Flvtool on bramp.net</title>
-    <link>http://bramp.net/blog/tags/flvtool/</link>
+    <link>http://localhost:1313/blog/tags/flvtool/</link>
     <description>Recent content in Flvtool on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 25 Jun 2006 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/tags/flvtool/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/tags/flvtool/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>flvtool&#43;&#43; A command line Flash Video file (FLV) editor</title>
-      <link>http://bramp.net/blog/2006/06/25/flvtool-a-command-line-flash-video-file-flv-editor/</link>
+      <link>http://localhost:1313/blog/2006/06/25/flvtool-a-command-line-flash-video-file-flv-editor/</link>
       <pubDate>Sun, 25 Jun 2006 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2006/06/25/flvtool-a-command-line-flash-video-file-flv-editor/</guid>
+      <guid>http://localhost:1313/blog/2006/06/25/flvtool-a-command-line-flash-video-file-flv-editor/</guid>
       <description>
 
-&lt;p&gt;Download Version 0.1: **Sorry flvtool++ is no longer available &lt;img src=&#34;http://bramp.net/blog/wp-includes/images/smilies/icon_sad.gif&#34; alt=&#34;:(&#34; class=&#34;wp-smiley&#34; /&gt; **&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/flvtool-plus-plus&#34;&gt;Download from GitHub&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;This is a c++ re-write of a similar closed source tool &lt;a href=&#34;http://www.buraks.com/flvmdi/&#34;&gt;FLVMDI&lt;/a&gt; and a open source Ruby app named &lt;a href=&#34;http://rubyforge.org/projects/flvtool2/&#34;&gt;flvtool2&lt;/a&gt;. I originally wrote flvtool++ due to the lack of large file support in the two previous tools. Well those tools do support large files, however it seems they require at least as much RAM as the size of the file, and when I was working with &amp;gt;1GB files this became a problem. Additionally this tool compiles cleanly on different OSes so I was not limited to just windows.&lt;/p&gt;
 
@@ -42,7 +42,7 @@
 &lt;ul&gt;
 &lt;li&gt;Ability to add arbitrary metadata&lt;/li&gt;
 &lt;li&gt;Demux the FLV into different video and audio files&lt;/li&gt;
-&lt;li&gt;And whatever [you request][8]&amp;#8230;&lt;/li&gt;
+&lt;li&gt;And whatever &lt;a href=&#34;https://github.com/bramp/flvtool-plus-plus/issues&#34;&gt;you request&lt;/a&gt;&amp;#8230;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&#34;usage:58bd2f08b766614b942fda12ff3e160b&#34;&gt;Usage&lt;/h4&gt;
@@ -50,12 +50,12 @@
 &lt;p&gt;flvtool++ is used from the command line, so far it has a few simple parameters&lt;/p&gt;
 
 &lt;p&gt;Takes the input file, indexes it and writes it out to the output file. The start and end times may optionally specify timecodes in seconds that are used to chop the FLV file.&lt;/p&gt;
-
-&lt;pre&gt;flvtool++ &amp;lt;input file&amp;gt; &amp;lt;output file&amp;gt; (&amp;lt;start time&amp;gt; &amp;lt;end time&amp;gt;)&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;flvtool++ &amp;lt;input file&amp;gt; &amp;lt;output file&amp;gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&amp;lt;start &lt;span class=&#34;nb&#34;&gt;time&lt;/span&gt;&amp;gt; &amp;lt;end &lt;span class=&#34;nb&#34;&gt;time&lt;/span&gt;&amp;gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Displays all the metadata and tag information about the input file.&lt;/p&gt;
-
-&lt;pre&gt;flvtool++ -i &amp;lt;input file&amp;gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;flvtool++ -i &amp;lt;input file&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4 id=&#34;compiling:58bd2f08b766614b942fda12ff3e160b&#34;&gt;Compiling&lt;/h4&gt;
 
@@ -67,9 +67,7 @@
 
 &lt;p&gt;&lt;strong&gt;Linux/FreeBSD:&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;flvtool++ compiles cleanly under GCC, a makefile is provided such that you only need to extract the source package, and then type make.&lt;/p&gt;
-
-&lt;p&gt;[8]: /about#contact&lt;/p&gt;
+&lt;p&gt;flvtool++ compiles cleanly under GCC, a makefile is provided such that you only need to extract the source package, and then type &lt;code&gt;make&lt;/code&gt;.&lt;/p&gt;
 </description>
     </item>
     

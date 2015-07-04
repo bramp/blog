@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,11 +86,25 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>Obtaining the firmware for Linksys E4200v2</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2012-01-22</small> 433 words</p> <hr/>
-   <div class="post">
-     <p>I recently got a Linksys E4200v2 wireless router. It&#8217;s pretty cool, supports IPv6, 2.4Ghz and 5Ghz wifi networks, VPN, etc. The one downside is that the firmware for the router is not available from <a href="http://homesupport.cisco.com/en-us/wireless/linksys/E4200">Linksys&#8217;s website</a>, and the <a href="http://homesupport.cisco.com/en-us/gplcodecenter">GPL code</a> has not been made available, yet&#8230; However, the router has been able to pull updates itself from the Internet.</p>
+
+
+<div id="article">
+	<h1>Obtaining the firmware for Linksys E4200v2</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2012-01-22</small>
+		
+		| <a href="http://localhost:1313/blog//tags/firmware">firmware</a>
+		
+		| <a href="http://localhost:1313/blog//tags/linksys">linksys</a>
+		
+		| <a href="http://localhost:1313/blog//tags/linux">Linux</a>
+		
+		| <a href="http://localhost:1313/blog//tags/router">router</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>I recently got a Linksys E4200v2 wireless router. It&#8217;s pretty cool, supports IPv6, 2.4Ghz and 5Ghz wifi networks, VPN, etc. The one downside is that the firmware for the router is not available from <a href="http://homesupport.cisco.com/en-us/wireless/linksys/E4200">Linksys&#8217;s website</a>, and the <a href="http://homesupport.cisco.com/en-us/gplcodecenter">GPL code</a> has not been made available, yet&#8230; However, the router has been able to pull updates itself from the Internet.</p>
 
 <p>So I wanted to acquire the firmware to see if I could do something fun with the router. I set about to figure out how the router does this. My plan was to set my laptop up between Internet interface on the router, and the cable modem. Since my laptop doesn&#8217;t have two network cards, I plugged into a switch and used <a href="http://ettercap.sourceforge.net/">Ethercap</a> to ARP poison to redirect traffic via the laptop.</p>
 
@@ -89,83 +112,84 @@
 
 <p>Firstly I saw two DNS requests, one for the AAAA (IPv6) record for update.linksys.com, then a A request for update.linksys.com. Clearly the updates are coming from there. Secondly I saw a HTTPS connection form to that domain. That makes this a little more complex, as I am unable to see the encrypted traffic, and thus see what is being transferred.</p>
 
-<p>So, I grabbed a <a href="http://code.activestate.com/recipes/491264-mini-fake-dns-server/">simple DNS server</a>, and set up a simple SSL server following [these instructions][6].</p>
+<p>So, I grabbed a <a href="http://code.activestate.com/recipes/491264-mini-fake-dns-server/">simple DNS server</a>, and set up a simple SSL server following <a href="http://wirewatcher.wordpress.com/2010/07/20/decrypting-ssl-traffic-with-wireshark-and-ways-to-prevent-it/">these instructions</a>.</p>
 
 <p>Now with DNS spoofing, and a fake SSL server, I could intercept encrypted traffic from the router, as long as it does not validate the SSL certificate. Luckily it didn&#8217;t check the validity, and thus I was able to capture the request: (BTW Not checking the cert completely defeats the point of using SSL&#8230; bad Linksys!).</p>
+<div class="highlight"><pre><span class="nf">POST</span> <span class="nn">/cds/update</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">update.linksys.com</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">*/*</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/xml</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">573</span>
 
-<pre>POST /cds/update HTTP/1.1
-Host: update.linksys.com
-Accept: */*
-Content-Type: text/xml
-Content-Length: 573
-
-&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"&gt;
-  &lt;SOAP-ENV:Header/&gt;
-  &lt;SOAP-ENV:Body&gt;
-    &lt;ns:GetFirmwareFromDeviceRequest xmlns:ns="http://cisco.com/schemas"&gt;
-      &lt;ns:LanguageCode&gt;en&lt;/ns:LanguageCode&gt;
-      &lt;ns:CountryCode&gt;us&lt;/ns:CountryCode&gt;
-      &lt;ns:MacAddress&gt;12:34:56:78:90:ab&lt;/ns:MacAddress&gt;
-      &lt;ns:ModelNo&gt;E4200&lt;/ns:ModelNo&gt;
-      &lt;ns:HardwareVersion&gt;2&lt;/ns:HardwareVersion&gt;
-      &lt;ns:CurrentFirmwareVersion&gt;2.0.36.126507&lt;/ns:CurrentFirmwareVersion&gt;
-    &lt;/ns:GetFirmwareFromDeviceRequest&gt;
-  &lt;/SOAP-ENV:Body&gt;
-&lt;/SOAP-ENV:Envelope&gt;
-</pre>
+<span class="nt">&lt;SOAP-ENV:Envelope</span> <span class="na">xmlns:SOAP-ENV=</span><span class="s">&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;SOAP-ENV:Header/&gt;</span>
+  <span class="nt">&lt;SOAP-ENV:Body&gt;</span>
+    <span class="nt">&lt;ns:GetFirmwareFromDeviceRequest</span> <span class="na">xmlns:ns=</span><span class="s">&quot;http://cisco.com/schemas&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;ns:LanguageCode&gt;</span>en<span class="nt">&lt;/ns:LanguageCode&gt;</span>
+      <span class="nt">&lt;ns:CountryCode&gt;</span>us<span class="nt">&lt;/ns:CountryCode&gt;</span>
+      <span class="nt">&lt;ns:MacAddress&gt;</span>12:34:56:78:90:ab<span class="nt">&lt;/ns:MacAddress&gt;</span>
+      <span class="nt">&lt;ns:ModelNo&gt;</span>E4200<span class="nt">&lt;/ns:ModelNo&gt;</span>
+      <span class="nt">&lt;ns:HardwareVersion&gt;</span>2<span class="nt">&lt;/ns:HardwareVersion&gt;</span>
+      <span class="nt">&lt;ns:CurrentFirmwareVersion&gt;</span>2.0.36.126507<span class="nt">&lt;/ns:CurrentFirmwareVersion&gt;</span>
+    <span class="nt">&lt;/ns:GetFirmwareFromDeviceRequest&gt;</span>
+  <span class="nt">&lt;/SOAP-ENV:Body&gt;</span>
+<span class="nt">&lt;/SOAP-ENV:Envelope&gt;</span>
+</pre></div>
 
 <p>and the response:</p>
+<div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Language</span><span class="o">:</span> <span class="l">en-US</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/xml</span>
+<span class="na">SOAPAction</span><span class="o">:</span> <span class="l">&quot;&quot;</span>
 
-<pre>&lt;soapenv:Envelope
- xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
- xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
- xmlns:xsd="http://www.w3.org/2001/XMLSchema"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
-  &lt;soapenv:Header/&gt;
-  &lt;soapenv:Body&gt;
-    &lt;ns:GetFirmwareFromDeviceResponse xmlns:ns="http://cisco.com/schemas"&gt;
-      &lt;ns:FirmwareList xmlns:ns="http://cisco.com/schemas"&gt;
-        &lt;ns:Firmware xmlns:ns="http://cisco.com/schemas"&gt;
-          &lt;ns:Version xmlns:ns="http://cisco.com/schemas"&gt;2.0.36.126507&lt;/ns:Version&gt;
-          &lt;ns:Revision xmlns:ns="http://cisco.com/schemas"&gt;D&lt;/ns:Revision&gt;
-          &lt;ns:ReleaseDate xmlns:ns="http://cisco.com/schemas"&gt;2012-01-06T16:48:08Z&lt;/ns:ReleaseDate&gt;
-          &lt;ns:DownloadURI xmlns:ns="http://cisco.com/schemas"&gt;http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA&lt;/ns:DownloadURI&gt;
-          &lt;ns:DateFormat xmlns:ns="http://cisco.com/schemas"&gt;yyyy-MM-dd';T';HH:mm:ss';Z';&lt;/ns:DateFormat&gt;
-          &lt;ns:Checksum xmlns:ns="http://cisco.com/schemas"&gt;1958710861&lt;/ns:Checksum&gt;
-        &lt;/ns:Firmware&gt;
-      &lt;/ns:FirmwareList&gt;
-    &lt;/ns:GetFirmwareFromDeviceResponse&gt;
-  &lt;/soapenv:Body&gt;
-&lt;/soapenv:Envelope&gt;
-</pre>
+<span class="nt">&lt;soapenv:Envelope</span>
+ <span class="na">xmlns:soapenv=</span><span class="s">&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;</span>
+ <span class="na">xmlns:soapenc=</span><span class="s">&quot;http://schemas.xmlsoap.org/soap/encoding/&quot;</span>
+ <span class="na">xmlns:xsd=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema&quot;</span>
+ <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;soapenv:Header/&gt;</span>
+  <span class="nt">&lt;soapenv:Body&gt;</span>
+    <span class="nt">&lt;ns:GetFirmwareFromDeviceResponse</span> <span class="na">xmlns:ns=</span><span class="s">&quot;http://cisco.com/schemas&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;ns:FirmwareList</span> <span class="na">xmlns:ns=</span><span class="s">&quot;http://cisco.com/schemas&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;ns:Firmware</span> <span class="na">xmlns:ns=</span><span class="s">&quot;http://cisco.com/schemas&quot;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;ns:Version</span> <span class="na">xmlns:ns=</span><span class="s">&quot;http://cisco.com/schemas&quot;</span><span class="nt">&gt;</span>2.0.36.126507<span class="nt">&lt;/ns:Version&gt;</span>
+          <span class="nt">&lt;ns:Revision</span> <span class="na">xmlns:ns=</span><span class="s">&quot;http://cisco.com/schemas&quot;</span><span class="nt">&gt;</span>D<span class="nt">&lt;/ns:Revision&gt;</span>
+          <span class="nt">&lt;ns:ReleaseDate</span> <span class="na">xmlns:ns=</span><span class="s">&quot;http://cisco.com/schemas&quot;</span><span class="nt">&gt;</span>2012-01-06T16:48:08Z<span class="nt">&lt;/ns:ReleaseDate&gt;</span>
+          <span class="nt">&lt;ns:DownloadURI</span> <span class="na">xmlns:ns=</span><span class="s">&quot;http://cisco.com/schemas&quot;</span><span class="nt">&gt;</span>http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA<span class="nt">&lt;/ns:DownloadURI&gt;</span>
+          <span class="nt">&lt;ns:DateFormat</span> <span class="na">xmlns:ns=</span><span class="s">&quot;http://cisco.com/schemas&quot;</span><span class="nt">&gt;</span>yyyy-MM-dd&#39;;T&#39;;HH:mm:ss&#39;;Z&#39;;<span class="nt">&lt;/ns:DateFormat&gt;</span>
+          <span class="nt">&lt;ns:Checksum</span> <span class="na">xmlns:ns=</span><span class="s">&quot;http://cisco.com/schemas&quot;</span><span class="nt">&gt;</span>1958710861<span class="nt">&lt;/ns:Checksum&gt;</span>
+        <span class="nt">&lt;/ns:Firmware&gt;</span>
+      <span class="nt">&lt;/ns:FirmwareList&gt;</span>
+    <span class="nt">&lt;/ns:GetFirmwareFromDeviceResponse&gt;</span>
+  <span class="nt">&lt;/soapenv:Body&gt;</span>
+<span class="nt">&lt;/soapenv:Envelope&gt;</span>
+</pre></div>
 
 <p>(I slightly modified portions of the request and response to hide the identify of my router.).</p>
 
 <p>I might write a script to make fake requests, but until then you can easily create a request with curl:</p>
-
-<pre>curl -d @request.raw https://update.linksys.com/cds/update</pre>
+<div class="highlight"><pre>curl -d @request.raw https://update.linksys.com/cds/update
+</pre></div>
 
 <p>Then you just extract the DownloadURI and</p>
-
-<pre>curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA</pre>
+<div class="highlight"><pre>curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA
+</pre></div>
 
 <p>Voila I now have the firmware. Now I need to figure out what to do with it.</p>
 
 <p><strong>Update</strong>: As requested I fetched the more recent version of the file:<br />
 2.0.37.131047 &#8211; <a href="http://download.linksys.com/updates/to0040829450.pdx/FW_E4200_2.0.37.131047.SSA">http://download.linksys.com/updates/to0040829450.pdx/FW_E4200_2.0.37.131047.SSA</a></p>
 
-<p>[6]: <a href="http://wirewatcher.wordpress.com/2010/07/20/decrypting-ssl-traffic-with-wireshark-and-ways-to-prevent-it/">http://wirewatcher.wordpress.com/2010/07/20/decrypting-ssl-traffic-with-wireshark-and-ways-to-prevent-it/</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2012/01/24/hacking-linksys-e4200v2-firmware/">&larr; Hacking Linksys E4200v2 firmware</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2012/01/14/avoid-bloat-freezer-free/"> Avoid Bloat Freezer Free &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2012/01/14/avoid-bloat-freezer-free/">&larr; Avoid Bloat Freezer Free</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2012/01/24/hacking-linksys-e4200v2-firmware/"> Hacking Linksys E4200v2 firmware &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -194,8 +218,11 @@ Content-Length: 573
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

@@ -2,118 +2,117 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Latex on bramp.net</title>
-    <link>http://bramp.net/blog/tags/latex/</link>
+    <link>http://localhost:1313/blog/tags/latex/</link>
     <description>Recent content in Latex on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 15 Apr 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/tags/latex/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/tags/latex/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>LaTeX Error: File `layaureo.sty’ not found</title>
-      <link>http://bramp.net/blog/2012/04/15/latex-error-file-layaureo.sty-not-found/</link>
+      <link>http://localhost:1313/blog/2012/04/15/latex-error-file-layaureo.sty-not-found/</link>
       <pubDate>Sun, 15 Apr 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2012/04/15/latex-error-file-layaureo.sty-not-found/</guid>
+      <guid>http://localhost:1313/blog/2012/04/15/latex-error-file-layaureo.sty-not-found/</guid>
       <description>&lt;p&gt;I was getting the error &lt;code&gt;./cv.tex:11: LaTeX Error: File `layaureo.sty&#39; not found.&lt;/code&gt; when trying to compile an &lt;a href=&#34;https://github.com/bramp/curriculum-vitae&#34; title=&#34;Curriculum Vitae latex project&#34;&gt;old tex document&lt;/a&gt; of mine.&lt;/p&gt;
 
-&lt;p&gt;It seems layaureo is missing from &lt;a href=&#34;http://www.tug.org/texlive/&#34; title=&#34;TeX Live&#34;&gt;TexLive&lt;/a&gt; 2009, the default on Debian at the moment (even though it&amp;#8217;s 2012 now!). So I had to install TexLive 2011 from Debian Unstable using [Apt Pinning][3] to fix this problem.&lt;/p&gt;
+&lt;p&gt;It seems layaureo is missing from &lt;a href=&#34;http://www.tug.org/texlive/&#34; title=&#34;TeX Live&#34;&gt;TexLive&lt;/a&gt; 2009, the default on Debian at the moment (even though it&amp;#8217;s 2012 now!). So I had to install TexLive 2011 from Debian Unstable using &lt;a href=&#34;http://wiki.debian.org/AptPreferences&#34;&gt;Apt Pinning&lt;/a&gt; to fix this problem.&lt;/p&gt;
 
 &lt;p&gt;Once TexLive 2011 is installed &lt;code&gt;apt-get install -t unstable texlive-lang-italian&lt;/code&gt; to bring in the layaureo package.&lt;/p&gt;
 
 &lt;p&gt;I also encountered the following problems that was easier to resolve:&lt;/p&gt;
-
-&lt;pre&gt;LaTeX Error: File `marvosym.sty&#39; not found. solution: &lt;code&gt;apt-get install texlive-fonts-recommended&lt;/code&gt;
-LaTeX Error: File `fullpage.sty&#39; not found. solution: &lt;code&gt;apt-get install texlive-latex-extra&lt;/code&gt;
-LaTeX Error: File `multibib.sty&#39; not found. solution: &lt;code&gt;apt-get install texlive-bibtex-extra&lt;/code&gt;
-LaTeX Error: File `algorithm.sty&#39; not found. solution: &lt;code&gt;apt-get install texlive-science&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;[3]: &lt;a href=&#34;http://wiki.debian.org/AptPreferences&#34;&gt;http://wiki.debian.org/AptPreferences&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;LaTeX Error: File `marvosym.sty&amp;#39; not found. solution: apt-get install texlive-fonts-recommended
+LaTeX Error: File `fullpage.sty&amp;#39; not found. solution: apt-get install texlive-latex-extra
+LaTeX Error: File `multibib.sty&amp;#39; not found. solution: apt-get install texlive-bibtex-extra
+LaTeX Error: File `algorithm.sty&amp;#39; not found. solution: apt-get install texlive-science
+&lt;/pre&gt;&lt;/div&gt;
 </description>
     </item>
     
     <item>
       <title>LaTeX QR Based Business Card</title>
-      <link>http://bramp.net/blog/2010/02/13/latex-qr-based-business-card/</link>
+      <link>http://localhost:1313/blog/2010/02/13/latex-qr-based-business-card/</link>
       <pubDate>Sat, 13 Feb 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2010/02/13/latex-qr-based-business-card/</guid>
-      <description>&lt;p&gt;I recently found &lt;a href=&#34;http://forthescience.org/blog/2010/02/02/my-business-card-with-qr-code-geeky/&#34;&gt;this blog&lt;/a&gt; which shows a business card with a QR card. I thought I&amp;#8217;d create a business card with LaTeX with a similar QR code. I took a LaTeX template from &lt;a href=&#34;http://blog.widmann.org.uk/2009/05/27/1297/&#34;&gt;here&lt;/a&gt;, found out about the &lt;a href=&#34;http://www.tug.org/texmf-dist/doc/generic/pst-barcode/pst-barcode-doc.pdf&#34;&gt;pst-barcode pacakge&lt;/a&gt;, learnt the [MECARD format][4], and combined them to make this:&lt;/p&gt;
+      <guid>http://localhost:1313/blog/2010/02/13/latex-qr-based-business-card/</guid>
+      <description>&lt;p&gt;I recently found &lt;a href=&#34;http://forthescience.org/blog/2010/02/02/my-business-card-with-qr-code-geeky/&#34;&gt;this blog&lt;/a&gt; which shows a business card with a QR card. I thought I&amp;#8217;d create a business card with LaTeX with a similar QR code. I took a LaTeX template from &lt;a href=&#34;http://blog.widmann.org.uk/2009/05/27/1297/&#34;&gt;here&lt;/a&gt;, found out about the &lt;a href=&#34;http://www.tug.org/texmf-dist/doc/generic/pst-barcode/pst-barcode-doc.pdf&#34;&gt;pst-barcode pacakge&lt;/a&gt;, learnt the &lt;a href=&#34;https://www.nttdocomo.co.jp/english/service/developer/make/content/barcode/function/application/addressbook/&#34;&gt;MECARD format&lt;/a&gt;, and combined them to make this:&lt;/p&gt;
 
 &lt;div class=&#34;figure&#34;&gt;
   &lt;a href=&#34;http://bramp.net/projects/business card/card-1.pdf&#34;&gt;&lt;img src=&#34;http://bramp.net/projects/business card/card-1.png&#34; width=756 height=496 alt=&#34;My QR Business Card&#34; style=&#34;border: none&#34;/&gt;&lt;/a&gt;&lt;br /&gt; &lt;br /&gt; My QR Business Card
 &lt;/div&gt;
 
 &lt;p&gt;I doubt I&amp;#8217;ll print this card, but just in case you want to make a similar one, here is the LaTeX source:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;k&#34;&gt;\documentclass&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;[11pt,a4paper]&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;memoir&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
 
-&lt;pre class=&#34;prettyprint&#34;&gt;\documentclass[11pt,a4paper]{memoir}
+&lt;span class=&#34;k&#34;&gt;\setstocksize&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;55mm&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;85mm&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;% UK Stock size&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;\setpagecc&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;55mm&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;85mm&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;*&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;\settypeblocksize&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;45mm&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;75mm&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;*&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;\setulmargins&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;5mm&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;*&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;*&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;\setlrmargins&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;5mm&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;*&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;*&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
 
-\setstocksize{55mm}{85mm} % UK Stock size
-\setpagecc{55mm}{85mm}{*}
-\settypeblocksize{45mm}{75mm}{*}
-\setulmargins{5mm}{*}{*}
-\setlrmargins{5mm}{*}{*}
+&lt;span class=&#34;k&#34;&gt;\setheadfoot&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;0.1pt&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;0.1pt&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;\setheaderspaces&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;1pt&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;*&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;*&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;\checkandfixthelayout&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;[fixed]&lt;/span&gt;
 
-\setheadfoot{0.1pt}{0.1pt}
-\setheaderspaces{1pt}{*}{*}
-\checkandfixthelayout[fixed]
+&lt;span class=&#34;k&#34;&gt;\pagestyle&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;empty&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
 
-\pagestyle{empty}
+&lt;span class=&#34;k&#34;&gt;\usepackage&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;pstricks&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;\usepackage&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;pst-barcode&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
 
-\usepackage{pstricks}
-\usepackage{pst-barcode}
-
-\begin{document}
-    %\pagecolor[cmyk]{.22,.36,.51,.08}%
-    \begin{Spacing}{0.75}%
-    \noindent
-    \textbf{Andrew~Brampton~Ph.D.}\\
-    \rule{75mm}{1mm}\\
-    \begin{minipage}[t]{30mm}
-        \vspace{-1mm}%
-        \begin{pspicture}(30mm,30mm)
-            % The MECARD format is used to exchange contact information. More information at:
-            % http://www.nttdocomo.co.jp/english/service/imode/make/content/barcode/function/application/addressbook/index.html
-            \psbarcode{MECARD:N:Brampton,Andrew;EMAIL:a.bramptonATlancs.ac.uk;URL:http://bramp.net;;}{eclevel=L width=1.181 height=1.181}{qrcode}
-        \end{pspicture}
-    \end{minipage}
-    \hspace{1mm}
-    \begin{minipage}[t]{42mm}
-        \vspace{-1mm}%
-        \begin{flushright}
-        {\scriptsize
-            \begin{Spacing}{1.5}%
-%           \textbf{Research Associate}\\
-            \textbf{Network Researcher}\\
-            Computing Department\\
-            Lancaster University\vspace{9mm}\\
-            \end{Spacing}
-        }
-        {\tiny
-            \textbf{email:} a.brampton AT lancs.ac.uk\\
-            \textbf{web:} http://bramp.net/\\
-            \vspace*{2mm}
-        }
-        \end{flushright}
-    \end{minipage}
-    \rule{75mm}{1mm}
-    \end{Spacing}
-\end{document}
-&lt;/pre&gt;
-
-&lt;p&gt;[4]: &lt;a href=&#34;http://www.nttdocomo.co.jp/english/service/imode/make/content/barcode/function/application/addressbook/index.html&#34;&gt;http://www.nttdocomo.co.jp/english/service/imode/make/content/barcode/function/application/addressbook/index.html&lt;/a&gt;&lt;/p&gt;
+&lt;span class=&#34;k&#34;&gt;\begin&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;document&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;c&#34;&gt;%\pagecolor[cmyk]{.22,.36,.51,.08}%&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;\begin&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;Spacing&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;0.75&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;%&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;\noindent&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;\textbf&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;Andrew~Brampton~Ph.D.&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;\\&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;\rule&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;75mm&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;1mm&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;\\&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;\begin&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;minipage&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;[t]&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;30mm&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;\vspace&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;-1mm&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;%&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;\begin&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;pspicture&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;(30mm,30mm)
+            &lt;span class=&#34;c&#34;&gt;% The MECARD format is used to exchange contact information. More information at:&lt;/span&gt;
+            &lt;span class=&#34;c&#34;&gt;% http://www.nttdocomo.co.jp/english/service/imode/make/content/barcode/function/application/addressbook/index.html&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;\psbarcode&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;MECARD:N:Brampton,Andrew;EMAIL:a.bramptonATlancs.ac.uk;URL:http://bramp.net;;&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;eclevel=L width=1.181 height=1.181&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;qrcode&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;\end&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;pspicture&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;\end&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;minipage&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;\hspace&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;1mm&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;\begin&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;minipage&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;[t]&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;42mm&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;\vspace&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;-1mm&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;%&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;\begin&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;flushright&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;\scriptsize&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;\begin&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;Spacing&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;1.5&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;%&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;%           \textbf{Research Associate}\\&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;\textbf&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;Network Researcher&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;\\&lt;/span&gt;
+            Computing Department&lt;span class=&#34;k&#34;&gt;\\&lt;/span&gt;
+            Lancaster University&lt;span class=&#34;k&#34;&gt;\vspace&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;9mm&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;\\&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;\end&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;Spacing&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;\tiny&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;\textbf&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;email:&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt; a.brampton AT lancs.ac.uk&lt;span class=&#34;k&#34;&gt;\\&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;\textbf&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;web:&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt; http://bramp.net/&lt;span class=&#34;k&#34;&gt;\\&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;\vspace*&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;2mm&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;\end&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;flushright&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;\end&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;minipage&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;\rule&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;75mm&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;1mm&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;\end&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;Spacing&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;\end&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;document&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 </description>
     </item>
     
     <item>
       <title>Final Version of my Thesis Online</title>
-      <link>http://bramp.net/blog/2009/07/10/final-version-of-my-thesis-online/</link>
+      <link>http://localhost:1313/blog/2009/07/10/final-version-of-my-thesis-online/</link>
       <pubDate>Fri, 10 Jul 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2009/07/10/final-version-of-my-thesis-online/</guid>
-      <description>&lt;p&gt;I finished my corrections a while ago now but I just hadn&amp;#8217;t gotten around to putting my final thesis on-line.&lt;/p&gt;
+      <guid>http://localhost:1313/blog/2009/07/10/final-version-of-my-thesis-online/</guid>
+      <description>
 
-&lt;p&gt;So here it is &amp;#8220;The Impact of Highly Interactive Workloads on Video-on-Demand Systems&amp;#8221; &lt;a href=&#34;https://github.com/bramp/phd-thesis/blob/master/thesis.pdf?raw=true&#34;&gt;pdf&lt;/a&gt; and [tex sources][2].&lt;/p&gt;
+&lt;p&gt;I finished my corrections a while ago now but I just hadn&amp;#8217;t gotten around to putting my final thesis on-line.&lt;/p&gt;
+
+&lt;p&gt;So here it is &lt;a href=&#34;https://github.com/bramp/phd-thesis/blob/master/thesis.pdf?raw=true&#34;&gt;pdf&lt;/a&gt; and &lt;a href=&#34;https://github.com/bramp/phd-thesis/&#34;&gt;tex sources&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;the-impact-of-highly-interactive-workloads-on-video-on-demand-systems:ef54c79c6429a8ec64774b8aa3e11df0&#34;&gt;The Impact of Highly Interactive Workloads on Video-on-Demand Systems&lt;/h3&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
@@ -122,50 +121,49 @@ LaTeX Error: File `algorithm.sty&#39; not found. solution: &lt;code&gt;apt-get i
 
 &lt;p&gt;Novel interactive controls such as bookmarks have also highly impacted user behaviour. This has lead to the segments within the media being accessed in a uneven fashion, causing hotspots of interest to form; areas with orders of magnitudes more viewers than others. These hotspots typically began at the beginning of a bookmark, however not always, which lead us to design a dynamic bookmark positioning algorithm. As well as their position, determining the hotspot&amp;#8217;s length can be beneficial. This aids in autonomic techniques such as replication and pre-fetching as well as allowing the users to find what they want quicker.&lt;/p&gt;
 
-&lt;p&gt;Under high level of interactivity, delivery techniques are less efficient due to the unpredictability of the users. We however developed techniques which restore some of this predictability, allowing clients or servers to predict future actions based on past user actions. These technique proves exceeding useful for pre-fetching which reduces seek latencies for client and can reduce load on servers. However knowledge of past user activities need to be gathered from network, thus we develop techniques to do this in a distributed manner.&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;Under high level of interactivity, delivery techniques are less efficient due to the unpredictability of the users. We however developed techniques which restore some of this predictability, allowing clients or servers to predict future actions based on past user actions. These technique proves exceeding useful for pre-fetching which reduces seek latencies for client and can reduce load on servers. However knowledge of past user activities need to be gathered from network, thus we develop techniques to do this in a distributed manner.&lt;/p&gt;
 &lt;/blockquote&gt;
-
-&lt;p&gt;[2]: &lt;a href=&#34;https://github.com/bramp/phd-thesis/&#34;&gt;https://github.com/bramp/phd-thesis/&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
-      <title>Thesis</title>
-      <link>http://bramp.net/blog/2008/10/01/thesis/</link>
+      <title>The Impact of Highly Interactive Workloads on Video-on-Demand Systems</title>
+      <link>http://localhost:1313/blog/publications/the-impact-of-highly-interactive-workloads-on-video-on-demand-systems/</link>
       <pubDate>Wed, 01 Oct 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2008/10/01/thesis/</guid>
-      <description>
+      <guid>http://localhost:1313/blog/publications/the-impact-of-highly-interactive-workloads-on-video-on-demand-systems/</guid>
+      <description>&lt;p&gt;Andrew Brampton.&lt;/p&gt;
 
-&lt;h2 id=&#34;update-i-have-now-posted-my-final-version-here-1:b917bb2abf8ba8deba2ec0ff9b5fc49a&#34;&gt;Update, I have now posted my final version &lt;a href=&#34;http://bramp.net/blog/blog/final-version-of-my-thesis-online&#34;&gt;here&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Thesis submitted for the degree of Doctor of Philosophy&lt;/p&gt;
 
-&lt;p&gt;Yesterday I finally finished my PhD thesis and submitted it to university house.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;It is titled: &amp;#8220;The Impact of Highly Interactive Workloads on Multimedia Systems&amp;#8221;&lt;/p&gt;
+&lt;p&gt;The traditional start-to-finish playback model is not suitable for all modern interactive video streams. Users expect support for higher levels of interactivity such as fast forward and rewind or the ability to arbitrary seek within their media quickly and efficiently. By conducting user studies we have observed start-to-finish is not applicable to many genres of video, and that different playback models fit better. We discuss how existing delivery techniques are impacted by these new observations.&lt;/p&gt;
 
-&lt;p&gt;If anyone is interested, you can &lt;a href=&#34;https://github.com/bramp/phd-thesis/blob/master/thesis.pdf&#34;&gt;download a PDF copy&lt;/a&gt;, or if you are interested you can &lt;a href=&#34;https://github.com/bramp/phd-thesis&#34;&gt;look at my latex source code&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Novel interactive controls such as bookmarks have also highly impacted user behaviour. This has lead to the segments within the media being accessed in a uneven fashion, causing hotspots of interest to form; areas with orders of magnitudes more viewers than others. These hotspots typically began at the beginning of a bookmark, however not always, which lead us to design a dynamic bookmark positioning algorithm. As well as their position, determining the hotspot&amp;#8217;s length can be beneficial. This aids in autonomic techniques such as replication and pre-fetching as well as allowing the users to find what they want quicker.&lt;/p&gt;
 
-&lt;p&gt;I&amp;#8217;ve not finished my PhD yet, as I still have to pass my viva, and make any changes suggested. However, if people do find errors in my thesis now, I would be grateful if you [tell me][4].&lt;/p&gt;
+&lt;p&gt;Under high level of interactivity, delivery techniques are less efficient due to the unpredictability of the users. We however developed techniques which restore some of this predictability, allowing clients or servers to predict future actions based on past user actions. These technique proves exceeding useful for pre-fetching which reduces seek latencies for client and can reduce load on servers. However knowledge of past user activities need to be gathered from network, thus we develop techniques to do this in a distributed manner.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;[4]: /about/#contact&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/phd-thesis/blob/master/thesis.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/phd-thesis&#34;&gt;LaTeX Source&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Please notify the author of the software that produced this file</title>
-      <link>http://bramp.net/blog/2008/09/24/please-notify-the-author-of-the-software-that-produced-this-file/</link>
+      <link>http://localhost:1313/blog/2008/09/24/please-notify-the-author-of-the-software-that-produced-this-file/</link>
       <pubDate>Wed, 24 Sep 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2008/09/24/please-notify-the-author-of-the-software-that-produced-this-file/</guid>
+      <guid>http://localhost:1313/blog/2008/09/24/please-notify-the-author-of-the-software-that-produced-this-file/</guid>
       <description>&lt;p&gt;While compiling my LaTeX document I received a message which made me chuckle:&lt;/p&gt;
-
-&lt;pre&gt;**** This file had errors that were repaired or ignored.
-   **** The file was produced by: 
-   **** &gt;&gt;&gt;&gt; MicrosoftÂ® Office VisioÂ® 2007 &amp;lt;&amp;lt;&amp;lt;&amp;lt;
-   **** Please notify the author of the software that produced this
-   **** file that it does not conform to Adobe&#39;s published PDF
-   **** specification.
-&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;**** This file had errors that were repaired or ignored.
+**** The file was produced by: 
+**** &amp;gt;&amp;gt;&amp;gt;&amp;gt; Microsoft® Office Visio® 2007 &amp;lt;&amp;lt;&amp;lt;&amp;lt;
+**** Please notify the author of the software that produced this
+**** file that it does not conform to Adobe&amp;#39;s published PDF
+**** specification.
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This is printed because Visio is not embedding fonts which LaTeX needs.&lt;/p&gt;
 

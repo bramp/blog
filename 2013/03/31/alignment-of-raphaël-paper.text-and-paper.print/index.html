@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2013/03/31/alignment-of-rapha%C3%ABl-paper.text-and-paper.print/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,93 +86,101 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>Alignment of Raphaël Paper.text(…) and Paper.print(…)</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2013-03-31</small> 347 words</p> <hr/>
-   <div class="post">
-     <p>Working with <a href="http://raphaeljs.com/">Raphaël</a> I noticed the alignment of text drawn with the <a href="http://raphaeljs.com/reference.html#Paper.text">Paper.text(&#8230;)</a> and <a href="http://raphaeljs.com/reference.html#Paper.print">Paper.print(&#8230;)</a> methods differed. The documentation wasn&#8217;t helpful in explaining the difference, so I wrote a simple test to work out their behaviour, and then a small method to normalise them.</p>
 
-<p>[<img src="http://bramp.net/blog/wp-content/uploads/raphaeljs-text-test.svg" alt="raphaeljs-text-test" class="aligncenter size-full wp-image-627" />][4]<br />
-In this I&#8217;m drawing text with it&#8217;s bounding box show, and a cross over the x,y coordinates the text is meant to appear. As you can see <a href="http://raphaeljs.com/reference.html#Paper.text">Paper.text(&#8230;)</a> defaults to centre aligning vertically and horizontally. <a href="http://raphaeljs.com/reference.html#Paper.print">Paper.print(&#8230;)</a> aligns with the baseline of the first line, and I&#8217;m guess horizontally with the left edge (with a small amount of padding). The last example I wrote a simple method to centre <a href="http://raphaeljs.com/reference.html#Paper.print">Paper.print(&#8230;)</a> so it acts like <a href="http://raphaeljs.com/reference.html#Paper.text">Paper.text(&#8230;)</a></p>
+
+<div id="article">
+	<h1>Alignment of Raphaël Paper.text(…) and Paper.print(…)</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2013-03-31</small>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>Working with <a href="http://raphaeljs.com/">Raphaël</a> I noticed the alignment of text drawn with the <a href="http://raphaeljs.com/reference.html#Paper.text">Paper.text(&#8230;)</a> and <a href="http://raphaeljs.com/reference.html#Paper.print">Paper.print(&#8230;)</a> methods differed. The documentation wasn&#8217;t helpful in explaining the difference, so I wrote a simple test to work out their behaviour, and then a small method to normalise them.</p>
+
+<div class="text-center">
+    <a href="http://bramp.net/blog/wp-content/uploads/raphaeljs-text-test.svg">
+        <img src="http://bramp.net/blog/wp-content/uploads/raphaeljs-text-test.svg" alt="raphaeljs-text-test" />
+    </a>
+</div>
+
+<p>In this I&#8217;m drawing text with it&#8217;s bounding box show, and a cross over the x,y coordinates the text is meant to appear. As you can see <a href="http://raphaeljs.com/reference.html#Paper.text">Paper.text(&#8230;)</a> defaults to centre aligning vertically and horizontally. <a href="http://raphaeljs.com/reference.html#Paper.print">Paper.print(&#8230;)</a> aligns with the baseline of the first line, and I&#8217;m guess horizontally with the left edge (with a small amount of padding). The last example I wrote a simple method to centre <a href="http://raphaeljs.com/reference.html#Paper.print">Paper.print(&#8230;)</a> so it acts like <a href="http://raphaeljs.com/reference.html#Paper.text">Paper.text(&#8230;)</a></p>
 
 <p>Code to draw this SVG is below, with my normalised print method named print_center.</p>
+<div class="highlight"><pre><span class="nx">Raphael</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">line</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x1</span><span class="p">,</span> <span class="nx">y1</span><span class="p">,</span> <span class="nx">x2</span><span class="p">,</span> <span class="nx">y2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//assert(_.all([x1,x2,y1,y2], _.isFinite), &quot;x1,x2,y1,y2 must be numeric&quot;);</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">path</span><span class="p">(</span><span class="s2">&quot;M{0},{1} L{2},{3}&quot;</span><span class="p">,</span> <span class="nx">x1</span><span class="p">,</span> <span class="nx">y1</span><span class="p">,</span> <span class="nx">x2</span><span class="p">,</span> <span class="nx">y2</span><span class="p">);</span>
+<span class="p">};</span>
 
-<pre class="prettyprint">Raphael.fn.line = function(x1, y1, x2, y2) {
-    //assert(_.all([x1,x2,y1,y2], _.isFinite), "x1,x2,y1,y2 must be numeric");
-    return this.path("M{0},{1} L{2},{3}", x1, y1, x2, y2);
-};
+<span class="cm">/**</span>
+<span class="cm"> * Prints, but aligns text in a similar way to text(...)</span>
+<span class="cm"> */</span>
+<span class="nx">Raphael</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">print_center</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">font</span><span class="p">,</span> <span class="nx">size</span><span class="p">,</span> <span class="nx">letter_spacing</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">path</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">print</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">string</span><span class="p">,</span> <span class="nx">font</span><span class="p">,</span> <span class="nx">size</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">,</span> <span class="nx">letter_spacing</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">bb</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">getBBox</span><span class="p">();</span>
 
-/**
- * Prints, but aligns text in a similar way to text(...)
- */
-Raphael.fn.print_center = function(x, y, string, font, size, letter_spacing) {
-    var path = this.print(x, y, string, font, size, 'baseline', letter_spacing);
-    var bb = path.getBBox();
+    <span class="kd">var</span> <span class="nx">dx</span> <span class="o">=</span> <span class="p">(</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">bb</span><span class="p">.</span><span class="nx">x</span><span class="p">)</span> <span class="o">-</span> <span class="nx">bb</span><span class="p">.</span><span class="nx">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">dy</span> <span class="o">=</span> <span class="p">(</span><span class="nx">y</span> <span class="o">-</span> <span class="nx">bb</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span> <span class="o">-</span> <span class="nx">bb</span><span class="p">.</span><span class="nx">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
 
-    var dx = (x - bb.x) - bb.width / 2;
-    var dy = (y - bb.y) - bb.height / 2;
+    <span class="k">return</span> <span class="nx">path</span><span class="p">.</span><span class="nx">transform</span><span class="p">(</span><span class="s2">&quot;t&quot;</span> <span class="o">+</span> <span class="nx">dx</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nx">dy</span><span class="p">);</span>
+<span class="p">}</span>
 
-    return path.transform("t" + dx + "," + dy);
-}
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">paper</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Raphael</span><span class="p">(</span><span class="s2">&quot;diagram&quot;</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">600</span><span class="p">);</span>
 
-$(document).ready(function(){
-    var paper = new Raphael("diagram", 300, 600);
+    <span class="kd">function</span> <span class="nx">draw_cross</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">SIZE</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>
+        <span class="nx">paper</span><span class="p">.</span><span class="nx">line</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="o">-</span> <span class="nx">SIZE</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="o">+</span> <span class="nx">SIZE</span><span class="p">);</span>
+        <span class="nx">paper</span><span class="p">.</span><span class="nx">line</span><span class="p">(</span><span class="nx">x</span> <span class="o">-</span> <span class="nx">SIZE</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">SIZE</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+    <span class="p">}</span>
 
-    function draw_cross(x, y) {
-        var SIZE = 50;
-        paper.line(x, y - SIZE, x, y + SIZE);
-        paper.line(x - SIZE, y, x + SIZE, y);
-    }
+    <span class="kd">function</span> <span class="nx">draw_coord</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="nx">paper</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">x</span><span class="p">.</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nx">y</span><span class="p">.</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+        <span class="nx">p</span><span class="p">.</span><span class="nx">attr</span><span class="p">({</span><span class="s1">&#39;font-size&#39;</span><span class="o">:</span> <span class="mi">10</span><span class="p">});</span>
+    <span class="p">}</span>
 
-    function draw_coord(x, y) {
-        var p = paper.text(x, y, x.toFixed(0) + "," + y.toFixed(0));
-        p.attr({'font-size': 10});
-    }
+    <span class="kd">function</span> <span class="nx">draw_bb</span><span class="p">(</span><span class="nx">bb</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">paper</span><span class="p">.</span><span class="nx">rect</span><span class="p">(</span><span class="nx">bb</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">bb</span><span class="p">.</span><span class="nx">y</span><span class="p">,</span> <span class="nx">bb</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">bb</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
 
-    function draw_bb(bb) {
-        paper.rect(bb.x, bb.y, bb.width, bb.height);
+        <span class="nx">draw_coord</span><span class="p">(</span><span class="nx">bb</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">bb</span><span class="p">.</span><span class="nx">y</span><span class="p">);</span>
+        <span class="nx">draw_coord</span><span class="p">(</span><span class="nx">bb</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">bb</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">bb</span><span class="p">.</span><span class="nx">y</span><span class="p">);</span>
+        <span class="nx">draw_coord</span><span class="p">(</span><span class="nx">bb</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">bb</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="nx">bb</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+        <span class="nx">draw_coord</span><span class="p">(</span><span class="nx">bb</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="nx">bb</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">bb</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="nx">bb</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+    <span class="p">}</span>
 
-        draw_coord(bb.x, bb.y);
-        draw_coord(bb.x + bb.width, bb.y);
-        draw_coord(bb.x, bb.y + bb.height);
-        draw_coord(bb.x + bb.width, bb.y + bb.height);
-    }
+    <span class="c1">//////////</span>
+    <span class="nx">draw_cross</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="nx">paper</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;Text\n100,100\nThird&quot;</span><span class="p">);</span>
+    <span class="nx">p</span><span class="p">.</span><span class="nx">attr</span><span class="p">({</span><span class="s1">&#39;font-size&#39;</span><span class="o">:</span> <span class="mi">32</span><span class="p">});</span>
 
-    //////////
-    draw_cross(100, 100);
-    var p = paper.text(100, 100, "Text\n100,100\nThird");
-    p.attr({'font-size': 32});
+    <span class="nx">draw_bb</span><span class="p">(</span> <span class="nx">p</span><span class="p">.</span><span class="nx">getBBox</span><span class="p">()</span> <span class="p">);</span>
 
-    draw_bb( p.getBBox() );
+    <span class="c1">//////////</span>
+    <span class="nx">draw_cross</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">font</span> <span class="o">=</span> <span class="nx">paper</span><span class="p">.</span><span class="nx">getFont</span><span class="p">(</span><span class="s1">&#39;daniel&#39;</span><span class="p">)</span>
+    <span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="nx">paper</span><span class="p">.</span><span class="nx">print</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="s2">&quot;Print\n100,300\nThird&quot;</span><span class="p">,</span> <span class="nx">font</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">);</span>
 
-    //////////
-    draw_cross(100, 300);
-    var font = paper.getFont('daniel')
-    var p = paper.print(100, 300, "Print\n100,300\nThird", font, 32, 'baseline');
+    <span class="nx">draw_bb</span><span class="p">(</span> <span class="nx">p</span><span class="p">.</span><span class="nx">getBBox</span><span class="p">()</span> <span class="p">);</span>
 
-    draw_bb( p.getBBox() );
+    <span class="c1">//////////</span>
+    <span class="nx">draw_cross</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">font</span> <span class="o">=</span> <span class="nx">paper</span><span class="p">.</span><span class="nx">getFont</span><span class="p">(</span><span class="s1">&#39;daniel&#39;</span><span class="p">)</span>
+    <span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="nx">paper</span><span class="p">.</span><span class="nx">print_center</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="s2">&quot;MyPrint\n100,500\nThird&quot;</span><span class="p">,</span> <span class="nx">font</span><span class="p">,</span> <span class="mi">32</span><span class="p">);</span>
 
-    //////////
-    draw_cross(100, 500);
-    var font = paper.getFont('daniel')
-    var p = paper.print_center(100, 500, "MyPrint\n100,500\nThird", font, 32);
+    <span class="nx">draw_bb</span><span class="p">(</span> <span class="nx">p</span><span class="p">.</span><span class="nx">getBBox</span><span class="p">()</span> <span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
 
-    draw_bb( p.getBBox() );
-});
-</pre>
-
-<p>[4]: <a href="http://bramp.net/blog/wp-content/uploads/raphaeljs-text-test.svg">http://bramp.net/blog/wp-content/uploads/raphaeljs-text-test.svg</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2013/08/25/sms-character-count/">&larr; SMS Character Count</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2013/03/26/most-starred-project-this-week-and-second-most-forked./"> Most starred project this week, and second most forked. &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2013/03/26/most-starred-project-this-week-and-second-most-forked./">&larr; Most starred project this week, and second most forked.</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2013/08/25/sms-character-count/"> SMS Character Count &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -192,8 +209,11 @@ $(document).ready(function(){
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sdlc on bramp.net</title>
-    <link>http://bramp.net/blog/tags/sdlc/</link>
+    <link>http://localhost:1313/blog/tags/sdlc/</link>
     <description>Recent content in Sdlc on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Wed, 20 Aug 2014 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/tags/sdlc/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/tags/sdlc/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Modern Software Development Life Cycle</title>
-      <link>http://bramp.net/blog/2014/08/20/modern-software-development-life-cycle/</link>
+      <link>http://localhost:1313/blog/2014/08/20/modern-software-development-life-cycle/</link>
       <pubDate>Wed, 20 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2014/08/20/modern-software-development-life-cycle/</guid>
+      <guid>http://localhost:1313/blog/2014/08/20/modern-software-development-life-cycle/</guid>
       <description>&lt;p&gt;I recently got asked by a friend at a start-up on how to ensure better quality in their product. They were looking for advise on the QA process, but after digging a little I found they needed improvements to their full software development life cycle (SDLC). After a few emails back and forth I ended up writing what&amp;#8217;s below. It has plenty of references for further reading, and I thought it would be good to share.&lt;/p&gt;
 
 &lt;p&gt;Generally people view the SDLC as a pipeline, and there are different ways to manage the pipeline, Scrum, Kanban, Waterfall, etc. Each with their pros and cons, and all can help your quality, but I’ll address that later&lt;/p&gt;
@@ -74,9 +74,7 @@ I mention there were different techniques for the SDLC, Agile based approaches (
 
 &lt;p&gt;I highly recommend the &lt;a href=&#34;http://www.amazon.com/gp/product/0988262592/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0988262592&amp;amp;linkCode=as2&amp;amp;tag=brampnet-20&amp;amp;linkId=36PJQM4IDQIMEWXH&#34;&gt;The Phoenix Project&lt;/a&gt;, it talks about SLDC, and is a good read (even for those non-technical readers).&lt;/p&gt;
 
-&lt;p&gt;Finally, I’d like to quickly introduce the newer concept of &lt;a href=&#34;http://www.amazon.com/gp/product/0321601912/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0321601912&amp;amp;linkCode=as2&amp;amp;tag=brampnet-20&amp;amp;linkId=VBPKIQYH5SL4PKCD&#34;&gt;Continuous Delivery&lt;/a&gt;. This extends continuous integration, by making your pipeline end at deployment. From code check-in to being live in a production environment, should be as automated as possible. Companies like &lt;a href=&#34;http://www.slideshare.net/mikebrittain/principles-and-practices-in-continuous-deployment-at-etsy&#34;&gt;Etsy&lt;/a&gt; and [Facebook][31] like to advertise that they deploy numerous times a day.&lt;/p&gt;
-
-&lt;p&gt;[31]: &lt;a href=&#34;http://www.forbes.com/sites/quora/2013/08/12/how-do-facebook-and-google-manage-software-releases-without-causing-major-problems/&#34;&gt;http://www.forbes.com/sites/quora/2013/08/12/how-do-facebook-and-google-manage-software-releases-without-causing-major-problems/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Finally, I’d like to quickly introduce the newer concept of &lt;a href=&#34;http://www.amazon.com/gp/product/0321601912/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0321601912&amp;amp;linkCode=as2&amp;amp;tag=brampnet-20&amp;amp;linkId=VBPKIQYH5SL4PKCD&#34;&gt;Continuous Delivery&lt;/a&gt;. This extends continuous integration, by making your pipeline end at deployment. From code check-in to being live in a production environment, should be as automated as possible. Companies like &lt;a href=&#34;http://www.slideshare.net/mikebrittain/principles-and-practices-in-continuous-deployment-at-etsy&#34;&gt;Etsy&lt;/a&gt; and &lt;a href=&#34;http://www.forbes.com/sites/quora/2013/08/12/how-do-facebook-and-google-manage-software-releases-without-causing-major-problems/&#34;&gt;Facebook&lt;/a&gt; like to advertise that they deploy numerous times a day.&lt;/p&gt;
 </description>
     </item>
     

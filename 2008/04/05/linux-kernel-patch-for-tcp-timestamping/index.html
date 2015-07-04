@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2008/04/05/linux-kernel-patch-for-tcp-timestamping/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,48 +86,58 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>Linux kernel patch for TCP timestamping</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2008-04-05</small> 216 words</p> <hr/>
-   <div class="post">
-     <p>Recently I needed to measure the time it takes a packet to travel though the Linux network stack. To begin with I thought I&#8217;ll hack the kernel to add my own timing measurements, but then I found this was already built in! I could use the SIOCGSTAMP or SIOCGSTAMPNS ioctl calls to retrieve the timestamp assigned by the network driver when the packet first enters the stack.</p>
 
-<pre class="prettyprint">SOCKET s;
-struct timeval tv = {0,0};
-if ( ioctl(s, SIOCGSTAMP, &tv) )
-   return 0; // error
-printf( "%ld seconds and %ld nanoseconds",  tv.tv_sec,  tv.tv_usec );
-</pre>
+
+<div id="article">
+	<h1>Linux kernel patch for TCP timestamping</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2008-04-05</small>
+		
+		| <a href="http://localhost:1313/blog//tags/linux">Linux</a>
+		
+		| <a href="http://localhost:1313/blog//tags/patch">patch</a>
+		
+		| <a href="http://localhost:1313/blog//tags/tcp">TCP</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>Recently I needed to measure the time it takes a packet to travel though the Linux network stack. To begin with I thought I&#8217;ll hack the kernel to add my own timing measurements, but then I found this was already built in! I could use the SIOCGSTAMP or SIOCGSTAMPNS ioctl calls to retrieve the timestamp assigned by the network driver when the packet first enters the stack.</p>
+<div class="highlight"><pre><span class="n">SOCKET</span> <span class="n">s</span><span class="p">;</span>
+<span class="k">struct</span> <span class="n">timeval</span> <span class="n">tv</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
+<span class="k">if</span> <span class="p">(</span> <span class="n">ioctl</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">SIOCGSTAMP</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tv</span><span class="p">)</span> <span class="p">)</span>
+   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// error</span>
+<span class="n">printf</span><span class="p">(</span> <span class="s">&quot;%ld seconds and %ld nanoseconds&quot;</span><span class="p">,</span>  <span class="n">tv</span><span class="p">.</span><span class="n">tv_sec</span><span class="p">,</span>  <span class="n">tv</span><span class="p">.</span><span class="n">tv_usec</span> <span class="p">);</span>
+</pre></div>
 
 <p>This works great for UDP packets or RAW sockets, but does not work for TCP. There are many good reasons why TCP isn&#8217;t supported, mainly because TCP is a stream protocol, whereas UDP and RAW sockets typically operate on discrete packets.</p>
 
 <p>Ignoring this fact I decided to hack the kernel anyway to record the timestamps for TCP. It is a simple patch which hopefully others might find useful if they ever need to profile the TCP stack. It applys cleanly to 2.6.24 kernels.</p>
-
-<pre class="prettyprint">--- a/linux-2.6.24/net/ipv4/tcp.c  2008-01-24 22:58:37.000000000 +0000
-+++ b/linux-2.6.24/net/ipv4/tcp.c   2008-02-11 19:40:41.000000000 +0000
-@@ -1180,6 +1180,10 @@
+<div class="highlight"><pre><span class="gd">--- a/linux-2.6.24/net/ipv4/tcp.c   2008-01-24 22:58:37.000000000 +0000</span>
+<span class="gi">+++ b/linux-2.6.24/net/ipv4/tcp.c   2008-02-11 19:40:41.000000000 +0000</span>
+<span class="gu">@@ -1180,6 +1180,10 @@</span>
         /* Next get a buffer. */
  
-        skb = skb_peek(&sk-&gt;sk_receive_queue);
-+       
-+       if (skb)
-+           sock_recv_timestamp(msg, sk, skb); /* HACK */
-+           
+        skb = skb_peek(&amp;sk-&gt;sk_receive_queue);
+<span class="gi">+       </span>
+<span class="gi">+       if (skb)</span>
+<span class="gi">+           sock_recv_timestamp(msg, sk, skb); /* HACK */</span>
+<span class="gi">+           </span>
         do {
             if (!skb)
                 break;
-</pre>
+</pre></div>
 
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2008/04/07/networking-conference-calendar/">&larr; Networking Conference Calendar</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2007/07/01/characterising-user-interactivity-for-sports-video-on-demand/"> Characterising user interactivity for sports video-on-demand &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2006/07/02/how-to-build-wings/">&larr; How to Build Wings</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2008/04/07/networking-conference-calendar/"> Networking Conference Calendar &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -147,8 +166,11 @@ printf( "%ld seconds and %ld nanoseconds",  tv.tv_sec,  tv.tv_usec );
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

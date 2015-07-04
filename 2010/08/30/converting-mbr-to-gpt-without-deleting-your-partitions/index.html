@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2010/08/30/converting-mbr-to-gpt-without-deleting-your-partitions/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,57 +86,67 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>Converting MBR to GPT without deleting your partitions</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2010-08-30</small> 466 words</p> <hr/>
-   <div class="post">
-     <p>Today I tired to convert my Windows 2TB RAID disk from a <a href="http://en.wikipedia.org/wiki/Master_boot_record">master boot record</a> (MBR) layout to a <a href="http://en.wikipedia.org/wiki/GUID_Partition_Table">GUID partition table</a> (GPT) one. The reason I wanted to swap is that GPT supports partitions larger than 2TB. Normally it is easy to convert a MBR disk to a GPT one by <a href="http://technet.microsoft.com/en-us/library/cc738416(WS.10).aspx">using the Disk Management GUI</a>. However, Microsoft do not allow you to convert you disk if you have any partitions on the disk.</p>
+
+
+<div id="article">
+	<h1>Converting MBR to GPT without deleting your partitions</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2010-08-30</small>
+		
+		| <a href="http://localhost:1313/blog//tags/gpt">gpt</a>
+		
+		| <a href="http://localhost:1313/blog//tags/gptgen">gptgen</a>
+		
+		| <a href="http://localhost:1313/blog//tags/mbr">mbr</a>
+		
+		| <a href="http://localhost:1313/blog//tags/windows">windows</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>Today I tired to convert my Windows 2TB RAID disk from a <a href="http://en.wikipedia.org/wiki/Master_boot_record">master boot record</a> (MBR) layout to a <a href="http://en.wikipedia.org/wiki/GUID_Partition_Table">GUID partition table</a> (GPT) one. The reason I wanted to swap is that GPT supports partitions larger than 2TB. Normally it is easy to convert a MBR disk to a GPT one by <a href="http://technet.microsoft.com/en-us/library/cc738416(WS.10).aspx">using the Disk Management GUI</a>. However, Microsoft do not allow you to convert you disk if you have any partitions on the disk.</p>
 
 <p>After some searching I found that you could <a href="https://bbs.archlinux.org/viewtopic.php?id=62984">convert the disk non-destructively on Linux</a>, but due to various reasons, my RAID <a href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=411172">does not work</a> inside my Debian Linux <img src="http://bramp.net/blog/wp-includes/images/smilies/icon_sad.gif" alt=":(" class="wp-smiley" /> I had also read a <a href="http://www.rodsbooks.com/gdisk/mbr2gpt.html">document outlining how to the conversion works</a>, and it seems such a simple process I was surprised that Microsoft didn&#8217;t support it.</p>
 
 <p>Some more searching and I found a Linux/Windows tool that will convert MBR to GPT quite easily. <a href="http://sourceforge.net/projects/gptgen/">Gptgen</a> is a simple command line tool that seemed to work like a charm. I will quickly outline the steps I took to use it &#8220;safely&#8221;.</p>
 
 <p>Firstly I identified with disk I wanted to alter. This is done by looking at which number the disk is in Disk Management. I then quickly tested the tool without writing the changes</p>
-
-<pre>gptgen.exe \\.\\physicaldrive1</pre>
+<div class="highlight"><pre>gptgen.exe <span class="se">\\</span>.<span class="se">\\</span>physicaldrive1
+</pre></div>
 
 <p>This outputted quite a few lines, including the following:</p>
+<div class="highlight"><pre>Write primary.img to LBA address 0.
+Write secondary.img to LBA address 4395431903.
+</pre></div>
 
-<pre>Write primary.img to LBA address 0.
-Write secondary.img to LBA address 4395431903.</pre>
+<p>When you don&#8217;t write the changes to disk, gptgen creates two binary files &#8220;primary.img&#8221;, and &#8220;secondary.img&#8221;, which contain what it would have written to disk. The console output from gptgen tells me it would have written primary to <a href="http://en.wikipedia.org/wiki/Logical_block_addressing">LBA address</a> 0, and secondary.img to LBA address 4395431903. So I figured it was a good idea to make a backup of those sections first. To do this I use the <a href="http://www.chrysocome.net/dd">Windows version of the classic tool dd</a></p>
+<div class="highlight"><pre>dd <span class="k">if</span><span class="o">=</span><span class="se">\\</span>.<span class="se">\\</span>physicaldrive1 <span class="nv">of</span><span class="o">=</span>primary-backup.img <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">count</span><span class="o">=</span><span class="m">34</span> 
+dd <span class="k">if</span><span class="o">=</span><span class="se">\\</span>.<span class="se">\\</span>physicaldrive1 <span class="nv">of</span><span class="o">=</span>secondary-backup.img <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">count</span><span class="o">=</span><span class="m">33</span> <span class="nv">skip</span><span class="o">=</span>4395431903
+</pre></div>
 
-<p>When you don&#8217;t write the changes to disk, gptgen creates two binary files &#8220;primary.img&#8221;, and &#8220;secondary.img&#8221;, which contain what it would have written to disk. The console output from gptgen tells me it would have written primary to <a href="http://en.wikipedia.org/wiki/Logical_block_addressing">LBA address</a> 0, and secondary.img to LBA address 4395431903. So I figured it was a good idea to make a backup of those sections first. To do this I use the [Windows version of the classic tool dd][9]</p>
-
-<pre>dd if=\\.\\physicaldrive1 of=primary-backup.img bs=512 count=<b>34</b><br />
-dd if=\\.\\physicaldrive1 of=secondary-backup.img bs=512 count=<b>33</b> skip=<b>4395431903</b>
-</pre>
-
-<p>The numbers I&#8217;ve highlighted in bold are ones you might have to change. The first and second relate to the file sizes of primary.img and secondary.img. Find their file sizes and divide them by 512. In my case, primary.img was exactly 17,408 bytes, so 17408 / 512 = 34. Do the same for secondary.img. The final highlighted number is the LBA address shown by gptgen just a minute ago.</p>
+<p>The count and skip values might have to change. The two count values relate to the file sizes of primary.img and secondary.img. Find their file sizes and divide them by 512. In my case, primary.img was exactly 17,408 bytes, so 17408 / 512 = 34. Do the same for secondary.img. The skip number is the LBA address shown by gptgen just a minute ago.</p>
 
 <p>Ok, if you have run dd ok, you should have backups of the two sections it is going to overwrite. Now you can tell gptgen to actually make the changes:</p>
-
-<pre>gptgen.exe -w \\.\\physicaldrive1</pre>
+<div class="highlight"><pre>gptgen.exe -w <span class="se">\\</span>.<span class="se">\\</span>physicaldrive1
+</pre></div>
 
 <p>That should be it, BUT if you need to (for whatever reason) restore the backups issue these commands:</p>
-
-<pre>dd if=primary-backup.img   of=\\.\\physicaldrive1 bs=512 count=34
-dd if=secondary-backup.img of=\\.\\physicaldrive1 bs=512 count=33 seek=4395431903
-</pre>
+<div class="highlight"><pre>dd <span class="k">if</span><span class="o">=</span>primary-backup.img   <span class="nv">of</span><span class="o">=</span><span class="se">\\</span>.<span class="se">\\</span>physicaldrive1 <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">count</span><span class="o">=</span><span class="m">34</span> 
+dd <span class="k">if</span><span class="o">=</span>secondary-backup.img <span class="nv">of</span><span class="o">=</span><span class="se">\\</span>.<span class="se">\\</span>physicaldrive1 <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">count</span><span class="o">=</span><span class="m">33</span> <span class="nv">seek</span><span class="o">=</span>4395431903
+</pre></div>
 
 <p>(notice how the &#8220;if&#8221; and &#8220;of&#8221; arguments have swapped, and the word &#8220;skip&#8221; has changed to &#8220;seek&#8221;.)</p>
 
-<p>[9]: <a href="http://www.chrysocome.net/dd">http://www.chrysocome.net/dd</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2010/08/31/persec-python-script/">&larr; Persec python script</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2010/07/27/sonisphere-2010-running-order/"> Sonisphere 2010 Running Order &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2010/07/27/sonisphere-2010-running-order/">&larr; Sonisphere 2010 Running Order</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2010/08/31/persec-python-script/"> Persec python script &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -156,8 +175,11 @@ dd if=secondary-backup.img of=\\.\\physicaldrive1 bs=512 count=33 seek=439543190
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

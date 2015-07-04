@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2010/09/23/utf-8-directory-listing/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,41 +86,51 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>UTF-8 Directory Listing</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2010-09-23</small> 141 words</p> <hr/>
-   <div class="post">
-     <p>I had a need to create a directory listing with all the UTF-8 characters intact. This seems quite a chore on Windows, as doing anything via the shell seems to mangle the characters and show ???? instead of the real characters. For example, both the built in <strong>dir</strong> and Cygwin <strong>ls</strong> or <strong>find</strong> seemed affected. This turns out to be a [limitation in the windows shell][1].</p>
+
+
+<div id="article">
+	<h1>UTF-8 Directory Listing</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2010-09-23</small>
+		
+		| <a href="http://localhost:1313/blog//tags/directory-listing">directory listing</a>
+		
+		| <a href="http://localhost:1313/blog//tags/python">python</a>
+		
+		| <a href="http://localhost:1313/blog//tags/utf8">utf8</a>
+		
+		| <a href="http://localhost:1313/blog//tags/windows">windows</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>I had a need to create a directory listing with all the UTF-8 characters intact. This seems quite a chore on Windows, as doing anything via the shell seems to mangle the characters and show ???? instead of the real characters. For example, both the built in <strong>dir</strong> and Cygwin <strong>ls</strong> or <strong>find</strong> seemed affected. This turns out to be a <a href="http://stackoverflow.com/questions/379240/is-there-a-windows-command-shell-that-will-display-unicode-characters">limitation in the windows shell</a>.</p>
 
 <p>To solve this problem I wrote a bit of python to read the file names in full UTF-8 and output the results directly to a file (and not via a pipe, which would again be via the shell). The resulting very simple script is as follows:</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">codecs</span>
 
-<pre class="prettyprint">import os
-import codecs
+<span class="n">log</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;listing&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">)</span>
 
-log = codecs.open('listing', mode='w', encoding="utf-8")
+<span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="s">u&#39;.&#39;</span><span class="p">):</span>
+	<span class="n">log</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">root</span> <span class="o">+</span> <span class="s">u&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
-for root, dirs, files in os.walk(u'.'):
-    log.write(root + u"\n")
+	<span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
+		<span class="n">log</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="nb">file</span><span class="p">)</span> <span class="o">+</span> <span class="s">u&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
-    for file in sorted(files):
-        log.write(os.path.join(root, file) + u"\n")
+<span class="n">log</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
 
-log.close()
-
-</pre>
-
-<p>[1]: <a href="http://stackoverflow.com/questions/379240/is-there-a-windows-command-shell-that-will-display-unicode-characters">http://stackoverflow.com/questions/379240/is-there-a-windows-command-shell-that-will-display-unicode-characters</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2010/11/25/verizon-fios-mi424wr-rev.-f-router/">&larr; Verizon FiOS MI424WR rev. F Router</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2010/09/06/ifconfig-stats-gotcha/"> ifconfig stats gotcha &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2010/09/06/ifconfig-stats-gotcha/">&larr; ifconfig stats gotcha</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2010/11/25/verizon-fios-mi424wr-rev.-f-router/"> Verizon FiOS MI424WR rev. F Router &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -140,8 +159,11 @@ log.close()
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

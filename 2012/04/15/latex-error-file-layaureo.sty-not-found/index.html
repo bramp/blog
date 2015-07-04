@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2012/04/15/latex-error-file-layaureo.sty-not-found/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,35 +86,43 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>LaTeX Error: File `layaureo.sty’ not found</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2012-04-15</small> 128 words</p> <hr/>
-   <div class="post">
-     <p>I was getting the error <code>./cv.tex:11: LaTeX Error: File `layaureo.sty' not found.</code> when trying to compile an <a href="https://github.com/bramp/curriculum-vitae" title="Curriculum Vitae latex project">old tex document</a> of mine.</p>
 
-<p>It seems layaureo is missing from <a href="http://www.tug.org/texlive/" title="TeX Live">TexLive</a> 2009, the default on Debian at the moment (even though it&#8217;s 2012 now!). So I had to install TexLive 2011 from Debian Unstable using [Apt Pinning][3] to fix this problem.</p>
+
+<div id="article">
+	<h1>LaTeX Error: File `layaureo.sty’ not found</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2012-04-15</small>
+		
+		| <a href="http://localhost:1313/blog//tags/debian">debian</a>
+		
+		| <a href="http://localhost:1313/blog//tags/latex">LaTeX</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>I was getting the error <code>./cv.tex:11: LaTeX Error: File `layaureo.sty' not found.</code> when trying to compile an <a href="https://github.com/bramp/curriculum-vitae" title="Curriculum Vitae latex project">old tex document</a> of mine.</p>
+
+<p>It seems layaureo is missing from <a href="http://www.tug.org/texlive/" title="TeX Live">TexLive</a> 2009, the default on Debian at the moment (even though it&#8217;s 2012 now!). So I had to install TexLive 2011 from Debian Unstable using <a href="http://wiki.debian.org/AptPreferences">Apt Pinning</a> to fix this problem.</p>
 
 <p>Once TexLive 2011 is installed <code>apt-get install -t unstable texlive-lang-italian</code> to bring in the layaureo package.</p>
 
 <p>I also encountered the following problems that was easier to resolve:</p>
+<div class="highlight"><pre>LaTeX Error: File `marvosym.sty&#39; not found. solution: apt-get install texlive-fonts-recommended
+LaTeX Error: File `fullpage.sty&#39; not found. solution: apt-get install texlive-latex-extra
+LaTeX Error: File `multibib.sty&#39; not found. solution: apt-get install texlive-bibtex-extra
+LaTeX Error: File `algorithm.sty&#39; not found. solution: apt-get install texlive-science
+</pre></div>
 
-<pre>LaTeX Error: File `marvosym.sty' not found. solution: <code>apt-get install texlive-fonts-recommended</code>
-LaTeX Error: File `fullpage.sty' not found. solution: <code>apt-get install texlive-latex-extra</code>
-LaTeX Error: File `multibib.sty' not found. solution: <code>apt-get install texlive-bibtex-extra</code>
-LaTeX Error: File `algorithm.sty' not found. solution: <code>apt-get install texlive-science</code></pre>
-
-<p>[3]: <a href="http://wiki.debian.org/AptPreferences">http://wiki.debian.org/AptPreferences</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2012/04/29/failed-ubuntu-update/">&larr; Failed Ubuntu update</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2012/01/24/hacking-linksys-e4200v2-firmware/"> Hacking Linksys E4200v2 firmware &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2012/01/24/hacking-linksys-e4200v2-firmware/">&larr; Hacking Linksys E4200v2 firmware</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2012/04/29/failed-ubuntu-update/"> Failed Ubuntu update &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -134,8 +151,11 @@ LaTeX Error: File `algorithm.sty' not found. solution: <code>apt-get install tex
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

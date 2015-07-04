@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2012/11/27/invalid-ip-range-checking-defeated-by-dns/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,21 +86,34 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>Invalid IP range checking defeated by DNS</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2012-11-27</small> 585 words</p> <hr/>
-   <div class="post">
-     <p>I&#8217;ve seen a particular kind of vulnerability in a few different applications but I&#8217;m not sure of an appropriate name for it. So I thought I&#8217;d write about it, and informally call it the &#8220;DNS defeated IP address check&#8221;. Basically, if you have an application that can be used as a proxy, or can be instructed to make web request, you don&#8217;t want it fetching files from internal services.</p>
+
+
+<div id="article">
+	<h1>Invalid IP range checking defeated by DNS</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2012-11-27</small>
+		
+		| <a href="http://localhost:1313/blog//tags/camo">Camo</a>
+		
+		| <a href="http://localhost:1313/blog//tags/hack">hack</a>
+		
+		| <a href="http://localhost:1313/blog//tags/http">http</a>
+		
+		| <a href="http://localhost:1313/blog//tags/nodejs">nodejs</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>I&#8217;ve seen a particular kind of vulnerability in a few different applications but I&#8217;m not sure of an appropriate name for it. So I thought I&#8217;d write about it, and informally call it the &#8220;DNS defeated IP address check&#8221;. Basically, if you have an application that can be used as a proxy, or can be instructed to make web request, you don&#8217;t want it fetching files from internal services.</p>
 
 <p>For example, there is a simple proxy called <a href="https://github.com/atmos/camo">Camo</a>, which is used to fetch third party images when you need to display them on a SSL secure site. (Read more about Camo on the <a href="https://github.com/blog/743-sidejack-prevention-phase-3-ssl-proxied-assets">GitHub blog</a>).</p>
 
 <p>This kind of application can be incorrectly setup such that the application has access to internal servers and resources that wouldn&#8217;t normally be exposed to the Internet. This make the proxy application a good way a hacker could gain information about a private network. However Camo tries to address this issue by forbidding URLs that contain private IP addresses. It does a check like so:</p>
+<div class="highlight"><pre><span class="nv">RESTRICTED_IPS = </span><span class="sr">/^((10\.)|(127\.)|(169\.254)|(192\.168)|(172\.((1[6-9])|(2[0-9])|(3[0-1]))))/</span>
 
-<pre>RESTRICTED_IPS = /^((10\.)|(127\.)|(169\.254)|(192\.168)|(172\.((1[6-9])|(2[0-9])|(3[0-1]))))/
-
-if (url.host.match(RESTRICTED_IPS))
-  return four_oh_four(resp, "Hitting excluded hostnames")
-</pre>
+<span class="k">if</span> <span class="p">(</span><span class="nx">url</span><span class="p">.</span><span class="nx">host</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">RESTRICTED_IPS</span><span class="p">))</span>
+  <span class="k">return</span> <span class="nx">four_oh_four</span><span class="p">(</span><span class="nx">resp</span><span class="p">,</span> <span class="s">&quot;Hitting excluded hostnames&quot;</span><span class="p">)</span>
+</pre></div>
 
 <p>This code (written for <a href="http://nodejs.org/">Node.js</a> in <a href="http://coffeescript.org/">CoffeeScript</a>) is taking a <a href="http://nodejs.org/api/url.html">url object</a> and checking the hostname doesn&#8217;t match a restricted address. This works great against URLs such as <a href="http://127.0.0.1/">http://127.0.0.1/</a>, or <a href="http://10.0.0.1/">http://10.0.0.1/</a>, however this check can easily be defeated. If you create a domain name, such as localhost.bramp.net, which resolves to 127.0.0.1, and ask the proxy to fetch <a href="http://localhost.bramp.net/">http://localhost.bramp.net/</a>, then it won&#8217;t be caught by that check. Now the proxy will continue to try and fetch a resource from 127.0.0.1.</p>
 
@@ -100,39 +122,36 @@ if (url.host.match(RESTRICTED_IPS))
 <p>One might naively assume they could do a DNS check, and then hand the processing to a HTTP library to make the actual request. The issue here is that the DNS record the HTTP library uses might not be the same as the one you checked against with the DNS check. For example, many domains have multiple A records, and some DNS servers can be configured to round robin DNS records. If you can&#8217;t be sure the HTTP library will do another DNS requests, then you&#8217;d be vulnerable.</p>
 
 <p>Luckily, in Camo&#8217;s case the fix was relatively easy (see my <a href="https://github.com/atmos/camo/pull/19">pull request</a>).</p>
+<div class="highlight"><pre><span class="c1"># We do DNS lookup ourselves</span>
+<span class="nx">Dns</span><span class="p">.</span><span class="nx">lookup</span> <span class="nx">url</span><span class="p">.</span><span class="nx">host</span><span class="p">,</span> <span class="nf">(err, address, family) -&gt;</span>
+  <span class="k">if</span> <span class="nx">address</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">RESTRICTED_IPS</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nx">four_oh_four</span><span class="p">(</span><span class="nx">resp</span><span class="p">,</span> <span class="s">&quot;Hitting excluded hostnames&quot;</span><span class="p">)</span>
 
-<pre># We do DNS lookup ourselves
-Dns.lookup url.host, (err, address, family) ->
-  if address.match(RESTRICTED_IPS)
-    return four_oh_four(resp, "Hitting excluded hostnames")
+  <span class="c1"># We connect to the IP address, not hostname</span>
+  <span class="nv">src = </span><span class="nx">Http</span><span class="p">.</span><span class="nx">createClient</span> <span class="nx">url</span><span class="p">.</span><span class="nx">port</span> <span class="o">||</span> <span class="mi">80</span><span class="p">,</span> <span class="nx">address</span>
 
-  # We connect to the IP address, not hostname
-  src = Http.createClient url.port || 80, address
+  <span class="c1"># We add a host header, so the request will work</span>
+  <span class="nv">headers = </span>
+    <span class="s">&quot;Host&#39; : url.host</span>
 
-  # We add a host header, so the request will work
-  headers = 
-    "Host' : url.host
-
-  # Boom, we make the request
-  srcReq = src.request 'GET', query_path, headers
-</pre>
+<span class="s">  # Boom, we make the request</span>
+<span class="s">  srcReq = src.request &#39;GET&#39;, query_path, headers</span>
+</pre></div>
 
 <p>The above code was simplified a little from the real code, but basically we do the DNS lookup, check the returned address is good, and then make a HTTP request to that IP address with a <code>Host:</code> header to ensure the request will work.</p>
 
-<p>Really though, the correct solution to this is to configure a suitably paranoid firewall to stop requests from the proxy machine to anything internal. However, as with all security, the more [layers of protection][8] you have the better, and you should never depend on just one.</p>
+<p>Really though, the correct solution to this is to configure a suitably paranoid firewall to stop requests from the proxy machine to anything internal. However, as with all security, the more <a href="http://en.wikipedia.org/wiki/Swiss_cheese_model">layers of protection</a> you have the better, and you should never depend on just one.</p>
 
-<p>[8]: <a href="http://en.wikipedia.org/wiki/Swiss_cheese_model">http://en.wikipedia.org/wiki/Swiss_cheese_model</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2013/02/16/how-many-ways-are-there-to-say-phone-number/">&larr; How many ways are there to say phone number?</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2012/11/23/jshint-x-is-an-implied-global-variable/"> JSHint ‘x’ is an implied global variable &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2012/11/23/jshint-x-is-an-implied-global-variable/">&larr; JSHint ‘x’ is an implied global variable</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2013/02/16/how-many-ways-are-there-to-say-phone-number/"> How many ways are there to say phone number? &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -161,8 +180,11 @@ Dns.lookup url.host, (err, address, family) ->
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

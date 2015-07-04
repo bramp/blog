@@ -2,13 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Updating…/-\|/-|</title>
+  <title>Performance modelling of peer-to-peer routing</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/publications/performance-modelling-of-peer-to-peer-routing/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,36 +86,42 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>Updating…/-\|/-|</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2009-12-19</small> 121 words</p> <hr/>
-   <div class="post">
-     <p>Do people other than me find updating their servers to be relaxing? At every opportunity I run &#8220;apt-get update&#8221;. Today I&#8217;m updating 7 different machines simultaneously.</p>
 
-<p>My Debian machines I simply issue the following commands:</p>
 
-<pre>apt-get update
- apt-get upgrade
-</pre>
+<div id="article">
+	<h1>Performance modelling of peer-to-peer routing</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2007-03-01</small>
+		
+		| <a href="http://localhost:1313/blog//tags/publication">publication</a>
+		
+		| <a href="http://localhost:1313/blog//tags/stealthdht">stealthdht</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>Idris A. Rai, Andrew Brampton, Andrew MacQuire, and Laurent Mathy.</p>
 
-<p>My FreeBSD machines:</p>
+<p>In proceedings of the 4th International Workshop on Peer-to-Peer Systems (HOTP2P&#8217;07)</p>
 
-<pre>portsnap fetch update
- portmanager -u
-</pre>
+<blockquote>
+<p><strong>Abstract</strong></p>
 
-<p>I think the Debian process is easier (and clearly the fastest) but it obviously has to do less work because I&#8217;m downloading precompiled code. Portmanager is just as easy but seems to randomly ask me questions through the process whereas apt-get seems to get them out of the way early on. Either way I find this all very easy and relaxing&#8230; until I have to reboot the machines and find something is broken :/</p>
+<p>We propose several models based on discrete-time Markov chains for the analysis of Distributed Hash Tables (DHTs). Specifically, we examine the Pastry routing protocol, as well as a Stealth DHT adaptation of Pastry to compute their exact expressions for average number of lookup hops. We show that our analytical models match with the protocols&rsquo; simulation results almost perfectly, making them ideal for rapid evaluation.</p>
+</blockquote>
 
-   </div>
- </div>
+<p><a href="https://github.com/bramp/publication/raw/master/stealth-dht/HOTP2P07/models.pdf">PDF Download</a> | <a href="https://github.com/bramp/publication/tree/master/stealth-dht/HOTP2P07">LaTeX Source</a> | <a href="https://github.com/bramp/publication/tree/master/stealth-dht/HOTP2P07-slides">Slides Source</a></p>
+
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2010/01/10/follow-http-stream-with-decompression/">&larr; Follow HTTP Stream (with decompression)</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2009/12/06/foursquare-rules/"> Foursquare Rules &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/publications/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/">&larr; Stealth Distributed Hash Table: A robust and flexible super-peered DHT</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/publications/characterising-user-interactivity-for-sports-video-on-demand/"> Characterising user interactivity for sports video-on-demand &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -135,8 +150,11 @@
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

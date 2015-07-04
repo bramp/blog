@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2012/09/30/pt-kill-centos-init.d-script/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,89 +86,97 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>pt-kill CentOS init.d script</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2012-09-30</small> 254 words</p> <hr/>
-   <div class="post">
-     <p><a href="http://www.percona.com/doc/percona-toolkit/2.1/pt-kill.html">pt-kill</a> is a neat little application that can stop long running MySQL queries. It was formally know as <a href="http://www.maatkit.org/doc/mk-kill.html">mk-kill</a> before <a href="http://www.Percona.com">Percona</a> took over the project. Here is the init.d script I use (as one doesn&#8217;t seem provided by the project):</p>
 
-<pre>#!/bin/sh
-#
-# pt-kill   This shell script takes care of starting and stopping
-#               the pt-kill services.
-#
-# chkconfig: - 60 20
-# description: pt-kill stops long running MySQL queries
-#
-# probe: true
 
-# Source function library.
+<div id="article">
+	<h1>pt-kill CentOS init.d script</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2012-09-30</small>
+		
+		| <a href="http://localhost:1313/blog//tags/init.d">init.d</a>
+		
+		| <a href="http://localhost:1313/blog//tags/linux">Linux</a>
+		
+		| <a href="http://localhost:1313/blog//tags/mysql">mysql</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p><a href="http://www.percona.com/doc/percona-toolkit/2.1/pt-kill.html">pt-kill</a> is a neat little application that can stop long running MySQL queries. It was formally know as <a href="http://www.maatkit.org/doc/mk-kill.html">mk-kill</a> before <a href="http://www.Percona.com">Percona</a> took over the project. Here is the init.d script I use (as one doesn&#8217;t seem provided by the project):</p>
+<div class="highlight"><pre><span class="c">#!/bin/sh</span>
+<span class="c">#</span>
+<span class="c"># pt-kill   This shell script takes care of starting and stopping</span>
+<span class="c">#               the pt-kill services.</span>
+<span class="c">#</span>
+<span class="c"># chkconfig: - 60 20</span>
+<span class="c"># description: pt-kill stops long running MySQL queries</span>
+<span class="c">#</span>
+<span class="c"># probe: true</span>
+
+<span class="c"># Source function library.</span>
 . /etc/rc.d/init.d/functions
 
-RETVAL=0
+<span class="nv">RETVAL</span><span class="o">=</span>0
 
-# See how we were called.
-case "$1" in
-  start)
-    echo -n $"Starting pt-kill: "
+<span class="c"># See how we were called.</span>
+<span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> in
+  start<span class="o">)</span>
+    <span class="nb">echo</span> -n <span class="s2">$&quot;Starting pt-kill: &quot;</span>
  
-    pt-kill \
-      --pid /var/run/pt-kill.pid \
-      --daemonize \
-      --interval 5 \
-      --busy-time 60 \
-      --wait-after-kill 15  \
-      --ignore-info '(?i-smx:^insert|^update|^delete|^load)' \
-      --match-info '(?i-xsm:select)' \
-      --ignore-user '(?i-xsm:root)' \
-      --log /var/log/mysql-kill.log \
-      --print \
-      --execute-command '(echo "Subject: pt-kill query found on `hostname`"; tail -1 /var/log/mysql-kill.log)|/usr/sbin/sendmail -t you@example.com' \
+    pt-kill <span class="se">\</span>
+      --pid /var/run/pt-kill.pid <span class="se">\</span>
+      --daemonize <span class="se">\</span>
+      --interval <span class="m">5</span> <span class="se">\</span>
+      --busy-time <span class="m">60</span> <span class="se">\</span>
+      --wait-after-kill <span class="m">15</span>  <span class="se">\</span>
+      --ignore-info <span class="s1">&#39;(?i-smx:^insert|^update|^delete|^load)&#39;</span> <span class="se">\</span>
+      --match-info <span class="s1">&#39;(?i-xsm:select)&#39;</span> <span class="se">\</span>
+      --ignore-user <span class="s1">&#39;(?i-xsm:root)&#39;</span> <span class="se">\</span>
+      --log /var/log/mysql-kill.log <span class="se">\</span>
+      --print <span class="se">\</span>
+      --execute-command <span class="s1">&#39;(echo &quot;Subject: pt-kill query found on `hostname`&quot;; tail -1 /var/log/mysql-kill.log)|/usr/sbin/sendmail -t you@example.com&#39;</span> <span class="se">\</span>
       --kill-query
  
-    RETVAL=$?
-    echo
-    [ $RETVAL -ne 0 ] &#038;&#038; exit $RETVAL
+    <span class="nv">RETVAL</span><span class="o">=</span><span class="nv">$?</span>
+    <span class="nb">echo</span>
+    <span class="o">[</span> <span class="nv">$RETVAL</span> -ne <span class="m">0</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">exit</span> <span class="nv">$RETVAL</span>
  
-  ;;
-  stop)
-        # Stop daemons.
-        echo -n $"Shutting down pt-kill: "
+  <span class="p">;;</span>
+  stop<span class="o">)</span>
+        <span class="c"># Stop daemons.</span>
+        <span class="nb">echo</span> -n <span class="s2">$&quot;Shutting down pt-kill: &quot;</span>
         killproc pt-kill
-        echo
-    ;;
-  restart)
-    $0 stop
-        $0 start
-        ;;
-  *)
-        echo $"Usage: pt-kill {start|stop}"
-        RETVAL=3
-        ;;
-esac
+        <span class="nb">echo</span>
+    <span class="p">;;</span>
+  restart<span class="o">)</span>
+    <span class="nv">$0</span> stop
+        <span class="nv">$0</span> start
+        <span class="p">;;</span>
+  *<span class="o">)</span>
+        <span class="nb">echo</span> <span class="s2">$&quot;Usage: pt-kill {start|stop}&quot;</span>
+        <span class="nv">RETVAL</span><span class="o">=</span>3
+        <span class="p">;;</span>
+<span class="k">esac</span>
  
-exit $RETVAL
-
-</pre>
+<span class="nb">exit</span> <span class="nv">$RETVAL</span>
+</pre></div>
 
 <p><strong>Usage:</strong></p>
 
 <p>Create the script as /etc/init.d/pt-kill, and change the pt-kill command in the middle of the script to suit your needs. Then run &#8216;chkconfig &#8211;level 345 pt-kill on&#8217; to ensure this script starts up at boot. Alternatively test the script with &#8216;/etc/init.d/pt-kill start&#8217; or &#8216;/etc/init.d/pt-kill stop&#8217;.</p>
 
-<p>Thanks to [MySQL Diary][4] as they provided their default pt-kill command line. Perhaps in future someone could create a more generic startup script.</p>
+<p>Thanks to <a href="http://www.mysqldiary.com/you-must-have-a-killer-in-your-system/">MySQL Diary</a> as they provided their default pt-kill command line. Perhaps in future someone could create a more generic startup script.</p>
 
-<p>[4]: <a href="http://www.mysqldiary.com/you-must-have-a-killer-in-your-system/">http://www.mysqldiary.com/you-must-have-a-killer-in-your-system/</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2012/10/21/libcec-daemon/">&larr; libcec-daemon</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2012/09/09/using-make-to-parallelise-a-task/"> Using Make to parallelise a task &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2012/09/09/using-make-to-parallelise-a-task/">&larr; Using Make to parallelise a task</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2012/10/21/libcec-daemon/"> libcec-daemon &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -188,8 +205,11 @@ exit $RETVAL
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2009/01/11/autoload-symbols-for-freebsd-kernel-module/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,58 +86,71 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>Autoload symbols for FreeBSD kernel module</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2009-01-11</small> 204 words</p> <hr/>
-   <div class="post">
-     <p>When debugging FreeBSD kernel modules with GDB, you have to tell GDB the correct symbols for the module, and the location the module is loaded in RAM. This is helpfully explained in the <a href="http://www.freebsd.org/doc/en/books/developers-handbook/kerneldebug-kld.html">FreeBSD Developers&#8217; Handbook</a>. First you must load the module, then run kldstat, note down the address the module is loaded at, and finally execute a command in GDB that looks like the following.</p>
 
-<pre>add-symbol-file /sys/modules/linux/linux.ko 0xc0ae22d0</pre>
 
-<p>However, I find this process tedious, so instead I wrote a quick python script which can be used with an [experimental gdb built with python scripting support][2].</p>
+<div id="article">
+	<h1>Autoload symbols for FreeBSD kernel module</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2009-01-11</small>
+		
+		| <a href="http://localhost:1313/blog//tags/debug">debug</a>
+		
+		| <a href="http://localhost:1313/blog//tags/freebsd">FreeBSD</a>
+		
+		| <a href="http://localhost:1313/blog//tags/gdb">gdb</a>
+		
+		| <a href="http://localhost:1313/blog//tags/kernel">kernel</a>
+		
+		| <a href="http://localhost:1313/blog//tags/python">python</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>When debugging FreeBSD kernel modules with GDB, you have to tell GDB the correct symbols for the module, and the location the module is loaded in RAM. This is helpfully explained in the <a href="http://www.freebsd.org/doc/en/books/developers-handbook/kerneldebug-kld.html">FreeBSD Developers&#8217; Handbook</a>. First you must load the module, then run kldstat, note down the address the module is loaded at, and finally execute a command in GDB that looks like the following.</p>
+<div class="highlight"><pre>add-symbol-file /sys/modules/linux/linux.ko 0xc0ae22d0
+</pre></div>
+
+<p>However, I find this process tedious, so instead I wrote a quick python script which can be used with an <a href="http://sourceware.org/gdb/wiki/PythonGdb">experimental gdb built with python scripting support</a>.</p>
 
 <p>So here is the script:</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">gdb</span>
+<span class="k">class</span> <span class="nc">FreeBSD_ReloadModuleSymbols</span> <span class="p">(</span><span class="n">gdb</span><span class="o">.</span><span class="n">Command</span><span class="p">):</span>
+	<span class="s">&quot;Reloads the symbol files for all loaded kernel modules&quot;</span>
 
-<pre class="prettyprint">import gdb
-class FreeBSD_ReloadModuleSymbols (gdb.Command):
-    "Reloads the symbol files for all loaded kernel modules"
+	<span class="k">def</span> <span class="nf">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="nb">super</span> <span class="p">(</span><span class="n">FreeBSD_ReloadModuleSymbols</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span> <span class="p">(</span><span class="s">&quot;reload-freebsd-module-symbols&quot;</span><span class="p">,</span>
+			<span class="n">gdb</span><span class="o">.</span><span class="n">COMMAND_FILES</span><span class="p">,</span>
+			<span class="n">gdb</span><span class="o">.</span><span class="n">COMPLETE_NONE</span><span class="p">)</span>
 
-    def __init__ (self):
-        super (FreeBSD_ReloadModuleSymbols, self).__init__ ("reload-freebsd-module-symbols",
-            gdb.COMMAND_FILES,
-            gdb.COMPLETE_NONE)
+	<span class="k">def</span> <span class="nf">invoke</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">from_tty</span><span class="p">):</span>
+		<span class="n">link</span> <span class="o">=</span> <span class="n">gdb</span><span class="o">.</span><span class="n">parse_and_eval</span><span class="p">(</span><span class="s">&quot;linker_files-&gt;tqh_first&quot;</span><span class="p">)</span>
+		<span class="k">while</span> <span class="n">link</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+			<span class="k">print</span> <span class="n">link</span><span class="p">[</span><span class="s">&#39;filename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">string</span><span class="p">()</span>
+			<span class="k">if</span> <span class="n">link</span><span class="p">[</span><span class="s">&#39;filename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">string</span><span class="p">()</span> <span class="o">!=</span> <span class="s">&quot;kernel&quot;</span><span class="p">:</span>
+				<span class="n">gdb</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span> <span class="s">&quot;add-symbol-file &quot;</span> <span class="o">+</span> 
+					<span class="n">link</span><span class="p">[</span><span class="s">&#39;pathname&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">string</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span>  
+					<span class="nb">str</span><span class="p">(</span><span class="n">link</span><span class="p">[</span><span class="s">&#39;address&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">address</span><span class="p">())</span> <span class="p">)</span>
+			<span class="n">link</span> <span class="o">=</span> <span class="n">link</span><span class="p">[</span><span class="s">&#39;link&#39;</span><span class="p">][</span><span class="s">&#39;tqe_next&#39;</span><span class="p">]</span>
 
-    def invoke (self, arg, from_tty):
-        link = gdb.parse_and_eval("linker_files-&gt;tqh_first")
-        while link != 0:
-            print link['filename'].string()
-            if link['filename'].string() != "kernel":
-                gdb.execute( "add-symbol-file " + 
-                    link['pathname'].string() + " " +  
-                    str(link['address'].address()) )
-            link = link['link']['tqe_next']
-
-FreeBSD_ReloadModuleSymbols ()
-</pre>
+<span class="n">FreeBSD_ReloadModuleSymbols</span> <span class="p">()</span>
+</pre></div>
 
 <p>You load this by running the following command in GDB:</p>
+<div class="highlight"><pre><span class="nb">source </span>freebsd_load_modules.py
+</pre></div>
 
-<pre>source freebsd_load_modules.py</pre>
+<p>Then the command <code>reload-freebsd-module-symbols</code> is magically added to GDB. Running this command will parse the linker table inside the FreeBSD kernel, determine which modules are loaded, and attempt to load their symbols.</p>
 
-<p>Then the command &#8220;reload-freebsd-module-symbols&#8221; is magically added to GDB. Running this command will parse the linker table inside the FreeBSD kernel, determine which modules are loaded, and attempt to load their symbols.</p>
-
-<p>[2]: <a href="http://sourceware.org/gdb/wiki/PythonGdb">http://sourceware.org/gdb/wiki/PythonGdb</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2009/01/21/read/write-permissions-for-php-scripts-at-lancs.ac.uk/">&larr; Read/Write permissions for PHP scripts at lancs.ac.uk</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2009/01/11/linuxoffsets-for-freebsd/"> linuxoffsets for FreeBSD &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2009/01/11/linuxoffsets-for-freebsd/">&larr; linuxoffsets for FreeBSD</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2009/01/21/read/write-permissions-for-php-scripts-at-lancs.ac.uk/"> Read/Write permissions for PHP scripts at lancs.ac.uk &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -157,8 +179,11 @@ FreeBSD_ReloadModuleSymbols ()
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

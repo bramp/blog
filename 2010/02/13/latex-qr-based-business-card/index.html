@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2010/02/13/latex-qr-based-business-card/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,85 +86,94 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>LaTeX QR Based Business Card</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2010-02-13</small> 155 words</p> <hr/>
-   <div class="post">
-     <p>I recently found <a href="http://forthescience.org/blog/2010/02/02/my-business-card-with-qr-code-geeky/">this blog</a> which shows a business card with a QR card. I thought I&#8217;d create a business card with LaTeX with a similar QR code. I took a LaTeX template from <a href="http://blog.widmann.org.uk/2009/05/27/1297/">here</a>, found out about the <a href="http://www.tug.org/texmf-dist/doc/generic/pst-barcode/pst-barcode-doc.pdf">pst-barcode pacakge</a>, learnt the [MECARD format][4], and combined them to make this:</p>
+
+
+<div id="article">
+	<h1>LaTeX QR Based Business Card</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2010-02-13</small>
+		
+		| <a href="http://localhost:1313/blog//tags/business-card">business card</a>
+		
+		| <a href="http://localhost:1313/blog//tags/latex">LaTeX</a>
+		
+		| <a href="http://localhost:1313/blog//tags/qr-code">QR code</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>I recently found <a href="http://forthescience.org/blog/2010/02/02/my-business-card-with-qr-code-geeky/">this blog</a> which shows a business card with a QR card. I thought I&#8217;d create a business card with LaTeX with a similar QR code. I took a LaTeX template from <a href="http://blog.widmann.org.uk/2009/05/27/1297/">here</a>, found out about the <a href="http://www.tug.org/texmf-dist/doc/generic/pst-barcode/pst-barcode-doc.pdf">pst-barcode pacakge</a>, learnt the <a href="https://www.nttdocomo.co.jp/english/service/developer/make/content/barcode/function/application/addressbook/">MECARD format</a>, and combined them to make this:</p>
 
 <div class="figure">
   <a href="http://bramp.net/projects/business card/card-1.pdf"><img src="http://bramp.net/projects/business card/card-1.png" width=756 height=496 alt="My QR Business Card" style="border: none"/></a><br /> <br /> My QR Business Card
 </div>
 
 <p>I doubt I&#8217;ll print this card, but just in case you want to make a similar one, here is the LaTeX source:</p>
+<div class="highlight"><pre><span class="k">\documentclass</span><span class="na">[11pt,a4paper]</span><span class="nb">{</span>memoir<span class="nb">}</span>
 
-<pre class="prettyprint">\documentclass[11pt,a4paper]{memoir}
+<span class="k">\setstocksize</span><span class="nb">{</span>55mm<span class="nb">}{</span>85mm<span class="nb">}</span> <span class="c">% UK Stock size</span>
+<span class="k">\setpagecc</span><span class="nb">{</span>55mm<span class="nb">}{</span>85mm<span class="nb">}{</span>*<span class="nb">}</span>
+<span class="k">\settypeblocksize</span><span class="nb">{</span>45mm<span class="nb">}{</span>75mm<span class="nb">}{</span>*<span class="nb">}</span>
+<span class="k">\setulmargins</span><span class="nb">{</span>5mm<span class="nb">}{</span>*<span class="nb">}{</span>*<span class="nb">}</span>
+<span class="k">\setlrmargins</span><span class="nb">{</span>5mm<span class="nb">}{</span>*<span class="nb">}{</span>*<span class="nb">}</span>
 
-\setstocksize{55mm}{85mm} % UK Stock size
-\setpagecc{55mm}{85mm}{*}
-\settypeblocksize{45mm}{75mm}{*}
-\setulmargins{5mm}{*}{*}
-\setlrmargins{5mm}{*}{*}
+<span class="k">\setheadfoot</span><span class="nb">{</span>0.1pt<span class="nb">}{</span>0.1pt<span class="nb">}</span>
+<span class="k">\setheaderspaces</span><span class="nb">{</span>1pt<span class="nb">}{</span>*<span class="nb">}{</span>*<span class="nb">}</span>
+<span class="k">\checkandfixthelayout</span><span class="na">[fixed]</span>
 
-\setheadfoot{0.1pt}{0.1pt}
-\setheaderspaces{1pt}{*}{*}
-\checkandfixthelayout[fixed]
+<span class="k">\pagestyle</span><span class="nb">{</span>empty<span class="nb">}</span>
 
-\pagestyle{empty}
+<span class="k">\usepackage</span><span class="nb">{</span>pstricks<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="nb">{</span>pst-barcode<span class="nb">}</span>
 
-\usepackage{pstricks}
-\usepackage{pst-barcode}
+<span class="k">\begin</span><span class="nb">{</span>document<span class="nb">}</span>
+    <span class="c">%\pagecolor[cmyk]{.22,.36,.51,.08}%</span>
+    <span class="k">\begin</span><span class="nb">{</span>Spacing<span class="nb">}{</span>0.75<span class="nb">}</span><span class="c">%</span>
+    <span class="k">\noindent</span>
+    <span class="k">\textbf</span><span class="nb">{</span>Andrew~Brampton~Ph.D.<span class="nb">}</span><span class="k">\\</span>
+    <span class="k">\rule</span><span class="nb">{</span>75mm<span class="nb">}{</span>1mm<span class="nb">}</span><span class="k">\\</span>
+    <span class="k">\begin</span><span class="nb">{</span>minipage<span class="nb">}</span>[t]<span class="nb">{</span>30mm<span class="nb">}</span>
+        <span class="k">\vspace</span><span class="nb">{</span>-1mm<span class="nb">}</span><span class="c">%</span>
+        <span class="k">\begin</span><span class="nb">{</span>pspicture<span class="nb">}</span>(30mm,30mm)
+            <span class="c">% The MECARD format is used to exchange contact information. More information at:</span>
+            <span class="c">% http://www.nttdocomo.co.jp/english/service/imode/make/content/barcode/function/application/addressbook/index.html</span>
+            <span class="k">\psbarcode</span><span class="nb">{</span>MECARD:N:Brampton,Andrew;EMAIL:a.bramptonATlancs.ac.uk;URL:http://bramp.net;;<span class="nb">}{</span>eclevel=L width=1.181 height=1.181<span class="nb">}{</span>qrcode<span class="nb">}</span>
+        <span class="k">\end</span><span class="nb">{</span>pspicture<span class="nb">}</span>
+    <span class="k">\end</span><span class="nb">{</span>minipage<span class="nb">}</span>
+    <span class="k">\hspace</span><span class="nb">{</span>1mm<span class="nb">}</span>
+    <span class="k">\begin</span><span class="nb">{</span>minipage<span class="nb">}</span>[t]<span class="nb">{</span>42mm<span class="nb">}</span>
+        <span class="k">\vspace</span><span class="nb">{</span>-1mm<span class="nb">}</span><span class="c">%</span>
+        <span class="k">\begin</span><span class="nb">{</span>flushright<span class="nb">}</span>
+        <span class="nb">{</span><span class="k">\scriptsize</span>
+            <span class="k">\begin</span><span class="nb">{</span>Spacing<span class="nb">}{</span>1.5<span class="nb">}</span><span class="c">%</span>
+<span class="c">%           \textbf{Research Associate}\\</span>
+            <span class="k">\textbf</span><span class="nb">{</span>Network Researcher<span class="nb">}</span><span class="k">\\</span>
+            Computing Department<span class="k">\\</span>
+            Lancaster University<span class="k">\vspace</span><span class="nb">{</span>9mm<span class="nb">}</span><span class="k">\\</span>
+            <span class="k">\end</span><span class="nb">{</span>Spacing<span class="nb">}</span>
+        <span class="nb">}</span>
+        <span class="nb">{</span><span class="k">\tiny</span>
+            <span class="k">\textbf</span><span class="nb">{</span>email:<span class="nb">}</span> a.brampton AT lancs.ac.uk<span class="k">\\</span>
+            <span class="k">\textbf</span><span class="nb">{</span>web:<span class="nb">}</span> http://bramp.net/<span class="k">\\</span>
+            <span class="k">\vspace*</span><span class="nb">{</span>2mm<span class="nb">}</span>
+        <span class="nb">}</span>
+        <span class="k">\end</span><span class="nb">{</span>flushright<span class="nb">}</span>
+    <span class="k">\end</span><span class="nb">{</span>minipage<span class="nb">}</span>
+    <span class="k">\rule</span><span class="nb">{</span>75mm<span class="nb">}{</span>1mm<span class="nb">}</span>
+    <span class="k">\end</span><span class="nb">{</span>Spacing<span class="nb">}</span>
+<span class="k">\end</span><span class="nb">{</span>document<span class="nb">}</span>
+</pre></div>
 
-\begin{document}
-    %\pagecolor[cmyk]{.22,.36,.51,.08}%
-    \begin{Spacing}{0.75}%
-    \noindent
-    \textbf{Andrew~Brampton~Ph.D.}\\
-    \rule{75mm}{1mm}\\
-    \begin{minipage}[t]{30mm}
-        \vspace{-1mm}%
-        \begin{pspicture}(30mm,30mm)
-            % The MECARD format is used to exchange contact information. More information at:
-            % http://www.nttdocomo.co.jp/english/service/imode/make/content/barcode/function/application/addressbook/index.html
-            \psbarcode{MECARD:N:Brampton,Andrew;EMAIL:a.bramptonATlancs.ac.uk;URL:http://bramp.net;;}{eclevel=L width=1.181 height=1.181}{qrcode}
-        \end{pspicture}
-    \end{minipage}
-    \hspace{1mm}
-    \begin{minipage}[t]{42mm}
-        \vspace{-1mm}%
-        \begin{flushright}
-        {\scriptsize
-            \begin{Spacing}{1.5}%
-%           \textbf{Research Associate}\\
-            \textbf{Network Researcher}\\
-            Computing Department\\
-            Lancaster University\vspace{9mm}\\
-            \end{Spacing}
-        }
-        {\tiny
-            \textbf{email:} a.brampton AT lancs.ac.uk\\
-            \textbf{web:} http://bramp.net/\\
-            \vspace*{2mm}
-        }
-        \end{flushright}
-    \end{minipage}
-    \rule{75mm}{1mm}
-    \end{Spacing}
-\end{document}
-</pre>
-
-<p>[4]: <a href="http://www.nttdocomo.co.jp/english/service/imode/make/content/barcode/function/application/addressbook/index.html">http://www.nttdocomo.co.jp/english/service/imode/make/content/barcode/function/application/addressbook/index.html</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2010/03/19/vmware-breaks-shift-key/">&larr; VMWare breaks shift key</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2010/02/09/facilitating-network-auto-configuration-in-next-generation-internet-protocols/"> Facilitating Network Auto Configuration In Next Generation Internet Protocols &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2010/01/26/redirect-local-traffic-to-a-web-cache-with-iptables/">&larr; Redirect local traffic to a web cache with iptables</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2010/03/19/vmware-breaks-shift-key/"> VMWare breaks shift key &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -184,8 +202,11 @@
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

@@ -2,115 +2,109 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Mysql on bramp.net</title>
-    <link>http://bramp.net/blog/tags/mysql/</link>
+    <link>http://localhost:1313/blog/tags/mysql/</link>
     <description>Recent content in Mysql on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 30 Sep 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>pt-kill CentOS init.d script</title>
-      <link>http://bramp.net/blog/2012/09/30/pt-kill-centos-init.d-script/</link>
+      <link>http://localhost:1313/blog/2012/09/30/pt-kill-centos-init.d-script/</link>
       <pubDate>Sun, 30 Sep 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2012/09/30/pt-kill-centos-init.d-script/</guid>
+      <guid>http://localhost:1313/blog/2012/09/30/pt-kill-centos-init.d-script/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://www.percona.com/doc/percona-toolkit/2.1/pt-kill.html&#34;&gt;pt-kill&lt;/a&gt; is a neat little application that can stop long running MySQL queries. It was formally know as &lt;a href=&#34;http://www.maatkit.org/doc/mk-kill.html&#34;&gt;mk-kill&lt;/a&gt; before &lt;a href=&#34;http://www.Percona.com&#34;&gt;Percona&lt;/a&gt; took over the project. Here is the init.d script I use (as one doesn&amp;#8217;t seem provided by the project):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;#!/bin/sh&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;#&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# pt-kill   This shell script takes care of starting and stopping&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;#               the pt-kill services.&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;#&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# chkconfig: - 60 20&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# description: pt-kill stops long running MySQL queries&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;#&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# probe: true&lt;/span&gt;
 
-&lt;pre&gt;#!/bin/sh
-#
-# pt-kill   This shell script takes care of starting and stopping
-#               the pt-kill services.
-#
-# chkconfig: - 60 20
-# description: pt-kill stops long running MySQL queries
-#
-# probe: true
-
-# Source function library.
+&lt;span class=&#34;c&#34;&gt;# Source function library.&lt;/span&gt;
 . /etc/rc.d/init.d/functions
 
-RETVAL=0
+&lt;span class=&#34;nv&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0
 
-# See how we were called.
-case &#34;$1&#34; in
-  start)
-    echo -n $&#34;Starting pt-kill: &#34;
+&lt;span class=&#34;c&#34;&gt;# See how we were called.&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;case&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$1&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; in
+  start&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; -n &lt;span class=&#34;s2&#34;&gt;$&amp;quot;Starting pt-kill: &amp;quot;&lt;/span&gt;
  
-    pt-kill \
-      --pid /var/run/pt-kill.pid \
-      --daemonize \
-      --interval 5 \
-      --busy-time 60 \
-      --wait-after-kill 15  \
-      --ignore-info &#39;(?i-smx:^insert|^update|^delete|^load)&#39; \
-      --match-info &#39;(?i-xsm:select)&#39; \
-      --ignore-user &#39;(?i-xsm:root)&#39; \
-      --log /var/log/mysql-kill.log \
-      --print \
-      --execute-command &#39;(echo &#34;Subject: pt-kill query found on `hostname`&#34;; tail -1 /var/log/mysql-kill.log)|/usr/sbin/sendmail -t you@example.com&#39; \
+    pt-kill &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --pid /var/run/pt-kill.pid &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --daemonize &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --interval &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --busy-time &lt;span class=&#34;m&#34;&gt;60&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --wait-after-kill &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;  &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --ignore-info &lt;span class=&#34;s1&#34;&gt;&amp;#39;(?i-smx:^insert|^update|^delete|^load)&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --match-info &lt;span class=&#34;s1&#34;&gt;&amp;#39;(?i-xsm:select)&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --ignore-user &lt;span class=&#34;s1&#34;&gt;&amp;#39;(?i-xsm:root)&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --log /var/log/mysql-kill.log &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --print &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --execute-command &lt;span class=&#34;s1&#34;&gt;&amp;#39;(echo &amp;quot;Subject: pt-kill query found on `hostname`&amp;quot;; tail -1 /var/log/mysql-kill.log)|/usr/sbin/sendmail -t you@example.com&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
       --kill-query
  
-    RETVAL=$?
-    echo
-    [ $RETVAL -ne 0 ] &amp;#038;&amp;#038; exit $RETVAL
+    &lt;span class=&#34;nv&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$?&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$RETVAL&lt;/span&gt; -ne &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$RETVAL&lt;/span&gt;
  
-  ;;
-  stop)
-        # Stop daemons.
-        echo -n $&#34;Shutting down pt-kill: &#34;
+  &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
+  stop&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+        &lt;span class=&#34;c&#34;&gt;# Stop daemons.&lt;/span&gt;
+        &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; -n &lt;span class=&#34;s2&#34;&gt;$&amp;quot;Shutting down pt-kill: &amp;quot;&lt;/span&gt;
         killproc pt-kill
-        echo
-    ;;
-  restart)
-    $0 stop
-        $0 start
-        ;;
-  *)
-        echo $&#34;Usage: pt-kill {start|stop}&#34;
-        RETVAL=3
-        ;;
-esac
+        &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
+  restart&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt; stop
+        &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt; start
+        &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
+  *&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+        &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;$&amp;quot;Usage: pt-kill {start|stop}&amp;quot;&lt;/span&gt;
+        &lt;span class=&#34;nv&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;3
+        &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;esac&lt;/span&gt;
  
-exit $RETVAL
-
-&lt;/pre&gt;
+&lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$RETVAL&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;strong&gt;Usage:&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Create the script as /etc/init.d/pt-kill, and change the pt-kill command in the middle of the script to suit your needs. Then run &amp;#8216;chkconfig &amp;#8211;level 345 pt-kill on&amp;#8217; to ensure this script starts up at boot. Alternatively test the script with &amp;#8216;/etc/init.d/pt-kill start&amp;#8217; or &amp;#8216;/etc/init.d/pt-kill stop&amp;#8217;.&lt;/p&gt;
 
-&lt;p&gt;Thanks to [MySQL Diary][4] as they provided their default pt-kill command line. Perhaps in future someone could create a more generic startup script.&lt;/p&gt;
-
-&lt;p&gt;[4]: &lt;a href=&#34;http://www.mysqldiary.com/you-must-have-a-killer-in-your-system/&#34;&gt;http://www.mysqldiary.com/you-must-have-a-killer-in-your-system/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Thanks to &lt;a href=&#34;http://www.mysqldiary.com/you-must-have-a-killer-in-your-system/&#34;&gt;MySQL Diary&lt;/a&gt; as they provided their default pt-kill command line. Perhaps in future someone could create a more generic startup script.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>SQLSTATE[HY000]: General error: 2053</title>
-      <link>http://bramp.net/blog/2011/10/25/sqlstatehy000-general-error-2053/</link>
+      <link>http://localhost:1313/blog/2011/10/25/sqlstatehy000-general-error-2053/</link>
       <pubDate>Tue, 25 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2011/10/25/sqlstatehy000-general-error-2053/</guid>
+      <guid>http://localhost:1313/blog/2011/10/25/sqlstatehy000-general-error-2053/</guid>
       <description>&lt;p&gt;I encountered the following odd exception:&lt;/p&gt;
-
-&lt;pre&gt;PHP Fatal error:  Uncaught exception &#39;PDOException&#39; with message &#39;SQLSTATE[HY000]: General error: 2053 &#39; in /home/bramp/my.php:29
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;PHP Fatal error:  Uncaught exception &amp;#39;PDOException&amp;#39; with message &amp;#39;SQLSTATE[HY000]: General error: 2053 &amp;#39; in /home/bramp/my.php:29
 Stack trace:
-#0 /home/bramp/my.php(29): PDOStatement-&gt;fetch(2)
-&lt;/pre&gt;
+#0 /home/bramp/my.php(29): PDOStatement-&amp;gt;fetch(2)
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Searching on Google didn&amp;#8217;t reveal much help, but I eventually figure out the root cause. Spot the mistake:&lt;/p&gt;
-
-&lt;pre&gt;...
-$sql = &#39;SELECT TRIGGER_NAME, TRIGGER_GROUP, JOB_NAME FROM QRTZ_TRIGGERS&#39;;
-$sth = $dbh-&gt;prepare($sql) or die(&#39;Failed to prepare SELECT TRIGGER query&#39;);
-while ($row = $sth-&gt;fetch(PDO::FETCH_ASSOC)) {
-...
-&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;$sql&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;SELECT TRIGGER_NAME, TRIGGER_GROUP, JOB_NAME FROM QRTZ_TRIGGERS&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;$sth&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$dbh&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;prepare&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$sql&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;or&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;die&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Failed to prepare SELECT TRIGGER query&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$row&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$sth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;fetch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;PDO&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;FETCH_ASSOC&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;I am missing a&lt;/p&gt;
-
-&lt;pre&gt;$sth-&gt;execute();&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nv&#34;&gt;$sth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;execute&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;in between the prepare and the fetch. Easy fix. For reference I&amp;#8217;m using a old version of PHP 5.1.6, and MySQL client 5.0.45.&lt;/p&gt;
 </description>

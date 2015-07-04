@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2009/03/16/irq-affinity-on-freebsd/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,40 +86,52 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>IRQ Affinity on FreeBSD</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2009-03-16</small> 231 words</p> <hr/>
-   <div class="post">
-     <p>On Linux it is quite simple to set the CPU affinity of a IRQ, by for example issuing the following command:</p>
 
-<pre>cat 1 > /proc/irq/#/smp_affinity</pre>
+
+<div id="article">
+	<h1>IRQ Affinity on FreeBSD</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2009-03-16</small>
+		
+		| <a href="http://localhost:1313/blog//tags/affinity">affinity</a>
+		
+		| <a href="http://localhost:1313/blog//tags/cpu">cpu</a>
+		
+		| <a href="http://localhost:1313/blog//tags/irq">irq</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>On Linux it is quite simple to set the CPU affinity of a IRQ, by for example issuing the following command:</p>
+<div class="highlight"><pre>cat <span class="m">1</span> &gt; /proc/irq/#/smp_affinity
+</pre></div>
 
 <p>This will ensure that IRQ # will always fire on core 1. It is also possible to specify affinities such as 3, which pins the IRQ to just core 1 and 2.</p>
 
 <p>This can be very helpful to stop your IRQ interrupts bouncing between all the cores. For example, if you have a single threaded app which is generating all the network traffic then it makes sense to ensure the network card&#8217;s interrupt will fire on the same core, or at least a core which is close (in terms of cache sharing).</p>
 
 <p>Recently I was looking for a way to pin IRQ on FreeBSD, however, it appears FreeBSD 7.1 still doesn&#8217;t support this feature, but FreeBSD-CURRENT does! I don&#8217;t advise people try FreeBSD-CURRENT yet, but when it turns into FreeBSD 8.0, then you can issue a command such as:</p>
-
-<pre>cpuset -l 0 -x irq#</pre>
+<div class="highlight"><pre>cpuset -l <span class="m">0</span> -x irq#
+</pre></div>
 
 <p>which will pin the IRQ to core 0, or</p>
-
-<pre>cpuset -l 0,1 -x irq#</pre>
+<div class="highlight"><pre>cpuset -l 0,1 -x irq#
+</pre></div>
 
 <p>which will pin the IRQ to cores 0 and 1.</p>
 
 <p>Hopefully this feature will be back ported to FreeBSD 7.X. I&#8217;m a unsure how likely this will be considering there is a chunk of code missing from the 7.X kernel, which I assume will only be in FreeBSD 8.0.</p>
 
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2009/03/25/last.fms-boffin--wordle/">&larr; Last.fm’s Boffin &#43; Wordle</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2009/03/06/compiler-defined-symbols/"> Compiler defined symbols &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2009/03/06/compiler-defined-symbols/">&larr; Compiler defined symbols</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2009/03/25/last.fms-boffin--wordle/"> Last.fm’s Boffin &#43; Wordle &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -139,8 +160,11 @@
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2010/05/24/fullscreen-hack-for-flash-10.1/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,17 +86,28 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>Fullscreen Hack for Flash 10.1</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2010-05-24</small> 393 words</p> <hr/>
-   <div class="post">
-     <p>After watching a few hours of <a href="http://www.channel4.com/programmes/4od">4oD</a> today I got annoyed that i couldn&#8217;t do something on one monitor while my other monitor plays full screen flash. The reason, flash will instantly lose full screen if another application gains focus (e.g the web browser on my other monitor.)</p>
 
-<p>After a bit of googling I found these links <a href="http://my.opera.com/d.i.z./blog/2009/04/22/watch-fullscreen-flash-while-working-on-another-screen"><a href="http://www.channel4.com/programmes/4od">1</a></a> [<a href="http://my.opera.com/d.i.z./blog/2009/04/22/watch-fullscreen-flash-while-working-on-another-screen">2</a>][3]. However, both of these sites only support flash 9 and flash 10.0, whereas I&#8217;m currently on 10.1.53.38. Additionally the second link mentioned no one has been able to hack this into 10.1, so I instantly recongised a challenge.</p>
+
+<div id="article">
+	<h1>Fullscreen Hack for Flash 10.1</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2010-05-24</small>
+		
+		| <a href="http://localhost:1313/blog//tags/asm">asm</a>
+		
+		| <a href="http://localhost:1313/blog//tags/flash">flash</a>
+		
+		| <a href="http://localhost:1313/blog//tags/hacks">hacks</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>After watching a few hours of <a href="http://www.channel4.com/programmes/4od">4oD</a> today I got annoyed that i couldn&#8217;t do something on one monitor while my other monitor plays full screen flash. The reason, flash will instantly lose full screen if another application gains focus (e.g the web browser on my other monitor.)</p>
+
+<p>After a bit of googling I found these links <a href="http://my.opera.com/d.i.z./blog/2009/04/22/watch-fullscreen-flash-while-working-on-another-screen"><a href="http://www.channel4.com/programmes/4od">1</a></a> <a href="http://jmaxxz.com/index.php?option=com_content&amp;view=article&amp;id=89:flashhacker&amp;catid=16:downloads&amp;Itemid=32"><a href="http://my.opera.com/d.i.z./blog/2009/04/22/watch-fullscreen-flash-while-working-on-another-screen">2</a></a>. However, both of these sites only support flash 9 and flash 10.0, whereas I&#8217;m currently on 10.1.53.38. Additionally the second link mentioned no one has been able to hack this into 10.1, so I instantly recongised a challenge.</p>
 
 <p>About 4 hours later I figure it out:</p>
-
-<pre>On win32 open
+<div class="highlight"><pre>On win32 open
 C:\Windows\System32\Macromed\Flash\NPSWF32.dll
 
 On win64 open
@@ -98,7 +118,7 @@ C:\Users\Andrew\AppData\Local\Google\Chrome\Application\6.0.408.1\gcswf32.dll
 
 or if using Google Chrome on Windows XP:
 C:\Documents and Settings\Andrew\Local Settings\Application Data\Google\Chrome\Application\6.0.408.1
-</pre>
+</pre></div>
 
 <p>On version 10.1.53.38<br />
 Jump to offset <strong>0&#215;180227</strong> and change bytes <strong>74 2A</strong> to <strong>90 90</strong>, and voila.</p>
@@ -122,20 +142,18 @@ Jump to offset <strong>0x180AAF</strong> and change bytes <strong>74 39</strong>
 <p><strong>Note this method is unsupported, and will most likely break when Flash gets updated again. It is always a good idea to backup any file first, and make sure you are on the same version as me.</strong></p>
 
 <p>For the curious this changes some code that looks like this:</p>
-
-<pre>if (msg == WM_KILLFOCUS)
-  jump to kill_focus
-if (msg == WM_PAINT)
-  jump to paint
-</pre>
+<div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="n">msg</span> <span class="o">==</span> <span class="n">WM_KILLFOCUS</span><span class="p">)</span>
+  <span class="n">jump</span> <span class="n">to</span> <span class="n">kill_focus</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">msg</span> <span class="o">==</span> <span class="n">WM_PAINT</span><span class="p">)</span>
+  <span class="n">jump</span> <span class="n">to</span> <span class="n">paint</span>
+</pre></div>
 
 <p>to</p>
-
-<pre>if (msg == WM_KILLFOCUS)
-  nop nop
-if (msg == WM_PAINT)
-  jump to paint
-</pre>
+<div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="n">msg</span> <span class="o">==</span> <span class="n">WM_KILLFOCUS</span><span class="p">)</span>
+  <span class="n">nop</span> <span class="n">nop</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">msg</span> <span class="o">==</span> <span class="n">WM_PAINT</span><span class="p">)</span>
+  <span class="n">jump</span> <span class="n">to</span> <span class="n">paint</span>
+</pre></div>
 
 <p>and for some context the version 10.1.53.64 surrounding code looked like this:</p>
 
@@ -144,18 +162,16 @@ if (msg == WM_PAINT)
 
 <p>The 74s and 75 should be the same between versions, but all the other bytes might change.</p>
 
-<p>[3]: <a href="http://jmaxxz.com/index.php?option=com_content&amp;view=article&amp;id=89:flashhacker&amp;catid=16:downloads&amp;Itemid=32">http://jmaxxz.com/index.php?option=com_content&amp;view=article&amp;id=89:flashhacker&amp;catid=16:downloads&amp;Itemid=32</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2010/06/09/old-schools-not-cool./">&larr; Old school’s not cool.</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/"> Android Linux SDK revision 6 aapt library bug &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/">&larr; Android Linux SDK revision 6 aapt library bug</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2010/06/09/old-schools-not-cool./"> Old school’s not cool. &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -184,8 +200,11 @@ if (msg == WM_PAINT)
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

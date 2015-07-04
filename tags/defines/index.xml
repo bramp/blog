@@ -2,285 +2,267 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Defines on bramp.net</title>
-    <link>http://bramp.net/blog/tags/defines/</link>
+    <link>http://localhost:1313/blog/tags/defines/</link>
     <description>Recent content in Defines on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Fri, 06 Mar 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/tags/defines/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/tags/defines/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Compiler defined symbols</title>
-      <link>http://bramp.net/blog/2009/03/06/compiler-defined-symbols/</link>
+      <link>http://localhost:1313/blog/2009/03/06/compiler-defined-symbols/</link>
       <pubDate>Fri, 06 Mar 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2009/03/06/compiler-defined-symbols/</guid>
+      <guid>http://localhost:1313/blog/2009/03/06/compiler-defined-symbols/</guid>
       <description>&lt;p&gt;I found this neat little command to list all the GCC compiler defined symbols&lt;/p&gt;
-
-&lt;pre&gt;gcc -dM -E - &amp;lt; /dev/null&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;gcc -dM -E - &amp;gt; /dev/null
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This can help if you aren&amp;rsquo;t quite sure which defines are used on your systems. For example my FreeBSD 7.1 machine outputs this:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;tr&gt;
-    &lt;td&gt;
-      &lt;pre&gt;#define __DBL_MIN_EXP__ (-1021)
-#define __FLT_MIN__ 1.17549435e-38F
-#define __DEC64_DEN__ 0.000000000000001E-383DD
-#define __CHAR_BIT__ 8
-#define __WCHAR_MAX__ 2147483647
-#define __DBL_DENORM_MIN__ 4.9406564584124654e-324
-#define __FLT_EVAL_METHOD__ 0
-#define __DBL_MIN_10_EXP__ (-307)
-#define __FINITE_MATH_ONLY__ 0
-#define __DEC64_MAX_EXP__ 384
-#define __SHRT_MAX__ 32767
-#define __LDBL_MAX__ 1.18973149535723176502e+4932L
-#define __UINTMAX_TYPE__ long unsigned int
-#define __DEC32_EPSILON__ 1E-6DF
-#define __unix 1
-#define __SCHAR_MAX__ 127
-#define __USER_LABEL_PREFIX__
-#define __STDC_HOSTED__ 1
-#define __DEC64_MIN_EXP__ (-383)
-#define __DBL_DIG__ 15
-#define __FLT_EPSILON__ 1.19209290e-7F
-#define __LDBL_MIN__ 3.36210314311209350626e-4932L
-#define __DEC32_MAX__ 9.999999E96DF
-#define __unix__ 1
-#define __DECIMAL_DIG__ 21
-#define __LDBL_HAS_QUIET_NAN__ 1
-#define __GNUC__ 4
-#define __MMX__ 1
-#define __FLT_HAS_DENORM__ 1
-#define __FreeBSD_cc_version 700003
-#define __DBL_MAX__ 1.7976931348623157e+308
-#define __DBL_HAS_INFINITY__ 1
-#define __DEC32_MIN_EXP__ (-95)
-#define __LDBL_HAS_DENORM__ 1
-#define __DEC32_MIN__ 1E-95DF
-#define __DBL_MAX_EXP__ 1024
-#define __DEC128_EPSILON__ 1E-33DL
-#define __SSE2_MATH__ 1
-#define __amd64 1
-#define __LONG_LONG_MAX__ 9223372036854775807LL
-#define __GXX_ABI_VERSION 1002
-#define __FLT_MIN_EXP__ (-125)
-#define __x86_64 1
-#define __DBL_MIN__ 2.2250738585072014e-308
-#define __LP64__ 1
-#define __DBL_HAS_QUIET_NAN__ 1
-#define __DEC128_MIN__ 1E-6143DL
-#define __REGISTER_PREFIX__
-#define __DBL_HAS_DENORM__ 1
-#define __NO_INLINE__ 1
-#define __DEC_EVAL_METHOD__ 2
-#define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL
-#define __FLT_MANT_DIG__ 24
-#define __VERSION__ &#34;4.2.1 20070719  [FreeBSD]&#34;
-#define __DEC64_EPSILON__ 1E-15DD
-#define __DEC128_MIN_EXP__ (-6143)&lt;/pre&gt;
-    &lt;/td&gt;
-    
-    &lt;td&gt;
-      &lt;pre&gt;#define unix 1
-#define __SIZE_TYPE__ long unsigned int
-#define __DEC32_DEN__ 0.000001E-95DF
-#define __ELF__ 1
-#define __FLT_RADIX__ 2
-#define __LDBL_EPSILON__ 1.08420217248550443401e-19L
-#define __FreeBSD__ 7
-#define __SSE_MATH__ 1
-#define __k8 1
-#define __LDBL_DIG__ 18
-#define __KPRINTF_ATTRIBUTE__ 1
-#define __x86_64__ 1
-#define __FLT_HAS_QUIET_NAN__ 1
-#define __FLT_MAX_10_EXP__ 38
-#define __LONG_MAX__ 9223372036854775807L
-#define __FLT_HAS_INFINITY__ 1
-#define __DEC64_MAX__ 9.999999999999999E384DD
-#define __DEC64_MANT_DIG__ 16
-#define __DEC32_MAX_EXP__ 96
-#define __DEC128_DEN__ 0.000000000000000000000000000000001E-6143DL
-#define __LDBL_MANT_DIG__ 64
-#define _LONGLONG 1
-#define __DEC32_MANT_DIG__ 7
-#define __k8__ 1
-#define __WCHAR_TYPE__ int
-#define __FLT_DIG__ 6
-#define __INT_MAX__ 2147483647
-#define __FLT_MAX_EXP__ 128
-#define __DBL_MANT_DIG__ 53
-#define __DEC64_MIN__ 1E-383DD
-#define __WINT_TYPE__ unsigned int
-#define __SSE__ 1
-#define __LDBL_MIN_EXP__ (-16381)
-#define __amd64__ 1
-#define __LDBL_MAX_EXP__ 16384
-#define __LDBL_MAX_10_EXP__ 4932
-#define __DBL_EPSILON__ 2.2204460492503131e-16
-#define _LP64 1
-#define __GNUC_PATCHLEVEL__ 1
-#define __LDBL_HAS_INFINITY__ 1
-#define __INTMAX_MAX__ 9223372036854775807L
-#define __FLT_DENORM_MIN__ 1.40129846e-45F
-#define __FLT_MAX__ 3.40282347e+38F
-#define __SSE2__ 1
-#define __FLT_MIN_10_EXP__ (-37)
-#define __INTMAX_TYPE__ long int
-#define __DEC128_MAX_EXP__ 6144
-#define __GNUC_MINOR__ 2
-#define __DBL_MAX_10_EXP__ 308
-#define __LDBL_DENORM_MIN__ 3.64519953188247460253e-4951L
-#define __STDC__ 1
-#define __PTRDIFF_TYPE__ long int
-#define __DEC128_MANT_DIG__ 34
-#define __LDBL_MIN_10_EXP__ (-4931)
-#define __GNUC_GNU_INLINE__ 1&lt;/pre&gt;
-    &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;cp&#34;&gt;#define __DBL_MIN_EXP__ (-1021)&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_MIN__ 1.17549435e-38F&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC64_DEN__ 0.000000000000001E-383DD&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __CHAR_BIT__ 8&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __WCHAR_MAX__ 2147483647&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_DENORM_MIN__ 4.9406564584124654e-324&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_EVAL_METHOD__ 0&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_MIN_10_EXP__ (-307)&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FINITE_MATH_ONLY__ 0&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC64_MAX_EXP__ 384&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SHRT_MAX__ 32767&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MAX__ 1.18973149535723176502e+4932L&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __UINTMAX_TYPE__ long unsigned int&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC32_EPSILON__ 1E-6DF&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __unix 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SCHAR_MAX__ 127&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __USER_LABEL_PREFIX__&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __STDC_HOSTED__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC64_MIN_EXP__ (-383)&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_DIG__ 15&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_EPSILON__ 1.19209290e-7F&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MIN__ 3.36210314311209350626e-4932L&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC32_MAX__ 9.999999E96DF&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __unix__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DECIMAL_DIG__ 21&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_HAS_QUIET_NAN__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __GNUC__ 4&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __MMX__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_HAS_DENORM__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FreeBSD_cc_version 700003&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_MAX__ 1.7976931348623157e+308&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_HAS_INFINITY__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC32_MIN_EXP__ (-95)&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_HAS_DENORM__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC32_MIN__ 1E-95DF&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_MAX_EXP__ 1024&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC128_EPSILON__ 1E-33DL&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SSE2_MATH__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __amd64 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LONG_LONG_MAX__ 9223372036854775807LL&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __GXX_ABI_VERSION 1002&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_MIN_EXP__ (-125)&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __x86_64 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_MIN__ 2.2250738585072014e-308&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LP64__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_HAS_QUIET_NAN__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MIN__ 1E-6143DL&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __REGISTER_PREFIX__&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_HAS_DENORM__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __NO_INLINE__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC_EVAL_METHOD__ 2&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_MANT_DIG__ 24&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __VERSION__ &amp;quot;4.2.1 20070719  [FreeBSD]&amp;quot;&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC64_EPSILON__ 1E-15DD&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MIN_EXP__ (-6143)&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define unix 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SIZE_TYPE__ long unsigned int&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC32_DEN__ 0.000001E-95DF&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __ELF__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_RADIX__ 2&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_EPSILON__ 1.08420217248550443401e-19L&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FreeBSD__ 7&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SSE_MATH__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __k8 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_DIG__ 18&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __KPRINTF_ATTRIBUTE__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __x86_64__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_HAS_QUIET_NAN__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_MAX_10_EXP__ 38&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LONG_MAX__ 9223372036854775807L&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_HAS_INFINITY__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC64_MAX__ 9.999999999999999E384DD&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC64_MANT_DIG__ 16&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC32_MAX_EXP__ 96&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC128_DEN__ 0.000000000000000000000000000000001E-6143DL&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MANT_DIG__ 64&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define _LONGLONG 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC32_MANT_DIG__ 7&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __k8__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __WCHAR_TYPE__ int&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_DIG__ 6&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __INT_MAX__ 2147483647&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_MAX_EXP__ 128&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_MANT_DIG__ 53&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC64_MIN__ 1E-383DD&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __WINT_TYPE__ unsigned int&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SSE__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MIN_EXP__ (-16381)&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __amd64__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MAX_EXP__ 16384&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MAX_10_EXP__ 4932&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_EPSILON__ 2.2204460492503131e-16&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define _LP64 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __GNUC_PATCHLEVEL__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_HAS_INFINITY__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __INTMAX_MAX__ 9223372036854775807L&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_DENORM_MIN__ 1.40129846e-45F&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_MAX__ 3.40282347e+38F&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SSE2__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_MIN_10_EXP__ (-37)&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __INTMAX_TYPE__ long int&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MAX_EXP__ 6144&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __GNUC_MINOR__ 2&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_MAX_10_EXP__ 308&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_DENORM_MIN__ 3.64519953188247460253e-4951L&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __STDC__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __PTRDIFF_TYPE__ long int&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MANT_DIG__ 34&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MIN_10_EXP__ (-4931)&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __GNUC_GNU_INLINE__ 1&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;and my Debian Linux machine outputs this:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;tr&gt;
-    &lt;td&gt;
-      &lt;pre&gt;#define __DBL_MIN_EXP__ (-1021)
-#define __FLT_MIN__ 1.17549435e-38F
-#define __DEC64_DEN__ 0.000000000000001E-383DD
-#define __CHAR_BIT__ 8
-#define __WCHAR_MAX__ 2147483647
-#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1 1
-#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2 1
-#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 1
-#define __DBL_DENORM_MIN__ 4.9406564584124654e-324
-#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_8 1
-#define __FLT_EVAL_METHOD__ 0
-#define __unix__ 1
-#define __x86_64 1
-#define __DBL_MIN_10_EXP__ (-307)
-#define __FINITE_MATH_ONLY__ 0
-#define __GNUC_PATCHLEVEL__ 3
-#define __DEC64_MAX_EXP__ 384
-#define __SHRT_MAX__ 32767
-#define __LDBL_MAX__ 1.18973149535723176502e+4932L
-#define __UINTMAX_TYPE__ long unsigned int
-#define __linux 1
-#define __DEC32_EPSILON__ 1E-6DF
-#define __unix 1
-#define __LDBL_MAX_EXP__ 16384
-#define __linux__ 1
-#define __SCHAR_MAX__ 127
-#define __DBL_DIG__ 15
-#define __SIZEOF_INT__ 4
-#define __SIZEOF_POINTER__ 8
-#define __USER_LABEL_PREFIX__
-#define __STDC_HOSTED__ 1
-#define __LDBL_HAS_INFINITY__ 1
-#define __FLT_EPSILON__ 1.19209290e-7F
-#define __LDBL_MIN__ 3.36210314311209350626e-4932L
-#define __DEC32_MAX__ 9.999999E96DF
-#define __SIZEOF_LONG__ 8
-#define __DECIMAL_DIG__ 21
-#define __gnu_linux__ 1
-#define __LDBL_HAS_QUIET_NAN__ 1
-#define __GNUC__ 4
-#define __MMX__ 1
-#define __FLT_HAS_DENORM__ 1
-#define __SIZEOF_LONG_DOUBLE__ 16
-#define __DBL_MAX__ 1.7976931348623157e+308
-#define __DBL_HAS_INFINITY__ 1
-#define __DEC32_MIN_EXP__ (-95)
-#define __LDBL_HAS_DENORM__ 1
-#define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL
-#define __DEC32_MIN__ 1E-95DF
-#define __DBL_MAX_EXP__ 1024
-#define __DEC128_EPSILON__ 1E-33DL
-#define __SSE2_MATH__ 1
-#define __amd64 1
-#define __LONG_LONG_MAX__ 9223372036854775807LL
-#define __SIZEOF_SIZE_T__ 8
-#define __SIZEOF_WINT_T__ 4
-#define __GXX_ABI_VERSION 1002
-#define __FLT_MIN_EXP__ (-125)
-#define __DBL_MIN__ 2.2250738585072014e-308
-#define __LP64__ 1
-#define __DECIMAL_BID_FORMAT__ 1
-#define __DEC128_MIN__ 1E-6143DL
-#define __REGISTER_PREFIX__
-#define __DBL_HAS_DENORM__ 1&lt;/pre&gt;
-    &lt;/td&gt;
-    
-    &lt;td&gt;
-      &lt;pre&gt;#define __NO_INLINE__ 1
-#define __FLT_MANT_DIG__ 24
-#define __VERSION__ &#34;4.3.3&#34;
-#define __DEC64_EPSILON__ 1E-15DD
-#define __DEC128_MIN_EXP__ (-6143)
-#define unix 1
-#define __SIZE_TYPE__ long unsigned int
-#define __DEC32_DEN__ 0.000001E-95DF
-#define __ELF__ 1
-#define __FLT_RADIX__ 2
-#define __LDBL_EPSILON__ 1.08420217248550443401e-19L
-#define __SSE_MATH__ 1
-#define __k8 1
-#define __SIZEOF_PTRDIFF_T__ 8
-#define __x86_64__ 1
-#define __FLT_HAS_QUIET_NAN__ 1
-#define __FLT_MAX_10_EXP__ 38
-#define __LONG_MAX__ 9223372036854775807L
-#define __FLT_HAS_INFINITY__ 1
-#define __DEC64_MAX__ 9.999999999999999E384DD
-#define __DEC64_MANT_DIG__ 16
-#define __DEC32_MAX_EXP__ 96
-#define linux 1
-#define __DEC128_DEN__ 0.000000000000000000000000000000001E-6143DL
-#define __SSE2__ 1
-#define __LDBL_MANT_DIG__ 64
-#define __DBL_HAS_QUIET_NAN__ 1
-#define __k8__ 1
-#define __WCHAR_TYPE__ int
-#define __SIZEOF_FLOAT__ 4
-#define __DEC64_MIN_EXP__ (-383)
-#define __FLT_DIG__ 6
-#define __INT_MAX__ 2147483647
-#define __amd64__ 1
-#define __FLT_MAX_EXP__ 128
-#define __DBL_MANT_DIG__ 53
-#define __DEC64_MIN__ 1E-383DD
-#define __WINT_TYPE__ unsigned int
-#define __SIZEOF_SHORT__ 2
-#define __SSE__ 1
-#define __LDBL_MIN_EXP__ (-16381)
-#define __LDBL_MAX_10_EXP__ 4932
-#define __DBL_EPSILON__ 2.2204460492503131e-16
-#define _LP64 1
-#define __SIZEOF_WCHAR_T__ 4
-#define __DEC_EVAL_METHOD__ 2
-#define __INTMAX_MAX__ 9223372036854775807L
-#define __FLT_DENORM_MIN__ 1.40129846e-45F
-#define __FLT_MAX__ 3.40282347e+38F
-#define __SIZEOF_DOUBLE__ 8
-#define __FLT_MIN_10_EXP__ (-37)
-#define __INTMAX_TYPE__ long int
-#define __DEC128_MAX_EXP__ 6144
-#define __GNUC_MINOR__ 3
-#define __DEC32_MANT_DIG__ 7
-#define __DBL_MAX_10_EXP__ 308
-#define __LDBL_DENORM_MIN__ 3.64519953188247460253e-4951L
-#define __STDC__ 1
-#define __PTRDIFF_TYPE__ long int
-#define __DEC128_MANT_DIG__ 34
-#define __LDBL_MIN_10_EXP__ (-4931)
-#define __SIZEOF_LONG_LONG__ 8
-#define __LDBL_DIG__ 18
-#define __GNUC_GNU_INLINE__ 1&lt;/pre&gt;
-    &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;cp&#34;&gt;#define __DBL_MIN_EXP__ (-1021)&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_MIN__ 1.17549435e-38F&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC64_DEN__ 0.000000000000001E-383DD&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __CHAR_BIT__ 8&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __WCHAR_MAX__ 2147483647&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_DENORM_MIN__ 4.9406564584124654e-324&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_8 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_EVAL_METHOD__ 0&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __unix__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __x86_64 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_MIN_10_EXP__ (-307)&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FINITE_MATH_ONLY__ 0&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __GNUC_PATCHLEVEL__ 3&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC64_MAX_EXP__ 384&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SHRT_MAX__ 32767&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MAX__ 1.18973149535723176502e+4932L&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __UINTMAX_TYPE__ long unsigned int&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __linux 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC32_EPSILON__ 1E-6DF&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __unix 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MAX_EXP__ 16384&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __linux__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SCHAR_MAX__ 127&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_DIG__ 15&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_INT__ 4&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_POINTER__ 8&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __USER_LABEL_PREFIX__&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __STDC_HOSTED__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_HAS_INFINITY__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_EPSILON__ 1.19209290e-7F&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MIN__ 3.36210314311209350626e-4932L&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC32_MAX__ 9.999999E96DF&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_LONG__ 8&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DECIMAL_DIG__ 21&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __gnu_linux__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_HAS_QUIET_NAN__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __GNUC__ 4&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __MMX__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_HAS_DENORM__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_LONG_DOUBLE__ 16&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_MAX__ 1.7976931348623157e+308&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_HAS_INFINITY__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC32_MIN_EXP__ (-95)&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_HAS_DENORM__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC32_MIN__ 1E-95DF&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_MAX_EXP__ 1024&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC128_EPSILON__ 1E-33DL&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SSE2_MATH__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __amd64 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LONG_LONG_MAX__ 9223372036854775807LL&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_SIZE_T__ 8&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_WINT_T__ 4&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __GXX_ABI_VERSION 1002&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_MIN_EXP__ (-125)&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_MIN__ 2.2250738585072014e-308&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LP64__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DECIMAL_BID_FORMAT__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MIN__ 1E-6143DL&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __REGISTER_PREFIX__&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_HAS_DENORM__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __NO_INLINE__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_MANT_DIG__ 24&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __VERSION__ &amp;quot;4.3.3&amp;quot;&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC64_EPSILON__ 1E-15DD&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MIN_EXP__ (-6143)&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define unix 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SIZE_TYPE__ long unsigned int&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC32_DEN__ 0.000001E-95DF&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __ELF__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_RADIX__ 2&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_EPSILON__ 1.08420217248550443401e-19L&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SSE_MATH__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __k8 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_PTRDIFF_T__ 8&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __x86_64__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_HAS_QUIET_NAN__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_MAX_10_EXP__ 38&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LONG_MAX__ 9223372036854775807L&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_HAS_INFINITY__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC64_MAX__ 9.999999999999999E384DD&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC64_MANT_DIG__ 16&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC32_MAX_EXP__ 96&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define linux 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC128_DEN__ 0.000000000000000000000000000000001E-6143DL&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SSE2__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MANT_DIG__ 64&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_HAS_QUIET_NAN__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __k8__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __WCHAR_TYPE__ int&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_FLOAT__ 4&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC64_MIN_EXP__ (-383)&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_DIG__ 6&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __INT_MAX__ 2147483647&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __amd64__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_MAX_EXP__ 128&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_MANT_DIG__ 53&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC64_MIN__ 1E-383DD&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __WINT_TYPE__ unsigned int&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_SHORT__ 2&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SSE__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MIN_EXP__ (-16381)&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MAX_10_EXP__ 4932&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_EPSILON__ 2.2204460492503131e-16&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define _LP64 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_WCHAR_T__ 4&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC_EVAL_METHOD__ 2&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __INTMAX_MAX__ 9223372036854775807L&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_DENORM_MIN__ 1.40129846e-45F&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_MAX__ 3.40282347e+38F&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_DOUBLE__ 8&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __FLT_MIN_10_EXP__ (-37)&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __INTMAX_TYPE__ long int&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MAX_EXP__ 6144&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __GNUC_MINOR__ 3&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC32_MANT_DIG__ 7&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DBL_MAX_10_EXP__ 308&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_DENORM_MIN__ 3.64519953188247460253e-4951L&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __STDC__ 1&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __PTRDIFF_TYPE__ long int&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MANT_DIG__ 34&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MIN_10_EXP__ (-4931)&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_LONG_LONG__ 8&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __LDBL_DIG__ 18&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#define __GNUC_GNU_INLINE__ 1&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 </description>
     </item>
     

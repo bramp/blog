@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2011/08/02/google-chrome-javascript-console.log-bug/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,79 +86,85 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>Google Chrome Javascript console.log bug?</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2011-08-02</small> 336 words</p> <hr/>
-   <div class="post">
-     <p>I recently stumbled across this issue while debugging some Javascript. Take the following example code:</p>
 
-<pre>var array = [1,2,3,4,5,6,7,8,9,10];
-    var i = 0;
-    while(array.length > 0) {
-        console.log(i++, array);
-        //alert("pause");
-        array.pop();
-    }
-</pre>
+
+<div id="article">
+	<h1>Google Chrome Javascript console.log bug?</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2011-08-02</small>
+		
+		| <a href="http://localhost:1313/blog//tags/bug">bug</a>
+		
+		| <a href="http://localhost:1313/blog//tags/chrome">Chrome</a>
+		
+		| <a href="http://localhost:1313/blog//tags/javascript">Javascript</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>I recently stumbled across this issue while debugging some Javascript. Take the following example code:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">while</span><span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="o">++</span><span class="p">,</span> <span class="nx">array</span><span class="p">);</span>
+	<span class="c1">//alert(&quot;pause&quot;);</span>
+	<span class="nx">array</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
 
 <p>If you run it in your browser you would expect to see the following printed (in your Javascript console):</p>
-
-<pre>0 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    1 [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    2 [1, 2, 3, 4, 5, 6, 7, 8]
-    3 [1, 2, 3, 4, 5, 6, 7]
-    4 [1, 2, 3, 4, 5, 6]
-    5 [1, 2, 3, 4, 5]
-    6 [1, 2, 3, 4]
-    7 [1, 2, 3]
-    8 [1, 2]
-    9 [1]
-</pre>
+<div class="highlight"><pre>0 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+1 [1, 2, 3, 4, 5, 6, 7, 8, 9]
+2 [1, 2, 3, 4, 5, 6, 7, 8]
+3 [1, 2, 3, 4, 5, 6, 7]
+4 [1, 2, 3, 4, 5, 6]
+5 [1, 2, 3, 4, 5]
+6 [1, 2, 3, 4]
+7 [1, 2, 3]
+8 [1, 2]
+9 [1]
+</pre></div>
 
 <p>However, I instead saw:</p>
-
-<pre>1 []
-    2 []
-    3 []
-    4 []
-    5 []
-    6 []
-    7 []
-    8 []
-    9 []
-</pre>
+<div class="highlight"><pre>1 []
+2 []
+3 []
+4 []
+5 []
+6 []
+7 []
+8 []
+9 []
+</pre></div>
 
 <p>The issue seems to be that console.log() does not log straight away. In fact it most likely logs in a background thread for performance reasons. Thus by the time it actually logs the array it has changed. I tested this in Firefox (with Firebug) and it logged everything correctly. I also tried slowing down the loop by adding a alert() call. That fixed the issue at the cost of a popup every iterations.</p>
 
 <p>What really should happen is either</p>
 
 <ul>
-<li>console.log() should block until the logging is complete</li>
-<li>console.log() should copy all objects to avoid them being changed after log() returns but before they are printed.</li>
-<li>add a console.flush() and make me aware this race condition could occur.</li>
+<li><code>console.log()</code> should block until the logging is complete</li>
+<li><code>console.log()</code> should copy all objects to avoid them being changed after log() returns but before they are printed.</li>
+<li>add a <code>console.flush()</code> and make me aware this race condition could occur.</li>
 </ul>
 
-<p>I filed this as a <a href="http://code.google.com/p/chromium/issues/detail?id=91303">bug report</a> on the Chromium site, but I suspect I should have filed it over at the Webkit site.</p>
+<p>I filed this as a <a href="https://code.google.com/p/chromium/issues/detail?id=91303">bug report</a> on the Chromium site, but I suspect I should have filed it over at the Webkit site.</p>
 
 <p>For the moment I came up with a &#8220;fix&#8221;. I copy the array before I log it, so in this case I do the following:</p>
+<div class="highlight"><pre><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="o">++</span><span class="p">,</span> <span class="nx">array</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+</pre></div>
 
-<pre>console.log(i++, array.slice(0));
-</pre>
+<p><strong>Update:</strong> I previously searched for this bug, but didn&#8217;t find it before writing this article. However, I have just found someone else had <a href="https://code.google.com/p/chromium/issues/detail?id=50316">reported</a> it a few days ago:</p>
 
-<p><strong>Update:</strong> I previously searched for this bug, but didn&#8217;t find it before writing this article. However, I have just found someone else had [reported][2] it a few days ago:</p>
-
-<p>[2]: <a href="http://code.google.com/p/chromium/issues/detail?id=50316">http://code.google.com/p/chromium/issues/detail?id=50316</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2011/08/07/default-to-curses-interface-for-mtr/">&larr; Default to curses interface for mtr</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2011/07/27/html5-canvas-lunch-wheel/"> HTML5 Canvas: Lunch Wheel &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2011/07/27/html5-canvas-lunch-wheel/">&larr; HTML5 Canvas: Lunch Wheel</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2011/08/07/default-to-curses-interface-for-mtr/"> Default to curses interface for mtr &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -178,8 +193,11 @@
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

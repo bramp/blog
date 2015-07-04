@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2010/11/25/verizon-fios-mi424wr-rev.-f-router/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,36 +86,45 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>Verizon FiOS MI424WR rev. F Router</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2010-11-25</small> 451 words</p> <hr/>
-   <div class="post">
-     <p>I just got a FiOS wifi router and I must say I really like it. The web interface has many more options than any home router I&#8217;ve ever played with, and it seems like it&#8217;d be easy for a beginner but doesn&#8217;t get in the way of an expert. It also telnet access (optionally over SSL), which puts you into a custom shell. Poking around the commands I find one awesome one:</p>
 
-<pre>Wireless Broadband Router> help system shell
+
+<div id="article">
+	<h1>Verizon FiOS MI424WR rev. F Router</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2010-11-25</small>
+		
+		| <a href="http://localhost:1313/blog//tags/hacking">hacking</a>
+		
+		| <a href="http://localhost:1313/blog//tags/router">router</a>
+		
+		| <a href="http://localhost:1313/blog//tags/verizon">verizon</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>I just got a FiOS wifi router and I must say I really like it. The web interface has many more options than any home router I&#8217;ve ever played with, and it seems like it&#8217;d be easy for a beginner but doesn&#8217;t get in the way of an expert. It also telnet access (optionally over SSL), which puts you into a custom shell. Poking around the commands I find one awesome one:</p>
+<div class="highlight"><pre>Wireless Broadband Router&gt; <span class="nb">help </span>system shell
 shell   Spawn busybox shell in foreground
 
-Wireless Broadband Router> system shell
-BusyBox v1.01 (2005.09.07-07:38+0000) Built-in shell (lash)
-Enter 'help' for a list of built-in commands.
+Wireless Broadband Router&gt; system shell
+BusyBox v1.01 <span class="o">(</span>2005.09.07-07:38+0000<span class="o">)</span> Built-in shell <span class="o">(</span>lash<span class="o">)</span>
+Enter <span class="s1">&#39;help&#39;</span> <span class="k">for</span> a list of built-in commands.
 
-/ # 
-</pre>
+/ <span class="c"># </span>
+</pre></div>
 
 <p>This is very clearly running Linux, with BusyBox. For those interested here are some interesting bits of information:</p>
-
-<pre>/ # cat /proc/version 
-Linux version 2.6.16.14 #1 SMP Sat Nov 28 00:38:50 PST 2009
-</pre>
+<div class="highlight"><pre>/ <span class="c"># cat /proc/version </span>
+Linux version 2.6.16.14 <span class="c">#1 SMP Sat Nov 28 00:38:50 PST 2009</span>
+</pre></div>
 
 <p>A four year old kernel. Well what do you expect from this kind of device <img src="http://bramp.net/blog/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /></p>
-
-<pre>/ # cat /proc/cpuinfo 
-system type     : MC524WR
+<div class="highlight"><pre>/ <span class="c"># cat /proc/cpuinfo </span>
+system <span class="nb">type</span>     : MC524WR
 processor       : 0
 cpu model       : Cavium Networks Octeon CN50XX V0.1
 BogoMIPS        : 1000.48
-wait instruction    : yes
+<span class="nb">wait </span>instruction    : yes
 microsecond timers  : yes
 tlb_entries     : 64
 extra interrupt vector  : yes
@@ -117,7 +135,7 @@ VCEI exceptions     : not available
 processor       : 1
 cpu model       : Cavium Networks Octeon CN50XX V0.1
 BogoMIPS        : 1000.48
-wait instruction    : yes
+<span class="nb">wait </span>instruction    : yes
 microsecond timers  : yes
 tlb_entries     : 64
 extra interrupt vector  : yes
@@ -125,59 +143,56 @@ hardware watchpoint : yes
 ASEs implemented    :
 VCED exceptions     : not available
 VCEI exceptions     : not available
-</pre>
+</pre></div>
 
 <p>w00t, a <a href="http://www.caviumnetworks.com/OCTEON-Plus_CN50XX.html">Dual Cores 64bit MIPS chip</a></p>
-
-<pre>/ # cat /proc/meminfo 
-MemTotal:        53200 kB
-MemFree:         11588 kB
-Buffers:          9252 kB
-Cached:           9228 kB
-SwapCached:          0 kB
-Active:           7796 kB
-Inactive:        16220 kB
-HighTotal:           0 kB
-HighFree:            0 kB
-LowTotal:        53200 kB
-LowFree:         11588 kB
-SwapTotal:           0 kB
-SwapFree:            0 kB
-Dirty:               0 kB
-Writeback:           0 kB
-Mapped:          11272 kB
-Slab:            13700 kB
-CommitLimit:     26600 kB
-Committed_AS:    11384 kB
-PageTables:        196 kB
-VmallocTotal: 1073741824 kB
-VmallocUsed:      2752 kB
-VmallocChunk: 1073738692 kB
+<div class="highlight"><pre>/ <span class="c"># cat /proc/meminfo </span>
+MemTotal:        <span class="m">53200</span> kB
+MemFree:         <span class="m">11588</span> kB
+Buffers:          <span class="m">9252</span> kB
+Cached:           <span class="m">9228</span> kB
+SwapCached:          <span class="m">0</span> kB
+Active:           <span class="m">7796</span> kB
+Inactive:        <span class="m">16220</span> kB
+HighTotal:           <span class="m">0</span> kB
+HighFree:            <span class="m">0</span> kB
+LowTotal:        <span class="m">53200</span> kB
+LowFree:         <span class="m">11588</span> kB
+SwapTotal:           <span class="m">0</span> kB
+SwapFree:            <span class="m">0</span> kB
+Dirty:               <span class="m">0</span> kB
+Writeback:           <span class="m">0</span> kB
+Mapped:          <span class="m">11272</span> kB
+Slab:            <span class="m">13700</span> kB
+CommitLimit:     <span class="m">26600</span> kB
+Committed_AS:    <span class="m">11384</span> kB
+PageTables:        <span class="m">196</span> kB
+VmallocTotal: <span class="m">1073741824</span> kB
+VmallocUsed:      <span class="m">2752</span> kB
+VmallocChunk: <span class="m">1073738692</span> kB
 HugePages_Total:     0
 HugePages_Free:      0
-Hugepagesize:     2048 kB
-</pre>
+Hugepagesize:     <span class="m">2048</span> kB
+</pre></div>
 
 <p>Only ~53MB of RAM if I&#8217;m reading that right. Seems most likely to be 64MB to me, but I will investigate further.</p>
 
-<p>Also, as this is Linux, the <a href="http://opensource.actiontec.com/#bhr">source code</a> has been made available. The [README][3] reveals it is a MC524 Router (MI424WR-GEN2 REV E/F).</p>
+<p>Also, as this is Linux, the <a href="http://opensource.actiontec.com/">source code</a> has been made available. The <a href="http://opensource.actiontec.com/sourcecode/mi424wr/rev_ef/mi424wr-fw-20.10.7.5_readme">README</a> reveals it is a MC524 Router (MI424WR-GEN2 REV E/F).</p>
 
 <p>The device doesn&#8217;t seem to have many of the standard Linux tools, no doubt to save space. It does however have an external USB port. My plan is to compile more of busybox, as well as some other binaries, and run them from an external USB stick.</p>
 
 <p>Hacking an router has never been so easy! I&#8217;ll post more when I know more!</p>
 
-<p>[3]: <a href="http://opensource.actiontec.com/mi1424wr/MI424WR-FW-20.10.7.5-README">http://opensource.actiontec.com/mi1424wr/MI424WR-FW-20.10.7.5-README</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2011/01/24/intel-ucode-firmware-version-parser/">&larr; Intel ucode firmware version parser</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2010/09/23/utf-8-directory-listing/"> UTF-8 Directory Listing &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2010/09/23/utf-8-directory-listing/">&larr; UTF-8 Directory Listing</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2011/01/24/intel-ucode-firmware-version-parser/"> Intel ucode firmware version parser &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -206,8 +221,11 @@ Hugepagesize:     2048 kB
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

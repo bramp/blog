@@ -2,33 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Date on bramp.net</title>
-    <link>http://bramp.net/blog/tags/date/</link>
+    <link>http://localhost:1313/blog/tags/date/</link>
     <description>Recent content in Date on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Mon, 03 Sep 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/tags/date/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/tags/date/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>RFC 1123 dates in PHP</title>
-      <link>http://bramp.net/blog/2012/09/03/rfc-1123-dates-in-php/</link>
+      <link>http://localhost:1313/blog/2012/09/03/rfc-1123-dates-in-php/</link>
       <pubDate>Mon, 03 Sep 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2012/09/03/rfc-1123-dates-in-php/</guid>
-      <description>&lt;p&gt;While playing with [REDbot][1] I realised my last-modified headers (being sent by PHP) were not RFC 1123 complaint. A complaint date looks like &lt;code&gt;Sun, 06 Nov 1994 08:49:37 GMT&lt;/code&gt;. There are two ways to generate such a date in PHP;&lt;/p&gt;
+      <guid>http://localhost:1313/blog/2012/09/03/rfc-1123-dates-in-php/</guid>
+      <description>&lt;p&gt;While playing with &lt;a href=&#34;http://redbot.org/&#34;&gt;REDbot&lt;/a&gt; I realised my last-modified headers (being sent by PHP) were not RFC 1123 complaint. A complaint date looks like &lt;code&gt;Sun, 06 Nov 1994 08:49:37 GMT&lt;/code&gt;. There are two ways to generate such a date in PHP;&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;if you have pecl_http &amp;gt;= 0.1.0, then&lt;br /&gt;
-&lt;code&gt;http_date ($timestamp)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;or if you don&amp;#8217;t want to use pecl&lt;br /&gt;
-&lt;code&gt;gmdate(&#39;D, d M Y H:i:s&#39;, $timestamp).&#39; GMT&#39;&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;or if you have PHP &amp;gt;5.2 you can use the DateTime constant&lt;br /&gt;
-&lt;code&gt;gmdate(DATE_RFC2822, $timestamp)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;if you have pecl_http &amp;gt;= 0.1.0, then&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nb&#34;&gt;http_date&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$timestamp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;or if you don&amp;#8217;t want to use pecl&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nb&#34;&gt;gmdate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;D, d M Y H:i:s&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$timestamp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39; GMT&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;or if you have PHP &amp;gt;5.2 you can use the DateTime constant&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nb&#34;&gt;gmdate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;DATE_RFC2822&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$timestamp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;an example of it&amp;#8217;s use: &lt;code&gt;header(&#39;Last-Modified: &#39;.gmdate(&#39;D, d M Y H:i:s&#39;, $lastModified).&#39; GMT&#39;);&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;[1]: &lt;a href=&#34;http://redbot.org/&#34;&gt;http://redbot.org/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;an example of it&amp;#8217;s use:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nb&#34;&gt;header&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Last-Modified: &amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;.&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;gmdate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;D, d M Y H:i:s&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$lastModified&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39; GMT&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 </description>
     </item>
     
