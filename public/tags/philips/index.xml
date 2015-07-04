@@ -2,30 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Philips on bramp.net</title>
-    <link>http://bramp.net/blog/tags/philips/</link>
+    <link>http://localhost:1313/blog/tags/philips/</link>
     <description>Recent content in Philips on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Thu, 25 Dec 2008 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/tags/philips/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/tags/philips/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Philips WAC7500</title>
-      <link>http://bramp.net/blog/2008/12/25/philips-wac7500/</link>
+      <link>http://localhost:1313/blog/2008/12/25/philips-wac7500/</link>
       <pubDate>Thu, 25 Dec 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2008/12/25/philips-wac7500/</guid>
-      <description>&lt;p&gt;I&amp;#8217;m at home for christmas and I&amp;#8217;ve found my parents have brought a Philips WAC7500, a fancy hi-fi which has far more features than people would ever need. It can play music from its internal hard drive, iPod/USB, UPnP (via wired or wireless), and radio from either FM or Internet.&lt;/p&gt;
+      <guid>http://localhost:1313/blog/2008/12/25/philips-wac7500/</guid>
+      <description>&lt;p&gt;I&amp;#8217;m at home for Christmas and I&amp;#8217;ve found my parents have brought a Philips WAC7500, a fancy hi-fi which has far more features than people would ever need. It can play music from its internal hard drive, iPod/USB, UPnP (via wired or wireless), and radio from either FM or Internet.&lt;/p&gt;
 
 &lt;p&gt;So needless to say it is a tad fancy, so I started to play with it and quickly found out it is an embedded Linux running on a ARM processor. You can download a full copy of the software as a firmware update. The firmware is actually a cramfs file system which I was easily able to mount.&lt;/p&gt;
-
-&lt;pre&gt;mkdir /mnt/wac7500&lt;br /&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;mkdir /mnt/wac7500
 mount -t cramfs -o loop wac7500_update.bin /mnt/wac7500
-&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;I&amp;#8217;m going to spend some time trying to hack it apart. So far I&amp;#8217;ve found it is running a simple webserver, which allows you to access all you music via a URL such as:&lt;/p&gt;
-
-&lt;pre&gt;http://&amp;lt;ip&amp;gt;/media/&lt;/pre&gt;
+&lt;p&gt;I&amp;#8217;m going to spend some time trying to hack it apart. So far I&amp;#8217;ve found it is running a simple webserver, which allows you to access all you music via a URL such as: &lt;code&gt;http://&amp;lt;ip&amp;gt;/media/&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;It also has a nvram to store all the settings, and one of those settings is dbg_startsshd which if enabled seems to start a dropbear SSH server. I&amp;#8217;ve yet to figure out how to edit nvram or enable the sshd, but I&amp;#8217;m sure I will soon.&lt;/p&gt;
 </description>

@@ -15,24 +15,17 @@ Recently I&#8217;ve been doing some kernel hacking and I managed to deadlock my 
 
 I found that FreeBSD has a software watchdog feature, that will panic the kernel if a problem like this occurs. The watchdog does not seem to be built into the kernel by default, and I found the documentation a bit lacking. So here is what I did:
 
-Firstly, build and install a custom kernel which includes:
+Firstly, build and install a custom kernel which includes: ```options SW_WATCHDOG```
 
-<pre>options SW_WATCHDOG</pre>
-
-Secondly, edit the
-
-<pre>/etc/rc.conf</pre>
-
-file and add a line:
-
-<pre>watchdogd_enable="YES"</pre>
+Secondly, edit the ```/etc/rc.conf``` file and add a line: ```watchdogd_enable="YES"```
 
 When you next reboot, the watchdogd daemon will run, enabling the watchdog feature. Every second the watchdogd will reset a timer within the kernel. If after 16 seconds the timer has not been reset, the kernel will print out some interrupt information, and panic.
 
 Watchdogd seems to have some useful features, for example, you can configure it to execute a specific command every second, and if that command fails the timer will not be reset. The configuration option I use is:
 
-<pre>watchdogd_flags="-e /bin/ps"</pre>
+```watchdogd_flags="-e /bin/ps"```
 
 Read [WATCHDOGD(8)][1] for more information.
 
  [1]: http://www.freebsd.org/cgi/man.cgi?query=watchdogd&sektion=8
+ 

@@ -14,14 +14,14 @@ tags:
 ---
 I found this neat little command to list all the GCC compiler defined symbols
 
-<pre>gcc -dM -E - &lt; /dev/null</pre>
+```bash
+gcc -dM -E - > /dev/null
+```
 
 This can help if you aren't quite sure which defines are used on your systems. For example my FreeBSD 7.1 machine outputs this:
 
-<table>
-  <tr>
-    <td>
-      <pre>#define __DBL_MIN_EXP__ (-1021)
+```c
+#define __DBL_MIN_EXP__ (-1021)
 #define __FLT_MIN__ 1.17549435e-38F
 #define __DEC64_DEN__ 0.000000000000001E-383DD
 #define __CHAR_BIT__ 8
@@ -76,11 +76,8 @@ This can help if you aren't quite sure which defines are used on your systems. F
 #define __FLT_MANT_DIG__ 24
 #define __VERSION__ "4.2.1 20070719  [FreeBSD]"
 #define __DEC64_EPSILON__ 1E-15DD
-#define __DEC128_MIN_EXP__ (-6143)</pre>
-    </td>
-    
-    <td>
-      <pre>#define unix 1
+#define __DEC128_MIN_EXP__ (-6143)
+#define unix 1
 #define __SIZE_TYPE__ long unsigned int
 #define __DEC32_DEN__ 0.000001E-95DF
 #define __ELF__ 1
@@ -134,17 +131,13 @@ This can help if you aren't quite sure which defines are used on your systems. F
 #define __PTRDIFF_TYPE__ long int
 #define __DEC128_MANT_DIG__ 34
 #define __LDBL_MIN_10_EXP__ (-4931)
-#define __GNUC_GNU_INLINE__ 1</pre>
-    </td>
-  </tr>
-</table>
+#define __GNUC_GNU_INLINE__ 1
+```
 
 and my Debian Linux machine outputs this:
 
-<table>
-  <tr>
-    <td>
-      <pre>#define __DBL_MIN_EXP__ (-1021)
+```c
+#define __DBL_MIN_EXP__ (-1021)
 #define __FLT_MIN__ 1.17549435e-38F
 #define __DEC64_DEN__ 0.000000000000001E-383DD
 #define __CHAR_BIT__ 8
@@ -207,11 +200,8 @@ and my Debian Linux machine outputs this:
 #define __DECIMAL_BID_FORMAT__ 1
 #define __DEC128_MIN__ 1E-6143DL
 #define __REGISTER_PREFIX__
-#define __DBL_HAS_DENORM__ 1</pre>
-    </td>
-    
-    <td>
-      <pre>#define __NO_INLINE__ 1
+#define __DBL_HAS_DENORM__ 1
+#define __NO_INLINE__ 1
 #define __FLT_MANT_DIG__ 24
 #define __VERSION__ "4.3.3"
 #define __DEC64_EPSILON__ 1E-15DD
@@ -274,7 +264,5 @@ and my Debian Linux machine outputs this:
 #define __LDBL_MIN_10_EXP__ (-4931)
 #define __SIZEOF_LONG_LONG__ 8
 #define __LDBL_DIG__ 18
-#define __GNUC_GNU_INLINE__ 1</pre>
-    </td>
-  </tr>
-</table>
+#define __GNUC_GNU_INLINE__ 1
+```

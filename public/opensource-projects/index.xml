@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Opensource-Projects on bramp.net</title>
-    <link>http://bramp.net/blog/opensource-projects/</link>
-    <description>Recent content in Opensource-Projects on bramp.net</description>
+    <title>Opensource-projects on bramp.net</title>
+    <link>http://localhost:1313/blog/opensource-projects/</link>
+    <description>Recent content in Opensource-projects on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sat, 16 Feb 2013 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/opensource-projects/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/opensource-projects/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Open Source Projects</title>
-      <link>http://bramp.net/blog/opensource-projects/</link>
+      <link>http://localhost:1313/blog/opensource-projects/</link>
       <pubDate>Sat, 16 Feb 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/opensource-projects/</guid>
+      <guid>http://localhost:1313/blog/opensource-projects/</guid>
       <description>&lt;p&gt;I&amp;#8217;ve always been a big fan of open source, and always try and contribute where I can. In addition over the years I have created multiple small projects that I give back to the community. Here are the ones I have on GitHub:&lt;/p&gt;
 
 &lt;table width=&#34;100%&#34; class=&#34;opensource&#34;&gt;

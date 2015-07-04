@@ -14,7 +14,8 @@ For a while people have wanted MongoDB to [compress their data][1], or at least 
 
 Lets start with compressing the data. I&#8217;ve taken a project I&#8217;ve been working on, where most of the records have the similar set of fields. An example record may look like (which across the database had an average size of 547 bytes):
 
-<pre>{
+```javascript
+{
 	"_id" : ObjectId("5134b1c644ae658fc8c050c0"),
 	"version" : NumberLong(0),
 	"attributes" : {
@@ -43,13 +44,15 @@ Lets start with compressing the data. I&#8217;ve taken a project I&#8217;ve been
 		"subscriptions" : [ ]
 	}]
 }
-</pre>
+```
 
 There are some excellent [presentations][3] and [articles][4] on how MongoDB structures the data on the disk. For the sake of this investigation I took a single data file (of size 2 GiB) that was full of just these kinds of records.
 
 ## Full Compression
 
-<pre>gzip datafile.5</pre>
+```bash
+$ gzip datafile.5
+```
 
 **Original size:** 2,146,435,072 bytes (2.0 GiB)  
 **Compressed gzip size:** 453,359,908 bytes (432 MiB) / 21% of the original size
@@ -58,7 +61,9 @@ Simple gzip across the whole file gave a 4.7x saving in file size. This is obvio
 
 ## Field name Compression
 
-<pre>strings -n3 datafile.5 | sort | uniq -c | sort -n | tail -n20 </pre>
+```bash
+$ strings -n3 datafile.5 | sort | uniq -c | sort -n | tail -n20
+```
 
 That prints out a list of the most popular strings in the data file, sorted by frequency. From those stats we can infer
 
@@ -94,6 +99,6 @@ Looking at the existing MongoDB code, adding field level compression might be qu
  [1]: https://jira.mongodb.org/browse/SERVER-164
  [2]: https://jira.mongodb.org/browse/SERVER-863
  [3]: http://www.10gen.com/presentations/mongosv-2011/mongodb-storage-engine-bit-by-bit
- [4]: http://blog.fiesta.cc/post/13975691790/mongosv-live-blog-mongodbs-storage-engine-bit-by-bit
+ [4]: https://dzone.com/articles/mongodb%E2%80%99s-storage-engine-bit
  [5]: https://gist.github.com/bramp/5183117
  [6]: https://github.com/bramp/mongo/tree/SERVER-164

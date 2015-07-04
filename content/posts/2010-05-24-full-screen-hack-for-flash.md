@@ -19,7 +19,8 @@ After a bit of googling I found these links [[1]][2] [[2]][3]. However, both of 
 
 About 4 hours later I figure it out:
 
-<pre>On win32 open
+```text
+On win32 open
 C:\Windows\System32\Macromed\Flash\NPSWF32.dll
 
 On win64 open
@@ -30,7 +31,7 @@ C:\Users\Andrew\AppData\Local\Google\Chrome\Application\6.0.408.1\gcswf32.dll
 
 or if using Google Chrome on Windows XP:
 C:\Documents and Settings\Andrew\Local Settings\Application Data\Google\Chrome\Application\6.0.408.1
-</pre>
+```
 
 On version 10.1.53.38  
 Jump to offset **0&#215;180227** and change bytes **74 2A** to **90 90**, and voila.
@@ -55,19 +56,21 @@ Jump to offset **0x180AAF** and change bytes **74 39** to **90 90**, and voila.
 
 For the curious this changes some code that looks like this:
 
-<pre>if (msg == WM_KILLFOCUS)
+```c
+if (msg == WM_KILLFOCUS)
   jump to kill_focus
 if (msg == WM_PAINT)
   jump to paint
-</pre>
+```
 
 to
 
-<pre>if (msg == WM_KILLFOCUS)
+```c
+if (msg == WM_KILLFOCUS)
   nop nop
 if (msg == WM_PAINT)
   jump to paint
-</pre>
+```
 
 and for some context the version 10.1.53.64 surrounding code looked like this:
 
@@ -79,3 +82,4 @@ The 74s and 75 should be the same between versions, but all the other bytes migh
  [1]: http://www.channel4.com/programmes/4od
  [2]: http://my.opera.com/d.i.z./blog/2009/04/22/watch-fullscreen-flash-while-working-on-another-screen
  [3]: http://jmaxxz.com/index.php?option=com_content&view=article&id=89:flashhacker&catid=16:downloads&Itemid=32
+ 

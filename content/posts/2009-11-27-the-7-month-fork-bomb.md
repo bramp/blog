@@ -14,8 +14,9 @@ Today I was helping a student with some C programming, and the remote machine he
 
 It turns out that 7 months ago (in April), two of the students had ran the following code while they were learning about fork:
 
-<pre class="prettyprint">while ( fork() ) {}
-</pre>
+```c
+while ( fork() ) {}
+```
 
 Each spawned process didn&#8217;t use much CPU, but the system was heavily forking, therefore tying up all the resources. Needless to say I found the two students and gave them a quick slap before asking them to run &#8220;killall blah&#8221;.
 

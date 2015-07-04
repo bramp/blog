@@ -24,363 +24,49 @@ All these measurements were taken in my house in the UK, which according to my m
 
 ### Results
 
-<table align="center">
-  <tr>
-    <td>
-      <b>Device (status)</b>
-    </td>
-    
-    <td>
-      <b>Power Usage (watts)</b>
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      xTune Speakers (standby)
-    </td>
-    
-    <td align="center">
-      24W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      xTune Speakers (on no music)
-    </td>
-    
-    <td align="center">
-      25W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      xTune Speakers (on vol30)
-    </td>
-    
-    <td align="center">
-      25W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      xTune Speakers (on vol60)
-    </td>
-    
-    <td align="center">
-      50W
-    </td>
-  </tr>
-  
-  <tr>
-    <td colspan=2>&nbsp;</td>
-  </tr>
-  
-  <tr>
-    <td>
-      TFT Monitor 15&#8243; (standby)
-    </td>
-    
-    <td align="center">
-      11W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      TFT Monitor 15&#8243; (on)
-    </td>
-    
-    <td align="center">
-      27W
-    </td>
-  </tr>
-  
-  <tr>
-    <td colspan=2>&nbsp;</td>
-  </tr>
-  
-  <tr>
-    <td>
-      TFT Monitor 17&#8243; (standby)
-    </td>
-    
-    <td align="center">
-      9W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      TFT Monitor 17&#8243; (on)
-    </td>
-    
-    <td align="center">
-      38W
-    </td>
-  </tr>
-  
-  <tr>
-    <td colspan=2>&nbsp;</td>
-  </tr>
-  
-  <tr>
-    <td>
-      Nic&#8217;s laptop (web browsing)
-    </td>
-    
-    <td align="center">
-      35W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      Nic&#8217;s laptop (playing game)
-    </td>
-    
-    <td align="center">
-      59W
-    </td>
-  </tr>
-  
-  <tr>
-    <td colspan=2>&nbsp;</td>
-  </tr>
-  
-  <tr>
-    <td>
-      xbox 360 (standby)
-    </td>
-    
-    <td align="center">
-      10W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      xbox 360 (dashboard)
-    </td>
-    
-    <td align="center">
-      150W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      xbox 360 (game)
-    </td>
-    
-    <td align="center">
-      158W
-    </td>
-  </tr>
-  
-  <tr>
-    <td colspan=2>&nbsp;</td>
-  </tr>
-  
-  <tr>
-    <td>
-      Sky+ Box (standby)
-    </td>
-    
-    <td align="center">
-      20W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      Sky+ Box (on)
-    </td>
-    
-    <td align="center">
-      29W
-    </td>
-  </tr>
-  
-  <tr>
-    <td colspan=2>&nbsp;</td>
-  </tr>
-  
-  <tr>
-    <td>
-      Wii (standby &#8211; red light)
-    </td>
-    
-    <td align="center">
-      9W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      Wii (on)
-    </td>
-    
-    <td align="center">
-      24W
-    </td>
-  </tr>
-  
-  <tr>
-    <td colspan=2>&nbsp;</td>
-  </tr>
-  
-  <tr>
-    <td>
-      TV (standby)
-    </td>
-    
-    <td align="center">
-      9W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      TV (on)
-    </td>
-    
-    <td align="center">
-      95W
-    </td>
-  </tr>
-  
-  <tr>
-    <td colspan=2>&nbsp;</td>
-  </tr>
-  
-  <tr>
-    <td>
-      Kettle
-    </td>
-    
-    <td align="center">
-      2300W
-    </td>
-  </tr>
-  
-  <tr>
-    <td colspan=2>&nbsp;</td>
-  </tr>
-  
-  <tr>
-    <td>
-      My PC (off)
-    </td>
-    
-    <td align="center">
-      10W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      My PC (booting during POST)
-    </td>
-    
-    <td align="center">
-      230W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      My PC (booting)
-    </td>
-    
-    <td align="center">
-      130W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      My PC (idle &#8211; Windows)
-    </td>
-    
-    <td align="center">
-      128W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      My PC (game)
-    </td>
-    
-    <td align="center">
-      154W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      My PC (1 core prime #)
-    </td>
-    
-    <td align="center">
-      142W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      My PC (2 core prime #)
-    </td>
-    
-    <td align="center">
-      152W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      My PC (3 core prime #)
-    </td>
-    
-    <td align="center">
-      160W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      My PC (4 core prime #)
-    </td>
-    
-    <td align="center">
-      163W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      My PC (sleep)
-    </td>
-    
-    <td align="center">
-      13W
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      My PC (idle &#8211; Linux)
-    </td>
-    
-    <td align="center">
-      150W
-    </td>
-  </tr>
-</table>
+| Device (status)              | Power Usage (watts) |
+|------------------------------|:-------------------:|
+| xTune Speakers (standby)     |         24W         |
+| xTune Speakers (on no music) |         25W         |
+| xTune Speakers (on vol30)    |         25W         |
+| xTune Speakers (on vol60)    |         50W         |
+|------------------------------|---------------------|
+| TFT Monitor 15″ (standby)    |         11W         |
+| TFT Monitor 15″ (on)         |         27W         |
+|------------------------------|---------------------|
+| TFT Monitor 17″ (standby)    |          9W         |
+| TFT Monitor 17″ (on)         |         38W         |
+|------------------------------|---------------------|
+| Nic’s laptop (web browsing)  |         35W         |
+| Nic’s laptop (playing game)  |         59W         |
+|------------------------------|---------------------|
+| xbox 360 (standby)           |         10W         |
+| xbox 360 (dashboard)         |         150W        |
+| xbox 360 (game)              |         158W        |
+|------------------------------|---------------------|
+| Sky+ Box (standby)           |         20W         |
+| Sky+ Box (on)                |         29W         |
+|------------------------------|---------------------|
+| Wii (standby – red light)    |          9W         |
+| Wii (on)                     |         24W         |
+|------------------------------|---------------------|
+| TV (standby)                 |          9W         |
+| TV (on)                      |         95W         |
+|------------------------------|---------------------|
+| Kettle                       |        2300W        |
+|------------------------------|---------------------|
+| My PC (off)                  |         10W         |
+| My PC (booting during POST)  |         230W        |
+| My PC (booting)              |         130W        |
+| My PC (idle – Windows)       |         128W        |
+| My PC (game)                 |         154W        |
+| My PC (1 core prime #)       |         142W        |
+| My PC (2 core prime #)       |         152W        |
+| My PC (3 core prime #)       |         160W        |
+| My PC (4 core prime #)       |         163W        |
+| My PC (sleep)                |         13W         |
+| My PC (idle – Linux)         |         150W        |
+|------------------------------|---------------------|
 
 Some observations I made about these results:
 

@@ -14,17 +14,19 @@ PHP&#8217;s lack of a finally keyword is apalling, and even though there seems t
 
 Take an example. I am creating some files that I want to always be deleted after the script has finished. In any sane language (that has Exceptions) I would write:
 
-<pre class="prettyprint">try {
+```php
+try {
   // Create files
   // Do something with the files
 } finally {
   // Delete files - This code will run no matter what exceptions or errors occur while creating the files.
 }
-</pre>
+```
 
 However, this is the hack I&#8217;ve managed with PHP:
 
-<pre class="prettyprint">class UnlinkMe {
+```php
+class UnlinkMe {
 	var $filename;
 
 	function __construct($filename) {
@@ -44,7 +46,7 @@ function doSomething() {
 
   return;
 }
-</pre>
+```
 
 Here we are creating a UnlinkMe object, that has a destructor set up to delete a file. This UnlinkMe object is only used in the doSomething() function. Once that function returns, there are no longer any references to the object. When PHP decides to garbage collect (to free up some memory), it will destroy the UnlinkMe object, and thus call the __destruct method. Voila, we now call unlink and have cleaned up the file, even after the script has finished running.
 

@@ -15,7 +15,8 @@ tags:
 ---
 I recently had the need to install Windows Server 2008 from a USB stick. This was because I didn&#8217;t have a working DVD drive to hand. I found a couple of [tutorials][1] [online][2] explaining how to create the disk. They generally explained this technique:
 
-<pre>C:\> diskpart
+```bash
+C:\> diskpart
 
 DISKPART> list disk
 
@@ -35,14 +36,15 @@ xcopy X:\*.* /s/e/f Y:\
 
      where X:\ is your mounted image or physical DVD and Y:\ is your USB
      device
-</pre>
+```
 
 However it appears diskpart is unable to see USB sticks under Windows XP. I have later tried on Vista and this limitation appears removed. But for those using Windows XP I have found an alternative method.
 
 Firstly find the bootsect.exe tool on the Windows Server disc (in the boot directory). Then run this command where U is the drive letter of the USB stick.
 
-<pre>D:\boot> bootsect.exe /nt60 U:
-</pre>
+```bash
+D:\boot> bootsect.exe /nt60 U:
+```
 
 Now copy all the files from the Windows Server disc onto the USB stick. This can be done by dragging in the GUI or using the xcopy method shown previously.
 

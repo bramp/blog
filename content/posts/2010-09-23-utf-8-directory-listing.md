@@ -16,7 +16,8 @@ I had a need to create a directory listing with all the UTF-8 characters intact.
 
 To solve this problem I wrote a bit of python to read the file names in full UTF-8 and output the results directly to a file (and not via a pipe, which would again be via the shell). The resulting very simple script is as follows:
 
-<pre class="prettyprint">import os
+```python
+import os
 import codecs
 
 log = codecs.open('listing', mode='w', encoding="utf-8")
@@ -28,7 +29,7 @@ for root, dirs, files in os.walk(u'.'):
 		log.write(os.path.join(root, file) + u"\n")
 
 log.close()
-
-</pre>
+```
 
  [1]: http://stackoverflow.com/questions/379240/is-there-a-windows-command-shell-that-will-display-unicode-characters
+ 

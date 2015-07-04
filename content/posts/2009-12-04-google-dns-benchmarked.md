@@ -21,11 +21,12 @@ Firstly I found a [list of the 1 million most popular sites][4]. I then picked a
 
 I decided I would query an [A record][9] for each of the domains in the list, one at a time, starting with the most popular. I would query each server three times for the same domain name. The ordering was like this:
 
-<pre>foreach (domain)
-   for (i =0; i&lt;3;i++)
+```php
+foreach (domain)
+   for (i =0; i<3;i++)
       foreach (server)
          query(server, domain)
-</pre>
+```
 
 I recorded the time it took for each query to be answered, and I also recorded the replies. I was curious to see if some servers replied with different answers, or if some returned more information, i.e. additional records.
 
@@ -33,243 +34,18 @@ I [wrote a script][3] in PHP 5.3, and ran it from the command line on my Windows
 
 ### Results
 
-After letting this run for a few hours, and querying roughly the top 10,000 domains, I have some preliminary results. 
+After letting this run for a few hours, and querying roughly the top 10,000 domains, I have some preliminary results.
 
-<table align="center">
-  <tr>
-    <td>
-      DNS Server
-    </td>
-    
-    <td>
-      Min (ms)
-    </td>
-    
-    <td>
-      Max (ms)
-    </td>
-    
-    <td>
-      Median
-    </td>
-    
-    <td>
-      Mean (ms)
-    </td>
-    
-    <td>
-      Standard Dev (ms)
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      Google A (8.8.8.8)
-    </td>
-    
-    <td>
-      38.50
-    </td>
-    
-    <td>
-      4932
-    </td>
-    
-    <td>
-      42.45
-    </td>
-    
-    <td>
-      122.8
-    </td>
-    
-    <td>
-      181.6
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      Google B (8.8.4.4)
-    </td>
-    
-    <td>
-      38.65
-    </td>
-    
-    <td>
-      4927
-    </td>
-    
-    <td>
-      41.84
-    </td>
-    
-    <td>
-      94.52
-    </td>
-    
-    <td>
-      154.8
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      OpenDNS A (208.67.222.222)
-    </td>
-    
-    <td>
-      29.77
-    </td>
-    
-    <td>
-      4035
-    </td>
-    
-    <td>
-      31.87
-    </td>
-    
-    <td>
-      74.37
-    </td>
-    
-    <td>
-      115.4
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      OpenDNS B (208.67.220.220)
-    </td>
-    
-    <td>
-      29.76
-    </td>
-    
-    <td>
-      1171
-    </td>
-    
-    <td>
-      31.82
-    </td>
-    
-    <td>
-      35.28
-    </td>
-    
-    <td>
-      32.4
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      Easynet A (90.207.238.97)
-    </td>
-    
-    <td>
-      33.90
-    </td>
-    
-    <td>
-      2578
-    </td>
-    
-    <td>
-      61.29
-    </td>
-    
-    <td>
-      105.2
-    </td>
-    
-    <td>
-      103.7
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      Easynet B (90.207.238.99)
-    </td>
-    
-    <td>
-      33.65
-    </td>
-    
-    <td>
-      4253
-    </td>
-    
-    <td>
-      44.96
-    </td>
-    
-    <td>
-      96.11
-    </td>
-    
-    <td>
-      104.8
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      Plusnet A (212.159.11.150)
-    </td>
-    
-    <td>
-      43.78
-    </td>
-    
-    <td>
-      4423
-    </td>
-    
-    <td>
-      52.56
-    </td>
-    
-    <td>
-      100.8
-    </td>
-    
-    <td>
-      156.5
-    </td>
-  </tr>
-  
-  <tr>
-    <td>
-      Plusnet B (212.159.13.150)
-    </td>
-    
-    <td>
-      38.87
-    </td>
-    
-    <td>
-      4991
-    </td>
-    
-    <td>
-      42.76
-    </td>
-    
-    <td>
-      90.78
-    </td>
-    
-    <td>
-      169.1
-    </td>
-  </tr>
-</table>
+| DNS Server                 | Min (ms) | Max (ms) | Median | Mean (ms) | Standard Dev (ms) |
+|----------------------------|:--------:|:--------:|:------:|:---------:|:-----------------:|
+| Google A (8.8.8.8)         |   38.50  |   4932   |  42.45 |   122.8   |       181.6       |
+| Google B (8.8.4.4)         |   38.65  |   4927   |  41.84 |   94.52   |       154.8       |
+| OpenDNS A (208.67.222.222) |   29.77  |   4035   |  31.87 |   74.37   |       115.4       |
+| OpenDNS B (208.67.220.220) |   29.76  |   1171   |  31.82 |   35.28   |        32.4       |
+| Easynet A (90.207.238.97)  |   33.90  |   2578   |  61.29 |   105.2   |       103.7       |
+| Easynet B (90.207.238.99)  |   33.65  |   4253   |  44.96 |   96.11   |       104.8       |
+| Plusnet A (212.159.11.150) |   43.78  |   4423   |  52.56 |   100.8   |       156.5       |
+| Plusnet B (212.159.13.150) |   38.87  |   4991   |  42.76 |   90.78   |       169.1       |
 
 From this table of results, we can see that Google's median response time is 41-42ms, however, OpenDNS performs much better with a result of ~31ms. Both my current ISP and my old ISP don't perform as well and each achieved a result between 42ms and 61ms. To get a better feel for the data I plotted an empirical CDF of the lookup times for each server.
 

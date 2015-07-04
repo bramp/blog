@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2009/11/28/useful-scripts/configurations/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,84 +86,95 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>Useful scripts/configurations</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2009-11-28</small> 161 words</p> <hr/>
-   <div class="post">
-     <p>Make <a href="http://git-scm.com">git</a> colourful</p>
 
-<pre>git config --global color.diff auto
+
+<div id="article">
+	<h1>Useful scripts/configurations</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2009-11-28</small>
+		
+		| <a href="http://localhost:1313/blog//tags/configuration">configuration</a>
+		
+		| <a href="http://localhost:1313/blog//tags/freebsd">FreeBSD</a>
+		
+		| <a href="http://localhost:1313/blog//tags/git">Git</a>
+		
+		| <a href="http://localhost:1313/blog//tags/linux">Linux</a>
+		
+		| <a href="http://localhost:1313/blog//tags/nano">nano</a>
+		
+		| <a href="http://localhost:1313/blog//tags/scripts">scripts</a>
+		
+		| <a href="http://localhost:1313/blog//tags/whitespace">whitespace</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>Make <a href="http://git-scm.com">git</a> colourful</p>
+<div class="highlight"><pre>git config --global color.diff auto
 git config --global color.status auto
 git config --global color.branch auto
-</pre>
+</pre></div>
 
 <p>Make <a href="http://www.nano-editor.org/">nano</a> colourful</p>
+<div class="highlight"><pre>cp /usr/local/share/examples/nano/nanorc.sample ~/.nanorc
+<span class="c"># or</span>
+zcat /usr/share/doc/nano/examples/nanorc.sample.gz &gt;~/.nanorc
 
-<pre>cp /usr/local/share/examples/nano/nanorc.sample ~/.nanorc
-or
- zcat /usr/share/doc/nano/examples/nanorc.sample.gz >~/.nanorc
-then
- nano ~/.nanorc
-</pre>
+<span class="c"># then</span>
+nano ~/.nanorc
+</pre></div>
 
 <p>To trim trailing whitespace from *.cc on Linux (taken from <a href="http://zebert.blogspot.com/2009/06/clean-up-trailing-whitespaces-in.html">this blog</a>):</p>
-
-<pre>find . -name '*.cc' -exec sed -i {} -e 's/[ \t]*$//' ';'</pre>
+<div class="highlight"><pre>find . -name <span class="s1">&#39;*.cc&#39;</span> -exec sed -i <span class="o">{}</span> -e <span class="s1">&#39;s/[ \t]*$//&#39;</span> <span class="s1">&#39;;&#39;</span>
+</pre></div>
 
 <p>and on BSDs:</p>
+<div class="highlight"><pre>find . -name <span class="s1">&#39;*.cc&#39;</span> -exec sed -i <span class="s1">&#39;&#39;</span> -e <span class="s1">&#39;s/\ *$//&#39;</span> <span class="o">{}</span> <span class="s1">&#39;;&#39;</span>
+</pre></div>
 
-<pre>find . -name '*.cc' -exec sed -i '' -e 's/\ *$//' {} ';'</pre>
-
-<p>Linux style &#8216;ls&#8217; colours on FreeBSD (taken from [here][4]):</p>
-
-<pre>export CLICOLOR="YES"
-export LSCOLORS="ExGxFxdxCxDxDxhbadExEx"
-</pre>
+<p>Linux style &#8216;ls&#8217; colours on FreeBSD (taken from <a href="http://www.puresimplicity.net/~hemi/freebsd/misc.html">here</a>):</p>
+<div class="highlight"><pre><span class="nb">export </span><span class="nv">CLICOLOR</span><span class="o">=</span><span class="s2">&quot;YES&quot;</span>
+<span class="nb">export </span><span class="nv">LSCOLORS</span><span class="o">=</span><span class="s2">&quot;ExGxFxdxCxDxDxhbadExEx&quot;</span>
+</pre></div>
 
 <p>To ensure the http_proxy environmental variable is passed to sudo. Edit the sudoers file by running visudo. Then add the following.</p>
-
-<pre>Defaults env_keep += "ftp_proxy http_proxy https_proxy"
-</pre>
+<div class="highlight"><pre>Defaults env_keep +<span class="o">=</span> <span class="s2">&quot;ftp_proxy http_proxy https_proxy&quot;</span>
+</pre></div>
 
 <p>Bash autocompletion on FreeBSD:</p>
-
-<pre>cd  /usr/ports/shells/bash-completion
+<div class="highlight"><pre><span class="nb">cd</span>  /usr/ports/shells/bash-completion
 sudo make install clean
-</pre>
+</pre></div>
 
 <p>Edit ~/.bashrc and add</p>
-
-<pre>if [ -f /usr/local/etc/bash_completion ]; then
+<div class="highlight"><pre><span class="k">if</span> <span class="o">[</span> -f /usr/local/etc/bash_completion <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
     . /usr/local/etc/bash_completion
-fi
-</pre>
+<span class="k">fi</span>
+</pre></div>
 
 <p>Make svn output colorful<br />
 Edit ~/.subversion/config</p>
-
-<pre>[helpers]
-diff-cmd = /usr/bin/colordiff
-</pre>
+<div class="highlight"><pre><span class="k">[helpers]</span>
+<span class="na">diff-cmd</span> <span class="o">=</span> <span class="s">/usr/bin/colordiff</span>
+</pre></div>
 
 <p>Create diffs with function names and ignoring whitespace</p>
-
-<pre>svn diff -x -uwp
-</pre>
+<div class="highlight"><pre>svn diff -x -uwp
+</pre></div>
 
 <p>To be continued&#8230;</p>
 
-<p>[4]: <a href="http://www.puresimplicity.net/~hemi/freebsd/misc.html">http://www.puresimplicity.net/~hemi/freebsd/misc.html</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2009/12/04/google-dns-benchmarked/">&larr; Google DNS Benchmarked</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2009/11/27/the-7-month-fork-bomb/"> The 7 month fork bomb &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2009/11/27/the-7-month-fork-bomb/">&larr; The 7 month fork bomb</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2009/12/04/google-dns-benchmarked/"> Google DNS Benchmarked &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -183,8 +203,11 @@ diff-cmd = /usr/bin/colordiff
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

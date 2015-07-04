@@ -18,20 +18,22 @@ tags:
 
 So, I&#8217;m trying the [new library feature][5], where you can have a Android library project, which is referenced by one or more Android projects. This allows multiple projects to easily share the same code. The problem is when I set-up my Android project to use a library project I get the following error printed in my eclipse console:
 
-<pre>ERROR: Unknown option '--auto-add-overlay'
+```text
+ERROR: Unknown option '--auto-add-overlay'
 Android Asset Packaging Tool
-</pre>
+```
 
 and the code fails to compile. If I remove the reference to the library project this error goes away.
 
 The error is coming from the aapt command, which seems to be installed multiple times, once for each SDK version:
 
-<pre>bramp@Andrew-laptop:~$ locate -r aapt$
+```bash
+$ locate -r "aapt$"
 /home/bramp/android-sdk-linux_86/platforms/android-3/tools/aapt
 /home/bramp/android-sdk-linux_86/platforms/android-4/tools/aapt
 /home/bramp/android-sdk-linux_86/platforms/android-7/tools/aapt
 /home/bramp/android-sdk-linux_86/platforms/android-8/tools/aapt
-</pre>
+```
 
 Checking each command I see that only versions 7 and 8 have the *&#8211;auto-add-overlay* option. Both my library and main projects are targeted at Android 1.6 (i.e. android-4). I tried re-targeting my main project to Android 2.2 (i.e. android-8) and the problem seems to go away.
 
@@ -45,3 +47,4 @@ I noticed that on Windows all versions of the aapt tool support the &#8216;&#821
  [3]: http://developer.android.com/sdk/tools-notes.html
  [4]: http://www.juicafe.co.uk/
  [5]: http://developer.android.com/guide/developing/other-ide.html#libraryProject
+ 

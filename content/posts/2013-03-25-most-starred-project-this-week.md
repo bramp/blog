@@ -13,8 +13,12 @@ tags:
 ---
 After getting my [js-sequence-diagrams][1] project onto [Hacker News][2], the popularity has gone viral.
 
-[<img src="http://bramp.net/blog/wp-content/uploads/github-most-starred.png" alt="github-most-starred" width="619" height="678" class="aligncenter size-full wp-image-621" />][3]
+<div class="text-center">
+    <a href="https://github.com/languages/JavaScript">
+		<img src="http://bramp.net/blog/wp-content/uploads/github-most-starred.png" alt="github-most-starred" width="619" height="678" />
+	</a>
+</div>
 
- [1]: http://bramp.github.com/js-sequence-diagrams/
+ [1]: https://bramp.github.io/js-sequence-diagrams/
  [2]: https://news.ycombinator.com/item?id=5432110
- [3]: https://github.com/languages/JavaScript
+ 

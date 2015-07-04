@@ -2,61 +2,54 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Scripting on bramp.net</title>
-    <link>http://bramp.net/blog/tags/scripting/</link>
+    <link>http://localhost:1313/blog/tags/scripting/</link>
     <description>Recent content in Scripting on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 31 Aug 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/tags/scripting/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/tags/scripting/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Persec python script</title>
-      <link>http://bramp.net/blog/2010/08/31/persec-python-script/</link>
+      <link>http://localhost:1313/blog/2010/08/31/persec-python-script/</link>
       <pubDate>Tue, 31 Aug 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2010/08/31/persec-python-script/</guid>
+      <guid>http://localhost:1313/blog/2010/08/31/persec-python-script/</guid>
       <description>&lt;p&gt;A while ago I wrote a python script that does a similar job to GNU&amp;#8217;s &lt;a href=&#34;http://linux.die.net/man/1/watch&#34;&gt;watch&lt;/a&gt; command. You use it like so:&lt;/p&gt;
-
-&lt;pre&gt;./persec.py [--interval=&amp;lt;n&amp;gt;] &amp;lt;command&amp;gt;
-&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;./persec.py &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;--interval&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&amp;lt;n&amp;gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &amp;lt;&lt;span class=&#34;nb&#34;&gt;command&lt;/span&gt;&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;so for example&lt;/p&gt;
-
-&lt;pre&gt;./persec.py ifconfig
-&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;./persec.py ifconfig
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Now in a similar way to watch, it executes the command every second, and highlights the differences between each execution. However, in addition to this it finds any numbers that have changed and works out the rate at which they are changing. So for example, ifconfig would typically output this:&lt;/p&gt;
-
-&lt;pre&gt;usb0      Link encap:Ethernet  HWaddr 02:04:4b:00:d3:cf
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;usb0      Link encap:Ethernet  HWaddr 02:04:4b:00:d3:cf
           inet addr:10.0.0.2  Bcast:10.0.0.255  Mask:255.255.255.0
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:1017422291 errors:0 dropped:0 overruns:0 frame:0
           TX packets:549382406 errors:0 dropped:0 overruns:0 carrier:0
           collisions:0 txqueuelen:1000
           RX bytes:1910704266 (1.9 GB)  TX bytes:1834667124 (1.8 GB)
-&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;but now outputs something like:&lt;/p&gt;
-
-&lt;pre&gt;usb0      Link encap:Ethernet  HWaddr 02:04:4b:00:d3:cf
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;usb0      Link encap:Ethernet  HWaddr 02:04:4b:00:d3:cf
           inet addr:10.0.0.2  Bcast:10.0.0.255  Mask:255.255.255.0
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          RX packets:&lt;b&gt;2001/s&lt;/b&gt; errors:0 dropped:0 overruns:0 frame:0
-          TX packets:&lt;b&gt;2002/s&lt;/b&gt; errors:0 dropped:0 overruns:0 carrier:0
+          RX packets:&amp;lt;b&amp;gt;2001/s&amp;lt;/b&amp;gt; errors:0 dropped:0 overruns:0 frame:0
+          TX packets:&amp;lt;b&amp;gt;2002/s&amp;lt;/b&amp;gt; errors:0 dropped:0 overruns:0 carrier:0
           collisions:0 txqueuelen:1000
-          RX bytes:&lt;b&gt;168120/s&lt;/b&gt; (1.9 GB)  TX bytes:&lt;b&gt;217144/s&lt;/b&gt; (1.8 GB)
-&lt;/pre&gt;
+          RX bytes:&amp;lt;b&amp;gt;168120/s&amp;lt;/b&amp;gt; (1.9 GB)  TX bytes:&amp;lt;b&amp;gt;217144/s&amp;lt;/b&amp;gt; (1.8 GB)
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Notice the per second (/s) values for RX/TX packets and RX/TX bytes. I have found this quite useful many times in the past, on commands such as:&lt;/p&gt;
-
-&lt;pre&gt;./persec.py cat /proc/interrupts
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;./persec.py cat /proc/interrupts
 ./persec.py df
 ./persec.py ls -l somefile
-&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://raw.github.com/gist/1275275/2da6db303e784bdbdb8a095cec2a374465a28779/persec.py&#34;&gt;Download version 1.1&lt;/a&gt; or [View on Github][3]&lt;/p&gt;
-
-&lt;p&gt;[3]: &lt;a href=&#34;https://gist.github.com/1275275&#34;&gt;https://gist.github.com/1275275&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://raw.githubusercontent.com/bramp/handy-tools/master/persec.py&#34;&gt;Download version 1.1&lt;/a&gt; or &lt;a href=&#34;https://github.com/bramp/handy-tools/blob/master/persec.py&#34;&gt;View on Github&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

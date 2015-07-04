@@ -13,7 +13,8 @@ tags:
 ---
 Occasionally I have to grab a SSL cert from a server, and turn it into something that Java can use. Here are the quick instructions
 
-<pre class="prettyprint"># Store the cert issued by a web server
+```bash
+# Store the cert issued by a web server
 openssl s_client -showcerts -connect www.google.com:443 &gt; www.google.com.pem
 
 # Convert it from PEM format to DER format
@@ -23,4 +24,4 @@ openssl x509 -in www.google.com.pem -inform PEM -out www.google.com.der -outform
 sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.der -keystore /usr/java6/jre/lib/security/cacerts
 
 # The keystore password is by default "changeit"
-</pre>
+```

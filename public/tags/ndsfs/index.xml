@@ -2,39 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ndsfs on bramp.net</title>
-    <link>http://bramp.net/blog/tags/ndsfs/</link>
+    <link>http://localhost:1313/blog/tags/ndsfs/</link>
     <description>Recent content in Ndsfs on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 04 Jan 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/tags/ndsfs/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/tags/ndsfs/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>ndsfs – A FUSE application to mount Nintendo DS roms</title>
-      <link>http://bramp.net/blog/2009/01/04/ndsfs--a-fuse-application-to-mount-nintendo-ds-roms/</link>
+      <link>http://localhost:1313/blog/2009/01/04/ndsfs--a-fuse-application-to-mount-nintendo-ds-roms/</link>
       <pubDate>Sun, 04 Jan 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2009/01/04/ndsfs--a-fuse-application-to-mount-nintendo-ds-roms/</guid>
+      <guid>http://localhost:1313/blog/2009/01/04/ndsfs--a-fuse-application-to-mount-nintendo-ds-roms/</guid>
       <description>&lt;p&gt;I brought my dad Professor Layton for the Nintendo DS this Christmas, and being a curious fellow I decided to see if I could reverse engineer the game to extract all the questions/answers. It turns out it wasn&amp;#8217;t that hard. On my journey however I had to work out how to browse the file system stored on the rom.&lt;/p&gt;
 
 &lt;p&gt;To do this I found a tool call &lt;a href=&#34;http://darkfader.net/ds/&#34;&gt;ndstool&lt;/a&gt;, which can browse and extract the file system in the rom image. However, being a nerd I decided to write a FUSE file system application to do the same task.&lt;/p&gt;
 
-&lt;p&gt;So here is the &lt;a href=&#34;http://bramp.net/blog/projects/ndsfs/ndsfs-1.1.tar.bz2&#34;&gt;source code&lt;/a&gt; for ndsfs, you will have to compile it yourself like so:&lt;/p&gt;
-
-&lt;pre&gt;gcc -lfuse ndsfs.c -o ndsfs&lt;/pre&gt;
+&lt;p&gt;The &lt;a href=&#34;https://github.com/bramp/ndsfs&#34;&gt;source code&lt;/a&gt; is available on GitHub, you can compile it yourself:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;make
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;and then run it like so:&lt;/p&gt;
-
-&lt;pre&gt;ndsfs &amp;lt;rom file&amp;gt; &amp;lt;mount point&amp;gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;ndsfs &amp;lt;rom file&amp;gt; &amp;lt;mount point&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;I&amp;#8217;m not sure it will work on all roms, but it is worth a try.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Update: Version 1.1 released&lt;/strong&gt; &amp;#8211; A few months ago I worked a bit more on this and have now released a new version. I fixed many problems but as I did this months ago, and I didn&amp;#8217;t document anything, I don&amp;#8217;t know what I fixed &lt;img src=&#34;http://bramp.net/blog/wp-includes/images/smilies/icon_smile.gif&#34; alt=&#34;:)&#34; class=&#34;wp-smiley&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://bramp.net/blog/projects/ndsfs/ndsfs-1.1.tar.bz2&#34;&gt;Version 1.1&lt;/a&gt;&lt;br /&gt;
-[Version 1.0][3]&lt;/p&gt;
-
-&lt;p&gt;[3]: /projects/ndsfs/ndsfs-1.0.tar.bz2&lt;/p&gt;
 </description>
     </item>
     

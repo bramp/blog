@@ -13,7 +13,8 @@ tags:
 ---
 Everyone plays [foursquare][1] (the location based android/iPhone app) differently. However, there are no offical rules on what venues are acceptable, and when you can and can&#8217;t check-in. So I wanted to write down the rules that I play by:
 
-<pre>1. You talk about foursquare.
+```text
+1. You talk about foursquare.
 2. You talk about foursquare.
 3. When someone is near by you go find them.
 4, Get as many people to a check-in as possible.
@@ -21,13 +22,14 @@ Everyone plays [foursquare][1] (the location based android/iPhone app) different
 6. Check-in with Android, iPhone, or Blackberry devices.
 7. You check-in as long and late as you can.
 8. If this is your first night at foursquare, you have to check-in.
-</pre>
+```
 
 Ok, so that was my attempt of humour by parodying the [rules of fight club][2].
 
 I actually do play by a set of rules
 
-<pre>1. I only check-in to venues where I'm using their service. For example, I only 
+```text
+1. I only check-in to venues where I'm using their service. For example, I only 
   check-in to a coffee shop if I buy a drink, or I check-in to a train station
   only if I get on or off a train.
 
@@ -49,9 +51,10 @@ I actually do play by a set of rules
   when I'm out I'm unable to find the full data, so I fill in as much as I can, and
   later when I get back to my PC I make sure I complete the venue's details
   fully.
-</pre>
+```
 
 So these are my rules and I&#8217;m sure they will evolve as I play the game more. I would love to hear other people&#8217;s rules.
 
  [1]: http://foursquare.com/
  [2]: http://www.diggingforfire.net/FightClub/
+ 

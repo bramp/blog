@@ -17,7 +17,8 @@ If you google for this laptop you won&#8217;t find many pages about it, in fact 
 
 Using Vista (which was pre-installed) I was able to get this list of hardware, which should help me with the installation process:
 
-<pre>Atheros L1 Gigabit Ethernet
+```
+Atheros L1 Gigabit Ethernet
 Intel Wireless 3945ABG
 JMicron JMB36X
 ATI Mobility Radeon HD 3470
@@ -28,11 +29,11 @@ Realtek HD Audio
 Intel(R) GM965 Express Chipset
 Intel 82GM965 Memory Controller
 Intel(R) 965GM Graphics And Memory Controller Hub(GMCH)
-</pre>
+```
 
 Regardless of knowing if Linux would install or not, I went ahead and tried [Debian lenny beta 2][4]. However, as it was booting it would crash and fill the screen with &#8220;pretty&#8221; colours. I then tried a old Debian disc I had lying around, then a new and old Ubuntu disk, and all these failed to load. So then I tried different kernel options, and eventually I found this command worked:
 
-<pre>acpi=off</pre>
+```acpi=off```
 
 To make it clear, at the Debian boot menu for the installer, you select &#8220;Install&#8221;, but then press tab instead of enter. Then select the 2nd line, press e, and then type the command on the very end. After this press enter, then b to boot the installer.
 

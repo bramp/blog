@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2012/01/14/avoid-bloat-freezer-free/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,28 +86,34 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>Avoid Bloat Freezer Free</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2012-01-14</small> 178 words</p> <hr/>
-   <div class="post">
-     <p>Over a month ago I install &#8220;Bloat Freezer Free&#8221;, a tool designed to kill of particular services running in the background, such as those installed back your phone manufactor. It seemed to be working fine, but in the last few days I&#8217;ve been getting a green star in my notification bar alerting me to &#8220;There is a update to the Android Market&#8221;. If I click it, it takes me to some spyware looking site to download a new market place. Then today I get an alert with the same green star saying &#8220;Badoo&#8221;. If it click that it links me via some porn advertiser and I end up at the Google Market for the Badoo app.</p>
 
-<p>I got out the Android SDK, and I figured out the notification was coming from the Bloat Freezer tool! After a few searches I find [a article][1] about how that tool is using a push notification system, AirPush, to send me spam.</p>
+
+<div id="article">
+	<h1>Avoid Bloat Freezer Free</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2012-01-14</small>
+		
+		| <a href="http://localhost:1313/blog//tags/android">android</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>Over a month ago I install &#8220;Bloat Freezer Free&#8221;, a tool designed to kill of particular services running in the background, such as those installed by your phone manufactor. It seemed to be working fine, but in the last few days I&#8217;ve been getting a green star in my notification bar alerting me to &#8220;There is a update to the Android Market&#8221;. If I click it, it takes me to some spyware looking site to download a new market place. Then today I get an alert with the same green star saying &#8220;Badoo&#8221;. If it click that it links me via some porn advertiser and I end up at the Google Market for the Badoo app.</p>
+
+<p>I got out the Android SDK, and I figured out the notification was coming from the Bloat Freezer tool! After a few searches I find <a href="http://androidunderground.blogspot.com/2011/12/bloat-freezer-abuses-airpush-ads-to_22.html">a article</a> about how that tool is using a push notification system, AirPush, to send me spam.</p>
 
 <p>I have now removed this app, and writing this blog entry to helpful save others from this hassle.</p>
 
-<p>[1]: <a href="http://androidunderground.blogspot.com/2011/12/bloat-freezer-abuses-airpush-ads-to.html">http://androidunderground.blogspot.com/2011/12/bloat-freezer-abuses-airpush-ads-to.html</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/">&larr; Obtaining the firmware for Linksys E4200v2</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2011/11/26/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/"> PHP Polygon Clipper using the Sutherland-Hodgman algorithm &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2011/11/26/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/">&larr; PHP Polygon Clipper using the Sutherland-Hodgman algorithm</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/"> Obtaining the firmware for Linksys E4200v2 &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -127,8 +142,11 @@
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

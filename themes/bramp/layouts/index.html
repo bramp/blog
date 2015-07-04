@@ -8,10 +8,14 @@
 
 	<h1>Recent Articles</h1>
 	<div id="article">
-		{{ range first 10 .Data.Pages }}
+		{{ $paginator := .Paginate (where .Data.Pages "Type" "posts") 25 }}
+
+		{{ range $paginator.Pages }}
 		<p><span><a href="{{ .Permalink }}">{{ .Title }}</a><time class="pull-right post-list">{{ .Date.Format "Mon, Jan 2, 2006" }}</h4></time></span></span></p>
 		<!--<p>{{ .Summary }} <a href="{{ .Permalink }}">Read more…</a></p>-->
 		{{ end }}
+		<!--{{ template "_internal/pagination.html" . }}-->
+
 		<a href="{{ .Site.BaseURL }}/posts/">View more…</a>
 	</div>
 

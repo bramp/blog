@@ -20,3 +20,4 @@ While creating a poster I needed a high-res version of the InfoLab21 building lo
 </div>
 
  [1]: /projects/infolab/Uni%20-%20InfoLab21%20logo%20Final%20V8.pdf
+ 

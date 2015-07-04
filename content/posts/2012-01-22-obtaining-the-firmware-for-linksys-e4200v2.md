@@ -24,7 +24,8 @@ So, I grabbed a [simple DNS server][5], and set up a simple SSL server following
 
 Now with DNS spoofing, and a fake SSL server, I could intercept encrypted traffic from the router, as long as it does not validate the SSL certificate. Luckily it didn&#8217;t check the validity, and thus I was able to capture the request: (BTW Not checking the cert completely defeats the point of using SSL&#8230; bad Linksys!).
 
-<pre>POST /cds/update HTTP/1.1
+```http
+POST /cds/update HTTP/1.1
 Host: update.linksys.com
 Accept: */*
 Content-Type: text/xml
@@ -43,11 +44,17 @@ Content-Length: 573
     &lt;/ns:GetFirmwareFromDeviceRequest&gt;
   &lt;/SOAP-ENV:Body&gt;
 &lt;/SOAP-ENV:Envelope&gt;
-</pre>
+```
 
 and the response:
 
-<pre>&lt;soapenv:Envelope
+```http
+HTTP/1.1 200 OK
+Content-Language: en-US
+Content-Type: text/xml
+SOAPAction: ""
+
+&lt;soapenv:Envelope
  xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -68,17 +75,21 @@ and the response:
     &lt;/ns:GetFirmwareFromDeviceResponse&gt;
   &lt;/soapenv:Body&gt;
 &lt;/soapenv:Envelope&gt;
-</pre>
+```
 
 (I slightly modified portions of the request and response to hide the identify of my router.).
 
 I might write a script to make fake requests, but until then you can easily create a request with curl:
 
-<pre>curl -d @request.raw https://update.linksys.com/cds/update</pre>
+```bash
+curl -d @request.raw https://update.linksys.com/cds/update
+```
 
 Then you just extract the DownloadURI and 
 
-<pre>curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA</pre>
+```bash
+curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA
+```
 
 Voila I now have the firmware. Now I need to figure out what to do with it.
 

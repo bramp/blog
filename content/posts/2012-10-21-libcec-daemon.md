@@ -13,8 +13,9 @@ It&#8217;s all pretty neat, but each application needed to add libcec support, w
 
 So please check it out, and support the great guys at Pulse Eight.
 
- [1]: www.pulse-eight.com
+ [1]: http://www.pulse-eight.com
  [2]: http://www.pulse-eight.com/store/products/104-usb-hdmi-cec-adapter.aspx
  [3]: http://en.wikipedia.org/wiki/HDMI#CEC
  [4]: https://github.com/bramp/libcec-daemon
  [5]: http://forums.pulse-eight.com/default.aspx?g=posts&t=430
+ 

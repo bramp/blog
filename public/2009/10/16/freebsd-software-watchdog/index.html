@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2009/10/16/freebsd-software-watchdog/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,46 +86,48 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>FreeBSD Software Watchdog</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2009-10-16</small> 209 words</p> <hr/>
-   <div class="post">
-     <p>Recently I&#8217;ve been doing some kernel hacking and I managed to deadlock my system. The system still responded to pings but the terminal was unresponsive, and it needed a hard reboot to fix. I would have loved to drop into a debugger or panic&#8217;ed the kernel to get a suitable back-trace.</p>
+
+
+<div id="article">
+	<h1>FreeBSD Software Watchdog</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2009-10-16</small>
+		
+		| <a href="http://localhost:1313/blog//tags/freebsd">FreeBSD</a>
+		
+		| <a href="http://localhost:1313/blog//tags/panic">panic</a>
+		
+		| <a href="http://localhost:1313/blog//tags/watchdog">watchdog</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>Recently I&#8217;ve been doing some kernel hacking and I managed to deadlock my system. The system still responded to pings but the terminal was unresponsive, and it needed a hard reboot to fix. I would have loved to drop into a debugger or panic&#8217;ed the kernel to get a suitable back-trace.</p>
 
 <p>I found that FreeBSD has a software watchdog feature, that will panic the kernel if a problem like this occurs. The watchdog does not seem to be built into the kernel by default, and I found the documentation a bit lacking. So here is what I did:</p>
 
-<p>Firstly, build and install a custom kernel which includes:</p>
+<p>Firstly, build and install a custom kernel which includes: <code>options SW_WATCHDOG</code></p>
 
-<pre>options SW_WATCHDOG</pre>
-
-<p>Secondly, edit the</p>
-
-<pre>/etc/rc.conf</pre>
-
-<p>file and add a line:</p>
-
-<pre>watchdogd_enable="YES"</pre>
+<p>Secondly, edit the <code>/etc/rc.conf</code> file and add a line: <code>watchdogd_enable=&quot;YES&quot;</code></p>
 
 <p>When you next reboot, the watchdogd daemon will run, enabling the watchdog feature. Every second the watchdogd will reset a timer within the kernel. If after 16 seconds the timer has not been reset, the kernel will print out some interrupt information, and panic.</p>
 
 <p>Watchdogd seems to have some useful features, for example, you can configure it to execute a specific command every second, and if that command fails the timer will not be reset. The configuration option I use is:</p>
 
-<pre>watchdogd_flags="-e /bin/ps"</pre>
+<p><code>watchdogd_flags=&quot;-e /bin/ps&quot;</code></p>
 
-<p>Read [WATCHDOGD(8)][1] for more information.</p>
+<p>Read <a href="http://www.freebsd.org/cgi/man.cgi?query=watchdogd&amp;sektion=8">WATCHDOGD(8)</a> for more information.</p>
 
-<p>[1]: <a href="http://www.freebsd.org/cgi/man.cgi?query=watchdogd&amp;sektion=8">http://www.freebsd.org/cgi/man.cgi?query=watchdogd&amp;sektion=8</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2009/10/26/power-consumption/">&larr; Power Consumption</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2009/09/12/derren-browns-coin-game/"> Derren Brown’s Coin Game &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2009/09/12/derren-browns-coin-game/">&larr; Derren Brown’s Coin Game</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2009/10/26/power-consumption/"> Power Consumption &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -145,8 +156,11 @@
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

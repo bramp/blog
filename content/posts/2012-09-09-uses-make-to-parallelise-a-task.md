@@ -11,13 +11,16 @@ tags:
 ---
 I needed to run a CPU intensive script over a directory of files. Each file would be run independently, and I was using bash to achieve this:
 
-<pre>for $i in *.txt; do ./script $i; done</pre>
+```bash
+for $i in *.txt; do ./script $i; done
+```
 
 This works fine, however, I have a quad core machine, and this task was CPU bound on one core. So I thought about parallelising this task so the script would run on four files at once. I didn&#8217;t want to get into the nitty gritty of changing the script to cope in this way, so instead, I &#8220;abused&#8221; Make to do this. <!--more-->
 
 I created a file named &#8220;Makefile&#8221; with the following:
 
-<pre>FILES=$(shell ls *.txt)
+```makefile
+FILES=$(shell ls *.txt)
 
 #default target of everything
 all: $(FILES)
@@ -25,7 +28,8 @@ all: $(FILES)
 $(FILES):
 	./script $@
 
-.PHONY: all $(FILES)</pre>
+.PHONY: all $(FILES)
+```
 
 then you just run ` make -j4 `, and four instances of the script will start running, with the concurrency being handled by Make. You can also now type `make a.txt b.txt c.txt` and it&#8217;ll just run the script on those three files.
 

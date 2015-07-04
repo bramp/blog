@@ -103,3 +103,4 @@ Finally, I’d like to quickly introduce the newer concept of [Continuous Delive
  [29]: http://www.amazon.com/gp/product/0321601912/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0321601912&linkCode=as2&tag=brampnet-20&linkId=VBPKIQYH5SL4PKCD
  [30]: http://www.slideshare.net/mikebrittain/principles-and-practices-in-continuous-deployment-at-etsy
  [31]: http://www.forbes.com/sites/quora/2013/08/12/how-do-facebook-and-google-manage-software-releases-without-causing-major-problems/
+ 

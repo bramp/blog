@@ -16,37 +16,24 @@ VMWare 6 and above has this neat debugging functionality where you can attach gd
 
 However, VMWare seems to have coded a bit of a hack to allow gdb to understand what process/threads are inside the virtual machine. Now this hack involves using something called linuxoffsets, which provides the offset for certain fields in a linux kernel struct.
 
-So I thought I could abuse these offsets, and hopefully make them work for FreeBSD. The Linux offsets are:<table border=1 cellpadding=3 cellspacing=0> <tr height=20 style='height:15.0pt'> <td height=20style='height:15.0pt'></td> 
+So I thought I could abuse these offsets, and hopefully make them work for FreeBSD. The Linux offsets are:
 
-</tr> <tr height=20 style='height:15.0pt'> <td height=20 style='height:15.0pt'><version></td> 
-
-</tr> <tr height=20 style='height:15.0pt'> <td height=20 style='height:15.0pt'><mm></td> 
-
-</tr> <tr height=20 style='height:15.0pt'> <td height=20 style='height:15.0pt'><next_task></td> 
-
-</tr> <tr height=20 style='height:15.0pt'> <td height=20 style='height:15.0pt'><tasks></td> 
-
-</tr> <tr height=20 style='height:15.0pt'> <td height=20 style='height:15.0pt'><comm></td> 
-
-</tr> <tr height=20 style='height:15.0pt'> <td height=20 style='height:15.0pt'><pid></td> 
-
-</tr> <tr height=20 style='height:15.0pt'> <td height=20 style='height:15.0pt'><thread></td> 
-
-</tr> <tr height=20 style='height:15.0pt'> <td height=20 style='height:15.0pt'><pgd></td> 
-
-</tr> <tr height=20 style='height:15.0pt'> <td height=20 style='height:15.0pt'><rsp0/esp0></td> 
-
-</tr> <tr height=20 style='height:15.0pt'> <td height=20 style='height:15.0pt'><fs></td> 
-
-</tr> <tr height=20 style='height:15.0pt'> <td height=20 style='height:15.0pt'><threadsize></td> 
-
-</tr> <tr height=20 style='height:15.0pt'> <td height=20 style='height:15.0pt'><grouplead></td> 
-
-</tr> <tr height=20 style='height:15.0pt'> <td height=20 style='height:15.0pt'><threadgroup></td> 
-
-</tr> <tr height=20 style='height:15.0pt'> <td height=20 style='height:15.0pt'><commsize></td> 
-
-</tr> </table> 
+|  | Linux Values | FreeBSD 7.1 Values | Notes |
+|-------------------|------------------------------------------------------------|---------------------------------------|-----------------------------------------------------|
+| &lt;version&gt; |  |  | Version number of linux kernel, ie 0x020609 (2.6.9) |
+| &lt;mm&gt; | task_struct-&gt;mm |  |  |
+| &lt;next_task&gt; | task_struct-&gt;next_task (linux &lt; 2.4.15) | struct proc-&gt;p_list-&gt;le_next | Pointer to next task struct |
+| &lt;tasks&gt; | task_struct-&gt;tasks (linux &gt;= 2.4.15) | 0 | Pointers to prev and next task struct |
+| &lt;comm&gt; | task_struct-&gt;comm | struct proc-&gt;p_comm | executable name |
+| &lt;pid&gt; | task_struct-&gt;pid | struct proc-&gt;p_pid | pid of the process |
+| &lt;thread&gt; | task_struct-&gt;thread |  |  |
+| &lt;pgd&gt; | mm_struct-&gt;pgd |  |  |
+| &lt;rsp0/esp0&gt; | thread_struct-&gt;rsp0 (or thread_struct-&gt;esp0 32bit) | struct thread-&gt;td_sigstk-&gt;ss_sp |  |
+| &lt;fs&gt; | thread_struct-&gt;fs |  |  |
+| &lt;threadsize&gt; | 0x2000 or sizeof(union thread_union-&gt;stack) (linux &gt;= 2.6) |  |  |
+| &lt;grouplead&gt; | task_struct-&gt;group_leader (linux &gt;= 2.6.11) | 0 |  |
+| &lt;threadgroup&gt; | task_struct-&gt;thread_group (linux &gt;= 2.6.11) | 0 |  |
+| &lt;commsize&gt; | sizeof(struct task_struct-&gt;comm) | sizeof(struct proc-&gt;p_comm) | executable name’s max len |
 
 However, after some time I feel this isn&#8217;t going to be possible. Each value represents a offset into a Linux task\_struct struct, however, nothing represents the location of the first task\_struct in RAM. I suspect VMWare is figuring out the location via some other means. Since FreeBSD doesn&#8217;t have a task_struct it most likely won&#8217;t be able to find what it needs.
 

@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2013/08/25/sms-character-count/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,13 +86,23 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>SMS Character Count</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2013-08-25</small> 244 words</p> <hr/>
-   <div class="post">
-     <p>It is commonly known that Twitter allows 140 character messages, and some will tell you that a single SMS message is limited to 160 characters. However, it&#8217;s not as simple as that. In the US a single SMS message can contain 140 bytes of data, which if using <a href="http://en.wikipedia.org/wiki/GSM_03.38">GSM encoding</a>, we can squeeze up to 160 7-bit characters. Those 7-bit GSM characters don&#8217;t match up with normal ASCII characters, and even worse, not all characters take 7 bits, some take up 14 bits (for example the { character)!</p>
 
-<p>When we start talking about messaging in non-latin scripts, such as Chinese, then a different encoding must be used. In the SMS world the encoding of choice is [UCS-2][2], which uses 16 bits per character. This limits a single part message to 70 characters (down from 160).</p>
+
+<div id="article">
+	<h1>SMS Character Count</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2013-08-25</small>
+		
+		| <a href="http://localhost:1313/blog//tags/javascript">Javascript</a>
+		
+		| <a href="http://localhost:1313/blog//tags/sms">sms</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>It is commonly known that Twitter allows 140 character messages, and some will tell you that a single SMS message is limited to 160 characters. However, it&#8217;s not as simple as that. In the US a single SMS message can contain 140 bytes of data, which if using <a href="http://en.wikipedia.org/wiki/GSM_03.38">GSM encoding</a>, we can squeeze up to 160 7-bit characters. Those 7-bit GSM characters don&#8217;t match up with normal ASCII characters, and even worse, not all characters take 7 bits, some take up 14 bits (for example the { character)!</p>
+
+<p>When we start talking about messaging in non-latin scripts, such as Chinese, then a different encoding must be used. In the SMS world the encoding of choice is <a href="http://en.wikipedia.org/wiki/UTF-16">UCS-2</a>, which uses 16 bits per character. This limits a single part message to 70 characters (down from 160).</p>
 
 <p>On top of that, most SMS clients will let you send concatenated SMS messages. That is, multiple message parts that appear as one long SMS message. A two part message allow up to 304 characters, not the 320 (160&#215;2) you might expect. This is due to the overhead required to store meta data about each part.</p>
 
@@ -93,18 +112,16 @@
 
 <p><a href="http://bramp.net/sms/">http://bramp.net/sms/</a></a></p>
 
-<p>[2]: <a href="http://en.wikipedia.org/wiki/UTF-16">http://en.wikipedia.org/wiki/UTF-16</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2014/08/16/grabbing-a-certificate-with-openssl-and-importing-it-into-java/">&larr; Grabbing a Certificate with OpenSSL and importing it into Java</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2013/03/31/alignment-of-rapha%C3%ABl-paper.text-and-paper.print/"> Alignment of Raphaël Paper.text(…) and Paper.print(…) &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2013/03/31/alignment-of-rapha%C3%ABl-paper.text-and-paper.print/">&larr; Alignment of Raphaël Paper.text(…) and Paper.print(…)</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2014/08/16/grabbing-a-certificate-with-openssl-and-importing-it-into-java/"> Grabbing a Certificate with OpenSSL and importing it into Java &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -133,8 +150,11 @@
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

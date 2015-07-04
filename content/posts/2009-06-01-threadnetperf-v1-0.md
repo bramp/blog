@@ -13,19 +13,16 @@ tags:
   - threadnetperf
   - windows
 ---
-**Update:** I&#8217;ve now put this project on [github][1]
-
 Today I am proud to announce that I&#8217;m releasing a tool I&#8217;ve used privately for well over a year now. It is a multi-threaded network testing tool which gives the user great control over how many connections, threads and processes the tool uses, and which CPU cores the threads/processes are allowed to execute on.
 
 Currently the tool runs on Linux, FreeBSD, and Windows, and has performance as good as (if not better) than other similar tools, such as netperf, iperf, but with the added flexibility. Additionally, Threadnetperf has been completely written from scratch in C, using modern programming techniques and APIs (such as ePoll on Linux) which ensures the program runs as far as possible with minimal overheads.
 
-You can download the source here, which contains instructions on how to build it.
-
-&nbsp;&nbsp;&nbsp;[threadnetperf.r2713.tar.bz2][2] &#8211; 31,087 bytes.
+You can [download the source from GitHub][1], which contains instructions on how to build it.
 
 So that you get an extra idea of it&#8217;s features here is the README.txt
 
-<pre>****** Threadnetperf ******
+```text
+****** Threadnetperf ******
 A multi-threaded network benchmark tool
  by  Andrew Brampton (2007-2009)
  and Mathew Faulkner (2007-2009)
@@ -109,7 +106,6 @@ told otherwise.
 
 If you find this tool useful, or you have any suggestions for improvements then
 please contact us.
-</pre>
+```
 
- [1]: http://github.com/bramp/threadnetperf
- [2]: /threadnetperf/threadnetperf.r2713.tar.bz2
+ [1]: https://github.com/bramp/threadnetperf

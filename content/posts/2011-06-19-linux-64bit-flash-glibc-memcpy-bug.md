@@ -16,27 +16,37 @@ Does your Linux 64bit version of Flash now make anonying beeping/distortion nois
 
 On Debian, there is a simple a fix that allows you to use the original memcpy. You can load the application using an additional .so file:
 
-<pre>LD_PRELOAD=/usr/lib/libc/memcpy-preload.so /path/to/your/program</pre>
+```bash
+LD_PRELOAD=/usr/lib/libc/memcpy-preload.so /path/to/your/program
+```
 
 As I use Google Chrome when using Flash I had to do the following:
 
-<pre>LD_PRELOAD=/usr/lib/libc/memcpy-preload.so /usr/bin/google-chrome</pre>
+```bash
+LD_PRELOAD=/usr/lib/libc/memcpy-preload.so /usr/bin/google-chrome
+```
 
 but if you want to fix chrome on a system level, you can edit the Chrome Wrapper used to launch it.
 
-<pre>sudo nano /opt/google/chrome/google-chrome</pre>
+```bash
+sudo nano /opt/google/chrome/google-chrome
+```
 
 add the following line
 
-<pre>export LD_PRELOAD="/usr/lib/libc/memcpy-preload.so"</pre>
+```bash
+export LD_PRELOAD="/usr/lib/libc/memcpy-preload.so"
+```
 
 for example
 
-<pre>export LD_LIBRARY_PATH
+```bash
+export LD_LIBRARY_PATH
 export LD_PRELOAD="/usr/lib/libc/memcpy-preload.so"
 
 export CHROME_VERSION_EXTRA="beta"
-</pre>
+```
 
  [1]: http://lwn.net/Articles/414467/
  [2]: http://linux.die.net/man/3/memcpy
+ 

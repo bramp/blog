@@ -2,38 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sip on bramp.net</title>
-    <link>http://bramp.net/blog/tags/sip/</link>
+    <link>http://localhost:1313/blog/tags/sip/</link>
     <description>Recent content in Sip on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Fri, 23 Sep 2011 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/tags/sip/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/tags/sip/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>MD5 Digest Authorisation in SIP with PHP</title>
-      <link>http://bramp.net/blog/2011/09/23/md5-digest-authorisation-in-sip-with-php/</link>
+      <link>http://localhost:1313/blog/2011/09/23/md5-digest-authorisation-in-sip-with-php/</link>
       <pubDate>Fri, 23 Sep 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2011/09/23/md5-digest-authorisation-in-sip-with-php/</guid>
+      <guid>http://localhost:1313/blog/2011/09/23/md5-digest-authorisation-in-sip-with-php/</guid>
       <description>&lt;p&gt;Today I needed to work out the MD5 Digest hash for SIP authorisation. A quick search on Google revealed &lt;a href=&#34;http://alexkr.com/memos/66/digest-authorization-in-sip-with-md5/&#34;&gt;instructions&lt;/a&gt; on how to generate the hash, and then I made this simple PHP script.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;$username&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;1234&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;$realm&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;asterisk&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;$password&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;PASSWORD&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;$uri&lt;/span&gt;      &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;sip:1.2.3.4&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;$nonce&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;abcdef01&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 
-&lt;pre class=&#34;prettyprint&#34;&gt;&amp;lt;?php
-$username = &#39;1234&#39;;
-$realm    = &#39;asterisk&#39;;
-$password = &#39;PASSWORD&#39;;
-$uri      = &#39;sip:1.2.3.4&#39;;
-$nonce    = &#39;abcdef01&#39;;
+&lt;span class=&#34;nv&#34;&gt;$str1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;md5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;$username&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;$realm&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;$password&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;$str2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;md5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;REGISTER:&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;$uri&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 
-$str1 = md5(&#34;$username:$realm:$password&#34;);
-$str2 = md5(&#34;REGISTER:$uri&#34;);
+&lt;span class=&#34;k&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;md5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;$str1&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;$nonce&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;$str2&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
-echo md5(&#34;$str1:$nonce:$str2&#34;);
-?&amp;gt;
-&lt;/pre&gt;
-
-&lt;p&gt;All of those variables can be pulled out of a packet capture of a [SIP REGISTER][2], and the results can be useful for validating the password a device is sending, is what it is actually sending.&lt;/p&gt;
-
-&lt;p&gt;[2]: &lt;a href=&#34;http://tools.ietf.org/html/rfc3261#section-10.2&#34;&gt;http://tools.ietf.org/html/rfc3261#section-10.2&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;All of those variables can be pulled out of a packet capture of a &lt;a href=&#34;http://tools.ietf.org/html/rfc3261#section-10.2&#34;&gt;SIP REGISTER&lt;/a&gt;, and the results can be useful for validating the password a device is sending, is what it is actually sending.&lt;/p&gt;
 </description>
     </item>
     

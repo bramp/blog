@@ -20,30 +20,38 @@ Some more searching and I found a Linux/Windows tool that will convert MBR to GP
 
 Firstly I identified with disk I wanted to alter. This is done by looking at which number the disk is in Disk Management. I then quickly tested the tool without writing the changes
 
-<pre>gptgen.exe \\.\\physicaldrive1</pre>
+```bash
+gptgen.exe \\.\\physicaldrive1
+```
 
 This outputted quite a few lines, including the following:
 
-<pre>Write primary.img to LBA address 0.
-Write secondary.img to LBA address 4395431903.</pre>
+```text
+Write primary.img to LBA address 0.
+Write secondary.img to LBA address 4395431903.
+```
 
 When you don&#8217;t write the changes to disk, gptgen creates two binary files &#8220;primary.img&#8221;, and &#8220;secondary.img&#8221;, which contain what it would have written to disk. The console output from gptgen tells me it would have written primary to [LBA address][8] 0, and secondary.img to LBA address 4395431903. So I figured it was a good idea to make a backup of those sections first. To do this I use the [Windows version of the classic tool dd][9]
 
-<pre>dd if=\\.\\physicaldrive1 of=primary-backup.img bs=512 count=<b>34</b><br />
-dd if=\\.\\physicaldrive1 of=secondary-backup.img bs=512 count=<b>33</b> skip=<b>4395431903</b>
-</pre>
+```bash
+dd if=\\.\\physicaldrive1 of=primary-backup.img bs=512 count=34 
+dd if=\\.\\physicaldrive1 of=secondary-backup.img bs=512 count=33 skip=4395431903
+```
 
-The numbers I&#8217;ve highlighted in bold are ones you might have to change. The first and second relate to the file sizes of primary.img and secondary.img. Find their file sizes and divide them by 512. In my case, primary.img was exactly 17,408 bytes, so 17408 / 512 = 34. Do the same for secondary.img. The final highlighted number is the LBA address shown by gptgen just a minute ago.
+The count and skip values might have to change. The two count values relate to the file sizes of primary.img and secondary.img. Find their file sizes and divide them by 512. In my case, primary.img was exactly 17,408 bytes, so 17408 / 512 = 34. Do the same for secondary.img. The skip number is the LBA address shown by gptgen just a minute ago.
 
 Ok, if you have run dd ok, you should have backups of the two sections it is going to overwrite. Now you can tell gptgen to actually make the changes:
 
-<pre>gptgen.exe -w \\.\\physicaldrive1</pre>
+```bash
+gptgen.exe -w \\.\\physicaldrive1
+```
 
 That should be it, BUT if you need to (for whatever reason) restore the backups issue these commands:
 
-<pre>dd if=primary-backup.img   of=\\.\\physicaldrive1 bs=512 count=34
+```bash
+dd if=primary-backup.img   of=\\.\\physicaldrive1 bs=512 count=34 
 dd if=secondary-backup.img of=\\.\\physicaldrive1 bs=512 count=33 seek=4395431903
-</pre>
+```
 
 (notice how the &#8220;if&#8221; and &#8220;of&#8221; arguments have swapped, and the word &#8220;skip&#8221; has changed to &#8220;seek&#8221;.)
 

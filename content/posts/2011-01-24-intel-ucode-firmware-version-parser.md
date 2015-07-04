@@ -18,7 +18,8 @@ So here is the code if anyone finds it interesting:
 
 and example of using it is:
 
-<pre>> ./ucode.py /lib/firmware/*.ucode
+```bash
+$ ./ucode.py /lib/firmware/*.ucode
 iwlwifi-1000-3.ucode    : ver 128.50.3.1
 iwlwifi-3945-1.ucode    : ver 15.28.1.6
 iwlwifi-3945-2.ucode    : ver 15.32.2.9
@@ -32,6 +33,7 @@ iwlwifi-6000g2a-5.ucode : ver 17.168.5.1 (6000g2a fw v17.168.5.1 build 33993)
 iwlwifi-6000g2b-5.ucode : ver 17.168.5.1 (6000g2b fw v17.168.5.1 build 33993)
 iwlwifi-6050-4.ucode    : ver 9.201.4.1
 iwlwifi-6050-5.ucode    : ver 41.28.5.1 (6050 fw v41.28.5.1 build 33926)
-</pre>
+```
 
  [1]: http://intellinuxwireless.org/?n=Downloads
+ 

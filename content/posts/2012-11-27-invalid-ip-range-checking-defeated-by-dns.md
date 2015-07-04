@@ -18,11 +18,12 @@ For example, there is a simple proxy called [Camo][1], which is used to fetch th
 
 This kind of application can be incorrectly setup such that the application has access to internal servers and resources that wouldn&#8217;t normally be exposed to the Internet. This make the proxy application a good way a hacker could gain information about a private network. However Camo tries to address this issue by forbidding URLs that contain private IP addresses. It does a check like so:
 
-<pre>RESTRICTED_IPS = /^((10\.)|(127\.)|(169\.254)|(192\.168)|(172\.((1[6-9])|(2[0-9])|(3[0-1]))))/
+```coffeescript
+RESTRICTED_IPS = /^((10\.)|(127\.)|(169\.254)|(192\.168)|(172\.((1[6-9])|(2[0-9])|(3[0-1]))))/
 
 if (url.host.match(RESTRICTED_IPS))
   return four_oh_four(resp, "Hitting excluded hostnames")
-</pre>
+```
 
 This code (written for [Node.js][3] in [CoffeeScript][4]) is taking a [url object][5] and checking the hostname doesn&#8217;t match a restricted address. This works great against URLs such as <http://127.0.0.1/>, or <http://10.0.0.1/>, however this check can easily be defeated. If you create a domain name, such as localhost.bramp.net, which resolves to 127.0.0.1, and ask the proxy to fetch <http://localhost.bramp.net/>, then it won&#8217;t be caught by that check. Now the proxy will continue to try and fetch a resource from 127.0.0.1.
 
@@ -32,7 +33,8 @@ One might naively assume they could do a DNS check, and then hand the processing
 
 Luckily, in Camo&#8217;s case the fix was relatively easy (see my [pull request][7]).
 
-<pre># We do DNS lookup ourselves
+```coffeescript
+# We do DNS lookup ourselves
 Dns.lookup url.host, (err, address, family) ->
   if address.match(RESTRICTED_IPS)
     return four_oh_four(resp, "Hitting excluded hostnames")
@@ -46,7 +48,7 @@ Dns.lookup url.host, (err, address, family) ->
 
   # Boom, we make the request
   srcReq = src.request 'GET', query_path, headers
-</pre>
+```
 
 The above code was simplified a little from the real code, but basically we do the DNS lookup, check the returned address is good, and then make a HTTP request to that IP address with a `Host:` header to ensure the request will work.
 
@@ -60,3 +62,4 @@ Really though, the correct solution to this is to configure a suitably paranoid 
  [6]: http://hc.apache.org/httpclient-3.x/
  [7]: https://github.com/atmos/camo/pull/19
  [8]: http://en.wikipedia.org/wiki/Swiss_cheese_model
+ 

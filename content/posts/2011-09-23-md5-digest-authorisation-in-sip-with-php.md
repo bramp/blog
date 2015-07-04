@@ -13,7 +13,8 @@ tags:
 ---
 Today I needed to work out the MD5 Digest hash for SIP authorisation. A quick search on Google revealed [instructions][1] on how to generate the hash, and then I made this simple PHP script.
 
-<pre class="prettyprint">&lt;?php
+```php
+<?php
 $username = '1234';
 $realm    = 'asterisk';
 $password = 'PASSWORD';
@@ -24,8 +25,8 @@ $str1 = md5("$username:$realm:$password");
 $str2 = md5("REGISTER:$uri");
 
 echo md5("$str1:$nonce:$str2");
-?&gt;
-</pre>
+?>;
+```
 
 All of those variables can be pulled out of a packet capture of a [SIP REGISTER][2], and the results can be useful for validating the password a device is sending, is what it is actually sending.
 

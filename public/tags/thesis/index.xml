@@ -2,22 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Thesis on bramp.net</title>
-    <link>http://bramp.net/blog/tags/thesis/</link>
+    <link>http://localhost:1313/blog/tags/thesis/</link>
     <description>Recent content in Thesis on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Fri, 10 Jul 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/tags/thesis/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/tags/thesis/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Final Version of my Thesis Online</title>
-      <link>http://bramp.net/blog/2009/07/10/final-version-of-my-thesis-online/</link>
+      <link>http://localhost:1313/blog/2009/07/10/final-version-of-my-thesis-online/</link>
       <pubDate>Fri, 10 Jul 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2009/07/10/final-version-of-my-thesis-online/</guid>
-      <description>&lt;p&gt;I finished my corrections a while ago now but I just hadn&amp;#8217;t gotten around to putting my final thesis on-line.&lt;/p&gt;
+      <guid>http://localhost:1313/blog/2009/07/10/final-version-of-my-thesis-online/</guid>
+      <description>
 
-&lt;p&gt;So here it is &amp;#8220;The Impact of Highly Interactive Workloads on Video-on-Demand Systems&amp;#8221; &lt;a href=&#34;https://github.com/bramp/phd-thesis/blob/master/thesis.pdf?raw=true&#34;&gt;pdf&lt;/a&gt; and [tex sources][2].&lt;/p&gt;
+&lt;p&gt;I finished my corrections a while ago now but I just hadn&amp;#8217;t gotten around to putting my final thesis on-line.&lt;/p&gt;
+
+&lt;p&gt;So here it is &lt;a href=&#34;https://github.com/bramp/phd-thesis/blob/master/thesis.pdf?raw=true&#34;&gt;pdf&lt;/a&gt; and &lt;a href=&#34;https://github.com/bramp/phd-thesis/&#34;&gt;tex sources&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;the-impact-of-highly-interactive-workloads-on-video-on-demand-systems:ef54c79c6429a8ec64774b8aa3e11df0&#34;&gt;The Impact of Highly Interactive Workloads on Video-on-Demand Systems&lt;/h3&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
@@ -26,19 +30,17 @@
 
 &lt;p&gt;Novel interactive controls such as bookmarks have also highly impacted user behaviour. This has lead to the segments within the media being accessed in a uneven fashion, causing hotspots of interest to form; areas with orders of magnitudes more viewers than others. These hotspots typically began at the beginning of a bookmark, however not always, which lead us to design a dynamic bookmark positioning algorithm. As well as their position, determining the hotspot&amp;#8217;s length can be beneficial. This aids in autonomic techniques such as replication and pre-fetching as well as allowing the users to find what they want quicker.&lt;/p&gt;
 
-&lt;p&gt;Under high level of interactivity, delivery techniques are less efficient due to the unpredictability of the users. We however developed techniques which restore some of this predictability, allowing clients or servers to predict future actions based on past user actions. These technique proves exceeding useful for pre-fetching which reduces seek latencies for client and can reduce load on servers. However knowledge of past user activities need to be gathered from network, thus we develop techniques to do this in a distributed manner.&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;Under high level of interactivity, delivery techniques are less efficient due to the unpredictability of the users. We however developed techniques which restore some of this predictability, allowing clients or servers to predict future actions based on past user actions. These technique proves exceeding useful for pre-fetching which reduces seek latencies for client and can reduce load on servers. However knowledge of past user activities need to be gathered from network, thus we develop techniques to do this in a distributed manner.&lt;/p&gt;
 &lt;/blockquote&gt;
-
-&lt;p&gt;[2]: &lt;a href=&#34;https://github.com/bramp/phd-thesis/&#34;&gt;https://github.com/bramp/phd-thesis/&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Passed my Viva</title>
-      <link>http://bramp.net/blog/2008/12/15/passed-my-viva/</link>
+      <link>http://localhost:1313/blog/2008/12/15/passed-my-viva/</link>
       <pubDate>Mon, 15 Dec 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2008/12/15/passed-my-viva/</guid>
+      <guid>http://localhost:1313/blog/2008/12/15/passed-my-viva/</guid>
       <description>&lt;p&gt;Hey, so after 3 hours 30 minutes, I successfully defended my thesis and passed my viva (subject to minor corrections).&lt;/p&gt;
 
 &lt;p&gt;YAY&lt;/p&gt;
@@ -47,18 +49,18 @@
     
     <item>
       <title>Jolt Cola</title>
-      <link>http://bramp.net/blog/2008/10/01/jolt-cola/</link>
+      <link>http://localhost:1313/blog/2008/10/01/jolt-cola/</link>
       <pubDate>Wed, 01 Oct 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2008/10/01/jolt-cola/</guid>
+      <guid>http://localhost:1313/blog/2008/10/01/jolt-cola/</guid>
       <description>&lt;p&gt;Thanks to this lovely beverage I have now completed my thesis on time &lt;img src=&#34;http://bramp.net/blog/wp-includes/images/smilies/icon_smile.gif&#34; alt=&#34;:)&#34; class=&#34;wp-smiley&#34; /&gt; I thought I&amp;#8217;ll quickly post about the drink, and upload some photos:&lt;/p&gt;
 
 &lt;div class=&#34;figure&#34;&gt;
-  &lt;a href=&#34;http://bramp.net/blog/projects/jolt/DSCF1334.JPG&#34;&gt;&lt;img src=&#34;http://bramp.net/blog/projects/jolt/DSCF1334_thumb.JPG&#34; alt=&#34;The 5 flavours of Jolt Cola&#34; /&gt;&lt;/a&gt;&lt;br /&gt; &lt;br /&gt;The 5 flavours of Jolt Cola
+  &lt;a href=&#34;http://localhost:1313/blog/projects/jolt/DSCF1334.JPG&#34;&gt;&lt;img src=&#34;http://localhost:1313/blog/projects/jolt/DSCF1334_thumb.JPG&#34; alt=&#34;The 5 flavours of Jolt Cola&#34; /&gt;&lt;/a&gt;&lt;br /&gt; &lt;br /&gt;The 5 flavours of Jolt Cola
 &lt;/div&gt;
 
 &lt;div class=&#34;figure&#34;&gt;
-  &lt;a href=&#34;http://bramp.net/blog/projects/jolt/DSCF1335.JPG&#34;&gt;&lt;img src=&#34;http://bramp.net/blog/projects/jolt/DSCF1335_thumb.JPG&#34; alt=&#34;A can of jolt compared to a real battery&#34; /&gt;&lt;/a&gt;&lt;br /&gt;A can of jolt compared to a real battery
+  &lt;a href=&#34;http://localhost:1313/blog/projects/jolt/DSCF1335.JPG&#34;&gt;&lt;img src=&#34;http://localhost:1313/blog/projects/jolt/DSCF1335_thumb.JPG&#34; alt=&#34;A can of jolt compared to a real battery&#34; /&gt;&lt;/a&gt;&lt;br /&gt;A can of jolt compared to a real battery
 &lt;/div&gt;
 
 &lt;p&gt;It comes in six flavors, only 5 or which are listed here. Power Cola, Orange Blast, Blue Raspberry, Cherry Bomb, and Wild Grape.&lt;/p&gt;
@@ -66,24 +68,26 @@
     </item>
     
     <item>
-      <title>Thesis</title>
-      <link>http://bramp.net/blog/2008/10/01/thesis/</link>
+      <title>The Impact of Highly Interactive Workloads on Video-on-Demand Systems</title>
+      <link>http://localhost:1313/blog/publications/the-impact-of-highly-interactive-workloads-on-video-on-demand-systems/</link>
       <pubDate>Wed, 01 Oct 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2008/10/01/thesis/</guid>
-      <description>
+      <guid>http://localhost:1313/blog/publications/the-impact-of-highly-interactive-workloads-on-video-on-demand-systems/</guid>
+      <description>&lt;p&gt;Andrew Brampton.&lt;/p&gt;
 
-&lt;h2 id=&#34;update-i-have-now-posted-my-final-version-here-1:b917bb2abf8ba8deba2ec0ff9b5fc49a&#34;&gt;Update, I have now posted my final version &lt;a href=&#34;http://bramp.net/blog/blog/final-version-of-my-thesis-online&#34;&gt;here&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Thesis submitted for the degree of Doctor of Philosophy&lt;/p&gt;
 
-&lt;p&gt;Yesterday I finally finished my PhD thesis and submitted it to university house.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;It is titled: &amp;#8220;The Impact of Highly Interactive Workloads on Multimedia Systems&amp;#8221;&lt;/p&gt;
+&lt;p&gt;The traditional start-to-finish playback model is not suitable for all modern interactive video streams. Users expect support for higher levels of interactivity such as fast forward and rewind or the ability to arbitrary seek within their media quickly and efficiently. By conducting user studies we have observed start-to-finish is not applicable to many genres of video, and that different playback models fit better. We discuss how existing delivery techniques are impacted by these new observations.&lt;/p&gt;
 
-&lt;p&gt;If anyone is interested, you can &lt;a href=&#34;https://github.com/bramp/phd-thesis/blob/master/thesis.pdf&#34;&gt;download a PDF copy&lt;/a&gt;, or if you are interested you can &lt;a href=&#34;https://github.com/bramp/phd-thesis&#34;&gt;look at my latex source code&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Novel interactive controls such as bookmarks have also highly impacted user behaviour. This has lead to the segments within the media being accessed in a uneven fashion, causing hotspots of interest to form; areas with orders of magnitudes more viewers than others. These hotspots typically began at the beginning of a bookmark, however not always, which lead us to design a dynamic bookmark positioning algorithm. As well as their position, determining the hotspot&amp;#8217;s length can be beneficial. This aids in autonomic techniques such as replication and pre-fetching as well as allowing the users to find what they want quicker.&lt;/p&gt;
 
-&lt;p&gt;I&amp;#8217;ve not finished my PhD yet, as I still have to pass my viva, and make any changes suggested. However, if people do find errors in my thesis now, I would be grateful if you [tell me][4].&lt;/p&gt;
+&lt;p&gt;Under high level of interactivity, delivery techniques are less efficient due to the unpredictability of the users. We however developed techniques which restore some of this predictability, allowing clients or servers to predict future actions based on past user actions. These technique proves exceeding useful for pre-fetching which reduces seek latencies for client and can reduce load on servers. However knowledge of past user activities need to be gathered from network, thus we develop techniques to do this in a distributed manner.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;[4]: /about/#contact&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/phd-thesis/blob/master/thesis.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/phd-thesis&#34;&gt;LaTeX Source&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     

@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2011/10/25/sqlstatehy000-general-error-2053/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,42 +86,52 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>SQLSTATE[HY000]: General error: 2053</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2011-10-25</small> 97 words</p> <hr/>
-   <div class="post">
-     <p>I encountered the following odd exception:</p>
 
-<pre>PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000]: General error: 2053 ' in /home/bramp/my.php:29
+
+<div id="article">
+	<h1>SQLSTATE[HY000]: General error: 2053</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2011-10-25</small>
+		
+		| <a href="http://localhost:1313/blog//tags/mysql">mysql</a>
+		
+		| <a href="http://localhost:1313/blog//tags/pdo">pdo</a>
+		
+		| <a href="http://localhost:1313/blog//tags/php">PHP</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>I encountered the following odd exception:</p>
+<div class="highlight"><pre>PHP Fatal error:  Uncaught exception &#39;PDOException&#39; with message &#39;SQLSTATE[HY000]: General error: 2053 &#39; in /home/bramp/my.php:29
 Stack trace:
-#0 /home/bramp/my.php(29): PDOStatement->fetch(2)
-</pre>
+#0 /home/bramp/my.php(29): PDOStatement-&gt;fetch(2)
+</pre></div>
 
 <p>Searching on Google didn&#8217;t reveal much help, but I eventually figure out the root cause. Spot the mistake:</p>
-
-<pre>...
-$sql = 'SELECT TRIGGER_NAME, TRIGGER_GROUP, JOB_NAME FROM QRTZ_TRIGGERS';
-$sth = $dbh->prepare($sql) or die('Failed to prepare SELECT TRIGGER query');
-while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
-...
-</pre>
+<div class="highlight"><pre><span class="o">...</span>
+<span class="nv">$sql</span> <span class="o">=</span> <span class="s1">&#39;SELECT TRIGGER_NAME, TRIGGER_GROUP, JOB_NAME FROM QRTZ_TRIGGERS&#39;</span><span class="p">;</span>
+<span class="nv">$sth</span> <span class="o">=</span> <span class="nv">$dbh</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="nv">$sql</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;Failed to prepare SELECT TRIGGER query&#39;</span><span class="p">);</span>
+<span class="k">while</span> <span class="p">(</span><span class="nv">$row</span> <span class="o">=</span> <span class="nv">$sth</span><span class="o">-&gt;</span><span class="na">fetch</span><span class="p">(</span><span class="nx">PDO</span><span class="o">::</span><span class="na">FETCH_ASSOC</span><span class="p">))</span> <span class="p">{</span>
+<span class="o">...</span>
+</pre></div>
 
 <p>I am missing a</p>
-
-<pre>$sth->execute();</pre>
+<div class="highlight"><pre><span class="nv">$sth</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+</pre></div>
 
 <p>in between the prepare and the fetch. Easy fix. For reference I&#8217;m using a old version of PHP 5.1.6, and MySQL client 5.0.45.</p>
 
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2011/10/31/2010-census-tiger/linesup/sup-shapefiles-code-names/">&larr; 2010 Census TIGER/Line&lt;sup&gt;®&lt;/sup&gt; Shapefiles Code Names</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/"> My experiences with developing multi-threaded nodejs addon &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/">&larr; My experiences with developing multi-threaded nodejs addon</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2011/10/31/2010-census-tiger/line-shapefiles-code-names/"> 2010 Census TIGER/Line® Shapefiles Code Names &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -141,8 +160,11 @@ while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

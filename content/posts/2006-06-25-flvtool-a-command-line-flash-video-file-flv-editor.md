@@ -9,7 +9,7 @@ categories:
 tags:
   - flvtool++
 ---
-Download Version 0.1: **Sorry flvtool++ is no longer available <img src="http://bramp.net/blog/wp-includes/images/smilies/icon_sad.gif" alt=":(" class="wp-smiley" /> **
+[Download from GitHub][9]
 
 This is a c++ re-write of a similar closed source tool [FLVMDI][1] and a open source Ruby app named [flvtool2][2]. I originally wrote flvtool++ due to the lack of large file support in the two previous tools. Well those tools do support large files, however it seems they require at least as much RAM as the size of the file, and when I was working with >1GB files this became a problem. Additionally this tool compiles cleanly on different OSes so I was not limited to just windows.
 
@@ -39,11 +39,15 @@ flvtool++ is used from the command line, so far it has a few simple parameters
 
 Takes the input file, indexes it and writes it out to the output file. The start and end times may optionally specify timecodes in seconds that are used to chop the FLV file.
 
-<pre>flvtool++ &lt;input file&gt; &lt;output file&gt; (&lt;start time&gt; &lt;end time&gt;)</pre>
+```bash
+flvtool++ <input file> <output file> (<start time> <end time>)
+```
 
 Displays all the metadata and tag information about the input file.
 
-<pre>flvtool++ -i &lt;input file&gt;</pre>
+```bash
+flvtool++ -i <input file>
+```
 
 #### Compiling
 
@@ -55,7 +59,7 @@ It should also be possible to compile this with other compilers under windows (s
 
 **Linux/FreeBSD:**
 
-flvtool++ compiles cleanly under GCC, a makefile is provided such that you only need to extract the source package, and then type make.
+flvtool++ compiles cleanly under GCC, a makefile is provided such that you only need to extract the source package, and then type `make`.
 
  [1]: http://www.buraks.com/flvmdi/
  [2]: http://rubyforge.org/projects/flvtool2/
@@ -64,4 +68,6 @@ flvtool++ compiles cleanly under GCC, a makefile is provided such that you only 
  [5]: http://www.linux.org/
  [6]: http://www.freebsd.org/
  [7]: http://www.opensource.org/licenses/bsd-license.php
- [8]: /about#contact
+ [8]: https://github.com/bramp/flvtool-plus-plus/issues
+ [9]: https://github.com/bramp/flvtool-plus-plus
+

@@ -14,8 +14,9 @@ Today I had the need to install some [FreeBSD][1] and [Ubuntu][2] packages insid
 
 It was quite simple to install the packages on FreeBSD
 
-<pre>pkg_add -rRP /home/bramp nano
-</pre>
+```bash
+pkg_add -rRP /home/bramp nano
+```
 
 Where nano is the name of the package I wanted.
 
@@ -26,3 +27,4 @@ On Ubuntu I however failed <img src="http://bramp.net/blog/wp-includes/images/sm
  [1]: http://www.freebsd.org/
  [2]: http://www.ubuntu.com/
  [3]: http://ubuntuforums.org/archive/index.php/t-513933.html
+ 

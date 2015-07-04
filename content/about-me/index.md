@@ -25,12 +25,12 @@ This may be a little out of date since I only it when needed. If you require a m
 Contact Me
 ----------
 
-I can be reached at &#8220;me ![][6] bramp.net&#8221;
+I can be reached at <a href="mailto:me AT bramp.net">me ![][6] bramp.net</a>
 
- [1]: http://bramp.net/blog/opensource-projects/
+ [1]: {{< ref "opensource-projects/index.md" >}}
  [2]: http://www.meetup.com/
  [3]: http://www.lancs.ac.uk/
  [4]: https://github.com/bramp/curriculum-vitae/blob/master/cv.pdf?raw=true
  [5]: https://github.com/bramp/curriculum-vitae/
- [6]: /about.old/a.png
- [7]: http://bramp.net/blog/publications/
+ [6]: a.png
+ [7]: {{< ref "publications/index.md" >}}

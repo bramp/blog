@@ -12,3 +12,4 @@ I wondered if I could use Google&#8217;s [I&#8217;m Feeling Lucky][1] button jus
 I imagine spammers could use this to mask their sites behind valid google.com links.
 
  [1]: http://en.wikipedia.org/wiki/Google_Search#.22I.27m_Feeling_Lucky.22
+ 

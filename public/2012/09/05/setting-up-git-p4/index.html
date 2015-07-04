@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2012/09/05/setting-up-git-p4/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,60 +86,64 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>Setting up git-p4</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2012-09-05</small> 289 words</p> <hr/>
-   <div class="post">
-     <p>I couldn&#8217;t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I&#8217;d quickly write this up.</p>
+
+
+<div id="article">
+	<h1>Setting up git-p4</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2012-09-05</small>
+		
+		| <a href="http://localhost:1313/blog//tags/git">Git</a>
+		
+		| <a href="http://localhost:1313/blog//tags/perforce">perforce</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>I couldn&#8217;t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I&#8217;d quickly write this up.</p>
 
 <p>Git-p4 is a tool for using git on top of a perforce server. This is great if your team wants to work with a DVCS, but your company requires a centralised VCS.</p>
 
 <p>There were multiple github projects <a href="https://github.com/baldrick/git-p4/">1</a>, <a href="https://github.com/gkielSfdc/git-p4">2</a>, <a href="https://github.com/jendave/git-p4">3</a>, that had forks of the git-p4 script, however, I found the latest mixed in with the official git source code. So download it from <a href="https://raw.github.com/git/git/master/git-p4.py">here</a>. Tip: Don&#8217;t forget to &#8220;chmod +x git-p4.py&#8221; once it&#8217;s downloaded.</p>
 
 <p>Next, I wanted to be able to type &#8220;git p4&#8243;, so I used an <a href="https://git.wiki.kernel.org/index.php/Aliases">alias</a> to do this. Edit/create the file ~/.gitconfig and add:</p>
-
-<pre>[alias]
-        p4 = !~/bin/git-p4.py
-</pre>
+<div class="highlight"><pre><span class="k">[alias]</span>
+<span class="na">p4</span> <span class="o">=</span> <span class="s">!~/bin/git-p4.py</span>
+</pre></div>
 
 <p>Once that&#8217;s done you should be able to:</p>
-
-<pre># Fetch only the head
+<div class="highlight"><pre><span class="c"># Fetch only the head</span>
 git p4 clone //depot/path/to/project/ project
 
-# or Fetch all revisions (takes a little longer)
+<span class="c"># or Fetch all revisions (takes a little longer)</span>
 git p4 clone //depot/path/to/project/@all project
-</pre>
+</pre></div>
 
 <p>If that returns an error, such as &#8220;p4 returned an error: Perforce password (P4PASSWD) invalid or unset.&#8221;, then you most likely don&#8217;t have your p4 command line set up. To set mine up, I added the following to my .bashrc</p>
-
-<pre>export P4CLIENT=myclient
-export P4HOST=perforce:1666
-export P4USER=myuser
-export P4EDITOR=nano
-</pre>
+<div class="highlight"><pre><span class="nb">export </span><span class="nv">P4CLIENT</span><span class="o">=</span>myclient
+<span class="nb">export </span><span class="nv">P4HOST</span><span class="o">=</span>perforce:1666
+<span class="nb">export </span><span class="nv">P4USER</span><span class="o">=</span>myuser
+<span class="nb">export </span><span class="nv">P4EDITOR</span><span class="o">=</span>nano
+</pre></div>
 
 <p>and then logged in</p>
+<div class="highlight"><pre>p4 login
+</pre></div>
 
-<pre>p4 login
-</pre>
-
-<p>More information on that set up can be found in the [ official documentation][6].</p>
+<p>More information on that set up can be found in the <a href="http://www.perforce.com/perforce/doc.current/manuals/p4guide/02_config.html"> official documentation</a>.</p>
 
 <p>Once cloned, you can change to the project directory and use many of the normal git commands, such as &#8220;git log&#8221;. You may notice that your newly checked out git repo only has one commit. If you want to see a full history use @all on the end of your depot path.</p>
 
-<p>[6]: <a href="http://www.perforce.com/perforce/doc.current/manuals/p4guide/02_config.html">http://www.perforce.com/perforce/doc.current/manuals/p4guide/02_config.html</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2012/09/09/using-make-to-parallelise-a-task/">&larr; Using Make to parallelise a task</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2012/09/03/rfc-1123-dates-in-php/"> RFC 1123 dates in PHP &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2012/09/03/rfc-1123-dates-in-php/">&larr; RFC 1123 dates in PHP</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2012/09/09/using-make-to-parallelise-a-task/"> Using Make to parallelise a task &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -159,8 +172,11 @@ export P4EDITOR=nano
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

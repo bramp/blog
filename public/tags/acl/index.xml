@@ -2,48 +2,45 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Acl on bramp.net</title>
-    <link>http://bramp.net/blog/tags/acl/</link>
+    <link>http://localhost:1313/blog/tags/acl/</link>
     <description>Recent content in Acl on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Wed, 21 Jan 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/tags/acl/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/tags/acl/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Read/Write permissions for PHP scripts at lancs.ac.uk</title>
-      <link>http://bramp.net/blog/2009/01/21/read/write-permissions-for-php-scripts-at-lancs.ac.uk/</link>
+      <link>http://localhost:1313/blog/2009/01/21/read/write-permissions-for-php-scripts-at-lancs.ac.uk/</link>
       <pubDate>Wed, 21 Jan 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2009/01/21/read/write-permissions-for-php-scripts-at-lancs.ac.uk/</guid>
-      <description>&lt;p&gt;My girlfriend wanted to create a blog, and she attempted to use her [university provided web space][1]. However, the blog software seemed unable to write to her webspace. Typically you would fix this by changing the write permissions on the file/directory like so:&lt;/p&gt;
-
-&lt;pre&gt;chmod g+w filename&lt;/pre&gt;
+      <guid>http://localhost:1313/blog/2009/01/21/read/write-permissions-for-php-scripts-at-lancs.ac.uk/</guid>
+      <description>&lt;p&gt;My girlfriend wanted to create a blog, and she attempted to use her &lt;a href=&#34;http://www.lancs.ac.uk/ug/cranen&#34;&gt;university provided web space&lt;/a&gt;. However, the blog software seemed unable to write to her webspace. Typically you would fix this by changing the write permissions on the file/directory like so:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;chmod g+w filename
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;or&lt;/p&gt;
-
-&lt;pre&gt;chmod o+w filename&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;chmod o+w filename
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;However this did not seem to work. I noticed that the files which hosted the website were on a SunOS 5.8 machine, and this seemed to support access control lists (ACLs). So I looked at a few of the ACLs for the files and they looked like this:&lt;/p&gt;
-
-&lt;pre&gt;&amp;gt; getfacl filename
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;getfacl filename
 user::rwx
-group::rwx              #effective:rwx
-group:httpadmin:rwx             #effective:rwx
+group::rwx              &lt;span class=&#34;c&#34;&gt;#effective:rwx&lt;/span&gt;
+group:httpadmin:rwx     &lt;span class=&#34;c&#34;&gt;#effective:rwx&lt;/span&gt;
 mask:rwx
 other:r--
-&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Since there is the group:httpadmin line, ISS are clearly using these ACLs. So I figured I would add the user the webserver is running under to the ACL. A quick look at a phpinfo() page showed me that the web server is running under user www in group www. So I first tried the following:&lt;/p&gt;
-
-&lt;pre&gt;setfacl -m user:www:rw- filename&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;setfacl -m user:www:rw- filename
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;But that oddly didn&amp;#8217;t work, but then I noted that the webserver was a linux machine, not SunOS, and that the UID of www was 48. A quick look at the UID of www on SunOS and it shows it is a completely different number. So for what ever reason ISS were unable to make the UIDs match between computers, so the correct command to type is:&lt;/p&gt;
-
-&lt;pre&gt;setfacl -m user:48:rw- filename&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;setfacl -m user:48:rw- filename
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Bottom line, if you wish to make your files or directories writable by scripts running on the webserver you must log into cent1 (via ssh), change to your www directory &amp;#8220;/home/cent1/NN/username/www/public_html&amp;#8221; and then issue the above command to the appropriate files.&lt;/p&gt;
-
-&lt;p&gt;[1]: &lt;a href=&#34;http://www.lancs.ac.uk/ug/cranen&#34;&gt;http://www.lancs.ac.uk/ug/cranen&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

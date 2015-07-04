@@ -2,10 +2,12 @@
 
 set -e
 
+HUGO=./hugo.sh
+
 echo -e "\033[0;32mDeploying updates to GitHub...\033[0m"
 
 # Build the project. 
-hugo
+$HUGO
 
 # Add changes to git.
 git add -A content public

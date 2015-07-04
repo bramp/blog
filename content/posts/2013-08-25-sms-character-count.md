@@ -24,3 +24,4 @@ http://bramp.net/sms/</a>
 
  [1]: http://en.wikipedia.org/wiki/GSM_03.38
  [2]: http://en.wikipedia.org/wiki/UTF-16
+ 

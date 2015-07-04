@@ -19,11 +19,14 @@ While adapting [nodewii][4] to use this callback mechanism I learnt a couple of 
 
 [Nodejs][5] uses a single thread for executing the [V8 JavaScript engine][6], and multiple worker threads to execute longer running non-JavaScript blocking tasks. Because V8 is not thread safe, all V8 operations must be executed from this single V8 thread. That means you are not allowed to create V8 objects, integers, strings, etc, from any other thread. If you try, race conditions happen, memory get corrupted and nodejs is likely to crash. Helpfully, nodejs does provide a mechanism to simplify using these threads: 
 
-<pre class="prettyprint">eio_custom(eio_cb execute, int pri, eio_cb cb, void *data);</pre>
+```c++
+eio_custom(eio_cb execute, int pri, eio_cb cb, void *data);
+```
 
 This function allows you to execute a blocking task in a worker thread. Once that task is finished another callback is called on the main JavaScript thread. Multiple extensions use it, and this is the basis for how nodejs provides it&#8217;s callback mechanism. Here is a very short example (adapted from [wiimote.cc][7]) of how to use eio_custom.
 
-<pre class="prettyprint">Handle&lt;Value&gt; WiiMote::Connect(const Arguments& args) {
+```c++
+Handle&lt;Value&gt; WiiMote::Connect(const Arguments& args) {
   WiiMote* wiimote = ObjectWrap::Unwrap&lt;WiiMote&gt;(args.This());
   Local&lt;Function&gt; callback;
 
@@ -98,7 +101,7 @@ int WiiMote::AfterConnect(eio_req* req) {
 
   return 0;
 }
-</pre>
+```
 
 This simple pattern makes writing callback code relatively simple. However, this only works well if you are in control of creating the callback.
 
@@ -106,11 +109,14 @@ This simple pattern makes writing callback code relatively simple. However, this
 
 Libcwiid creates it&#8217;s own thread, which is uses to read data from the wiimote. When data is received, it invokes a callback function passing this new data. This callback function is run on the libcwiid thread. This restricts us from interacting with V8. We ideally need this callback function running in the context of the main thread. The answer to this problem is:
 
-<pre class="prettyprint">eio_req *eio_nop       (int pri, eio_cb cb, void *data);</pre>
+```c++
+eio_req *eio_nop       (int pri, eio_cb cb, void *data);
+```
 
 It is safe to call this function from any thread. It will place the eio_cb callback task on the main event queue. This task is then eventually executed on the V8&#8242;s thread. An example of this follows:
 
-<pre class="prettyprint">void WiiMote::HandleMessages(cwiid_wiimote_t *wiimote, int len, union cwiid_mesg mesgs[]) {
+```c++
+void WiiMote::HandleMessages(cwiid_wiimote_t *wiimote, int len, union cwiid_mesg mesgs[]) {
   // This thread is running on the libcwiid's thread, and thus we can not use V8 operations
   WiiMote *self = const_cast&lt;WiiMote*&gt;(static_cast&lt;const WiiMote*&gt;(cwiid_get_data(wiimote)));
 
@@ -139,7 +145,7 @@ int WiiMote::HandleMessagesAfter(eio_req *req) {
   // Emit this event to a JavaScript callback.
   this-&gt;Emit(event, 1, argv);
 }
-</pre>
+```
 
 Using a combination of eio\_custom and eio\_nop you should be able to interface with any external library of service. You just have to make sure you always know what thread you are on, and what methods you are allowed to use in that context.
 
@@ -153,3 +159,4 @@ Finally, writing correct thread-safe code is hard. From the various nodejs exten
  [6]: http://code.google.com/p/v8/
  [7]: https://github.com/bramp/nodewii/blob/master/src/wiimote.cc
  [8]: http://valgrind.org/
+ 

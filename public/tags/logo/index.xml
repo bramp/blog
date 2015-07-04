@@ -2,36 +2,33 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Logo on bramp.net</title>
-    <link>http://bramp.net/blog/tags/logo/</link>
+    <link>http://localhost:1313/blog/tags/logo/</link>
     <description>Recent content in Logo on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Mon, 27 Oct 2008 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/tags/logo/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/tags/logo/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Bat-Pumpkin</title>
-      <link>http://bramp.net/blog/2008/10/27/bat-pumpkin/</link>
+      <link>http://localhost:1313/blog/2008/10/27/bat-pumpkin/</link>
       <pubDate>Mon, 27 Oct 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2008/10/27/bat-pumpkin/</guid>
+      <guid>http://localhost:1313/blog/2008/10/27/bat-pumpkin/</guid>
       <description>&lt;p&gt;Today I carved my first pumpkins in the shape of the new Batman Logo. Here are a few photos:&lt;/p&gt;
 
 &lt;div class=&#34;figure&#34;&gt;
-  &lt;a href=&#34;http://bramp.net/blog/projects/pumpkin/DSC_1206.JPG&#34;&gt;&lt;img src=&#34;http://bramp.net/blog/projects/pumpkin/DSC_1206_thumb.JPG&#34; alt=&#34;bat-pumpkin&#34; /&gt;&lt;/a&gt;&lt;/p&gt; 
+  &lt;a href=&#34;http://localhost:1313/blog/projects/pumpkin/DSC_1206.JPG&#34;&gt;&lt;img src=&#34;http://localhost:1313/blog/projects/pumpkin/DSC_1206_thumb.JPG&#34; alt=&#34;bat-pumpkin&#34; /&gt;&lt;/a&gt;&lt;/p&gt; 
   
   &lt;p&gt;
-    &lt;a href=&#34;http://bramp.net/blog/projects/pumpkin/DSC_1207.JPG&#34;&gt;&lt;img src=&#34;http://bramp.net/blog/projects/pumpkin/DSC_1207_thumb.JPG&#34; alt=&#34;bat-pumpkin&#34; /&gt;&lt;/a&gt;
+    &lt;a href=&#34;http://localhost:1313/blog/projects/pumpkin/DSC_1207.JPG&#34;&gt;&lt;img src=&#34;http://localhost:1313/blog/projects/pumpkin/DSC_1207_thumb.JPG&#34; alt=&#34;bat-pumpkin&#34; /&gt;&lt;/a&gt;
   &lt;/p&gt;
   
   &lt;p&gt;
-    &lt;a href=&#34;http://bramp.net/blog/projects/pumpkin/DSC_1210.JPG&#34;&gt;&lt;img src=&#34;http://bramp.net/blog/projects/pumpkin/DSC_1210_thumb.JPG&#34; alt=&#34;bat-pumpkin&#34; /&gt;&lt;/a&gt; &lt;/div&gt; 
+    &lt;a href=&#34;http://localhost:1313/blog/projects/pumpkin/DSC_1210.JPG&#34;&gt;&lt;img src=&#34;http://localhost:1313/blog/projects/pumpkin/DSC_1210_thumb.JPG&#34; alt=&#34;bat-pumpkin&#34; /&gt;&lt;/a&gt; &lt;/div&gt; 
     
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;p&amp;gt;
-  Tomorrow I might try others logos, any suggestions?
-&amp;lt;/p&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Tomorrow I might try others logos, any suggestions?&lt;/p&gt;
 </description>
     </item>
     

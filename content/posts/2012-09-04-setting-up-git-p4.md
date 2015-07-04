@@ -18,31 +18,35 @@ There were multiple github projects [1][1], [2][2], [3][3], that had forks of th
 
 Next, I wanted to be able to type &#8220;git p4&#8243;, so I used an [alias][5] to do this. Edit/create the file ~/.gitconfig and add:
 
-<pre>[alias]
-        p4 = !~/bin/git-p4.py
-</pre>
+```ini
+[alias]
+p4 = !~/bin/git-p4.py
+```
 
 Once that&#8217;s done you should be able to:
 
-<pre># Fetch only the head
+```bash
+# Fetch only the head
 git p4 clone //depot/path/to/project/ project
 
 # or Fetch all revisions (takes a little longer)
 git p4 clone //depot/path/to/project/@all project
-</pre>
+```
 
 If that returns an error, such as &#8220;p4 returned an error: Perforce password (P4PASSWD) invalid or unset.&#8221;, then you most likely don&#8217;t have your p4 command line set up. To set mine up, I added the following to my .bashrc
 
-<pre>export P4CLIENT=myclient
+```bash
+export P4CLIENT=myclient
 export P4HOST=perforce:1666
 export P4USER=myuser
 export P4EDITOR=nano
-</pre>
+```
 
 and then logged in
 
-<pre>p4 login
-</pre>
+```bash
+p4 login
+```
 
 More information on that set up can be found in the [ official documentation][6].
 
@@ -54,3 +58,4 @@ Once cloned, you can change to the project directory and use many of the normal 
  [4]: https://raw.github.com/git/git/master/git-p4.py
  [5]: https://git.wiki.kernel.org/index.php/Aliases
  [6]: http://www.perforce.com/perforce/doc.current/manuals/p4guide/02_config.html
+ 

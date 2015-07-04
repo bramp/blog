@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Bloodstock on bramp.net</title>
-    <link>http://bramp.net/blog/tags/bloodstock/</link>
+    <link>http://localhost:1313/blog/tags/bloodstock/</link>
     <description>Recent content in Bloodstock on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 11 Aug 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/tags/bloodstock/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/tags/bloodstock/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Bloodstock 2009 Running Order</title>
-      <link>http://bramp.net/blog/2009/08/11/bloodstock-2009-running-order/</link>
+      <link>http://localhost:1313/blog/2009/08/11/bloodstock-2009-running-order/</link>
       <pubDate>Tue, 11 Aug 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2009/08/11/bloodstock-2009-running-order/</guid>
+      <guid>http://localhost:1313/blog/2009/08/11/bloodstock-2009-running-order/</guid>
       <description>&lt;p&gt;I spent a hour or so today creating a Gantt chart of which bands are on and when at Bloodstock. I hope someone finds this chart of use.&lt;/p&gt;
 
 &lt;div class=&#34;figure&#34;&gt;
-  &lt;a href=&#34;http://bramp.net/blog/projects/running-order/Running%20Order%20-%20Bloodstock%202009.pdf&#34;&gt;&lt;br /&gt; &lt;img src=&#34;http://bramp.net/blog/projects/running-order/Running%20Order%20-%20Bloodstock%202009.pdf.png&#34; width=&#34;438&#34; height=&#34;258&#34; alt=&#34;bloodstock running order thumbnail&#34; /&gt;&lt;br /&gt; &lt;/a&gt;&lt;br /&gt; Download &lt;a href=&#34;http://bramp.net/blog/projects/running-order/Running%20Order%20-%20Bloodstock%202009.pdf&#34;&gt;pdf (73,625 bytes)&lt;/a&gt;
+  &lt;a href=&#34;http://localhost:1313/blog/projects/running-order/Running%20Order%20-%20Bloodstock%202009.pdf&#34;&gt;&lt;br /&gt; &lt;img src=&#34;http://localhost:1313/blog/projects/running-order/Running%20Order%20-%20Bloodstock%202009.pdf.png&#34; width=&#34;438&#34; height=&#34;258&#34; alt=&#34;bloodstock running order thumbnail&#34; /&gt;&lt;br /&gt; &lt;/a&gt;&lt;br /&gt; Download &lt;a href=&#34;http://localhost:1313/blog/projects/running-order/Running%20Order%20-%20Bloodstock%202009.pdf&#34;&gt;pdf (73,625 bytes)&lt;/a&gt;
 &lt;/div&gt;
 </description>
     </item>

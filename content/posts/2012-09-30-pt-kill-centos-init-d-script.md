@@ -13,7 +13,8 @@ tags:
 ---
 [pt-kill][1] is a neat little application that can stop long running MySQL queries. It was formally know as [mk-kill][2] before [Percona][3] took over the project. Here is the init.d script I use (as one doesn&#8217;t seem provided by the project): <!--more-->
 
-<pre>#!/bin/sh
+```bash
+#!/bin/sh
 #
 # pt-kill	This shell script takes care of starting and stopping
 #               the pt-kill services.
@@ -69,8 +70,7 @@ case "$1" in
 esac
  
 exit $RETVAL
-
-</pre>
+```
 
 **Usage:**
 
@@ -82,3 +82,4 @@ Thanks to [MySQL Diary][4] as they provided their default pt-kill command line. 
  [2]: http://www.maatkit.org/doc/mk-kill.html
  [3]: http://www.Percona.com
  [4]: http://www.mysqldiary.com/you-must-have-a-killer-in-your-system/
+ 

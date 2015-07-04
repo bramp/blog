@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Git on bramp.net</title>
-    <link>http://bramp.net/blog/tags/git/</link>
+    <link>http://localhost:1313/blog/tags/git/</link>
     <description>Recent content in Git on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Wed, 05 Sep 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/tags/git/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Setting up git-p4</title>
-      <link>http://bramp.net/blog/2012/09/05/setting-up-git-p4/</link>
+      <link>http://localhost:1313/blog/2012/09/05/setting-up-git-p4/</link>
       <pubDate>Wed, 05 Sep 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2012/09/05/setting-up-git-p4/</guid>
+      <guid>http://localhost:1313/blog/2012/09/05/setting-up-git-p4/</guid>
       <description>&lt;p&gt;I couldn&amp;#8217;t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I&amp;#8217;d quickly write this up.&lt;/p&gt;
 
 &lt;p&gt;Git-p4 is a tool for using git on top of a perforce server. This is great if your team wants to work with a DVCS, but your company requires a centralised VCS.&lt;/p&gt;
@@ -22,52 +22,45 @@
 &lt;p&gt;There were multiple github projects &lt;a href=&#34;https://github.com/baldrick/git-p4/&#34;&gt;1&lt;/a&gt;, &lt;a href=&#34;https://github.com/gkielSfdc/git-p4&#34;&gt;2&lt;/a&gt;, &lt;a href=&#34;https://github.com/jendave/git-p4&#34;&gt;3&lt;/a&gt;, that had forks of the git-p4 script, however, I found the latest mixed in with the official git source code. So download it from &lt;a href=&#34;https://raw.github.com/git/git/master/git-p4.py&#34;&gt;here&lt;/a&gt;. Tip: Don&amp;#8217;t forget to &amp;#8220;chmod +x git-p4.py&amp;#8221; once it&amp;#8217;s downloaded.&lt;/p&gt;
 
 &lt;p&gt;Next, I wanted to be able to type &amp;#8220;git p4&amp;#8243;, so I used an &lt;a href=&#34;https://git.wiki.kernel.org/index.php/Aliases&#34;&gt;alias&lt;/a&gt; to do this. Edit/create the file ~/.gitconfig and add:&lt;/p&gt;
-
-&lt;pre&gt;[alias]
-        p4 = !~/bin/git-p4.py
-&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;k&#34;&gt;[alias]&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;p4&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;!~/bin/git-p4.py&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Once that&amp;#8217;s done you should be able to:&lt;/p&gt;
-
-&lt;pre&gt;# Fetch only the head
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;# Fetch only the head&lt;/span&gt;
 git p4 clone //depot/path/to/project/ project
 
-# or Fetch all revisions (takes a little longer)
+&lt;span class=&#34;c&#34;&gt;# or Fetch all revisions (takes a little longer)&lt;/span&gt;
 git p4 clone //depot/path/to/project/@all project
-&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;If that returns an error, such as &amp;#8220;p4 returned an error: Perforce password (P4PASSWD) invalid or unset.&amp;#8221;, then you most likely don&amp;#8217;t have your p4 command line set up. To set mine up, I added the following to my .bashrc&lt;/p&gt;
-
-&lt;pre&gt;export P4CLIENT=myclient
-export P4HOST=perforce:1666
-export P4USER=myuser
-export P4EDITOR=nano
-&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nb&#34;&gt;export &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;P4CLIENT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;myclient
+&lt;span class=&#34;nb&#34;&gt;export &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;P4HOST&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;perforce:1666
+&lt;span class=&#34;nb&#34;&gt;export &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;P4USER&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;myuser
+&lt;span class=&#34;nb&#34;&gt;export &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;P4EDITOR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;nano
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;and then logged in&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;p4 login
+&lt;/pre&gt;&lt;/div&gt;
 
-&lt;pre&gt;p4 login
-&lt;/pre&gt;
-
-&lt;p&gt;More information on that set up can be found in the [ official documentation][6].&lt;/p&gt;
+&lt;p&gt;More information on that set up can be found in the &lt;a href=&#34;http://www.perforce.com/perforce/doc.current/manuals/p4guide/02_config.html&#34;&gt; official documentation&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Once cloned, you can change to the project directory and use many of the normal git commands, such as &amp;#8220;git log&amp;#8221;. You may notice that your newly checked out git repo only has one commit. If you want to see a full history use @all on the end of your depot path.&lt;/p&gt;
-
-&lt;p&gt;[6]: &lt;a href=&#34;http://www.perforce.com/perforce/doc.current/manuals/p4guide/02_config.html&#34;&gt;http://www.perforce.com/perforce/doc.current/manuals/p4guide/02_config.html&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Python close_fds issue</title>
-      <link>http://bramp.net/blog/2010/05/11/python-close_fds-issue/</link>
+      <link>http://localhost:1313/blog/2010/05/11/python-close_fds-issue/</link>
       <pubDate>Tue, 11 May 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2010/05/11/python-close_fds-issue/</guid>
+      <guid>http://localhost:1313/blog/2010/05/11/python-close_fds-issue/</guid>
       <description>&lt;p&gt;So I spent the better part of my evening trying to track down a bug, which turns out to be a &amp;#8220;feature&amp;#8221; of python.&lt;/p&gt;
 
 &lt;p&gt;I had just installed the &lt;a href=&#34;http://trac-hacks.org/wiki/GitPlugin&#34;&gt;GitPlugin&lt;/a&gt; for &lt;a href=&#34;http://trac.edgewall.org/&#34;&gt;trac&lt;/a&gt; but I started to experience problems. When browsing the source inside trac it was taking over 30seconds to load the page and sometimes it would fail completely. A lot of searching didn&amp;#8217;t help much, so I attempted to debug the problem myself. The first thing I noticed was Apache was taking 100% of the processor for a good 30seconds. I attached &lt;a href=&#34;http://en.wikipedia.org/wiki/Strace&#34;&gt;strace&lt;/a&gt; to it and saw something like this:&lt;/p&gt;
-
-&lt;pre&gt;[pid 22682] close(43029)                = -1 EBADF (Bad file descriptor)
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;[pid 22682] close(43029)                = -1 EBADF (Bad file descriptor)
 [pid 22682] close(43030)                = -1 EBADF (Bad file descriptor)
 [pid 22682] close(43031)                = -1 EBADF (Bad file descriptor)
 [pid 22682] close(43032)                = -1 EBADF (Bad file descriptor)
@@ -75,134 +68,117 @@ export P4EDITOR=nano
 [pid 22682] close(43034)                = -1 EBADF (Bad file descriptor)
 [pid 22682] close(43035)                = -1 EBADF (Bad file descriptor)
 [pid 22682] close(43036)                = -1 EBADF (Bad file descriptor)
-&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This obviously didn&amp;#8217;t look good! After some tinkering I found the problem went away when I ran trac &lt;a href=&#34;http://trac.edgewall.org/wiki/TracStandalone&#34;&gt;standalone&lt;/a&gt;, instead of using &lt;a href=&#34;http://www.modpython.org/&#34;&gt;mod_python&lt;/a&gt; or &lt;a href=&#34;http://en.wikipedia.org/wiki/FastCGI&#34;&gt;fcgi&lt;/a&gt;. This turned out to be a bit of a red herring because I spent my time trying to figure out what was different between a standalone executable and one being run inside Apache.&lt;/p&gt;
 
 &lt;p&gt;After playing around with environment variables, I gave up and attempted to printf debug the trac git plugin. I found that the actual call to git was taking on the order of seconds, whereas calling it myself from the command took milliseconds. The line of code (in PyGIT.py) looked a bit like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Popen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;__build_git_cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;git_cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cmd_args&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;stdin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;stdout&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PIPE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+			                                        &lt;span class=&#34;n&#34;&gt;stderr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PIPE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;close_fds&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;True&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
-&lt;pre class=&#34;prettyprint&#34;&gt;p = Popen(self.__build_git_cmd(git_cmd, *cmd_args), stdin=None, 
-        stdout=PIPE, stderr=PIPE, close_fds=True)
-&lt;/pre&gt;
+&lt;p&gt;Now, when I removed the close_fds argument the problems went away! After some more digging I found this &lt;a href=&#34;http://bugs.python.org/issue8052&#34;&gt;bug report&lt;/a&gt; which describes the behaviour of close_fds. Python will spin in a tight loop calling close for all possible valid fd number just incase it was previously used. WTF! You can see the python &lt;a href=&#34;http://svn.python.org/projects/python/tags/r311/Lib/subprocess.py&#34;&gt;code here&lt;/a&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;_close_fds&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;but&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;closerange&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;but&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;closerange&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;but&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MAXFD&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Now, when I removed the close_fds argument the problems went away! After some more digging I found this &lt;a href=&#34;http://bugs.python.org/issue8052&#34;&gt;bug report&lt;/a&gt; which describes the behaviour of close_fds. Python will spin in a tight loop calling close for all possible valid fd number. WTF! You can see the python &lt;a href=&#34;http://svn.python.org/projects/python/tags/r311/Lib/subprocess.py&#34;&gt;code here&lt;/a&gt;:&lt;/p&gt;
-
-&lt;pre class=&#34;prettyprint&#34;&gt;def _close_fds(self, but):
-            os.closerange(3, but)
-            os.closerange(but + 1, MAXFD)
-&lt;/pre&gt;
-
-&lt;p&gt;So the simple fix to this was to remove the close_fds, so that Python doesn&amp;#8217;t stupidly spin calling close(). I suspect the reason I only noticed this when running inside Apache, is because Apache must have a larger MAXFD. Hopefully in the future Python will change this behaviour and find a more sensible way to close all file descriptors, especially when I read this [bug report][9] which advises changing close_fds default to true.&lt;/p&gt;
-
-&lt;p&gt;[9]: &lt;a href=&#34;http://bugs.python.org/issue7213&#34;&gt;http://bugs.python.org/issue7213&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;So the simple fix to this was to remove the close_fds, so that Python doesn&amp;#8217;t stupidly spin calling close(). I suspect the reason I only noticed this when running inside Apache, is because Apache must have a larger MAXFD. Hopefully in the future Python will change this behaviour and find a more sensible way to close all file descriptors, especially when I read this &lt;a href=&#34;http://bugs.python.org/issue7213&#34;&gt;bug report&lt;/a&gt; which advises changing close_fds default to true.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Useful scripts/configurations</title>
-      <link>http://bramp.net/blog/2009/11/28/useful-scripts/configurations/</link>
+      <link>http://localhost:1313/blog/2009/11/28/useful-scripts/configurations/</link>
       <pubDate>Sat, 28 Nov 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2009/11/28/useful-scripts/configurations/</guid>
+      <guid>http://localhost:1313/blog/2009/11/28/useful-scripts/configurations/</guid>
       <description>&lt;p&gt;Make &lt;a href=&#34;http://git-scm.com&#34;&gt;git&lt;/a&gt; colourful&lt;/p&gt;
-
-&lt;pre&gt;git config --global color.diff auto
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;git config --global color.diff auto
 git config --global color.status auto
 git config --global color.branch auto
-&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Make &lt;a href=&#34;http://www.nano-editor.org/&#34;&gt;nano&lt;/a&gt; colourful&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;cp /usr/local/share/examples/nano/nanorc.sample ~/.nanorc
+&lt;span class=&#34;c&#34;&gt;# or&lt;/span&gt;
+zcat /usr/share/doc/nano/examples/nanorc.sample.gz &amp;gt;~/.nanorc
 
-&lt;pre&gt;cp /usr/local/share/examples/nano/nanorc.sample ~/.nanorc
-or
- zcat /usr/share/doc/nano/examples/nanorc.sample.gz &gt;~/.nanorc
-then
- nano ~/.nanorc
-&lt;/pre&gt;
+&lt;span class=&#34;c&#34;&gt;# then&lt;/span&gt;
+nano ~/.nanorc
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;To trim trailing whitespace from *.cc on Linux (taken from &lt;a href=&#34;http://zebert.blogspot.com/2009/06/clean-up-trailing-whitespaces-in.html&#34;&gt;this blog&lt;/a&gt;):&lt;/p&gt;
-
-&lt;pre&gt;find . -name &#39;*.cc&#39; -exec sed -i {} -e &#39;s/[ \t]*$//&#39; &#39;;&#39;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;find . -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;o&#34;&gt;{}&lt;/span&gt; -e &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/[ \t]*$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;and on BSDs:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;find . -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; -e &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/\ *$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{}&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
-&lt;pre&gt;find . -name &#39;*.cc&#39; -exec sed -i &#39;&#39; -e &#39;s/\ *$//&#39; {} &#39;;&#39;&lt;/pre&gt;
-
-&lt;p&gt;Linux style &amp;#8216;ls&amp;#8217; colours on FreeBSD (taken from [here][4]):&lt;/p&gt;
-
-&lt;pre&gt;export CLICOLOR=&#34;YES&#34;
-export LSCOLORS=&#34;ExGxFxdxCxDxDxhbadExEx&#34;
-&lt;/pre&gt;
+&lt;p&gt;Linux style &amp;#8216;ls&amp;#8217; colours on FreeBSD (taken from &lt;a href=&#34;http://www.puresimplicity.net/~hemi/freebsd/misc.html&#34;&gt;here&lt;/a&gt;):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nb&#34;&gt;export &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;CLICOLOR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;YES&amp;quot;&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;export &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;LSCOLORS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;ExGxFxdxCxDxDxhbadExEx&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;To ensure the http_proxy environmental variable is passed to sudo. Edit the sudoers file by running visudo. Then add the following.&lt;/p&gt;
-
-&lt;pre&gt;Defaults env_keep += &#34;ftp_proxy http_proxy https_proxy&#34;
-&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;Defaults env_keep +&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;ftp_proxy http_proxy https_proxy&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Bash autocompletion on FreeBSD:&lt;/p&gt;
-
-&lt;pre&gt;cd  /usr/ports/shells/bash-completion
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt;  /usr/ports/shells/bash-completion
 sudo make install clean
-&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Edit ~/.bashrc and add&lt;/p&gt;
-
-&lt;pre&gt;if [ -f /usr/local/etc/bash_completion ]; then
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; -f /usr/local/etc/bash_completion &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
     . /usr/local/etc/bash_completion
-fi
-&lt;/pre&gt;
+&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Make svn output colorful&lt;br /&gt;
 Edit ~/.subversion/config&lt;/p&gt;
-
-&lt;pre&gt;[helpers]
-diff-cmd = /usr/bin/colordiff
-&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;k&#34;&gt;[helpers]&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;diff-cmd&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;/usr/bin/colordiff&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Create diffs with function names and ignoring whitespace&lt;/p&gt;
-
-&lt;pre&gt;svn diff -x -uwp
-&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;svn diff -x -uwp
+&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;To be continued&amp;#8230;&lt;/p&gt;
-
-&lt;p&gt;[4]: &lt;a href=&#34;http://www.puresimplicity.net/~hemi/freebsd/misc.html&#34;&gt;http://www.puresimplicity.net/~hemi/freebsd/misc.html&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>64bit TortoiseGit</title>
-      <link>http://bramp.net/blog/2009/02/15/64bit-tortoisegit/</link>
+      <link>http://localhost:1313/blog/2009/02/15/64bit-tortoisegit/</link>
       <pubDate>Sun, 15 Feb 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2009/02/15/64bit-tortoisegit/</guid>
-      <description>&lt;p&gt;Recently I tried &lt;a href=&#34;http://code.google.com/p/tortoisegit/&#34;&gt;TortoiseGit&lt;/a&gt;, a [TortoiseSVN][2] style Git client, however there were no binaries for my 64 bit windows machine. The 32 bit version found on the official site would install, but the shell extension unfortunately does not work.&lt;/p&gt;
+      <guid>http://localhost:1313/blog/2009/02/15/64bit-tortoisegit/</guid>
+      <description>&lt;p&gt;Recently I tried &lt;a href=&#34;http://code.google.com/p/tortoisegit/&#34;&gt;TortoiseGit&lt;/a&gt;, a &lt;a href=&#34;http://tortoisesvn.tigris.org/&#34;&gt;TortoiseSVN&lt;/a&gt; style Git client, however there were no binaries for my 64 bit windows machine. The 32 bit version found on the official site would install, but the shell extension unfortunately does not work.&lt;/p&gt;
 
 &lt;p&gt;So I took the law into my own hands and went and built my own version.&lt;/p&gt;
 
-&lt;p&gt;&lt;del&gt;So here is &lt;a href=&#34;http://bramp.net/blog/projects/TortoiseGit-3.3.9d335-64bit.msi&#34;&gt;TortoiseGIT 0.3.3.0 (64 bit)&lt;/a&gt; built from revision 9d3351f627b26d9555794e785cf8bbae22155f12.&lt;/del&gt; There is now a newer offical version available at: &lt;a href=&#34;http://code.google.com/p/tortoisegit/downloads/list&#34;&gt;http://code.google.com/p/tortoisegit/downloads/list&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;So here is &lt;a href=&#34;http://localhost:1313/blog/projects/TortoiseGit-3.3.9d335-64bit.msi&#34;&gt;TortoiseGIT 0.3.3.0 (64 bit)&lt;/a&gt; built from revision 9d3351f627b26d9555794e785cf8bbae22155f12.&lt;/del&gt; There is now a newer offical version available at: &lt;a href=&#34;http://code.google.com/p/tortoisegit/downloads/list&#34;&gt;http://code.google.com/p/tortoisegit/downloads/list&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Hopefully 64bit builds will be available from the official site in the future.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Disclaimer&lt;/strong&gt;, I haven&amp;#8217;t fully tested this app, and I suspect some features of the 64 bit build might be broken. Regardless I&amp;#8217;ve been able to use at least the basic features of this version.&lt;/p&gt;
-
-&lt;p&gt;[2]: &lt;a href=&#34;http://tortoisesvn.tigris.org/&#34;&gt;http://tortoisesvn.tigris.org/&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>A Practical Introduction to Version Control Systems</title>
-      <link>http://bramp.net/blog/2009/02/04/a-practical-introduction-to-version-control-systems/</link>
+      <link>http://localhost:1313/blog/2009/02/04/a-practical-introduction-to-version-control-systems/</link>
       <pubDate>Wed, 04 Feb 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2009/02/04/a-practical-introduction-to-version-control-systems/</guid>
+      <guid>http://localhost:1313/blog/2009/02/04/a-practical-introduction-to-version-control-systems/</guid>
       <description>&lt;p&gt;Today I presented a CAKES talk in our department to help teach people about version control systems. I hope by sharing my knowledge on a subject, that others will share theirs. Below is the abstract and slides for my tak:&lt;/p&gt;
 
 &lt;p&gt;This talk aims to explain what version control systems (VCS) also known as source control management (SCM) are, how they work, and how to use them. This includes explaining why you should use VCS for your every day projects, even if they don&amp;#8217;t include any source code. The differences between the main two classes of VCS; centralised and decentralised systems will be discussed, outlining both their benefits and disadvantages. This presentation will give you practical knowledge to start using systems such as subversion (SVN) or git, as well as many example use cases. Bottom line is that using a VCS can help you keep your work organised, backed up, revertible, whilst allowing contributions from multiple users. This talk is for anyone that has heard about CVS/SVN/git but was never quite sure what it was, or how to use it.&lt;/p&gt;
 
-&lt;p&gt;[Download Slides][1]&lt;/p&gt;
-
-&lt;p&gt;[1]: /projects/version_control.pdf&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://localhost:1313/blog/projects/version_control.pdf&#34;&gt;Download Slides&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

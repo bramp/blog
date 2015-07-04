@@ -1,11 +1,13 @@
-baseurl: "http://bramp.net/blog"
-altbaseurl: "https://bramp.github.io/"
+baseurl: "https://bramp.github.io/blog"
+altbaseurl: "https://bramp.github.io"
 languageCode: "en-gb"
 title: "bramp.net"
 disqusShortname: "bramp"
+
 theme: "bramp"
 author:
   name: "Andrew Brampton"
+
 params:
   github: "bramp"
   twitter: "@TheBramp"
@@ -15,4 +17,9 @@ params:
 
 permalinks:
   posts: /:year/:month/:day/:slug/
-  publications: /:year/:month/:day/:slug/
+  publications: /publications/:slug/
+
+pygmentscodefences: true
+pygmentsuseclasses: true
+pygmentsstyle: monokai
+pygmentsoptions: startinline=true

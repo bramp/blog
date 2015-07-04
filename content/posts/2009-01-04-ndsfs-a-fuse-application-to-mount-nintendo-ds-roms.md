@@ -16,21 +16,20 @@ I brought my dad Professor Layton for the Nintendo DS this Christmas, and being 
 
 To do this I found a tool call [ndstool][1], which can browse and extract the file system in the rom image. However, being a nerd I decided to write a FUSE file system application to do the same task.
 
-So here is the [source code][2] for ndsfs, you will have to compile it yourself like so:
+The [source code][2] is available on GitHub, you can compile it yourself:
 
-<pre>gcc -lfuse ndsfs.c -o ndsfs</pre>
+```bash
+make
+```
 
 and then run it like so:
 
-<pre>ndsfs &lt;rom file&gt; &lt;mount point&gt;</pre>
+```bash
+ndsfs &lt;rom file&gt; &lt;mount point&gt;
+```
 
 I&#8217;m not sure it will work on all roms, but it is worth a try.
 
-**Update: Version 1.1 released** &#8211; A few months ago I worked a bit more on this and have now released a new version. I fixed many problems but as I did this months ago, and I didn&#8217;t document anything, I don&#8217;t know what I fixed <img src="http://bramp.net/blog/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" /> 
-
-[Version 1.1][2]  
-[Version 1.0][3]
-
  [1]: http://darkfader.net/ds/
- [2]: /projects/ndsfs/ndsfs-1.1.tar.bz2
- [3]: /projects/ndsfs/ndsfs-1.0.tar.bz2
+ [2]: https://github.com/bramp/ndsfs
+ 

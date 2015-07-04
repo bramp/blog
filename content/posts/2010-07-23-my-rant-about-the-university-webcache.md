@@ -55,3 +55,4 @@ There is also the added inconvenience that if you take a Laptop between home and
 Now most Universities have scrapped their webcaches because they just weren't useful anymore. However, if Lancaster wishes to keep theirs they could implement it in a different way. A transparent proxy is one such solution which would greatly improve the user's experience. Basically every time you try and visit a website the transparent proxy handles your request without the user even knowing. This means you don't have to change any settings in your web browser! Transparent proxies have been used by large ISPs to handle 1000s of clients, so I don't see why ISS couldn&#8217;t do this.
 
  [1]: http://www.facebook.com/group.php?gid=253120796980
+ 

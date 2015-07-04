@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2014/08/20/modern-software-development-life-cycle/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,11 +86,23 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>Modern Software Development Life Cycle</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2014-08-20</small> 1747 words</p> <hr/>
-   <div class="post">
-     <p>I recently got asked by a friend at a start-up on how to ensure better quality in their product. They were looking for advise on the QA process, but after digging a little I found they needed improvements to their full software development life cycle (SDLC). After a few emails back and forth I ended up writing what&#8217;s below. It has plenty of references for further reading, and I thought it would be good to share.</p>
+
+
+<div id="article">
+	<h1>Modern Software Development Life Cycle</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2014-08-20</small>
+		
+		| <a href="http://localhost:1313/blog//tags/development">development</a>
+		
+		| <a href="http://localhost:1313/blog//tags/sdlc">sdlc</a>
+		
+		| <a href="http://localhost:1313/blog//tags/testing">testing</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>I recently got asked by a friend at a start-up on how to ensure better quality in their product. They were looking for advise on the QA process, but after digging a little I found they needed improvements to their full software development life cycle (SDLC). After a few emails back and forth I ended up writing what&#8217;s below. It has plenty of references for further reading, and I thought it would be good to share.</p>
 
 <p>Generally people view the SDLC as a pipeline, and there are different ways to manage the pipeline, Scrum, Kanban, Waterfall, etc. Each with their pros and cons, and all can help your quality, but I’ll address that later</p>
 
@@ -140,20 +161,18 @@ I mention there were different techniques for the SDLC, Agile based approaches (
 
 <p>I highly recommend the <a href="http://www.amazon.com/gp/product/0988262592/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0988262592&amp;linkCode=as2&amp;tag=brampnet-20&amp;linkId=36PJQM4IDQIMEWXH">The Phoenix Project</a>, it talks about SLDC, and is a good read (even for those non-technical readers).</p>
 
-<p>Finally, I’d like to quickly introduce the newer concept of <a href="http://www.amazon.com/gp/product/0321601912/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0321601912&amp;linkCode=as2&amp;tag=brampnet-20&amp;linkId=VBPKIQYH5SL4PKCD">Continuous Delivery</a>. This extends continuous integration, by making your pipeline end at deployment. From code check-in to being live in a production environment, should be as automated as possible. Companies like <a href="http://www.slideshare.net/mikebrittain/principles-and-practices-in-continuous-deployment-at-etsy">Etsy</a> and [Facebook][31] like to advertise that they deploy numerous times a day.</p>
+<p>Finally, I’d like to quickly introduce the newer concept of <a href="http://www.amazon.com/gp/product/0321601912/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0321601912&amp;linkCode=as2&amp;tag=brampnet-20&amp;linkId=VBPKIQYH5SL4PKCD">Continuous Delivery</a>. This extends continuous integration, by making your pipeline end at deployment. From code check-in to being live in a production environment, should be as automated as possible. Companies like <a href="http://www.slideshare.net/mikebrittain/principles-and-practices-in-continuous-deployment-at-etsy">Etsy</a> and <a href="http://www.forbes.com/sites/quora/2013/08/12/how-do-facebook-and-google-manage-software-releases-without-causing-major-problems/">Facebook</a> like to advertise that they deploy numerous times a day.</p>
 
-<p>[31]: <a href="http://www.forbes.com/sites/quora/2013/08/12/how-do-facebook-and-google-manage-software-releases-without-causing-major-problems/">http://www.forbes.com/sites/quora/2013/08/12/how-do-facebook-and-google-manage-software-releases-without-causing-major-problems/</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2014/12/21/nationjs-talk-on-nodejs-now-on-vimeo/">&larr; NationJS talk on NodeJs now on Vimeo</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2014/08/16/grabbing-a-certificate-with-openssl-and-importing-it-into-java/"> Grabbing a Certificate with OpenSSL and importing it into Java &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2014/08/16/grabbing-a-certificate-with-openssl-and-importing-it-into-java/">&larr; Grabbing a Certificate with OpenSSL and importing it into Java</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2014/12/21/nationjs-talk-on-nodejs-now-on-vimeo/"> NationJS talk on NodeJs now on Vimeo &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -182,8 +201,11 @@ I mention there were different techniques for the SDLC, Agile based approaches (
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

@@ -18,11 +18,11 @@ In my use case I&#8217;m using Archive Mount with a zip file containing 10,000 f
 
 So I downloaded the source, and started to make some tweaks to improve the performance. All my changes can be found on [github][4], and so far I&#8217;ve done the following:
 
-  1. Fixed a couple of minor problems. [[1]][5] [[2]][6] 
-  2. I made some tweaks to store the head child, as well as the last child. This improves the start up speed by ~20%. [[3]][7] 
-  3. I also now store the basename as well as the full file name. This reduced the calls to strrchr, and actually had a measurable improvement (At the cost of using one additional pointer for each file). [[4]][8] 
-  4. I also changed init\_node and free\_node a little bit. This simplified the code in places. [[5]][9] [[6]][10] 
-  5. Finally, I actually completely replaced the linked list structure with a hash table. For small archives the speed difference is not noticeable, for large archives I had a 50x speed improvement! The awesome [uthash library][11] helped me do that. [[7]][12] 
+  1. Fixed a couple of minor problems. [1][5] [2][6] 
+  2. I made some tweaks to store the head child, as well as the last child. This improves the start up speed by ~20%. [3][7] 
+  3. I also now store the basename as well as the full file name. This reduced the calls to strrchr, and actually had a measurable improvement (At the cost of using one additional pointer for each file). [4][8] 
+  4. I also changed init\_node and free\_node a little bit. This simplified the code in places. [5][9] [6][10] 
+  5. Finally, I actually completely replaced the linked list structure with a hash table. For small archives the speed difference is not noticeable, for large archives I had a 50x speed improvement! The awesome [uthash library][11] helped me do that. [7][12] 
 
 I&#8217;m also currently working on a complete re-haul of the open/read code. Once done, I&#8217;ll be able to very efficiently open and read from files. At the moment a read bizarrely takes O(N) (where N is the number of files in the zip file), and then each read requires re-reading the entire file up until the seek point.
 
@@ -41,4 +41,4 @@ I&#8217;m sending all these changes [upstream][13], so hopefully my work will ap
  [11]: http://uthash.sourceforge.net/
  [12]: https://github.com/bramp/archivemount/commit/1f152876b1f39f53622d89d7fbb7b34fd70cfd10
  [13]: http://www.cybernoia.de/software/archivemount/
- [14]: https://github.com/bramp/archivemount/toggle_watch
+ [14]: https://github.com/bramp/archivemount/

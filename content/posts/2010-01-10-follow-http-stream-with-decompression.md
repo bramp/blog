@@ -19,7 +19,8 @@ I was using [Wireshark][1] to capture an exchange of HTTP packets, however, some
 
 The solution was to write some [Python][2] which made use of the [dpkt library][3]. My code naively reassembles the TCP flow and then assumes traffic on port 80 is HTTP. Therefore there is much room for improvement, but here is the code anyway.
 
-<pre class="prettyprint">#!/usr/bin/env python
+```python
+#!/usr/bin/env python
 # Turns a pcap file with http gzip compressed data into plain text, making it
 # easier to follow.
 
@@ -116,7 +117,7 @@ if __name__ == '__main__':
 		sys.exit(2)
 
 	parse_pcap_file(sys.argv[1])
-</pre>
+```
 
 **Please note**, I had to make a couple of changes to the dpkt library, which I have submitted [back for review][4]. Those changes can be found in the following patches [1][5] [2][6] [3][7]. I will update this code if/when the patches get accepted.
 
@@ -127,3 +128,4 @@ if __name__ == '__main__':
  [5]: /patches/dpkt-pcap-snaplen.patch
  [6]: /patches/dpkt-http-len.patch
  [7]: /patches/dpkt-http-gz.patch
+ 

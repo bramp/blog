@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2010/01/10/follow-http-stream-with-decompression/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,127 +86,140 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>Follow HTTP Stream (with decompression)</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2010-01-10</small> 459 words</p> <hr/>
-   <div class="post">
-     <p>I was using <a href="http://www.wireshark.org/">Wireshark</a> to capture an exchange of HTTP packets, however, some of the HTTP responses were using &#8220;content-encoding: gzip&#8221;, which meant I couldn&#8217;t view them decompressed in the &#8220;Follow TCP Stream&#8221;. Wireshark does decompress them in Packet Details view, but it is hard to follow the full stream like this.</p>
+
+
+<div id="article">
+	<h1>Follow HTTP Stream (with decompression)</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2010-01-10</small>
+		
+		| <a href="http://localhost:1313/blog//tags/dpkt">dpkt</a>
+		
+		| <a href="http://localhost:1313/blog//tags/gzip">gzip</a>
+		
+		| <a href="http://localhost:1313/blog//tags/http">http</a>
+		
+		| <a href="http://localhost:1313/blog//tags/pcap">pcap</a>
+		
+		| <a href="http://localhost:1313/blog//tags/python">python</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>I was using <a href="http://www.wireshark.org/">Wireshark</a> to capture an exchange of HTTP packets, however, some of the HTTP responses were using &#8220;content-encoding: gzip&#8221;, which meant I couldn&#8217;t view them decompressed in the &#8220;Follow TCP Stream&#8221;. Wireshark does decompress them in Packet Details view, but it is hard to follow the full stream like this.</p>
 
 <p>The solution was to write some <a href="http://www.python.org/">Python</a> which made use of the <a href="http://code.google.com/p/dpkt/">dpkt library</a>. My code naively reassembles the TCP flow and then assumes traffic on port 80 is HTTP. Therefore there is much room for improvement, but here is the code anyway.</p>
+<div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
+<span class="c"># Turns a pcap file with http gzip compressed data into plain text, making it</span>
+<span class="c"># easier to follow.</span>
 
-<pre class="prettyprint">#!/usr/bin/env python
-# Turns a pcap file with http gzip compressed data into plain text, making it
-# easier to follow.
+<span class="kn">import</span> <span class="nn">dpkt</span>
 
-import dpkt
+<span class="k">def</span> <span class="nf">tcp_flags</span><span class="p">(</span><span class="n">flags</span><span class="p">):</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">flags</span> <span class="o">&amp;</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">tcp</span><span class="o">.</span><span class="n">TH_FIN</span><span class="p">:</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">ret</span> <span class="o">+</span> <span class="s">&#39;F&#39;</span>
+    <span class="k">if</span> <span class="n">flags</span> <span class="o">&amp;</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">tcp</span><span class="o">.</span><span class="n">TH_SYN</span><span class="p">:</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">ret</span> <span class="o">+</span> <span class="s">&#39;S&#39;</span>
+    <span class="k">if</span> <span class="n">flags</span> <span class="o">&amp;</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">tcp</span><span class="o">.</span><span class="n">TH_RST</span><span class="p">:</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">ret</span> <span class="o">+</span> <span class="s">&#39;R&#39;</span>
+    <span class="k">if</span> <span class="n">flags</span> <span class="o">&amp;</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">tcp</span><span class="o">.</span><span class="n">TH_PUSH</span><span class="p">:</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">ret</span> <span class="o">+</span> <span class="s">&#39;P&#39;</span>
+    <span class="k">if</span> <span class="n">flags</span> <span class="o">&amp;</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">tcp</span><span class="o">.</span><span class="n">TH_ACK</span><span class="p">:</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">ret</span> <span class="o">+</span> <span class="s">&#39;A&#39;</span>
+    <span class="k">if</span> <span class="n">flags</span> <span class="o">&amp;</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">tcp</span><span class="o">.</span><span class="n">TH_URG</span><span class="p">:</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">ret</span> <span class="o">+</span> <span class="s">&#39;U&#39;</span>
+    <span class="k">if</span> <span class="n">flags</span> <span class="o">&amp;</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">tcp</span><span class="o">.</span><span class="n">TH_ECE</span><span class="p">:</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">ret</span> <span class="o">+</span> <span class="s">&#39;E&#39;</span>
+    <span class="k">if</span> <span class="n">flags</span> <span class="o">&amp;</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">tcp</span><span class="o">.</span><span class="n">TH_CWR</span><span class="p">:</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">ret</span> <span class="o">+</span> <span class="s">&#39;C&#39;</span>
 
-def tcp_flags(flags):
-    ret = ''
-    if flags & dpkt.tcp.TH_FIN:
-        ret = ret + 'F'
-    if flags & dpkt.tcp.TH_SYN:
-        ret = ret + 'S'
-    if flags & dpkt.tcp.TH_RST:
-        ret = ret + 'R'
-    if flags & dpkt.tcp.TH_PUSH:
-        ret = ret + 'P'
-    if flags & dpkt.tcp.TH_ACK:
-        ret = ret + 'A'
-    if flags & dpkt.tcp.TH_URG:
-        ret = ret + 'U'
-    if flags & dpkt.tcp.TH_ECE:
-        ret = ret + 'E'
-    if flags & dpkt.tcp.TH_CWR:
-        ret = ret + 'C'
+    <span class="k">return</span> <span class="n">ret</span>
 
-    return ret
+<span class="k">def</span> <span class="nf">parse_http_stream</span><span class="p">(</span><span class="n">stream</span><span class="p">):</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">stream</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;HTTP&#39;</span><span class="p">:</span>
+            <span class="n">http</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">Response</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+            <span class="k">print</span> <span class="n">http</span><span class="o">.</span><span class="n">status</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">http</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+            <span class="k">print</span> <span class="n">http</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="n">http</span><span class="o">.</span><span class="n">uri</span>
+        <span class="n">stream</span> <span class="o">=</span> <span class="n">stream</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">http</span><span class="p">):]</span>
 
-def parse_http_stream(stream):
-    while len(stream) &gt; 0:
-        if stream[:4] == 'HTTP':
-            http = dpkt.http.Response(stream)
-            print http.status
-        else:
-            http = dpkt.http.Request(stream)
-            print http.method, http.uri
-        stream = stream[len(http):]
-
-def parse_pcap_file(filename):
-    # Open the pcap file
-    f = open('market.pcap', 'rb')
-    pcap = dpkt.pcap.Reader(f)
+<span class="k">def</span> <span class="nf">parse_pcap_file</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="c"># Open the pcap file</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;market.pcap&#39;</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span>
+    <span class="n">pcap</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">pcap</span><span class="o">.</span><span class="n">Reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
     
-    # I need to reassmble the TCP flows before decoding the HTTP
-    conn = dict() # Connections with current buffer
-    for ts, buf in pcap:
-        eth = dpkt.ethernet.Ethernet(buf)
-        if eth.type != dpkt.ethernet.ETH_TYPE_IP:
-            continue
+    <span class="c"># I need to reassmble the TCP flows before decoding the HTTP</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span> <span class="c"># Connections with current buffer</span>
+    <span class="k">for</span> <span class="n">ts</span><span class="p">,</span> <span class="n">buf</span> <span class="ow">in</span> <span class="n">pcap</span><span class="p">:</span>
+        <span class="n">eth</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ethernet</span><span class="o">.</span><span class="n">Ethernet</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">eth</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ethernet</span><span class="o">.</span><span class="n">ETH_TYPE_IP</span><span class="p">:</span>
+            <span class="k">continue</span>
     
-        ip = eth.data
-        if ip.p != dpkt.ip.IP_PROTO_TCP:
-            continue
+        <span class="n">ip</span> <span class="o">=</span> <span class="n">eth</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">if</span> <span class="n">ip</span><span class="o">.</span><span class="n">p</span> <span class="o">!=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">ip</span><span class="o">.</span><span class="n">IP_PROTO_TCP</span><span class="p">:</span>
+            <span class="k">continue</span>
     
-        tcp = ip.data
+        <span class="n">tcp</span> <span class="o">=</span> <span class="n">ip</span><span class="o">.</span><span class="n">data</span>
     
-        tupl = (ip.src, ip.dst, tcp.sport, tcp.dport)
-        #print tupl, tcp_flags(tcp.flags)
+        <span class="n">tupl</span> <span class="o">=</span> <span class="p">(</span><span class="n">ip</span><span class="o">.</span><span class="n">src</span><span class="p">,</span> <span class="n">ip</span><span class="o">.</span><span class="n">dst</span><span class="p">,</span> <span class="n">tcp</span><span class="o">.</span><span class="n">sport</span><span class="p">,</span> <span class="n">tcp</span><span class="o">.</span><span class="n">dport</span><span class="p">)</span>
+        <span class="c">#print tupl, tcp_flags(tcp.flags)</span>
     
-        # Ensure these are in order! TODO change to a defaultdict
-        if tupl in conn:
-            conn[ tupl ] = conn[ tupl ] + tcp.data
-        else:
-            conn[ tupl ] = tcp.data
+        <span class="c"># Ensure these are in order! TODO change to a defaultdict</span>
+        <span class="k">if</span> <span class="n">tupl</span> <span class="ow">in</span> <span class="n">conn</span><span class="p">:</span>
+            <span class="n">conn</span><span class="p">[</span> <span class="n">tupl</span> <span class="p">]</span> <span class="o">=</span> <span class="n">conn</span><span class="p">[</span> <span class="n">tupl</span> <span class="p">]</span> <span class="o">+</span> <span class="n">tcp</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">conn</span><span class="p">[</span> <span class="n">tupl</span> <span class="p">]</span> <span class="o">=</span> <span class="n">tcp</span><span class="o">.</span><span class="n">data</span>
     
-        # TODO Check if it is a FIN, if so end the connection
+        <span class="c"># TODO Check if it is a FIN, if so end the connection</span>
     
-        # Try and parse what we have
-        try:
-            stream = conn[ tupl ]
-            if stream[:4] == 'HTTP':
-                http = dpkt.http.Response(stream)
-                #print http.status
-            else:
-                http = dpkt.http.Request(stream)
-                #print http.method, http.uri
+        <span class="c"># Try and parse what we have</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">stream</span> <span class="o">=</span> <span class="n">conn</span><span class="p">[</span> <span class="n">tupl</span> <span class="p">]</span>
+            <span class="k">if</span> <span class="n">stream</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;HTTP&#39;</span><span class="p">:</span>
+                <span class="n">http</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">Response</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+                <span class="c">#print http.status</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">http</span> <span class="o">=</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">http</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+                <span class="c">#print http.method, http.uri</span>
     
-            print http
-            print
+            <span class="k">print</span> <span class="n">http</span>
+            <span class="k">print</span>
 
-            # If we reached this part an exception hasn't been thrown
-            stream = stream[len(http):]
-            if len(stream) == 0:
-                del conn[ tupl ]
-            else:
-                conn[ tupl ] = stream
-        except dpkt.UnpackError:
-            pass
+            <span class="c"># If we reached this part an exception hasn&#39;t been thrown</span>
+            <span class="n">stream</span> <span class="o">=</span> <span class="n">stream</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">http</span><span class="p">):]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">conn</span><span class="p">[</span> <span class="n">tupl</span> <span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">conn</span><span class="p">[</span> <span class="n">tupl</span> <span class="p">]</span> <span class="o">=</span> <span class="n">stream</span>
+        <span class="k">except</span> <span class="n">dpkt</span><span class="o">.</span><span class="n">UnpackError</span><span class="p">:</span>
+            <span class="k">pass</span>
 
-    f.close()
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-if __name__ == '__main__':
-    import sys
-    if len(sys.argv) &lt;= 1:
-        print "%s &lt;pcap filename&gt;" % sys.argv[0]
-        sys.exit(2)
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s"> &lt;pcap filename&gt;&quot;</span> <span class="o">%</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
-    parse_pcap_file(sys.argv[1])
-</pre>
+    <span class="n">parse_pcap_file</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
 
-<p><strong>Please note</strong>, I had to make a couple of changes to the dpkt library, which I have submitted <a href="http://groups.google.com/group/dpkt/browse_thread/thread/5315199f9749b91a">back for review</a>. Those changes can be found in the following patches <a href="/patches/dpkt-pcap-snaplen.patch">1</a> <a href="/patches/dpkt-http-len.patch">2</a> [3][7]. I will update this code if/when the patches get accepted.</p>
+<p><strong>Please note</strong>, I had to make a couple of changes to the dpkt library, which I have submitted <a href="http://groups.google.com/group/dpkt/browse_thread/thread/5315199f9749b91a">back for review</a>. Those changes can be found in the following patches <a href="/patches/dpkt-pcap-snaplen.patch">1</a> <a href="/patches/dpkt-http-len.patch">2</a> <a href="/patches/dpkt-http-gz.patch">3</a>. I will update this code if/when the patches get accepted.</p>
 
-<p>[7]: /patches/dpkt-http-gz.patch</p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2010/01/13/my-rsa-public-key/">&larr; My RSA Public Key</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2009/12/19/updating/-/-/"> Updating…/-\|/-| &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2009/12/19/updating/-%5C/-/">&larr; Updating…/-\|/-|</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2010/01/13/my-rsa-public-key/"> My RSA Public Key &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -226,8 +248,11 @@ if __name__ == '__main__':
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

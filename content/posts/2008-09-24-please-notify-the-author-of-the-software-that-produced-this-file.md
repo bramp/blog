@@ -15,13 +15,14 @@ tags:
 ---
 While compiling my LaTeX document I received a message which made me chuckle:
 
-<pre>**** This file had errors that were repaired or ignored.
-   **** The file was produced by: 
-   **** >>>> MicrosoftÂ® Office VisioÂ® 2007 &lt;&lt;&lt;&lt;
-   **** Please notify the author of the software that produced this
-   **** file that it does not conform to Adobe's published PDF
-   **** specification.
-</pre>
+```
+**** This file had errors that were repaired or ignored.
+**** The file was produced by: 
+**** >>>> Microsoft® Office Visio® 2007 &lt;&lt;&lt;&lt;
+**** Please notify the author of the software that produced this
+**** file that it does not conform to Adobe's published PDF
+**** specification.
+```
 
 This is printed because Visio is not embedding fonts which LaTeX needs.
 

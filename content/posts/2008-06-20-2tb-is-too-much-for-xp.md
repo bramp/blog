@@ -21,4 +21,5 @@ Finally the solution to my problem was found on [Carlton Bale&#8217;s blog][2]. 
  [1]: http://www.samsung.com/global/business/hdd/productmodel.do?type=61&subtype=63&model_cd=248
  [2]: http://www.carltonbale.com/2007/05/how-to-break-the-2tb-2-terabyte-file-system-limit/
  [3]: http://www.mediafour.com/products/gptmounter/
- [4]: http://www.microsoft.com/whdc/device/storage/LUN_SP1.mspx
+ [4]: http://www.microsoft.com/whdc/device/storage/LUN_SP1.
+ 

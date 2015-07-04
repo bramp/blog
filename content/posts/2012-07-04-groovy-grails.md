@@ -23,21 +23,24 @@ This all sounds great but I think both of these technologies are still young and
 
 The dynamic variable typing allows you to create a variable and not declare what type it is. Then as you use the variable you can very easily convert it between types. To be honest, and maybe I miss the point, but I&#8217;ve never been fond of dynamic typing in other languages. I tend to create a variable and ensure I keep it a particular type. I do this because dynamic typing can introduce all sorts of errors, and you have to truely understand the rules. For example, if I try and convert a String to a boolean (as I might do in a condition), what type of Strings evaluate to true and false? In Groovy a empty string is false, but a string with a single whitespace char would be true.
 
-<pre class="prettyprint">def someString = ""
+```groovy
+def someString = ""
 if (someString) {
 ...
 }
-// a useful example of String-&gt;boolean conversion</pre>
+// a useful example of String-&gt;boolean conversion
+```
 
 Groovy also adds [duck typing][9]. If a variable walks like a duck, quacks like a duck then it must be a duck. This is effectively a way to avoid having to implement a interface by checking at runtime if the class has a particular method. This is only useful because at runtime Groovy allows methods to be add (and removed) from classes. This thus allow from some interesting programming, however I find it very error prone. As a method could be added to a class at runtime there is no compile-time checking.
 
-<pre class="prettyprint">class SomeObject {
+```groovy
+class SomeObject {
 
 }
 SomeObject o = new SomeObject();
 o.someMethod();
 // This code is valid at compile time, but only at runtime with an MissingMethod exception be thrown.
-</pre>
+```
 
 Because of the dynamic nature a lot of the silly typo errors that should be caught at compile time, will only now be found at run time. Mistyping a method name wasn&#8217;t caught until that line of code was reached. Also, due to dynamic typing, errors such as calling a method with the wrong argument types were not caught. I found this very frustrating as it slowed down my development.  This also makes me dread what will happen if this code is pushed into production without a very rigorous 100% line test coverage.
 
@@ -55,10 +58,12 @@ I also tried the [MongoDB plugin][15], as the document store concept works great
 
 This was one of the coolest features, but also one of the biggest let downs. Scaffolding generates all the code you quickly need for a simple CRUD application. There are two modes, dynamic and static. A dynaimic one literally allows you to create a controller in just a few lines, with all the code for create/read/update/delete hidden behind the scenes. Static scaffolding is very similar in features, but placed all the code in the groovy file ready for you to edit.
 
-<pre class="prettyprint">class SomeController {
+```groovy
+class SomeController {
     static scaffold = Author
 }
-// This is all you need for a CRUD controller that maps to the Author model</pre>
+// This is all you need for a CRUD controller that maps to the Author model
+```
 
 The problem I found here is that it dynamic scaffolding served little purpose than showing off how little you could write. To actually customise it you would have to use static scaffolding. Even then, the static scaffolding didn&#8217;t seem particular neat and simple (as compared to other rapid dev frameworks I&#8217;ve used), and you eventually had to throw 90% of that generated code away and write it all yourself.
 
@@ -66,11 +71,13 @@ The problem I found here is that it dynamic scaffolding served little purpose th
 
 The concept of closures and anonymous functions is a very cool one, which in fact I have quite liked using in Python and JavaScript. The implementation here also seemed quite good, except for some minor pet pevs I had. The real issue I had with closures is how it polluted the call stack. Some of my call stacks were now chains of methods like:
 
-<pre class="prettyprint">at _GrailsCompile_groovy$_run_closure2.doCall(_GrailsCompile_groovy:46)
+```text
+at _GrailsCompile_groovy$_run_closure2.doCall(_GrailsCompile_groovy:46)
 at com.springsource.loaded.ri.ReflectiveInterceptor.jlrMethodInvoke(ReflectiveInterceptor.java:1231)
 at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:133)
 at com.springsource.loaded.ri.ReflectiveInterceptor.jlrMethodInvoke(ReflectiveInterceptor.java:1231)
-at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:133)</pre>
+at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:133)
+```
 
 This is no doubt a limitation of being built onto of the JVM that couldn&#8217;t provide more helpful output.
 
@@ -98,3 +105,4 @@ I liked everything that Groovy and Grails was trying to do, but I think their im
  [14]: http://www.h2database.com/
  [15]: http://grails.org/plugin/mongodb
  [16]: http://jira.grails.org/browse/GPMONGODB-210
+ 

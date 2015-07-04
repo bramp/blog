@@ -20,3 +20,4 @@ Delaying the update of stats is obviously a performance optimisation, which no d
 From now on I will always pause my scripts for a few seconds to allow the ifconfig stats to catch up before I record my data. An alternative would be to hack the drivers to either stay up to date, or offer a API that forces a update.
 
  [1]: http://fixunix.com/snmp/443079-how-handle-interface-counter-update-delay.html
+ 

@@ -19,7 +19,8 @@ I recently found [this blog][1] which shows a business card with a QR card. I th
 
 I doubt I&#8217;ll print this card, but just in case you want to make a similar one, here is the LaTeX source:
 
-<pre class="prettyprint">\documentclass[11pt,a4paper]{memoir}
+```latex
+\documentclass[11pt,a4paper]{memoir}
 
 \setstocksize{55mm}{85mm} % UK Stock size
 \setpagecc{55mm}{85mm}{*}
@@ -72,9 +73,9 @@ I doubt I&#8217;ll print this card, but just in case you want to make a similar 
     \rule{75mm}{1mm}
     \end{Spacing}
 \end{document}
-</pre>
+```
 
  [1]: http://forthescience.org/blog/2010/02/02/my-business-card-with-qr-code-geeky/
  [2]: http://blog.widmann.org.uk/2009/05/27/1297/
  [3]: http://www.tug.org/texmf-dist/doc/generic/pst-barcode/pst-barcode-doc.pdf
- [4]: http://www.nttdocomo.co.jp/english/service/imode/make/content/barcode/function/application/addressbook/index.html
+ [4]: https://www.nttdocomo.co.jp/english/service/developer/make/content/barcode/function/application/addressbook/

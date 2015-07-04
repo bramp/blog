@@ -11,7 +11,9 @@ I had two files, one large CSV file (10million rows), and another file (600K row
 
 I found that grep could do: 
 
-<pre>grep -f smallfile largefile > results.csv</pre>
+```bash
+grep -f smallfile largefile > results.csv
+```
 
 Which would build a list of patterns from the contents of the smallfile. This seemed simple enough, however it didn&#8217;t work. Some investiagtion showed that the smallfile had windows  
 new lines, and grep assumed the \r was part of the pattern. Using [dos2unix][1] fixed my problem.
@@ -22,7 +24,8 @@ be at the beginning of the line. So **awk &#8216;{print &#8220;^&#8221;$1} small
 
 While waiting for grep to finish, I started to write a PHP script:
 
-<pre class="prettyprint">&lt;?php
+```php
+<?php
 // Prints out each line from a CSV where the first entry is in another list
 // By Andrew Brampton March 2011
 // php inlist.php bigfile smallfile
@@ -50,8 +53,8 @@ while ($line = fgets($fp)) {
         }
 }
 fclose($fp);
-?&gt;
-</pre>
+?>
+```
 
 It took me 10 minutes to write this. I quickly ran it, and it completed within 20seconds. Looks like this is a far more efficient way to do it <img src="http://bramp.net/blog/wp-includes/images/smilies/icon_smile.gif" alt=":)" class="wp-smiley" />
 

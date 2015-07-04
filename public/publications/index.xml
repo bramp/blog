@@ -2,22 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Publications on bramp.net</title>
-    <link>http://bramp.net/blog/publications/</link>
+    <link>http://localhost:1313/blog/publications/</link>
     <description>Recent content in Publications on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 09 Feb 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://bramp.net/blog/publications/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/publications/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Facilitating Network Auto Configuration In Next Generation Internet Protocols</title>
-      <link>http://bramp.net/blog/2010/02/09/facilitating-network-auto-configuration-in-next-generation-internet-protocols/</link>
+      <link>http://localhost:1313/blog/publications/facilitating-network-auto-configuration-in-next-generation-internet-protocols/</link>
       <pubDate>Tue, 09 Feb 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2010/02/09/facilitating-network-auto-configuration-in-next-generation-internet-protocols/</guid>
+      <guid>http://localhost:1313/blog/publications/facilitating-network-auto-configuration-in-next-generation-internet-protocols/</guid>
       <description>&lt;p&gt;Matthew Jakeman, Andrew Brampton, Stephen Pink&lt;/p&gt;
 
 &lt;p&gt;In proceedings FutureNet II &amp;#8211; Second international workshop on the network of the future in conjunction with IEEE Globecom&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;The infrastructure of the modern Internet has become a complex mesh of varying network types. A single network&lt;br /&gt;
 protocol cannot optimally support every underlying technology and the diverse nature of these networks places increasing strain on the concept of running IP over everything and everything over IP. The introduction of new protocols and services also forces network administrators to employ techniques such as tunneling to ensure end-to-end IP connectivity. Unfortunately these techniques inherently require some form of efficiency trade-off and are not&lt;br /&gt;
@@ -25,22 +28,43 @@ an ideal long term solution.&lt;/p&gt;
 
 &lt;p&gt;To address these issues, this paper proposes a new network layer protocol, NP++, which uses a level of indirection between the logical and physical specifications of the protocol. NP++ also enables the protocol to automatically configure which physical mapping is used over a link with no direct input from the user.&lt;br /&gt;
 This allows the protocol to change its transmission characteristics depending on the type of underlying network while presenting a unified view to the upper layers. This ensures a higher level of flexibility along with the potential to increase efficiency. The implementation of the NP++ prototype is also demonstrated with a view to encouraging its use when researching next generation Internet technologies.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;[Download][1]&lt;/p&gt;
-
-&lt;p&gt;[1]: /papers/facilitating_network_auto_configuration_in_next_generation_internet_protocols.pdf&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/network-auto-config/GLOBECOM09/facilitating_network_auto_configuration_in_next_generation_internet_protocols.pdf&#34;&gt;PDF Download&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
-      <title>Final Version of my Thesis Online</title>
-      <link>http://bramp.net/blog/2009/07/10/final-version-of-my-thesis-online/</link>
-      <pubDate>Fri, 10 Jul 2009 00:00:00 +0000</pubDate>
+      <title>Evaluating the Performance of Network Protocol Processing on Multi-core Systems</title>
+      <link>http://localhost:1313/blog/publications/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/</link>
+      <pubDate>Tue, 26 May 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2009/07/10/final-version-of-my-thesis-online/</guid>
-      <description>&lt;p&gt;I finished my corrections a while ago now but I just hadn&amp;#8217;t gotten around to putting my final thesis on-line.&lt;/p&gt;
+      <guid>http://localhost:1313/blog/publications/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/</guid>
+      <description>&lt;p&gt;Matthew Faulkner and Andrew Brampton and Stephen Pink&lt;/p&gt;
 
-&lt;p&gt;So here it is &amp;#8220;The Impact of Highly Interactive Workloads on Video-on-Demand Systems&amp;#8221; &lt;a href=&#34;https://github.com/bramp/phd-thesis/blob/master/thesis.pdf?raw=true&#34;&gt;pdf&lt;/a&gt; and [tex sources][2].&lt;/p&gt;
+&lt;p&gt;In proceedings of the International Conference on Advanced Information Networking and Applications (AINA)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;This paper won the IEEE Best Paper award&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Improvements at the physical network layer have enabled technologies such as 10 Gigabit Ethernet. Single core end-systems are unable to fully utilise these networks, due to limited clock cycles. Using a Multi-core architecture is one method which increases the number of available cycles, and thus allow networks to be fully utilised. However, using these systems creates a new set of challenges for network protocol processing, for example, deciding how best to utilise many cores for high network performance. This paper examines different ways the cores of a multi-core system can be utilised, and, by experimentation, we show that in an eight core system deciding which cores to use is important. In one test, there was a 40% discrepancy in CPU utilisation depending on which cores were used. This discrepancy results from the resources each core shares, an example being the multi-hierarchy CPU caches, and to which bus the processors are connected.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/multi-core-networking/AINA-09/aina-09.pdf&#34;&gt;PDF Download&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The Impact of Highly Interactive Workloads on Video-on-Demand Systems</title>
+      <link>http://localhost:1313/blog/publications/the-impact-of-highly-interactive-workloads-on-video-on-demand-systems/</link>
+      <pubDate>Wed, 01 Oct 2008 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/publications/the-impact-of-highly-interactive-workloads-on-video-on-demand-systems/</guid>
+      <description>&lt;p&gt;Andrew Brampton.&lt;/p&gt;
+
+&lt;p&gt;Thesis submitted for the degree of Doctor of Philosophy&lt;/p&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
@@ -49,185 +73,177 @@ This allows the protocol to change its transmission characteristics depending on
 
 &lt;p&gt;Novel interactive controls such as bookmarks have also highly impacted user behaviour. This has lead to the segments within the media being accessed in a uneven fashion, causing hotspots of interest to form; areas with orders of magnitudes more viewers than others. These hotspots typically began at the beginning of a bookmark, however not always, which lead us to design a dynamic bookmark positioning algorithm. As well as their position, determining the hotspot&amp;#8217;s length can be beneficial. This aids in autonomic techniques such as replication and pre-fetching as well as allowing the users to find what they want quicker.&lt;/p&gt;
 
-&lt;p&gt;Under high level of interactivity, delivery techniques are less efficient due to the unpredictability of the users. We however developed techniques which restore some of this predictability, allowing clients or servers to predict future actions based on past user actions. These technique proves exceeding useful for pre-fetching which reduces seek latencies for client and can reduce load on servers. However knowledge of past user activities need to be gathered from network, thus we develop techniques to do this in a distributed manner.&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;Under high level of interactivity, delivery techniques are less efficient due to the unpredictability of the users. We however developed techniques which restore some of this predictability, allowing clients or servers to predict future actions based on past user actions. These technique proves exceeding useful for pre-fetching which reduces seek latencies for client and can reduce load on servers. However knowledge of past user activities need to be gathered from network, thus we develop techniques to do this in a distributed manner.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;[2]: &lt;a href=&#34;https://github.com/bramp/phd-thesis/&#34;&gt;https://github.com/bramp/phd-thesis/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/phd-thesis/blob/master/thesis.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/phd-thesis&#34;&gt;LaTeX Source&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
     <item>
-      <title>Evaluating the Performance of Network Protocol Processing on Multi-core Systems</title>
-      <link>http://bramp.net/blog/2009/05/26/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/</link>
-      <pubDate>Tue, 26 May 2009 00:00:00 +0000</pubDate>
+      <title>A Case for Hybrid Content Distribution for Interactive Video-on-Demand</title>
+      <link>http://localhost:1313/blog/publications/a-case-for-hybrid-content-distribution-for-interactive-video-on-demand/</link>
+      <pubDate>Tue, 16 Sep 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2009/05/26/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/</guid>
-      <description>&lt;p&gt;Matthew Faulkner and Andrew Brampton and Stephen Pink&lt;/p&gt;
+      <guid>http://localhost:1313/blog/publications/a-case-for-hybrid-content-distribution-for-interactive-video-on-demand/</guid>
+      <description>&lt;p&gt;Andrew MacQuire, Andrew Brampton, Nicholas J. P. Race, Laurent Mathy, Michael Fry&lt;/p&gt;
 
-&lt;p&gt;In proceedings of the International Conference on Advanced Information Networking and Applications (AINA)&lt;/p&gt;
+&lt;p&gt;In proceedings of Next Generation Mobile Applications, Services and Technologies (NGMAST&amp;rsquo;08)&lt;/p&gt;
 
-&lt;p&gt;Improvements at the physical network layer have enabled technologies such as 10 Gigabit Ethernet. Single core end-systems are unable to fully utilise these networks, due to limited clock cycles. Using a Multi-core architecture is one method which increases the number of available cycles, and thus allow networks to be fully utilised. However, using these systems creates a new set of challenges for network protocol processing, for example, deciding how best to utilise many cores for high network performance. This paper examines different ways the cores of a multi-core system can be utilised, and, by experimentation, we show that in an eight core system deciding which cores to use is important. In one test, there was a 40% discrepancy in CPU utilisation depending on which cores were used. This discrepancy results from the resources each core shares, an example being the multi-hierarchy CPU caches, and to which bus the processors are connected.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;This paper won the IEEE Best Paper award&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;With the advent of numerous video distribution services, Content Distribution Networks (CDNs) are under increasing demand. Given the associated expenses, many organisations have made use of Peer-to-Peer (P2P) approaches to offset bandwidth costs. Unfortunately, using clients as part of the delivery process can vastly increase load on service providers’ networks. Furthermore, many approaches thus far lack the ability for interactive, on-demand viewing. For these reasons, this paper considers how ‘hybrid’ methods could alleviate these issues, through simulations of delivery methodologies in a CDN context. As it is unlikely that any one method will suffice for all content, network and audience types, a successful system should adapt in response to changes, as outlined in this paper.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;[Download][1]&lt;/p&gt;
-
-&lt;p&gt;[1]: /papers/aina-09.pdf&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Thesis</title>
-      <link>http://bramp.net/blog/2008/10/01/thesis/</link>
-      <pubDate>Wed, 01 Oct 2008 00:00:00 +0000</pubDate>
-      
-      <guid>http://bramp.net/blog/2008/10/01/thesis/</guid>
-      <description>
-
-&lt;h2 id=&#34;update-i-have-now-posted-my-final-version-here-1:b917bb2abf8ba8deba2ec0ff9b5fc49a&#34;&gt;Update, I have now posted my final version &lt;a href=&#34;http://bramp.net/blog/blog/final-version-of-my-thesis-online&#34;&gt;here&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;Yesterday I finally finished my PhD thesis and submitted it to university house.&lt;/p&gt;
-
-&lt;p&gt;It is titled: &amp;#8220;The Impact of Highly Interactive Workloads on Multimedia Systems&amp;#8221;&lt;/p&gt;
-
-&lt;p&gt;If anyone is interested, you can &lt;a href=&#34;https://github.com/bramp/phd-thesis/blob/master/thesis.pdf&#34;&gt;download a PDF copy&lt;/a&gt;, or if you are interested you can &lt;a href=&#34;https://github.com/bramp/phd-thesis&#34;&gt;look at my latex source code&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;I&amp;#8217;ve not finished my PhD yet, as I still have to pass my viva, and make any changes suggested. However, if people do find errors in my thesis now, I would be grateful if you [tell me][4].&lt;/p&gt;
-
-&lt;p&gt;[4]: /about/#contact&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/ivod/NGMAST08/paper.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/raw/master/ivod/NGMAST08/slides.pdf&#34;&gt;Slides&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Characterising and Exploiting Workloads of Highly Interactive Video-on-Demand</title>
-      <link>http://bramp.net/blog/2008/05/20/characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand/</link>
+      <link>http://localhost:1313/blog/publications/characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand/</link>
       <pubDate>Tue, 20 May 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2008/05/20/characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand/</guid>
+      <guid>http://localhost:1313/blog/publications/characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand/</guid>
       <description>&lt;p&gt;Andrew Brampton, Andrew MacQuire, Michael Fry, Idris A. Rai, Nicholas J. P. Race, Laurent Mathy.&lt;/p&gt;
 
-&lt;p&gt;In proceedings of Multimedia Systems&lt;/p&gt;
+&lt;p&gt;In journal of Multimedia Systems (2008 Volume 15, Issue 1)&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;This paper presents a detailed characterisation of user behaviour for a series of interactive video experiments over a 12 month period, in which we served popular sporting and musical content. In addition to generic VCR-like features, our custom-built video-on-demand application provides advanced interactivity features such as bookmarking. The dramatic impact of such functionality on how users consume content is studied and analysed. We discuss in detail how this user behaviour can be exploited by content distributors to improve user experience. Specifically, we study how simple dynamic bookmark placement and interactivity-aware content pre-fetching and replication can reduce the impact of highly interactive media on CDN performance.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;&lt;a href=&#34;http://bramp.net/blog/papers/p-brampton.pdf&#34;&gt;Download&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/ivod/MMSJ/iVOD_MMSJ.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/ivod/MMSJ&#34;&gt;LaTeX Source&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/ivod/poster/Poster.pdf&#34;&gt;Poster&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/ivod/poster&#34;&gt;Poster Source&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Characterising user interactivity for sports video-on-demand</title>
-      <link>http://bramp.net/blog/2007/07/01/characterising-user-interactivity-for-sports-video-on-demand/</link>
+      <link>http://localhost:1313/blog/publications/characterising-user-interactivity-for-sports-video-on-demand/</link>
       <pubDate>Sun, 01 Jul 2007 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2007/07/01/characterising-user-interactivity-for-sports-video-on-demand/</guid>
+      <guid>http://localhost:1313/blog/publications/characterising-user-interactivity-for-sports-video-on-demand/</guid>
       <description>&lt;p&gt;Andrew Brampton, Andrew MacQuire, Idris A. Rai, Nicholas J. P. Race, Laurent Mathy, and Michael Fry.&lt;/p&gt;
 
 &lt;p&gt;In proceedings of the International workshop on Network and Operating Systems Support for Digital Audio &amp;amp; Video (NOSSDAV&amp;#8217;07)&lt;/p&gt;
 
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
+
 &lt;p&gt;This paper presents a detailed characterisation of user behaviour for a series of interactive sport videos from the 2006 FIFA World Cup. In addition to generic VCR-like features, our custom-built Video-on-Demand architecture enabled us to provide advanced interactivity features such as bookmarking. We illustrate how such functionality may have a dramatic impact on how users consume content. A detailed discussion is also provided on how content distributors may turn this knowledge to their advantage, and thus increase the efficiency of their delivery networks.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;[Download][1]&lt;/p&gt;
-
-&lt;p&gt;[1]: /papers/p-brampton.pdf&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/ivod/NOSSDAV07/p-brampton.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/ivod/NOSSDAV07&#34;&gt;LaTeX Source&lt;/a&gt; | &lt;a href=&#34;TODO&#34;&gt;Slides&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/ivod/NOSSDAV07-slides&#34;&gt;Slides Source&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Performance modelling of peer-to-peer routing</title>
-      <link>http://bramp.net/blog/2007/03/01/performance-modelling-of-peer-to-peer-routing/</link>
+      <link>http://localhost:1313/blog/publications/performance-modelling-of-peer-to-peer-routing/</link>
       <pubDate>Thu, 01 Mar 2007 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2007/03/01/performance-modelling-of-peer-to-peer-routing/</guid>
+      <guid>http://localhost:1313/blog/publications/performance-modelling-of-peer-to-peer-routing/</guid>
       <description>&lt;p&gt;Idris A. Rai, Andrew Brampton, Andrew MacQuire, and Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In proceedings of the 4th International Workshop on Peer-to-Peer Systems (HOTP2P&amp;#8217;07)&lt;/p&gt;
 
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
+
 &lt;p&gt;We propose several models based on discrete-time Markov chains for the analysis of Distributed Hash Tables (DHTs). Specifically, we examine the Pastry routing protocol, as well as a Stealth DHT adaptation of Pastry to compute their exact expressions for average number of lookup hops. We show that our analytical models match with the protocols&amp;rsquo; simulation results almost perfectly, making them ideal for rapid evaluation.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;[Download][1]&lt;/p&gt;
-
-&lt;p&gt;[1]: /papers/models.pdf&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/HOTP2P07/models.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/HOTP2P07&#34;&gt;LaTeX Source&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/HOTP2P07-slides&#34;&gt;Slides Source&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Stealth Distributed Hash Table: A robust and flexible super-peered DHT</title>
-      <link>http://bramp.net/blog/2006/12/01/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/</link>
+      <link>http://localhost:1313/blog/publications/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/</link>
       <pubDate>Fri, 01 Dec 2006 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2006/12/01/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/</guid>
+      <guid>http://localhost:1313/blog/publications/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/</guid>
       <description>&lt;p&gt;Andrew Brampton, Andrew MacQuire, Idris A. Rai, Nicholas J. P. Race, and Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In proceedings of the 2nd Conference on Future Networking Technologies (CoNEXT&amp;#8217;06)&lt;/p&gt;
 
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
+
 &lt;p&gt;Most Distributed Hash Tables (DHTs) simply consider interconnecting homogeneous nodes on the same overlay. However, realistically nodes on a network are heterogeneous in terms of their capabilities. Because of this, traditional DHTs have been shown to exhibit poor performance in a real-world environment. Additionally, we believe that it is this approach that contributes to a limited exploitation of peer-to-peer technologies. Previous work on super-peers in DHTs was proposed to address these performance issues, however the strategy used is often based on locally clustering peers around individual super-peers. This method of superpeering, however, compromises fundamental features such as load-balancing, resilience and routing efficiency, which traditional DHTs originally promised to offer. We propose a Stealth DHT which addresses the deficiencies of previous super-peer approaches by using the DHT algorithm itself to select the most appropriate super-peer for each message sent by peers. Through simulations and measurements, we show the fitness for purpose of our proposal.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;[Download][1]&lt;/p&gt;
-
-&lt;p&gt;[1]: /papers/conext.pdf&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/CoNEXT-2006/conext.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/CoNEXT-2006&#34;&gt;LaTeX Source&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/blob/master/stealth-dht/CoNEXT-2006-slides/slides.ppt&#34;&gt;Slides&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/CoNEXT-2006-slides&#34;&gt;Slides Source&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Authentication in Stealth Distributed Hash Tables</title>
-      <link>http://bramp.net/blog/2006/07/01/authentication-in-stealth-distributed-hash-tables/</link>
+      <link>http://localhost:1313/blog/publications/authentication-in-stealth-distributed-hash-tables/</link>
       <pubDate>Sat, 01 Jul 2006 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2006/07/01/authentication-in-stealth-distributed-hash-tables/</guid>
+      <guid>http://localhost:1313/blog/publications/authentication-in-stealth-distributed-hash-tables/</guid>
       <description>&lt;p&gt;Andrew MacQuire, Andrew Brampton, Idris A. Rai, and Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In Proceedings of the 32nd Euromicro Conference on Software Engineering and Advanced Applications&lt;/p&gt;
 
-&lt;p&gt;Most existing DHT algorithms assume that all nodes have equal capabilities. This assumption has previously been shown to be untrue in real deployments, where the heterogeneity of nodes can actually have a detrimental effect upon performance. In this paper, we acknowledge that nodes on the same overlay may also differ in terms of their trustworthiness. However, implementing and enforcing security policies in a network where all nodes are treated&lt;br /&gt;
-equally is a non-trivial task. We therefore extend our previous work on Stealth DHTs to consider the differentiation&lt;br /&gt;
-of nodes based on their trustworthiness rather than their capabilities alone.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;[Download][1]&lt;/p&gt;
+&lt;p&gt;Most existing DHT algorithms assume that all nodes have equal capabilities. This assumption has previously been shown to be untrue in real deployments, where the heterogeneity of nodes can actually have a detrimental effect upon performance. In this paper, we acknowledge that nodes on the same overlay may also differ in terms of their trustworthiness. However, implementing and enforcing security policies in a network where all nodes are treated equally is a non-trivial task. We therefore extend our previous work on Stealth DHTs to consider the differentiation of nodes based on their trustworthiness rather than their capabilities alone.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;[1]: /papers/MacQuireA-Authentication.pdf&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/Euromicro2006/Camera%20Ready/MacQuireA-Authentication.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/Euromicro2006&#34;&gt;LaTeX Source&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/Euromicro2006-slides/authslides.pdf&#34;&gt;Slides&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/Euromicro2006-slides&#34;&gt;Slides Source&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/Euromicro2006/Journal%20Version/JSA-S-07-00036-1.pdf&#34;&gt;Journal PDF&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/Euromicro2006/Journal%20Version&#34;&gt;Journal LaTeX Source&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Performance analysis of Stealth DHT with mobile nodes.</title>
-      <link>http://bramp.net/blog/2006/03/01/performance-analysis-of-stealth-dht-with-mobile-nodes./</link>
+      <link>http://localhost:1313/blog/publications/performance-analysis-of-stealth-dht-with-mobile-nodes./</link>
       <pubDate>Wed, 01 Mar 2006 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2006/03/01/performance-analysis-of-stealth-dht-with-mobile-nodes./</guid>
+      <guid>http://localhost:1313/blog/publications/performance-analysis-of-stealth-dht-with-mobile-nodes./</guid>
       <description>&lt;p&gt;Andrew MacQuire, Andrew Brampton, Idris A. Rai, and Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In proceedings of the 3rd International Workshop on Mobile Peer-to-Peer Computing (MP2P&amp;#8217;06)&lt;/p&gt;
 
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
+
 &lt;p&gt;The advances in wireless networking and the consequent emergence of new applications that wireless networks increasingly support inevitably leads to low capability mobile nodes connecting to peer-to-peer networks. However, the characteristics of mobile nodes and limitations of access point coverage often cause mobile nodes to lose connectivity, which can cause many mobile nodes to simultaneously rejoin the network. Continuous departures and joins due to the mobility of nodes leads to mobility churn, which can often degrade the performance of the underlying peer-to-peer network significantly. In this paper, we use simulations to demonstrate that the Stealth Distributed Hash Table (Stealth DHT) algorithm is ideally suited for networks with mobile nodes. By avoiding storing state in unreliable nodes, a Stealth DHT prevents mobile nodes from being used by other nodes to provide services. Consequently, Stealth DHTs eliminate the mobility churn effect and significantly reduce the amount of overhead as compared to a generic DHT. This paper demonstrates this using simulation results that compare the performance of Stealth DHTs to a generic DHT, Pastry.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;[Download][1]&lt;/p&gt;
-
-&lt;p&gt;[1]: /papers/MP2P_MacQuire_A.pdf&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/MP2P06/Camera%20Ready/MP2P_MacQuire_A.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/MP2P06&#34;&gt;LaTeX Source&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/MP2P06-slides/mp2pslides.pdf&#34;&gt;Slides&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/MP2P06-slides&#34;&gt;Slides Source&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Stealth Distributed Hash Table: Unleashing the Real Potential of Peer-to-Peer</title>
-      <link>http://bramp.net/blog/2005/10/01/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/</link>
+      <link>http://localhost:1313/blog/publications/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/</link>
       <pubDate>Sat, 01 Oct 2005 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2005/10/01/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/</guid>
+      <guid>http://localhost:1313/blog/publications/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/</guid>
       <description>&lt;p&gt;Andrew Brampton, Andrew MacQuire, Idris A. Rai, Nicholas J. P. Race, and Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In Proceedings of the ACM Conference on Emerging Network Experiments and Technology (CoNEXT) (Student Workshop Session), Toulouse, France, October 2005.&lt;/p&gt;
 
-&lt;p&gt;[Download][1]&lt;/p&gt;
-
-&lt;p&gt;[1]: /papers/sw13-brampton.pdf&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/CoNEXT-2005/sw13-brampton.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/CoNEXT-2005&#34;&gt;LaTeX Source&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/CoNEXT-2005-poster/CoNEXT%20Poster.pdf&#34;&gt;Poster&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/CoNEXT-2005-poster&#34;&gt;Poster Source&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Publications</title>
-      <link>http://bramp.net/blog/2013/02/16/publications/</link>
+      <link>http://localhost:1313/blog/publications/</link>
       <pubDate>Sat, 16 Feb 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://bramp.net/blog/2013/02/16/publications/</guid>
+      <guid>http://localhost:1313/blog/publications/</guid>
       <description>
 
 &lt;p&gt;Most of the LaTeX for these publications, as well as associated conference presentations can be found at &lt;a href=&#34;https://github.com/bramp/publication&#34;&gt;github.com/bramp/publication&lt;/a&gt;.&lt;/p&gt;
@@ -235,36 +251,152 @@ of nodes based on their trustworthiness rather than their capabilities alone.&lt
 &lt;h2 id=&#34;phd-thesis:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;PhD Thesis&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;The Impact of Highly Interactive Workloads on Video-on-Demand Systems &amp;#8211; 2009 &amp;#8211; &lt;a href=&#34;http://bramp.net/blog/2009/07/final-version-of-my-thesis-online/&#34;&gt;[link]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:1313/blog/publications/the-impact-of-highly-interactive-workloads-on-video-on-demand-systems/&#34;&gt;The Impact of Highly Interactive Workloads on Video-on-Demand Systems&lt;/a&gt; &amp;#8211; 2009&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;networking:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Networking&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Facilitating Network Auto Configuration In Next Generation Internet Protocols &amp;#8211; GLOBECOM 2009- &lt;a href=&#34;http://bramp.net/blog/2010/02/facilitating-network-auto-configuration-in-next-generation-internet-protocols/&#34;&gt;[link]&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Evaluating the Performance of Network Protocol Processing on Multi-core Systems &amp;#8211; AINA 2009 &amp;#8211; &lt;a href=&#34;http://bramp.net/blog/2009/05/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/&#34;&gt;[link]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:1313/blog/publications/facilitating-network-auto-configuration-in-next-generation-internet-protocols/&#34;&gt;Facilitating Network Auto Configuration In Next Generation Internet Protocols&lt;/a&gt; &amp;#8211; GLOBECOM 2009&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:1313/blog/publications/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/&#34;&gt;Evaluating the Performance of Network Protocol Processing on Multi-core Systems&lt;/a&gt; &amp;#8211; AINA 2009&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;content-distribution-networks-video-on-demand:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Content Distribution Networks / Video-on-demand&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Characterising and Exploiting Workloads of Highly Interactive Video-on-Demand &amp;#8211; Multimedia Systems Journal 2009 &amp;#8211; &lt;a href=&#34;http://eprints.lancs.ac.uk/12959/1/worldcup-v1.pdf&#34;&gt;[link]&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;A case for hybrid content distribution for interactive video-on-demand &amp;#8211; Future Multimedia&lt;br /&gt;
-Networking 2008 &amp;#8211; &lt;a href=&#34;http://dl.acm.org/citation.cfm?id=1511840&#34;&gt;[link]&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Characterising user interactivity for sports video-on-demand &amp;#8211; NOSSDAV&amp;#8217;07 &amp;#8211; &lt;a href=&#34;http://bramp.net/blog/2007/07/characterising-user-interactivity-for-sports-video-on-demand/&#34;&gt;[link]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:1313/blog/publications/characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand/&#34;&gt;Characterising and Exploiting Workloads of Highly Interactive Video-on-Demand&lt;/a&gt; &amp;#8211; Multimedia Systems Journal 2009&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:1313/blog/publications/a-case-for-hybrid-content-distribution-for-interactive-video-on-demand/&#34;&gt;A case for hybrid content distribution for interactive video-on-demand&lt;/a&gt; &amp;#8211; Future Multimedia&lt;br /&gt;
+Networking 2008&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:1313/blog/publications/characterising-user-interactivity-for-sports-video-on-demand/&#34;&gt;Characterising user interactivity for sports video-on-demand&lt;/a&gt; &amp;#8211; NOSSDAV 2007&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;distributed-hash-table-peer-to-peer:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Distributed Hash Table / Peer-to-peer&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Performance modelling of peer-to-peer routing &amp;#8211; HOTP2P&amp;#8217;07 &amp;#8211; &lt;a href=&#34;http://bramp.net/blog/2007/03/performance-modelling-of-peer-to-peer-routing/&#34;&gt;[link]&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Stealth Distributed Hash Table: A robust and flexible super-peered DHT &amp;#8211; CoNEXT-2006 &amp;#8211; &lt;a href=&#34;http://bramp.net/blog/2006/12/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/&#34;&gt;[link]&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Authentication in Stealth Distributed Hash Tables &amp;#8211; Euromicro2006 &amp;#8211; &lt;a href=&#34;http://bramp.net/blog/2006/07/authentication-in-stealth-distributed-hash-tables/&#34;&gt;[link]&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Performance analysis of Stealth DHT with mobile nodes &amp;#8211; MP2P’06 &amp;#8211; &lt;a href=&#34;http://bramp.net/blog/2006/03/performance-analysis-of-stealth-dht-with-mobile-nodes/&#34;&gt;[link]&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Stealth Distributed Hash Table: Unleashing the Real Potential of Peer-to-Peer &amp;#8211; CoNEXT 2005 &amp;#8211; [[link]][12]&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:1313/blog/publications/performance-modelling-of-peer-to-peer-routing/&#34;&gt;Performance modelling of peer-to-peer routing&lt;/a&gt; &amp;#8211; HOTP2P 2007&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:1313/blog/publications/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/&#34;&gt;Stealth Distributed Hash Table: A robust and flexible super-peered DHT&lt;/a&gt; &amp;#8211; CoNEXT 2006&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:1313/blog/publications/authentication-in-stealth-distributed-hash-tables/&#34;&gt;Authentication in Stealth Distributed Hash Tables&lt;/a&gt; &amp;#8211; Euromicro 2006&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:1313/blog/publications/performance-analysis-of-stealth-dht-with-mobile-nodes./&#34;&gt;Performance analysis of Stealth DHT with mobile nodes&lt;/a&gt; &amp;#8211; MP2P 2006&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:1313/blog/publications/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/&#34;&gt;Stealth Distributed Hash Table: Unleashing the Real Potential of Peer-to-Peer&lt;/a&gt; &amp;#8211; CoNEXT 2005&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;[12]: &lt;a href=&#34;http://bramp.net/blog/2005/10/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/&#34;&gt;http://bramp.net/blog/2005/10/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;bibtex:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;BibTeX&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://raw.githubusercontent.com/bramp/curriculum-vitae/master/publications.bib&#34;&gt;Download&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;brampton2005sdh&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+       &lt;span class=&#34;na&#34;&gt;booktitle&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;ACM Conference on Emerging Network Experiments and Technology (CoNEXT) (Student Workshop Session)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;month&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;October&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Stealth Distributed Hash Table: Unleashing the Real Potential of Peer-to-Peer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Andrew Brampton and Andrew MacQuire and Idris Rai and Nicholas J. P. Race and Laurent Mathy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;2005&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+             &lt;span class=&#34;na&#34;&gt;url&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;http://eprints.comp.lancs.ac.uk/1199/&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;macquire2006pas&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+       &lt;span class=&#34;na&#34;&gt;booktitle&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;3rd International Workshop on Mobile Peer-to-Peer Computing (MP2P)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;month&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;March&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Performance Analysis of Stealth DHT with Mobile Nodes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Andrew MacQuire and Andrew Brampton and Idris Rai and Laurent Mathy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;2006&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;pages&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;184--189&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+             &lt;span class=&#34;na&#34;&gt;url&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;http://eprints.comp.lancs.ac.uk/1248/&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;macquire2006asd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+       &lt;span class=&#34;na&#34;&gt;booktitle&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;32nd Euromicro Conference on Software Engineering and Advanced Applications&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;month&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;August&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Authentication in Stealth Distributed Hash Tables&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Andrew MacQuire and Andrew Brampton and Idris Rai and Nicholas J. P. Race and Laurent Mathy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;2006&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+             &lt;span class=&#34;na&#34;&gt;url&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;http://eprints.comp.lancs.ac.uk/1297/&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;brampton2006sdh&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+       &lt;span class=&#34;na&#34;&gt;booktitle&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;2nd Conference on Future Networking Technologies (CoNEXT)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;month&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;December&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Stealth Distributed Hash Table: A Robust and Flexible Super-Peered DHT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Andrew Brampton and Andrew MacQuire and Idris Rai and Nicholas J. P. Race and Laurent Mathy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;2006&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+             &lt;span class=&#34;na&#34;&gt;url&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;http://eprints.comp.lancs.ac.uk/830/&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;rai2007pmp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+       &lt;span class=&#34;na&#34;&gt;booktitle&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;4th International Workshop on Peer-to-Peer Systems (HOTP2P)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;month&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;March&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Performance Modelling of Peer-to-Peer Routing&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Idris Rai and Andrew Brampton and Andrew MacQuire and Laurent Mathy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;2007&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+             &lt;span class=&#34;na&#34;&gt;url&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;http://eprints.comp.lancs.ac.uk/1344/&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;brampton2007cui&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+       &lt;span class=&#34;na&#34;&gt;booktitle&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;International workshop on Network and Operating Systems Support for Digital Audio \&amp;amp; Video (NOSSDAV)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Characterising User Interactivity for Sports Video-on-Demand&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Andrew Brampton and Andrew MacQuire and Idris Rai and Nicholas J. P. Race and Laurent Mathy and Michael Fry&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+             &lt;span class=&#34;na&#34;&gt;url&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;http://eprints.comp.lancs.ac.uk/1464/&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;2007&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;month&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;June&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;@article&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;macquire2008asd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Authentication in stealth distributed hash tables&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+         &lt;span class=&#34;na&#34;&gt;journal&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Journal of Systems Architecture&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+          &lt;span class=&#34;na&#34;&gt;volume&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;54&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+          &lt;span class=&#34;na&#34;&gt;number&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;pages&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;607 - 618&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;2008&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+            &lt;span class=&#34;na&#34;&gt;note&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Selection of best papers from the 32nd EUROMICRO Conference on [`]Software Engineering and Advanced Applications&amp;#39; (SEAA 2006)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+            &lt;span class=&#34;na&#34;&gt;issn&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;1383-7621&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+             &lt;span class=&#34;na&#34;&gt;doi&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;DOI: 10.1016/j.sysarc.2008.01.004&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+             &lt;span class=&#34;na&#34;&gt;url&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;http://www.sciencedirect.com/science/article/B6V1F-4RRFNJ5-2/2/52b536d2a682f07d8f6ae7b74f474390&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Andrew MacQuire and Andrew Brampton and Idris A. Rai and Nicholas J.P. Race and Laurent Mathy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+        &lt;span class=&#34;na&#34;&gt;keywords&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Distributed hash table&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+        &lt;span class=&#34;na&#34;&gt;keywords&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Peer-to-peer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+        &lt;span class=&#34;na&#34;&gt;keywords&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Security&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+        &lt;span class=&#34;na&#34;&gt;keywords&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Public key infrastructure&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+        &lt;span class=&#34;na&#34;&gt;keywords&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Stealth DHT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;@article&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;brampton2008cew&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Characterising and Exploiting Workloads of Highly Interactive Video-on-Demand&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Andrew Brampton and Andrew MacQuire and Michael Fry and Idris Rai and Nicholas J. P. Race and Laurent Mathy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+       &lt;span class=&#34;na&#34;&gt;publisher&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Springer-Verlag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;2008&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+         &lt;span class=&#34;na&#34;&gt;journal&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Multimedia Systems Journal&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+             &lt;span class=&#34;na&#34;&gt;url&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;http://eprints.comp.lancs.ac.uk/1465/&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;macquire2008acf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+       &lt;span class=&#34;na&#34;&gt;booktitle&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;International workshop on Future Multimedia Networking (FMN)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;A Case for Hybrid Content Distribution for Interactive Video-on-Demand&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Andrew MacQuire and Andrew Brampton and Michael Fry and Nicholas Race and Laurent Mathy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;2008&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;month&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;September&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;faulkner2009epn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+       &lt;span class=&#34;na&#34;&gt;booktitle&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;International Conference on Advanced Information Networking and Applications (AINA)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Evaluating the Performance of Network Protocol Processing on Multi-core Systems&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Matthew Faulkner and Andrew Brampton and Stephen Pink&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;2009&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;month&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;May&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;jakeman2009fna&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+       &lt;span class=&#34;na&#34;&gt;booktitle&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;FutureNet II - Second international workshop on the network of the future in conjunction with IEEE Globecom&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Facilitating Network Auto Configuration In Next Generation Internet Protocols&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Matthew Jakeman and Andrew Brampton and Stephen Pink&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;2009&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;month&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;December&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;@phdthesis&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;brampton2008thesis&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Andrew Brampton&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;The Impact of Highly Interactive Workloads on Video-on-Demand Systems&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+          &lt;span class=&#34;na&#34;&gt;school&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Lancaster University, UK&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;2008&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 </description>
     </item>
     

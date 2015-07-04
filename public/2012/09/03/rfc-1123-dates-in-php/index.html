@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="http://localhost:1313/blog/2012/09/03/rfc-1123-dates-in-php/" />
+
   <link href="" rel="alternate" type="application/rss+xml" title="bramp.net" />
-  <link href="http://bramp.net/blog/css/bootstrap.min.css" rel="stylesheet">
-  <link href="http://bramp.net/blog/css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/bramp.css" rel="stylesheet">
+  <link href="http://localhost:1313/blog//css/pygments-friendly.css" rel="stylesheet">
+
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   
   
@@ -23,6 +27,11 @@
     ga('send', 'pageview');
   </script>
   
+
+  <script>
+  
+
+  </script>
 </head>
 <body>
 
@@ -39,11 +48,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="http://bramp.net/blog">
+            <a href="http://localhost:1313/blog/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="http://bramp.net/blog/about-me/">Andrew Brampton</a>
+              <a href="http://localhost:1313/blog//about-me/">Andrew Brampton</a>
 
               <div id="social-wrapper">
               
@@ -57,18 +66,18 @@
               
                 <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
               
-                <a href="http://bramp.net/blog/index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="http://localhost:1313/blog//index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="http://bramp.net/blog/about-me/">About Me</a></li>
-            <li><a href="http://bramp.net/blog/android-apps/">Android Apps</a></li>
-            <li><a href="http://bramp.net/blog/posts/">Articles</a></li>
-            <li><a href="http://bramp.net/blog/opensource-projects/">Open Source</a></li>
-            <li><a href="http://bramp.net/blog/publications/">Publications</a></li>
+            <li><a href="http://localhost:1313/blog//about-me/">About Me</a></li>
+            <li><a href="http://localhost:1313/blog//android-apps/">Android Apps</a></li>
+            <li><a href="http://localhost:1313/blog//">Articles</a></li>
+            <li><a href="http://localhost:1313/blog//opensource-projects/">Open Source</a></li>
+            <li><a href="http://localhost:1313/blog//publications/">Publications</a></li>
           </ul>
         </div>
       </div>
@@ -77,35 +86,52 @@
      <div class="container main">
 
 
-  <div id="article">
-   <h1>RFC 1123 dates in PHP</h1>
-   <p class="meta"><small>&nbsp;<i class="fa fa-calendar-o"></i> 2012-09-03</small> 93 words</p> <hr/>
-   <div class="post">
-     <p>While playing with [REDbot][1] I realised my last-modified headers (being sent by PHP) were not RFC 1123 complaint. A complaint date looks like <code>Sun, 06 Nov 1994 08:49:37 GMT</code>. There are two ways to generate such a date in PHP;</p>
+
+
+<div id="article">
+	<h1>RFC 1123 dates in PHP</h1>
+	<p class="meta"><small>
+		<i class="fa fa-calendar-o"></i> 2012-09-03</small>
+		
+		| <a href="http://localhost:1313/blog//tags/date">date</a>
+		
+		| <a href="http://localhost:1313/blog//tags/php">PHP</a>
+		
+		| <a href="http://localhost:1313/blog//tags/rfc">rfc</a>
+		
+	</p>
+	<hr/>
+	<div class="post">
+		<p>While playing with <a href="http://redbot.org/">REDbot</a> I realised my last-modified headers (being sent by PHP) were not RFC 1123 complaint. A complaint date looks like <code>Sun, 06 Nov 1994 08:49:37 GMT</code>. There are two ways to generate such a date in PHP;</p>
 
 <ol>
-<li>if you have pecl_http &gt;= 0.1.0, then<br />
-<code>http_date ($timestamp)</code></li>
-<li>or if you don&#8217;t want to use pecl<br />
-<code>gmdate('D, d M Y H:i:s', $timestamp).' GMT'</code></li>
-<li>or if you have PHP &gt;5.2 you can use the DateTime constant<br />
-<code>gmdate(DATE_RFC2822, $timestamp)</code></li>
+<li><p>if you have pecl_http &gt;= 0.1.0, then</p>
+<div class="highlight"><pre><span class="nb">http_date</span><span class="p">(</span><span class="nv">$timestamp</span><span class="p">)</span>
+</pre></div></li>
+
+<li><p>or if you don&#8217;t want to use pecl</p>
+<div class="highlight"><pre><span class="nb">gmdate</span><span class="p">(</span><span class="s1">&#39;D, d M Y H:i:s&#39;</span><span class="p">,</span> <span class="nv">$timestamp</span><span class="p">)</span><span class="o">.</span><span class="s1">&#39; GMT&#39;</span>
+</pre></div></li>
+
+<li><p>or if you have PHP &gt;5.2 you can use the DateTime constant</p>
+<div class="highlight"><pre><span class="nb">gmdate</span><span class="p">(</span><span class="nx">DATE_RFC2822</span><span class="p">,</span> <span class="nv">$timestamp</span><span class="p">)</span>
+</pre></div></li>
 </ol>
 
-<p>an example of it&#8217;s use: <code>header('Last-Modified: '.gmdate('D, d M Y H:i:s', $lastModified).' GMT');</code></p>
+<p>an example of it&#8217;s use:</p>
+<div class="highlight"><pre><span class="nb">header</span><span class="p">(</span><span class="s1">&#39;Last-Modified: &#39;</span> <span class="o">.</span> <span class="nb">gmdate</span><span class="p">(</span><span class="s1">&#39;D, d M Y H:i:s&#39;</span><span class="p">,</span> <span class="nv">$lastModified</span><span class="p">)</span><span class="o">.</span><span class="s1">&#39; GMT&#39;</span><span class="p">);</span>
+</pre></div>
 
-<p>[1]: <a href="http://redbot.org/">http://redbot.org/</a></p>
-
-   </div>
- </div>
+	</div>
+</div>
 
 
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>
  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
  <ul class="pager">
-      &nbsp;<li class="previous"><a href="http://bramp.net/blog/2012/09/05/setting-up-git-p4/">&larr; Setting up git-p4</a></li>
-      &nbsp;<li class="next"><a href="http://bramp.net/blog/2012/07/04/groovy-/-grails/"> Groovy / Grails &rarr;</a></li>
+      &nbsp;<li class="previous"><a href="http://localhost:1313/blog/2012/07/04/groovy-/-grails/">&larr; Groovy / Grails</a></li>
+      &nbsp;<li class="next"><a href="http://localhost:1313/blog/2012/09/05/setting-up-git-p4/"> Setting up git-p4 &rarr;</a></li>
 </ul>
 
 <div id="disqus_thread"></div>
@@ -134,8 +160,11 @@
     </div> 
 
 	
-    <script src="http://bramp.net/blog/js/jquery-1.10.2.min.js"></script>
-    <script src="http://bramp.net/blog/js/bootstrap.min.js"></script>
-  </body>
+    <script src="http://localhost:1313/blog//js/jquery-1.10.2.min.js"></script>
+    <script src="http://localhost:1313/blog//js/bootstrap.min.js"></script>
+  <script data-no-instant>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
 </html>
 

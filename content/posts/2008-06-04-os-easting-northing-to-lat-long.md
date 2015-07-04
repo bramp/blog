@@ -15,7 +15,8 @@ tags:
 ---
 Recently I had the need to convert Ordnance Survey East/North coordinates to Latitude and Longitude. By using the resources available on the OS site I wrote the following piece of PHP code:
 
-<pre class="prettyprint">&lt;?php
+```php
+&lt;?php
 // Converts OS Easting/Northing to Lat/Long
 // by bramp
 	
@@ -124,14 +125,15 @@ function E_N_to_Lat_Long($East, $North) {
 	return array($lat, $long);
 }
 ?&gt;;
-</pre>
+```
 
 it is used in the following way:
 
-<pre class="prettyprint">$e = 349000;
+```php
+$e = 349000;
 $n = 461000;
 
 print_r( E_N_to_Lat_Long( $e, $n) );
-</pre>
+```
 
 If you find a need to use this please place a link back to my site. thanks

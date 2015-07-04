@@ -15,18 +15,19 @@ I&#8217;ve spent a day tracking down a bug in a FreeBSD kernel module I&#8217;m 
 
 However, the implementation of memcmp in the FreeBSD kernel looks like this:
 
-<pre class="prettyprint">static __inline int
-memcmp(const void *b1, const void *b2, size_t len)
-{
-	return (bcmp(b1, b2, len));
+```c
+static __inline int
+memcmp(const void *b1, const void *b2, size_t len) {
+    return (bcmp(b1, b2, len));
 }
-</pre>
+```
 
 The problem with this is that bcmp is defined to return 0 if the strings are identical, otherwise returns a non-zero integer. This is not the same as memcmp, and you would only notice this if you are testing the signedness of the return value. I suspect this has not been noticed because traditionally FreeBSD has favoured bcmp, and in the few cases it does uses memcmp it only compares it with zero.
 
 There is some good news, obrien@ noticed this problem in September 2008 and commited a patch (svn r183299). However, it looks like this fix won&#8217;t be included until FreeBSD 8.0. In the mean time I&#8217;m implementing a minor hack to fix this.
 
-<pre class="prettyprint">int my_memcmp(const void *s1, const void *s2, size_t n) {
+```c
+int my_memcmp(const void *s1, const void *s2, size_t n) {
 	if (n != 0) {
 		const unsigned char *p1 = s1, *p2 = s2;
 
@@ -38,4 +39,4 @@ There is some good news, obrien@ noticed this problem in September 2008 and comm
 	return (0);
 }
 #define memcmp my_memcmp
-</pre>
+```

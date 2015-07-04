@@ -21,3 +21,4 @@ This talk aims to explain what version control systems (VCS) also known as sourc
 [Download Slides][1]
 
  [1]: /projects/version_control.pdf
+ 

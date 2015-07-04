@@ -20,11 +20,14 @@ Once TexLive 2011 is installed `apt-get install -t unstable texlive-lang-italian
 
 I also encountered the following problems that was easier to resolve:
 
-<pre>LaTeX Error: File `marvosym.sty' not found. solution: <code>apt-get install texlive-fonts-recommended</code>
-LaTeX Error: File `fullpage.sty' not found. solution: <code>apt-get install texlive-latex-extra</code>
-LaTeX Error: File `multibib.sty' not found. solution: <code>apt-get install texlive-bibtex-extra</code>
-LaTeX Error: File `algorithm.sty' not found. solution: <code>apt-get install texlive-science</code></pre>
+```
+LaTeX Error: File `marvosym.sty' not found. solution: apt-get install texlive-fonts-recommended
+LaTeX Error: File `fullpage.sty' not found. solution: apt-get install texlive-latex-extra
+LaTeX Error: File `multibib.sty' not found. solution: apt-get install texlive-bibtex-extra
+LaTeX Error: File `algorithm.sty' not found. solution: apt-get install texlive-science
+```
 
  [1]: https://github.com/bramp/curriculum-vitae "Curriculum Vitae latex project"
  [2]: http://www.tug.org/texlive/ "TeX Live"
  [3]: http://wiki.debian.org/AptPreferences
+ 

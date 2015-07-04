@@ -13,12 +13,18 @@ Working with [Raphaël][1] I noticed the alignment of text drawn with the [Paper
 <!--more-->
 
   
-[<img src="http://bramp.net/blog/wp-content/uploads/raphaeljs-text-test.svg" alt="raphaeljs-text-test" class="aligncenter size-full wp-image-627" />][4]  
+<div class="text-center">
+    <a href="http://bramp.net/blog/wp-content/uploads/raphaeljs-text-test.svg">
+        <img src="http://bramp.net/blog/wp-content/uploads/raphaeljs-text-test.svg" alt="raphaeljs-text-test" />
+    </a>
+</div>
+
 In this I&#8217;m drawing text with it&#8217;s bounding box show, and a cross over the x,y coordinates the text is meant to appear. As you can see [Paper.text(&#8230;)][2] defaults to centre aligning vertically and horizontally. [Paper.print(&#8230;)][3] aligns with the baseline of the first line, and I&#8217;m guess horizontally with the left edge (with a small amount of padding). The last example I wrote a simple method to centre [Paper.print(&#8230;)][3] so it acts like [Paper.text(&#8230;)][2]
 
 Code to draw this SVG is below, with my normalised print method named print_center.
 
-<pre class="prettyprint">Raphael.fn.line = function(x1, y1, x2, y2) {
+```javascript
+Raphael.fn.line = function(x1, y1, x2, y2) {
     //assert(_.all([x1,x2,y1,y2], _.isFinite), "x1,x2,y1,y2 must be numeric");
     return this.path("M{0},{1} L{2},{3}", x1, y1, x2, y2);
 };
@@ -80,9 +86,8 @@ $(document).ready(function(){
 
     draw_bb( p.getBBox() );
 });
-</pre>
+```
 
  [1]: http://raphaeljs.com/
  [2]: http://raphaeljs.com/reference.html#Paper.text
  [3]: http://raphaeljs.com/reference.html#Paper.print
- [4]: http://bramp.net/blog/wp-content/uploads/raphaeljs-text-test.svg

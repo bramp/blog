@@ -23,6 +23,5 @@ Today I carved my first pumpkins in the shape of the new Batman Logo. Here are a
   <p>
     <a href="/projects/pumpkin/DSC_1210.JPG"><img src="/projects/pumpkin/DSC_1210_thumb.JPG" alt="bat-pumpkin" /></a> </div> 
     
-    <p>
-      Tomorrow I might try others logos, any suggestions?
-    </p>
+
+Tomorrow I might try others logos, any suggestions?

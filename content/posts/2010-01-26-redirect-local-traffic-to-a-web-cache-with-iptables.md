@@ -13,7 +13,8 @@ tags:
 ---
 Very occasionally I come across a Linux application that does not respect the http_proxy variable. This stops the application from working while I&#8217;m at university as they forbid traffic on port 80 unless it goes via their webcache. So today I came up with a hack of a solution that involves iptables:
 
-<pre># IP address and port number of the webcache
+```bash
+# IP address and port number of the webcache
 WEBCACHE=194.80.32.10:8080
 
 # Flush any previous rules
@@ -41,7 +42,7 @@ iptables -t nat -A HTTPFORCE --dst 10.0.0.0/8 -j RETURN
 
 # Capture all outgoing TCP syns
 iptables -t nat -A OUTPUT -p tcp --syn -j HTTPFORCE
-</pre>
+```
 
 All outgoing TCP packets on port 80 which are not destined for a local network are captured and changed in one of two ways. The first option just manipulates the IP/TCP header, and the second redirects the traffic to a proxy running on localhost. The reason for the two options was that my university&#8217;s webcache seemed unable to deal with HTTP requests without the full URL in the GET line, even though the request contains a valid Host header. I think this is a misconfiguration of their squid proxy, so instead you can redirect to a local proxy which forwards the request on to the webcache.
 

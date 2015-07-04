@@ -15,10 +15,12 @@ I really like [mtr][1] (the traceroute tool), however, it always bugged me that 
 
 So today I set about writing a patch for mtr to read a environment varable to force the curses interface. While I was reading the source I noticed there was already a simple undocumented way!
 
-<pre>export MTR_OPTIONS=-t
-</pre>
+```bash
+export MTR_OPTIONS=-t
+```
 
 Voila the curses interface is now used by default. This is certainly going into my ~/.bashrc
 
  [1]: http://www.bitwizard.nl/mtr/
  [2]: http://en.wikipedia.org/wiki/Curses_(programming_library)
+ 
