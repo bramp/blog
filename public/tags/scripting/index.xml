@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Scripting on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/scripting/</link>
+    <link>http://localhost:1313/tags/scripting/</link>
     <description>Recent content in Scripting on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 31 Aug 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/scripting/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/scripting/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Persec python script</title>
-      <link>http://localhost:1313/blog/2010/08/31/persec-python-script/</link>
+      <link>http://localhost:1313/post/2010-08-31-persec-python-script/</link>
       <pubDate>Tue, 31 Aug 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2010/08/31/persec-python-script/</guid>
+      <guid>http://localhost:1313/post/2010-08-31-persec-python-script/</guid>
       <description>&lt;p&gt;A while ago I wrote a python script that does a similar job to GNU&amp;#8217;s &lt;a href=&#34;http://linux.die.net/man/1/watch&#34;&gt;watch&lt;/a&gt; command. You use it like so:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;./persec.py &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;--interval&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&amp;lt;n&amp;gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &amp;lt;&lt;span class=&#34;nb&#34;&gt;command&lt;/span&gt;&amp;gt;
 &lt;/pre&gt;&lt;/div&gt;

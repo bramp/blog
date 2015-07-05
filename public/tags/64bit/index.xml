@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>64bit on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/64bit/</link>
+    <link>http://localhost:1313/tags/64bit/</link>
     <description>Recent content in 64bit on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 19 Jun 2011 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/64bit/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/64bit/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Linux 64bit Flash glibc memcpy bug</title>
-      <link>http://localhost:1313/blog/2011/06/19/linux-64bit-flash-glibc-memcpy-bug/</link>
+      <link>http://localhost:1313/post/2011-06-19-linux-64bit-flash-glibc-memcpy-bug/</link>
       <pubDate>Sun, 19 Jun 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2011/06/19/linux-64bit-flash-glibc-memcpy-bug/</guid>
+      <guid>http://localhost:1313/post/2011-06-19-linux-64bit-flash-glibc-memcpy-bug/</guid>
       <description>&lt;p&gt;Does your Linux 64bit version of Flash now make anonying beeping/distortion noises while playing videos? Well it turns out a recent &amp;#8220;&lt;a href=&#34;http://lwn.net/Articles/414467/&#34;&gt;improvement&lt;/a&gt;&amp;#8221; to glibc has caused some programs to now crash or do weird things. This is to do with an improvement of &lt;a href=&#34;http://linux.die.net/man/3/memcpy&#34;&gt;memcpy&lt;/a&gt;, which makes its use more strict, causing those applications that incorrectly used it to now crash.&lt;/p&gt;
 
 &lt;p&gt;On Debian, there is a simple a fix that allows you to use the original memcpy. You can load the application using an additional .so file:&lt;/p&gt;
@@ -44,15 +44,15 @@
     
     <item>
       <title>64bit TortoiseGit</title>
-      <link>http://localhost:1313/blog/2009/02/15/64bit-tortoisegit/</link>
+      <link>http://localhost:1313/post/2009-02-15-64bit-tortoisegit/</link>
       <pubDate>Sun, 15 Feb 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2009/02/15/64bit-tortoisegit/</guid>
+      <guid>http://localhost:1313/post/2009-02-15-64bit-tortoisegit/</guid>
       <description>&lt;p&gt;Recently I tried &lt;a href=&#34;http://code.google.com/p/tortoisegit/&#34;&gt;TortoiseGit&lt;/a&gt;, a &lt;a href=&#34;http://tortoisesvn.tigris.org/&#34;&gt;TortoiseSVN&lt;/a&gt; style Git client, however there were no binaries for my 64 bit windows machine. The 32 bit version found on the official site would install, but the shell extension unfortunately does not work.&lt;/p&gt;
 
 &lt;p&gt;So I took the law into my own hands and went and built my own version.&lt;/p&gt;
 
-&lt;p&gt;&lt;del&gt;So here is &lt;a href=&#34;http://localhost:1313/blog/projects/TortoiseGit-3.3.9d335-64bit.msi&#34;&gt;TortoiseGIT 0.3.3.0 (64 bit)&lt;/a&gt; built from revision 9d3351f627b26d9555794e785cf8bbae22155f12.&lt;/del&gt; There is now a newer offical version available at: &lt;a href=&#34;http://code.google.com/p/tortoisegit/downloads/list&#34;&gt;http://code.google.com/p/tortoisegit/downloads/list&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;So here is &lt;a href=&#34;http://localhost:1313/projects/TortoiseGit-3.3.9d335-64bit.msi&#34;&gt;TortoiseGIT 0.3.3.0 (64 bit)&lt;/a&gt; built from revision 9d3351f627b26d9555794e785cf8bbae22155f12.&lt;/del&gt; There is now a newer offical version available at: &lt;a href=&#34;http://code.google.com/p/tortoisegit/downloads/list&#34;&gt;http://code.google.com/p/tortoisegit/downloads/list&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Hopefully 64bit builds will be available from the official site in the future.&lt;/p&gt;
 

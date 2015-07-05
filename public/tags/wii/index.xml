@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Wii on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/wii/</link>
+    <link>http://localhost:1313/tags/wii/</link>
     <description>Recent content in Wii on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Wed, 14 Nov 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/wii/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/wii/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Nodewii talk at Node DC</title>
-      <link>http://localhost:1313/blog/2012/11/14/nodewii-talk-at-node-dc/</link>
+      <link>http://localhost:1313/post/2012/11/14/nodewii-talk-at-node-dc/</link>
       <pubDate>Wed, 14 Nov 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2012/11/14/nodewii-talk-at-node-dc/</guid>
+      <guid>http://localhost:1313/post/2012/11/14/nodewii-talk-at-node-dc/</guid>
       <description>&lt;p&gt;Last night I gave a short talk at &lt;a href=&#34;http://nodedc.github.com/&#34;&gt;NodeDC&lt;/a&gt;, on how to use Node.js with a wiimote. The offical title was &amp;#8220;Controlling Node.js with a wiimote &amp;#8211; My experiences with developing multi-threaded nodejs addon&amp;#8221;. I&amp;#8217;d like to thank the NodeDC guys for arranging everything last night, it was a great night, with some great talks.&lt;/p&gt;
 
 &lt;p&gt;&lt;div class=&#34;text-center&#34;&gt;
     &lt;a href=&#34;https://bramp.github.io/nodewii-talk/&#34;&gt;
-        &lt;img src=&#34;http://bramp.net/blog/wp-content/uploads/nodewii-talk.png&#34; alt=&#34;&#34; title=&#34;nodewii-talk&#34; width=&#34;981&#34; height=&#34;763&#34;/&gt;
+        &lt;img src=&#34;nodewii-talk.png&#34; alt=&#34;&#34; title=&#34;nodewii-talk&#34; width=&#34;981&#34; height=&#34;763&#34;/&gt;
     &lt;/a&gt;
 &lt;/div&gt;
 The slides can be found here: &lt;a href=&#34;https://bramp.github.io/nodewii-talk/&#34;&gt;https://bramp.github.io/nodewii-talk/&lt;/a&gt;&lt;/p&gt;

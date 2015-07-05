@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Router on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/router/</link>
+    <link>http://localhost:1313/tags/router/</link>
     <description>Recent content in Router on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 22 Jan 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/router/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/router/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Obtaining the firmware for Linksys E4200v2</title>
-      <link>http://localhost:1313/blog/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/</link>
+      <link>http://localhost:1313/post/2012-01-22-obtaining-the-firmware-for-linksys-e4200v2/</link>
       <pubDate>Sun, 22 Jan 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/</guid>
+      <guid>http://localhost:1313/post/2012-01-22-obtaining-the-firmware-for-linksys-e4200v2/</guid>
       <description>&lt;p&gt;I recently got a Linksys E4200v2 wireless router. It&amp;#8217;s pretty cool, supports IPv6, 2.4Ghz and 5Ghz wifi networks, VPN, etc. The one downside is that the firmware for the router is not available from &lt;a href=&#34;http://homesupport.cisco.com/en-us/wireless/linksys/E4200&#34;&gt;Linksys&amp;#8217;s website&lt;/a&gt;, and the &lt;a href=&#34;http://homesupport.cisco.com/en-us/gplcodecenter&#34;&gt;GPL code&lt;/a&gt; has not been made available, yet&amp;#8230; However, the router has been able to pull updates itself from the Internet.&lt;/p&gt;
 
 &lt;p&gt;So I wanted to acquire the firmware to see if I could do something fun with the router. I set about to figure out how the router does this. My plan was to set my laptop up between Internet interface on the router, and the cable modem. Since my laptop doesn&amp;#8217;t have two network cards, I plugged into a switch and used &lt;a href=&#34;http://ettercap.sourceforge.net/&#34;&gt;Ethercap&lt;/a&gt; to ARP poison to redirect traffic via the laptop.&lt;/p&gt;
@@ -95,10 +95,10 @@
     
     <item>
       <title>Verizon FiOS MI424WR rev. F Router</title>
-      <link>http://localhost:1313/blog/2010/11/25/verizon-fios-mi424wr-rev.-f-router/</link>
+      <link>http://localhost:1313/post/2010-11-25-verizon-fios-mi424wr-rev-f-router/</link>
       <pubDate>Thu, 25 Nov 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2010/11/25/verizon-fios-mi424wr-rev.-f-router/</guid>
+      <guid>http://localhost:1313/post/2010-11-25-verizon-fios-mi424wr-rev-f-router/</guid>
       <description>&lt;p&gt;I just got a FiOS wifi router and I must say I really like it. The web interface has many more options than any home router I&amp;#8217;ve ever played with, and it seems like it&amp;#8217;d be easy for a beginner but doesn&amp;#8217;t get in the way of an expert. It also telnet access (optionally over SSL), which puts you into a custom shell. Poking around the commands I find one awesome one:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;Wireless Broadband Router&amp;gt; &lt;span class=&#34;nb&#34;&gt;help &lt;/span&gt;system shell
 shell   Spawn busybox shell in foreground
@@ -115,7 +115,7 @@ Enter &lt;span class=&#34;s1&#34;&gt;&amp;#39;help&amp;#39;&lt;/span&gt; &lt;spa
 Linux version 2.6.16.14 &lt;span class=&#34;c&#34;&gt;#1 SMP Sat Nov 28 00:38:50 PST 2009&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;A four year old kernel. Well what do you expect from this kind of device &lt;img src=&#34;http://bramp.net/blog/wp-includes/images/smilies/icon_smile.gif&#34; alt=&#34;:)&#34; class=&#34;wp-smiley&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;A four year old kernel. Well what do you expect from this kind of device :)&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;/ &lt;span class=&#34;c&#34;&gt;# cat /proc/cpuinfo &lt;/span&gt;
 system &lt;span class=&#34;nb&#34;&gt;type&lt;/span&gt;     : MC524WR
 processor       : 0

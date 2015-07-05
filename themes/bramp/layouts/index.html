@@ -4,11 +4,19 @@
 	<h2>Welcome to my site.</h2>
 	<p>Below are some recent ramblings, above you can find my android apps, open source work and academic publications.</p>
 	Andrew Brampton
+	<div class="text-right">
+		<!-- https://feedly.com/factory.html -->
+		<a href='https://cloud.feedly.com/#subscription%2Ffeed%2F{{ .Site.BaseURL }}/index.xml' target='blank'>
+			<img id='feedlyFollow' src='https://s3.feedly.com/img/follows/feedly-follow-rectangle-volume-medium_2x.png' alt='follow us in feedly' width='71' height='28'>
+		</a>
 	</div>
+
+	</div>
+
 
 	<h1>Recent Articles</h1>
 	<div id="article">
-		{{ $paginator := .Paginate (where .Data.Pages "Type" "posts") 25 }}
+		{{ $paginator := .Paginate (where .Data.Pages "Type" "post") 25 }}
 
 		{{ range $paginator.Pages }}
 		<p><span><a href="{{ .Permalink }}">{{ .Title }}</a><time class="pull-right post-list">{{ .Date.Format "Mon, Jan 2, 2006" }}</h4></time></span></span></p>
@@ -16,7 +24,7 @@
 		{{ end }}
 		<!--{{ template "_internal/pagination.html" . }}-->
 
-		<a href="{{ .Site.BaseURL }}/posts/">View more…</a>
+		<a href="{{ .Site.BaseURL }}/post/">View more…</a>
 	</div>
 
 {{ template "theme/partials/footer.html" . }}

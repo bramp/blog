@@ -1,0 +1,138 @@
+% Taken code from http://blog.widmann.org.uk/2009/05/27/1297/
+% and inspired by http://forthescience.org/blog/2010/02/02/my-business-card-with-qr-code-geeky/
+
+\documentclass[11pt,a4paper]{memoir}
+
+\setstocksize{55mm}{85mm} % UK Stock size
+\setpagecc{55mm}{85mm}{*}
+\settypeblocksize{45mm}{75mm}{*}
+\setulmargins{5mm}{*}{*}
+\setlrmargins{5mm}{*}{*}
+
+\setheadfoot{0.1pt}{0.1pt}
+\setheaderspaces{1pt}{*}{*}
+\checkandfixthelayout[fixed]
+
+\pagestyle{empty}
+
+\usepackage{ifxetex}
+
+
+% Makes the text looks a little nicer
+\ifxetex
+    \usepackage[table,hyperref]{xcolor}
+
+    %for use with XeTeX
+    \usepackage{fontspec}
+    \usepackage{xunicode}
+    \usepackage{xltxtra}
+
+    \defaultfontfeatures{Mapping=tex-text} % converts LaTeX specials (``quotes'' --- dashes etc.) to unicode
+
+    \setmainfont[Scale=1.075,Ligatures={Common},Numbers={Lining}]{Adobe Garamond Pro}
+    %\setmainfont[Scale=1.075,Ligatures={Common},Numbers={Lining}]{Adobe Caslon Pro}
+    %\setmainfont[Scale=1.075,Ligatures={Common},Numbers={Lining}]{Minion Pro}
+
+    %Look at Neosan for headings
+
+    %\setromanfont [Ligatures={Common,Rare},Numbers={OldStyle}]{Adobe Garamond Pro}
+    %\setmonofont[Scale=0.8]{Monaco}
+    %\setsansfont[Scale=0.9]{Optima Regular}
+\else
+    \usepackage[table,fixpdftex,hyperref]{xcolor}
+
+    \usepackage[ansinew]{inputenc}
+
+    % Makes copy and paste work better ie ligatures get converted
+    \usepackage{cmap}
+    \usepackage{mmap}
+    \usepackage[protrusion=true,expansion=true]{microtype}
+
+    % Use a nice Adobe font
+    % used instructions from: http://umrg.uwaterloo.ca/cpoile/LaTeX
+    \usepackage[LY1]{fontenc}
+    %\usepackage[ansinew]{inputenc}
+    \usepackage[scaled=1.05,lining]{GaramondPro} % [oldstyle] for different number style
+    % can use \textos{1234} or \textln{5678} to change how the numbers are displayed
+\fi
+
+\usepackage{pstricks}
+\usepackage{pst-barcode}
+
+\begin{document}
+%    \pagecolor[cmyk]{.22,.36,.51,.08}%
+    \begin{Spacing}{0.75}%
+    \noindent
+    \textbf{Andrew~Brampton~Ph.D.}\\
+    \rule{75mm}{1mm}\\
+    \begin{minipage}[t]{30mm}
+        \vspace{-1mm}%
+        \begin{pspicture}(30mm,30mm)
+            % The MECARD format is used to exchange contact information. More information at:
+            % http://www.nttdocomo.co.jp/english/service/imode/make/content/barcode/function/application/addressbook/index.html
+            \psbarcode{MECARD:N:Brampton,Andrew;EMAIL:a.brampton@lancs.ac.uk;URL:http://bramp.net;;}{eclevel=L width=1.181 height=1.181}{qrcode}
+        \end{pspicture}
+    \end{minipage}
+    \hspace{1mm}
+    \begin{minipage}[t]{42mm}
+        \vspace{-1mm}%
+        \begin{flushright}
+        {\scriptsize
+            \begin{Spacing}{1.5}%
+%           \textbf{Research Associate}\\
+            \textbf{Network Researcher}\\
+            Computing Department\\
+            Lancaster University\vspace{9mm}\\
+            \end{Spacing}
+        }
+        {\tiny
+            \textbf{email:} a.brampton@lancs.ac.uk\\
+            \textbf{web:} http://bramp.net/\\
+            \vspace*{2mm}
+        }
+        \end{flushright}
+    \end{minipage}
+    \rule{75mm}{1mm}
+    \end{Spacing}
+%    \newpage
+    \begin{Spacing}{0.75}%
+    \noindent
+    \textbf{Andrew~Brampton~Ph.D.}\\
+    \rule{75mm}{1mm}\\
+    \hspace*{2mm}
+    \begin{minipage}[t]{30mm}
+        \vspace{-1mm}%
+        \begin{pspicture}(30mm,30mm)
+            % The MECARD format is used to exchange contact information. More information at:
+            % http://www.nttdocomo.co.jp/english/service/imode/make/content/barcode/function/application/addressbook/index.html
+            \psbarcode{MECARD:N:Brampton,Andrew;TEL:+447821158879;EMAIL:me@bramp.net;URL:http://bramp.net;NICKNAME:bramp;;}{eclevel=L width=1.181 height=1.181}{qrcode}
+        \end{pspicture}
+    \end{minipage}
+    \hspace{1mm}
+    \begin{minipage}[t]{36mm}
+        \vspace{-1mm}%
+        \begin{flushright}
+            \begin{Spacing}{1.3}%
+            {\scriptsize
+                %Internet Enthusiast\\
+                \textbf{Geek Extraordinaire}\\
+                Lancaster, UK\\
+            }
+
+            \vspace{8.3mm}
+
+            {\tiny
+                \textbf{tel:} +44 7821 158879\\
+                \textbf{skype:} TheBramp\\
+                \textbf{email:} me@bramp.net\\
+                \textbf{web:} http://bramp.net/\\
+%                \vspace*{2mm}
+            }
+            \end{Spacing}
+        \end{flushright}
+    \end{minipage}\vspace*{-4.5mm}\\
+    \rule{75mm}{1mm}
+
+    \end{Spacing}
+
+\end{document}

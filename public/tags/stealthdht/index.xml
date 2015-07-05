@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Stealthdht on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/stealthdht/</link>
+    <link>http://localhost:1313/tags/stealthdht/</link>
     <description>Recent content in Stealthdht on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Thu, 01 Mar 2007 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/stealthdht/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/stealthdht/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Performance modelling of peer-to-peer routing</title>
-      <link>http://localhost:1313/blog/publications/performance-modelling-of-peer-to-peer-routing/</link>
+      <link>http://localhost:1313/publication/2007-03-01-performance-modelling-of-peer-to-peer-routing/</link>
       <pubDate>Thu, 01 Mar 2007 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/publications/performance-modelling-of-peer-to-peer-routing/</guid>
+      <guid>http://localhost:1313/publication/2007-03-01-performance-modelling-of-peer-to-peer-routing/</guid>
       <description>&lt;p&gt;Idris A. Rai, Andrew Brampton, Andrew MacQuire, and Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In proceedings of the 4th International Workshop on Peer-to-Peer Systems (HOTP2P&amp;#8217;07)&lt;/p&gt;
@@ -31,10 +31,10 @@
     
     <item>
       <title>Stealth Distributed Hash Table: A robust and flexible super-peered DHT</title>
-      <link>http://localhost:1313/blog/publications/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/</link>
+      <link>http://localhost:1313/publication/2006-12-01-stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/</link>
       <pubDate>Fri, 01 Dec 2006 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/publications/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/</guid>
+      <guid>http://localhost:1313/publication/2006-12-01-stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/</guid>
       <description>&lt;p&gt;Andrew Brampton, Andrew MacQuire, Idris A. Rai, Nicholas J. P. Race, and Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In proceedings of the 2nd Conference on Future Networking Technologies (CoNEXT&amp;#8217;06)&lt;/p&gt;
@@ -51,10 +51,10 @@
     
     <item>
       <title>Authentication in Stealth Distributed Hash Tables</title>
-      <link>http://localhost:1313/blog/publications/authentication-in-stealth-distributed-hash-tables/</link>
+      <link>http://localhost:1313/publication/2006-07-01-authentication-in-stealth-distributed-hash-tables/</link>
       <pubDate>Sat, 01 Jul 2006 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/publications/authentication-in-stealth-distributed-hash-tables/</guid>
+      <guid>http://localhost:1313/publication/2006-07-01-authentication-in-stealth-distributed-hash-tables/</guid>
       <description>&lt;p&gt;Andrew MacQuire, Andrew Brampton, Idris A. Rai, and Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In Proceedings of the 32nd Euromicro Conference on Software Engineering and Advanced Applications&lt;/p&gt;
@@ -73,10 +73,10 @@
     
     <item>
       <title>Performance analysis of Stealth DHT with mobile nodes.</title>
-      <link>http://localhost:1313/blog/publications/performance-analysis-of-stealth-dht-with-mobile-nodes./</link>
+      <link>http://localhost:1313/publication/2006-03-01-performance-analysis-of-stealth-dht-with-mobile-nodes/</link>
       <pubDate>Wed, 01 Mar 2006 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/publications/performance-analysis-of-stealth-dht-with-mobile-nodes./</guid>
+      <guid>http://localhost:1313/publication/2006-03-01-performance-analysis-of-stealth-dht-with-mobile-nodes/</guid>
       <description>&lt;p&gt;Andrew MacQuire, Andrew Brampton, Idris A. Rai, and Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In proceedings of the 3rd International Workshop on Mobile Peer-to-Peer Computing (MP2P&amp;#8217;06)&lt;/p&gt;
@@ -93,10 +93,10 @@
     
     <item>
       <title>Stealth Distributed Hash Table: Unleashing the Real Potential of Peer-to-Peer</title>
-      <link>http://localhost:1313/blog/publications/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/</link>
+      <link>http://localhost:1313/publication/2005-10-01-stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/</link>
       <pubDate>Sat, 01 Oct 2005 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/publications/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/</guid>
+      <guid>http://localhost:1313/publication/2005-10-01-stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/</guid>
       <description>&lt;p&gt;Andrew Brampton, Andrew MacQuire, Idris A. Rai, Nicholas J. P. Race, and Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In Proceedings of the ACM Conference on Emerging Network Experiments and Technology (CoNEXT) (Student Workshop Session), Toulouse, France, October 2005.&lt;/p&gt;

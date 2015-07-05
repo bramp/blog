@@ -1,4 +1,4 @@
-baseurl: "https://bramp.github.io/blog"
+baseurl: "https://bramp.github.io"
 altbaseurl: "https://bramp.github.io"
 languageCode: "en-gb"
 title: "bramp.net"
@@ -10,14 +10,19 @@ author:
 
 params:
   github: "bramp"
-  twitter: "@TheBramp"
+  twitter: "TheBramp"
   linkedin: "bramp"
   facebook: "bramp"
   GoogleAnalytics: "UA-136478-5"
 
 permalinks:
-  posts: /:year/:month/:day/:slug/
-  publications: /publications/:slug/
+  posts: /post/:year/:month/:day/:slug/
+  publications: /publication/:slug/
+
+taxonomies:
+  tag: "tags"
+  category: "categories"
+  post: "posts"
 
 pygmentscodefences: true
 pygmentsuseclasses: true

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Wac7500 on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/wac7500/</link>
+    <link>http://localhost:1313/tags/wac7500/</link>
     <description>Recent content in Wac7500 on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Thu, 25 Dec 2008 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/wac7500/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/wac7500/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Philips WAC7500</title>
-      <link>http://localhost:1313/blog/2008/12/25/philips-wac7500/</link>
+      <link>http://localhost:1313/post/2008-12-25-philips-wac7500/</link>
       <pubDate>Thu, 25 Dec 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2008/12/25/philips-wac7500/</guid>
+      <guid>http://localhost:1313/post/2008-12-25-philips-wac7500/</guid>
       <description>&lt;p&gt;I&amp;#8217;m at home for Christmas and I&amp;#8217;ve found my parents have brought a Philips WAC7500, a fancy hi-fi which has far more features than people would ever need. It can play music from its internal hard drive, iPod/USB, UPnP (via wired or wireless), and radio from either FM or Internet.&lt;/p&gt;
 
 &lt;p&gt;So needless to say it is a tad fancy, so I started to play with it and quickly found out it is an embedded Linux running on a ARM processor. You can download a full copy of the software as a firmware update. The firmware is actually a cramfs file system which I was easily able to mount.&lt;/p&gt;

@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Svg on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/svg/</link>
+    <link>http://localhost:1313/tags/svg/</link>
     <description>Recent content in Svg on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Sun, 24 Mar 2013 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/svg/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 23 Mar 2013 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/svg/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Draw UML Sequence Diagrams with Javascript</title>
-      <link>http://localhost:1313/blog/2013/03/24/draw-uml-sequence-diagrams-with-javascript/</link>
-      <pubDate>Sun, 24 Mar 2013 00:00:00 +0000</pubDate>
+      <link>http://localhost:1313/post/2013/03/23/draw-uml-sequence-with-javascript/</link>
+      <pubDate>Sat, 23 Mar 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2013/03/24/draw-uml-sequence-diagrams-with-javascript/</guid>
+      <guid>http://localhost:1313/post/2013/03/23/draw-uml-sequence-with-javascript/</guid>
       <description>&lt;p&gt;I&amp;#8217;m happy to announce one of my projects, &lt;a href=&#34;https://bramp.github.io/js-sequence-diagrams/&#34;&gt;js-sequence-diagrams&lt;/a&gt;. This uses Javascript to draw UML sequence diagrams in SVG format. Here is an example:&lt;/p&gt;
 
 &lt;div class=&#34;text-center&#34;&gt;
     &lt;a href=&#34;https://bramp.github.io/js-sequence-diagrams/&#34;&gt;
-        &lt;img src=&#34;http://bramp.net/blog/wp-content/uploads/sample-with-editor.png&#34; alt=&#34;js-sequence-diagram example&#34; width=&#34;865&#34; height=&#34;333&#34; /&gt;
+        &lt;img src=&#34;sample-with-editor.png&#34; alt=&#34;js-sequence-diagram example&#34; width=&#34;865&#34; height=&#34;333&#34; /&gt;
     &lt;/a&gt;
 &lt;/div&gt;
 

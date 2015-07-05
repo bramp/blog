@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kernel on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/kernel/</link>
+    <link>http://localhost:1313/tags/kernel/</link>
     <description>Recent content in Kernel on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Mon, 10 Aug 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/kernel/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/kernel/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>memcmp broken in the FreeBSD kernel</title>
-      <link>http://localhost:1313/blog/2009/08/10/memcmp-broken-in-the-freebsd-kernel/</link>
+      <link>http://localhost:1313/post/2009-08-10-memcmp-broken-in-the-freebsd-kernel/</link>
       <pubDate>Mon, 10 Aug 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2009/08/10/memcmp-broken-in-the-freebsd-kernel/</guid>
+      <guid>http://localhost:1313/post/2009-08-10-memcmp-broken-in-the-freebsd-kernel/</guid>
       <description>&lt;p&gt;I&amp;#8217;ve spent a day tracking down a bug in a FreeBSD kernel module I&amp;#8217;m developing, and to my surprise the bug was due to memcmp being broken! For those that don&amp;#8217;t know, memcmp is used to compare two byte strings and returns 0 if they are identical, a negative number of the first string is less than the second, and a positive number of the first string is greater than the second.&lt;/p&gt;
 
 &lt;p&gt;However, the implementation of memcmp in the FreeBSD kernel looks like this:&lt;/p&gt;
@@ -45,10 +45,10 @@
     
     <item>
       <title>Autoload symbols for FreeBSD kernel module</title>
-      <link>http://localhost:1313/blog/2009/01/11/autoload-symbols-for-freebsd-kernel-module/</link>
+      <link>http://localhost:1313/post/2009-01-11-autoload-symbols-for-freebsd-kernel-module/</link>
       <pubDate>Sun, 11 Jan 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2009/01/11/autoload-symbols-for-freebsd-kernel-module/</guid>
+      <guid>http://localhost:1313/post/2009-01-11-autoload-symbols-for-freebsd-kernel-module/</guid>
       <description>&lt;p&gt;When debugging FreeBSD kernel modules with GDB, you have to tell GDB the correct symbols for the module, and the location the module is loaded in RAM. This is helpfully explained in the &lt;a href=&#34;http://www.freebsd.org/doc/en/books/developers-handbook/kerneldebug-kld.html&#34;&gt;FreeBSD Developers&amp;#8217; Handbook&lt;/a&gt;. First you must load the module, then run kldstat, note down the address the module is loaded at, and finally execute a command in GDB that looks like the following.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;add-symbol-file /sys/modules/linux/linux.ko 0xc0ae22d0
 &lt;/pre&gt;&lt;/div&gt;

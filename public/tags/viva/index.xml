@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Viva on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/viva/</link>
+    <link>http://localhost:1313/tags/viva/</link>
     <description>Recent content in Viva on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Mon, 15 Dec 2008 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/viva/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/viva/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Passed my Viva</title>
-      <link>http://localhost:1313/blog/2008/12/15/passed-my-viva/</link>
+      <link>http://localhost:1313/post/2008-12-15-passed-my-viva/</link>
       <pubDate>Mon, 15 Dec 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2008/12/15/passed-my-viva/</guid>
+      <guid>http://localhost:1313/post/2008-12-15-passed-my-viva/</guid>
       <description>&lt;p&gt;Hey, so after 3 hours 30 minutes, I successfully defended my thesis and passed my viva (subject to minor corrections).&lt;/p&gt;
 
 &lt;p&gt;YAY&lt;/p&gt;

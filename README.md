@@ -24,13 +24,8 @@ Build
 
 TODO
 ----
- * Add Share links
- * Remove disqus from pages
- * Remove next/prev from pages
- * Find code samples prettyprint (https://gohugo.io/extras/highlighting/ and https://github.com/spf13/hugo/issues/1244)
+ * Fix disqus (dsq_thread_id)
  * Amazon code
- * Link at top doesn't go to home.
- * Publications page isn't pretty
  * Update internal links to be <<ref>> instead of http://bramp.net/...
  * Problem parsing last link in markdown. (e.g [N] doesn't work) Fix at https://github.com/russross/blackfriday/issues
  * Check the links haven't changed.
@@ -43,3 +38,7 @@ TODO
  * Remove wp-image-627 and other wp specific classes
  * Center all tables
  * Performance modelling of peer-to-peer routing pdf is broken
+ * Makefile, compress html, etc
+ * List tags and look for mispelling dups
+ * Add a "edit me link"
+ * Support figures {{< figure src="/media/spf13.jpg" title="Steve Francia" >}}

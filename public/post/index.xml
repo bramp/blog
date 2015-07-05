@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on bramp.net</title>
+    <link>http://localhost:1313/post/</link>
+    <description>Recent content in Posts on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sun, 21 Dec 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>NationJS talk on NodeJs now on Vimeo</title>
+      <link>http://localhost:1313/post/2014-12-21-nationjs-talk-on-nodejs-now-on-vimeo/</link>
+      <pubDate>Sun, 21 Dec 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2014-12-21-nationjs-talk-on-nodejs-now-on-vimeo/</guid>
+      <description>&lt;p&gt;It&amp;#8217;s a bit late, but finally my NationJS talk is on Vimeo:&lt;/p&gt;
+
+&lt;p&gt;&lt;iframe src=&#34;//player.vimeo.com/video/93754470&#34; width=&#34;500&#34; height=&#34;281&#34; frameborder=&#34;0&#34; webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;&lt;br&gt;
+&lt;a href=&#34;http://vimeo.com/93754470&#34;&gt;Node.js + WebSockets + Wiimote = Fun&lt;/a&gt; from Andrew Brampton on &lt;a href=&#34;https://vimeo.com&#34;&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Slides here: &lt;a href=&#34;http://bramp.github.io/nodewii-talk/&#34;&gt;http://bramp.github.io/nodewii-talk/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Modern Software Development Life Cycle</title>
+      <link>http://localhost:1313/post/2014-08-20-modern-software-development-life-cycle/</link>
+      <pubDate>Wed, 20 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2014-08-20-modern-software-development-life-cycle/</guid>
+      <description>&lt;p&gt;I recently got asked by a friend at a start-up on how to ensure better quality in their product. They were looking for advise on the QA process, but after digging a little I found they needed improvements to their full software development life cycle (SDLC). After a few emails back and forth I ended up writing what&amp;#8217;s below. It has plenty of references for further reading, and I thought it would be good to share.&lt;/p&gt;
+
+&lt;p&gt;Generally people view the SDLC as a pipeline, and there are different ways to manage the pipeline, Scrum, Kanban, Waterfall, etc. Each with their pros and cons, and all can help your quality, but I’ll address that later&lt;/p&gt;
+
+&lt;p&gt;The pipeline typically consists of the following steps; Requirements, Design, Development, Testing, Deployment. At each stage you can ensure quality in your product. However, you should consider this an iterative process, always going back to the beginning to re-evaluate your thoughts/findings/etc&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Requirements&lt;/strong&gt;&lt;br /&gt;
+Firstly, it sounds like your customers weren&amp;#8217;t getting what they were expecting. I can’t stress how important correct requirements gathering can be. &lt;a href=&#34;http://www.imdb.com/title/tt0151804/&#34;&gt;Office Space&lt;/a&gt; may have made fun of this, but you should be sitting with your client, understanding their use cases, understand why they want what they want. These are all important to building a good product. Some would argue you should only &lt;a href=&#34;http://theleanstartup.com/&#34;&gt;listen to your clients in moderation&lt;/a&gt;, but, if you only have a couple of clients, and if they are paying you for the work, then you should listen.&lt;/p&gt;
+
+&lt;p&gt;Once you think you know what they want, wireframe it, mock it up, write a document, and get the client to sign off on it. The sign off is key as it ensures both parties are in agreement as to what is being delivered. &lt;a href=&#34;https://www.kennethnorton.com/essays/leading-cross-functional-teams.html&#34;&gt;A good product manager&lt;/a&gt; would be doing the bulk of this phase.&lt;/p&gt;
+
+&lt;p&gt;At this point, you might also have time estimates, know how long it will take, and how much it will cost. Setting correct expectations with clients on timing is always important. Sometimes people don’t care how long it will take as long as your estimate is accurate. Missing deadline is never good.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Design&lt;/strong&gt;&lt;br /&gt;
+Once you know what you want, design it, diagram the flows, create a database schema, the API endpoints, maybe even make a proof of concept, to learn the technology.&lt;/p&gt;
+
+&lt;p&gt;Learning to design software takes practices, and I don’t think is something you can learn from reading, instead practice makes perfect. However, sites like &lt;a href=&#34;http://highscalability.com/&#34;&gt;Highly Scalability&lt;/a&gt; show you how others have solved problems, and there are certainly many books on the topic; &lt;a href=&#34;http://www.amazon.com/gp/product/0596007124/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0596007124&amp;amp;linkCode=as2&amp;amp;tag=brampnet-20&amp;amp;linkId=I3KLFHLMXOGO4ZDN&#34;&gt;Software Design&lt;/a&gt;, &lt;a href=&#34;http://www.amazon.com/gp/product/0201633612/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0201633612&amp;amp;linkCode=as2&amp;amp;tag=brampnet-20&amp;amp;linkId=ODUHCI2LZNSVYXTT&#34;&gt;Design Patterns&lt;/a&gt;, &lt;a href=&#34;http://www.amazon.com/gp/product/0321127420/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0321127420&amp;amp;linkCode=as2&amp;amp;tag=brampnet-20&amp;amp;linkId=5UIJ57SD2XFINFEC&#34;&gt;Architectures&lt;/a&gt;, &lt;a href=&#34;http://aosabook.org/&#34;&gt;etc&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;One way to make your design work easier, is to use a framework. A good framework will force you to break your code into layers, such as controllers, services and data access. This helps to keep your project well organised, and has many additional benefits, such making your code testable, giving you access to large pools of plugins, and developers who already have knowledge in your framework.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Development&lt;/strong&gt;&lt;br /&gt;
+What do developers spend most of their time doing, reading code or writing code? Contrary to what you may think you pay them for, they spend most of their time &lt;a href=&#34;http://blog.codinghorror.com/when-understanding-means-rewriting/&#34;&gt;reading code&lt;/a&gt;. Not just other people&amp;#8217;s code, but their own code. Most developers forget what they wrote the previous day.&lt;/p&gt;
+
+&lt;p&gt;So to help developers you should do everything to keep code clean, readable and maintainable. That doesn&amp;#8217;t just mean adding comments here and there, instead using various simple techniques such as sensible variable names, short functions (&lt;a href=&#34;http://butunclebob.com/ArticleS.UncleBob.SrpInRuby&#34;&gt;that do one thing&lt;/a&gt;), keeping the code well indented, etc. There are a few &lt;a href=&#34;http://www.amazon.com/gp/product/0137081073/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0137081073&amp;amp;linkCode=as2&amp;amp;tag=brampnet-20&amp;amp;linkId=4QYVI3KDZFAGECFF&#34;&gt;great books&lt;/a&gt; on &lt;a href=&#34;http://www.amazon.com/gp/product/0321751043/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0321751043&amp;amp;linkCode=as2&amp;amp;tag=brampnet-20&amp;amp;linkId=32Z4Y2F36B6WWXIH&#34;&gt;the topic&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Clean simple code is very important, it makes the developer&amp;#8217;s job easier, reducing mistakes and bugs. I actually like to &lt;a href=&#34;http://www.sonarqube.org/&#34;&gt;track lines of code&lt;/a&gt; my team writes over time. Not in the traditional IBM &lt;a href=&#34;https://en.wikipedia.org/wiki/Source_lines_of_code&#34;&gt;KLOC&lt;/a&gt; way, but instead looking for the number to decrease over time. This can happen when we realise things are &lt;a href=&#34;https://en.wikipedia.org/wiki/Don&#39;t_repeat_yourself&#34;&gt;redundant&lt;/a&gt;, find libraries that take the burden of the work, or simplify the design once we have a better understanding. There are even tools to help you measure &lt;a href=&#34;https://stackoverflow.com/questions/125898/tool-for-calculating-cyclomatic-complexity&#34;&gt;how complex your software is&lt;/a&gt;!&lt;/p&gt;
+
+&lt;p&gt;Never reinvent the wheel, there are 1000s of awesome open source projects out that, and one of them will solve whatever problem you have. Whoever solved the problem, more than likely spent more time thinking about it than you! Otherwise they wouldn&amp;#8217;t have deemed it worth sharing online. This typically means you get a lot of value for free, that you don&amp;#8217;t have to maintain.&lt;/p&gt;
+
+&lt;p&gt;You should focus your effort on adding business logic, and value to your product, not focusing on implementing a clever caching algorithm, or figuring out the ins-and-outs of how SMTP works. Those problems are worth solving, but not now, and not unless you could gain measurably value.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Testing&lt;/strong&gt;&lt;br /&gt;
+To keep your pipeline quick and efficient, you should be automating as much as possible. Testing is one area you can easily automate, but sadly many people leave this as an after thought. Concepts like &lt;a href=&#34;http://www.agiledata.org/essays/tdd.html&#34;&gt;Test Driven Development&lt;/a&gt; (TDD) are useful for ensuing tests get written upfront, and code is well design. Even without TDD you should be writing Unit tests, Integration Tests, and maybe later, Performance tests.&lt;/p&gt;
+
+&lt;p&gt;Unit tests, are very simple and should test one unit of code. Lets consider a system that accepts user input, validates it, and if needed displays an error. The unit tests here, would create fake input, and test the function under each condition. If the function depends on some underlying system (such as a database) that complexity should be &lt;a href=&#34;https://stackoverflow.com/questions/2665812/what-is-mocking&#34;&gt;mocked&lt;/a&gt;. That is, not really using a database but instead using a fake system underneath, which behaves like a real database but under your control. The end goal is that a unit test should test one thing, and do it quickly. If a single test takes more than 100ms you are doing it wrong. Some will even argue a developer must run all unit tests before checking any code in.&lt;/p&gt;
+
+&lt;p&gt;With mocking/stubbing and other techniques, you should be able to test many layers of your application. However, your application most likely depends on external processes, and this is where integration testing comes in. Typically, this is testing your database behaves how it should, and the code you have written interacts with it correctly. Since it depends on external applications, integration testing usually takes longer to run, and is more complex to set up. In many cases a application like &lt;a href=&#34;http://jenkins-ci.org/&#34;&gt;Jenkins&lt;/a&gt; or &lt;a href=&#34;https://www.atlassian.com/software/bamboo&#34;&gt;Bamboo&lt;/a&gt; is used to help automate the testing.&lt;/p&gt;
+
+&lt;p&gt;There are other classes of testing, such as performance testing, acceptance testing, and web based testing. Performance testing measures latency, throughput, etc, and graphs this over time to ensure that no new code is negatively impacting performance. Acceptance is as simple as verifying that all your requirements are actually satisfied, and can be &lt;a href=&#34;http://www.fitnesse.org/&#34;&gt;automated&lt;/a&gt;. Finally, web based testing (for lack of a better name) is using software like &lt;a href=&#34;http://docs.seleniumhq.org/&#34;&gt;Selenium&lt;/a&gt; , that fires up a real browser and automates clicking on buttons, and interacting with your UI. I’m personally not a fan of Selenium as good unit/integration tests can catch most of those issues.&lt;/p&gt;
+
+&lt;p&gt;Once you have written tests there are numerous tools to help you measure your &lt;a href=&#34;https://en.wikipedia.org/wiki/Code_coverage&#34;&gt;coverage&lt;/a&gt;. How many functions/lines of code did you actually test!. This software can help you target your most critical functions, and ensure things are being tested as expected.&lt;/p&gt;
+
+&lt;p&gt;Last, but not least, is QA/QC. Actual humans in the loop, following test plans, and actually validating that the application does what it’s expected to do. This is as simple as described, and should be repeatable and auditable.&lt;/p&gt;
+
+&lt;p&gt;In fact, one more step, User Acceptance Testing, or in other words, putting the product in front of your client before you go live. Set up a staging environment, or as some call it a UAT environment. This mirrors your production env, but allows clients to play with new features before they are rolled out. This is a good way to make the client feel part of the process, and give regularly feedback. Make it clear that the UAT env is for testing, and that all data gets wiped every couple of weeks. Let them do your QA for you :)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Bug Tracking&lt;/strong&gt;&lt;br /&gt;
+While conducting QA/UAT/etc you should certainly be logging all defects to a bug tracking database. This enables you to regularly prioritise what needs to gets fixed, it allows users to track the status of their bug, and it also means things don’t get forgotten about.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Deployments&lt;/strong&gt;&lt;br /&gt;
+Finally, your code has been written, it must be pushed out into production. Some will tell you that you should no longer do deployments manually, and you should use automation tools such as &lt;a href=&#34;http://www.getchef.com/chef/&#34;&gt;Chef&lt;/a&gt;/&lt;a href=&#34;http://puppetlabs.com/&#34;&gt;Puppet&lt;/a&gt;/&lt;a href=&#34;http://capistranorb.com/&#34;&gt;Capistrano&lt;/a&gt;, and I would agree. It makes the deployments testable, repeatable, and predictable. You remove a large amount of human error from the process. However, when things do go wrong, they typically go wrong fast and wide spread. So make sure you test your deployment scripts, as you would test your code.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;SLDC&lt;/strong&gt;&lt;br /&gt;
+I mention there were different techniques for the SDLC, Agile based approaches (Scrum, Kanban, etc), Waterfall, etc. The SLDC should allow for &lt;a href=&#34;http://www.amazon.com/gp/product/0321336380/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0321336380&amp;amp;linkCode=as2&amp;amp;tag=brampnet-20&amp;amp;linkId=IMYQST6ZM7V6733U&#34;&gt;continuous integration&lt;/a&gt;, constantly running the pipeline and revalidating each step. Some will argue Agile is the way to go, and I would tend to agree. Agile seems to prefer short iterations with constant feedback. Feedback should be often, and rapid. If you break some code, a unit test should notify a human quickly, and not at the end of a development cycle. QA should be done in an agile manner, testing as soon as the feature is complete. This allows a human is quickly test the new feature and give feedback to the developers shortly after the code was written.&lt;/p&gt;
+
+&lt;p&gt;Different teams, and different projects, require different SLDCs. I personally have a team working on two week Scrum sprints, with deployments happening at the end of each. In other cases, I have projects with far less rigorous schedules.&lt;/p&gt;
+
+&lt;p&gt;I highly recommend the &lt;a href=&#34;http://www.amazon.com/gp/product/0988262592/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0988262592&amp;amp;linkCode=as2&amp;amp;tag=brampnet-20&amp;amp;linkId=36PJQM4IDQIMEWXH&#34;&gt;The Phoenix Project&lt;/a&gt;, it talks about SLDC, and is a good read (even for those non-technical readers).&lt;/p&gt;
+
+&lt;p&gt;Finally, I’d like to quickly introduce the newer concept of &lt;a href=&#34;http://www.amazon.com/gp/product/0321601912/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0321601912&amp;amp;linkCode=as2&amp;amp;tag=brampnet-20&amp;amp;linkId=VBPKIQYH5SL4PKCD&#34;&gt;Continuous Delivery&lt;/a&gt;. This extends continuous integration, by making your pipeline end at deployment. From code check-in to being live in a production environment, should be as automated as possible. Companies like &lt;a href=&#34;http://www.slideshare.net/mikebrittain/principles-and-practices-in-continuous-deployment-at-etsy&#34;&gt;Etsy&lt;/a&gt; and &lt;a href=&#34;http://www.forbes.com/sites/quora/2013/08/12/how-do-facebook-and-google-manage-software-releases-without-causing-major-problems/&#34;&gt;Facebook&lt;/a&gt; like to advertise that they deploy numerous times a day.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Grabbing a Certificate with OpenSSL and importing it into Java</title>
+      <link>http://localhost:1313/post/2014-08-16-grabbing-a-certificate-with-openssl-and-importing-it-into-java/</link>
+      <pubDate>Sat, 16 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2014-08-16-grabbing-a-certificate-with-openssl-and-importing-it-into-java/</guid>
+      <description>&lt;p&gt;Occasionally I have to grab a SSL cert from a server, and turn it into something that Java can use. Here are the quick instructions&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;# Store the cert issued by a web server&lt;/span&gt;
+openssl s_client -showcerts -connect www.google.com:443 &amp;gt; www.google.com.pem
+
+&lt;span class=&#34;c&#34;&gt;# Convert it from PEM format to DER format&lt;/span&gt;
+openssl x509 -in www.google.com.pem -inform PEM -out www.google.com.der -outform DER
+
+&lt;span class=&#34;c&#34;&gt;# Import it into your keystore&lt;/span&gt;
+sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.der -keystore /usr/java6/jre/lib/security/cacerts
+
+&lt;span class=&#34;c&#34;&gt;# The keystore password is by default &amp;quot;changeit&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>SMS Character Count</title>
+      <link>http://localhost:1313/post/2013/08/25/sms-character-count/</link>
+      <pubDate>Sun, 25 Aug 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2013/08/25/sms-character-count/</guid>
+      <description>&lt;p&gt;It is commonly known that Twitter allows 140 character messages, and some will tell you that a single SMS message is limited to 160 characters. However, it&amp;#8217;s not as simple as that. In the US a single SMS message can contain 140 bytes of data, which if using &lt;a href=&#34;http://en.wikipedia.org/wiki/GSM_03.38&#34;&gt;GSM encoding&lt;/a&gt;, we can squeeze up to 160 7-bit characters. Those 7-bit GSM characters don&amp;#8217;t match up with normal ASCII characters, and even worse, not all characters take 7 bits, some take up 14 bits (for example the { character)!&lt;/p&gt;
+
+&lt;p&gt;When we start talking about messaging in non-latin scripts, such as Chinese, then a different encoding must be used. In the SMS world the encoding of choice is &lt;a href=&#34;http://en.wikipedia.org/wiki/UTF-16&#34;&gt;UCS-2&lt;/a&gt;, which uses 16 bits per character. This limits a single part message to 70 characters (down from 160).&lt;/p&gt;
+
+&lt;p&gt;On top of that, most SMS clients will let you send concatenated SMS messages. That is, multiple message parts that appear as one long SMS message. A two part message allow up to 304 characters, not the 320 (160&amp;#215;2) you might expect. This is due to the overhead required to store meta data about each part.&lt;/p&gt;
+
+&lt;p&gt;This all makes it very hard to count how long a SMS message will be, what characters are allowed, and how many parts it will take. To help with these isuses, I&amp;#8217;ve created this simple tool which allows you to type out your message, and see how well it&amp;#8217;ll fit&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://bramp.net/sms/&#34;&gt;
+&lt;img src=&#34;sms-count.png&#34; alt=&#34;SMS Character Count&#34; width=&#34;741&#34; height=&#34;196&#34; class=&#34;aligncenter&#34; /&gt;&lt;br /&gt;
+&lt;a href=&#34;http://bramp.net/sms/&#34;&gt;http://bramp.net/sms/&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Alignment of Raphaël Paper.text(…) and Paper.print(…)</title>
+      <link>http://localhost:1313/post/2013/03/31/alignment-of-raphael-text/</link>
+      <pubDate>Sun, 31 Mar 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2013/03/31/alignment-of-raphael-text/</guid>
+      <description>&lt;p&gt;Working with &lt;a href=&#34;http://raphaeljs.com/&#34;&gt;Raphaël&lt;/a&gt; I noticed the alignment of text drawn with the &lt;a href=&#34;http://raphaeljs.com/reference.html#Paper.text&#34;&gt;Paper.text(&amp;#8230;)&lt;/a&gt; and &lt;a href=&#34;http://raphaeljs.com/reference.html#Paper.print&#34;&gt;Paper.print(&amp;#8230;)&lt;/a&gt; methods differed. The documentation wasn&amp;#8217;t helpful in explaining the difference, so I wrote a simple test to work out their behaviour, and then a small method to normalise them.&lt;/p&gt;
+
+&lt;div class=&#34;text-center&#34;&gt;
+    &lt;a href=&#34;raphaeljs-text-test.svg&#34;&gt;
+        &lt;img src=&#34;raphaeljs-text-test.svg&#34; alt=&#34;raphaeljs-text-test&#34; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In this I&amp;#8217;m drawing text with it&amp;#8217;s bounding box show, and a cross over the x,y coordinates the text is meant to appear. As you can see &lt;a href=&#34;http://raphaeljs.com/reference.html#Paper.text&#34;&gt;Paper.text(&amp;#8230;)&lt;/a&gt; defaults to centre aligning vertically and horizontally. &lt;a href=&#34;http://raphaeljs.com/reference.html#Paper.print&#34;&gt;Paper.print(&amp;#8230;)&lt;/a&gt; aligns with the baseline of the first line, and I&amp;#8217;m guess horizontally with the left edge (with a small amount of padding). The last example I wrote a simple method to centre &lt;a href=&#34;http://raphaeljs.com/reference.html#Paper.print&#34;&gt;Paper.print(&amp;#8230;)&lt;/a&gt; so it acts like &lt;a href=&#34;http://raphaeljs.com/reference.html#Paper.text&#34;&gt;Paper.text(&amp;#8230;)&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Code to draw this SVG is below, with my normalised print method named print_center.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nx&#34;&gt;Raphael&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;line&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;x2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;//assert(_.all([x1,x2,y1,y2], _.isFinite), &amp;quot;x1,x2,y1,y2 must be numeric&amp;quot;);&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;M{0},{1} L{2},{3}&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;x1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;x2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+
+&lt;span class=&#34;cm&#34;&gt;/**&lt;/span&gt;
+&lt;span class=&#34;cm&#34;&gt; * Prints, but aligns text in a similar way to text(...)&lt;/span&gt;
+&lt;span class=&#34;cm&#34;&gt; */&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;Raphael&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;print_center&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;font&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;letter_spacing&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;path&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;font&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;baseline&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;letter_spacing&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;getBBox&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;dx&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;width&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;dy&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;height&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;transform&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;t&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;dx&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;,&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;dy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;document&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ready&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(){&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;paper&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Raphael&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;diagram&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;300&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;600&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;draw_cross&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;SIZE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;50&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;paper&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;line&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;SIZE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;SIZE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;paper&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;line&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;SIZE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;SIZE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;draw_coord&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;paper&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;toFixed&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;,&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;toFixed&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;font-size&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;draw_bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;paper&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;rect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;width&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;height&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+        &lt;span class=&#34;nx&#34;&gt;draw_coord&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;draw_coord&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;width&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;draw_coord&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;height&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;draw_coord&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;width&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;height&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;//////////&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;draw_cross&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;paper&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Text\n100,100\nThird&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;font-size&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;32&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+
+    &lt;span class=&#34;nx&#34;&gt;draw_bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;getBBox&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;//////////&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;draw_cross&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;300&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;font&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;paper&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;getFont&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;daniel&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;paper&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;300&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Print\n100,300\nThird&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;font&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;32&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;baseline&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+    &lt;span class=&#34;nx&#34;&gt;draw_bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;getBBox&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;//////////&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;draw_cross&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;500&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;font&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;paper&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;getFont&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;daniel&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;paper&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;print_center&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;500&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;MyPrint\n100,500\nThird&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;font&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;32&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+    &lt;span class=&#34;nx&#34;&gt;draw_bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;getBBox&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Most starred project this week, and second most forked.</title>
+      <link>http://localhost:1313/post/2013/03/25/most-starred-project-this-week/</link>
+      <pubDate>Mon, 25 Mar 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2013/03/25/most-starred-project-this-week/</guid>
+      <description>&lt;p&gt;After getting my &lt;a href=&#34;https://bramp.github.io/js-sequence-diagrams/&#34;&gt;js-sequence-diagrams&lt;/a&gt; project onto &lt;a href=&#34;https://news.ycombinator.com/item?id=5432110&#34;&gt;Hacker News&lt;/a&gt;, the popularity has gone viral.&lt;/p&gt;
+
+&lt;div class=&#34;text-center&#34;&gt;
+    &lt;a href=&#34;https://github.com/languages/JavaScript&#34;&gt;
+        &lt;img src=&#34;github-most-starred.png&#34; alt=&#34;github-most-starred&#34; width=&#34;619&#34; height=&#34;678&#34; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Draw UML Sequence Diagrams with Javascript</title>
+      <link>http://localhost:1313/post/2013/03/23/draw-uml-sequence-with-javascript/</link>
+      <pubDate>Sat, 23 Mar 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2013/03/23/draw-uml-sequence-with-javascript/</guid>
+      <description>&lt;p&gt;I&amp;#8217;m happy to announce one of my projects, &lt;a href=&#34;https://bramp.github.io/js-sequence-diagrams/&#34;&gt;js-sequence-diagrams&lt;/a&gt;. This uses Javascript to draw UML sequence diagrams in SVG format. Here is an example:&lt;/p&gt;
+
+&lt;div class=&#34;text-center&#34;&gt;
+    &lt;a href=&#34;https://bramp.github.io/js-sequence-diagrams/&#34;&gt;
+        &lt;img src=&#34;sample-with-editor.png&#34; alt=&#34;js-sequence-diagram example&#34; width=&#34;865&#34; height=&#34;333&#34; /&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You can alter the diagram in real time, and I even have a simple jQuery plugin to make this easy to use on your own sites.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;src=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;sequence-diagram-min.js&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;diagram&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;A-&amp;gt;B: Message&lt;span class=&#34;nt&#34;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;.diagram&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;sequenceDiagram&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;theme&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;hand&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>MongoDB Compression</title>
+      <link>http://localhost:1313/post/2013-03-17-mongodb-compression/</link>
+      <pubDate>Sun, 17 Mar 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2013-03-17-mongodb-compression/</guid>
+      <description>
+
+&lt;p&gt;For a while people have wanted MongoDB to &lt;a href=&#34;https://jira.mongodb.org/browse/SERVER-164&#34;&gt;compress their data&lt;/a&gt;, or at least &lt;a href=&#34;https://jira.mongodb.org/browse/SERVER-863&#34;&gt;compress their field names&lt;/a&gt;. This would be beneficial in not only reducing the amount of disk space required, but also in theory improving performance as we trade disk IO with CPU IO. I thought this be a fun project to investigate, so I started by working out if this would actually be useful.&lt;/p&gt;
+
+&lt;p&gt;Lets start with compressing the data. I&amp;#8217;ve taken a project I&amp;#8217;ve been working on, where most of the records have the similar set of fields. An example record may look like (which across the database had an average size of 547 bytes):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;s2&#34;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;ObjectId&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;5134b1c644ae658fc8c050c0&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+	&lt;span class=&#34;s2&#34;&gt;&amp;quot;version&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;NumberLong&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+	&lt;span class=&#34;s2&#34;&gt;&amp;quot;attributes&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;quot;firstName&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Andrew&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;quot;lastName&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Brampton&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;quot;birthday&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;1982-01-01T00:18:00.000-05:00&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;		
+	&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+	&lt;span class=&#34;s2&#34;&gt;&amp;quot;tags&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;25-30 years&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;dc&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;male&amp;quot;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+	&lt;span class=&#34;s2&#34;&gt;&amp;quot;contactPoints&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[{&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;+11235551234&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;quot;type&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;sms&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;quot;number&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+			&lt;span class=&#34;s2&#34;&gt;&amp;quot;E164&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;+11235551234&amp;quot;&lt;/span&gt;
+		&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;quot;version&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;NumberLong&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;quot;subscriptions&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[{&lt;/span&gt;
+			&lt;span class=&#34;s2&#34;&gt;&amp;quot;version&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;NumberLong&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+			&lt;span class=&#34;s2&#34;&gt;&amp;quot;event&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;ObjectId&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;5134b1c644ae658fc8c050aa&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+			&lt;span class=&#34;s2&#34;&gt;&amp;quot;status&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;ACTIVE&amp;quot;&lt;/span&gt;
+		&lt;span class=&#34;p&#34;&gt;}]&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;},{&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;a@b.com&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;quot;type&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;quot;email&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;a@b.com&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;quot;version&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;NumberLong&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;quot;subscriptions&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;}]&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;There are some excellent &lt;a href=&#34;http://www.10gen.com/presentations/mongosv-2011/mongodb-storage-engine-bit-by-bit&#34;&gt;presentations&lt;/a&gt; and &lt;a href=&#34;https://dzone.com/articles/mongodb%E2%80%99s-storage-engine-bit&#34;&gt;articles&lt;/a&gt; on how MongoDB structures the data on the disk. For the sake of this investigation I took a single data file (of size 2 GiB) that was full of just these kinds of records.&lt;/p&gt;
+
+&lt;h2 id=&#34;full-compression:9d5a085065491877b685ce659abbd446&#34;&gt;Full Compression&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;gzip datafile.5
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Original size:&lt;/strong&gt; 2,146,435,072 bytes (2.0 GiB)&lt;br /&gt;
+&lt;strong&gt;Compressed gzip size:&lt;/strong&gt; 453,359,908 bytes (432 MiB) / 21% of the original size&lt;/p&gt;
+
+&lt;p&gt;Simple gzip across the whole file gave a 4.7x saving in file size. This is obviously best case, as it covers the full file. Next lets look at the savings from compressing the field names.&lt;/p&gt;
+
+&lt;h2 id=&#34;field-name-compression:9d5a085065491877b685ce659abbd446&#34;&gt;Field name Compression&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;strings -n3 datafile.5 &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sort &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; uniq -c &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sort -n &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; tail -n20
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;That prints out a list of the most popular strings in the data file, sorted by frequency. From those stats we can infer&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Unique fields:&lt;/strong&gt; 14&lt;br /&gt;
+&lt;strong&gt;Fields:&lt;/strong&gt; 75,764,300&lt;br /&gt;
+&lt;strong&gt;Field bytes:&lt;/strong&gt; 506,244,611 bytes (482 MiB) / 23% of the total data file size&lt;/p&gt;
+
+&lt;p&gt;If we assume that we can encode each field to just a single byte, then we reduce the bytes taken by the field names from 482 MiB to 72.2 MiB, a 6.6x saving of the field names. That&amp;#8217;s a good saving, but as the field names only take up 23% of the file, the overall saving would be 20% of the total data file size.&lt;/p&gt;
+
+&lt;h2 id=&#34;document-compression:9d5a085065491877b685ce659abbd446&#34;&gt;Document Compression&lt;/h2&gt;
+
+&lt;p&gt;Compression of individual document might provide a better solution than field compression. It&amp;#8217;s not possible to compress the whole database, as that&amp;#8217;ll make it extremely hard to alter individual documents. So instead each document would be compressed independently of the others. This is different to field compression would would have to be compressed across documents.&lt;/p&gt;
+
+&lt;p&gt;To try this out I wrote a &lt;a href=&#34;https://gist.github.com/bramp/5183117&#34;&gt;simple Python script&lt;/a&gt; instead of hacking the MongoDB code. This script simulates the compression by finding each BSON encoded document on disk, compresses it (with zlib), and sums up the uncompressed and compressed document sizes.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Uncompressed document length:&lt;/strong&gt; 1,888,733,156 bytes (1.75 GiB)&lt;br /&gt;
+&lt;strong&gt;Compressed document length:&lt;/strong&gt; 1,261,267,661 bytes (1.17 GiB) / 66% of the total document length&lt;/p&gt;
+
+&lt;p&gt;The keen reader will notice the documents only made up 1.75 GiB, of the total 2 GiB data file. The rest of the file contains non-document data, such as indexes, padding, and perhaps deleted documents. As the non-document data wasn&amp;#8217;t compressed in this test, the total savings was about 30% of the total file. This could improve if the document was more compressible (for example if they were larger), or if a better compression scheme was used.&lt;/p&gt;
+
+&lt;h2 id=&#34;conclusion:9d5a085065491877b685ce659abbd446&#34;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;In conclusion, compression could certainly help reduce the size on disk, and this could lead to performance improvements. Field level compression gave us 20% reduction and document compression gave us 30%. The next step is to actually implement this, and run various benchmarks.&lt;/p&gt;
+
+&lt;h2 id=&#34;future:9d5a085065491877b685ce659abbd446&#34;&gt;Future&lt;/h2&gt;
+
+&lt;p&gt;My current thinking on field level compression is to create a simple lookup table that maps field names to a token. This lookup table would be stored in the extents, which contains numerous documents. As new extents are created new lookup tables will be created. This allows the lookup tables to adapt as new types of documents are put into the system. The lookup table will only be appended to, to ensure existing documents continue to work. The table can then be optimised when a compact operation is called.&lt;/p&gt;
+
+&lt;p&gt;Looking at the existing MongoDB code, adding field level compression might be quite tricky, as the BSON objects are memory mapped, and multiple places make assumptions about being able to access fields. So an easier approach might be to do full BSON object compression, and create uncompressed copies in memory.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/mongo/tree/SERVER-164&#34;&gt;Look forward to my attempt of compression&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>How many ways are there to say phone number?</title>
+      <link>http://localhost:1313/post/2013-02-16-how-many-ways-are-there-to-say-phone-number/</link>
+      <pubDate>Sat, 16 Feb 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2013-02-16-how-many-ways-are-there-to-say-phone-number/</guid>
+      <description>&lt;p&gt;In the various systems I&amp;#8217;ve worked on, I have seen far too many terms to describe a phone number. I thought I&amp;#8217;d catalogue them!&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;CTN &amp;#8211; Customer Telephone Number&lt;/li&gt;
+&lt;li&gt;PTN &amp;#8211; Personal Telephone Number&lt;/li&gt;
+&lt;li&gt;MTN &amp;#8211; Mobile Telephone Number&lt;/li&gt;
+&lt;li&gt;number&lt;/li&gt;
+&lt;li&gt;phone&lt;/li&gt;
+&lt;li&gt;device / device_id&lt;/li&gt;
+&lt;li&gt;subscr_num &amp;#8211; subscriber number&lt;/li&gt;
+&lt;li&gt;source_addr / dest_addr &amp;#8211; As used by the &lt;a href=&#34;http://en.wikipedia.org/wiki/Short_Message_Peer-to-Peer&#34;&gt;SMPP&lt;/a&gt; spec&lt;/li&gt;
+&lt;li&gt;MSISDN &amp;#8211; Mobile Subscriber ISDN Number / Mobile Station International ISDN Number(s) / Mobile International ISDN Number&lt;/li&gt;
+&lt;li&gt;MDN &amp;#8211; Mobile Directory Number&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;any more?&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Invalid IP range checking defeated by DNS</title>
+      <link>http://localhost:1313/post/2012-11-27-invalid-ip-range-checking-defeated-by-dns/</link>
+      <pubDate>Tue, 27 Nov 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2012-11-27-invalid-ip-range-checking-defeated-by-dns/</guid>
+      <description>&lt;p&gt;I&amp;#8217;ve seen a particular kind of vulnerability in a few different applications but I&amp;#8217;m not sure of an appropriate name for it. So I thought I&amp;#8217;d write about it, and informally call it the &amp;#8220;DNS defeated IP address check&amp;#8221;. Basically, if you have an application that can be used as a proxy, or can be instructed to make web request, you don&amp;#8217;t want it fetching files from internal services.&lt;/p&gt;
+
+&lt;p&gt;For example, there is a simple proxy called &lt;a href=&#34;https://github.com/atmos/camo&#34;&gt;Camo&lt;/a&gt;, which is used to fetch third party images when you need to display them on a SSL secure site. (Read more about Camo on the &lt;a href=&#34;https://github.com/blog/743-sidejack-prevention-phase-3-ssl-proxied-assets&#34;&gt;GitHub blog&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;This kind of application can be incorrectly setup such that the application has access to internal servers and resources that wouldn&amp;#8217;t normally be exposed to the Internet. This make the proxy application a good way a hacker could gain information about a private network. However Camo tries to address this issue by forbidding URLs that contain private IP addresses. It does a check like so:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nv&#34;&gt;RESTRICTED_IPS = &lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;/^((10\.)|(127\.)|(169\.254)|(192\.168)|(172\.((1[6-9])|(2[0-9])|(3[0-1]))))/&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;host&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;match&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;RESTRICTED_IPS&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;four_oh_four&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;resp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;Hitting excluded hostnames&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This code (written for &lt;a href=&#34;http://nodejs.org/&#34;&gt;Node.js&lt;/a&gt; in &lt;a href=&#34;http://coffeescript.org/&#34;&gt;CoffeeScript&lt;/a&gt;) is taking a &lt;a href=&#34;http://nodejs.org/api/url.html&#34;&gt;url object&lt;/a&gt; and checking the hostname doesn&amp;#8217;t match a restricted address. This works great against URLs such as &lt;a href=&#34;http://127.0.0.1/&#34;&gt;http://127.0.0.1/&lt;/a&gt;, or &lt;a href=&#34;http://10.0.0.1/&#34;&gt;http://10.0.0.1/&lt;/a&gt;, however this check can easily be defeated. If you create a domain name, such as localhost.bramp.net, which resolves to 127.0.0.1, and ask the proxy to fetch &lt;a href=&#34;http://localhost.bramp.net/&#34;&gt;http://localhost.bramp.net/&lt;/a&gt;, then it won&amp;#8217;t be caught by that check. Now the proxy will continue to try and fetch a resource from 127.0.0.1.&lt;/p&gt;
+
+&lt;p&gt;The solution to this problem is to do that IP address check &lt;strong&gt;after&lt;/strong&gt; the DNS name has been resolved. This can also be problematic if you use a standard library for making web requests, as they will do the DNS lookup for you, and don&amp;#8217;t give you the fine grain control you need. For example, I&amp;#8217;ve seen this be a problem for a Java application using the &lt;a href=&#34;http://hc.apache.org/httpclient-3.x/&#34;&gt;Apache HTTP Client&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;One might naively assume they could do a DNS check, and then hand the processing to a HTTP library to make the actual request. The issue here is that the DNS record the HTTP library uses might not be the same as the one you checked against with the DNS check. For example, many domains have multiple A records, and some DNS servers can be configured to round robin DNS records. If you can&amp;#8217;t be sure the HTTP library will do another DNS requests, then you&amp;#8217;d be vulnerable.&lt;/p&gt;
+
+&lt;p&gt;Luckily, in Camo&amp;#8217;s case the fix was relatively easy (see my &lt;a href=&#34;https://github.com/atmos/camo/pull/19&#34;&gt;pull request&lt;/a&gt;).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c1&#34;&gt;# We do DNS lookup ourselves&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;Dns&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;lookup&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;host&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;(err, address, family) -&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;address&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;match&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;RESTRICTED_IPS&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;four_oh_four&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;resp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;Hitting excluded hostnames&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+  &lt;span class=&#34;c1&#34;&gt;# We connect to the IP address, not hostname&lt;/span&gt;
+  &lt;span class=&#34;nv&#34;&gt;src = &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;createClient&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;port&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;80&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;address&lt;/span&gt;
+
+  &lt;span class=&#34;c1&#34;&gt;# We add a host header, so the request will work&lt;/span&gt;
+  &lt;span class=&#34;nv&#34;&gt;headers = &lt;/span&gt;
+    &lt;span class=&#34;s&#34;&gt;&amp;quot;Host&amp;#39; : url.host&lt;/span&gt;
+
+&lt;span class=&#34;s&#34;&gt;  # Boom, we make the request&lt;/span&gt;
+&lt;span class=&#34;s&#34;&gt;  srcReq = src.request &amp;#39;GET&amp;#39;, query_path, headers&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The above code was simplified a little from the real code, but basically we do the DNS lookup, check the returned address is good, and then make a HTTP request to that IP address with a &lt;code&gt;Host:&lt;/code&gt; header to ensure the request will work.&lt;/p&gt;
+
+&lt;p&gt;Really though, the correct solution to this is to configure a suitably paranoid firewall to stop requests from the proxy machine to anything internal. However, as with all security, the more &lt;a href=&#34;http://en.wikipedia.org/wiki/Swiss_cheese_model&#34;&gt;layers of protection&lt;/a&gt; you have the better, and you should never depend on just one.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>JSHint ‘x’ is an implied global variable</title>
+      <link>http://localhost:1313/post/2012-11-23-jshint-x-is-an-implied-global-variable/</link>
+      <pubDate>Fri, 23 Nov 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2012-11-23-jshint-x-is-an-implied-global-variable/</guid>
+      <description>&lt;p&gt;I&amp;#8217;ve started using &lt;a href=&#34;http://www.jshint.com/&#34;&gt;JSHint&lt;/a&gt; to check my javascript. One error I encountered was:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;Errors:
+     85,5:&amp;#39;grammar&amp;#39; is not defined.
+Warning:
+     85,1: &amp;#39;grammar&amp;#39; is an implied global variable.
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This is saying that I&amp;#8217;m using some variable that I&amp;#8217;ve not declared in my javascript file. In most cases that would be a mistake, but in my case I was expecting it to be in the global scope included from another javascript file.&lt;/p&gt;
+
+&lt;p&gt;To make JSHint stop complaining about this, you can simply place the following at the top of your javascript document:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;cm&#34;&gt;/*global grammar */&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This will tell it that the variable is declared at a global scope. Check out one of &lt;a href=&#34;https://github.com/bramp/js-sequence-diagrams/blob/master/diagram.js&#34;&gt;my projects&lt;/a&gt; for example.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Nodewii talk at Node DC</title>
+      <link>http://localhost:1313/post/2012/11/14/nodewii-talk-at-node-dc/</link>
+      <pubDate>Wed, 14 Nov 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2012/11/14/nodewii-talk-at-node-dc/</guid>
+      <description>&lt;p&gt;Last night I gave a short talk at &lt;a href=&#34;http://nodedc.github.com/&#34;&gt;NodeDC&lt;/a&gt;, on how to use Node.js with a wiimote. The offical title was &amp;#8220;Controlling Node.js with a wiimote &amp;#8211; My experiences with developing multi-threaded nodejs addon&amp;#8221;. I&amp;#8217;d like to thank the NodeDC guys for arranging everything last night, it was a great night, with some great talks.&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;text-center&#34;&gt;
+    &lt;a href=&#34;https://bramp.github.io/nodewii-talk/&#34;&gt;
+        &lt;img src=&#34;nodewii-talk.png&#34; alt=&#34;&#34; title=&#34;nodewii-talk&#34; width=&#34;981&#34; height=&#34;763&#34;/&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
+The slides can be found here: &lt;a href=&#34;https://bramp.github.io/nodewii-talk/&#34;&gt;https://bramp.github.io/nodewii-talk/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>libcec-daemon</title>
+      <link>http://localhost:1313/post/2012-10-21-libcec-daemon/</link>
+      <pubDate>Sun, 21 Oct 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2012-10-21-libcec-daemon/</guid>
+      <description>&lt;p&gt;Many months ago I purchased this cool little device from &lt;a href=&#34;http://www.pulse-eight.com&#34;&gt;Pulse Eight&lt;/a&gt;, called a &lt;a href=&#34;http://www.pulse-eight.com/store/products/104-usb-hdmi-cec-adapter.aspx&#34;&gt;USB CEC Adapter&lt;/a&gt;. Basically it allows your computer to speak to a HDMI device over a protocol called &lt;a href=&#34;http://en.wikipedia.org/wiki/HDMI#CEC&#34;&gt;CEC&lt;/a&gt;. This is useful for using your PC to control your TV, and for using your TV remote to control your PC. This device now allows me to use my normal TV remote to control XBMC, and to turn my PC on standby if I turn my TV off.&lt;/p&gt;
+
+&lt;p&gt;It&amp;#8217;s all pretty neat, but each application needed to add libcec support, which means many applications do not support this little adapter. So I decided to write a simple uinput daemon that bridged Linux input events, and this CEC device. My project, &lt;a href=&#34;https://github.com/bramp/libcec-daemon&#34;&gt;libcec-daemon&lt;/a&gt;, has been &lt;a href=&#34;http://forums.pulse-eight.com/default.aspx?g=posts&amp;amp;t=430&#34;&gt;available for many months&lt;/a&gt; now, and I&amp;#8217;ve been using it successfully on my television. I just had forgotten to write a quick blog post about it :)&lt;/p&gt;
+
+&lt;p&gt;So please check it out, and support the great guys at Pulse Eight.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>pt-kill CentOS init.d script</title>
+      <link>http://localhost:1313/post/2012-09-30-pt-kill-centos-init-d-script/</link>
+      <pubDate>Sun, 30 Sep 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2012-09-30-pt-kill-centos-init-d-script/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://www.percona.com/doc/percona-toolkit/2.1/pt-kill.html&#34;&gt;pt-kill&lt;/a&gt; is a neat little application that can stop long running MySQL queries. It was formally know as &lt;a href=&#34;http://www.maatkit.org/doc/mk-kill.html&#34;&gt;mk-kill&lt;/a&gt; before &lt;a href=&#34;http://www.Percona.com&#34;&gt;Percona&lt;/a&gt; took over the project. Here is the init.d script I use (as one doesn&amp;#8217;t seem provided by the project):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;#!/bin/sh&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;#&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# pt-kill   This shell script takes care of starting and stopping&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;#               the pt-kill services.&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;#&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# chkconfig: - 60 20&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# description: pt-kill stops long running MySQL queries&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;#&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;# probe: true&lt;/span&gt;
+
+&lt;span class=&#34;c&#34;&gt;# Source function library.&lt;/span&gt;
+. /etc/rc.d/init.d/functions
+
+&lt;span class=&#34;nv&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0
+
+&lt;span class=&#34;c&#34;&gt;# See how we were called.&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;case&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$1&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; in
+  start&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; -n &lt;span class=&#34;s2&#34;&gt;$&amp;quot;Starting pt-kill: &amp;quot;&lt;/span&gt;
+ 
+    pt-kill &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --pid /var/run/pt-kill.pid &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --daemonize &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --interval &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --busy-time &lt;span class=&#34;m&#34;&gt;60&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --wait-after-kill &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;  &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --ignore-info &lt;span class=&#34;s1&#34;&gt;&amp;#39;(?i-smx:^insert|^update|^delete|^load)&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --match-info &lt;span class=&#34;s1&#34;&gt;&amp;#39;(?i-xsm:select)&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --ignore-user &lt;span class=&#34;s1&#34;&gt;&amp;#39;(?i-xsm:root)&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --log /var/log/mysql-kill.log &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --print &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --execute-command &lt;span class=&#34;s1&#34;&gt;&amp;#39;(echo &amp;quot;Subject: pt-kill query found on `hostname`&amp;quot;; tail -1 /var/log/mysql-kill.log)|/usr/sbin/sendmail -t you@example.com&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+      --kill-query
+ 
+    &lt;span class=&#34;nv&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$?&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$RETVAL&lt;/span&gt; -ne &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$RETVAL&lt;/span&gt;
+ 
+  &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
+  stop&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+        &lt;span class=&#34;c&#34;&gt;# Stop daemons.&lt;/span&gt;
+        &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; -n &lt;span class=&#34;s2&#34;&gt;$&amp;quot;Shutting down pt-kill: &amp;quot;&lt;/span&gt;
+        killproc pt-kill
+        &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
+  restart&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt; stop
+        &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt; start
+        &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
+  *&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+        &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;$&amp;quot;Usage: pt-kill {start|stop}&amp;quot;&lt;/span&gt;
+        &lt;span class=&#34;nv&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;3
+        &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;esac&lt;/span&gt;
+ 
+&lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$RETVAL&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Usage:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Create the script as /etc/init.d/pt-kill, and change the pt-kill command in the middle of the script to suit your needs. Then run &amp;#8216;chkconfig &amp;#8211;level 345 pt-kill on&amp;#8217; to ensure this script starts up at boot. Alternatively test the script with &amp;#8216;/etc/init.d/pt-kill start&amp;#8217; or &amp;#8216;/etc/init.d/pt-kill stop&amp;#8217;.&lt;/p&gt;
+
+&lt;p&gt;Thanks to &lt;a href=&#34;http://www.mysqldiary.com/you-must-have-a-killer-in-your-system/&#34;&gt;MySQL Diary&lt;/a&gt; as they provided their default pt-kill command line. Perhaps in future someone could create a more generic startup script.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Using Make to parallelise a task</title>
+      <link>http://localhost:1313/post/2012-09-09-uses-make-to-parallelise-a-task/</link>
+      <pubDate>Sun, 09 Sep 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2012-09-09-uses-make-to-parallelise-a-task/</guid>
+      <description>&lt;p&gt;I needed to run a CPU intensive script over a directory of files. Each file would be run independently, and I was using bash to achieve this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt; in *.txt&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; ./script &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This works fine, however, I have a quad core machine, and this task was CPU bound on one core. So I thought about parallelising this task so the script would run on four files at once. I didn&amp;#8217;t want to get into the nitty gritty of changing the script to cope in this way, so instead, I &amp;#8220;abused&amp;#8221; Make to do this.&lt;/p&gt;
+
+&lt;p&gt;I created a file named &amp;#8220;Makefile&amp;#8221; with the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nv&#34;&gt;FILES&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;shell ls *.txt&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+
+&lt;span class=&#34;c&#34;&gt;#default target of everything&lt;/span&gt;
+&lt;span class=&#34;nf&#34;&gt;all&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;FILES&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+
+&lt;span class=&#34;nf&#34;&gt;$(FILES)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
+	./script &lt;span class=&#34;nv&#34;&gt;$@&lt;/span&gt;
+
+&lt;span class=&#34;nf&#34;&gt;.PHONY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;all&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;FILES&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;then you just run &lt;code&gt;make -j4&lt;/code&gt;, and four instances of the script will start running, with the concurrency being handled by Make. You can also now type &lt;code&gt;make a.txt b.txt c.txt&lt;/code&gt; and it&amp;#8217;ll just run the script on those three files.&lt;/p&gt;
+
+&lt;p&gt;You can also extend this Makefile to handle dependencies, such as running a script before all the others. Make is pretty powerful, and should be considered for more than just compiling programs.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

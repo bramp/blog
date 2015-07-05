@@ -2,28 +2,49 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Jolt on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/jolt/</link>
+    <link>http://localhost:1313/tags/jolt/</link>
     <description>Recent content in Jolt on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Wed, 01 Oct 2008 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/jolt/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/jolt/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Jolt Cola</title>
-      <link>http://localhost:1313/blog/2008/10/01/jolt-cola/</link>
+      <link>http://localhost:1313/post/2008/10/01/jolt-cola/</link>
       <pubDate>Wed, 01 Oct 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2008/10/01/jolt-cola/</guid>
-      <description>&lt;p&gt;Thanks to this lovely beverage I have now completed my thesis on time &lt;img src=&#34;http://bramp.net/blog/wp-includes/images/smilies/icon_smile.gif&#34; alt=&#34;:)&#34; class=&#34;wp-smiley&#34; /&gt; I thought I&amp;#8217;ll quickly post about the drink, and upload some photos:&lt;/p&gt;
+      <guid>http://localhost:1313/post/2008/10/01/jolt-cola/</guid>
+      <description>&lt;p&gt;Thanks to this lovely beverage I have now completed my thesis on time :) I thought I&amp;#8217;ll quickly post about the drink, and upload some photos:&lt;/p&gt;
 
-&lt;div class=&#34;figure&#34;&gt;
-  &lt;a href=&#34;http://localhost:1313/blog/projects/jolt/DSCF1334.JPG&#34;&gt;&lt;img src=&#34;http://localhost:1313/blog/projects/jolt/DSCF1334_thumb.JPG&#34; alt=&#34;The 5 flavours of Jolt Cola&#34; /&gt;&lt;/a&gt;&lt;br /&gt; &lt;br /&gt;The 5 flavours of Jolt Cola
-&lt;/div&gt;
+&lt;!-- TODO link to the non-thumbnail version --&gt;
 
-&lt;div class=&#34;figure&#34;&gt;
-  &lt;a href=&#34;http://localhost:1313/blog/projects/jolt/DSCF1335.JPG&#34;&gt;&lt;img src=&#34;http://localhost:1313/blog/projects/jolt/DSCF1335_thumb.JPG&#34; alt=&#34;A can of jolt compared to a real battery&#34; /&gt;&lt;/a&gt;&lt;br /&gt;A can of jolt compared to a real battery
-&lt;/div&gt;
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;DSCF1334_thumb.JPG&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;The 5 flavours of Jolt Cola&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;DSCF1335_thumb.JPG&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;A can of jolt compared to a real battery&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+&lt;/p&gt;
 
 &lt;p&gt;It comes in six flavors, only 5 or which are listed here. Power Cola, Orange Blast, Blue Raspberry, Cherry Bomb, and Wild Grape.&lt;/p&gt;
 </description>

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Openssl on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/openssl/</link>
+    <link>http://localhost:1313/tags/openssl/</link>
     <description>Recent content in Openssl on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sat, 16 Aug 2014 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/openssl/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/openssl/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Grabbing a Certificate with OpenSSL and importing it into Java</title>
-      <link>http://localhost:1313/blog/2014/08/16/grabbing-a-certificate-with-openssl-and-importing-it-into-java/</link>
+      <link>http://localhost:1313/post/2014-08-16-grabbing-a-certificate-with-openssl-and-importing-it-into-java/</link>
       <pubDate>Sat, 16 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2014/08/16/grabbing-a-certificate-with-openssl-and-importing-it-into-java/</guid>
+      <guid>http://localhost:1313/post/2014-08-16-grabbing-a-certificate-with-openssl-and-importing-it-into-java/</guid>
       <description>&lt;p&gt;Occasionally I have to grab a SSL cert from a server, and turn it into something that Java can use. Here are the quick instructions&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;# Store the cert issued by a web server&lt;/span&gt;
 openssl s_client -showcerts -connect www.google.com:443 &amp;gt; www.google.com.pem

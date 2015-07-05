@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sdk on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/sdk/</link>
+    <link>http://localhost:1313/tags/sdk/</link>
     <description>Recent content in Sdk on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 23 May 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/sdk/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/sdk/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Android Linux SDK revision 6 aapt library bug</title>
-      <link>http://localhost:1313/blog/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/</link>
+      <link>http://localhost:1313/post/2010-05-23-android-sdk-r6-aapt-library-bug/</link>
       <pubDate>Sun, 23 May 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/</guid>
+      <guid>http://localhost:1313/post/2010-05-23-android-sdk-r6-aapt-library-bug/</guid>
       <description>&lt;p&gt;&lt;strong&gt;UPDATE &amp;#8211; I &lt;a href=&#34;http://code.google.com/p/android/issues/detail?id=8498&#34;&gt;reported this bug&lt;/a&gt; and it was promptly fixed the next day. Read the &lt;a href=&#34;http://code.google.com/p/android/issues/detail?id=8498&#34;&gt;bug report&lt;/a&gt; for solution on how to fix.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://android-developers.blogspot.com/2010/05/android-22-and-developers-goodies.html&#34;&gt;Android 2.2&lt;/a&gt; just came out and along with it came a updated set of &lt;a href=&#34;http://developer.android.com/sdk/tools-notes.html&#34;&gt;SDK tools&lt;/a&gt;. I&amp;#8217;ve been using these tools on Windows, but today I took my Linux laptop out and I&amp;#8217;ve been sat in a &lt;a href=&#34;http://www.juicafe.co.uk/&#34;&gt;coffee shop&lt;/a&gt; hyped up on caffeine but completely unproductive because I&amp;#8217;m going round in circles with what I think is a bug.&lt;/p&gt;

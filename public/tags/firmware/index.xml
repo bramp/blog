@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Firmware on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/firmware/</link>
+    <link>http://localhost:1313/tags/firmware/</link>
     <description>Recent content in Firmware on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 24 Jan 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/firmware/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/firmware/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Hacking Linksys E4200v2 firmware</title>
-      <link>http://localhost:1313/blog/2012/01/24/hacking-linksys-e4200v2-firmware/</link>
+      <link>http://localhost:1313/post/2012-01-24-hacking-linksys-e4200v2-firmware/</link>
       <pubDate>Tue, 24 Jan 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2012/01/24/hacking-linksys-e4200v2-firmware/</guid>
-      <description>&lt;p&gt;In a previous post I &lt;a href=&#34;http://bramp.net/blog/obtaining-the-firmware-for-linksys-e4200v2&#34;&gt;obtained the Linksys E4200v2 firmware&lt;/a&gt;, now I plan to break it apart and see what I can find.&lt;/p&gt;
+      <guid>http://localhost:1313/post/2012-01-24-hacking-linksys-e4200v2-firmware/</guid>
+      <description>&lt;p&gt;In a previous post I &lt;a href=&#34;http://localhost:1313/post/2012-01-22-obtaining-the-firmware-for-linksys-e4200v2/&#34;&gt;obtained the Linksys E4200v2 firmware&lt;/a&gt;, now I plan to break it apart and see what I can find.&lt;/p&gt;
 
 &lt;p&gt;I start off by simplying using &amp;#8220;file&amp;#8221; on the firmware:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;file FW_E4200_2.0.36.126507.SSA 
@@ -82,10 +82,10 @@ gzip: image-2.gz: decompression OK, trailing garbage ignored
     
     <item>
       <title>Obtaining the firmware for Linksys E4200v2</title>
-      <link>http://localhost:1313/blog/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/</link>
+      <link>http://localhost:1313/post/2012-01-22-obtaining-the-firmware-for-linksys-e4200v2/</link>
       <pubDate>Sun, 22 Jan 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/</guid>
+      <guid>http://localhost:1313/post/2012-01-22-obtaining-the-firmware-for-linksys-e4200v2/</guid>
       <description>&lt;p&gt;I recently got a Linksys E4200v2 wireless router. It&amp;#8217;s pretty cool, supports IPv6, 2.4Ghz and 5Ghz wifi networks, VPN, etc. The one downside is that the firmware for the router is not available from &lt;a href=&#34;http://homesupport.cisco.com/en-us/wireless/linksys/E4200&#34;&gt;Linksys&amp;#8217;s website&lt;/a&gt;, and the &lt;a href=&#34;http://homesupport.cisco.com/en-us/gplcodecenter&#34;&gt;GPL code&lt;/a&gt; has not been made available, yet&amp;#8230; However, the router has been able to pull updates itself from the Internet.&lt;/p&gt;
 
 &lt;p&gt;So I wanted to acquire the firmware to see if I could do something fun with the router. I set about to figure out how the router does this. My plan was to set my laptop up between Internet interface on the router, and the cable modem. Since my laptop doesn&amp;#8217;t have two network cards, I plugged into a switch and used &lt;a href=&#34;http://ettercap.sourceforge.net/&#34;&gt;Ethercap&lt;/a&gt; to ARP poison to redirect traffic via the laptop.&lt;/p&gt;

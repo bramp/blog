@@ -2,24 +2,36 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Business Card on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/business-card/</link>
+    <link>http://localhost:1313/tags/business-card/</link>
     <description>Recent content in Business Card on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sat, 13 Feb 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/business-card/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/business-card/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>LaTeX QR Based Business Card</title>
-      <link>http://localhost:1313/blog/2010/02/13/latex-qr-based-business-card/</link>
+      <link>http://localhost:1313/post/2010/02/13/latex-qr-based-business-card/</link>
       <pubDate>Sat, 13 Feb 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2010/02/13/latex-qr-based-business-card/</guid>
+      <guid>http://localhost:1313/post/2010/02/13/latex-qr-based-business-card/</guid>
       <description>&lt;p&gt;I recently found &lt;a href=&#34;http://forthescience.org/blog/2010/02/02/my-business-card-with-qr-code-geeky/&#34;&gt;this blog&lt;/a&gt; which shows a business card with a QR card. I thought I&amp;#8217;d create a business card with LaTeX with a similar QR code. I took a LaTeX template from &lt;a href=&#34;http://blog.widmann.org.uk/2009/05/27/1297/&#34;&gt;here&lt;/a&gt;, found out about the &lt;a href=&#34;http://www.tug.org/texmf-dist/doc/generic/pst-barcode/pst-barcode-doc.pdf&#34;&gt;pst-barcode pacakge&lt;/a&gt;, learnt the &lt;a href=&#34;https://www.nttdocomo.co.jp/english/service/developer/make/content/barcode/function/application/addressbook/&#34;&gt;MECARD format&lt;/a&gt;, and combined them to make this:&lt;/p&gt;
 
-&lt;div class=&#34;figure&#34;&gt;
-  &lt;a href=&#34;http://bramp.net/projects/business card/card-1.pdf&#34;&gt;&lt;img src=&#34;http://bramp.net/projects/business card/card-1.png&#34; width=756 height=496 alt=&#34;My QR Business Card&#34; style=&#34;border: none&#34;/&gt;&lt;/a&gt;&lt;br /&gt; &lt;br /&gt; My QR Business Card
-&lt;/div&gt;
+&lt;!-- TODO link to card-1.pdf --&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;card-1.png&#34; width=&#34;756&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;My QR Business Card&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
 
 &lt;p&gt;I doubt I&amp;#8217;ll print this card, but just in case you want to make a similar one, here is the LaTeX source:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;k&#34;&gt;\documentclass&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;[11pt,a4paper]&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;memoir&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;

@@ -2,26 +2,36 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Time Travel on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/time-travel/</link>
+    <link>http://localhost:1313/tags/time-travel/</link>
     <description>Recent content in Time Travel on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Wed, 14 Jul 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/time-travel/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/time-travel/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Iteratively Solving Time Travel</title>
-      <link>http://localhost:1313/blog/2010/07/14/iteratively-solving-time-travel/</link>
+      <link>http://localhost:1313/post/2010/07/14/iteratively-solving-time-travel/</link>
       <pubDate>Wed, 14 Jul 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2010/07/14/iteratively-solving-time-travel/</guid>
+      <guid>http://localhost:1313/post/2010/07/14/iteratively-solving-time-travel/</guid>
       <description>&lt;p&gt;I recently watched the film &lt;a href=&#34;http://www.imdb.com/title/tt0480669/&#34;&gt;Timecrimes&lt;/a&gt;, which got me thinking about the theories of time travel. Now I&amp;#8217;m not a physics expert, but I have thought about these ideas for a while now and thought it was time to write them done.&lt;/p&gt;
 
 &lt;p&gt;I&amp;#8217;ll try not to spoil the film if you haven&amp;#8217;t already seen it, but this discussion might give away too much. The general idea in the film was the main character Hector was chased into a time machine and was made to travel back a few hours in time. The film did a good job of explaining this to the viewer with the aid of a diagram and naming of the Hectors. I have reproduced their diagram and will use it for my discussion.&lt;/p&gt;
 
-&lt;div class=&#34;figure&#34;&gt;
-  &lt;img src=&#34;http://localhost:1313/blog/images/timetravel-diagram.png&#34; alt=&#34;Diagram of Hector time travelling&#34; /&gt;
-&lt;/div&gt;
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;timetravel-diagram.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;Diagram of Hector time travelling&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
 
 &lt;p&gt;Hector 1 was being chased, and when he reached point A in time he entered the time machine and goes back. He is now at point B in time and is called Hector 2. Now the interesting thing in the film is that Hector 2 turns out to be the person chasing Hector 1 into the time machine! This is somewhat of paradox which I hopefully will explain.&lt;/p&gt;
 
@@ -31,9 +41,19 @@
 
 &lt;p&gt;The thing I find interesting here is how the chain of events happened in the first place, and this is where I have a theory. In mathematics many equations can be solved iteratively, and there are typically two outcomes. The equation converges to a solution, or the iterative process does not converge and quickly goes off to infinity. A fractal is a perfect example of this, as the colours of a fractal represent how many iterations it takes to solve the equation, or if it does not solve it is coloured black. This can be seen with the simple &lt;a href=&#34;http://en.wikipedia.org/wiki/Mandelbrot_set&#34;&gt;Mandelbrot set&lt;/a&gt; fractal with equation Z&lt;sub&gt;n&lt;/sub&gt; = Z&lt;sub&gt;n-1&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt; + c.&lt;/p&gt;
 
-&lt;div class=&#34;figure&#34;&gt;
-  &lt;img src=&#34;http://localhost:1313/blog/images/800px-Mandel_zoom_00_mandelbrot_set.jpg&#34; width=720 height=540 /&gt;&lt;br /&gt; Taken from &lt;a href=&#34;http://en.wikipedia.org/wiki/File:Mandel_zoom_00_mandelbrot_set.jpg&#34;&gt;Wikipedia&lt;/a&gt; under the Creative Commons Attribution-Share Alike Licence.
-&lt;/div&gt;
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;800px-Mandel_zoom_00_mandelbrot_set.jpg&#34; width=&#34;720&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;Taken from &amp;lt;a href=&amp;#39;http://en.wikipedia.org/wiki/File:Mandel_zoom_00_mandelbrot_set.jpg&amp;#39;&amp;gt;Wikipedia&amp;lt;/a&amp;gt; under the Creative Commons Attribution-Share Alike Licence.&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
 
 &lt;p&gt;Now, I&amp;#8217;m of the opinion that for Hector 2 to have gone back in time and influenced his own previous time line (ie Hector 1&amp;#8242;s), there must have been an iteration of events, which lead to a constant non-fluctuating time-line that Hector 2 chased Hector 1 into the machine. For example, without Hector 2 influencing Hector 1, there must have been a series of events that caused Hector 1 to enter the time machine. After he enters the time machine, events keep changing until we get to a constant state where Hector 2 chases Hector 1 into the machine, and each time round the iteration the exact same set of results occur.&lt;/p&gt;
 
@@ -45,7 +65,7 @@
 
 &lt;p&gt;One additional component in the film is that actually a third Hector is formed from Hector 2. Hector 3 played a minor part influencing Hector 2. Now this would be an equation in the form: Z&lt;sub&gt;n&lt;/sub&gt; = Z&lt;sub&gt;n-1&lt;/sub&gt; + Z&lt;sub&gt;n-2&lt;/sub&gt;.&lt;/p&gt;
 
-&lt;p&gt;Hopefully my ideas of iteratively solving time travel makes sense, and I&amp;#8217;d appreciate any comments. As far as I know these are my own ideas, and I haven&amp;#8217;t previously read this anywhere. Also, as with most of my knowledge it has been collected from watching far too much Sci-fi &lt;img src=&#34;http://bramp.net/blog/wp-includes/images/smilies/icon_smile.gif&#34; alt=&#34;:)&#34; class=&#34;wp-smiley&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Hopefully my ideas of iteratively solving time travel makes sense, and I&amp;#8217;d appreciate any comments. As far as I know these are my own ideas, and I haven&amp;#8217;t previously read this anywhere. Also, as with most of my knowledge it has been collected from watching far too much Sci-fi :)&lt;/p&gt;
 </description>
     </item>
     

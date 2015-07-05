@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Asus on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/asus/</link>
+    <link>http://localhost:1313/tags/asus/</link>
     <description>Recent content in Asus on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Mon, 01 Sep 2008 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/asus/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/asus/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>ASUS X56Se Linux</title>
-      <link>http://localhost:1313/blog/2008/09/01/asus-x56se-linux/</link>
+      <link>http://localhost:1313/post/2008-09-01-asus-x56se-linux/</link>
       <pubDate>Mon, 01 Sep 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2008/09/01/asus-x56se-linux/</guid>
+      <guid>http://localhost:1313/post/2008-09-01-asus-x56se-linux/</guid>
       <description>&lt;p&gt;My girlfriend just purchased a &lt;a href=&#34;http://www.ebuyer.com/product/147001&#34;&gt;ASUS X56Se from eBuyer&lt;/a&gt; and I wanted to install Linux on it.&lt;/p&gt;
 
 &lt;p&gt;If you google for this laptop you won&amp;#8217;t find many pages about it, in fact I could find no information about the laptop on all of ASUS&amp;#8217;s website. However, there is the &lt;a href=&#34;http://www.asus.com/products.aspx?l1=5&amp;amp;l2=74&amp;amp;l3=604&amp;amp;l4=0&amp;amp;model=2109&amp;amp;modelmenu=1&#34;&gt;ASUS M51Se&lt;/a&gt; which looks very similar in the photographs. I&amp;#8217;ve even &lt;a href=&#34;http://vip.asus.com/forum/view.aspx?board_id=3&amp;amp;model=X53Se&amp;amp;id=20080831051338546&amp;amp;page=1&amp;amp;SLanguage=en-us&#34;&gt;asked on the ASUS forums&lt;/a&gt; if anyone know more information.&lt;/p&gt;

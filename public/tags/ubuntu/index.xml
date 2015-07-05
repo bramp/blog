@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ubuntu on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/ubuntu/</link>
+    <link>http://localhost:1313/tags/ubuntu/</link>
     <description>Recent content in Ubuntu on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 29 Apr 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Failed Ubuntu update</title>
-      <link>http://localhost:1313/blog/2012/04/29/failed-ubuntu-update/</link>
+      <link>http://localhost:1313/post/2012-04-29-failed-ubuntu-update/</link>
       <pubDate>Sun, 29 Apr 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2012/04/29/failed-ubuntu-update/</guid>
+      <guid>http://localhost:1313/post/2012-04-29-failed-ubuntu-update/</guid>
       <description>&lt;p&gt;While trying to do a &amp;#8220;do-release-upgrade&amp;#8221;, to upgrade to &lt;a href=&#34;http://releases.ubuntu.com/12.04/&#34;&gt;Ubuntu Precise&lt;/a&gt;, I encountered a error that Google did not find a satisfactory answer for:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;An unresolvable problem occurred while calculating the upgrade:
 E:Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.

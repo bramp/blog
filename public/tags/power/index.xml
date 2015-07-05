@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Power on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/power/</link>
+    <link>http://localhost:1313/tags/power/</link>
     <description>Recent content in Power on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Mon, 26 Oct 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/power/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/power/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Power Consumption</title>
-      <link>http://localhost:1313/blog/2009/10/26/power-consumption/</link>
+      <link>http://localhost:1313/post/2009-10-26-power-consumption/</link>
       <pubDate>Mon, 26 Oct 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2009/10/26/power-consumption/</guid>
+      <guid>http://localhost:1313/post/2009-10-26-power-consumption/</guid>
       <description>
 
 &lt;p&gt;I have mentioned many times that I would like to know how much current something is drawing, so today Nic brought me a mains power meter. It is a very simple meter which plugs between the mains and the device and can measure volts, amps, watts, frequency, and a few other metrics. I decided to run around my house measuring everything I could.&lt;/p&gt;

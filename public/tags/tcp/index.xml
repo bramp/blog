@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tcp on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/tcp/</link>
+    <link>http://localhost:1313/tags/tcp/</link>
     <description>Recent content in Tcp on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sat, 05 Apr 2008 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/tcp/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/tcp/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Linux kernel patch for TCP timestamping</title>
-      <link>http://localhost:1313/blog/2008/04/05/linux-kernel-patch-for-tcp-timestamping/</link>
+      <link>http://localhost:1313/post/2008-04-05-linux-kernel-patch-for-tcp-timestamping/</link>
       <pubDate>Sat, 05 Apr 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2008/04/05/linux-kernel-patch-for-tcp-timestamping/</guid>
+      <guid>http://localhost:1313/post/2008-04-05-linux-kernel-patch-for-tcp-timestamping/</guid>
       <description>&lt;p&gt;Recently I needed to measure the time it takes a packet to travel though the Linux network stack. To begin with I thought I&amp;#8217;ll hack the kernel to add my own timing measurements, but then I found this was already built in! I could use the SIOCGSTAMP or SIOCGSTAMPNS ioctl calls to retrieve the timestamp assigned by the network driver when the packet first enters the stack.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;n&#34;&gt;SOCKET&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;timeval&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tv&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
