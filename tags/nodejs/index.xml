@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Nodejs on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/nodejs/</link>
+    <link>http://localhost:1313/tags/nodejs/</link>
     <description>Recent content in Nodejs on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 21 Dec 2014 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>NationJS talk on NodeJs now on Vimeo</title>
-      <link>http://localhost:1313/blog/2014/12/21/nationjs-talk-on-nodejs-now-on-vimeo/</link>
+      <link>http://localhost:1313/post/2014-12-21-nationjs-talk-on-nodejs-now-on-vimeo/</link>
       <pubDate>Sun, 21 Dec 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2014/12/21/nationjs-talk-on-nodejs-now-on-vimeo/</guid>
+      <guid>http://localhost:1313/post/2014-12-21-nationjs-talk-on-nodejs-now-on-vimeo/</guid>
       <description>&lt;p&gt;It&amp;#8217;s a bit late, but finally my NationJS talk is on Vimeo:&lt;/p&gt;
 
 &lt;p&gt;&lt;iframe src=&#34;//player.vimeo.com/video/93754470&#34; width=&#34;500&#34; height=&#34;281&#34; frameborder=&#34;0&#34; webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;&lt;br&gt;
@@ -26,10 +26,10 @@
     
     <item>
       <title>Invalid IP range checking defeated by DNS</title>
-      <link>http://localhost:1313/blog/2012/11/27/invalid-ip-range-checking-defeated-by-dns/</link>
+      <link>http://localhost:1313/post/2012-11-27-invalid-ip-range-checking-defeated-by-dns/</link>
       <pubDate>Tue, 27 Nov 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2012/11/27/invalid-ip-range-checking-defeated-by-dns/</guid>
+      <guid>http://localhost:1313/post/2012-11-27-invalid-ip-range-checking-defeated-by-dns/</guid>
       <description>&lt;p&gt;I&amp;#8217;ve seen a particular kind of vulnerability in a few different applications but I&amp;#8217;m not sure of an appropriate name for it. So I thought I&amp;#8217;d write about it, and informally call it the &amp;#8220;DNS defeated IP address check&amp;#8221;. Basically, if you have an application that can be used as a proxy, or can be instructed to make web request, you don&amp;#8217;t want it fetching files from internal services.&lt;/p&gt;
 
 &lt;p&gt;For example, there is a simple proxy called &lt;a href=&#34;https://github.com/atmos/camo&#34;&gt;Camo&lt;/a&gt;, which is used to fetch third party images when you need to display them on a SSL secure site. (Read more about Camo on the &lt;a href=&#34;https://github.com/blog/743-sidejack-prevention-phase-3-ssl-proxied-assets&#34;&gt;GitHub blog&lt;/a&gt;).&lt;/p&gt;
@@ -72,15 +72,15 @@
     
     <item>
       <title>Nodewii talk at Node DC</title>
-      <link>http://localhost:1313/blog/2012/11/14/nodewii-talk-at-node-dc/</link>
+      <link>http://localhost:1313/post/2012/11/14/nodewii-talk-at-node-dc/</link>
       <pubDate>Wed, 14 Nov 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2012/11/14/nodewii-talk-at-node-dc/</guid>
+      <guid>http://localhost:1313/post/2012/11/14/nodewii-talk-at-node-dc/</guid>
       <description>&lt;p&gt;Last night I gave a short talk at &lt;a href=&#34;http://nodedc.github.com/&#34;&gt;NodeDC&lt;/a&gt;, on how to use Node.js with a wiimote. The offical title was &amp;#8220;Controlling Node.js with a wiimote &amp;#8211; My experiences with developing multi-threaded nodejs addon&amp;#8221;. I&amp;#8217;d like to thank the NodeDC guys for arranging everything last night, it was a great night, with some great talks.&lt;/p&gt;
 
 &lt;p&gt;&lt;div class=&#34;text-center&#34;&gt;
     &lt;a href=&#34;https://bramp.github.io/nodewii-talk/&#34;&gt;
-        &lt;img src=&#34;http://bramp.net/blog/wp-content/uploads/nodewii-talk.png&#34; alt=&#34;&#34; title=&#34;nodewii-talk&#34; width=&#34;981&#34; height=&#34;763&#34;/&gt;
+        &lt;img src=&#34;nodewii-talk.png&#34; alt=&#34;&#34; title=&#34;nodewii-talk&#34; width=&#34;981&#34; height=&#34;763&#34;/&gt;
     &lt;/a&gt;
 &lt;/div&gt;
 The slides can be found here: &lt;a href=&#34;https://bramp.github.io/nodewii-talk/&#34;&gt;https://bramp.github.io/nodewii-talk/&lt;/a&gt;&lt;/p&gt;
@@ -89,10 +89,10 @@ The slides can be found here: &lt;a href=&#34;https://bramp.github.io/nodewii-ta
     
     <item>
       <title>My experiences with developing multi-threaded nodejs addon</title>
-      <link>http://localhost:1313/blog/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/</link>
+      <link>http://localhost:1313/post/2011-10-17-my-experiences-with-developing-multi-threaded-nodejs-extensions/</link>
       <pubDate>Mon, 17 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/</guid>
+      <guid>http://localhost:1313/post/2011-10-17-my-experiences-with-developing-multi-threaded-nodejs-extensions/</guid>
       <description>
 
 &lt;p&gt;I&amp;#8217;ve been modifying an &lt;a href=&#34;https://github.com/tbranyen/nodewii&#34;&gt;existing nodejs extension&lt;/a&gt;, that wraps &lt;a href=&#34;http://abstrakraft.org/cwiid/wiki/libcwiid&#34;&gt;libcwiid&lt;/a&gt; (a C library written to interface with a &lt;a href=&#34;http://en.wikipedia.org/wiki/Wii_Remote&#34;&gt;Wiimote&lt;/a&gt;). This extension uses polling to check if the state of the Wiimote has changed (such as a button being pressed). Libcwiid however provides a callback mechanism to be alerted as soon as a state change occurs. This has the benefit of being instantaneous, instead of at the polling interval.&lt;/p&gt;

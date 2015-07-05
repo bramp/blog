@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Dns on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/dns/</link>
+    <link>http://localhost:1313/tags/dns/</link>
     <description>Recent content in Dns on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Fri, 04 Dec 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/dns/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/dns/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Google DNS Benchmarked</title>
-      <link>http://localhost:1313/blog/2009/12/04/google-dns-benchmarked/</link>
+      <link>http://localhost:1313/post/2009-12-04-google-dns-benchmarked/</link>
       <pubDate>Fri, 04 Dec 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2009/12/04/google-dns-benchmarked/</guid>
+      <guid>http://localhost:1313/post/2009-12-04-google-dns-benchmarked/</guid>
       <description>
 
-&lt;p&gt;Today &lt;a href=&#34;http://googleblog.blogspot.com/2009/12/introducing-google-public-dns.html&#34;&gt;Google announced&lt;/a&gt; a public DNS service they are hosting. They claim that their DNS infrastructure is &lt;a href=&#34;http://code.google.com/speed/public-dns/docs/performance.html&#34;&gt;faster and more secure&lt;/a&gt;, because their servers do some clever things. I wanted to test their performance claims, so I wrote a &lt;a href=&#34;http://localhost:1313/blog/projects/dns/dns.php.txt&#34;&gt;little script&lt;/a&gt; to measure a lookup times for different domains across a number of DNS servers.&lt;/p&gt;
+&lt;p&gt;Today &lt;a href=&#34;http://googleblog.blogspot.com/2009/12/introducing-google-public-dns.html&#34;&gt;Google announced&lt;/a&gt; a public DNS service they are hosting. They claim that their DNS infrastructure is &lt;a href=&#34;http://code.google.com/speed/public-dns/docs/performance.html&#34;&gt;faster and more secure&lt;/a&gt;, because their servers do some clever things. I wanted to test their performance claims, so I wrote a &lt;a href=&#34;http://localhost:1313/projects/dns/dns.php.txt&#34;&gt;little script&lt;/a&gt; to measure a lookup times for different domains across a number of DNS servers.&lt;/p&gt;
 
 &lt;h3 id=&#34;methodology:99f0e94b2e553367c6796f4381865bde&#34;&gt;Methodology&lt;/h3&gt;
 
@@ -32,7 +32,7 @@
 
 &lt;p&gt;I recorded the time it took for each query to be answered, and I also recorded the replies. I was curious to see if some servers replied with different answers, or if some returned more information, i.e. additional records.&lt;/p&gt;
 
-&lt;p&gt;I &lt;a href=&#34;http://localhost:1313/blog/projects/dns/dns.php.txt&#34;&gt;wrote a script&lt;/a&gt; in PHP 5.3, and ran it from the command line on my Windows Server 2008 machine. The script used PEAR&amp;rsquo;s Net_DNS to craft and send the DNS questions. I was not using my operating system&amp;rsquo;s resolver, and I was not using any form of client side caching. I ran the experiments from my home ADSL connection and as far as I know my ISP was not interfering with my DNS requests in any way. I live in the North West of the UK.&lt;/p&gt;
+&lt;p&gt;I &lt;a href=&#34;http://localhost:1313/projects/dns/dns.php.txt&#34;&gt;wrote a script&lt;/a&gt; in PHP 5.3, and ran it from the command line on my Windows Server 2008 machine. The script used PEAR&amp;rsquo;s Net_DNS to craft and send the DNS questions. I was not using my operating system&amp;rsquo;s resolver, and I was not using any form of client side caching. I ran the experiments from my home ADSL connection and as far as I know my ISP was not interfering with my DNS requests in any way. I live in the North West of the UK.&lt;/p&gt;
 
 &lt;h3 id=&#34;results:99f0e94b2e553367c6796f4381865bde&#34;&gt;Results&lt;/h3&gt;
 
@@ -128,7 +128,7 @@
 &lt;p&gt;From this table of results, we can see that Google&amp;rsquo;s median response time is 41-42ms, however, OpenDNS performs much better with a result of ~31ms. Both my current ISP and my old ISP don&amp;rsquo;t perform as well and each achieved a result between 42ms and 61ms. To get a better feel for the data I plotted an empirical CDF of the lookup times for each server.&lt;/p&gt;
 
 &lt;div class=&#34;figure&#34;&gt;
-  &lt;a href=&#34;http://localhost:1313/blog/projects/dns/ecdf_overview.pdf&#34;&gt;&lt;img src=&#34;http://localhost:1313/blog/projects/dns/ecdf_overview.png&#34; width=&#34;700&#34; height=&#34;700&#34; /&gt;&lt;/a&gt;&lt;br /&gt;&lt;a href=&#34;http://localhost:1313/blog/projects/dns/ecdf_overview.pdf&#34;&gt;Click for a larger PDF version&lt;/a&gt;
+  &lt;a href=&#34;http://localhost:1313/projects/dns/ecdf_overview.pdf&#34;&gt;&lt;img src=&#34;http://localhost:1313/projects/dns/ecdf_overview.png&#34; width=&#34;700&#34; height=&#34;700&#34; /&gt;&lt;/a&gt;&lt;br /&gt;&lt;a href=&#34;http://localhost:1313/projects/dns/ecdf_overview.pdf&#34;&gt;Click for a larger PDF version&lt;/a&gt;
 &lt;/div&gt;
 
 &lt;p&gt;The first impression I can make from this CDF is that OpenDNS serves far more of the queries faster than anyone else. Secondly the secondary DNS servers all seem to be faster than their primaries. I suspect this is because most hosts query the primary, and rarely query the secondary. I even read that &lt;a href=&#34;https://www.isc.org/software/bind&#34;&gt;BIND&lt;/a&gt; (a popular DNS server) has/had &lt;a href=&#34;http://homepages.tesco.net/J.deBoynePollard/FGA/dns-database-replication.html&#34;&gt;a bug in it which favoured the primary DNS&lt;/a&gt;.&lt;/p&gt;
@@ -140,7 +140,7 @@
 &lt;p&gt;SInce I ran each lookup three times, I wanted to compare the lookup times for each request. This time I plotted the empirical CDF of each iteration of request.&lt;/p&gt;
 
 &lt;div class=&#34;figure&#34;&gt;
-  &lt;a href=&#34;http://localhost:1313/blog/projects/dns/ecdf_requests.pdf&#34;&gt;&lt;img src=&#34;http://localhost:1313/blog/projects/dns/ecdf_requests.png&#34; width=&#34;700&#34; height=&#34;700&#34; /&gt;&lt;/a&gt;&lt;br /&gt;&lt;a href=&#34;http://localhost:1313/blog/projects/dns/ecdf_requests.pdf&#34;&gt;Click for a larger PDF version&lt;/a&gt;
+  &lt;a href=&#34;http://localhost:1313/projects/dns/ecdf_requests.pdf&#34;&gt;&lt;img src=&#34;http://localhost:1313/projects/dns/ecdf_requests.png&#34; width=&#34;700&#34; height=&#34;700&#34; /&gt;&lt;/a&gt;&lt;br /&gt;&lt;a href=&#34;http://localhost:1313/projects/dns/ecdf_requests.pdf&#34;&gt;Click for a larger PDF version&lt;/a&gt;
 &lt;/div&gt;
 
 &lt;p&gt;This CDF seems to show that the 2nd and 3rd requests always get served quicker than the first. In most cases the 2nd and 3rd request have equal ranking, but the first is always slow. This could easily be attributed to the fact that the caching DNS server does not have the record in its cache, and thus must be fetched. The second time I request the domain name (only moments later), the server already has the query, and most likely has it stored in RAM or L1/L2 CPU cache.&lt;/p&gt;

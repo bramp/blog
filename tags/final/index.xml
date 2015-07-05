@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Final on bramp.net</title>
-    <link>http://localhost:1313/blog/tags/final/</link>
+    <link>http://localhost:1313/tags/final/</link>
     <description>Recent content in Final on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Fri, 10 Jul 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/blog/tags/final/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/final/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Final Version of my Thesis Online</title>
-      <link>http://localhost:1313/blog/2009/07/10/final-version-of-my-thesis-online/</link>
+      <link>http://localhost:1313/post/2009-07-10-final-version-of-my-thesis-online/</link>
       <pubDate>Fri, 10 Jul 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/blog/2009/07/10/final-version-of-my-thesis-online/</guid>
+      <guid>http://localhost:1313/post/2009-07-10-final-version-of-my-thesis-online/</guid>
       <description>
 
 &lt;p&gt;I finished my corrections a while ago now but I just hadn&amp;#8217;t gotten around to putting my final thesis on-line.&lt;/p&gt;
