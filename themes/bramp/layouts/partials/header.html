@@ -31,6 +31,10 @@
   <meta name="twitter:description" content="{{ $description }}" />
 {{end}}
 
+{{ with .Site.Params.GoogleSiteVerification }}
+  <meta name="google-site-verification" content="{{ . }}" />
+{{ end }}
+
   <script>
   /* //NASTY SSL hack
   var host = "bramp.github.io";

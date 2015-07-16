@@ -13,6 +13,7 @@ params:
   facebook: "bramp"
   GoogleAnalytics: "UA-136478-5"
   disqusShortname: "bramp"
+  GoogleSiteVerification: "RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"
 
 permalinks:
   post: /post/:year/:month/:day/:slug/
