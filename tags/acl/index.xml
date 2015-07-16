@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Acl on bramp.net</title>
-    <link>https://bramp.github.io/tags/acl/</link>
+    <link>http://blog.bramp.net/tags/acl/</link>
     <description>Recent content in Acl on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Wed, 21 Jan 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/acl/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/acl/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Read/Write permissions for PHP scripts at lancs.ac.uk</title>
-      <link>https://bramp.github.io/post/2009/01/21/read/write-permissions-for-php-scripts-at-lancs.ac.uk/</link>
+      <link>http://blog.bramp.net/post/2009/01/21/read/write-permissions-for-php-scripts-at-lancs.ac.uk/</link>
       <pubDate>Wed, 21 Jan 2009 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2009/01/21/read/write-permissions-for-php-scripts-at-lancs.ac.uk/</guid>
+      <guid>http://blog.bramp.net/post/2009/01/21/read/write-permissions-for-php-scripts-at-lancs.ac.uk/</guid>
       <description>&lt;p&gt;My girlfriend wanted to create a blog, and she attempted to use her &lt;a href=&#34;http://www.lancs.ac.uk/ug/cranen&#34;&gt;university provided web space&lt;/a&gt;. However, the blog software seemed unable to write to her webspace. Typically you would fix this by changing the write permissions on the file/directory like so:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;chmod g+w filename
 &lt;/pre&gt;&lt;/div&gt;

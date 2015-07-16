@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sonisphere on bramp.net</title>
-    <link>https://bramp.github.io/tags/sonisphere/</link>
+    <link>http://blog.bramp.net/tags/sonisphere/</link>
     <description>Recent content in Sonisphere on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 27 Jul 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/sonisphere/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/sonisphere/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Sonisphere 2010 Running Order</title>
-      <link>https://bramp.github.io/post/2010/07/27/sonisphere-2010-running-order/</link>
+      <link>http://blog.bramp.net/post/2010/07/27/sonisphere-2010-running-order/</link>
       <pubDate>Tue, 27 Jul 2010 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2010/07/27/sonisphere-2010-running-order/</guid>
+      <guid>http://blog.bramp.net/post/2010/07/27/sonisphere-2010-running-order/</guid>
       <description>&lt;p&gt;I spent some time today writing a PHP script to generate a running order for a festival. Here is this year&amp;#8217;s &lt;a href=&#34;http://uk.sonispherefestivals.com/&#34;&gt;Sonisphere&lt;/a&gt;&amp;#8216;s running order in a nice Gantt chart.&lt;/p&gt;
 
 &lt;!-- TODO link to sonisphere-2010.pdf --&gt;

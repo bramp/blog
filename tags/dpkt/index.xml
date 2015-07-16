@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Dpkt on bramp.net</title>
-    <link>https://bramp.github.io/tags/dpkt/</link>
+    <link>http://blog.bramp.net/tags/dpkt/</link>
     <description>Recent content in Dpkt on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 10 Jan 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/dpkt/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/dpkt/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Follow HTTP Stream (with decompression)</title>
-      <link>https://bramp.github.io/post/2010/01/10/follow-http-stream-with-decompression/</link>
+      <link>http://blog.bramp.net/post/2010/01/10/follow-http-stream-with-decompression/</link>
       <pubDate>Sun, 10 Jan 2010 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2010/01/10/follow-http-stream-with-decompression/</guid>
+      <guid>http://blog.bramp.net/post/2010/01/10/follow-http-stream-with-decompression/</guid>
       <description>&lt;p&gt;I was using &lt;a href=&#34;http://www.wireshark.org/&#34;&gt;Wireshark&lt;/a&gt; to capture an exchange of HTTP packets, however, some of the HTTP responses were using &amp;#8220;content-encoding: gzip&amp;#8221;, which meant I couldn&amp;#8217;t view them decompressed in the &amp;#8220;Follow TCP Stream&amp;#8221;. Wireshark does decompress them in Packet Details view, but it is hard to follow the full stream like this.&lt;/p&gt;
 
 &lt;p&gt;The solution was to write some &lt;a href=&#34;http://www.python.org/&#34;&gt;Python&lt;/a&gt; which made use of the &lt;a href=&#34;http://code.google.com/p/dpkt/&#34;&gt;dpkt library&lt;/a&gt;. My code naively reassembles the TCP flow and then assumes traffic on port 80 is HTTP. Therefore there is much room for improvement, but here is the code anyway.&lt;/p&gt;

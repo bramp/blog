@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Network on bramp.net</title>
-    <link>https://bramp.github.io/tags/network/</link>
+    <link>http://blog.bramp.net/tags/network/</link>
     <description>Recent content in Network on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 09 Feb 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/network/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/network/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Facilitating Network Auto Configuration In Next Generation Internet Protocols</title>
-      <link>https://bramp.github.io/publication/facilitating-network-auto-configuration-in-next-generation-internet-protocols/</link>
+      <link>http://blog.bramp.net/publication/facilitating-network-auto-configuration-in-next-generation-internet-protocols/</link>
       <pubDate>Tue, 09 Feb 2010 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/publication/facilitating-network-auto-configuration-in-next-generation-internet-protocols/</guid>
+      <guid>http://blog.bramp.net/publication/facilitating-network-auto-configuration-in-next-generation-internet-protocols/</guid>
       <description>&lt;p&gt;Matthew Jakeman, Andrew Brampton, Stephen Pink&lt;/p&gt;
 
 &lt;p&gt;In proceedings FutureNet II &amp;#8211; Second international workshop on the network of the future in conjunction with IEEE Globecom&lt;/p&gt;
@@ -36,10 +36,10 @@ This allows the protocol to change its transmission characteristics depending on
     
     <item>
       <title>Evaluating the Performance of Network Protocol Processing on Multi-core Systems</title>
-      <link>https://bramp.github.io/publication/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/</link>
+      <link>http://blog.bramp.net/publication/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/</link>
       <pubDate>Tue, 26 May 2009 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/publication/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/</guid>
+      <guid>http://blog.bramp.net/publication/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/</guid>
       <description>&lt;p&gt;Matthew Faulkner and Andrew Brampton and Stephen Pink&lt;/p&gt;
 
 &lt;p&gt;In proceedings of the International Conference on Advanced Information Networking and Applications (AINA)&lt;/p&gt;

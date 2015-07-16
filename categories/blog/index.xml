@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blog on bramp.net</title>
-    <link>https://bramp.github.io/categories/blog/</link>
+    <link>http://blog.bramp.net/categories/blog/</link>
     <description>Recent content in Blog on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 21 Dec 2014 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/categories/blog/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/categories/blog/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>NationJS talk on NodeJs now on Vimeo</title>
-      <link>https://bramp.github.io/post/2014/12/21/nationjs-talk-on-nodejs-now-on-vimeo/</link>
+      <link>http://blog.bramp.net/post/2014/12/21/nationjs-talk-on-nodejs-now-on-vimeo/</link>
       <pubDate>Sun, 21 Dec 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2014/12/21/nationjs-talk-on-nodejs-now-on-vimeo/</guid>
+      <guid>http://blog.bramp.net/post/2014/12/21/nationjs-talk-on-nodejs-now-on-vimeo/</guid>
       <description>&lt;p&gt;It&amp;#8217;s a bit late, but finally my NationJS talk is on Vimeo:&lt;/p&gt;
 
 &lt;p&gt;&lt;iframe src=&#34;//player.vimeo.com/video/93754470&#34; width=&#34;500&#34; height=&#34;281&#34; frameborder=&#34;0&#34; webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;&lt;br&gt;
@@ -26,10 +26,10 @@
     
     <item>
       <title>Modern Software Development Life Cycle</title>
-      <link>https://bramp.github.io/post/2014/08/20/modern-software-development-life-cycle/</link>
+      <link>http://blog.bramp.net/post/2014/08/20/modern-software-development-life-cycle/</link>
       <pubDate>Wed, 20 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2014/08/20/modern-software-development-life-cycle/</guid>
+      <guid>http://blog.bramp.net/post/2014/08/20/modern-software-development-life-cycle/</guid>
       <description>&lt;p&gt;I recently got asked by a friend at a start-up on how to ensure better quality in their product. They were looking for advise on the QA process, but after digging a little I found they needed improvements to their full software development life cycle (SDLC). After a few emails back and forth I ended up writing what&amp;#8217;s below. It has plenty of references for further reading, and I thought it would be good to share.&lt;/p&gt;
 
 &lt;p&gt;Generally people view the SDLC as a pipeline, and there are different ways to manage the pipeline, Scrum, Kanban, Waterfall, etc. Each with their pros and cons, and all can help your quality, but I’ll address that later&lt;/p&gt;
@@ -95,10 +95,10 @@ I mention there were different techniques for the SDLC, Agile based approaches (
     
     <item>
       <title>Grabbing a Certificate with OpenSSL and importing it into Java</title>
-      <link>https://bramp.github.io/post/2014/08/16/grabbing-a-certificate-with-openssl-and-importing-it-into-java/</link>
+      <link>http://blog.bramp.net/post/2014/08/16/grabbing-a-certificate-with-openssl-and-importing-it-into-java/</link>
       <pubDate>Sat, 16 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2014/08/16/grabbing-a-certificate-with-openssl-and-importing-it-into-java/</guid>
+      <guid>http://blog.bramp.net/post/2014/08/16/grabbing-a-certificate-with-openssl-and-importing-it-into-java/</guid>
       <description>&lt;p&gt;Occasionally I have to grab a SSL cert from a server, and turn it into something that Java can use. Here are the quick instructions&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;# Store the cert issued by a web server&lt;/span&gt;
 openssl s_client -showcerts -connect www.google.com:443 &amp;gt; www.google.com.pem
@@ -116,10 +116,10 @@ sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.d
     
     <item>
       <title>SMS Character Count</title>
-      <link>https://bramp.github.io/post/2013/08/25/sms-character-count/</link>
+      <link>http://blog.bramp.net/post/2013/08/25/sms-character-count/</link>
       <pubDate>Sun, 25 Aug 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2013/08/25/sms-character-count/</guid>
+      <guid>http://blog.bramp.net/post/2013/08/25/sms-character-count/</guid>
       <description>&lt;p&gt;It is commonly known that Twitter allows 140 character messages, and some will tell you that a single SMS message is limited to 160 characters. However, it&amp;#8217;s not as simple as that. In the US a single SMS message can contain 140 bytes of data, which if using &lt;a href=&#34;http://en.wikipedia.org/wiki/GSM_03.38&#34;&gt;GSM encoding&lt;/a&gt;, we can squeeze up to 160 7-bit characters. Those 7-bit GSM characters don&amp;#8217;t match up with normal ASCII characters, and even worse, not all characters take 7 bits, some take up 14 bits (for example the { character)!&lt;/p&gt;
 
 &lt;p&gt;When we start talking about messaging in non-latin scripts, such as Chinese, then a different encoding must be used. In the SMS world the encoding of choice is &lt;a href=&#34;http://en.wikipedia.org/wiki/UTF-16&#34;&gt;UCS-2&lt;/a&gt;, which uses 16 bits per character. This limits a single part message to 70 characters (down from 160).&lt;/p&gt;
@@ -136,10 +136,10 @@ sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.d
     
     <item>
       <title>Alignment of Raphaël Paper.text(…) and Paper.print(…)</title>
-      <link>https://bramp.github.io/post/2013/03/31/alignment-of-raphael-text/</link>
+      <link>http://blog.bramp.net/post/2013/03/31/alignment-of-raphael-text/</link>
       <pubDate>Sun, 31 Mar 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2013/03/31/alignment-of-raphael-text/</guid>
+      <guid>http://blog.bramp.net/post/2013/03/31/alignment-of-raphael-text/</guid>
       <description>&lt;p&gt;Working with &lt;a href=&#34;http://raphaeljs.com/&#34;&gt;Raphaël&lt;/a&gt; I noticed the alignment of text drawn with the &lt;a href=&#34;http://raphaeljs.com/reference.html#Paper.text&#34;&gt;Paper.text(&amp;#8230;)&lt;/a&gt; and &lt;a href=&#34;http://raphaeljs.com/reference.html#Paper.print&#34;&gt;Paper.print(&amp;#8230;)&lt;/a&gt; methods differed. The documentation wasn&amp;#8217;t helpful in explaining the difference, so I wrote a simple test to work out their behaviour, and then a small method to normalise them.&lt;/p&gt;
 
 &lt;div class=&#34;text-center&#34;&gt;
@@ -219,10 +219,10 @@ sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.d
     
     <item>
       <title>Most starred project this week, and second most forked.</title>
-      <link>https://bramp.github.io/post/2013/03/25/most-starred-project-this-week/</link>
+      <link>http://blog.bramp.net/post/2013/03/25/most-starred-project-this-week/</link>
       <pubDate>Mon, 25 Mar 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2013/03/25/most-starred-project-this-week/</guid>
+      <guid>http://blog.bramp.net/post/2013/03/25/most-starred-project-this-week/</guid>
       <description>&lt;p&gt;After getting my &lt;a href=&#34;https://bramp.github.io/js-sequence-diagrams/&#34;&gt;js-sequence-diagrams&lt;/a&gt; project onto &lt;a href=&#34;https://news.ycombinator.com/item?id=5432110&#34;&gt;Hacker News&lt;/a&gt;, the popularity has gone viral.&lt;/p&gt;
 
 &lt;div class=&#34;text-center&#34;&gt;
@@ -235,10 +235,10 @@ sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.d
     
     <item>
       <title>Draw UML Sequence Diagrams with Javascript</title>
-      <link>https://bramp.github.io/post/2013/03/23/draw-uml-sequence-diagrams-with-javascript/</link>
+      <link>http://blog.bramp.net/post/2013/03/23/draw-uml-sequence-diagrams-with-javascript/</link>
       <pubDate>Sat, 23 Mar 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2013/03/23/draw-uml-sequence-diagrams-with-javascript/</guid>
+      <guid>http://blog.bramp.net/post/2013/03/23/draw-uml-sequence-diagrams-with-javascript/</guid>
       <description>&lt;p&gt;I&amp;#8217;m happy to announce one of my projects, &lt;a href=&#34;https://bramp.github.io/js-sequence-diagrams/&#34;&gt;js-sequence-diagrams&lt;/a&gt;. This uses Javascript to draw UML sequence diagrams in SVG format. Here is an example:&lt;/p&gt;
 
 &lt;div class=&#34;text-center&#34;&gt;
@@ -259,10 +259,10 @@ sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.d
     
     <item>
       <title>MongoDB Compression</title>
-      <link>https://bramp.github.io/post/2013/03/17/mongodb-compression/</link>
+      <link>http://blog.bramp.net/post/2013/03/17/mongodb-compression/</link>
       <pubDate>Sun, 17 Mar 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2013/03/17/mongodb-compression/</guid>
+      <guid>http://blog.bramp.net/post/2013/03/17/mongodb-compression/</guid>
       <description>
 
 &lt;p&gt;For a while people have wanted MongoDB to &lt;a href=&#34;https://jira.mongodb.org/browse/SERVER-164&#34;&gt;compress their data&lt;/a&gt;, or at least &lt;a href=&#34;https://jira.mongodb.org/browse/SERVER-863&#34;&gt;compress their field names&lt;/a&gt;. This would be beneficial in not only reducing the amount of disk space required, but also in theory improving performance as we trade disk IO with CPU IO. I thought this be a fun project to investigate, so I started by working out if this would actually be useful.&lt;/p&gt;
@@ -349,10 +349,10 @@ sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.d
     
     <item>
       <title>How many ways are there to say phone number?</title>
-      <link>https://bramp.github.io/post/2013/02/16/how-many-ways-are-there-to-say-phone-number/</link>
+      <link>http://blog.bramp.net/post/2013/02/16/how-many-ways-are-there-to-say-phone-number/</link>
       <pubDate>Sat, 16 Feb 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2013/02/16/how-many-ways-are-there-to-say-phone-number/</guid>
+      <guid>http://blog.bramp.net/post/2013/02/16/how-many-ways-are-there-to-say-phone-number/</guid>
       <description>&lt;p&gt;In the various systems I&amp;#8217;ve worked on, I have seen far too many terms to describe a phone number. I thought I&amp;#8217;d catalogue them!&lt;/p&gt;
 
 &lt;ul&gt;
@@ -374,10 +374,10 @@ sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.d
     
     <item>
       <title>Invalid IP range checking defeated by DNS</title>
-      <link>https://bramp.github.io/post/2012/11/27/invalid-ip-range-checking-defeated-by-dns/</link>
+      <link>http://blog.bramp.net/post/2012/11/27/invalid-ip-range-checking-defeated-by-dns/</link>
       <pubDate>Tue, 27 Nov 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2012/11/27/invalid-ip-range-checking-defeated-by-dns/</guid>
+      <guid>http://blog.bramp.net/post/2012/11/27/invalid-ip-range-checking-defeated-by-dns/</guid>
       <description>&lt;p&gt;I&amp;#8217;ve seen a particular kind of vulnerability in a few different applications but I&amp;#8217;m not sure of an appropriate name for it. So I thought I&amp;#8217;d write about it, and informally call it the &amp;#8220;DNS defeated IP address check&amp;#8221;. Basically, if you have an application that can be used as a proxy, or can be instructed to make web request, you don&amp;#8217;t want it fetching files from internal services.&lt;/p&gt;
 
 &lt;p&gt;For example, there is a simple proxy called &lt;a href=&#34;https://github.com/atmos/camo&#34;&gt;Camo&lt;/a&gt;, which is used to fetch third party images when you need to display them on a SSL secure site. (Read more about Camo on the &lt;a href=&#34;https://github.com/blog/743-sidejack-prevention-phase-3-ssl-proxied-assets&#34;&gt;GitHub blog&lt;/a&gt;).&lt;/p&gt;
@@ -420,10 +420,10 @@ sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.d
     
     <item>
       <title>JSHint ‘x’ is an implied global variable</title>
-      <link>https://bramp.github.io/post/2012/11/23/jshint-x-is-an-implied-global-variable/</link>
+      <link>http://blog.bramp.net/post/2012/11/23/jshint-x-is-an-implied-global-variable/</link>
       <pubDate>Fri, 23 Nov 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2012/11/23/jshint-x-is-an-implied-global-variable/</guid>
+      <guid>http://blog.bramp.net/post/2012/11/23/jshint-x-is-an-implied-global-variable/</guid>
       <description>&lt;p&gt;I&amp;#8217;ve started using &lt;a href=&#34;http://www.jshint.com/&#34;&gt;JSHint&lt;/a&gt; to check my javascript. One error I encountered was:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;Errors:
      85,5:&amp;#39;grammar&amp;#39; is not defined.
@@ -443,10 +443,10 @@ Warning:
     
     <item>
       <title>Nodewii talk at Node DC</title>
-      <link>https://bramp.github.io/post/2012/11/14/nodewii-talk-at-node-dc/</link>
+      <link>http://blog.bramp.net/post/2012/11/14/nodewii-talk-at-node-dc/</link>
       <pubDate>Wed, 14 Nov 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2012/11/14/nodewii-talk-at-node-dc/</guid>
+      <guid>http://blog.bramp.net/post/2012/11/14/nodewii-talk-at-node-dc/</guid>
       <description>&lt;p&gt;Last night I gave a short talk at &lt;a href=&#34;http://nodedc.github.com/&#34;&gt;NodeDC&lt;/a&gt;, on how to use Node.js with a wiimote. The offical title was &amp;#8220;Controlling Node.js with a wiimote &amp;#8211; My experiences with developing multi-threaded nodejs addon&amp;#8221;. I&amp;#8217;d like to thank the NodeDC guys for arranging everything last night, it was a great night, with some great talks.&lt;/p&gt;
 
 &lt;p&gt;&lt;div class=&#34;text-center&#34;&gt;
@@ -460,10 +460,10 @@ The slides can be found here: &lt;a href=&#34;https://bramp.github.io/nodewii-ta
     
     <item>
       <title>libcec-daemon</title>
-      <link>https://bramp.github.io/post/2012/10/21/libcec-daemon/</link>
+      <link>http://blog.bramp.net/post/2012/10/21/libcec-daemon/</link>
       <pubDate>Sun, 21 Oct 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2012/10/21/libcec-daemon/</guid>
+      <guid>http://blog.bramp.net/post/2012/10/21/libcec-daemon/</guid>
       <description>&lt;p&gt;Many months ago I purchased this cool little device from &lt;a href=&#34;http://www.pulse-eight.com&#34;&gt;Pulse Eight&lt;/a&gt;, called a &lt;a href=&#34;http://www.pulse-eight.com/store/products/104-usb-hdmi-cec-adapter.aspx&#34;&gt;USB CEC Adapter&lt;/a&gt;. Basically it allows your computer to speak to a HDMI device over a protocol called &lt;a href=&#34;http://en.wikipedia.org/wiki/HDMI#CEC&#34;&gt;CEC&lt;/a&gt;. This is useful for using your PC to control your TV, and for using your TV remote to control your PC. This device now allows me to use my normal TV remote to control XBMC, and to turn my PC on standby if I turn my TV off.&lt;/p&gt;
 
 &lt;p&gt;It&amp;#8217;s all pretty neat, but each application needed to add libcec support, which means many applications do not support this little adapter. So I decided to write a simple uinput daemon that bridged Linux input events, and this CEC device. My project, &lt;a href=&#34;https://github.com/bramp/libcec-daemon&#34;&gt;libcec-daemon&lt;/a&gt;, has been &lt;a href=&#34;http://forums.pulse-eight.com/default.aspx?g=posts&amp;amp;t=430&#34;&gt;available for many months&lt;/a&gt; now, and I&amp;#8217;ve been using it successfully on my television. I just had forgotten to write a quick blog post about it :)&lt;/p&gt;
@@ -474,10 +474,10 @@ The slides can be found here: &lt;a href=&#34;https://bramp.github.io/nodewii-ta
     
     <item>
       <title>pt-kill CentOS init.d script</title>
-      <link>https://bramp.github.io/post/2012/09/30/pt-kill-centos-init.d-script/</link>
+      <link>http://blog.bramp.net/post/2012/09/30/pt-kill-centos-init.d-script/</link>
       <pubDate>Sun, 30 Sep 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2012/09/30/pt-kill-centos-init.d-script/</guid>
+      <guid>http://blog.bramp.net/post/2012/09/30/pt-kill-centos-init.d-script/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://www.percona.com/doc/percona-toolkit/2.1/pt-kill.html&#34;&gt;pt-kill&lt;/a&gt; is a neat little application that can stop long running MySQL queries. It was formally know as &lt;a href=&#34;http://www.maatkit.org/doc/mk-kill.html&#34;&gt;mk-kill&lt;/a&gt; before &lt;a href=&#34;http://www.Percona.com&#34;&gt;Percona&lt;/a&gt; took over the project. Here is the init.d script I use (as one doesn&amp;#8217;t seem provided by the project):&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;#!/bin/sh&lt;/span&gt;
 &lt;span class=&#34;c&#34;&gt;#&lt;/span&gt;
@@ -547,10 +547,10 @@ The slides can be found here: &lt;a href=&#34;https://bramp.github.io/nodewii-ta
     
     <item>
       <title>Using Make to parallelise a task</title>
-      <link>https://bramp.github.io/post/2012/09/09/using-make-to-parallelise-a-task/</link>
+      <link>http://blog.bramp.net/post/2012/09/09/using-make-to-parallelise-a-task/</link>
       <pubDate>Sun, 09 Sep 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2012/09/09/using-make-to-parallelise-a-task/</guid>
+      <guid>http://blog.bramp.net/post/2012/09/09/using-make-to-parallelise-a-task/</guid>
       <description>&lt;p&gt;I needed to run a CPU intensive script over a directory of files. Each file would be run independently, and I was using bash to achieve this:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt; in *.txt&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; ./script &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;

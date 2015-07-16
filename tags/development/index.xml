@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Development on bramp.net</title>
-    <link>https://bramp.github.io/tags/development/</link>
+    <link>http://blog.bramp.net/tags/development/</link>
     <description>Recent content in Development on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Wed, 20 Aug 2014 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/development/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/development/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Modern Software Development Life Cycle</title>
-      <link>https://bramp.github.io/post/2014/08/20/modern-software-development-life-cycle/</link>
+      <link>http://blog.bramp.net/post/2014/08/20/modern-software-development-life-cycle/</link>
       <pubDate>Wed, 20 Aug 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2014/08/20/modern-software-development-life-cycle/</guid>
+      <guid>http://blog.bramp.net/post/2014/08/20/modern-software-development-life-cycle/</guid>
       <description>&lt;p&gt;I recently got asked by a friend at a start-up on how to ensure better quality in their product. They were looking for advise on the QA process, but after digging a little I found they needed improvements to their full software development life cycle (SDLC). After a few emails back and forth I ended up writing what&amp;#8217;s below. It has plenty of references for further reading, and I thought it would be good to share.&lt;/p&gt;
 
 &lt;p&gt;Generally people view the SDLC as a pipeline, and there are different ways to manage the pipeline, Scrum, Kanban, Waterfall, etc. Each with their pros and cons, and all can help your quality, but I’ll address that later&lt;/p&gt;

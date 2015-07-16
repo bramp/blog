@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Groovy on bramp.net</title>
-    <link>https://bramp.github.io/tags/groovy/</link>
+    <link>http://blog.bramp.net/tags/groovy/</link>
     <description>Recent content in Groovy on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Wed, 04 Jul 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/groovy/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/groovy/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Groovy / Grails</title>
-      <link>https://bramp.github.io/post/2012/07/04/groovy-/-grails/</link>
+      <link>http://blog.bramp.net/post/2012/07/04/groovy-/-grails/</link>
       <pubDate>Wed, 04 Jul 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2012/07/04/groovy-/-grails/</guid>
+      <guid>http://blog.bramp.net/post/2012/07/04/groovy-/-grails/</guid>
       <description>
 
 &lt;p&gt;Over the past couple of weeks I&amp;#8217;ve been playing with Groovy and Grails, and after a somewhat frustrainting week I thought I&amp;#8217;d share my thoughts. &lt;a href=&#34;http://groovy.codehaus.org/&#34; title=&#34;Groovy&#34;&gt;Groovy&lt;/a&gt; is a dynamic language that runs in a standard JVM, and effectively extends the Java langugage. This makes it easy for existing Java programmer to pick it up and ease into it. &lt;a href=&#34;http://grails.org/&#34;&gt;Grails&lt;/a&gt; is the Groovy equilivant of &lt;a href=&#34;http://rubyonrails.org/&#34;&gt;Ruby on Rails&lt;/a&gt;, a rapid web development framework. I had high hopes for both as Groovy adds lots of interesting features to Java, such as &lt;a href=&#34;http://en.wikipedia.org/wiki/Closure_(computer_science)&#34;&gt;Closures&lt;/a&gt;, &lt;a href=&#34;http://en.wikipedia.org/wiki/Type_system&#34;&gt;Dynamic typing&lt;/a&gt;, &lt;a href=&#34;http://en.wikipedia.org/wiki/Mixin&#34;&gt;Mixins&lt;/a&gt;, and lots of clever syntax to reduce code and to speed up the average developer. On top of this Grails can quickly scaffold a &lt;a href=&#34;http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller&#34;&gt;MVC&lt;/a&gt; framework, allowing you to literally build a &lt;a href=&#34;http://en.wikipedia.org/wiki/Create,_read,_update_and_delete&#34;&gt;CRUD&lt;/a&gt; based application in minutes.&lt;/p&gt;

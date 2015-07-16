@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Configuration on bramp.net</title>
-    <link>https://bramp.github.io/tags/configuration/</link>
+    <link>http://blog.bramp.net/tags/configuration/</link>
     <description>Recent content in Configuration on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sat, 28 Nov 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/configuration/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/configuration/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Useful scripts/configurations</title>
-      <link>https://bramp.github.io/post/2009/11/28/useful-scripts/configurations/</link>
+      <link>http://blog.bramp.net/post/2009/11/28/useful-scripts/configurations/</link>
       <pubDate>Sat, 28 Nov 2009 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2009/11/28/useful-scripts/configurations/</guid>
+      <guid>http://blog.bramp.net/post/2009/11/28/useful-scripts/configurations/</guid>
       <description>&lt;p&gt;Make &lt;a href=&#34;http://git-scm.com&#34;&gt;git&lt;/a&gt; colourful&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;git config --global color.diff auto
 git config --global color.status auto

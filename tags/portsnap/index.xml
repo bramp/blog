@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Portsnap on bramp.net</title>
-    <link>https://bramp.github.io/tags/portsnap/</link>
+    <link>http://blog.bramp.net/tags/portsnap/</link>
     <description>Recent content in Portsnap on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sat, 19 Dec 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/portsnap/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/portsnap/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Updating…/-\|/-|</title>
-      <link>https://bramp.github.io/post/2009/12/19/updating/-%5C/-/</link>
+      <link>http://blog.bramp.net/post/2009/12/19/updating/-%5C/-/</link>
       <pubDate>Sat, 19 Dec 2009 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2009/12/19/updating/-%5C/-/</guid>
+      <guid>http://blog.bramp.net/post/2009/12/19/updating/-%5C/-/</guid>
       <description>&lt;p&gt;Do people other than me find updating their servers to be relaxing? At every opportunity I run &amp;#8220;apt-get update&amp;#8221;. Today I&amp;#8217;m updating 7 different machines simultaneously.&lt;/p&gt;
 
 &lt;p&gt;My Debian machines I simply issue the following commands:&lt;/p&gt;

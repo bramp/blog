@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Html5 on bramp.net</title>
-    <link>https://bramp.github.io/tags/html5/</link>
+    <link>http://blog.bramp.net/tags/html5/</link>
     <description>Recent content in Html5 on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 15 May 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/html5/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/html5/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>MRI scan of my brain</title>
-      <link>https://bramp.github.io/post/2012/05/15/mri-scan-of-my-brain/</link>
+      <link>http://blog.bramp.net/post/2012/05/15/mri-scan-of-my-brain/</link>
       <pubDate>Tue, 15 May 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2012/05/15/mri-scan-of-my-brain/</guid>
+      <guid>http://blog.bramp.net/post/2012/05/15/mri-scan-of-my-brain/</guid>
       <description>&lt;p&gt;I had a &lt;a href=&#34;http://en.wikipedia.org/wiki/Magnetic_resonance_imaging&#34;&gt;MRI&lt;/a&gt; today, and afterwards I was given a CD of my scan. The data on the CD was stored in &lt;a href=&#34;http://en.wikipedia.org/wiki/DICOM&#34;&gt;DICOM&lt;/a&gt; format, and after some searching I was able to find some open source software to view the data. I especially liked &lt;a href=&#34;http://aeskulap.nongnu.org/&#34;&gt;Aeskulap&lt;/a&gt; which allowed interactive viewing of the data in multiple dimensions.&lt;/p&gt;
 
 &lt;p&gt;I wanted to put my scans online, so I found another set of tools, &lt;a href=&#34;http://xmedcon.sourceforge.net/&#34;&gt;medcon&lt;/a&gt;, that allowed me to convert the DICOM images into png/gif format, and then I used &lt;a href=&#34;http://ffmpeg.org/&#34;&gt;ffmpeg&lt;/a&gt; to create the following videos:&lt;/p&gt;
@@ -85,10 +85,10 @@ mkdir png
     
     <item>
       <title>HTML5 Canvas: Lunch Wheel</title>
-      <link>https://bramp.github.io/post/2011/07/27/html5-canvas-lunch-wheel/</link>
+      <link>http://blog.bramp.net/post/2011/07/27/html5-canvas-lunch-wheel/</link>
       <pubDate>Wed, 27 Jul 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2011/07/27/html5-canvas-lunch-wheel/</guid>
+      <guid>http://blog.bramp.net/post/2011/07/27/html5-canvas-lunch-wheel/</guid>
       <description>&lt;p&gt;In the on going battle to make my lunch time more optimised I decided to learn some Javascript, and how to use the HTML5 &lt;a href=&#34;https://html.spec.whatwg.org/multipage/scripting.html#the-canvas-element&#34;&gt;Canvas&lt;/a&gt; element. Turns out it&amp;#8217;s not that hard, and I have now created&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://bramp.net/javascript/lunchwheel.html&#34;&gt;

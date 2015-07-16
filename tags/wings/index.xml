@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Wings on bramp.net</title>
-    <link>https://bramp.github.io/tags/wings/</link>
+    <link>http://blog.bramp.net/tags/wings/</link>
     <description>Recent content in Wings on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 02 Jul 2006 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/wings/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/wings/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>How to Build Wings</title>
-      <link>https://bramp.github.io/post/2006/07/02/how-to-build-wings/</link>
+      <link>http://blog.bramp.net/post/2006/07/02/how-to-build-wings/</link>
       <pubDate>Sun, 02 Jul 2006 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2006/07/02/how-to-build-wings/</guid>
+      <guid>http://blog.bramp.net/post/2006/07/02/how-to-build-wings/</guid>
       <description>
 
 &lt;p&gt;&lt;strong&gt;Note, since this was published my girlfriend has changed!&lt;/strong&gt;&lt;/p&gt;

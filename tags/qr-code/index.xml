@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Qr Code on bramp.net</title>
-    <link>https://bramp.github.io/tags/qr-code/</link>
+    <link>http://blog.bramp.net/tags/qr-code/</link>
     <description>Recent content in Qr Code on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sat, 13 Feb 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/qr-code/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/qr-code/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>LaTeX QR Based Business Card</title>
-      <link>https://bramp.github.io/post/2010/02/13/latex-qr-based-business-card/</link>
+      <link>http://blog.bramp.net/post/2010/02/13/latex-qr-based-business-card/</link>
       <pubDate>Sat, 13 Feb 2010 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2010/02/13/latex-qr-based-business-card/</guid>
+      <guid>http://blog.bramp.net/post/2010/02/13/latex-qr-based-business-card/</guid>
       <description>&lt;p&gt;I recently found &lt;a href=&#34;http://forthescience.org/blog/2010/02/02/my-business-card-with-qr-code-geeky/&#34;&gt;this blog&lt;/a&gt; which shows a business card with a QR card. I thought I&amp;#8217;d create a business card with LaTeX with a similar QR code. I took a LaTeX template from &lt;a href=&#34;http://blog.widmann.org.uk/2009/05/27/1297/&#34;&gt;here&lt;/a&gt;, found out about the &lt;a href=&#34;http://www.tug.org/texmf-dist/doc/generic/pst-barcode/pst-barcode-doc.pdf&#34;&gt;pst-barcode pacakge&lt;/a&gt;, learnt the &lt;a href=&#34;https://www.nttdocomo.co.jp/english/service/developer/make/content/barcode/function/application/addressbook/&#34;&gt;MECARD format&lt;/a&gt;, and combined them to make this:&lt;/p&gt;
 
 &lt;!-- TODO link to card-1.pdf --&gt;

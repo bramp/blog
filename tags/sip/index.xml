@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sip on bramp.net</title>
-    <link>https://bramp.github.io/tags/sip/</link>
+    <link>http://blog.bramp.net/tags/sip/</link>
     <description>Recent content in Sip on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Fri, 23 Sep 2011 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/sip/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/sip/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>MD5 Digest Authorisation in SIP with PHP</title>
-      <link>https://bramp.github.io/post/2011/09/23/md5-digest-authorisation-in-sip-with-php/</link>
+      <link>http://blog.bramp.net/post/2011/09/23/md5-digest-authorisation-in-sip-with-php/</link>
       <pubDate>Fri, 23 Sep 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2011/09/23/md5-digest-authorisation-in-sip-with-php/</guid>
+      <guid>http://blog.bramp.net/post/2011/09/23/md5-digest-authorisation-in-sip-with-php/</guid>
       <description>&lt;p&gt;Today I needed to work out the MD5 Digest hash for SIP authorisation. A quick search on Google revealed &lt;a href=&#34;http://alexkr.com/memos/66/digest-authorization-in-sip-with-md5/&#34;&gt;instructions&lt;/a&gt; on how to generate the hash, and then I made this simple PHP script.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;
 &lt;span class=&#34;nv&#34;&gt;$username&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;1234&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;

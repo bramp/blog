@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Derren Brown on bramp.net</title>
-    <link>https://bramp.github.io/tags/derren-brown/</link>
+    <link>http://blog.bramp.net/tags/derren-brown/</link>
     <description>Recent content in Derren Brown on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sat, 12 Sep 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/derren-brown/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/derren-brown/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Derren Brown’s Coin Game</title>
-      <link>https://bramp.github.io/post/2009/09/12/derren-browns-coin-game/</link>
+      <link>http://blog.bramp.net/post/2009/09/12/derren-browns-coin-game/</link>
       <pubDate>Sat, 12 Sep 2009 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2009/09/12/derren-browns-coin-game/</guid>
+      <guid>http://blog.bramp.net/post/2009/09/12/derren-browns-coin-game/</guid>
       <description>&lt;p&gt;&lt;strong&gt;Update: I found out this coin game is called &lt;a href=&#34;http://en.wikipedia.org/wiki/Penney&#39;s_game&#34;&gt;Penney&amp;#8217;s Game&lt;/a&gt; and is played slightly differently to how I thought.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;On TV tonight Derren Brown (poorly) described a game where two players would each pick a sequence of 3 heads or tails and then keep flipping a coin until they obtained their sequence. The winner would be the one that flips their own sequence the most times. Derren suggested that by having a team of supporters they could influence the coin tosses and allow you to win. In the programme the player with the supports won, but how?&lt;/p&gt;

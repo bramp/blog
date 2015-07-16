@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Iptables on bramp.net</title>
-    <link>https://bramp.github.io/tags/iptables/</link>
+    <link>http://blog.bramp.net/tags/iptables/</link>
     <description>Recent content in Iptables on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 26 Jan 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/iptables/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/iptables/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Redirect local traffic to a web cache with iptables</title>
-      <link>https://bramp.github.io/post/2010/01/26/redirect-local-traffic-to-a-web-cache-with-iptables/</link>
+      <link>http://blog.bramp.net/post/2010/01/26/redirect-local-traffic-to-a-web-cache-with-iptables/</link>
       <pubDate>Tue, 26 Jan 2010 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2010/01/26/redirect-local-traffic-to-a-web-cache-with-iptables/</guid>
+      <guid>http://blog.bramp.net/post/2010/01/26/redirect-local-traffic-to-a-web-cache-with-iptables/</guid>
       <description>&lt;p&gt;Very occasionally I come across a Linux application that does not respect the http_proxy variable. This stops the application from working while I&amp;#8217;m at university as they forbid traffic on port 80 unless it goes via their webcache. So today I came up with a hack of a solution that involves iptables:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;# IP address and port number of the webcache&lt;/span&gt;
 &lt;span class=&#34;nv&#34;&gt;WEBCACHE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;194.80.32.10:8080

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Android on bramp.net</title>
-    <link>https://bramp.github.io/tags/android/</link>
+    <link>http://blog.bramp.net/tags/android/</link>
     <description>Recent content in Android on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 26 Jun 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/android/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>I have native IPv6</title>
-      <link>https://bramp.github.io/post/2012/06/26/i-have-native-ipv6/</link>
+      <link>http://blog.bramp.net/post/2012/06/26/i-have-native-ipv6/</link>
       <pubDate>Tue, 26 Jun 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2012/06/26/i-have-native-ipv6/</guid>
+      <guid>http://blog.bramp.net/post/2012/06/26/i-have-native-ipv6/</guid>
       <description>&lt;p&gt;I&amp;#8217;m more excited than I should be, but today I noticed that Comcast has enabled IPv6 on my home internet connection. All my devices in the home have picked up one or more Internet routable IPv6 addresses. Here are a few screen shots:&lt;/p&gt;
 
 &lt;p&gt;
@@ -89,10 +89,10 @@
     
     <item>
       <title>Avoid Bloat Freezer Free</title>
-      <link>https://bramp.github.io/post/2012/01/14/avoid-bloat-freezer-free/</link>
+      <link>http://blog.bramp.net/post/2012/01/14/avoid-bloat-freezer-free/</link>
       <pubDate>Sat, 14 Jan 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2012/01/14/avoid-bloat-freezer-free/</guid>
+      <guid>http://blog.bramp.net/post/2012/01/14/avoid-bloat-freezer-free/</guid>
       <description>&lt;p&gt;Over a month ago I install &amp;#8220;Bloat Freezer Free&amp;#8221;, a tool designed to kill of particular services running in the background, such as those installed by your phone manufactor. It seemed to be working fine, but in the last few days I&amp;#8217;ve been getting a green star in my notification bar alerting me to &amp;#8220;There is a update to the Android Market&amp;#8221;. If I click it, it takes me to some spyware looking site to download a new market place. Then today I get an alert with the same green star saying &amp;#8220;Badoo&amp;#8221;. If it click that it links me via some porn advertiser and I end up at the Google Market for the Badoo app.&lt;/p&gt;
 
 &lt;p&gt;I got out the Android SDK, and I figured out the notification was coming from the Bloat Freezer tool! After a few searches I find &lt;a href=&#34;http://androidunderground.blogspot.com/2011/12/bloat-freezer-abuses-airpush-ads-to_22.html&#34;&gt;a article&lt;/a&gt; about how that tool is using a push notification system, AirPush, to send me spam.&lt;/p&gt;
@@ -103,10 +103,10 @@
     
     <item>
       <title>Android Linux SDK revision 6 aapt library bug</title>
-      <link>https://bramp.github.io/post/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/</link>
+      <link>http://blog.bramp.net/post/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/</link>
       <pubDate>Sun, 23 May 2010 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/</guid>
+      <guid>http://blog.bramp.net/post/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/</guid>
       <description>&lt;p&gt;&lt;strong&gt;UPDATE &amp;#8211; I &lt;a href=&#34;http://code.google.com/p/android/issues/detail?id=8498&#34;&gt;reported this bug&lt;/a&gt; and it was promptly fixed the next day. Read the &lt;a href=&#34;http://code.google.com/p/android/issues/detail?id=8498&#34;&gt;bug report&lt;/a&gt; for solution on how to fix.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://android-developers.blogspot.com/2010/05/android-22-and-developers-goodies.html&#34;&gt;Android 2.2&lt;/a&gt; just came out and along with it came a updated set of &lt;a href=&#34;http://developer.android.com/sdk/tools-notes.html&#34;&gt;SDK tools&lt;/a&gt;. I&amp;#8217;ve been using these tools on Windows, but today I took my Linux laptop out and I&amp;#8217;ve been sat in a &lt;a href=&#34;http://www.juicafe.co.uk/&#34;&gt;coffee shop&lt;/a&gt; hyped up on caffeine but completely unproductive because I&amp;#8217;m going round in circles with what I think is a bug.&lt;/p&gt;
@@ -137,10 +137,10 @@ I noticed that on Windows all versions of the aapt tool support the &amp;#8216;&
     
     <item>
       <title>Foursquare Rules</title>
-      <link>https://bramp.github.io/post/2009/12/06/foursquare-rules/</link>
+      <link>http://blog.bramp.net/post/2009/12/06/foursquare-rules/</link>
       <pubDate>Sun, 06 Dec 2009 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2009/12/06/foursquare-rules/</guid>
+      <guid>http://blog.bramp.net/post/2009/12/06/foursquare-rules/</guid>
       <description>&lt;p&gt;Everyone plays &lt;a href=&#34;http://foursquare.com/&#34;&gt;foursquare&lt;/a&gt; (the location based android/iPhone app) differently. However, there are no offical rules on what venues are acceptable, and when you can and can&amp;#8217;t check-in. So I wanted to write down the rules that I play by:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;1. You talk about foursquare.
 2. You talk about foursquare.

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hack on bramp.net</title>
-    <link>https://bramp.github.io/tags/hack/</link>
+    <link>http://blog.bramp.net/tags/hack/</link>
     <description>Recent content in Hack on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 27 Nov 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/hack/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/hack/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Invalid IP range checking defeated by DNS</title>
-      <link>https://bramp.github.io/post/2012/11/27/invalid-ip-range-checking-defeated-by-dns/</link>
+      <link>http://blog.bramp.net/post/2012/11/27/invalid-ip-range-checking-defeated-by-dns/</link>
       <pubDate>Tue, 27 Nov 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2012/11/27/invalid-ip-range-checking-defeated-by-dns/</guid>
+      <guid>http://blog.bramp.net/post/2012/11/27/invalid-ip-range-checking-defeated-by-dns/</guid>
       <description>&lt;p&gt;I&amp;#8217;ve seen a particular kind of vulnerability in a few different applications but I&amp;#8217;m not sure of an appropriate name for it. So I thought I&amp;#8217;d write about it, and informally call it the &amp;#8220;DNS defeated IP address check&amp;#8221;. Basically, if you have an application that can be used as a proxy, or can be instructed to make web request, you don&amp;#8217;t want it fetching files from internal services.&lt;/p&gt;
 
 &lt;p&gt;For example, there is a simple proxy called &lt;a href=&#34;https://github.com/atmos/camo&#34;&gt;Camo&lt;/a&gt;, which is used to fetch third party images when you need to display them on a SSL secure site. (Read more about Camo on the &lt;a href=&#34;https://github.com/blog/743-sidejack-prevention-phase-3-ssl-proxied-assets&#34;&gt;GitHub blog&lt;/a&gt;).&lt;/p&gt;
@@ -57,10 +57,10 @@
     
     <item>
       <title>PHP Destructor objects</title>
-      <link>https://bramp.github.io/post/2011/11/02/php-destructor-objects/</link>
+      <link>http://blog.bramp.net/post/2011/11/02/php-destructor-objects/</link>
       <pubDate>Wed, 02 Nov 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2011/11/02/php-destructor-objects/</guid>
+      <guid>http://blog.bramp.net/post/2011/11/02/php-destructor-objects/</guid>
       <description>&lt;p&gt;PHP&amp;#8217;s lack of a finally keyword is apalling, and even though there seems to be some hacks around it, I have come up with own today. I&amp;#8217;m following the C++ concept of allocating objects on the stack, and letting them cleanup any resources when the stack is rolled back.&lt;/p&gt;
 
 &lt;p&gt;Take an example. I am creating some files that I want to always be deleted after the script has finished. In any sane language (that has Exceptions) I would write:&lt;/p&gt;
