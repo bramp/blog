@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Wii on bramp.net</title>
-    <link>http://localhost:1313/tags/wii/</link>
+    <link>https://bramp.github.io/tags/wii/</link>
     <description>Recent content in Wii on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Wed, 14 Nov 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/wii/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/wii/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Nodewii talk at Node DC</title>
-      <link>http://localhost:1313/post/2012/11/14/nodewii-talk-at-node-dc/</link>
+      <link>https://bramp.github.io/post/2012/11/14/nodewii-talk-at-node-dc/</link>
       <pubDate>Wed, 14 Nov 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2012/11/14/nodewii-talk-at-node-dc/</guid>
+      <guid>https://bramp.github.io/post/2012/11/14/nodewii-talk-at-node-dc/</guid>
       <description>&lt;p&gt;Last night I gave a short talk at &lt;a href=&#34;http://nodedc.github.com/&#34;&gt;NodeDC&lt;/a&gt;, on how to use Node.js with a wiimote. The offical title was &amp;#8220;Controlling Node.js with a wiimote &amp;#8211; My experiences with developing multi-threaded nodejs addon&amp;#8221;. I&amp;#8217;d like to thank the NodeDC guys for arranging everything last night, it was a great night, with some great talks.&lt;/p&gt;
 
 &lt;p&gt;&lt;div class=&#34;text-center&#34;&gt;

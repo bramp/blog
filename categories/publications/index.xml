@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Publications on bramp.net</title>
-    <link>http://localhost:1313/categories/publications/</link>
+    <link>https://bramp.github.io/categories/publications/</link>
     <description>Recent content in Publications on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 09 Feb 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/publications/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/categories/publications/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Facilitating Network Auto Configuration In Next Generation Internet Protocols</title>
-      <link>http://localhost:1313/publication/2010-02-09-facilitating-network-auto-configuration-in-next-generation-internet-protocols/</link>
+      <link>https://bramp.github.io/publication/facilitating-network-auto-configuration-in-next-generation-internet-protocols/</link>
       <pubDate>Tue, 09 Feb 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/publication/2010-02-09-facilitating-network-auto-configuration-in-next-generation-internet-protocols/</guid>
+      <guid>https://bramp.github.io/publication/facilitating-network-auto-configuration-in-next-generation-internet-protocols/</guid>
       <description>&lt;p&gt;Matthew Jakeman, Andrew Brampton, Stephen Pink&lt;/p&gt;
 
 &lt;p&gt;In proceedings FutureNet II &amp;#8211; Second international workshop on the network of the future in conjunction with IEEE Globecom&lt;/p&gt;
@@ -36,10 +36,10 @@ This allows the protocol to change its transmission characteristics depending on
     
     <item>
       <title>Final Version of my Thesis Online</title>
-      <link>http://localhost:1313/post/2009-07-10-final-version-of-my-thesis-online/</link>
+      <link>https://bramp.github.io/post/2009/07/10/final-version-of-my-thesis-online/</link>
       <pubDate>Fri, 10 Jul 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2009-07-10-final-version-of-my-thesis-online/</guid>
+      <guid>https://bramp.github.io/post/2009/07/10/final-version-of-my-thesis-online/</guid>
       <description>
 
 &lt;p&gt;I finished my corrections a while ago now but I just hadn&amp;#8217;t gotten around to putting my final thesis on-line.&lt;/p&gt;
@@ -62,10 +62,10 @@ This allows the protocol to change its transmission characteristics depending on
     
     <item>
       <title>Evaluating the Performance of Network Protocol Processing on Multi-core Systems</title>
-      <link>http://localhost:1313/publication/2009-05-26-evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/</link>
+      <link>https://bramp.github.io/publication/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/</link>
       <pubDate>Tue, 26 May 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/publication/2009-05-26-evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/</guid>
+      <guid>https://bramp.github.io/publication/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/</guid>
       <description>&lt;p&gt;Matthew Faulkner and Andrew Brampton and Stephen Pink&lt;/p&gt;
 
 &lt;p&gt;In proceedings of the International Conference on Advanced Information Networking and Applications (AINA)&lt;/p&gt;
@@ -84,10 +84,10 @@ This allows the protocol to change its transmission characteristics depending on
     
     <item>
       <title>The Impact of Highly Interactive Workloads on Video-on-Demand Systems</title>
-      <link>http://localhost:1313/publication/2008-10-01-thesis/</link>
+      <link>https://bramp.github.io/publication/the-impact-of-highly-interactive-workloads-on-video-on-demand-systems/</link>
       <pubDate>Wed, 01 Oct 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/publication/2008-10-01-thesis/</guid>
+      <guid>https://bramp.github.io/publication/the-impact-of-highly-interactive-workloads-on-video-on-demand-systems/</guid>
       <description>&lt;p&gt;Andrew Brampton.&lt;/p&gt;
 
 &lt;p&gt;Thesis submitted for the degree of Doctor of Philosophy&lt;/p&gt;
@@ -108,10 +108,10 @@ This allows the protocol to change its transmission characteristics depending on
     
     <item>
       <title>A Case for Hybrid Content Distribution for Interactive Video-on-Demand</title>
-      <link>http://localhost:1313/publication/2008-09-16-a-case-for-hybrid-content-distribution-for-interactive-video-on-demand/</link>
+      <link>https://bramp.github.io/publication/a-case-for-hybrid-content-distribution-for-interactive-video-on-demand/</link>
       <pubDate>Tue, 16 Sep 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/publication/2008-09-16-a-case-for-hybrid-content-distribution-for-interactive-video-on-demand/</guid>
+      <guid>https://bramp.github.io/publication/a-case-for-hybrid-content-distribution-for-interactive-video-on-demand/</guid>
       <description>&lt;p&gt;Andrew MacQuire, Andrew Brampton, Nicholas J. P. Race, Laurent Mathy, Michael Fry&lt;/p&gt;
 
 &lt;p&gt;In proceedings of Next Generation Mobile Applications, Services and Technologies (NGMAST&amp;rsquo;08)&lt;/p&gt;
@@ -128,10 +128,10 @@ This allows the protocol to change its transmission characteristics depending on
     
     <item>
       <title>Characterising and Exploiting Workloads of Highly Interactive Video-on-Demand</title>
-      <link>http://localhost:1313/publication/2008-05-20-characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand/</link>
+      <link>https://bramp.github.io/publication/characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand/</link>
       <pubDate>Tue, 20 May 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/publication/2008-05-20-characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand/</guid>
+      <guid>https://bramp.github.io/publication/characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand/</guid>
       <description>&lt;p&gt;Andrew Brampton, Andrew MacQuire, Michael Fry, Idris A. Rai, Nicholas J. P. Race, Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In journal of Multimedia Systems (2008 Volume 15, Issue 1)&lt;/p&gt;
@@ -150,10 +150,10 @@ This allows the protocol to change its transmission characteristics depending on
     
     <item>
       <title>Characterising user interactivity for sports video-on-demand</title>
-      <link>http://localhost:1313/publication/2007-07-01-characterising-user-interactivity-for-sports-video-on-demand/</link>
+      <link>https://bramp.github.io/publication/characterising-user-interactivity-for-sports-video-on-demand/</link>
       <pubDate>Sun, 01 Jul 2007 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/publication/2007-07-01-characterising-user-interactivity-for-sports-video-on-demand/</guid>
+      <guid>https://bramp.github.io/publication/characterising-user-interactivity-for-sports-video-on-demand/</guid>
       <description>&lt;p&gt;Andrew Brampton, Andrew MacQuire, Idris A. Rai, Nicholas J. P. Race, Laurent Mathy, and Michael Fry.&lt;/p&gt;
 
 &lt;p&gt;In proceedings of the International workshop on Network and Operating Systems Support for Digital Audio &amp;amp; Video (NOSSDAV&amp;#8217;07)&lt;/p&gt;
@@ -164,16 +164,16 @@ This allows the protocol to change its transmission characteristics depending on
 &lt;p&gt;This paper presents a detailed characterisation of user behaviour for a series of interactive sport videos from the 2006 FIFA World Cup. In addition to generic VCR-like features, our custom-built Video-on-Demand architecture enabled us to provide advanced interactivity features such as bookmarking. We illustrate how such functionality may have a dramatic impact on how users consume content. A detailed discussion is also provided on how content distributors may turn this knowledge to their advantage, and thus increase the efficiency of their delivery networks.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/ivod/NOSSDAV07/p-brampton.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/ivod/NOSSDAV07&#34;&gt;LaTeX Source&lt;/a&gt; | &lt;a href=&#34;TODO&#34;&gt;Slides&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/ivod/NOSSDAV07-slides&#34;&gt;Slides Source&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/ivod/NOSSDAV07/p-brampton.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/ivod/NOSSDAV07&#34;&gt;LaTeX Source&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/raw/master/ivod/NOSSDAV07-slides/slides.pdf&#34;&gt;Slides&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/ivod/NOSSDAV07-slides&#34;&gt;Slides Source&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Performance modelling of peer-to-peer routing</title>
-      <link>http://localhost:1313/publication/2007-03-01-performance-modelling-of-peer-to-peer-routing/</link>
+      <link>https://bramp.github.io/publication/performance-modelling-of-peer-to-peer-routing/</link>
       <pubDate>Thu, 01 Mar 2007 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/publication/2007-03-01-performance-modelling-of-peer-to-peer-routing/</guid>
+      <guid>https://bramp.github.io/publication/performance-modelling-of-peer-to-peer-routing/</guid>
       <description>&lt;p&gt;Idris A. Rai, Andrew Brampton, Andrew MacQuire, and Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In proceedings of the 4th International Workshop on Peer-to-Peer Systems (HOTP2P&amp;#8217;07)&lt;/p&gt;
@@ -190,10 +190,10 @@ This allows the protocol to change its transmission characteristics depending on
     
     <item>
       <title>Stealth Distributed Hash Table: A robust and flexible super-peered DHT</title>
-      <link>http://localhost:1313/publication/2006-12-01-stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/</link>
+      <link>https://bramp.github.io/publication/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/</link>
       <pubDate>Fri, 01 Dec 2006 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/publication/2006-12-01-stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/</guid>
+      <guid>https://bramp.github.io/publication/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/</guid>
       <description>&lt;p&gt;Andrew Brampton, Andrew MacQuire, Idris A. Rai, Nicholas J. P. Race, and Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In proceedings of the 2nd Conference on Future Networking Technologies (CoNEXT&amp;#8217;06)&lt;/p&gt;
@@ -210,10 +210,10 @@ This allows the protocol to change its transmission characteristics depending on
     
     <item>
       <title>Authentication in Stealth Distributed Hash Tables</title>
-      <link>http://localhost:1313/publication/2006-07-01-authentication-in-stealth-distributed-hash-tables/</link>
+      <link>https://bramp.github.io/publication/authentication-in-stealth-distributed-hash-tables/</link>
       <pubDate>Sat, 01 Jul 2006 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/publication/2006-07-01-authentication-in-stealth-distributed-hash-tables/</guid>
+      <guid>https://bramp.github.io/publication/authentication-in-stealth-distributed-hash-tables/</guid>
       <description>&lt;p&gt;Andrew MacQuire, Andrew Brampton, Idris A. Rai, and Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In Proceedings of the 32nd Euromicro Conference on Software Engineering and Advanced Applications&lt;/p&gt;
@@ -232,10 +232,10 @@ This allows the protocol to change its transmission characteristics depending on
     
     <item>
       <title>Performance analysis of Stealth DHT with mobile nodes.</title>
-      <link>http://localhost:1313/publication/2006-03-01-performance-analysis-of-stealth-dht-with-mobile-nodes/</link>
+      <link>https://bramp.github.io/publication/performance-analysis-of-stealth-dht-with-mobile-nodes./</link>
       <pubDate>Wed, 01 Mar 2006 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/publication/2006-03-01-performance-analysis-of-stealth-dht-with-mobile-nodes/</guid>
+      <guid>https://bramp.github.io/publication/performance-analysis-of-stealth-dht-with-mobile-nodes./</guid>
       <description>&lt;p&gt;Andrew MacQuire, Andrew Brampton, Idris A. Rai, and Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In proceedings of the 3rd International Workshop on Mobile Peer-to-Peer Computing (MP2P&amp;#8217;06)&lt;/p&gt;
@@ -252,10 +252,10 @@ This allows the protocol to change its transmission characteristics depending on
     
     <item>
       <title>Stealth Distributed Hash Table: Unleashing the Real Potential of Peer-to-Peer</title>
-      <link>http://localhost:1313/publication/2005-10-01-stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/</link>
+      <link>https://bramp.github.io/publication/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/</link>
       <pubDate>Sat, 01 Oct 2005 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/publication/2005-10-01-stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/</guid>
+      <guid>https://bramp.github.io/publication/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/</guid>
       <description>&lt;p&gt;Andrew Brampton, Andrew MacQuire, Idris A. Rai, Nicholas J. P. Race, and Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In Proceedings of the ACM Conference on Emerging Network Experiments and Technology (CoNEXT) (Student Workshop Session), Toulouse, France, October 2005.&lt;/p&gt;

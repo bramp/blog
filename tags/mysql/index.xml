@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Mysql on bramp.net</title>
-    <link>http://localhost:1313/tags/mysql/</link>
+    <link>https://bramp.github.io/tags/mysql/</link>
     <description>Recent content in Mysql on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 30 Sep 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>pt-kill CentOS init.d script</title>
-      <link>http://localhost:1313/post/2012-09-30-pt-kill-centos-init-d-script/</link>
+      <link>https://bramp.github.io/post/2012/09/30/pt-kill-centos-init.d-script/</link>
       <pubDate>Sun, 30 Sep 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2012-09-30-pt-kill-centos-init-d-script/</guid>
+      <guid>https://bramp.github.io/post/2012/09/30/pt-kill-centos-init.d-script/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://www.percona.com/doc/percona-toolkit/2.1/pt-kill.html&#34;&gt;pt-kill&lt;/a&gt; is a neat little application that can stop long running MySQL queries. It was formally know as &lt;a href=&#34;http://www.maatkit.org/doc/mk-kill.html&#34;&gt;mk-kill&lt;/a&gt; before &lt;a href=&#34;http://www.Percona.com&#34;&gt;Percona&lt;/a&gt; took over the project. Here is the init.d script I use (as one doesn&amp;#8217;t seem provided by the project):&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;#!/bin/sh&lt;/span&gt;
 &lt;span class=&#34;c&#34;&gt;#&lt;/span&gt;
@@ -84,10 +84,10 @@
     
     <item>
       <title>SQLSTATE[HY000]: General error: 2053</title>
-      <link>http://localhost:1313/post/2011-10-25-sqlstate-hy000-general-error-2053/</link>
+      <link>https://bramp.github.io/post/2011/10/25/sqlstatehy000-general-error-2053/</link>
       <pubDate>Tue, 25 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2011-10-25-sqlstate-hy000-general-error-2053/</guid>
+      <guid>https://bramp.github.io/post/2011/10/25/sqlstatehy000-general-error-2053/</guid>
       <description>&lt;p&gt;I encountered the following odd exception:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;PHP Fatal error:  Uncaught exception &amp;#39;PDOException&amp;#39; with message &amp;#39;SQLSTATE[HY000]: General error: 2053 &amp;#39; in /home/bramp/my.php:29
 Stack trace:

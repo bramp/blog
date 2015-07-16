@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Infolab21 on bramp.net</title>
-    <link>http://localhost:1313/tags/infolab21/</link>
+    <link>https://bramp.github.io/tags/infolab21/</link>
     <description>Recent content in Infolab21 on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sat, 19 Apr 2008 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/infolab21/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/infolab21/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Infolab21 Vector Logo</title>
-      <link>http://localhost:1313/post/2008-04-19-infolab21-vector-logo/</link>
+      <link>https://bramp.github.io/post/2008/04/19/infolab21-vector-logo/</link>
       <pubDate>Sat, 19 Apr 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2008-04-19-infolab21-vector-logo/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Update: I&amp;#8217;ve been sent an offical vector version of the logo. So if you wish to stay consistent with the offical Infolab brand, please use &lt;a href=&#34;http://localhost:1313/projects/infolab/Uni%20-%20InfoLab21%20logo%20Final%20V8.pdf&#34;&gt;this file&lt;/a&gt; instead.&lt;/strong&gt;&lt;/p&gt;
+      <guid>https://bramp.github.io/post/2008/04/19/infolab21-vector-logo/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Update: I&amp;#8217;ve been sent an offical vector version of the logo. So if you wish to stay consistent with the offical Infolab brand, please use &lt;a href=&#34;InfoLab21_logo_Final_V8.pdf&#34;&gt;this file&lt;/a&gt; instead.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/projects/infolab/infolab-623.png&#34; width=623 alt=&#34;InfoLab21 Logo&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;infolab-623.png&#34; width=623 alt=&#34;InfoLab21 Logo&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;While creating a poster I needed a high-res version of the InfoLab21 building logo, however I couldn&amp;#8217;t find a suitable image. So I spent some time creating a vector version. Here are a few versions that people may find useful:&lt;/p&gt;
 
 &lt;div class=&#34;figure&#34;&gt;
-  &lt;a href=&#34;http://localhost:1313/projects/infolab/infolab.vsd&#34;&gt;Visio 2003&lt;/a&gt; &amp;#8211; &lt;a href=&#34;http://localhost:1313/projects/infolab/infolab.svg&#34;&gt;Scalable Vector Graphic&lt;/a&gt; &amp;#8211; &lt;a href=&#34;http://localhost:1313/projects/infolab/infolab.pdf&#34;&gt;PDF&lt;/a&gt; &amp;#8211; &lt;a href=&#34;http://localhost:1313/projects/infolab/infolab-623.png&#34;&gt;Small PNG&lt;/a&gt; &amp;#8211; &lt;a href=&#34;http://localhost:1313/projects/infolab/infolab-1247.png&#34;&gt;Large PNG&lt;/a&gt;
+  &lt;a href=&#34;infolab.vsd&#34;&gt;Visio 2003&lt;/a&gt; &amp;#8211; &lt;a href=&#34;infolab.svg&#34;&gt;Scalable Vector Graphic&lt;/a&gt; &amp;#8211; &lt;a href=&#34;infolab.pdf&#34;&gt;PDF&lt;/a&gt; &amp;#8211; &lt;a href=&#34;infolab-623.png&#34;&gt;Small PNG&lt;/a&gt; &amp;#8211; &lt;a href=&#34;infolab-1247.png&#34;&gt;Large PNG&lt;/a&gt;
 &lt;/div&gt;
 </description>
     </item>

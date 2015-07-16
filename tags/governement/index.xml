@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Governement on bramp.net</title>
-    <link>http://localhost:1313/tags/governement/</link>
+    <link>https://bramp.github.io/tags/governement/</link>
     <description>Recent content in Governement on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 07 Apr 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/governement/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/governement/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Open source Government Petition</title>
-      <link>http://localhost:1313/post/2009-04-07-opensource-government-petition/</link>
+      <link>https://bramp.github.io/post/2009/04/07/open-source-government-petition/</link>
       <pubDate>Tue, 07 Apr 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2009-04-07-opensource-government-petition/</guid>
+      <guid>https://bramp.github.io/post/2009/04/07/open-source-government-petition/</guid>
       <description>&lt;p&gt;There is a petition at the moment to ensure that the software created by the government should be open sourced.&lt;/p&gt;
 
 &lt;blockquote&gt;

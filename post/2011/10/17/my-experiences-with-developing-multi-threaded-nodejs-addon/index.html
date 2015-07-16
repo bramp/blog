@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+
+
+  <meta charset="utf-8">
+  <title>My experiences with developing multi-threaded nodejs addon</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="https://bramp.github.io/post/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/" />
+
+  <link href="" rel="alternate" type="application/rss+xml" title="My experiences with developing multi-threaded nodejs addon" />
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/bramp.css" rel="stylesheet">
+  <link href="/css/pygments-friendly.css" rel="stylesheet">
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  
+  
+
+
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@TheBramp" />
+  <meta name="twitter:title" content="My experiences with developing multi-threaded nodejs addon" />
+  <meta name="twitter:description" content="" />
+
+
+  <script>
+  
+
+  </script>
+</head>
+<body>
+  
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-136478-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+
+<div id = "wrapper">
+
+  <div class="navbar navbar-default" role="navigation">
+      <div class="container">
+
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="navbar-brand">
+            <a href="/">
+              <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
+            </a>
+            <div>
+              <a href="/about-me/">Andrew Brampton</a>
+
+              <div id="social-wrapper">
+              
+                <a href="https://twitter.com/TheBramp"><i class="fa fa-twitter-square"></i></a>
+              
+              
+                <a href="https://www.linkedin.com/in/bramp"><i class="fa fa-linkedin-square"></i></a>
+              
+              
+                <a href="https://www.facebook.com/bramp"><i class="fa fa-facebook-square"></i></a>
+              
+                <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
+              
+                <a href="/index.xml"><i class="fa fa-rss-square"></i></a>
+             </div>
+            </div>
+          </div>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Articles</a></li>
+            <li><a href="/about-me/">About Me</a></li>
+            <li><a href="/android-app/">Android Apps</a></li>
+            <li><a href="/opensource-project/">Open Source</a></li>
+            <li><a href="/publication/">Publications</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+     <div class="container main">
+
+
+
+
+<div id="article">
+	<h1>My experiences with developing multi-threaded nodejs addon</h1>
+	<p class="meta">
+		<i class="fa fa-calendar-o"></i> 2011-10-17
+		
+		| <a href="https://bramp.github.io/tags/javascript">Javascript</a>
+		
+		| <a href="https://bramp.github.io/tags/nodejs">nodejs</a>
+		
+		| <a href="https://bramp.github.io/tags/threads">threads</a>
+		
+	</p>
+	<div class="post">
+		
+
+<p>I&#8217;ve been modifying an <a href="https://github.com/tbranyen/nodewii">existing nodejs extension</a>, that wraps <a href="http://abstrakraft.org/cwiid/wiki/libcwiid">libcwiid</a> (a C library written to interface with a <a href="http://en.wikipedia.org/wiki/Wii_Remote">Wiimote</a>). This extension uses polling to check if the state of the Wiimote has changed (such as a button being pressed). Libcwiid however provides a callback mechanism to be alerted as soon as a state change occurs. This has the benefit of being instantaneous, instead of at the polling interval.</p>
+
+<p>While adapting <a href="https://github.com/bramp/nodewii">nodewii</a> to use this callback mechanism I learnt a couple of things about developing multi-threaded nodejs extensions that I thought I&#8217;d share.</p>
+
+<h4 id="1-all-v8-operations-must-run-from-the-main-thread:e499f9e6850a25dae3a7acbe432b8d5f">1) All V8 operations must run from the main thread</h4>
+
+<p><a href="http://nodejs.org/">Nodejs</a> uses a single thread for executing the <a href="http://code.google.com/p/v8/">V8 JavaScript engine</a>, and multiple worker threads to execute longer running non-JavaScript blocking tasks. Because V8 is not thread safe, all V8 operations must be executed from this single V8 thread. That means you are not allowed to create V8 objects, integers, strings, etc, from any other thread. If you try, race conditions happen, memory get corrupted and nodejs is likely to crash. Helpfully, nodejs does provide a mechanism to simplify using these threads:</p>
+<div class="highlight"><pre><span class="n">eio_custom</span><span class="p">(</span><span class="n">eio_cb</span> <span class="n">execute</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pri</span><span class="p">,</span> <span class="n">eio_cb</span> <span class="n">cb</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">);</span>
+</pre></div>
+
+<p>This function allows you to execute a blocking task in a worker thread. Once that task is finished another callback is called on the main JavaScript thread. Multiple extensions use it, and this is the basis for how nodejs provides it&#8217;s callback mechanism. Here is a very short example (adapted from <a href="https://github.com/bramp/nodewii/blob/master/src/wiimote.cc">wiimote.cc</a>) of how to use eio_custom.</p>
+<div class="highlight"><pre><span class="n">Handle</span><span class="o">&lt;</span><span class="n">Value</span><span class="o">&gt;</span> <span class="n">WiiMote</span><span class="o">::</span><span class="n">Connect</span><span class="p">(</span><span class="k">const</span> <span class="n">Arguments</span><span class="o">&amp;</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">WiiMote</span><span class="o">*</span> <span class="n">wiimote</span> <span class="o">=</span> <span class="n">ObjectWrap</span><span class="o">::</span><span class="n">Unwrap</span><span class="o">&lt;</span><span class="n">WiiMote</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">.</span><span class="n">This</span><span class="p">());</span>
+  <span class="n">Local</span><span class="o">&lt;</span><span class="n">Function</span><span class="o">&gt;</span> <span class="n">callback</span><span class="p">;</span>
+
+  <span class="n">HandleScope</span> <span class="n">scope</span><span class="p">;</span>
+
+  <span class="c1">// Pass the arguments like you would any other method</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">args</span><span class="p">.</span><span class="n">Length</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="o">!</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">IsFunction</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">ThrowException</span><span class="p">(</span>
+      <span class="n">Exception</span><span class="o">::</span><span class="n">Error</span><span class="p">(</span><span class="n">String</span><span class="o">::</span><span class="n">New</span><span class="p">(</span><span class="s">&quot;Callback is required and must be a Function.&quot;</span><span class="p">))</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">callback</span> <span class="o">=</span> <span class="n">Local</span><span class="o">&lt;</span><span class="n">Function</span><span class="o">&gt;::</span><span class="n">Cast</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+
+  <span class="c1">// Create a struct to pass into worker thread</span>
+  <span class="n">connect_request</span><span class="o">*</span> <span class="n">ar</span> <span class="o">=</span> <span class="k">new</span> <span class="n">connect_request</span><span class="p">();</span>
+  <span class="n">ar</span><span class="o">-&gt;</span><span class="n">wiimote</span> <span class="o">=</span> <span class="n">wiimote</span><span class="p">;</span>
+  <span class="n">ar</span><span class="o">-&gt;</span><span class="n">callback</span> <span class="o">=</span> <span class="n">Persistent</span><span class="o">&lt;</span><span class="n">Function</span><span class="o">&gt;::</span><span class="n">New</span><span class="p">(</span><span class="n">callback</span><span class="p">);</span>
+
+  <span class="c1">// Add a reference to the wiimote, so it isn&#39;t garbage collected between now</span>
+  <span class="c1">// and the callback being run</span>
+  <span class="n">wiimote</span><span class="o">-&gt;</span><span class="n">Ref</span><span class="p">();</span>
+
+  <span class="c1">// Add reference to the EV (JavaScript) thread</span>
+  <span class="n">ev_ref</span><span class="p">(</span><span class="n">EV_DEFAULT_UC</span><span class="p">);</span>
+
+  <span class="c1">// Schedule the Connect function to be called.</span>
+  <span class="n">eio_custom</span><span class="p">(</span><span class="n">Connect</span><span class="p">,</span> <span class="n">EIO_PRI_DEFAULT</span><span class="p">,</span> <span class="n">AfterConnect</span><span class="p">,</span> <span class="n">ar</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="nf">Undefined</span><span class="p">();</span>
+<span class="p">}</span>
+
+
+<span class="kt">int</span> <span class="n">WiiMote</span><span class="o">::</span><span class="n">Connect</span><span class="p">(</span><span class="n">eio_req</span><span class="o">*</span> <span class="n">req</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// This method is running in a worker thread, and NOT the main nodejs</span>
+  <span class="c1">// thread. This mean you can&#39;t use any V8 methods.</span>
+
+  <span class="n">connect_request</span><span class="o">*</span> <span class="n">ar</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">connect_request</span><span class="o">*</span> <span class="o">&gt;</span><span class="p">(</span><span class="n">req</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span>
+  <span class="c1">// Do some work with the connect_request, and put the results back into the struct</span>
+  <span class="p">...</span>
+
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">WiiMote</span><span class="o">::</span><span class="n">AfterConnect</span><span class="p">(</span><span class="n">eio_req</span><span class="o">*</span> <span class="n">req</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Once the &quot;Connect&quot; method has finished, this method will be called on</span>
+  <span class="c1">// the main nodejs thread. This means we can now use normal V8 methods.</span>
+
+  <span class="n">HandleScope</span> <span class="n">scope</span><span class="p">;</span>
+
+  <span class="c1">// Retrieve the info from the request</span>
+  <span class="n">connect_request</span><span class="o">*</span> <span class="n">ar</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">connect_request</span><span class="o">*</span> <span class="o">&gt;</span><span class="p">(</span><span class="n">req</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span>
+  <span class="n">WiiMote</span> <span class="o">*</span> <span class="n">wiimote</span> <span class="o">=</span> <span class="n">ar</span><span class="o">-&gt;</span><span class="n">wiimote</span><span class="p">;</span>
+
+  <span class="c1">// We no longer need a reference to the follow things</span>
+  <span class="n">ev_ref</span><span class="p">(</span><span class="n">EV_DEFAULT_UC</span><span class="p">);</span>
+  <span class="n">wiimote</span><span class="o">-&gt;</span><span class="n">Unref</span><span class="p">();</span>
+
+  <span class="c1">// Create some JavaScript objects, and call the callback</span>
+  <span class="n">Local</span><span class="o">&lt;</span><span class="n">Value</span><span class="o">&gt;</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">Integer</span><span class="o">::</span><span class="n">New</span><span class="p">(</span><span class="n">ar</span><span class="o">-&gt;</span><span class="n">err</span><span class="p">)</span> <span class="p">};</span>
+
+  <span class="n">TryCatch</span> <span class="n">try_catch</span><span class="p">;</span>
+
+  <span class="n">ar</span><span class="o">-&gt;</span><span class="n">callback</span><span class="o">-&gt;</span><span class="n">Call</span><span class="p">(</span><span class="n">Context</span><span class="o">::</span><span class="n">GetCurrent</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Global</span><span class="p">(),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="n">try_catch</span><span class="p">.</span><span class="n">HasCaught</span><span class="p">())</span>
+    <span class="n">FatalException</span><span class="p">(</span><span class="n">try_catch</span><span class="p">);</span>
+
+  <span class="c1">// Now cleanup!</span>
+  <span class="n">ar</span><span class="o">-&gt;</span><span class="n">callback</span><span class="p">.</span><span class="n">Dispose</span><span class="p">();</span>
+  <span class="k">delete</span> <span class="n">ar</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>This simple pattern makes writing callback code relatively simple. However, this only works well if you are in control of creating the callback.</p>
+
+<h4 id="2-how-to-run-something-on-the-main-thread-without-eio-custom:e499f9e6850a25dae3a7acbe432b8d5f">2) How to run something on the main thread without eio_custom</h4>
+
+<p>Libcwiid creates it&#8217;s own thread, which is uses to read data from the wiimote. When data is received, it invokes a callback function passing this new data. This callback function is run on the libcwiid thread. This restricts us from interacting with V8. We ideally need this callback function running in the context of the main thread. The answer to this problem is:</p>
+<div class="highlight"><pre><span class="n">eio_req</span> <span class="o">*</span><span class="nf">eio_nop</span>       <span class="p">(</span><span class="kt">int</span> <span class="n">pri</span><span class="p">,</span> <span class="n">eio_cb</span> <span class="n">cb</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">);</span>
+</pre></div>
+
+<p>It is safe to call this function from any thread. It will place the eio_cb callback task on the main event queue. This task is then eventually executed on the V8&#8242;s thread. An example of this follows:</p>
+<div class="highlight"><pre><span class="kt">void</span> <span class="n">WiiMote</span><span class="o">::</span><span class="n">HandleMessages</span><span class="p">(</span><span class="kt">cwiid_wiimote_t</span> <span class="o">*</span><span class="n">wiimote</span><span class="p">,</span> <span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="k">union</span> <span class="n">cwiid_mesg</span> <span class="n">mesgs</span><span class="p">[])</span> <span class="p">{</span>
+  <span class="c1">// This thread is running on the libcwiid&#39;s thread, and thus we can not use V8 operations</span>
+  <span class="n">WiiMote</span> <span class="o">*</span><span class="n">self</span> <span class="o">=</span> <span class="k">const_cast</span><span class="o">&lt;</span><span class="n">WiiMote</span><span class="o">*&gt;</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">WiiMote</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">cwiid_get_data</span><span class="p">(</span><span class="n">wiimote</span><span class="p">)));</span>
+
+  <span class="c1">// Create a struct to pass to the V8 thread</span>
+  <span class="k">struct</span> <span class="n">message_request</span> <span class="o">*</span> <span class="n">req</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">message_request</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">req</span><span class="p">)</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">req</span><span class="o">-&gt;</span><span class="n">mesgs</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">);</span>
+
+  <span class="c1">// Copy all the data into this struct</span>
+  <span class="n">req</span><span class="o">-&gt;</span><span class="n">wiimote</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+  <span class="n">req</span><span class="o">-&gt;</span><span class="n">len</span> <span class="o">=</span> <span class="n">len</span><span class="p">;</span>
+  <span class="n">memcpy</span><span class="p">(</span><span class="n">req</span><span class="o">-&gt;</span><span class="n">mesgs</span><span class="p">,</span> <span class="n">mesgs</span><span class="p">,</span> <span class="n">len</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">union</span> <span class="n">cwiid_mesg</span><span class="p">));</span>
+
+  <span class="c1">// Now pass this over to the main V8 thread</span>
+  <span class="n">eio_nop</span> <span class="p">(</span><span class="n">EIO_PRI_DEFAULT</span><span class="p">,</span> <span class="n">WiiMote</span><span class="o">::</span><span class="n">HandleMessagesAfter</span><span class="p">,</span> <span class="n">req</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">WiiMote</span><span class="o">::</span><span class="n">HandleMessagesAfter</span><span class="p">(</span><span class="n">eio_req</span> <span class="o">*</span><span class="n">req</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// We are now running in the V8 thread.</span>
+  <span class="n">message_request</span><span class="o">*</span> <span class="n">r</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">message_request</span><span class="o">*</span> <span class="o">&gt;</span><span class="p">(</span><span class="n">req</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span>
+  <span class="n">WiiMote</span> <span class="o">*</span> <span class="n">self</span> <span class="o">=</span> <span class="n">r</span><span class="o">-&gt;</span><span class="n">wiimote</span><span class="p">;</span>
+
+  <span class="n">HandleScope</span> <span class="n">scope</span><span class="p">;</span>
+
+  <span class="c1">// Create JavaScript objects with the message_request</span>
+  <span class="p">...</span>
+
+  <span class="c1">// Emit this event to a JavaScript callback.</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">Emit</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Using a combination of eio_custom and eio_nop you should be able to interface with any external library of service. You just have to make sure you always know what thread you are on, and what methods you are allowed to use in that context.</p>
+
+<p>Finally, writing correct thread-safe code is hard. From the various nodejs extensions I have come across I regularlly find memory management, or threading issues with them. So I suggest you rigorously use <a href="http://valgrind.org/">valgrind</a> while developing, and simplify your designs so that most of the heavily lifting is done by nodejs itself.</p>
+
+	</div>
+</div>
+
+
+<div class="addthis_sharing_toolbox"></div>
+
+ <ul class="pager">
+      &nbsp;<li class="previous"><a href="/post/2011/09/23/md5-digest-authorisation-in-sip-with-php/">&larr; MD5 Digest Authorisation in SIP with PHP</a></li>
+      &nbsp;<li class="next"><a href="/post/2011/10/25/sqlstatehy000-general-error-2053/"> SQLSTATE[HY000]: General error: 2053 &rarr;</a></li>
+</ul>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost" || window.location.port == 1313) 
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = '';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    <br />
+    <footer>
+        <p class="text-muted credit">&copy; 2015. All rights reserved. </p>
+    </footer>
+
+    </div> 
+    </div> 
+
+	
+    <script src="/js/jquery-1.10.2.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async="async"></script>
+
+  </body>
+</html>
+

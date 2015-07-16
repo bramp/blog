@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ucode on bramp.net</title>
-    <link>http://localhost:1313/tags/ucode/</link>
+    <link>https://bramp.github.io/tags/ucode/</link>
     <description>Recent content in Ucode on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Mon, 24 Jan 2011 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/ucode/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/ucode/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Intel ucode firmware version parser</title>
-      <link>http://localhost:1313/post/2011-01-24-intel-ucode-firmware-version-parser/</link>
+      <link>https://bramp.github.io/post/2011/01/24/intel-ucode-firmware-version-parser/</link>
       <pubDate>Mon, 24 Jan 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2011-01-24-intel-ucode-firmware-version-parser/</guid>
+      <guid>https://bramp.github.io/post/2011/01/24/intel-ucode-firmware-version-parser/</guid>
       <description>&lt;p&gt;Out of fun I wrote a simple Python script to pull the version number out of Intel&amp;#8217;s ucode firmware, for example, the firmware used by my wifi driver. I needed this so I could see what version I was running versus a new version I had downloaded from &lt;a href=&#34;http://intellinuxwireless.org/?n=Downloads&#34;&gt;Intel&amp;#8217;s Linux Wireless site&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;So here is the code if anyone finds it interesting:&lt;/p&gt;

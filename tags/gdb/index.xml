@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Gdb on bramp.net</title>
-    <link>http://localhost:1313/tags/gdb/</link>
+    <link>https://bramp.github.io/tags/gdb/</link>
     <description>Recent content in Gdb on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 11 Jan 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/gdb/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/gdb/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Autoload symbols for FreeBSD kernel module</title>
-      <link>http://localhost:1313/post/2009-01-11-autoload-symbols-for-freebsd-kernel-module/</link>
+      <link>https://bramp.github.io/post/2009/01/11/autoload-symbols-for-freebsd-kernel-module/</link>
       <pubDate>Sun, 11 Jan 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2009-01-11-autoload-symbols-for-freebsd-kernel-module/</guid>
+      <guid>https://bramp.github.io/post/2009/01/11/autoload-symbols-for-freebsd-kernel-module/</guid>
       <description>&lt;p&gt;When debugging FreeBSD kernel modules with GDB, you have to tell GDB the correct symbols for the module, and the location the module is loaded in RAM. This is helpfully explained in the &lt;a href=&#34;http://www.freebsd.org/doc/en/books/developers-handbook/kerneldebug-kld.html&#34;&gt;FreeBSD Developers&amp;#8217; Handbook&lt;/a&gt;. First you must load the module, then run kldstat, note down the address the module is loaded at, and finally execute a command in GDB that looks like the following.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;add-symbol-file /sys/modules/linux/linux.ko 0xc0ae22d0
 &lt;/pre&gt;&lt;/div&gt;

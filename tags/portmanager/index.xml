@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Portmanager on bramp.net</title>
-    <link>http://localhost:1313/tags/portmanager/</link>
+    <link>https://bramp.github.io/tags/portmanager/</link>
     <description>Recent content in Portmanager on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sat, 19 Dec 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/portmanager/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/portmanager/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Updating…/-\|/-|</title>
-      <link>http://localhost:1313/post/2009-12-19-updating/</link>
+      <link>https://bramp.github.io/post/2009/12/19/updating/-%5C/-/</link>
       <pubDate>Sat, 19 Dec 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2009-12-19-updating/</guid>
+      <guid>https://bramp.github.io/post/2009/12/19/updating/-%5C/-/</guid>
       <description>&lt;p&gt;Do people other than me find updating their servers to be relaxing? At every opportunity I run &amp;#8220;apt-get update&amp;#8221;. Today I&amp;#8217;m updating 7 different machines simultaneously.&lt;/p&gt;
 
 &lt;p&gt;My Debian machines I simply issue the following commands:&lt;/p&gt;

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Gcc on bramp.net</title>
-    <link>http://localhost:1313/tags/gcc/</link>
+    <link>https://bramp.github.io/tags/gcc/</link>
     <description>Recent content in Gcc on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Fri, 06 Mar 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/gcc/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/gcc/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Compiler defined symbols</title>
-      <link>http://localhost:1313/post/2009-03-06-compiler-defined-symbols/</link>
+      <link>https://bramp.github.io/post/2009/03/06/compiler-defined-symbols/</link>
       <pubDate>Fri, 06 Mar 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2009-03-06-compiler-defined-symbols/</guid>
+      <guid>https://bramp.github.io/post/2009/03/06/compiler-defined-symbols/</guid>
       <description>&lt;p&gt;I found this neat little command to list all the GCC compiler defined symbols&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;gcc -dM -E - &amp;gt; /dev/null
 &lt;/pre&gt;&lt;/div&gt;

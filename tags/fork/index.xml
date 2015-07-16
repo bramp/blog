@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Fork on bramp.net</title>
-    <link>http://localhost:1313/tags/fork/</link>
+    <link>https://bramp.github.io/tags/fork/</link>
     <description>Recent content in Fork on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Fri, 27 Nov 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/fork/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/fork/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>The 7 month fork bomb</title>
-      <link>http://localhost:1313/post/2009-11-27-the-7-month-fork-bomb/</link>
+      <link>https://bramp.github.io/post/2009/11/27/the-7-month-fork-bomb/</link>
       <pubDate>Fri, 27 Nov 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2009-11-27-the-7-month-fork-bomb/</guid>
+      <guid>https://bramp.github.io/post/2009/11/27/the-7-month-fork-bomb/</guid>
       <description>&lt;p&gt;Today I was helping a student with some C programming, and the remote machine he was compiling and running his code on was running very slowly. It was a shared machine so I assumed some other students were using it. Therefore I had a quick look at &amp;#8220;who&amp;#8221; and found that only one other user was logged in. Then I looked at &amp;#8220;top&amp;#8221; and &amp;#8220;ps&amp;#8221; and noticed the machine was at 100% load, but I couldn&amp;#8217;t figure out which process was causing this.&lt;/p&gt;
 
 &lt;p&gt;It turns out that 7 months ago (in April), two of the students had ran the following code while they were learning about fork:&lt;/p&gt;

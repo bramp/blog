@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Svn on bramp.net</title>
-    <link>http://localhost:1313/tags/svn/</link>
+    <link>https://bramp.github.io/tags/svn/</link>
     <description>Recent content in Svn on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 15 Feb 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/svn/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/svn/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>64bit TortoiseGit</title>
-      <link>http://localhost:1313/post/2009-02-15-64bit-tortoisegit/</link>
+      <link>https://bramp.github.io/post/2009/02/15/64bit-tortoisegit/</link>
       <pubDate>Sun, 15 Feb 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2009-02-15-64bit-tortoisegit/</guid>
+      <guid>https://bramp.github.io/post/2009/02/15/64bit-tortoisegit/</guid>
       <description>&lt;p&gt;Recently I tried &lt;a href=&#34;http://code.google.com/p/tortoisegit/&#34;&gt;TortoiseGit&lt;/a&gt;, a &lt;a href=&#34;http://tortoisesvn.tigris.org/&#34;&gt;TortoiseSVN&lt;/a&gt; style Git client, however there were no binaries for my 64 bit windows machine. The 32 bit version found on the official site would install, but the shell extension unfortunately does not work.&lt;/p&gt;
 
 &lt;p&gt;So I took the law into my own hands and went and built my own version.&lt;/p&gt;
 
-&lt;p&gt;&lt;del&gt;So here is &lt;a href=&#34;http://localhost:1313/projects/TortoiseGit-3.3.9d335-64bit.msi&#34;&gt;TortoiseGIT 0.3.3.0 (64 bit)&lt;/a&gt; built from revision 9d3351f627b26d9555794e785cf8bbae22155f12.&lt;/del&gt; There is now a newer offical version available at: &lt;a href=&#34;http://code.google.com/p/tortoisegit/downloads/list&#34;&gt;http://code.google.com/p/tortoisegit/downloads/list&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;So here is &lt;a href=&#34;TortoiseGit-3.3.9d335-64bit.msi&#34;&gt;TortoiseGIT 0.3.3.0 (64 bit)&lt;/a&gt; built from revision 9d3351f627b26d9555794e785cf8bbae22155f12.&lt;/del&gt; There is now a newer offical version available at: &lt;a href=&#34;http://code.google.com/p/tortoisegit/downloads/list&#34;&gt;http://code.google.com/p/tortoisegit/downloads/list&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Hopefully 64bit builds will be available from the official site in the future.&lt;/p&gt;
 
@@ -29,15 +29,15 @@
     
     <item>
       <title>A Practical Introduction to Version Control Systems</title>
-      <link>http://localhost:1313/post/2009-02-04-a-practical-introduction-to-version-control-systems/</link>
+      <link>https://bramp.github.io/post/2009/02/04/a-practical-introduction-to-version-control-systems/</link>
       <pubDate>Wed, 04 Feb 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2009-02-04-a-practical-introduction-to-version-control-systems/</guid>
+      <guid>https://bramp.github.io/post/2009/02/04/a-practical-introduction-to-version-control-systems/</guid>
       <description>&lt;p&gt;Today I presented a CAKES talk in our department to help teach people about version control systems. I hope by sharing my knowledge on a subject, that others will share theirs. Below is the abstract and slides for my tak:&lt;/p&gt;
 
 &lt;p&gt;This talk aims to explain what version control systems (VCS) also known as source control management (SCM) are, how they work, and how to use them. This includes explaining why you should use VCS for your every day projects, even if they don&amp;#8217;t include any source code. The differences between the main two classes of VCS; centralised and decentralised systems will be discussed, outlining both their benefits and disadvantages. This presentation will give you practical knowledge to start using systems such as subversion (SVN) or git, as well as many example use cases. Bottom line is that using a VCS can help you keep your work organised, backed up, revertible, whilst allowing contributions from multiple users. This talk is for anyone that has heard about CVS/SVN/git but was never quite sure what it was, or how to use it.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;http://localhost:1313/projects/version_control.pdf&#34;&gt;Download Slides&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;version_control.pdf&#34;&gt;Download Slides&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

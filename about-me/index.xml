@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>About-mes on bramp.net</title>
-    <link>http://localhost:1313/about-me/</link>
+    <link>https://bramp.github.io/about-me/</link>
     <description>Recent content in About-mes on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 20 Sep 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/about-me/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/about-me/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>About Me</title>
-      <link>http://localhost:1313/about-me/</link>
+      <link>https://bramp.github.io/about-me/</link>
       <pubDate>Sun, 20 Sep 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/about-me/</guid>
+      <guid>https://bramp.github.io/about-me/</guid>
       <description>
 
 &lt;p&gt;Andrew Brampton Ph.D lives in the Bay Area, previously lived in Washington DC, but is originally from the United Kingdom. Enjoys playing with new technologies, loves working on large scale, high performance applications. Currently works at Google on the Android/Play SRE teams.&lt;/p&gt;
 
-&lt;p&gt;Spends his weekends working on fun and novel projects, most of which he &lt;a href=&#34;http://localhost:1313/opensource-project/&#34;&gt;open sources&lt;/a&gt;. He can occasionally be found at tech &lt;a href=&#34;http://www.meetup.com/&#34;&gt;Meetups&lt;/a&gt;, and sometimes he even speaks.&lt;/p&gt;
+&lt;p&gt;Spends his weekends working on fun and novel projects, most of which he &lt;a href=&#34;https://bramp.github.io/opensource-project/&#34;&gt;open sources&lt;/a&gt;. He can occasionally be found at tech &lt;a href=&#34;http://www.meetup.com/&#34;&gt;Meetups&lt;/a&gt;, and sometimes he even speaks.&lt;/p&gt;
 
-&lt;p&gt;Previously he was a researcher within the computer science department at &lt;a href=&#34;http://www.lancs.ac.uk/&#34;&gt;Lancaster University&lt;/a&gt;, where he obtained his Ph.D at age 26. His &lt;a href=&#34;http://localhost:1313/publication/&#34;&gt;areas of research&lt;/a&gt; revolve around distributed systems, in particular peer-to-peer, distributed hash tables (DHTs), and content distribution networks (CDNs).&lt;/p&gt;
+&lt;p&gt;Previously he was a researcher within the computer science department at &lt;a href=&#34;http://www.lancs.ac.uk/&#34;&gt;Lancaster University&lt;/a&gt;, where he obtained his Ph.D at age 26. His &lt;a href=&#34;https://bramp.github.io/publication/&#34;&gt;areas of research&lt;/a&gt; revolve around distributed systems, in particular peer-to-peer, distributed hash tables (DHTs), and content distribution networks (CDNs).&lt;/p&gt;
 
 &lt;h2 id=&#34;my-curricula-vitae-résumé:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;My Curricula Vitae / Résumé&lt;/h2&gt;
 

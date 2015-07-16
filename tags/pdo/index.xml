@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Pdo on bramp.net</title>
-    <link>http://localhost:1313/tags/pdo/</link>
+    <link>https://bramp.github.io/tags/pdo/</link>
     <description>Recent content in Pdo on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 25 Oct 2011 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/pdo/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/pdo/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>SQLSTATE[HY000]: General error: 2053</title>
-      <link>http://localhost:1313/post/2011-10-25-sqlstate-hy000-general-error-2053/</link>
+      <link>https://bramp.github.io/post/2011/10/25/sqlstatehy000-general-error-2053/</link>
       <pubDate>Tue, 25 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2011-10-25-sqlstate-hy000-general-error-2053/</guid>
+      <guid>https://bramp.github.io/post/2011/10/25/sqlstatehy000-general-error-2053/</guid>
       <description>&lt;p&gt;I encountered the following odd exception:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;PHP Fatal error:  Uncaught exception &amp;#39;PDOException&amp;#39; with message &amp;#39;SQLSTATE[HY000]: General error: 2053 &amp;#39; in /home/bramp/my.php:29
 Stack trace:

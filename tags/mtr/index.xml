@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Mtr on bramp.net</title>
-    <link>http://localhost:1313/tags/mtr/</link>
+    <link>https://bramp.github.io/tags/mtr/</link>
     <description>Recent content in Mtr on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 07 Aug 2011 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/mtr/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/mtr/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Default to curses interface for mtr</title>
-      <link>http://localhost:1313/post/2011-08-07-default-to-curses-interface-for-mtr/</link>
+      <link>https://bramp.github.io/post/2011/08/07/default-to-curses-interface-for-mtr/</link>
       <pubDate>Sun, 07 Aug 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2011-08-07-default-to-curses-interface-for-mtr/</guid>
+      <guid>https://bramp.github.io/post/2011/08/07/default-to-curses-interface-for-mtr/</guid>
       <description>&lt;p&gt;I really like &lt;a href=&#34;http://www.bitwizard.nl/mtr/&#34;&gt;mtr&lt;/a&gt; (the traceroute tool), however, it always bugged me that it launches a GUI app instead of using the &lt;a href=&#34;http://en.wikipedia.org/wiki/Curses_(programming_library)&#34;&gt;curses&lt;/a&gt; interface. You can easily pass the &amp;#8220;-t&amp;#8221; or &amp;#8220;&amp;#8211;curses&amp;#8221; flag to default to the curses interface, but I always forget.&lt;/p&gt;
 
 &lt;p&gt;So today I set about writing a patch for mtr to read a environment varable to force the curses interface. While I was reading the source I noticed there was already a simple undocumented way!&lt;/p&gt;
