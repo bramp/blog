@@ -17,13 +17,18 @@
 </pre></div><p>Now, when I removed the close_fds argument the problems went away! After some more digging I found this <a href=http://bugs.python.org/issue8052>bug report</a> which describes the behaviour of close_fds. Python will spin in a tight loop calling close for all possible valid fd number just incase it was previously used. WTF! You can see the python <a href=http://svn.python.org/projects/python/tags/r311/Lib/subprocess.py>code here</a>:</p><div class=highlight><pre><span class=k>def</span> <span class=nf>_close_fds</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>but</span><span class=p>):</span>
     <span class=n>os</span><span class=o>.</span><span class=n>closerange</span><span class=p>(</span><span class=mi>3</span><span class=p>,</span> <span class=n>but</span><span class=p>)</span>
     <span class=n>os</span><span class=o>.</span><span class=n>closerange</span><span class=p>(</span><span class=n>but</span> <span class=o>+</span> <span class=mi>1</span><span class=p>,</span> <span class=n>MAXFD</span><span class=p>)</span>
-</pre></div><p>So the simple fix to this was to remove the close_fds, so that Python doesn&#8217;t stupidly spin calling close(). I suspect the reason I only noticed this when running inside Apache, is because Apache must have a larger MAXFD. Hopefully in the future Python will change this behaviour and find a more sensible way to close all file descriptors, especially when I read this <a href=http://bugs.python.org/issue7213>bug report</a> which advises changing close_fds default to true.</p></div></div><div class=addthis_sharing_toolbox></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2010/05/07/humble-indie-bundle-md5sums/">&larr; Humble Indie Bundle md5sums</a></li>&nbsp;<li class=next><a href="/post/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/">Android Linux SDK revision 6 aapt library bug &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>(function() {
+</pre></div><p>So the simple fix to this was to remove the close_fds, so that Python doesn&#8217;t stupidly spin calling close(). I suspect the reason I only noticed this when running inside Apache, is because Apache must have a larger MAXFD. Hopefully in the future Python will change this behaviour and find a more sensible way to close all file descriptors, especially when I read this <a href=http://bugs.python.org/issue7213>bug report</a> which advises changing close_fds default to true.</p></div></div><div class=addthis_sharing_toolbox></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2010/05/07/humble-indie-bundle-md5sums/">&larr; Humble Indie Bundle md5sums</a></li>&nbsp;<li class=next><a href="/post/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/">Android Linux SDK revision 6 aapt library bug &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>var disqus_shortname = 'bramp';
+
+
+(function() {
+
     
     
     if (window.location.hostname == "localhost" || window.location.port == 1313) 
         return;
 
+
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//bramp.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a><br/><footer><p class="text-muted credit">&copy; 2015. All rights reserved.</p></footer></div></div><script src=/js/jquery-1.10.2.min.js></script><script src=/js/bootstrap.min.js></script><script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>

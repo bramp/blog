@@ -14,13 +14,18 @@ mask:rwx
 other:r--
 </pre></div><p>Since there is the group:httpadmin line, ISS are clearly using these ACLs. So I figured I would add the user the webserver is running under to the ACL. A quick look at a phpinfo() page showed me that the web server is running under user www in group www. So I first tried the following:</p><div class=highlight><pre>setfacl -m user:www:rw- filename
 </pre></div><p>But that oddly didn&#8217;t work, but then I noted that the webserver was a linux machine, not SunOS, and that the UID of www was 48. A quick look at the UID of www on SunOS and it shows it is a completely different number. So for what ever reason ISS were unable to make the UIDs match between computers, so the correct command to type is:</p><div class=highlight><pre>setfacl -m user:48:rw- filename
-</pre></div><p>Bottom line, if you wish to make your files or directories writable by scripts running on the webserver you must log into cent1 (via ssh), change to your www directory &#8220;/home/cent1/NN/username/www/public_html&#8221; and then issue the above command to the appropriate files.</p></div></div><div class=addthis_sharing_toolbox></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2009/01/11/autoload-symbols-for-freebsd-kernel-module/">&larr; Autoload symbols for FreeBSD kernel module</a></li>&nbsp;<li class=next><a href="/post/2009/01/27/what-happens-when-you-mix/">What happens when you mix… &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>(function() {
+</pre></div><p>Bottom line, if you wish to make your files or directories writable by scripts running on the webserver you must log into cent1 (via ssh), change to your www directory &#8220;/home/cent1/NN/username/www/public_html&#8221; and then issue the above command to the appropriate files.</p></div></div><div class=addthis_sharing_toolbox></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2009/01/11/autoload-symbols-for-freebsd-kernel-module/">&larr; Autoload symbols for FreeBSD kernel module</a></li>&nbsp;<li class=next><a href="/post/2009/01/27/what-happens-when-you-mix/">What happens when you mix… &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>var disqus_shortname = 'bramp';
+
+
+(function() {
+
     
     
     if (window.location.hostname == "localhost" || window.location.port == 1313) 
         return;
 
+
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//bramp.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a><br/><footer><p class="text-muted credit">&copy; 2015. All rights reserved.</p></footer></div></div><script src=/js/jquery-1.10.2.min.js></script><script src=/js/bootstrap.min.js></script><script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>

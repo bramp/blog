@@ -22,13 +22,18 @@
 
 <span class=s>  # Boom, we make the request</span>
 <span class=s>  srcReq = src.request &#39;GET&#39;, query_path, headers</span>
-</pre></div><p>The above code was simplified a little from the real code, but basically we do the DNS lookup, check the returned address is good, and then make a HTTP request to that IP address with a <code>Host:</code> header to ensure the request will work.</p><p>Really though, the correct solution to this is to configure a suitably paranoid firewall to stop requests from the proxy machine to anything internal. However, as with all security, the more <a href=http://en.wikipedia.org/wiki/Swiss_cheese_model>layers of protection</a> you have the better, and you should never depend on just one.</p></div></div><div class=addthis_sharing_toolbox></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2012/11/23/jshint-x-is-an-implied-global-variable/">&larr; JSHint ‘x’ is an implied global variable</a></li>&nbsp;<li class=next><a href="/post/2013/02/16/how-many-ways-are-there-to-say-phone-number/">How many ways are there to say phone number? &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>(function() {
+</pre></div><p>The above code was simplified a little from the real code, but basically we do the DNS lookup, check the returned address is good, and then make a HTTP request to that IP address with a <code>Host:</code> header to ensure the request will work.</p><p>Really though, the correct solution to this is to configure a suitably paranoid firewall to stop requests from the proxy machine to anything internal. However, as with all security, the more <a href=http://en.wikipedia.org/wiki/Swiss_cheese_model>layers of protection</a> you have the better, and you should never depend on just one.</p></div></div><div class=addthis_sharing_toolbox></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2012/11/23/jshint-x-is-an-implied-global-variable/">&larr; JSHint ‘x’ is an implied global variable</a></li>&nbsp;<li class=next><a href="/post/2013/02/16/how-many-ways-are-there-to-say-phone-number/">How many ways are there to say phone number? &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>var disqus_shortname = 'bramp';
+
+
+(function() {
+
     
     
     if (window.location.hostname == "localhost" || window.location.port == 1313) 
         return;
 
+
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//bramp.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a><br/><footer><p class="text-muted credit">&copy; 2015. All rights reserved.</p></footer></div></div><script src=/js/jquery-1.10.2.min.js></script><script src=/js/bootstrap.min.js></script><script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>

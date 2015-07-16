@@ -8,13 +8,18 @@
 </pre></div></li><li><p>or if you don&#8217;t want to use pecl</p><div class=highlight><pre><span class=nb>gmdate</span><span class=p>(</span><span class=s1>&#39;D, d M Y H:i:s&#39;</span><span class=p>,</span> <span class=nv>$timestamp</span><span class=p>)</span><span class=o>.</span><span class=s1>&#39; GMT&#39;</span>
 </pre></div></li><li><p>or if you have PHP &gt;5.2 you can use the DateTime constant</p><div class=highlight><pre><span class=nb>gmdate</span><span class=p>(</span><span class=nx>DATE_RFC2822</span><span class=p>,</span> <span class=nv>$timestamp</span><span class=p>)</span>
 </pre></div></li></ol><p>an example of it&#8217;s use:</p><div class=highlight><pre><span class=nb>header</span><span class=p>(</span><span class=s1>&#39;Last-Modified: &#39;</span> <span class=o>.</span> <span class=nb>gmdate</span><span class=p>(</span><span class=s1>&#39;D, d M Y H:i:s&#39;</span><span class=p>,</span> <span class=nv>$lastModified</span><span class=p>)</span><span class=o>.</span><span class=s1>&#39; GMT&#39;</span><span class=p>);</span>
-</pre></div></div></div><div class=addthis_sharing_toolbox></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2012/07/04/groovy-/-grails/">&larr; Groovy / Grails</a></li>&nbsp;<li class=next><a href="/post/2012/09/04/setting-up-git-p4/">Setting up git-p4 &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>(function() {
+</pre></div></div></div><div class=addthis_sharing_toolbox></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2012/07/04/groovy-/-grails/">&larr; Groovy / Grails</a></li>&nbsp;<li class=next><a href="/post/2012/09/04/setting-up-git-p4/">Setting up git-p4 &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>var disqus_shortname = 'bramp';
+
+
+(function() {
+
     
     
     if (window.location.hostname == "localhost" || window.location.port == 1313) 
         return;
 
+
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//bramp.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a><br/><footer><p class="text-muted credit">&copy; 2015. All rights reserved.</p></footer></div></div><script src=/js/jquery-1.10.2.min.js></script><script src=/js/bootstrap.min.js></script><script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>

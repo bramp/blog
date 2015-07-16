@@ -13,13 +13,18 @@ Stack trace:
 <span class=k>while</span> <span class=p>(</span><span class=nv>$row</span> <span class=o>=</span> <span class=nv>$sth</span><span class=o>-&gt;</span><span class=na>fetch</span><span class=p>(</span><span class=nx>PDO</span><span class=o>::</span><span class=na>FETCH_ASSOC</span><span class=p>))</span> <span class=p>{</span>
 <span class=o>...</span>
 </pre></div><p>I am missing a</p><div class=highlight><pre><span class=nv>$sth</span><span class=o>-&gt;</span><span class=na>execute</span><span class=p>();</span>
-</pre></div><p>in between the prepare and the fetch. Easy fix. For reference I&#8217;m using a old version of PHP 5.1.6, and MySQL client 5.0.45.</p></div></div><div class=addthis_sharing_toolbox></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/">&larr; My experiences with developing multi-threaded nodejs addon</a></li>&nbsp;<li class=next><a href="/post/2011/10/31/2010-census-tiger/line-shapefiles-code-names/">2010 Census TIGER/Line® Shapefiles Code Names &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>(function() {
+</pre></div><p>in between the prepare and the fetch. Easy fix. For reference I&#8217;m using a old version of PHP 5.1.6, and MySQL client 5.0.45.</p></div></div><div class=addthis_sharing_toolbox></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/">&larr; My experiences with developing multi-threaded nodejs addon</a></li>&nbsp;<li class=next><a href="/post/2011/10/31/2010-census-tiger/line-shapefiles-code-names/">2010 Census TIGER/Line® Shapefiles Code Names &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>var disqus_shortname = 'bramp';
+
+
+(function() {
+
     
     
     if (window.location.hostname == "localhost" || window.location.port == 1313) 
         return;
 
+
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//bramp.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a><br/><footer><p class="text-muted credit">&copy; 2015. All rights reserved.</p></footer></div></div><script src=/js/jquery-1.10.2.min.js></script><script src=/js/bootstrap.min.js></script><script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
