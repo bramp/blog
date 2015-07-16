@@ -33,13 +33,16 @@ lzma: Decoder error
 gzip: image-2.gz: decompression OK, trailing garbage ignored
 </pre></div><p>So that does indeed produce a large image-2 file, so we can ignore the trailing garbage warning. A quick &#8220;file&#8221; on image-2 doesn&#8217;t reveal anything useful, so I run binwalk on it. This turns up a set of false positives. So I take a different approach. I run:</p><div class=highlight><pre><span class=nv>$ </span>strings image-2
 </pre></div><p>This produces a whole host of valid looking strings. From the contents of the strings it makes me think it&#8217;s the actual kernel. A line like this:</p><div class=highlight><pre>Linux version 2.6.35.8 (root@ubuntu) (gcc version 4.2.0 20070413 (prerelease) (CodeSourcery Sourcery G++ Lite 2007q1-21)) #1 Thu Dec 22 16:40:10 PST 2011
-</pre></div><p>helps me come to that conclusion.</p><p>I haven&#8217;t finished poking around image-2.gz, but I suspect the interesting parts are mostly in the JFFS2 filesystem. Hopefully this will lead to me getting ssh access to the router, and eventually being able to customise the firmware.</p></div></div><div class=addthis_sharing_toolbox></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/">&larr; Obtaining the firmware for Linksys E4200v2</a></li>&nbsp;<li class=next><a href="/post/2012/04/15/latex-error-file-layaureo.sty-not-found/">LaTeX Error: File `layaureo.sty’ not found &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>(function() {
-    
-    
-    if (window.location.hostname == "localhost" || window.location.port == 1313) 
-        return;
+</pre></div><p>helps me come to that conclusion.</p><p>I haven&#8217;t finished poking around image-2.gz, but I suspect the interesting parts are mostly in the JFFS2 filesystem. Hopefully this will lead to me getting ssh access to the router, and eventually being able to customise the firmware.</p></div></div><div class=addthis_sharing_toolbox></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/">&larr; Obtaining the firmware for Linksys E4200v2</a></li>&nbsp;<li class=next><a href="/post/2012/04/15/latex-error-file-layaureo.sty-not-found/">LaTeX Error: File `layaureo.sty’ not found &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>var disqus_shortname = 'bramp';
+
+var disqus_identifier = '1614115116';
+
+
+(function() {
+
+
 
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//bramp.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a><br/><footer><p class="text-muted credit">&copy; 2015. All rights reserved.</p></footer></div></div><script src=/js/jquery-1.10.2.min.js></script><script src=/js/bootstrap.min.js></script><script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>

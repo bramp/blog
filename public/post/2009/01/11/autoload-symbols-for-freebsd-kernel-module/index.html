@@ -26,13 +26,18 @@
 
 <span class=n>FreeBSD_ReloadModuleSymbols</span> <span class=p>()</span>
 </pre></div><p>You load this by running the following command in GDB:</p><div class=highlight><pre><span class=nb>source </span>freebsd_load_modules.py
-</pre></div><p>Then the command <code>reload-freebsd-module-symbols</code> is magically added to GDB. Running this command will parse the linker table inside the FreeBSD kernel, determine which modules are loaded, and attempt to load their symbols.</p></div></div><div class=addthis_sharing_toolbox></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2009/01/11/linuxoffsets-for-freebsd/">&larr; linuxoffsets for FreeBSD</a></li>&nbsp;<li class=next><a href="/post/2009/01/21/read/write-permissions-for-php-scripts-at-lancs.ac.uk/">Read/Write permissions for PHP scripts at lancs.ac.uk &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>(function() {
+</pre></div><p>Then the command <code>reload-freebsd-module-symbols</code> is magically added to GDB. Running this command will parse the linker table inside the FreeBSD kernel, determine which modules are loaded, and attempt to load their symbols.</p></div></div><div class=addthis_sharing_toolbox></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2009/01/11/linuxoffsets-for-freebsd/">&larr; linuxoffsets for FreeBSD</a></li>&nbsp;<li class=next><a href="/post/2009/01/21/read/write-permissions-for-php-scripts-at-lancs.ac.uk/">Read/Write permissions for PHP scripts at lancs.ac.uk &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>var disqus_shortname = 'bramp';
+
+
+(function() {
+
     
     
     if (window.location.hostname == "localhost" || window.location.port == 1313) 
         return;
 
+
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//bramp.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a><br/><footer><p class="text-muted credit">&copy; 2015. All rights reserved.</p></footer></div></div><script src=/js/jquery-1.10.2.min.js></script><script src=/js/bootstrap.min.js></script><script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>

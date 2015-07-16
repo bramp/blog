@@ -25,13 +25,16 @@ xcopy X:<span class=se>\*</span>.* /s/e/f Y:<span class=se>\</span>
      where X:<span class=se>\ </span>is your mounted image or physical DVD and Y:<span class=se>\ </span>is your USB
      device
 </pre></div><p>However it appears diskpart is unable to see USB sticks under Windows XP. I have later tried on Vista and this limitation appears removed. But for those using Windows XP I have found an alternative method.</p><p>Firstly find the bootsect.exe tool on the Windows Server disc (in the boot directory). Then run this command where U is the drive letter of the USB stick.</p><div class=highlight><pre>D:<span class=se>\b</span>oot&gt; bootsect.exe /nt60 U:
-</pre></div><p>Now copy all the files from the Windows Server disc onto the USB stick. This can be done by dragging in the GUI or using the xcopy method shown previously.</p><p>I have yet to repeat this procedure and I might have previous partitioned or formatted my USB stick in a unique way. So if this method doesn&#8217;t work <a href=/about-me/#contact>drop me a mail</a> and I&#8217;ll see what I can do.</p></div></div><div class=addthis_sharing_toolbox></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2008/06/20/2tb-is-too-much-for-xp/">&larr; 2TB is too much for XP</a></li>&nbsp;<li class=next><a href="/post/2008/09/01/asus-x56se-linux/">ASUS X56Se Linux &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>(function() {
-    
-    
-    if (window.location.hostname == "localhost" || window.location.port == 1313) 
-        return;
+</pre></div><p>Now copy all the files from the Windows Server disc onto the USB stick. This can be done by dragging in the GUI or using the xcopy method shown previously.</p><p>I have yet to repeat this procedure and I might have previous partitioned or formatted my USB stick in a unique way. So if this method doesn&#8217;t work <a href=/about-me/#contact>drop me a mail</a> and I&#8217;ll see what I can do.</p></div></div><div class=addthis_sharing_toolbox></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2008/06/20/2tb-is-too-much-for-xp/">&larr; 2TB is too much for XP</a></li>&nbsp;<li class=next><a href="/post/2008/09/01/asus-x56se-linux/">ASUS X56Se Linux &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>var disqus_shortname = 'bramp';
+
+var disqus_identifier = '1614115731';
+
+
+(function() {
+
+
 
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//bramp.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a><br/><footer><p class="text-muted credit">&copy; 2015. All rights reserved.</p></footer></div></div><script src=/js/jquery-1.10.2.min.js></script><script src=/js/bootstrap.min.js></script><script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>

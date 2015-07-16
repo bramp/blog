@@ -13,13 +13,18 @@ This can be caused by:
 * Unofficial software packages not provided by Ubuntu
 
 If none of this applies, then please report this bug using the command &#39;ubuntu-bug update-manager&#39; in a terminal.
-</pre></div><p>The problem was I had some packages installed that had no upgrade path, that is, are not available in Precise. To debug this I looked in the <code>/var/log/dist-upgrade/apt.log</code> file, and it identifies the packages that were &#8220;broken&#8221;. I just had to &#8220;apt-get remove&#8221; them, do the release upgrade, and afterwards I could reinstall them.</p><p>Problem solved.</p></div></div><div class=addthis_sharing_toolbox></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2012/04/15/latex-error-file-layaureo.sty-not-found/">&larr; LaTeX Error: File `layaureo.sty’ not found</a></li>&nbsp;<li class=next><a href="/post/2012/05/15/mri-scan-of-my-brain/">MRI scan of my brain &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>(function() {
+</pre></div><p>The problem was I had some packages installed that had no upgrade path, that is, are not available in Precise. To debug this I looked in the <code>/var/log/dist-upgrade/apt.log</code> file, and it identifies the packages that were &#8220;broken&#8221;. I just had to &#8220;apt-get remove&#8221; them, do the release upgrade, and afterwards I could reinstall them.</p><p>Problem solved.</p></div></div><div class=addthis_sharing_toolbox></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2012/04/15/latex-error-file-layaureo.sty-not-found/">&larr; LaTeX Error: File `layaureo.sty’ not found</a></li>&nbsp;<li class=next><a href="/post/2012/05/15/mri-scan-of-my-brain/">MRI scan of my brain &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>var disqus_shortname = 'bramp';
+
+
+(function() {
+
     
     
     if (window.location.hostname == "localhost" || window.location.port == 1313) 
         return;
 
+
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//bramp.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a><br/><footer><p class="text-muted credit">&copy; 2015. All rights reserved.</p></footer></div></div><script src=/js/jquery-1.10.2.min.js></script><script src=/js/bootstrap.min.js></script><script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
