@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tortoisesvn on bramp.net</title>
-    <link>https://bramp.github.io/tags/tortoisesvn/</link>
+    <link>http://blog.bramp.net/tags/tortoisesvn/</link>
     <description>Recent content in Tortoisesvn on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 15 Feb 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/tortoisesvn/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/tortoisesvn/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>64bit TortoiseGit</title>
-      <link>https://bramp.github.io/post/2009/02/15/64bit-tortoisegit/</link>
+      <link>http://blog.bramp.net/post/2009/02/15/64bit-tortoisegit/</link>
       <pubDate>Sun, 15 Feb 2009 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2009/02/15/64bit-tortoisegit/</guid>
+      <guid>http://blog.bramp.net/post/2009/02/15/64bit-tortoisegit/</guid>
       <description>&lt;p&gt;Recently I tried &lt;a href=&#34;http://code.google.com/p/tortoisegit/&#34;&gt;TortoiseGit&lt;/a&gt;, a &lt;a href=&#34;http://tortoisesvn.tigris.org/&#34;&gt;TortoiseSVN&lt;/a&gt; style Git client, however there were no binaries for my 64 bit windows machine. The 32 bit version found on the official site would install, but the shell extension unfortunately does not work.&lt;/p&gt;
 
 &lt;p&gt;So I took the law into my own hands and went and built my own version.&lt;/p&gt;

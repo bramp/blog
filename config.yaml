@@ -1,8 +1,6 @@
-baseurl: "https://bramp.github.io"
-altbaseurl: "https://bramp.github.io"
+baseurl: "http://blog.bramp.net"
 languageCode: "en-gb"
 title: "bramp.net"
-disqusShortname: "bramp"
 
 theme: "bramp"
 author:
@@ -14,6 +12,7 @@ params:
   linkedin: "bramp"
   facebook: "bramp"
   GoogleAnalytics: "UA-136478-5"
+  disqusShortname: "bramp"
 
 permalinks:
   post: /post/:year/:month/:day/:slug/

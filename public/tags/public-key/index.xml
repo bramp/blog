@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Public Key on bramp.net</title>
-    <link>https://bramp.github.io/tags/public-key/</link>
+    <link>http://blog.bramp.net/tags/public-key/</link>
     <description>Recent content in Public Key on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Wed, 13 Jan 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/public-key/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/public-key/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>My RSA Public Key</title>
-      <link>https://bramp.github.io/post/2010/01/13/my-rsa-public-key/</link>
+      <link>http://blog.bramp.net/post/2010/01/13/my-rsa-public-key/</link>
       <pubDate>Wed, 13 Jan 2010 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2010/01/13/my-rsa-public-key/</guid>
+      <guid>http://blog.bramp.net/post/2010/01/13/my-rsa-public-key/</guid>
       <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;---- BEGIN RSA PUBLIC KEY ----
 AAAAB3NzaC1yc2EAAAABIwAAAQEAs8kmdDl8z8YnwiGogtZb4K+ptzQkYuG2ZSrR
 cEB7YqrwgtqDdQDyNE6SOd6I0bJ+hIz6lsmBUKz70g2bfL+T9VmtbFlH48/YA7vG

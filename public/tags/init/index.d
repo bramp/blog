@@ -10,9 +10,9 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Hugo"/>
-  <link rel="canonical" href="https://bramp.github.io/tags/init/index.d/" />
+  <link rel="canonical" href="http://blog.bramp.net/tags/init/index.d/" />
 
-  <link href="https://bramp.github.io/tags/init.d/index.xml" rel="alternate" type="application/rss+xml" title="Init.D" />
+  <link href="http://blog.bramp.net/tags/init.d/index.xml" rel="alternate" type="application/rss+xml" title="Init.D" />
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <link href="/css/bramp.css" rel="stylesheet">
   <link href="/css/pygments-friendly.css" rel="stylesheet">

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Spam on bramp.net</title>
-    <link>https://bramp.github.io/tags/spam/</link>
+    <link>http://blog.bramp.net/tags/spam/</link>
     <description>Recent content in Spam on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sat, 30 Jun 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/spam/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/spam/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Gmail tagged 48 valid emails as spam</title>
-      <link>https://bramp.github.io/post/2012/06/30/gmail-tagged-48-valid-emails-as-spam/</link>
+      <link>http://blog.bramp.net/post/2012/06/30/gmail-tagged-48-valid-emails-as-spam/</link>
       <pubDate>Sat, 30 Jun 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2012/06/30/gmail-tagged-48-valid-emails-as-spam/</guid>
+      <guid>http://blog.bramp.net/post/2012/06/30/gmail-tagged-48-valid-emails-as-spam/</guid>
       <description>&lt;p&gt;I just noticed, but on the 29th of July Gmail tagged 48 emails I received as spam. Did anyone else see a problem?&lt;/p&gt;
 </description>
     </item>

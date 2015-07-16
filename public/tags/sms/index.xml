@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sms on bramp.net</title>
-    <link>https://bramp.github.io/tags/sms/</link>
+    <link>http://blog.bramp.net/tags/sms/</link>
     <description>Recent content in Sms on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 25 Aug 2013 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/sms/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/sms/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>SMS Character Count</title>
-      <link>https://bramp.github.io/post/2013/08/25/sms-character-count/</link>
+      <link>http://blog.bramp.net/post/2013/08/25/sms-character-count/</link>
       <pubDate>Sun, 25 Aug 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2013/08/25/sms-character-count/</guid>
+      <guid>http://blog.bramp.net/post/2013/08/25/sms-character-count/</guid>
       <description>&lt;p&gt;It is commonly known that Twitter allows 140 character messages, and some will tell you that a single SMS message is limited to 160 characters. However, it&amp;#8217;s not as simple as that. In the US a single SMS message can contain 140 bytes of data, which if using &lt;a href=&#34;http://en.wikipedia.org/wiki/GSM_03.38&#34;&gt;GSM encoding&lt;/a&gt;, we can squeeze up to 160 7-bit characters. Those 7-bit GSM characters don&amp;#8217;t match up with normal ASCII characters, and even worse, not all characters take 7 bits, some take up 14 bits (for example the { character)!&lt;/p&gt;
 
 &lt;p&gt;When we start talking about messaging in non-latin scripts, such as Chinese, then a different encoding must be used. In the SMS world the encoding of choice is &lt;a href=&#34;http://en.wikipedia.org/wiki/UTF-16&#34;&gt;UCS-2&lt;/a&gt;, which uses 16 bits per character. This limits a single part message to 70 characters (down from 160).&lt;/p&gt;

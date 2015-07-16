@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Javascript on bramp.net</title>
-    <link>https://bramp.github.io/tags/javascript/</link>
+    <link>http://blog.bramp.net/tags/javascript/</link>
     <description>Recent content in Javascript on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 25 Aug 2013 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>SMS Character Count</title>
-      <link>https://bramp.github.io/post/2013/08/25/sms-character-count/</link>
+      <link>http://blog.bramp.net/post/2013/08/25/sms-character-count/</link>
       <pubDate>Sun, 25 Aug 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2013/08/25/sms-character-count/</guid>
+      <guid>http://blog.bramp.net/post/2013/08/25/sms-character-count/</guid>
       <description>&lt;p&gt;It is commonly known that Twitter allows 140 character messages, and some will tell you that a single SMS message is limited to 160 characters. However, it&amp;#8217;s not as simple as that. In the US a single SMS message can contain 140 bytes of data, which if using &lt;a href=&#34;http://en.wikipedia.org/wiki/GSM_03.38&#34;&gt;GSM encoding&lt;/a&gt;, we can squeeze up to 160 7-bit characters. Those 7-bit GSM characters don&amp;#8217;t match up with normal ASCII characters, and even worse, not all characters take 7 bits, some take up 14 bits (for example the { character)!&lt;/p&gt;
 
 &lt;p&gt;When we start talking about messaging in non-latin scripts, such as Chinese, then a different encoding must be used. In the SMS world the encoding of choice is &lt;a href=&#34;http://en.wikipedia.org/wiki/UTF-16&#34;&gt;UCS-2&lt;/a&gt;, which uses 16 bits per character. This limits a single part message to 70 characters (down from 160).&lt;/p&gt;
@@ -31,10 +31,10 @@
     
     <item>
       <title>Draw UML Sequence Diagrams with Javascript</title>
-      <link>https://bramp.github.io/post/2013/03/23/draw-uml-sequence-diagrams-with-javascript/</link>
+      <link>http://blog.bramp.net/post/2013/03/23/draw-uml-sequence-diagrams-with-javascript/</link>
       <pubDate>Sat, 23 Mar 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2013/03/23/draw-uml-sequence-diagrams-with-javascript/</guid>
+      <guid>http://blog.bramp.net/post/2013/03/23/draw-uml-sequence-diagrams-with-javascript/</guid>
       <description>&lt;p&gt;I&amp;#8217;m happy to announce one of my projects, &lt;a href=&#34;https://bramp.github.io/js-sequence-diagrams/&#34;&gt;js-sequence-diagrams&lt;/a&gt;. This uses Javascript to draw UML sequence diagrams in SVG format. Here is an example:&lt;/p&gt;
 
 &lt;div class=&#34;text-center&#34;&gt;
@@ -55,10 +55,10 @@
     
     <item>
       <title>JSHint ‘x’ is an implied global variable</title>
-      <link>https://bramp.github.io/post/2012/11/23/jshint-x-is-an-implied-global-variable/</link>
+      <link>http://blog.bramp.net/post/2012/11/23/jshint-x-is-an-implied-global-variable/</link>
       <pubDate>Fri, 23 Nov 2012 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2012/11/23/jshint-x-is-an-implied-global-variable/</guid>
+      <guid>http://blog.bramp.net/post/2012/11/23/jshint-x-is-an-implied-global-variable/</guid>
       <description>&lt;p&gt;I&amp;#8217;ve started using &lt;a href=&#34;http://www.jshint.com/&#34;&gt;JSHint&lt;/a&gt; to check my javascript. One error I encountered was:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;Errors:
      85,5:&amp;#39;grammar&amp;#39; is not defined.
@@ -78,10 +78,10 @@ Warning:
     
     <item>
       <title>My experiences with developing multi-threaded nodejs addon</title>
-      <link>https://bramp.github.io/post/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/</link>
+      <link>http://blog.bramp.net/post/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/</link>
       <pubDate>Mon, 17 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/</guid>
+      <guid>http://blog.bramp.net/post/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/</guid>
       <description>
 
 &lt;p&gt;I&amp;#8217;ve been modifying an &lt;a href=&#34;https://github.com/tbranyen/nodewii&#34;&gt;existing nodejs extension&lt;/a&gt;, that wraps &lt;a href=&#34;http://abstrakraft.org/cwiid/wiki/libcwiid&#34;&gt;libcwiid&lt;/a&gt; (a C library written to interface with a &lt;a href=&#34;http://en.wikipedia.org/wiki/Wii_Remote&#34;&gt;Wiimote&lt;/a&gt;). This extension uses polling to check if the state of the Wiimote has changed (such as a button being pressed). Libcwiid however provides a callback mechanism to be alerted as soon as a state change occurs. This has the benefit of being instantaneous, instead of at the polling interval.&lt;/p&gt;
@@ -220,10 +220,10 @@ Warning:
     
     <item>
       <title>Google Chrome Javascript console.log bug?</title>
-      <link>https://bramp.github.io/post/2011/08/02/google-chrome-javascript-console.log-bug/</link>
+      <link>http://blog.bramp.net/post/2011/08/02/google-chrome-javascript-console.log-bug/</link>
       <pubDate>Tue, 02 Aug 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2011/08/02/google-chrome-javascript-console.log-bug/</guid>
+      <guid>http://blog.bramp.net/post/2011/08/02/google-chrome-javascript-console.log-bug/</guid>
       <description>&lt;p&gt;I recently stumbled across this issue while debugging some Javascript. Take the following example code:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;array&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
 &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
@@ -281,10 +281,10 @@ Warning:
     
     <item>
       <title>HTML5 Canvas: Lunch Wheel</title>
-      <link>https://bramp.github.io/post/2011/07/27/html5-canvas-lunch-wheel/</link>
+      <link>http://blog.bramp.net/post/2011/07/27/html5-canvas-lunch-wheel/</link>
       <pubDate>Wed, 27 Jul 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2011/07/27/html5-canvas-lunch-wheel/</guid>
+      <guid>http://blog.bramp.net/post/2011/07/27/html5-canvas-lunch-wheel/</guid>
       <description>&lt;p&gt;In the on going battle to make my lunch time more optimised I decided to learn some Javascript, and how to use the HTML5 &lt;a href=&#34;https://html.spec.whatwg.org/multipage/scripting.html#the-canvas-element&#34;&gt;Canvas&lt;/a&gt; element. Turns out it&amp;#8217;s not that hard, and I have now created&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://bramp.net/javascript/lunchwheel.html&#34;&gt;

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Maps on bramp.net</title>
-    <link>https://bramp.github.io/tags/maps/</link>
+    <link>http://blog.bramp.net/tags/maps/</link>
     <description>Recent content in Maps on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Mon, 31 Oct 2011 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://bramp.github.io/tags/maps/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.bramp.net/tags/maps/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>2010 Census TIGER/Line® Shapefiles Code Names</title>
-      <link>https://bramp.github.io/post/2011/10/31/2010-census-tiger/line-shapefiles-code-names/</link>
+      <link>http://blog.bramp.net/post/2011/10/31/2010-census-tiger/line-shapefiles-code-names/</link>
       <pubDate>Mon, 31 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://bramp.github.io/post/2011/10/31/2010-census-tiger/line-shapefiles-code-names/</guid>
+      <guid>http://blog.bramp.net/post/2011/10/31/2010-census-tiger/line-shapefiles-code-names/</guid>
       <description>&lt;p&gt;I&amp;#8217;ve been playing with the Tiger shapefiles to generate some interesting plots. While doing this I kept wondering what all the &lt;a href=&#34;ftp://ftp2.census.gov/geo/tiger/TIGER2010/&#34;&gt;different geographies&lt;/a&gt; were. I couldn&amp;#8217;t find a single concise list, so I made my own (but not yet complete) list from various source of information:&lt;/p&gt;
 
 &lt;table&gt;
