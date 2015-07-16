@@ -1,14 +1,21 @@
 <div id="disqus_thread"></div>
 <script type="text/javascript">
+var disqus_shortname = '{{ .Site.Params.disqusShortname }}';
+{{ with .Params.dsq_thread_id }}
+var disqus_identifier = '{{ . }}';
+{{ end }}
 
 (function() {
+{{ with .Params.dsq_thread_id }}
+{{ else }}
     // Don't ever inject disqus on localhost--it creates unwanted 
     // discussions from 'localhost:1313' on your disqus account...
     if (window.location.hostname == "localhost" || window.location.port == 1313) 
         return;
+{{ end }}
 
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//{{ .Site.Params.disqusShortname }}.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();
 </script>

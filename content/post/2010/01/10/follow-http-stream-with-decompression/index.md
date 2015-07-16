@@ -3,8 +3,7 @@ title: Follow HTTP Stream (with decompression)
 author: bramp
 layout: post
 date: 2010-01-10
-dsq_thread_id:
-  - 1614115435
+dsq_thread_id: 1614115435
 categories:
   - Blog
 tags:

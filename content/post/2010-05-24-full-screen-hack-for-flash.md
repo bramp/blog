@@ -3,8 +3,7 @@ title: Fullscreen Hack for Flash 10.1
 author: bramp
 layout: post
 date: 2010-05-24
-dsq_thread_id:
-  - 1614114707
+dsq_thread_id: 1614114707
 categories:
   - Blog
 tags:

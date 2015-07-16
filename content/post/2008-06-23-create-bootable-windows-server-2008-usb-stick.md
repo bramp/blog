@@ -3,8 +3,7 @@ title: Create Bootable Windows Server 2008 USB Stick
 author: bramp
 layout: post
 date: 2008-06-23
-dsq_thread_id:
-  - 1614115731
+dsq_thread_id: 1614115731
 categories:
   - Blog
 tags:

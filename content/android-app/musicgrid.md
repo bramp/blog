@@ -4,8 +4,7 @@ author: bramp
 layout: page
 date: 2012-05-02
 description: Make wonderful melodies with this simple to use app. Over a million people have downloaded MusicGrid, with a 4.8/5 average rating on the Play store.
-dsq_thread_id:
-  - 1614115267
+dsq_thread_id: 1614115267
 ---
 <div class="pull-right text-center">
   <a href="https://play.google.com/store/apps/details?id=net.bramp.musicgrid"><img src="https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=https://play.google.com/store/apps/details?id=net.bramp.musicgrid" alt="" width="150" height="150" /><br /> Download Me (for free!)<br /> </a>

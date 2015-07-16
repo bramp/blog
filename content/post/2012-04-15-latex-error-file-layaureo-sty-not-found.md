@@ -3,8 +3,7 @@ title: 'LaTeX Error: File `layaureo.sty’ not found'
 author: bramp
 layout: post
 date: 2012-04-15
-dsq_thread_id:
-  - 1614115227
+dsq_thread_id: 1614115227
 categories:
   - Blog
 tags:

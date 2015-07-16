@@ -4,8 +4,7 @@ author: bramp
 layout: post
 date: 2013-03-25
 slug: most-starred-project-this-week
-dsq_thread_id:
-  - 1614115164
+dsq_thread_id: 1614115164
 categories:
   - Blog
 tags:
