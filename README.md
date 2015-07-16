@@ -40,9 +40,9 @@ TODO
  [ ] Fix disqus (dsq_thread_id). Have to update URLs on disque
  [x] Problem parsing last link in markdown. (e.g [N] doesn't work) Fix at https://github.com/russross/blackfriday/issues/180
  [ ] Check the links haven't changed. Write script to check all URLs on bramp.net still exist
- [ ] Test 404
+ [x] Test 404
  [x] Center all tables
- [ ] Ensure no broken links
+ [x] Ensure no broken links
 
 TODO (nice to have)
  [ ] Amazon code
@@ -50,3 +50,6 @@ TODO (nice to have)
  [ ] Change to a full width layout (like http://blog.gopheracademy.com/)
  [ ] Makefile, compress html, etc
  [ ] Add a "edit me link"
+ [ ] Test twitter card
+ [ ] Investigate facebook card
+ [ ] Minify CSS
