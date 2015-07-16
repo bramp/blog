@@ -10,7 +10,7 @@ tags:
   - kernel
   - memcmp
 aliases:
-  - /2009/08/10/memcmp-broken-in-the-freebsd-kernel/
+  - /blog/2009/08/10/memcmp-broken-in-the-freebsd-kernel/
 ---
 I&#8217;ve spent a day tracking down a bug in a FreeBSD kernel module I&#8217;m developing, and to my surprise the bug was due to memcmp being broken! For those that don&#8217;t know, memcmp is used to compare two byte strings and returns 0 if they are identical, a negative number of the first string is less than the second, and a positive number of the first string is greater than the second.
 

@@ -14,7 +14,7 @@ tags:
   - scripts
   - whitespace
 aliases:
-  - /2009/11/28/useful-scriptsconfigurations/
+  - /blog/2009/11/28/useful-scriptsconfigurations/
 ---
 Make [git][1] colourful
 

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Setxkbmap on bramp.net</title>
-    <link>http://localhost:1313/tags/setxkbmap/</link>
+    <link>https://bramp.github.io/tags/setxkbmap/</link>
     <description>Recent content in Setxkbmap on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Fri, 19 Mar 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/setxkbmap/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/setxkbmap/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>VMWare breaks shift key</title>
-      <link>http://localhost:1313/post/2010-03-19-vmware-breaks-shift-key/</link>
+      <link>https://bramp.github.io/post/2010/03/19/vmware-breaks-shift-key/</link>
       <pubDate>Fri, 19 Mar 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2010-03-19-vmware-breaks-shift-key/</guid>
+      <guid>https://bramp.github.io/post/2010/03/19/vmware-breaks-shift-key/</guid>
       <description>&lt;p&gt;I came into my office today to find that my keyboard would no longer type capital letters. The shift, caps lock, and even num lock keys seemed to be broken. After a quick WTF &lt;a href=&#34;http://www.evolution-systems.co.uk/blogs/matt/view_post&amp;amp;id=37/&#34;&gt;it was pointed out to me&lt;/a&gt; that VMWare occasionally does this to Linux machines. Thanks to &lt;a href=&#34;http://twitter.com/bigkebabman&#34;&gt;Matt&lt;/a&gt; who showed me a quick solution. In a terminal just type:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;setxkbmap
 &lt;/pre&gt;&lt;/div&gt;

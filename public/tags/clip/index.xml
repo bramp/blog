@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Clip on bramp.net</title>
-    <link>http://localhost:1313/tags/clip/</link>
+    <link>https://bramp.github.io/tags/clip/</link>
     <description>Recent content in Clip on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sat, 26 Nov 2011 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/clip/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/clip/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>PHP Polygon Clipper using the Sutherland-Hodgman algorithm</title>
-      <link>http://localhost:1313/post/2011-11-26-php-polygon-clipper-using-the-sutherland-hodgman-algorithm/</link>
+      <link>https://bramp.github.io/post/2011/11/26/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/</link>
       <pubDate>Sat, 26 Nov 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2011-11-26-php-polygon-clipper-using-the-sutherland-hodgman-algorithm/</guid>
+      <guid>https://bramp.github.io/post/2011/11/26/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/</guid>
       <description>&lt;p&gt;I wrote a PHP implementation of the polygon clipping algorithm by Sutherland-Hodgman. Available below, or from &lt;a href=&#34;https://gist.github.com/bramp/1396058#file-clip-class-php&#34;&gt;github&lt;/a&gt;.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;
 &lt;span class=&#34;sd&#34;&gt;/**&lt;/span&gt;

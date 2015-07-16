@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Memcpy on bramp.net</title>
-    <link>http://localhost:1313/tags/memcpy/</link>
+    <link>https://bramp.github.io/tags/memcpy/</link>
     <description>Recent content in Memcpy on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 19 Jun 2011 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/memcpy/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/memcpy/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Linux 64bit Flash glibc memcpy bug</title>
-      <link>http://localhost:1313/post/2011-06-19-linux-64bit-flash-glibc-memcpy-bug/</link>
+      <link>https://bramp.github.io/post/2011/06/19/linux-64bit-flash-glibc-memcpy-bug/</link>
       <pubDate>Sun, 19 Jun 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2011-06-19-linux-64bit-flash-glibc-memcpy-bug/</guid>
+      <guid>https://bramp.github.io/post/2011/06/19/linux-64bit-flash-glibc-memcpy-bug/</guid>
       <description>&lt;p&gt;Does your Linux 64bit version of Flash now make anonying beeping/distortion noises while playing videos? Well it turns out a recent &amp;#8220;&lt;a href=&#34;http://lwn.net/Articles/414467/&#34;&gt;improvement&lt;/a&gt;&amp;#8221; to glibc has caused some programs to now crash or do weird things. This is to do with an improvement of &lt;a href=&#34;http://linux.die.net/man/3/memcpy&#34;&gt;memcpy&lt;/a&gt;, which makes its use more strict, causing those applications that incorrectly used it to now crash.&lt;/p&gt;
 
 &lt;p&gt;On Debian, there is a simple a fix that allows you to use the original memcpy. You can load the application using an additional .so file:&lt;/p&gt;

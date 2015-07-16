@@ -11,7 +11,7 @@ tags:
   - gcc
   - Linux
 aliases:
-  - /2009/03/06/compiler-defined-symbols/
+  - /blog/2009/03/06/compiler-defined-symbols/
 ---
 I found this neat little command to list all the GCC compiler defined symbols
 

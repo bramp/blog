@@ -9,7 +9,7 @@ tags:
   - Calendar
   - Conferences
 aliases:
-  - /2008/04/07/networking-conference-calendar/
+  - /blog/2008/04/07/networking-conference-calendar/
 ---
 I was thinking about publishing but wanted to know the time frame for different conferences. So I spent a hour and compiled a list at Google Calendars. All the big names are on there, such as Infocom, Sigcomm, ACM Multimedia, CoNext, etc
 

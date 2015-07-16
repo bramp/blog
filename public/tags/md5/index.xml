@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Md5 on bramp.net</title>
-    <link>http://localhost:1313/tags/md5/</link>
+    <link>https://bramp.github.io/tags/md5/</link>
     <description>Recent content in Md5 on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Fri, 23 Sep 2011 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/md5/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/md5/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>MD5 Digest Authorisation in SIP with PHP</title>
-      <link>http://localhost:1313/post/2011-09-23-md5-digest-authorisation-in-sip-with-php/</link>
+      <link>https://bramp.github.io/post/2011/09/23/md5-digest-authorisation-in-sip-with-php/</link>
       <pubDate>Fri, 23 Sep 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2011-09-23-md5-digest-authorisation-in-sip-with-php/</guid>
+      <guid>https://bramp.github.io/post/2011/09/23/md5-digest-authorisation-in-sip-with-php/</guid>
       <description>&lt;p&gt;Today I needed to work out the MD5 Digest hash for SIP authorisation. A quick search on Google revealed &lt;a href=&#34;http://alexkr.com/memos/66/digest-authorization-in-sip-with-md5/&#34;&gt;instructions&lt;/a&gt; on how to generate the hash, and then I made this simple PHP script.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;
 &lt;span class=&#34;nv&#34;&gt;$username&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;1234&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
@@ -36,10 +36,10 @@
     
     <item>
       <title>Humble Indie Bundle md5sums</title>
-      <link>http://localhost:1313/post/2010-05-07-humble-indie-bundle-md5sums/</link>
+      <link>https://bramp.github.io/post/2010/05/07/humble-indie-bundle-md5sums/</link>
       <pubDate>Fri, 07 May 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2010-05-07-humble-indie-bundle-md5sums/</guid>
+      <guid>https://bramp.github.io/post/2010/05/07/humble-indie-bundle-md5sums/</guid>
       <description>&lt;p&gt;I just purchased the &lt;a href=&#34;http://www.wolfire.com/humble&#34;&gt;Humble Indie Bundle&lt;/a&gt;, 5 games which run on Windows, Linux and Mac. They kindly offered md5 hashes, however they weren&amp;#8217;t in a convenient format, so I created a md5sums file.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;187287db6226ef6a306a4cd0cfa8dd45 *Aquaria111.2008.12.12.exe
 8b24ddeeb553e028bbd501102f891cc2 *aquaria-lnx-humble-bundle.mojo.run
@@ -66,7 +66,7 @@ d40d4076ed3ffa2a9bc9913202c55a06 *lugaru-windows.zip
 e115f7cfcf9710d7aa5b2a5a9186b3736bb55cf2 *penumbra_overture_1.1.sh
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Note, these were correct and validated on the 8th of May, however, if any of the files have been updated the hashes might no longer much. Feel free to &lt;a href=&#34;http://localhost:1313/about-me/&#34;&gt;contact me&lt;/a&gt; to tell me if this happens.&lt;/p&gt;
+&lt;p&gt;Note, these were correct and validated on the 8th of May, however, if any of the files have been updated the hashes might no longer much. Feel free to &lt;a href=&#34;https://bramp.github.io/about-me/&#34;&gt;contact me&lt;/a&gt; to tell me if this happens.&lt;/p&gt;
 </description>
     </item>
     

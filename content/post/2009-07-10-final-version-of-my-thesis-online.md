@@ -12,7 +12,7 @@ tags:
   - publication
   - thesis
 aliases:
-  - /2009/07/10/final-version-of-my-thesis-online/
+  - /blog/2009/07/10/final-version-of-my-thesis-online/
 ---
 I finished my corrections a while ago now but I just hadn&#8217;t gotten around to putting my final thesis on-line. 
 

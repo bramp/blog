@@ -11,7 +11,7 @@ tags:
   - linuxoffset
   - VMWare
 aliases:
-  - /2009/01/11/linuxoffsets-for-freebsd/
+  - /blog/2009/01/11/linuxoffsets-for-freebsd/
 ---
 VMWare 6 and above has this neat debugging functionality where you can attach gdb running on a host, to a guest running inside VMWare. This allows you to debug a running kernel, or on linux running processes.
 

@@ -9,7 +9,7 @@ tags:
   - fork
   - Linux
 aliases:
-  - /2009/11/27/the-7-month-fork-bomb/
+  - /blog/2009/11/27/the-7-month-fork-bomb/
 ---
 Today I was helping a student with some C programming, and the remote machine he was compiling and running his code on was running very slowly. It was a shared machine so I assumed some other students were using it. Therefore I had a quick look at &#8220;who&#8221; and found that only one other user was logged in. Then I looked at &#8220;top&#8221; and &#8220;ps&#8221; and noticed the machine was at 100% load, but I couldn&#8217;t figure out which process was causing this.
 

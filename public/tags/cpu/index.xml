@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Cpu on bramp.net</title>
-    <link>http://localhost:1313/tags/cpu/</link>
+    <link>https://bramp.github.io/tags/cpu/</link>
     <description>Recent content in Cpu on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Mon, 16 Mar 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/cpu/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/cpu/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>IRQ Affinity on FreeBSD</title>
-      <link>http://localhost:1313/post/2009-03-16-irq-affinity-on-freebsd/</link>
+      <link>https://bramp.github.io/post/2009/03/16/irq-affinity-on-freebsd/</link>
       <pubDate>Mon, 16 Mar 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2009-03-16-irq-affinity-on-freebsd/</guid>
+      <guid>https://bramp.github.io/post/2009/03/16/irq-affinity-on-freebsd/</guid>
       <description>&lt;p&gt;On Linux it is quite simple to set the CPU affinity of a IRQ, by for example issuing the following command:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;cat &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &amp;gt; /proc/irq/#/smp_affinity
 &lt;/pre&gt;&lt;/div&gt;

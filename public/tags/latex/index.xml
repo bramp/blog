@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Latex on bramp.net</title>
-    <link>http://localhost:1313/tags/latex/</link>
+    <link>https://bramp.github.io/tags/latex/</link>
     <description>Recent content in Latex on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 15 Apr 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/latex/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/latex/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>LaTeX Error: File `layaureo.sty’ not found</title>
-      <link>http://localhost:1313/post/2012-04-15-latex-error-file-layaureo-sty-not-found/</link>
+      <link>https://bramp.github.io/post/2012/04/15/latex-error-file-layaureo.sty-not-found/</link>
       <pubDate>Sun, 15 Apr 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2012-04-15-latex-error-file-layaureo-sty-not-found/</guid>
+      <guid>https://bramp.github.io/post/2012/04/15/latex-error-file-layaureo.sty-not-found/</guid>
       <description>&lt;p&gt;I was getting the error &lt;code&gt;./cv.tex:11: LaTeX Error: File `layaureo.sty&#39; not found.&lt;/code&gt; when trying to compile an &lt;a href=&#34;https://github.com/bramp/curriculum-vitae&#34; title=&#34;Curriculum Vitae latex project&#34;&gt;old tex document&lt;/a&gt; of mine.&lt;/p&gt;
 
 &lt;p&gt;It seems layaureo is missing from &lt;a href=&#34;http://www.tug.org/texlive/&#34; title=&#34;TeX Live&#34;&gt;TexLive&lt;/a&gt; 2009, the default on Debian at the moment (even though it&amp;#8217;s 2012 now!). So I had to install TexLive 2011 from Debian Unstable using &lt;a href=&#34;http://wiki.debian.org/AptPreferences&#34;&gt;Apt Pinning&lt;/a&gt; to fix this problem.&lt;/p&gt;
@@ -32,10 +32,10 @@ LaTeX Error: File `algorithm.sty&amp;#39; not found. solution: apt-get install t
     
     <item>
       <title>LaTeX QR Based Business Card</title>
-      <link>http://localhost:1313/post/2010/02/13/latex-qr-based-business-card/</link>
+      <link>https://bramp.github.io/post/2010/02/13/latex-qr-based-business-card/</link>
       <pubDate>Sat, 13 Feb 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2010/02/13/latex-qr-based-business-card/</guid>
+      <guid>https://bramp.github.io/post/2010/02/13/latex-qr-based-business-card/</guid>
       <description>&lt;p&gt;I recently found &lt;a href=&#34;http://forthescience.org/blog/2010/02/02/my-business-card-with-qr-code-geeky/&#34;&gt;this blog&lt;/a&gt; which shows a business card with a QR card. I thought I&amp;#8217;d create a business card with LaTeX with a similar QR code. I took a LaTeX template from &lt;a href=&#34;http://blog.widmann.org.uk/2009/05/27/1297/&#34;&gt;here&lt;/a&gt;, found out about the &lt;a href=&#34;http://www.tug.org/texmf-dist/doc/generic/pst-barcode/pst-barcode-doc.pdf&#34;&gt;pst-barcode pacakge&lt;/a&gt;, learnt the &lt;a href=&#34;https://www.nttdocomo.co.jp/english/service/developer/make/content/barcode/function/application/addressbook/&#34;&gt;MECARD format&lt;/a&gt;, and combined them to make this:&lt;/p&gt;
 
 &lt;!-- TODO link to card-1.pdf --&gt;
@@ -114,10 +114,10 @@ LaTeX Error: File `algorithm.sty&amp;#39; not found. solution: apt-get install t
     
     <item>
       <title>Final Version of my Thesis Online</title>
-      <link>http://localhost:1313/post/2009-07-10-final-version-of-my-thesis-online/</link>
+      <link>https://bramp.github.io/post/2009/07/10/final-version-of-my-thesis-online/</link>
       <pubDate>Fri, 10 Jul 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2009-07-10-final-version-of-my-thesis-online/</guid>
+      <guid>https://bramp.github.io/post/2009/07/10/final-version-of-my-thesis-online/</guid>
       <description>
 
 &lt;p&gt;I finished my corrections a while ago now but I just hadn&amp;#8217;t gotten around to putting my final thesis on-line.&lt;/p&gt;
@@ -140,10 +140,10 @@ LaTeX Error: File `algorithm.sty&amp;#39; not found. solution: apt-get install t
     
     <item>
       <title>Please notify the author of the software that produced this file</title>
-      <link>http://localhost:1313/post/2008-09-24-please-notify-the-author-of-the-software-that-produced-this-file/</link>
+      <link>https://bramp.github.io/post/2008/09/24/please-notify-the-author-of-the-software-that-produced-this-file/</link>
       <pubDate>Wed, 24 Sep 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2008-09-24-please-notify-the-author-of-the-software-that-produced-this-file/</guid>
+      <guid>https://bramp.github.io/post/2008/09/24/please-notify-the-author-of-the-software-that-produced-this-file/</guid>
       <description>&lt;p&gt;While compiling my LaTeX document I received a message which made me chuckle:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;**** This file had errors that were repaired or ignored.
 **** The file was produced by: 

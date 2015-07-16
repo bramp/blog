@@ -23,6 +23,6 @@ In proceedings of the International workshop on Network and Operating Systems Su
 
  [1]: https://github.com/bramp/publication/raw/master/ivod/NOSSDAV07/p-brampton.pdf
  [2]: https://github.com/bramp/publication/tree/master/ivod/NOSSDAV07
- [3]: TODO
+ [3]: https://github.com/bramp/publication/raw/master/ivod/NOSSDAV07-slides/slides.pdf
  [4]: https://github.com/bramp/publication/tree/master/ivod/NOSSDAV07-slides
  

@@ -10,7 +10,7 @@ tags:
   - patch
   - TCP
 aliases:
-  - /2008/04/05/linux-kernel-patch-for-tcp-timestamping/
+  - /blog/2008/04/05/linux-kernel-patch-for-tcp-timestamping/
 ---
 Recently I needed to measure the time it takes a packet to travel though the Linux network stack. To begin with I thought I&#8217;ll hack the kernel to add my own timing measurements, but then I found this was already built in! I could use the SIOCGSTAMP or SIOCGSTAMPNS ioctl calls to retrieve the timestamp assigned by the network driver when the packet first enters the stack.
 

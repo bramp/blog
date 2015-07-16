@@ -151,15 +151,15 @@ Most of the LaTeX for these publications, as well as associated conference prese
 ```
 
  [1]: https://github.com/bramp/publication
- [2]: {{< ref "2008-10-01-thesis.md" >}}
- [3]: {{< ref "2010-02-09-facilitating-network-auto-configuration-in-next-generation-internet-protocols.md" >}}
- [4]: {{< ref "2009-05-26-evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems.md" >}}
- [5]: {{< ref "2008-05-20-characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand.md" >}}
- [6]: {{< ref "2008-09-16-a-case-for-hybrid-content-distribution-for-interactive-video-on-demand.md" >}}
- [7]: {{< ref "2007-07-01-characterising-user-interactivity-for-sports-video-on-demand.md" >}}
- [8]: {{< ref "2007-03-01-performance-modelling-of-peer-to-peer-routing.md" >}}
- [9]: {{< ref "2006-12-01-stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht.md" >}}
- [10]: {{< ref "2006-07-01-authentication-in-stealth-distributed-hash-tables.md" >}}
- [11]: {{< ref "2006-03-01-performance-analysis-of-stealth-dht-with-mobile-nodes.md" >}}
- [12]: {{< ref "2005-10-01-stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer.md" >}}
+ [2]: {{< relref "2008-10-01-thesis.md" >}}
+ [3]: {{< relref "2010-02-09-facilitating-network-auto-configuration-in-next-generation-internet-protocols.md" >}}
+ [4]: {{< relref "2009-05-26-evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems.md" >}}
+ [5]: {{< relref "2008-05-20-characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand.md" >}}
+ [6]: {{< relref "2008-09-16-a-case-for-hybrid-content-distribution-for-interactive-video-on-demand.md" >}}
+ [7]: {{< relref "2007-07-01-characterising-user-interactivity-for-sports-video-on-demand.md" >}}
+ [8]: {{< relref "2007-03-01-performance-modelling-of-peer-to-peer-routing.md" >}}
+ [9]: {{< relref "2006-12-01-stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht.md" >}}
+ [10]: {{< relref "2006-07-01-authentication-in-stealth-distributed-hash-tables.md" >}}
+ [11]: {{< relref "2006-03-01-performance-analysis-of-stealth-dht-with-mobile-nodes.md" >}}
+ [12]: {{< relref "2005-10-01-stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer.md" >}}
  [13]: https://raw.githubusercontent.com/bramp/curriculum-vitae/master/publications.bib

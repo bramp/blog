@@ -3,13 +3,12 @@
 
 <div id="article">
 	<h1>{{ .Title }}</h1>
-	<p class="meta"><small>
-		<i class="fa fa-calendar-o"></i> {{ .Date.Format  "2006-01-02" }}</small>
+	<p class="meta">
+		<i class="fa fa-calendar-o"></i> {{ .Date.Format  "2006-01-02" }}
 		{{ range .Params.tags }}
 		| <a href="{{ $baseurl }}/tags/{{ . | urlize }}">{{ . }}</a>
 		{{ end }}
 	</p>
-	<hr/>
 	<div class="post">
 		{{ .Content }}
 	</div>
@@ -22,8 +21,8 @@
 <div class="addthis_sharing_toolbox"></div>
 
  <ul class="pager">
-     {{with .PrevInSection}} &nbsp;<li class="previous"><a href="{{.Permalink}}">&larr; {{.Title}}</a></li>{{end}}
-     {{with .NextInSection}} &nbsp;<li class="next"><a href="{{.Permalink}}"> {{.Title}} &rarr;</a></li>{{end}}
+     {{with .PrevInSection}} &nbsp;<li class="previous"><a href="{{.RelPermalink}}">&larr; {{.Title}}</a></li>{{end}}
+     {{with .NextInSection}} &nbsp;<li class="next"><a href="{{.RelPermalink}}"> {{.Title}} &rarr;</a></li>{{end}}
 </ul>
 
 {{ template "theme/partials/disqus.html" . }}

@@ -10,7 +10,7 @@ tags:
   - Install
   - Linux
 aliases:
-  - /2008/09/01/asus-x56se-linux/
+  - /blog/2008/09/01/asus-x56se-linux/
 ---
 My girlfriend just purchased a [ASUS X56Se from eBuyer][1] and I wanted to install Linux on it.
 

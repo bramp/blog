@@ -2,34 +2,44 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Html5 on bramp.net</title>
-    <link>http://localhost:1313/tags/html5/</link>
+    <link>https://bramp.github.io/tags/html5/</link>
     <description>Recent content in Html5 on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 15 May 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/html5/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/html5/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>MRI scan of my brain</title>
-      <link>http://localhost:1313/post/2012/05/15/mri-scan-of-my-brain/</link>
+      <link>https://bramp.github.io/post/2012/05/15/mri-scan-of-my-brain/</link>
       <pubDate>Tue, 15 May 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2012/05/15/mri-scan-of-my-brain/</guid>
+      <guid>https://bramp.github.io/post/2012/05/15/mri-scan-of-my-brain/</guid>
       <description>&lt;p&gt;I had a &lt;a href=&#34;http://en.wikipedia.org/wiki/Magnetic_resonance_imaging&#34;&gt;MRI&lt;/a&gt; today, and afterwards I was given a CD of my scan. The data on the CD was stored in &lt;a href=&#34;http://en.wikipedia.org/wiki/DICOM&#34;&gt;DICOM&lt;/a&gt; format, and after some searching I was able to find some open source software to view the data. I especially liked &lt;a href=&#34;http://aeskulap.nongnu.org/&#34;&gt;Aeskulap&lt;/a&gt; which allowed interactive viewing of the data in multiple dimensions.&lt;/p&gt;
 
 &lt;p&gt;I wanted to put my scans online, so I found another set of tools, &lt;a href=&#34;http://xmedcon.sourceforge.net/&#34;&gt;medcon&lt;/a&gt;, that allowed me to convert the DICOM images into png/gif format, and then I used &lt;a href=&#34;http://ffmpeg.org/&#34;&gt;ffmpeg&lt;/a&gt; to create the following videos:&lt;/p&gt;
 
-&lt;video width=&#34;256&#34; height=&#34;256&#34; controls=&#34;controls&#34; style=&#34;float:left; padding: 10px&#34;&gt;&lt;source src=&#34;001.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;001.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+&lt;div class=&#34;row&#34;&gt;
+  &lt;div class=&#34;col-md-6 text-center&#34;&gt;
+    &lt;video width=&#34;288&#34; height=&#34;288&#34; controls=&#34;controls&#34;&gt;&lt;source src=&#34;004.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;004.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;col-md-6 text-center&#34;&gt;
+    &lt;video width=&#34;288&#34; height=&#34;288&#34; controls=&#34;controls&#34;&gt;&lt;source src=&#34;000.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;000.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;row&#34;&gt;
+  &lt;div class=&#34;col-md-6 text-center&#34;&gt;
+    &lt;video width=&#34;256&#34; height=&#34;256&#34; controls=&#34;controls&#34;&gt;&lt;source src=&#34;001.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;001.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;col-md-6 text-center&#34;&gt;
+     &lt;video width=&#34;256&#34; height=&#34;256&#34; controls=&#34;controls&#34;&gt;&lt;source src=&#34;003.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;003.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
 
-&lt;video width=&#34;256&#34; height=&#34;256&#34; controls=&#34;controls&#34; style=&#34;float:left; padding: 10px&#34;&gt;&lt;source src=&#34;003.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;003.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
-
-&lt;video width=&#34;288&#34; height=&#34;288&#34; controls=&#34;controls&#34; style=&#34;float:left; padding: 10px&#34;&gt;&lt;source src=&#34;004.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;004.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
-
-&lt;video width=&#34;288&#34; height=&#34;288&#34; controls=&#34;controls&#34; style=&#34;float:left; padding: 10px&#34;&gt;&lt;source src=&#34;000.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;000.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
-
-&lt;video width=&#34;256&#34; height=&#34;256&#34; controls=&#34;controls&#34; style=&#34;float:left; padding: 10px&#34;&gt;&lt;source src=&#34;008.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;008.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
-
-&lt;div style=&#34;clear: both&#34;&gt;
+&lt;div class=&#34;row&#34;&gt;
+  &lt;div class=&#34;col-md-12 text-center&#34;&gt;
+    &lt;video width=&#34;256&#34; height=&#34;256&#34; controls=&#34;controls&#34;&gt;&lt;source src=&#34;008.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;008.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+  &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;p&gt;I don&amp;#8217;t know the exact layout, but on the CD I seemed to have 12 different scans, each with a series of images. The name of the files were all 8 digits numbers, with the first three being the scan number (0 to 11), and the following five digits being (0 to whatever). For example:&lt;/p&gt;
@@ -75,15 +85,27 @@ mkdir png
     
     <item>
       <title>HTML5 Canvas: Lunch Wheel</title>
-      <link>http://localhost:1313/post/2011-07-27-html5-canvas-lunch-wheel/</link>
+      <link>https://bramp.github.io/post/2011/07/27/html5-canvas-lunch-wheel/</link>
       <pubDate>Wed, 27 Jul 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2011-07-27-html5-canvas-lunch-wheel/</guid>
+      <guid>https://bramp.github.io/post/2011/07/27/html5-canvas-lunch-wheel/</guid>
       <description>&lt;p&gt;In the on going battle to make my lunch time more optimised I decided to learn some Javascript, and how to use the HTML5 &lt;a href=&#34;https://html.spec.whatwg.org/multipage/scripting.html#the-canvas-element&#34;&gt;Canvas&lt;/a&gt; element. Turns out it&amp;#8217;s not that hard, and I have now created&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;http://bramp.net/javascript/lunchwheel.html&#34;&gt;&lt;br /&gt;
-&lt;img src=&#34;http://bramp.net/javascript/lunchwheel.png&#34; alt=&#34;&#34; title=&#34;Click to win&#34; /&gt;&lt;br /&gt;
-The Lunch Wheel&lt;/a&gt;. It helps me find lunch close to my office in the &lt;a href=&#34;http://maps.google.com/maps?q=Courthouse,+Arlington,+VA&amp;amp;hl=en&amp;amp;sll=37.0625,-95.677068&amp;amp;sspn=59.206892,135.263672&amp;amp;z=15&#34;&gt;Courthouse area of Arlington, VA&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://bramp.net/javascript/lunchwheel.html&#34;&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;lunchwheel.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;Click to win&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The Lunch Wheel]&lt;a href=&#34;http://bramp.net/javascript/lunchwheel.html&#34;&gt;3&lt;/a&gt;. It helps me find lunch close to my office in the &lt;a href=&#34;http://maps.google.com/maps?q=Courthouse,+Arlington,+VA&amp;amp;hl=en&amp;amp;sll=37.0625,-95.677068&amp;amp;sspn=59.206892,135.263672&amp;amp;z=15&#34;&gt;Courthouse area of Arlington, VA&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;While making this I found that information on the Canvas element seemed to be lacking. For example, not many sites talked about ways to optimise or profile the javascript. Also I was disappointed to see that not all browsers supported the Canvas completely. Here is a quick list of the problems:&lt;/p&gt;
 

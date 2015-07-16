@@ -1,9 +1,8 @@
 {{ template "theme/partials/header.html" . }}
   <div id="article">
       <h1>{{.Title}}</h1>
-      <hr>
       {{ range .Data.Pages }}
-      <p><span><a href="{{ .Permalink }}">{{ .Title }}</a><time class="pull-right post-list">{{ .Date.Format "Mon, Jan 2, 2006" }}</h4></time></span></span></p>
+      <p><span><a href="{{ .RelPermalink }}">{{ .Title }}</a><time class="pull-right post-list">{{ .Date.Format "Mon, Jan 2, 2006" }}</h4></time></span></span></p>
       {{ end }}
   </div>
 {{ template "theme/partials/footer.html" . }}

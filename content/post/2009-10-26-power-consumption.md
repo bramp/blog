@@ -11,7 +11,7 @@ tags:
   - power
   - watt
 aliases:
-  - /2009/10/26/power-consumption/
+  - /blog/2009/10/26/power-consumption/
 ---
 I have mentioned many times that I would like to know how much current something is drawing, so today Nic brought me a mains power meter. It is a very simple meter which plugs between the mains and the device and can measure volts, amps, watts, frequency, and a few other metrics. I decided to run around my house measuring everything I could. 
 
@@ -31,31 +31,31 @@ All these measurements were taken in my house in the UK, which according to my m
 | xTune Speakers (on no music) |         25W         |
 | xTune Speakers (on vol30)    |         25W         |
 | xTune Speakers (on vol60)    |         50W         |
-|------------------------------|---------------------|
+| &nbsp;                       |                     |
 | TFT Monitor 15″ (standby)    |         11W         |
 | TFT Monitor 15″ (on)         |         27W         |
-|------------------------------|---------------------|
+| &nbsp;                       |                     |
 | TFT Monitor 17″ (standby)    |          9W         |
 | TFT Monitor 17″ (on)         |         38W         |
-|------------------------------|---------------------|
+| &nbsp;                       |                     |
 | Nic’s laptop (web browsing)  |         35W         |
 | Nic’s laptop (playing game)  |         59W         |
-|------------------------------|---------------------|
+| &nbsp;                       |                     |
 | xbox 360 (standby)           |         10W         |
 | xbox 360 (dashboard)         |         150W        |
 | xbox 360 (game)              |         158W        |
-|------------------------------|---------------------|
+| &nbsp;                       |                     |
 | Sky+ Box (standby)           |         20W         |
 | Sky+ Box (on)                |         29W         |
-|------------------------------|---------------------|
+| &nbsp;                       |                     |
 | Wii (standby – red light)    |          9W         |
 | Wii (on)                     |         24W         |
-|------------------------------|---------------------|
+| &nbsp;                       |                     |
 | TV (standby)                 |          9W         |
 | TV (on)                      |         95W         |
-|------------------------------|---------------------|
+| &nbsp;                       |                     |
 | Kettle                       |        2300W        |
-|------------------------------|---------------------|
+| &nbsp;                       |                     |
 | My PC (off)                  |         10W         |
 | My PC (booting during POST)  |         230W        |
 | My PC (booting)              |         130W        |
@@ -67,7 +67,7 @@ All these measurements were taken in my house in the UK, which according to my m
 | My PC (4 core prime #)       |         163W        |
 | My PC (sleep)                |         13W         |
 | My PC (idle – Linux)         |         150W        |
-|------------------------------|---------------------|
+
 
 Some observations I made about these results:
 

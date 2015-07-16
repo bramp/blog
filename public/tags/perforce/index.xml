@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Perforce on bramp.net</title>
-    <link>http://localhost:1313/tags/perforce/</link>
+    <link>https://bramp.github.io/tags/perforce/</link>
     <description>Recent content in Perforce on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 04 Sep 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/perforce/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/perforce/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Setting up git-p4</title>
-      <link>http://localhost:1313/post/2012-09-04-setting-up-git-p4/</link>
+      <link>https://bramp.github.io/post/2012/09/04/setting-up-git-p4/</link>
       <pubDate>Tue, 04 Sep 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2012-09-04-setting-up-git-p4/</guid>
+      <guid>https://bramp.github.io/post/2012/09/04/setting-up-git-p4/</guid>
       <description>&lt;p&gt;I couldn&amp;#8217;t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I&amp;#8217;d quickly write this up.&lt;/p&gt;
 
 &lt;p&gt;Git-p4 is a tool for using git on top of a perforce server. This is great if your team wants to work with a DVCS, but your company requires a centralised VCS.&lt;/p&gt;

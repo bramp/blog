@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Windows on bramp.net</title>
-    <link>http://localhost:1313/tags/windows/</link>
+    <link>https://bramp.github.io/tags/windows/</link>
     <description>Recent content in Windows on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Thu, 23 Sep 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/windows/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/windows/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>UTF-8 Directory Listing</title>
-      <link>http://localhost:1313/post/2010-09-23-utf-8-directory-listing/</link>
+      <link>https://bramp.github.io/post/2010/09/23/utf-8-directory-listing/</link>
       <pubDate>Thu, 23 Sep 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2010-09-23-utf-8-directory-listing/</guid>
+      <guid>https://bramp.github.io/post/2010/09/23/utf-8-directory-listing/</guid>
       <description>&lt;p&gt;I had a need to create a directory listing with all the UTF-8 characters intact. This seems quite a chore on Windows, as doing anything via the shell seems to mangle the characters and show ???? instead of the real characters. For example, both the built in &lt;strong&gt;dir&lt;/strong&gt; and Cygwin &lt;strong&gt;ls&lt;/strong&gt; or &lt;strong&gt;find&lt;/strong&gt; seemed affected. This turns out to be a &lt;a href=&#34;http://stackoverflow.com/questions/379240/is-there-a-windows-command-shell-that-will-display-unicode-characters&#34;&gt;limitation in the windows shell&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;To solve this problem I wrote a bit of python to read the file names in full UTF-8 and output the results directly to a file (and not via a pipe, which would again be via the shell). The resulting very simple script is as follows:&lt;/p&gt;
@@ -36,10 +36,10 @@
     
     <item>
       <title>Converting MBR to GPT without deleting your partitions</title>
-      <link>http://localhost:1313/post/2010-08-30-converting-mbr-to-gpt-without-deleting-your-partitions/</link>
+      <link>https://bramp.github.io/post/2010/08/30/converting-mbr-to-gpt-without-deleting-your-partitions/</link>
       <pubDate>Mon, 30 Aug 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2010-08-30-converting-mbr-to-gpt-without-deleting-your-partitions/</guid>
+      <guid>https://bramp.github.io/post/2010/08/30/converting-mbr-to-gpt-without-deleting-your-partitions/</guid>
       <description>&lt;p&gt;Today I tired to convert my Windows 2TB RAID disk from a &lt;a href=&#34;http://en.wikipedia.org/wiki/Master_boot_record&#34;&gt;master boot record&lt;/a&gt; (MBR) layout to a &lt;a href=&#34;http://en.wikipedia.org/wiki/GUID_Partition_Table&#34;&gt;GUID partition table&lt;/a&gt; (GPT) one. The reason I wanted to swap is that GPT supports partitions larger than 2TB. Normally it is easy to convert a MBR disk to a GPT one by &lt;a href=&#34;http://technet.microsoft.com/en-us/library/cc738416(WS.10).aspx&#34;&gt;using the Disk Management GUI&lt;/a&gt;. However, Microsoft do not allow you to convert you disk if you have any partitions on the disk.&lt;/p&gt;
 
 &lt;p&gt;After some searching I found that you could &lt;a href=&#34;https://bbs.archlinux.org/viewtopic.php?id=62984&#34;&gt;convert the disk non-destructively on Linux&lt;/a&gt;, but due to various reasons, my RAID &lt;a href=&#34;http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=411172&#34;&gt;does not work&lt;/a&gt; inside my Debian Linux :( I had also read a &lt;a href=&#34;http://www.rodsbooks.com/gdisk/mbr2gpt.html&#34;&gt;document outlining how to the conversion works&lt;/a&gt;, and it seems such a simple process I was surprised that Microsoft didn&amp;#8217;t support it.&lt;/p&gt;
@@ -77,10 +77,10 @@ dd &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&
     
     <item>
       <title>Humble Indie Bundle md5sums</title>
-      <link>http://localhost:1313/post/2010-05-07-humble-indie-bundle-md5sums/</link>
+      <link>https://bramp.github.io/post/2010/05/07/humble-indie-bundle-md5sums/</link>
       <pubDate>Fri, 07 May 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2010-05-07-humble-indie-bundle-md5sums/</guid>
+      <guid>https://bramp.github.io/post/2010/05/07/humble-indie-bundle-md5sums/</guid>
       <description>&lt;p&gt;I just purchased the &lt;a href=&#34;http://www.wolfire.com/humble&#34;&gt;Humble Indie Bundle&lt;/a&gt;, 5 games which run on Windows, Linux and Mac. They kindly offered md5 hashes, however they weren&amp;#8217;t in a convenient format, so I created a md5sums file.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;187287db6226ef6a306a4cd0cfa8dd45 *Aquaria111.2008.12.12.exe
 8b24ddeeb553e028bbd501102f891cc2 *aquaria-lnx-humble-bundle.mojo.run
@@ -107,16 +107,16 @@ d40d4076ed3ffa2a9bc9913202c55a06 *lugaru-windows.zip
 e115f7cfcf9710d7aa5b2a5a9186b3736bb55cf2 *penumbra_overture_1.1.sh
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Note, these were correct and validated on the 8th of May, however, if any of the files have been updated the hashes might no longer much. Feel free to &lt;a href=&#34;http://localhost:1313/about-me/&#34;&gt;contact me&lt;/a&gt; to tell me if this happens.&lt;/p&gt;
+&lt;p&gt;Note, these were correct and validated on the 8th of May, however, if any of the files have been updated the hashes might no longer much. Feel free to &lt;a href=&#34;https://bramp.github.io/about-me/&#34;&gt;contact me&lt;/a&gt; to tell me if this happens.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Threadnetperf v1.0</title>
-      <link>http://localhost:1313/post/2009-06-01-threadnetperf-v1-0/</link>
+      <link>https://bramp.github.io/post/2009/06/01/threadnetperf-v1.0/</link>
       <pubDate>Mon, 01 Jun 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2009-06-01-threadnetperf-v1-0/</guid>
+      <guid>https://bramp.github.io/post/2009/06/01/threadnetperf-v1.0/</guid>
       <description>&lt;p&gt;Today I am proud to announce that I&amp;#8217;m releasing a tool I&amp;#8217;ve used privately for well over a year now. It is a multi-threaded network testing tool which gives the user great control over how many connections, threads and processes the tool uses, and which CPU cores the threads/processes are allowed to execute on.&lt;/p&gt;
 
 &lt;p&gt;Currently the tool runs on Linux, FreeBSD, and Windows, and has performance as good as (if not better) than other similar tools, such as netperf, iperf, but with the added flexibility. Additionally, Threadnetperf has been completely written from scratch in C, using modern programming techniques and APIs (such as ePoll on Linux) which ensures the program runs as far as possible with minimal overheads.&lt;/p&gt;

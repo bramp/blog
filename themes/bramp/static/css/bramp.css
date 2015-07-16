@@ -12,6 +12,15 @@ code {
 	border-radius: 4px;
 }
 
+figure {
+	text-align: center;
+	padding: 10px;
+}
+
+figcaption h4 {
+	font-size: 16px;
+}
+
 .container {
 	max-width: 800px;
 	margin-left: auto;

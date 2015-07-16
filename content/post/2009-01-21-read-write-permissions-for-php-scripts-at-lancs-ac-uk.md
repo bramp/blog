@@ -11,7 +11,7 @@ tags:
   - SunOS
   - www
 aliases:
-  - /2009/01/21/read-write-permissions-for-php-scripts-at-lancs-ac-uk/
+  - /blog/2009/01/21/read-write-permissions-for-php-scripts-at-lancs-ac-uk/
 ---
 My girlfriend wanted to create a blog, and she attempted to use her [university provided web space][1]. However, the blog software seemed unable to write to her webspace. Typically you would fix this by changing the write permissions on the file/directory like so:
 

@@ -9,7 +9,7 @@ tags:
   - jolt
   - thesis
 aliases:
-  - /2008/10/01/jolt-cola/
+  - /blog/2008/10/01/jolt-cola/
 ---
 Thanks to this lovely beverage I have now completed my thesis on time :) I thought I&#8217;ll quickly post about the drink, and upload some photos:
 

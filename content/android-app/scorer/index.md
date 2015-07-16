@@ -5,7 +5,7 @@ layout: page
 date: 2012-04-29
 description: Keep track of your card/board game scores.
 ---
-<div style="float: right; text-align:center">
+<div class="pull-right text-center">
   <a href="https://play.google.com/store/apps/details?id=net.bramp.scorer"><img src="https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=https://play.google.com/store/apps/details?id=net.bramp.scorer" width=150 height=150 /><br />Download Me</a>
 </div>
 
@@ -60,5 +60,5 @@ If you love or hate this app, or have any suggestions then feel free to [contact
 The software was written by Andrew Brampton. The scorer icon was taken from [FatCow][2]. The French translation was done by Vevert.
 
 
- [1]: {{< ref "about-me/index.md" >}}
+ [1]: {{< relref "about-me/index.md" >}}
  [2]: http://www.fatcow.com/free-icons/

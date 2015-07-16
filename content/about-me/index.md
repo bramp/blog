@@ -4,6 +4,8 @@ author: bramp
 layout: page
 date: 2009-09-20
 weight: 1
+aliases:
+  - /about/
 ---
 
 Andrew Brampton Ph.D lives in the Bay Area, previously lived in Washington DC, but is originally from the United Kingdom. Enjoys playing with new technologies, loves working on large scale, high performance applications. Currently works at Google on the Android/Play SRE teams.
@@ -22,10 +24,10 @@ Contact Me
 
 I can be reached at <a href="mailto:me AT bramp.net">me ![][6] bramp.net</a>
 
- [1]: {{< ref "opensource-project/index.md" >}}
+ [1]: {{< relref "opensource-project/index.md" >}}
  [2]: http://www.meetup.com/
  [3]: http://www.lancs.ac.uk/
  [4]: https://github.com/bramp/curriculum-vitae/blob/master/cv.pdf?raw=true
  [5]: https://github.com/bramp/curriculum-vitae/
  [6]: a.png
- [7]: {{< ref "publication/index.md" >}}
+ [7]: {{< relref "publication/index.md" >}}

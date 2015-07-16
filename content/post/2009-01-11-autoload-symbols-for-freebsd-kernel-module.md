@@ -12,7 +12,7 @@ tags:
   - kernel
   - python
 aliases:
-  - /2009/01/11/autoload-symbols-for-freebsd-kernel-module/
+  - /blog/2009/01/11/autoload-symbols-for-freebsd-kernel-module/
 ---
 When debugging FreeBSD kernel modules with GDB, you have to tell GDB the correct symbols for the module, and the location the module is loaded in RAM. This is helpfully explained in the [FreeBSD Developers&#8217; Handbook][1]. First you must load the module, then run kldstat, note down the address the module is loaded at, and finally execute a command in GDB that looks like the following.
 

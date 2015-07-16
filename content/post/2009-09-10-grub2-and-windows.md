@@ -11,7 +11,7 @@ tags:
   - grub2
   - Linux
 aliases:
-  - /2009/09/10/grub2-and-windows/
+  - /blog/2009/09/10/grub2-and-windows/
 ---
 I&#8217;ve just installed grub2 on my Debian laptop, and I wanted to write a quick note on how to get dual booting working. Grub2 seems to have a far more complex configuration system than grub, this may be a good or a bad thing. One feature of this is a /etc/grub.d directory which contains a set of scripts to configure what items should be listed on the boot menu.
 

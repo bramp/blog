@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Trac on bramp.net</title>
-    <link>http://localhost:1313/tags/trac/</link>
+    <link>https://bramp.github.io/tags/trac/</link>
     <description>Recent content in Trac on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 11 May 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/trac/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/trac/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Python close_fds issue</title>
-      <link>http://localhost:1313/post/2010-05-11-python-close_fds-issue/</link>
+      <link>https://bramp.github.io/post/2010/05/11/python-close_fds-issue/</link>
       <pubDate>Tue, 11 May 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2010-05-11-python-close_fds-issue/</guid>
+      <guid>https://bramp.github.io/post/2010/05/11/python-close_fds-issue/</guid>
       <description>&lt;p&gt;So I spent the better part of my evening trying to track down a bug, which turns out to be a &amp;#8220;feature&amp;#8221; of python.&lt;/p&gt;
 
 &lt;p&gt;I had just installed the &lt;a href=&#34;http://trac-hacks.org/wiki/GitPlugin&#34;&gt;GitPlugin&lt;/a&gt; for &lt;a href=&#34;http://trac.edgewall.org/&#34;&gt;trac&lt;/a&gt; but I started to experience problems. When browsing the source inside trac it was taking over 30seconds to load the page and sometimes it would fail completely. A lot of searching didn&amp;#8217;t help much, so I attempted to debug the problem myself. The first thing I noticed was Apache was taking 100% of the processor for a good 30seconds. I attached &lt;a href=&#34;http://en.wikipedia.org/wiki/Strace&#34;&gt;strace&lt;/a&gt; to it and saw something like this:&lt;/p&gt;

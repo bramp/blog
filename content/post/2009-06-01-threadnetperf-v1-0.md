@@ -12,7 +12,7 @@ tags:
   - threadnetperf
   - windows
 aliases:
-  - /2009/06/01/threadnetperf-v1-0/
+  - /blog/2009/06/01/threadnetperf-v1-0/
 ---
 Today I am proud to announce that I&#8217;m releasing a tool I&#8217;ve used privately for well over a year now. It is a multi-threaded network testing tool which gives the user great control over how many connections, threads and processes the tool uses, and which CPU cores the threads/processes are allowed to execute on.
 

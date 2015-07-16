@@ -10,7 +10,7 @@ tags:
   - cpu
   - irq
 aliases:
-  - /2009/03/16/irq-affinity-on-freebsd/
+  - /blog/2009/03/16/irq-affinity-on-freebsd/
 ---
 On Linux it is quite simple to set the CPU affinity of a IRQ, by for example issuing the following command:
 

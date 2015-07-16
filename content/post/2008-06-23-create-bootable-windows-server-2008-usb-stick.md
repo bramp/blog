@@ -12,7 +12,7 @@ tags:
   - USB
   - Windows Server
 aliases:
-  - /2008/06/23/create-bootable-windows-server-2008-usb-stick/
+  - /blog/2008/06/23/create-bootable-windows-server-2008-usb-stick/
 ---
 I recently had the need to install Windows Server 2008 from a USB stick. This was because I didn&#8217;t have a working DVD drive to hand. I found a couple of [tutorials][1] [online][2] explaining how to create the disk. They generally explained this technique:
 
@@ -53,4 +53,4 @@ I have yet to repeat this procedure and I might have previous partitioned or for
 
  [1]: http://blogs.dirteam.com/blogs/sanderberkouwer/archive/2008/05/01/installing-windows-server-2008.aspx
  [2]: http://www.jesscoburn.com/archives/2007/10/15/installing-windows-2008-via-usb-thumbdrive/
- [3]: /about/#contact
+ [3]: /about-me/#contact

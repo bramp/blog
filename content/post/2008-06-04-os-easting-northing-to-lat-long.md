@@ -12,7 +12,7 @@ tags:
   - ordnance survey
   - PHP
 aliases:
-  - /2008/06/04/os-easting-northing-to-lat-long/
+  - /blog/2008/06/04/os-easting-northing-to-lat-long/
 ---
 Recently I had the need to convert Ordnance Survey East/North coordinates to Latitude and Longitude. By using the resources available on the OS site I wrote the following piece of PHP code:
 

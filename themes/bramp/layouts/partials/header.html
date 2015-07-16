@@ -13,9 +13,9 @@
   <link rel="canonical" href="{{ .Permalink }}" />
 
   <link href="{{ .RSSlink }}" rel="alternate" type="application/rss+xml" title="{{ $title }}" />
-  <link href="{{ .Site.BaseURL }}css/bootstrap.min.css" rel="stylesheet">
-  <link href="{{ .Site.BaseURL }}css/bramp.css" rel="stylesheet">
-  <link href="{{ .Site.BaseURL }}css/pygments-friendly.css" rel="stylesheet">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/bramp.css" rel="stylesheet">
+  <link href="/css/pygments-friendly.css" rel="stylesheet">
 
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -56,11 +56,11 @@
             <span class="icon-bar"></span>
           </button>
           <div class="navbar-brand">
-            <a href="{{ .Site.BaseURL }}">
+            <a href="/">
               <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
-              <a href="{{ .Site.BaseURL }}about-me/">{{ .Site.Author.name }}</a>
+              <a href="/about-me/">{{ .Site.Author.name }}</a>
 
               <div id="social-wrapper">
               {{ with .Site.Params.twitter }}
@@ -74,18 +74,18 @@
               {{ with .Site.Params.github }}
                 <a href="https://github.com/{{ . }}"><i class="fa fa-github-square"></i></a>
               {{end}}
-                <a href="{{ .Site.BaseURL }}index.xml"><i class="fa fa-rss-square"></i></a>
+                <a href="/index.xml"><i class="fa fa-rss-square"></i></a>
              </div>
             </div>
           </div>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="{{ .Site.BaseURL }}">Articles</a></li>
-            <li><a href="{{ ref . "about-me/index.md" }}">About Me</a></li>
-            <li><a href="{{ .Site.BaseURL }}android-app/">Android Apps</a></li>
-            <li><a href="{{ ref . "opensource-project/index.md" }}">Open Source</a></li>
-            <li><a href="{{ ref . "publication/index.md" }}">Publications</a></li>
+            <li><a href="/">Articles</a></li>
+            <li><a href="/about-me/">About Me</a></li>
+            <li><a href="/android-app/">Android Apps</a></li>
+            <li><a href="/opensource-project/">Open Source</a></li>
+            <li><a href="/publication/">Publications</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

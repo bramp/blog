@@ -8,7 +8,7 @@ categories:
 tags:
   - flvtool++
 aliases:
-  - /2006/06/25/flvtool-a-command-line-flash-video-file-flv-editor/
+  - /blog/2006/06/25/flvtool-a-command-line-flash-video-file-flv-editor/
 ---
 [Download from GitHub][9]
 

@@ -9,7 +9,7 @@ tags:
   - RAID
   - Windows XP
 aliases:
-  - /2008/06/20/2tb-is-too-much-for-xp/
+  - /blog/2008/06/20/2tb-is-too-much-for-xp/
 ---
 I just got a new motherboard and 4 new shiny 750GB [Samsung F1 hard drives][1]. So I thought I would use the Intel Matrix Storage feature of my motherboard to create a RAID 5 array from these drives.
 

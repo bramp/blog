@@ -16,8 +16,8 @@ params:
   GoogleAnalytics: "UA-136478-5"
 
 permalinks:
-  posts: /post/:year/:month/:day/:slug/
-  publications: /publication/:slug/
+  post: /post/:year/:month/:day/:slug/
+  publication: /publication/:slug/
 
 taxonomies:
   tag: "tags"

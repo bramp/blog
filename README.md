@@ -10,35 +10,43 @@ New Features
  * Simplier / Cleaner / Modern HTML design
 
 Dependencies
-```
+------------
+```bash
 go get -v github.com/spf13/hugo
 
 pip install Pygments
 pip install bibtex-pygments-lexer
+
+# For minifiying/linting
+npm install html-minifier -g
+brew install parallel
 ```
 
 Build
-```
+-----
+```bash
 ./deploy.sh
+```
+
+Checks
+------
+```bash
+linkchecker http://localhost:1313/ > log.internal
+linkchecker --check-extern http://localhost:1313/ > log.external
 ```
 
 TODO
 ----
- * Fix disqus (dsq_thread_id)
- * Amazon code
- * Update internal links to be <<ref>> instead of http://bramp.net/...
- * Problem parsing last link in markdown. (e.g [N] doesn't work) Fix at https://github.com/russross/blackfriday/issues
- * Check the links haven't changed.
- * Change to a full width layout (like http://blog.gopheracademy.com/)
- * Test 404
- * The markdown has lots of entities in it, e.g &#8217; &gt; etc
- * Rewrite the ndsfs article to place the code on github
- * Tag cloud
- * Check Google DNS article formatting
- * Remove wp-image-627 and other wp specific classes
- * Center all tables
- * Performance modelling of peer-to-peer routing pdf is broken
- * Makefile, compress html, etc
- * List tags and look for mispelling dups
- * Add a "edit me link"
- * Support figures {{< figure src="/media/spf13.jpg" title="Steve Francia" >}}
+ [ ] Fix disqus (dsq_thread_id). Have to update URLs on disque
+ [x] Problem parsing last link in markdown. (e.g [N] doesn't work) Fix at https://github.com/russross/blackfriday/issues/180
+ [ ] Check the links haven't changed. Write script to check all URLs on bramp.net still exist
+ [ ] Test 404
+ [x] Center all tables
+ [ ] Ensure no broken links
+
+TODO (nice to have)
+ [ ] Amazon code
+ [ ] Tag cloud
+ [ ] Change to a full width layout (like http://blog.gopheracademy.com/)
+ [ ] Makefile, compress html, etc
+ [ ] Add a "edit me link"

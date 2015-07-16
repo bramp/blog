@@ -94,6 +94,6 @@ helps me come to that conclusion.
 
 I haven&#8217;t finished poking around image-2.gz, but I suspect the interesting parts are mostly in the JFFS2 filesystem. Hopefully this will lead to me getting ssh access to the router, and eventually being able to customise the firmware.
 
- [1]: {{< ref "2012-01-22-obtaining-the-firmware-for-linksys-e4200v2.md" >}}
+ [1]: {{< relref "2012-01-22-obtaining-the-firmware-for-linksys-e4200v2.md" >}}
  [2]: https://github.com/devttys0/binwalk
  

@@ -11,7 +11,7 @@ tags:
   - nintendo ds
   - rom
 aliases:
-  - /2009/01/04/ndsfs-a-fuse-application-to-mount-nintendo-ds-roms/
+  - /blog/2009/01/04/ndsfs-a-fuse-application-to-mount-nintendo-ds-roms/
 ---
 I brought my dad Professor Layton for the Nintendo DS this Christmas, and being a curious fellow I decided to see if I could reverse engineer the game to extract all the questions/answers. It turns out it wasn&#8217;t that hard. On my journey however I had to work out how to browse the file system stored on the rom.
 

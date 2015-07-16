@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Windows Server on bramp.net</title>
-    <link>http://localhost:1313/tags/windows-server/</link>
+    <link>https://bramp.github.io/tags/windows-server/</link>
     <description>Recent content in Windows Server on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Mon, 23 Jun 2008 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/windows-server/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/windows-server/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Create Bootable Windows Server 2008 USB Stick</title>
-      <link>http://localhost:1313/post/2008-06-23-create-bootable-windows-server-2008-usb-stick/</link>
+      <link>https://bramp.github.io/post/2008/06/23/create-bootable-windows-server-2008-usb-stick/</link>
       <pubDate>Mon, 23 Jun 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2008-06-23-create-bootable-windows-server-2008-usb-stick/</guid>
+      <guid>https://bramp.github.io/post/2008/06/23/create-bootable-windows-server-2008-usb-stick/</guid>
       <description>&lt;p&gt;I recently had the need to install Windows Server 2008 from a USB stick. This was because I didn&amp;#8217;t have a working DVD drive to hand. I found a couple of &lt;a href=&#34;http://blogs.dirteam.com/blogs/sanderberkouwer/archive/2008/05/01/installing-windows-server-2008.aspx&#34;&gt;tutorials&lt;/a&gt; &lt;a href=&#34;http://www.jesscoburn.com/archives/2007/10/15/installing-windows-2008-via-usb-thumbdrive/&#34;&gt;online&lt;/a&gt; explaining how to create the disk. They generally explained this technique:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;C:&lt;span class=&#34;se&#34;&gt;\&amp;gt;&lt;/span&gt; diskpart
 
@@ -46,7 +46,7 @@ xcopy X:&lt;span class=&#34;se&#34;&gt;\*&lt;/span&gt;.* /s/e/f Y:&lt;span class
 
 &lt;p&gt;Now copy all the files from the Windows Server disc onto the USB stick. This can be done by dragging in the GUI or using the xcopy method shown previously.&lt;/p&gt;
 
-&lt;p&gt;I have yet to repeat this procedure and I might have previous partitioned or formatted my USB stick in a unique way. So if this method doesn&amp;#8217;t work &lt;a href=&#34;http://localhost:1313/about/#contact&#34;&gt;drop me a mail&lt;/a&gt; and I&amp;#8217;ll see what I can do.&lt;/p&gt;
+&lt;p&gt;I have yet to repeat this procedure and I might have previous partitioned or formatted my USB stick in a unique way. So if this method doesn&amp;#8217;t work &lt;a href=&#34;https://bramp.github.io/about-me/#contact&#34;&gt;drop me a mail&lt;/a&gt; and I&amp;#8217;ll see what I can do.&lt;/p&gt;
 </description>
     </item>
     

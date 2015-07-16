@@ -1,9 +1,8 @@
 {{ template "theme/partials/header.html" . }}
   <div id="article">
       <h1>{{.Title}}</h1>
-      <hr>
       {{ range .Data.Pages }}
-      <p><a href="{{ .Permalink }}">{{ .Title }}</a> &#8211; {{ .Description }}</p>
+      <p><a href="{{ .RelPermalink }}">{{ .Title }}</a> &#8211; {{ .Description }}</p>
       {{ end }}
 
   </div>

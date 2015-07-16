@@ -10,7 +10,7 @@ tags:
   - governement
   - petition
 aliases:
-  - /2009/04/07/opensource-government-petition/
+  - /blog/2009/04/07/opensource-government-petition/
 ---
 There is a petition at the moment to ensure that the software created by the government should be open sourced.
 

@@ -10,7 +10,7 @@ tags:
   - foursquare
   - game
 aliases:
-  - /2009/12/06/foursquare-rules/
+  - /blog/2009/12/06/foursquare-rules/
 ---
 Everyone plays [foursquare][1] (the location based android/iPhone app) differently. However, there are no offical rules on what venues are acceptable, and when you can and can&#8217;t check-in. So I wanted to write down the rules that I play by:
 

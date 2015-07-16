@@ -7,7 +7,7 @@ description: Make wonderful melodies with this simple to use app. Over a million
 dsq_thread_id:
   - 1614115267
 ---
-<div style="float: right; text-align: center;">
+<div class="pull-right text-center">
   <a href="https://play.google.com/store/apps/details?id=net.bramp.musicgrid"><img src="https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=https://play.google.com/store/apps/details?id=net.bramp.musicgrid" alt="" width="150" height="150" /><br /> Download Me (for free!)<br /> </a>
 </div>
 

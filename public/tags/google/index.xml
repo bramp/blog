@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Google on bramp.net</title>
-    <link>http://localhost:1313/tags/google/</link>
+    <link>https://bramp.github.io/tags/google/</link>
     <description>Recent content in Google on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Wed, 09 Jun 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/google/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/google/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Old school’s not cool.</title>
-      <link>http://localhost:1313/post/2010/06/09/old-schools-not-cool/</link>
+      <link>https://bramp.github.io/post/2010/06/09/old-schools-not-cool/</link>
       <pubDate>Wed, 09 Jun 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2010/06/09/old-schools-not-cool/</guid>
+      <guid>https://bramp.github.io/post/2010/06/09/old-schools-not-cool/</guid>
       <description>&lt;p&gt;Google Chrome today pestered me with a message which I thought was quite funny. It reads:&lt;/p&gt;
 
 &lt;blockquote&gt;
@@ -24,7 +24,7 @@
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;chrome-old-school.jpg&#34; width=&#34;664&#34; /&gt;
+        &lt;img src=&#34;chrome-old-school.jpg&#34; width=&#34;665&#34; /&gt;
     
     
     &lt;figcaption&gt;
@@ -39,15 +39,15 @@
     
     <item>
       <title>Google DNS Benchmarked</title>
-      <link>http://localhost:1313/post/2009-12-04-google-dns-benchmarked/</link>
+      <link>https://bramp.github.io/post/2009/12/04/google-dns-benchmarked/</link>
       <pubDate>Fri, 04 Dec 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2009-12-04-google-dns-benchmarked/</guid>
+      <guid>https://bramp.github.io/post/2009/12/04/google-dns-benchmarked/</guid>
       <description>
 
-&lt;p&gt;Today &lt;a href=&#34;http://googleblog.blogspot.com/2009/12/introducing-google-public-dns.html&#34;&gt;Google announced&lt;/a&gt; a public DNS service they are hosting. They claim that their DNS infrastructure is &lt;a href=&#34;http://code.google.com/speed/public-dns/docs/performance.html&#34;&gt;faster and more secure&lt;/a&gt;, because their servers do some clever things. I wanted to test their performance claims, so I wrote a &lt;a href=&#34;http://localhost:1313/projects/dns/dns.php.txt&#34;&gt;little script&lt;/a&gt; to measure a lookup times for different domains across a number of DNS servers.&lt;/p&gt;
+&lt;p&gt;Today &lt;a href=&#34;http://googleblog.blogspot.com/2009/12/introducing-google-public-dns.html&#34;&gt;Google announced&lt;/a&gt; a public DNS service they are hosting. They claim that their DNS infrastructure is &lt;a href=&#34;http://code.google.com/speed/public-dns/docs/performance.html&#34;&gt;faster and more secure&lt;/a&gt;, because their servers do some clever things. I wanted to test their performance claims, so I wrote a &lt;a href=&#34;dns.php&#34;&gt;little script&lt;/a&gt; to measure a lookup times for different domains across a number of DNS servers.&lt;/p&gt;
 
-&lt;h3 id=&#34;methodology:99f0e94b2e553367c6796f4381865bde&#34;&gt;Methodology&lt;/h3&gt;
+&lt;h3 id=&#34;methodology:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Methodology&lt;/h3&gt;
 
 &lt;p&gt;Firstly I found a &lt;a href=&#34;http://www.quantcast.com/top-sites-1&#34;&gt;list of the 1 million most popular sites&lt;/a&gt;. I then picked a number of DNS servers to test against. I chose &lt;a href=&#34;http://code.google.com/speed/public-dns/&#34;&gt;Google&lt;/a&gt;&amp;#8216;s, &lt;a href=&#34;http://www.opendns.com/&#34;&gt;OpenDNS&lt;/a&gt;&amp;#8216;s, my ISP (&lt;a href=&#34;http://broadband.sky.com/&#34;&gt;Sky/Easynet&lt;/a&gt;) and my old ISP&amp;#8217;s (&lt;a href=&#34;http://www.plus.net/&#34;&gt;Plus.net&lt;/a&gt;).&lt;/p&gt;
 
@@ -60,9 +60,9 @@
 
 &lt;p&gt;I recorded the time it took for each query to be answered, and I also recorded the replies. I was curious to see if some servers replied with different answers, or if some returned more information, i.e. additional records.&lt;/p&gt;
 
-&lt;p&gt;I &lt;a href=&#34;http://localhost:1313/projects/dns/dns.php.txt&#34;&gt;wrote a script&lt;/a&gt; in PHP 5.3, and ran it from the command line on my Windows Server 2008 machine. The script used PEAR&amp;rsquo;s Net_DNS to craft and send the DNS questions. I was not using my operating system&amp;rsquo;s resolver, and I was not using any form of client side caching. I ran the experiments from my home ADSL connection and as far as I know my ISP was not interfering with my DNS requests in any way. I live in the North West of the UK.&lt;/p&gt;
+&lt;p&gt;I &lt;a href=&#34;dns.php&#34;&gt;wrote a script&lt;/a&gt; in PHP 5.3, and ran it from the command line on my Windows Server 2008 machine. The script used PEAR&amp;rsquo;s Net_DNS to craft and send the DNS questions. I was not using my operating system&amp;rsquo;s resolver, and I was not using any form of client side caching. I ran the experiments from my home ADSL connection and as far as I know my ISP was not interfering with my DNS requests in any way. I live in the North West of the UK.&lt;/p&gt;
 
-&lt;h3 id=&#34;results:99f0e94b2e553367c6796f4381865bde&#34;&gt;Results&lt;/h3&gt;
+&lt;h3 id=&#34;results:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Results&lt;/h3&gt;
 
 &lt;p&gt;After letting this run for a few hours, and querying roughly the top 10,000 domains, I have some preliminary results.&lt;/p&gt;
 
@@ -155,9 +155,19 @@
 
 &lt;p&gt;From this table of results, we can see that Google&amp;rsquo;s median response time is 41-42ms, however, OpenDNS performs much better with a result of ~31ms. Both my current ISP and my old ISP don&amp;rsquo;t perform as well and each achieved a result between 42ms and 61ms. To get a better feel for the data I plotted an empirical CDF of the lookup times for each server.&lt;/p&gt;
 
-&lt;div class=&#34;figure&#34;&gt;
-  &lt;a href=&#34;http://localhost:1313/projects/dns/ecdf_overview.pdf&#34;&gt;&lt;img src=&#34;http://localhost:1313/projects/dns/ecdf_overview.png&#34; width=&#34;700&#34; height=&#34;700&#34; /&gt;&lt;/a&gt;&lt;br /&gt;&lt;a href=&#34;http://localhost:1313/projects/dns/ecdf_overview.pdf&#34;&gt;Click for a larger PDF version&lt;/a&gt;
-&lt;/div&gt;
+&lt;p&gt;&lt;a href=&#34;ecdf_overview.pdf&#34;&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;ecdf_overview.png&#34; width=&#34;700&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;Click for a larger PDF version&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;The first impression I can make from this CDF is that OpenDNS serves far more of the queries faster than anyone else. Secondly the secondary DNS servers all seem to be faster than their primaries. I suspect this is because most hosts query the primary, and rarely query the secondary. I even read that &lt;a href=&#34;https://www.isc.org/software/bind&#34;&gt;BIND&lt;/a&gt; (a popular DNS server) has/had &lt;a href=&#34;http://homepages.tesco.net/J.deBoynePollard/FGA/dns-database-replication.html&#34;&gt;a bug in it which favoured the primary DNS&lt;/a&gt;.&lt;/p&gt;
 
@@ -167,9 +177,19 @@
 
 &lt;p&gt;SInce I ran each lookup three times, I wanted to compare the lookup times for each request. This time I plotted the empirical CDF of each iteration of request.&lt;/p&gt;
 
-&lt;div class=&#34;figure&#34;&gt;
-  &lt;a href=&#34;http://localhost:1313/projects/dns/ecdf_requests.pdf&#34;&gt;&lt;img src=&#34;http://localhost:1313/projects/dns/ecdf_requests.png&#34; width=&#34;700&#34; height=&#34;700&#34; /&gt;&lt;/a&gt;&lt;br /&gt;&lt;a href=&#34;http://localhost:1313/projects/dns/ecdf_requests.pdf&#34;&gt;Click for a larger PDF version&lt;/a&gt;
-&lt;/div&gt;
+&lt;p&gt;&lt;a href=&#34;ecdf_requests.pdf&#34;&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;ecdf_requests.png&#34; width=&#34;700&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;Click for a larger PDF version&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;This CDF seems to show that the 2nd and 3rd requests always get served quicker than the first. In most cases the 2nd and 3rd request have equal ranking, but the first is always slow. This could easily be attributed to the fact that the caching DNS server does not have the record in its cache, and thus must be fetched. The second time I request the domain name (only moments later), the server already has the query, and most likely has it stored in RAM or L1/L2 CPU cache.&lt;/p&gt;
 
@@ -177,11 +197,11 @@
 
 &lt;p&gt;Finally, I&amp;rsquo;m surprised that the 2nd and 3rd requests are slower, especially since I&amp;rsquo;m requesting the most popular domain names. Surely others would have already requested the domain name, and thus the DNS server has no need to fetch it. Looking through the list of domain names I see that none of them have the www prefix. I personally never type the www and just hope the site works, but perhaps many users do. Maybe I should re-run the experiment with the www prefix.&lt;/p&gt;
 
-&lt;h3 id=&#34;conclusion:99f0e94b2e553367c6796f4381865bde&#34;&gt;Conclusion&lt;/h3&gt;
+&lt;h3 id=&#34;conclusion:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Conclusion&lt;/h3&gt;
 
 &lt;p&gt;For now I would stick to using OpenDNS, as this is clearly the winner. However, the Google DNS service is very new, so perhaps the servers haven&amp;rsquo;t had enough time to fill their caches, and their admins haven&amp;rsquo;t had enough time to tweak them. I will perhaps rerun this experiment in a few weeks and see what happens.&lt;/p&gt;
 
-&lt;h3 id=&#34;todo:99f0e94b2e553367c6796f4381865bde&#34;&gt;TODO&lt;/h3&gt;
+&lt;h3 id=&#34;todo:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;TODO&lt;/h3&gt;
 
 &lt;p&gt;I still have some analysis to do, for example, looking at packet loss, the type of records returned, and anything else I can think of.&lt;/p&gt;
 </description>
@@ -189,24 +209,34 @@
     
     <item>
       <title>What happens when you mix…</title>
-      <link>http://localhost:1313/post/2009-01-27-what-happens-when-you-mix/</link>
+      <link>https://bramp.github.io/post/2009/01/27/what-happens-when-you-mix/</link>
       <pubDate>Tue, 27 Jan 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2009-01-27-what-happens-when-you-mix/</guid>
+      <guid>https://bramp.github.io/post/2009/01/27/what-happens-when-you-mix/</guid>
       <description>&lt;p&gt;What happens when you mix; Haggis, Vodka, a room full of nerds, and a average of 1.4 laptops per person?&lt;/p&gt;
 
-&lt;div class=&#34;figure&#34;&gt;
-  &lt;img src=&#34;http://localhost:1313/projects/google-phone.jpg&#34; title=&#34;someone buys a phone at 1am while drunk&#34; /&gt;
-&lt;/div&gt;
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;google-phone.jpg&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;someone buys a phone at 1am while drunk&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
 </description>
     </item>
     
     <item>
       <title>Google Calendar Exploit</title>
-      <link>http://localhost:1313/post/2008-04-28-google-calendar-exploit/</link>
+      <link>https://bramp.github.io/post/2008/04/28/google-calendar-exploit/</link>
       <pubDate>Mon, 28 Apr 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2008-04-28-google-calendar-exploit/</guid>
+      <guid>https://bramp.github.io/post/2008/04/28/google-calendar-exploit/</guid>
       <description>&lt;p&gt;Whilst using Google Calendar I noticed an interesting feature, which I&amp;rsquo;m unsure if it should be there are not. I&amp;rsquo;ve contacted google twice about this bug but never received a reply. So I figured I would post about it here.&lt;/p&gt;
 
 &lt;p&gt;When creating a Google Calendar you may share the calendar with your friends and allow them to alter it. You do this by clicking &amp;ldquo;Share this calendar&amp;rdquo; and then typing in their email address. I noticed something odd when I typed in a friend&amp;rsquo;s Gmail address and clicked &amp;ldquo;Add Person&amp;rdquo;. His name appeared next to the newly entered email address. I thought this might be because I previously spoke to this person via email, or he was a friend on GTalk.&lt;/p&gt;

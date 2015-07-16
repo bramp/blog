@@ -9,7 +9,7 @@ tags:
   - coin
   - derren brown
 aliases:
-  - /2009/09/12/derren-brown-s-coin-game/
+  - /blog/2009/09/12/derren-brown-s-coin-game/
 ---
 **Update: I found out this coin game is called [Penney&#8217;s Game][1] and is played slightly differently to how I thought.**
 

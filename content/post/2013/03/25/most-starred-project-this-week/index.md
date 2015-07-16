@@ -3,6 +3,7 @@ title: Most starred project this week, and second most forked.
 author: bramp
 layout: post
 date: 2013-03-25
+slug: most-starred-project-this-week
 dsq_thread_id:
   - 1614115164
 categories:

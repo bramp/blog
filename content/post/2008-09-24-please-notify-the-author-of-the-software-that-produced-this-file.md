@@ -12,7 +12,7 @@ tags:
   - PDF
   - Visio
 aliases:
-  - /2008/09/24/please-notify-the-author-of-the-software-that-produced-this-file/
+  - /blog/2008/09/24/please-notify-the-author-of-the-software-that-produced-this-file/
 ---
 While compiling my LaTeX document I received a message which made me chuckle:
 

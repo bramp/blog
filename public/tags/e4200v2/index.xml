@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>E4200v2 on bramp.net</title>
-    <link>http://localhost:1313/tags/e4200v2/</link>
+    <link>https://bramp.github.io/tags/e4200v2/</link>
     <description>Recent content in E4200v2 on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 24 Jan 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/e4200v2/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://bramp.github.io/tags/e4200v2/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Hacking Linksys E4200v2 firmware</title>
-      <link>http://localhost:1313/post/2012-01-24-hacking-linksys-e4200v2-firmware/</link>
+      <link>https://bramp.github.io/post/2012/01/24/hacking-linksys-e4200v2-firmware/</link>
       <pubDate>Tue, 24 Jan 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/2012-01-24-hacking-linksys-e4200v2-firmware/</guid>
-      <description>&lt;p&gt;In a previous post I &lt;a href=&#34;http://localhost:1313/post/2012-01-22-obtaining-the-firmware-for-linksys-e4200v2/&#34;&gt;obtained the Linksys E4200v2 firmware&lt;/a&gt;, now I plan to break it apart and see what I can find.&lt;/p&gt;
+      <guid>https://bramp.github.io/post/2012/01/24/hacking-linksys-e4200v2-firmware/</guid>
+      <description>&lt;p&gt;In a previous post I &lt;a href=&#34;https://bramp.github.io/post/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/&#34;&gt;obtained the Linksys E4200v2 firmware&lt;/a&gt;, now I plan to break it apart and see what I can find.&lt;/p&gt;
 
 &lt;p&gt;I start off by simplying using &amp;#8220;file&amp;#8221; on the firmware:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;file FW_E4200_2.0.36.126507.SSA 

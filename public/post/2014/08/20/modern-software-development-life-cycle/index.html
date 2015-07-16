@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+
+
+  <meta charset="utf-8">
+  <title>Modern Software Development Life Cycle</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Hugo"/>
+  <link rel="canonical" href="https://bramp.github.io/post/2014/08/20/modern-software-development-life-cycle/" />
+
+  <link href="" rel="alternate" type="application/rss+xml" title="Modern Software Development Life Cycle" />
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/bramp.css" rel="stylesheet">
+  <link href="/css/pygments-friendly.css" rel="stylesheet">
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  
+  
+
+
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@TheBramp" />
+  <meta name="twitter:title" content="Modern Software Development Life Cycle" />
+  <meta name="twitter:description" content="" />
+
+
+  <script>
+  
+
+  </script>
+</head>
+<body>
+  
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-136478-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+
+<div id = "wrapper">
+
+  <div class="navbar navbar-default" role="navigation">
+      <div class="container">
+
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="navbar-brand">
+            <a href="/">
+              <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
+            </a>
+            <div>
+              <a href="/about-me/">Andrew Brampton</a>
+
+              <div id="social-wrapper">
+              
+                <a href="https://twitter.com/TheBramp"><i class="fa fa-twitter-square"></i></a>
+              
+              
+                <a href="https://www.linkedin.com/in/bramp"><i class="fa fa-linkedin-square"></i></a>
+              
+              
+                <a href="https://www.facebook.com/bramp"><i class="fa fa-facebook-square"></i></a>
+              
+                <a href="https://github.com/bramp"><i class="fa fa-github-square"></i></a>
+              
+                <a href="/index.xml"><i class="fa fa-rss-square"></i></a>
+             </div>
+            </div>
+          </div>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Articles</a></li>
+            <li><a href="/about-me/">About Me</a></li>
+            <li><a href="/android-app/">Android Apps</a></li>
+            <li><a href="/opensource-project/">Open Source</a></li>
+            <li><a href="/publication/">Publications</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+     <div class="container main">
+
+
+
+
+<div id="article">
+	<h1>Modern Software Development Life Cycle</h1>
+	<p class="meta">
+		<i class="fa fa-calendar-o"></i> 2014-08-20
+		
+		| <a href="https://bramp.github.io/tags/development">development</a>
+		
+		| <a href="https://bramp.github.io/tags/sdlc">sdlc</a>
+		
+		| <a href="https://bramp.github.io/tags/testing">testing</a>
+		
+	</p>
+	<div class="post">
+		<p>I recently got asked by a friend at a start-up on how to ensure better quality in their product. They were looking for advise on the QA process, but after digging a little I found they needed improvements to their full software development life cycle (SDLC). After a few emails back and forth I ended up writing what&#8217;s below. It has plenty of references for further reading, and I thought it would be good to share.</p>
+
+<p>Generally people view the SDLC as a pipeline, and there are different ways to manage the pipeline, Scrum, Kanban, Waterfall, etc. Each with their pros and cons, and all can help your quality, but I’ll address that later</p>
+
+<p>The pipeline typically consists of the following steps; Requirements, Design, Development, Testing, Deployment. At each stage you can ensure quality in your product. However, you should consider this an iterative process, always going back to the beginning to re-evaluate your thoughts/findings/etc</p>
+
+<p><strong>Requirements</strong><br />
+Firstly, it sounds like your customers weren&#8217;t getting what they were expecting. I can’t stress how important correct requirements gathering can be. <a href="http://www.imdb.com/title/tt0151804/">Office Space</a> may have made fun of this, but you should be sitting with your client, understanding their use cases, understand why they want what they want. These are all important to building a good product. Some would argue you should only <a href="http://theleanstartup.com/">listen to your clients in moderation</a>, but, if you only have a couple of clients, and if they are paying you for the work, then you should listen.</p>
+
+<p>Once you think you know what they want, wireframe it, mock it up, write a document, and get the client to sign off on it. The sign off is key as it ensures both parties are in agreement as to what is being delivered. <a href="https://www.kennethnorton.com/essays/leading-cross-functional-teams.html">A good product manager</a> would be doing the bulk of this phase.</p>
+
+<p>At this point, you might also have time estimates, know how long it will take, and how much it will cost. Setting correct expectations with clients on timing is always important. Sometimes people don’t care how long it will take as long as your estimate is accurate. Missing deadline is never good.</p>
+
+<p><strong>Design</strong><br />
+Once you know what you want, design it, diagram the flows, create a database schema, the API endpoints, maybe even make a proof of concept, to learn the technology.</p>
+
+<p>Learning to design software takes practices, and I don’t think is something you can learn from reading, instead practice makes perfect. However, sites like <a href="http://highscalability.com/">Highly Scalability</a> show you how others have solved problems, and there are certainly many books on the topic; <a href="http://www.amazon.com/gp/product/0596007124/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0596007124&amp;linkCode=as2&amp;tag=brampnet-20&amp;linkId=I3KLFHLMXOGO4ZDN">Software Design</a>, <a href="http://www.amazon.com/gp/product/0201633612/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0201633612&amp;linkCode=as2&amp;tag=brampnet-20&amp;linkId=ODUHCI2LZNSVYXTT">Design Patterns</a>, <a href="http://www.amazon.com/gp/product/0321127420/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0321127420&amp;linkCode=as2&amp;tag=brampnet-20&amp;linkId=5UIJ57SD2XFINFEC">Architectures</a>, <a href="http://aosabook.org/">etc</a>.</p>
+
+<p>One way to make your design work easier, is to use a framework. A good framework will force you to break your code into layers, such as controllers, services and data access. This helps to keep your project well organised, and has many additional benefits, such making your code testable, giving you access to large pools of plugins, and developers who already have knowledge in your framework.</p>
+
+<p><strong>Development</strong><br />
+What do developers spend most of their time doing, reading code or writing code? Contrary to what you may think you pay them for, they spend most of their time <a href="http://blog.codinghorror.com/when-understanding-means-rewriting/">reading code</a>. Not just other people&#8217;s code, but their own code. Most developers forget what they wrote the previous day.</p>
+
+<p>So to help developers you should do everything to keep code clean, readable and maintainable. That doesn&#8217;t just mean adding comments here and there, instead using various simple techniques such as sensible variable names, short functions (<a href="http://butunclebob.com/ArticleS.UncleBob.SrpInRuby">that do one thing</a>), keeping the code well indented, etc. There are a few <a href="http://www.amazon.com/gp/product/0137081073/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0137081073&amp;linkCode=as2&amp;tag=brampnet-20&amp;linkId=4QYVI3KDZFAGECFF">great books</a> on <a href="http://www.amazon.com/gp/product/0321751043/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0321751043&amp;linkCode=as2&amp;tag=brampnet-20&amp;linkId=32Z4Y2F36B6WWXIH">the topic</a>.</p>
+
+<p>Clean simple code is very important, it makes the developer&#8217;s job easier, reducing mistakes and bugs. I actually like to <a href="http://www.sonarqube.org/">track lines of code</a> my team writes over time. Not in the traditional IBM <a href="https://en.wikipedia.org/wiki/Source_lines_of_code">KLOC</a> way, but instead looking for the number to decrease over time. This can happen when we realise things are <a href="https://en.wikipedia.org/wiki/Don't_repeat_yourself">redundant</a>, find libraries that take the burden of the work, or simplify the design once we have a better understanding. There are even tools to help you measure <a href="https://stackoverflow.com/questions/125898/tool-for-calculating-cyclomatic-complexity">how complex your software is</a>!</p>
+
+<p>Never reinvent the wheel, there are 1000s of awesome open source projects out that, and one of them will solve whatever problem you have. Whoever solved the problem, more than likely spent more time thinking about it than you! Otherwise they wouldn&#8217;t have deemed it worth sharing online. This typically means you get a lot of value for free, that you don&#8217;t have to maintain.</p>
+
+<p>You should focus your effort on adding business logic, and value to your product, not focusing on implementing a clever caching algorithm, or figuring out the ins-and-outs of how SMTP works. Those problems are worth solving, but not now, and not unless you could gain measurably value.</p>
+
+<p><strong>Testing</strong><br />
+To keep your pipeline quick and efficient, you should be automating as much as possible. Testing is one area you can easily automate, but sadly many people leave this as an after thought. Concepts like <a href="http://www.agiledata.org/essays/tdd.html">Test Driven Development</a> (TDD) are useful for ensuing tests get written upfront, and code is well design. Even without TDD you should be writing Unit tests, Integration Tests, and maybe later, Performance tests.</p>
+
+<p>Unit tests, are very simple and should test one unit of code. Lets consider a system that accepts user input, validates it, and if needed displays an error. The unit tests here, would create fake input, and test the function under each condition. If the function depends on some underlying system (such as a database) that complexity should be <a href="https://stackoverflow.com/questions/2665812/what-is-mocking">mocked</a>. That is, not really using a database but instead using a fake system underneath, which behaves like a real database but under your control. The end goal is that a unit test should test one thing, and do it quickly. If a single test takes more than 100ms you are doing it wrong. Some will even argue a developer must run all unit tests before checking any code in.</p>
+
+<p>With mocking/stubbing and other techniques, you should be able to test many layers of your application. However, your application most likely depends on external processes, and this is where integration testing comes in. Typically, this is testing your database behaves how it should, and the code you have written interacts with it correctly. Since it depends on external applications, integration testing usually takes longer to run, and is more complex to set up. In many cases a application like <a href="http://jenkins-ci.org/">Jenkins</a> or <a href="https://www.atlassian.com/software/bamboo">Bamboo</a> is used to help automate the testing.</p>
+
+<p>There are other classes of testing, such as performance testing, acceptance testing, and web based testing. Performance testing measures latency, throughput, etc, and graphs this over time to ensure that no new code is negatively impacting performance. Acceptance is as simple as verifying that all your requirements are actually satisfied, and can be <a href="http://www.fitnesse.org/">automated</a>. Finally, web based testing (for lack of a better name) is using software like <a href="http://docs.seleniumhq.org/">Selenium</a> , that fires up a real browser and automates clicking on buttons, and interacting with your UI. I’m personally not a fan of Selenium as good unit/integration tests can catch most of those issues.</p>
+
+<p>Once you have written tests there are numerous tools to help you measure your <a href="https://en.wikipedia.org/wiki/Code_coverage">coverage</a>. How many functions/lines of code did you actually test!. This software can help you target your most critical functions, and ensure things are being tested as expected.</p>
+
+<p>Last, but not least, is QA/QC. Actual humans in the loop, following test plans, and actually validating that the application does what it’s expected to do. This is as simple as described, and should be repeatable and auditable.</p>
+
+<p>In fact, one more step, User Acceptance Testing, or in other words, putting the product in front of your client before you go live. Set up a staging environment, or as some call it a UAT environment. This mirrors your production env, but allows clients to play with new features before they are rolled out. This is a good way to make the client feel part of the process, and give regularly feedback. Make it clear that the UAT env is for testing, and that all data gets wiped every couple of weeks. Let them do your QA for you :)</p>
+
+<p><strong>Bug Tracking</strong><br />
+While conducting QA/UAT/etc you should certainly be logging all defects to a bug tracking database. This enables you to regularly prioritise what needs to gets fixed, it allows users to track the status of their bug, and it also means things don’t get forgotten about.</p>
+
+<p><strong>Deployments</strong><br />
+Finally, your code has been written, it must be pushed out into production. Some will tell you that you should no longer do deployments manually, and you should use automation tools such as <a href="http://www.getchef.com/chef/">Chef</a>/<a href="http://puppetlabs.com/">Puppet</a>/<a href="http://capistranorb.com/">Capistrano</a>, and I would agree. It makes the deployments testable, repeatable, and predictable. You remove a large amount of human error from the process. However, when things do go wrong, they typically go wrong fast and wide spread. So make sure you test your deployment scripts, as you would test your code.</p>
+
+<p><strong>SLDC</strong><br />
+I mention there were different techniques for the SDLC, Agile based approaches (Scrum, Kanban, etc), Waterfall, etc. The SLDC should allow for <a href="http://www.amazon.com/gp/product/0321336380/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0321336380&amp;linkCode=as2&amp;tag=brampnet-20&amp;linkId=IMYQST6ZM7V6733U">continuous integration</a>, constantly running the pipeline and revalidating each step. Some will argue Agile is the way to go, and I would tend to agree. Agile seems to prefer short iterations with constant feedback. Feedback should be often, and rapid. If you break some code, a unit test should notify a human quickly, and not at the end of a development cycle. QA should be done in an agile manner, testing as soon as the feature is complete. This allows a human is quickly test the new feature and give feedback to the developers shortly after the code was written.</p>
+
+<p>Different teams, and different projects, require different SLDCs. I personally have a team working on two week Scrum sprints, with deployments happening at the end of each. In other cases, I have projects with far less rigorous schedules.</p>
+
+<p>I highly recommend the <a href="http://www.amazon.com/gp/product/0988262592/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0988262592&amp;linkCode=as2&amp;tag=brampnet-20&amp;linkId=36PJQM4IDQIMEWXH">The Phoenix Project</a>, it talks about SLDC, and is a good read (even for those non-technical readers).</p>
+
+<p>Finally, I’d like to quickly introduce the newer concept of <a href="http://www.amazon.com/gp/product/0321601912/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0321601912&amp;linkCode=as2&amp;tag=brampnet-20&amp;linkId=VBPKIQYH5SL4PKCD">Continuous Delivery</a>. This extends continuous integration, by making your pipeline end at deployment. From code check-in to being live in a production environment, should be as automated as possible. Companies like <a href="http://www.slideshare.net/mikebrittain/principles-and-practices-in-continuous-deployment-at-etsy">Etsy</a> and <a href="http://www.forbes.com/sites/quora/2013/08/12/how-do-facebook-and-google-manage-software-releases-without-causing-major-problems/">Facebook</a> like to advertise that they deploy numerous times a day.</p>
+
+	</div>
+</div>
+
+
+<div class="addthis_sharing_toolbox"></div>
+
+ <ul class="pager">
+      &nbsp;<li class="previous"><a href="/post/2014/08/16/grabbing-a-certificate-with-openssl-and-importing-it-into-java/">&larr; Grabbing a Certificate with OpenSSL and importing it into Java</a></li>
+      &nbsp;<li class="next"><a href="/post/2014/12/21/nationjs-talk-on-nodejs-now-on-vimeo/"> NationJS talk on NodeJs now on Vimeo &rarr;</a></li>
+</ul>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost" || window.location.port == 1313) 
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = '';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    <br />
+    <footer>
+        <p class="text-muted credit">&copy; 2015. All rights reserved. </p>
+    </footer>
+
+    </div> 
+    </div> 
+
+	
+    <script src="/js/jquery-1.10.2.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async="async"></script>
+
+  </body>
+</html>
+
