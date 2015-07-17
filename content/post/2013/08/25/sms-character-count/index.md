@@ -19,9 +19,9 @@ On top of that, most SMS clients will let you send concatenated SMS messages. Th
 
 This all makes it very hard to count how long a SMS message will be, what characters are allowed, and how many parts it will take. To help with these isuses, I&#8217;ve created this simple tool which allows you to type out your message, and see how well it&#8217;ll fit
 
-<a href="http://bramp.net/sms/">
+<a href="https:/blog.bramp.net/sms/">
 <img src="sms-count.png" alt="SMS Character Count" width="741" height="196" class="aligncenter" /><br />
-http://bramp.net/sms/</a>
+https:/blog.bramp.net/sms/</a>
 
  [1]: http://en.wikipedia.org/wiki/GSM_03.38
  [2]: http://en.wikipedia.org/wiki/UTF-16
