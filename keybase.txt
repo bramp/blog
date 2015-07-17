@@ -1,0 +1,64 @@
+==================================================================
+https://keybase.io/bramp
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://bramp.net
+  * I am bramp (https://keybase.io/bramp) on keybase.
+  * I have a public key with fingerprint 77EF 1852 F8E2 E39C 4973  FCDB 67F1 D791 30CA 7809
+
+To claim this, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "77ef1852f8e2e39c4973fcdb67f1d79130ca7809",
+            "host": "keybase.io",
+            "key_id": "67f1d79130ca7809",
+            "uid": "9ca934944fa01fbb1aa17c5cb9f2f800",
+            "username": "bramp"
+        },
+        "service": {
+            "hostname": "bramp.net",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1398262547,
+    "expire_in": 157680000,
+    "prev": "69471b1ac0af7d8add10bf0928b5e133bcb1453704447e254cb171b4a71bba70",
+    "seqno": 2,
+    "tag": "signature"
+}
+
+with the aforementioned key, yielding the PGP signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v0.1.11
+Comment: https://keybase.io/crypto
+
+yMHcAnicbVFbSBRRGN51K3MlL/RSEBnHCMNN5rZ7drZeupiR1oNaoQnbmZkzu7Ob
+M+vs7LomXggMpEJkKUsxUCuC0h7qochcSzFsyaSI6C2yshJDMQ2C0DNS0EMv5/B/
+/3f5f/7RDTaL3Xr0YJcrv69s0pocnolYyk4kN9YDQZPqgKceBPHqJyuqD+shXVEN
+4AEQYpl2OxnZjRnM8iLHQ1YWJcEFZVqCPM1SIoJuigcO4NfCpoLYCCiMCxSNYKTw
+KhJB/8OPrDZ4EfEsx3OcjChaFgQaIRqKTlHgZRJKUSYxjHUVVWPCFnRUHQINDkCg
+qCISqH419992gYoNogrpmqGJ2mkC+w0j5DFVRl3IpNViwfvHwCsoqkQ2JoIo1sOK
+pgIPTZiioZiONMu7GRfj5KAD4FhI0bFXMRlO6CKzUZQZg6PmfjwHaTK8SCEZSm4k
+STQlyBTPuAUnpllWEAWac7KQ4jgOYmJIaiLgEHkEBM01w7hG1YCHIWMiH7EMKz4V
+GREdg4anw1VrLFa7Zd3aFPNmFnta1t9LzhanLuttxX17Xv58FMu1jQ8Wrvc+G68M
+PEav2gc2y4sFn6aOfawdeVPYUjLEV405ytOHarZu67FZdm/KPXA/lhGbbkvPaewe
+ifsm9lZ8j+ZzzndNmdbEnf3xXf7exHRkXpso6smJ3+p+nbj+7QU/GhQDtve2lPau
+2LW8ymx5bGp5DnQ0XpktzS4K9iY9+8rRkt16ciYzwBYeWox1cLEbc/dKP3Sebbk6
+Enj+MH7qd97FkshC5ML2BwMNjomlpZ03g4kc5m7ntN1+Ofvw7WCra/6tu7/iV2pz
+bxFqH/7RnyEP9h0pls5VndG+Jo8vTIKmtB2tX54Mfh5ybMm61Nx13o9XANKOD+Q=
+=Ehyd
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/bramp
+
+==================================================================

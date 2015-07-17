@@ -1,0 +1,12 @@
+diff -ru sys.orig/dev/ixgbe/ixgbe.h sys/dev/ixgbe/ixgbe.h
+--- sys.orig/dev/ixgbe/ixgbe.h	2008-11-30 04:44:46.000000000 +0000
++++ sys/dev/ixgbe/ixgbe.h	2009-03-14 00:04:16.000000000 +0000
+@@ -84,7 +84,7 @@
+ #include <sys/pcpu.h>
+ 
+ #include "ixgbe_api.h"
+-#include "tcp_lro.h"
++#include <netinet/tcp_lro.h>
+ 
+ /* Tunables */
+ 
