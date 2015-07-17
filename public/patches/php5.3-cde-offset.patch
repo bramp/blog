@@ -1,0 +1,59 @@
+Index: ext/zip/lib/zip_open.c
+===================================================================
+--- ext/zip/lib/zip_open.c	(revision 299964)
++++ ext/zip/lib/zip_open.c	(working copy)
+@@ -52,7 +52,7 @@ static int _zip_headercomp(struct zip_di
+ 			   struct zip_dirent *, int);
+ static unsigned char *_zip_memmem(const unsigned char *, int,
+ 				  const unsigned char *, int);
+-static struct zip_cdir *_zip_readcdir(FILE *, unsigned char *, unsigned char *,
++static struct zip_cdir *_zip_readcdir(FILE *, unsigned char *, off_t, unsigned char *,
+ 				 int, int, struct zip_error *);
+ 
+ 
+@@ -156,7 +156,7 @@ set_error(int *zep, struct zip_error *er
+    entries, or NULL if unsuccessful. */
+ 
+ static struct zip_cdir *
+-_zip_readcdir(FILE *fp, unsigned char *buf, unsigned char *eocd, int buflen,
++_zip_readcdir(FILE *fp, unsigned char *buf, off_t bufoff, unsigned char *eocd, int buflen,
+ 	      int flags, struct zip_error *error)
+ {
+     struct zip_cdir *cd;
+@@ -216,9 +216,9 @@ _zip_readcdir(FILE *fp, unsigned char *b
+ 	}
+     }
+ 
+-    if (cd->size < (unsigned int)(eocd-buf)) {
++    if (cd->offset >= bufoff) {
+ 	/* if buffer already read in, use it */
+-	cdp = eocd - cd->size;
++	cdp = buf + (cd->offset - bufoff);
+ 	bufp = &cdp;
+     }
+     else {
+@@ -481,6 +481,7 @@ _zip_find_central_dir(FILE *fp, int flag
+ {
+     struct zip_cdir *cdir, *cdirnew;
+     unsigned char *buf, *match;
++    off_t bufoff;
+     int a, best, buflen, i;
+     struct zip_error zerr;
+ 
+@@ -490,6 +491,7 @@ _zip_find_central_dir(FILE *fp, int flag
+ 	set_error(zep, NULL, ZIP_ER_SEEK);
+ 	return NULL;
+     }
++    bufoff = ftello(fp);
+ 
+     /* 64k is too much for stack */
+     if ((buf=(unsigned char *)malloc(CDBUFSIZE)) == NULL) {
+@@ -516,7 +518,7 @@ _zip_find_central_dir(FILE *fp, int flag
+ 	/* found match -- check, if good */
+ 	/* to avoid finding the same match all over again */
+ 	match++;
+-	if ((cdirnew=_zip_readcdir(fp, buf, match-1, buflen, flags,
++	if ((cdirnew=_zip_readcdir(fp, buf, bufoff, match-1, buflen, flags,
+ 				   &zerr)) == NULL)
+ 	    continue;
+ 
