@@ -8,7 +8,7 @@ categories:
 tags:
   - stealthdht
 aliases:
-  - /2007/03/01/performance-modelling-of-peer-to-peer-routing/
+  - /blog/2007/03/01/performance-modelling-of-peer-to-peer-routing/
 ---
 Idris A. Rai, Andrew Brampton, Andrew MacQuire, and Laurent Mathy.
 

@@ -8,7 +8,7 @@ categories:
 tags:
   - stealthdht
 aliases:
-  - /2005/10/01/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/
+  - /blog/2005/10/01/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/
 ---
 Andrew Brampton, Andrew MacQuire, Idris A. Rai, Nicholas J. P. Race, and Laurent Mathy.
 

@@ -8,7 +8,7 @@ categories:
 tags:
   - network
 aliases:
-  - /2010/02/09/facilitating-network-auto-configuration-in-next-generation-internet-protocols/
+  - /blog/2010/02/09/facilitating-network-auto-configuration-in-next-generation-internet-protocols/
 ---
 Matthew Jakeman, Andrew Brampton, Stephen Pink
 

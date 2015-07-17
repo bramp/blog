@@ -9,7 +9,7 @@ tags:
   - multicore
   - network
 aliases:
-  - /2009/05/26/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/
+  - /blog/2009/05/26/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/
 ---
 Matthew Faulkner and Andrew Brampton and Stephen Pink
 

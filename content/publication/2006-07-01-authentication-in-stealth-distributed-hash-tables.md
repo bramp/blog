@@ -8,7 +8,7 @@ categories:
 tags:
   - stealthdht
 aliases:
-  - /2006/07/01/authentication-in-stealth-distributed-hash-tables/
+  - /blog/2006/07/01/authentication-in-stealth-distributed-hash-tables/
 ---
 Andrew MacQuire, Andrew Brampton, Idris A. Rai, and Laurent Mathy.
 

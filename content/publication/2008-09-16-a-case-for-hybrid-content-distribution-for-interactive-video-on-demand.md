@@ -9,7 +9,7 @@ tags:
   - CDN
   - VOD
 aliases:
-  - /2008/09/16/a-case-for-hybrid-content-distribution-for-interactive-video-on-demand/
+  - /blog/2008/09/16/a-case-for-hybrid-content-distribution-for-interactive-video-on-demand/
 ---
 Andrew MacQuire, Andrew Brampton, Nicholas J. P. Race, Laurent Mathy, Michael Fry
 

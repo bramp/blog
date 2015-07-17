@@ -125,7 +125,7 @@ if __name__ == '__main__':
  [2]: http://www.python.org/
  [3]: http://code.google.com/p/dpkt/
  [4]: http://groups.google.com/group/dpkt/browse_thread/thread/5315199f9749b91a
- [5]: dpkt-pcap-snaplen.patch
- [6]: dpkt-http-len.patch
- [7]: dpkt-http-gz.patch
+ [5]: /patches/dpkt-pcap-snaplen.patch
+ [6]: /patches/dpkt-http-len.patch
+ [7]: /patches/dpkt-http-gz.patch
  

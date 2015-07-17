@@ -5,6 +5,8 @@ layout: page
 date: 2013-02-16
 slug: /
 weight: 1
+aliases:
+  - /blog/publications/
 ---
 Most of the LaTeX for these publications, as well as associated conference presentations can be found at [github.com/bramp/publication][1].
 

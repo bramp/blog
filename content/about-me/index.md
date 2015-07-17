@@ -5,7 +5,8 @@ layout: page
 date: 2009-09-20
 weight: 1
 aliases:
-  - /about/
+  - /blog/about/
+  - /blog/about-me/
 ---
 
 Andrew Brampton Ph.D lives in the Bay Area, previously lived in Washington DC, but is originally from the United Kingdom. Enjoys playing with new technologies, loves working on large scale, high performance applications. Currently works at Google on the Android/Play SRE teams.

@@ -8,7 +8,7 @@ categories:
 tags:
   - stealthdht
 aliases:
-  - /2006/12/01/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/
+  - /blog/2006/12/01/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/
 ---
 Andrew Brampton, Andrew MacQuire, Idris A. Rai, Nicholas J. P. Race, and Laurent Mathy.
 

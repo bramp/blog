@@ -8,7 +8,7 @@ categories:
 tags:
   - stealthdht
 aliases:
-  - /2006/03/01/performance-analysis-of-stealth-dht-with-mobile-nodes/
+  - /blog/2006/03/01/performance-analysis-of-stealth-dht-with-mobile-nodes/
 ---
 Andrew MacQuire, Andrew Brampton, Idris A. Rai, and Laurent Mathy.
 

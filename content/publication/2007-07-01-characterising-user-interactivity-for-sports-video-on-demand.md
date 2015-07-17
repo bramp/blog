@@ -9,7 +9,7 @@ tags:
   - CDN
   - VOD
 aliases:
-  - /2007/07/01/characterising-user-interactivity-for-sports-video-on-demand/
+  - /blog/2007/07/01/characterising-user-interactivity-for-sports-video-on-demand/
 ---
 Andrew Brampton, Andrew MacQuire, Idris A. Rai, Nicholas J. P. Race, Laurent Mathy, and Michael Fry.
 
