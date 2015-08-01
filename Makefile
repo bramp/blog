@@ -1,4 +1,4 @@
-.PHONY: all clean minified server watch
+.PHONY: all clean minified server watch help
 
 HUGO := ./hugo.sh
 HTML_MINIFIER := html-minifier -c html-minifier.conf
@@ -33,3 +33,16 @@ public: $(FILES) config.yaml
 .minified: public html-minifier.conf
 	find public -type f -iname '*.html' | parallel --tag $(HTML_MINIFIER) "{}" -o "{}"
 	touch .minified
+
+help:
+	@echo "Builds bramp.net's blog"
+	@echo ""
+	@echo "Usage: make <command>"
+	@echo "  all     Builds the blog and minifies it"
+	@echo "  clean   Cleans all build files"
+	@echo "  server  Runs a webserver on port 1313 to test the final minified result"
+	@echo "  watch   Runs hugo in watch mode, waiting for changes"
+	@echo ""
+	@echo "New article:"
+	@echo "  hugo new post/the_title"
+	@echo "  $EDITOR content/post/the_title"
