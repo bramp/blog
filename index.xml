@@ -6,8 +6,82 @@
     <description>Recent content on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Sun, 21 Dec 2014 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 01 Aug 2015 12:24:59 -0700</lastBuildDate>
     <atom:link href="http://blog.bramp.net/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Decompile and Recompile Android APK</title>
+      <link>http://blog.bramp.net/post/2015/08/01/decompile-and-recompile-android-apk/</link>
+      <pubDate>Sat, 01 Aug 2015 12:24:59 -0700</pubDate>
+      
+      <guid>http://blog.bramp.net/post/2015/08/01/decompile-and-recompile-android-apk/</guid>
+      <description>
+
+&lt;p&gt;I had the need to take an existing &lt;a href=&#34;https://en.wikipedia.org/wiki/Android_application_package&#34;&gt;Android APK&lt;/a&gt;, tweak it, and rebuild. This is not too difficult, but I did have to download the tools from a few different sites, and find a full list of instructions. Thus to make this easier, here is a quick recap of what&amp;rsquo;s needed.&lt;/p&gt;
+
+&lt;p&gt;Download the following:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://ibotpeaches.github.io/Apktool/&#34;&gt;apktool&lt;/a&gt; - tool for reverse engineering Android apk files. In this case can extract and rebuild.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.oracle.com/javase/8/docs/technotes/tools/unix/keytool.html&#34;&gt;keytool&lt;/a&gt; - Java tool for creating keys/certs. Comes with the JDK.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jarsigner.html&#34;&gt;jarsigner&lt;/a&gt; Java tool for signing JAR/APK files. Comes with the JDK.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.android.com/tools/help/zipalign.html&#34;&gt;zipalign&lt;/a&gt; - archive alignment tool, that comes with the Android SDK.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Some extras:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://jd.benow.ca/&#34;&gt;JD-GUI&lt;/a&gt; - Java Decompiler&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/pxb1988/dex2jar&#34;&gt;dex2jar&lt;/a&gt; - Converts Android dex files to class/jar files.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;instructions:096e0b1b76096499632c44bee24eac64&#34;&gt;Instructions:&lt;/h2&gt;
+
+&lt;p&gt;We assume you are on a Linux or Mac, but this will work (with some tweaking) on Windows. Install a recent Java JDK, then the &lt;a href=&#34;https://developer.android.com/sdk/installing/index.html?pkg=tools&#34;&gt;Stand-alone Android SDK&lt;/a&gt;, and finally &lt;a href=&#34;http://ibotpeaches.github.io/Apktool/&#34;&gt;apktool&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Optionally setup some alias:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nb&#34;&gt;alias &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;apktool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;java -jar ~/bin/apktool_2.0.1.jar&amp;#39;&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;alias &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;dex2jar&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;~/bin/dex2jar-2.0/d2j-dex2jar.sh&amp;#39;&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;alias &lt;/span&gt;jd-gui&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;java -jar ~/bin/jd-gui-1.3.0.jar&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;First, unpack the application.apk file. This will create a &amp;ldquo;application&amp;rdquo; directory with assets, resources, compiled code, etc.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;apktool d -r -s application.apk
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now poke around, and edit any of the files in the application directory. If you wish to decompile any java you can do the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;# Convert the Dex files into standard class files&lt;/span&gt;
+d2j-dex2jar.sh application/classes.dex
+
+&lt;span class=&#34;c&#34;&gt;# Now use the JD (Java Decompiler) to inspect the source&lt;/span&gt;
+jd-gui classes-dex2jar.jar
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Once you have made your changes, you need to repack the APK. This will create a &lt;code&gt;my_application.apk&lt;/code&gt; file:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;apktool b -f -d application
+mv application/dist/application.apk my_application.apk
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The APK must be signed before it will run on a device. Create a key if you don&amp;rsquo;t have an existing one. If prompted for a password, enter anything (but remember it).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;keytool -genkey -v -keystore my-release-key.keystore -alias alias_name &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+                   -keyalg RSA -keysize &lt;span class=&#34;m&#34;&gt;2048&lt;/span&gt; -validity 10000
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now sign the APK with the key:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;# Sign the apk&lt;/span&gt;
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore my_application.apk alias_name
+
+&lt;span class=&#34;c&#34;&gt;# Verify apk&lt;/span&gt;
+jarsigner -verify -verbose -certs my_application.apk
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Finally, the apk must be aligned for optimal loading:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;zipalign -v &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; my_application.apk my_application-aligned.apk
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Voila, now you have a &lt;code&gt;my_application-aligned.apk&lt;/code&gt; file, which you can side load onto your device.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>NationJS talk on NodeJs now on Vimeo</title>
@@ -542,36 +616,6 @@ The slides can be found here: &lt;a href=&#34;https://bramp.github.io/nodewii-ta
 &lt;p&gt;Create the script as /etc/init.d/pt-kill, and change the pt-kill command in the middle of the script to suit your needs. Then run &amp;#8216;chkconfig &amp;#8211;level 345 pt-kill on&amp;#8217; to ensure this script starts up at boot. Alternatively test the script with &amp;#8216;/etc/init.d/pt-kill start&amp;#8217; or &amp;#8216;/etc/init.d/pt-kill stop&amp;#8217;.&lt;/p&gt;
 
 &lt;p&gt;Thanks to &lt;a href=&#34;http://www.mysqldiary.com/you-must-have-a-killer-in-your-system/&#34;&gt;MySQL Diary&lt;/a&gt; as they provided their default pt-kill command line. Perhaps in future someone could create a more generic startup script.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Using Make to parallelise a task</title>
-      <link>http://blog.bramp.net/post/2012/09/09/using-make-to-parallelise-a-task/</link>
-      <pubDate>Sun, 09 Sep 2012 00:00:00 +0000</pubDate>
-      
-      <guid>http://blog.bramp.net/post/2012/09/09/using-make-to-parallelise-a-task/</guid>
-      <description>&lt;p&gt;I needed to run a CPU intensive script over a directory of files. Each file would be run independently, and I was using bash to achieve this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt; in *.txt&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; ./script &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;This works fine, however, I have a quad core machine, and this task was CPU bound on one core. So I thought about parallelising this task so the script would run on four files at once. I didn&amp;#8217;t want to get into the nitty gritty of changing the script to cope in this way, so instead, I &amp;#8220;abused&amp;#8221; Make to do this.&lt;/p&gt;
-
-&lt;p&gt;I created a file named &amp;#8220;Makefile&amp;#8221; with the following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nv&#34;&gt;FILES&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;shell ls *.txt&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
-
-&lt;span class=&#34;c&#34;&gt;#default target of everything&lt;/span&gt;
-&lt;span class=&#34;nf&#34;&gt;all&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;FILES&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
-
-&lt;span class=&#34;nf&#34;&gt;$(FILES)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
-	./script &lt;span class=&#34;nv&#34;&gt;$@&lt;/span&gt;
-
-&lt;span class=&#34;nf&#34;&gt;.PHONY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;all&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;FILES&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;then you just run &lt;code&gt;make -j4&lt;/code&gt;, and four instances of the script will start running, with the concurrency being handled by Make. You can also now type &lt;code&gt;make a.txt b.txt c.txt&lt;/code&gt; and it&amp;#8217;ll just run the script on those three files.&lt;/p&gt;
-
-&lt;p&gt;You can also extend this Makefile to handle dependencies, such as running a script before all the others. Make is pretty powerful, and should be considered for more than just compiling programs.&lt;/p&gt;
 </description>
     </item>
     
