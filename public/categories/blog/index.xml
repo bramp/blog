@@ -6,8 +6,84 @@
     <description>Recent content in Blog on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Sat, 01 Aug 2015 12:24:59 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 01 Aug 2015 14:02:29 -0700</lastBuildDate>
     <atom:link href="https://blog.bramp.net/categories/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Hugo Makefile</title>
+      <link>https://blog.bramp.net/post/2015/08/01/hugo-makefile/</link>
+      <pubDate>Sat, 01 Aug 2015 14:02:29 -0700</pubDate>
+      
+      <guid>https://blog.bramp.net/post/2015/08/01/hugo-makefile/</guid>
+      <description>&lt;p&gt;While developing my blog using &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt;, I created a simple Makefile to help automate some steps. Hopefully someone else will find this useful:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nf&#34;&gt;.PHONY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;all&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;clean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minified&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;server&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;watch&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;help&lt;/span&gt;
+
+&lt;span class=&#34;nv&#34;&gt;HUGO&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; hugo
+&lt;span class=&#34;nv&#34;&gt;HTML_MINIFIER&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; html-minifier -c html-minifier.conf
+
+&lt;span class=&#34;c&#34;&gt;# All input files&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;FILES&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;shell find content layouts static themes -type f&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+
+&lt;span class=&#34;c&#34;&gt;# Below are PHONY targets&lt;/span&gt;
+&lt;span class=&#34;nf&#34;&gt;all&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minified&lt;/span&gt;
+
+&lt;span class=&#34;nf&#34;&gt;help&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
+	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;Usage: make &amp;lt;command&amp;gt;&amp;quot;&lt;/span&gt;
+	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;  all     Builds the blog and minifies it&amp;quot;&lt;/span&gt;
+	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;  clean   Cleans all build files&amp;quot;&lt;/span&gt;
+	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;  server  Runs a webserver on port 1313 to test the final minified result&amp;quot;&lt;/span&gt;
+	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;  watch   Runs hugo in watch mode, waiting for changes&amp;quot;&lt;/span&gt;
+	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;&amp;quot;&lt;/span&gt;
+	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;New article:&amp;quot;&lt;/span&gt;
+	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;  hugo new post/the_title&amp;quot;&lt;/span&gt;
+	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;  &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$$&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;EDITOR content/post/the_title.md&amp;quot;&lt;/span&gt;
+	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;  make watch&amp;quot;&lt;/span&gt;
+	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;  open &amp;quot;&lt;/span&gt;
+
+&lt;span class=&#34;nf&#34;&gt;clean&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
+	-rm -rf public
+	-rm .minified
+
+&lt;span class=&#34;nf&#34;&gt;minified&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; .&lt;span class=&#34;n&#34;&gt;minified&lt;/span&gt;
+
+&lt;span class=&#34;nf&#34;&gt;server&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;public&lt;/span&gt;
+	&lt;span class=&#34;nb&#34;&gt;cd &lt;/span&gt;public &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; python -m SimpleHTTPServer 1313
+
+&lt;span class=&#34;nf&#34;&gt;watch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;clean&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;HUGO&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; server -w
+
+&lt;span class=&#34;c&#34;&gt;# Below are file based targets&lt;/span&gt;
+&lt;span class=&#34;nf&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;FILES&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;.&lt;span class=&#34;n&#34;&gt;yaml&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;HUGO&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+
+&lt;span class=&#34;c&#34;&gt;	# Post process some files (to make the HTML more bootstrap friendly)&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;	# Add a table class to all tables&lt;/span&gt;
+	grep -IR --include&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;*.html --null -l -- &lt;span class=&#34;s2&#34;&gt;&amp;quot;&amp;lt;table&amp;quot;&lt;/span&gt; public/ &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; xargs -0 sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/&amp;lt;table/&amp;lt;table class=&amp;quot;table&amp;quot;/g&amp;#39;&lt;/span&gt;
+
+&lt;span class=&#34;c&#34;&gt;	# Replace &amp;quot;align=...&amp;quot;&amp;quot; with class=&amp;quot;test-...&amp;quot;&lt;/span&gt;
+	grep -IR --include&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;*.html --null -l -- &lt;span class=&#34;s2&#34;&gt;&amp;quot;&amp;lt;th&amp;quot;&lt;/span&gt; public/ &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; xargs -0 sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/&amp;lt;th align=&amp;quot;/&amp;lt;th class=&amp;quot;text-/g&amp;#39;&lt;/span&gt;
+	grep -IR --include&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;*.html --null -l -- &lt;span class=&#34;s2&#34;&gt;&amp;quot;&amp;lt;td&amp;quot;&lt;/span&gt; public/ &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; xargs -0 sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/&amp;lt;td align=&amp;quot;/&amp;lt;td class=&amp;quot;text-/g&amp;#39;&lt;/span&gt;
+
+&lt;span class=&#34;c&#34;&gt;	# Ensure the public folder has it&amp;#39;s mtime updated.&lt;/span&gt;
+	touch &lt;span class=&#34;nv&#34;&gt;$@&lt;/span&gt;
+
+&lt;span class=&#34;nf&#34;&gt;.minified&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;html&lt;/span&gt;-&lt;span class=&#34;n&#34;&gt;minifier&lt;/span&gt;.&lt;span class=&#34;n&#34;&gt;conf&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;	# Find all HTML and in parallel run the minifier&lt;/span&gt;
+	find public -type f -iname &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.html&amp;#39;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; parallel --tag &lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;HTML_MINIFIER&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;{}&amp;quot;&lt;/span&gt; -o &lt;span class=&#34;s2&#34;&gt;&amp;quot;{}&amp;quot;&lt;/span&gt;
+	touch .minified
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The latest version is always checked into github &lt;a href=&#34;https://github.com/bramp/blog&#34;&gt;with my blog&lt;/a&gt;, but the above is easy to copy and paste.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;make help&lt;/code&gt; reminds me of the commands when I need it.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;make all&lt;/code&gt; executes hugo to build the site, then I run the generated HTML through a &lt;a href=&#34;https://www.npmjs.com/package/html-minifier&#34;&gt;minifier&lt;/a&gt;, and do some other minor tweaks.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;make clean&lt;/code&gt; deletes all previously generated files, which may help delete files lingering around.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;make server&lt;/code&gt; starts a web server serving a static copy of the minified result.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;make watch&lt;/code&gt; also starts a web server, but directly from hugo that will live reload as you make changes. The main difference is this output isn&amp;rsquo;t minified.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Decompile and Recompile Android APK</title>
@@ -543,79 +619,6 @@ The slides can be found here: &lt;a href=&#34;https://bramp.github.io/nodewii-ta
 &lt;p&gt;It&amp;#8217;s all pretty neat, but each application needed to add libcec support, which means many applications do not support this little adapter. So I decided to write a simple uinput daemon that bridged Linux input events, and this CEC device. My project, &lt;a href=&#34;https://github.com/bramp/libcec-daemon&#34;&gt;libcec-daemon&lt;/a&gt;, has been &lt;a href=&#34;http://forums.pulse-eight.com/default.aspx?g=posts&amp;amp;t=430&#34;&gt;available for many months&lt;/a&gt; now, and I&amp;#8217;ve been using it successfully on my television. I just had forgotten to write a quick blog post about it :)&lt;/p&gt;
 
 &lt;p&gt;So please check it out, and support the great guys at Pulse Eight.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>pt-kill CentOS init.d script</title>
-      <link>https://blog.bramp.net/post/2012/09/30/pt-kill-centos-init.d-script/</link>
-      <pubDate>Sun, 30 Sep 2012 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bramp.net/post/2012/09/30/pt-kill-centos-init.d-script/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://www.percona.com/doc/percona-toolkit/2.1/pt-kill.html&#34;&gt;pt-kill&lt;/a&gt; is a neat little application that can stop long running MySQL queries. It was formally know as &lt;a href=&#34;http://www.maatkit.org/doc/mk-kill.html&#34;&gt;mk-kill&lt;/a&gt; before &lt;a href=&#34;http://www.Percona.com&#34;&gt;Percona&lt;/a&gt; took over the project. Here is the init.d script I use (as one doesn&amp;#8217;t seem provided by the project):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;#!/bin/sh&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;#&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# pt-kill   This shell script takes care of starting and stopping&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;#               the pt-kill services.&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;#&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# chkconfig: - 60 20&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# description: pt-kill stops long running MySQL queries&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;#&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# probe: true&lt;/span&gt;
-
-&lt;span class=&#34;c&#34;&gt;# Source function library.&lt;/span&gt;
-. /etc/rc.d/init.d/functions
-
-&lt;span class=&#34;nv&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0
-
-&lt;span class=&#34;c&#34;&gt;# See how we were called.&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;case&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$1&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; in
-  start&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; -n &lt;span class=&#34;s2&#34;&gt;$&amp;quot;Starting pt-kill: &amp;quot;&lt;/span&gt;
- 
-    pt-kill &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --pid /var/run/pt-kill.pid &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --daemonize &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --interval &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --busy-time &lt;span class=&#34;m&#34;&gt;60&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --wait-after-kill &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;  &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --ignore-info &lt;span class=&#34;s1&#34;&gt;&amp;#39;(?i-smx:^insert|^update|^delete|^load)&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --match-info &lt;span class=&#34;s1&#34;&gt;&amp;#39;(?i-xsm:select)&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --ignore-user &lt;span class=&#34;s1&#34;&gt;&amp;#39;(?i-xsm:root)&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --log /var/log/mysql-kill.log &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --print &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --execute-command &lt;span class=&#34;s1&#34;&gt;&amp;#39;(echo &amp;quot;Subject: pt-kill query found on `hostname`&amp;quot;; tail -1 /var/log/mysql-kill.log)|/usr/sbin/sendmail -t you@example.com&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --kill-query
- 
-    &lt;span class=&#34;nv&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$?&lt;/span&gt;
-    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$RETVAL&lt;/span&gt; -ne &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$RETVAL&lt;/span&gt;
- 
-  &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
-  stop&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;c&#34;&gt;# Stop daemons.&lt;/span&gt;
-        &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; -n &lt;span class=&#34;s2&#34;&gt;$&amp;quot;Shutting down pt-kill: &amp;quot;&lt;/span&gt;
-        killproc pt-kill
-        &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt;
-    &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
-  restart&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-    &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt; stop
-        &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt; start
-        &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
-  *&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;$&amp;quot;Usage: pt-kill {start|stop}&amp;quot;&lt;/span&gt;
-        &lt;span class=&#34;nv&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;3
-        &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;esac&lt;/span&gt;
- 
-&lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$RETVAL&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Usage:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Create the script as /etc/init.d/pt-kill, and change the pt-kill command in the middle of the script to suit your needs. Then run &amp;#8216;chkconfig &amp;#8211;level 345 pt-kill on&amp;#8217; to ensure this script starts up at boot. Alternatively test the script with &amp;#8216;/etc/init.d/pt-kill start&amp;#8217; or &amp;#8216;/etc/init.d/pt-kill stop&amp;#8217;.&lt;/p&gt;
-
-&lt;p&gt;Thanks to &lt;a href=&#34;http://www.mysqldiary.com/you-must-have-a-killer-in-your-system/&#34;&gt;MySQL Diary&lt;/a&gt; as they provided their default pt-kill command line. Perhaps in future someone could create a more generic startup script.&lt;/p&gt;
 </description>
     </item>
     
