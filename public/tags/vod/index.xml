@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Vod on bramp.net</title>
-    <link>http://blog.bramp.net/tags/vod/</link>
+    <link>https://blog.bramp.net/tags/vod/</link>
     <description>Recent content in Vod on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 16 Sep 2008 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://blog.bramp.net/tags/vod/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.bramp.net/tags/vod/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>A Case for Hybrid Content Distribution for Interactive Video-on-Demand</title>
-      <link>http://blog.bramp.net/publication/a-case-for-hybrid-content-distribution-for-interactive-video-on-demand/</link>
+      <link>https://blog.bramp.net/publication/a-case-for-hybrid-content-distribution-for-interactive-video-on-demand/</link>
       <pubDate>Tue, 16 Sep 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/publication/a-case-for-hybrid-content-distribution-for-interactive-video-on-demand/</guid>
+      <guid>https://blog.bramp.net/publication/a-case-for-hybrid-content-distribution-for-interactive-video-on-demand/</guid>
       <description>&lt;p&gt;Andrew MacQuire, Andrew Brampton, Nicholas J. P. Race, Laurent Mathy, Michael Fry&lt;/p&gt;
 
 &lt;p&gt;In proceedings of Next Generation Mobile Applications, Services and Technologies (NGMAST&amp;rsquo;08)&lt;/p&gt;
@@ -31,10 +31,10 @@
     
     <item>
       <title>Characterising and Exploiting Workloads of Highly Interactive Video-on-Demand</title>
-      <link>http://blog.bramp.net/publication/characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand/</link>
+      <link>https://blog.bramp.net/publication/characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand/</link>
       <pubDate>Tue, 20 May 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/publication/characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand/</guid>
+      <guid>https://blog.bramp.net/publication/characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand/</guid>
       <description>&lt;p&gt;Andrew Brampton, Andrew MacQuire, Michael Fry, Idris A. Rai, Nicholas J. P. Race, Laurent Mathy.&lt;/p&gt;
 
 &lt;p&gt;In journal of Multimedia Systems (2008 Volume 15, Issue 1)&lt;/p&gt;
@@ -53,10 +53,10 @@
     
     <item>
       <title>Characterising user interactivity for sports video-on-demand</title>
-      <link>http://blog.bramp.net/publication/characterising-user-interactivity-for-sports-video-on-demand/</link>
+      <link>https://blog.bramp.net/publication/characterising-user-interactivity-for-sports-video-on-demand/</link>
       <pubDate>Sun, 01 Jul 2007 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/publication/characterising-user-interactivity-for-sports-video-on-demand/</guid>
+      <guid>https://blog.bramp.net/publication/characterising-user-interactivity-for-sports-video-on-demand/</guid>
       <description>&lt;p&gt;Andrew Brampton, Andrew MacQuire, Idris A. Rai, Nicholas J. P. Race, Laurent Mathy, and Michael Fry.&lt;/p&gt;
 
 &lt;p&gt;In proceedings of the International workshop on Network and Operating Systems Support for Digital Audio &amp;amp; Video (NOSSDAV&amp;#8217;07)&lt;/p&gt;

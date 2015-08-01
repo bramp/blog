@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Threads on bramp.net</title>
-    <link>http://blog.bramp.net/tags/threads/</link>
+    <link>https://blog.bramp.net/tags/threads/</link>
     <description>Recent content in Threads on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Mon, 17 Oct 2011 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://blog.bramp.net/tags/threads/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.bramp.net/tags/threads/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>My experiences with developing multi-threaded nodejs addon</title>
-      <link>http://blog.bramp.net/post/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/</link>
+      <link>https://blog.bramp.net/post/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/</link>
       <pubDate>Mon, 17 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/</guid>
+      <guid>https://blog.bramp.net/post/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/</guid>
       <description>
 
 &lt;p&gt;I&amp;#8217;ve been modifying an &lt;a href=&#34;https://github.com/tbranyen/nodewii&#34;&gt;existing nodejs extension&lt;/a&gt;, that wraps &lt;a href=&#34;http://abstrakraft.org/cwiid/wiki/libcwiid&#34;&gt;libcwiid&lt;/a&gt; (a C library written to interface with a &lt;a href=&#34;http://en.wikipedia.org/wiki/Wii_Remote&#34;&gt;Wiimote&lt;/a&gt;). This extension uses polling to check if the state of the Wiimote has changed (such as a button being pressed). Libcwiid however provides a callback mechanism to be alerted as soon as a state change occurs. This has the benefit of being instantaneous, instead of at the polling interval.&lt;/p&gt;

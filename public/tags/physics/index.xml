@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Physics on bramp.net</title>
-    <link>http://blog.bramp.net/tags/physics/</link>
+    <link>https://blog.bramp.net/tags/physics/</link>
     <description>Recent content in Physics on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Wed, 14 Jul 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://blog.bramp.net/tags/physics/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.bramp.net/tags/physics/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Iteratively Solving Time Travel</title>
-      <link>http://blog.bramp.net/post/2010/07/14/iteratively-solving-time-travel/</link>
+      <link>https://blog.bramp.net/post/2010/07/14/iteratively-solving-time-travel/</link>
       <pubDate>Wed, 14 Jul 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2010/07/14/iteratively-solving-time-travel/</guid>
+      <guid>https://blog.bramp.net/post/2010/07/14/iteratively-solving-time-travel/</guid>
       <description>&lt;p&gt;I recently watched the film &lt;a href=&#34;http://www.imdb.com/title/tt0480669/&#34;&gt;Timecrimes&lt;/a&gt;, which got me thinking about the theories of time travel. Now I&amp;#8217;m not a physics expert, but I have thought about these ideas for a while now and thought it was time to write them done.&lt;/p&gt;
 
 &lt;p&gt;I&amp;#8217;ll try not to spoil the film if you haven&amp;#8217;t already seen it, but this discussion might give away too much. The general idea in the film was the main character Hector was chased into a time machine and was made to travel back a few hours in time. The film did a good job of explaining this to the viewer with the aid of a diagram and naming of the Hectors. I have reproduced their diagram and will use it for my discussion.&lt;/p&gt;

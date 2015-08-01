@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Make on bramp.net</title>
-    <link>http://blog.bramp.net/tags/make/</link>
+    <link>https://blog.bramp.net/tags/make/</link>
     <description>Recent content in Make on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 09 Sep 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://blog.bramp.net/tags/make/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.bramp.net/tags/make/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Using Make to parallelise a task</title>
-      <link>http://blog.bramp.net/post/2012/09/09/using-make-to-parallelise-a-task/</link>
+      <link>https://blog.bramp.net/post/2012/09/09/using-make-to-parallelise-a-task/</link>
       <pubDate>Sun, 09 Sep 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2012/09/09/using-make-to-parallelise-a-task/</guid>
+      <guid>https://blog.bramp.net/post/2012/09/09/using-make-to-parallelise-a-task/</guid>
       <description>&lt;p&gt;I needed to run a CPU intensive script over a directory of files. Each file would be run independently, and I was using bash to achieve this:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt; in *.txt&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; ./script &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Android-apps on bramp.net</title>
-    <link>http://blog.bramp.net/android-app/</link>
+    <link>https://blog.bramp.net/android-app/</link>
     <description>Recent content in Android-apps on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Wed, 02 May 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://blog.bramp.net/android-app/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.bramp.net/android-app/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>MusicGrid</title>
-      <link>http://blog.bramp.net/android-app/musicgrid/</link>
+      <link>https://blog.bramp.net/android-app/musicgrid/</link>
       <pubDate>Wed, 02 May 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/android-app/musicgrid/</guid>
+      <guid>https://blog.bramp.net/android-app/musicgrid/</guid>
       <description>&lt;div class=&#34;pull-right text-center&#34;&gt;
   &lt;a href=&#34;https://play.google.com/store/apps/details?id=net.bramp.musicgrid&#34;&gt;&lt;img src=&#34;https://chart.googleapis.com/chart?cht=qr&amp;chs=150x150&amp;chl=https://play.google.com/store/apps/details?id=net.bramp.musicgrid&#34; alt=&#34;&#34; width=&#34;150&#34; height=&#34;150&#34; /&gt;&lt;br /&gt; Download Me (for free!)&lt;br /&gt; &lt;/a&gt;
 &lt;/div&gt;
@@ -27,10 +27,10 @@
     
     <item>
       <title>Finder Framework</title>
-      <link>http://blog.bramp.net/android-app/finder/</link>
+      <link>https://blog.bramp.net/android-app/finder/</link>
       <pubDate>Sun, 29 Apr 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/android-app/finder/</guid>
+      <guid>https://blog.bramp.net/android-app/finder/</guid>
       <description>
 
 &lt;p&gt;This framework is able to display lists of specific locations, be it restaurant chains, coffee shops, offices, or anything else! These locations are stored in a local database, so no Internet connection is needed.&lt;/p&gt;
@@ -46,7 +46,7 @@
 &lt;li&gt;Get directions to a specific location.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;So far this framework is used by one application, &lt;a href=&#34;http://blog.bramp.net/android-app/nandos-finder/&#34; title=&#34;Nando’s Finder&#34;&gt;Nando&amp;#8217;s Finder&lt;/a&gt;. If you are interested in using this framework or have suggestions on what other apps I could make then please &lt;a href=&#34;http://blog.bramp.net/about-me/&#34;&gt;contact me&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;So far this framework is used by one application, &lt;a href=&#34;https://blog.bramp.net/android-app/nandos-finder/&#34; title=&#34;Nando’s Finder&#34;&gt;Nando&amp;#8217;s Finder&lt;/a&gt;. If you are interested in using this framework or have suggestions on what other apps I could make then please &lt;a href=&#34;https://blog.bramp.net/about-me/&#34;&gt;contact me&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h3 id=&#34;versions:5d16a816d5958952f0004b98ca716fec&#34;&gt;Versions&lt;/h3&gt;
 
@@ -69,10 +69,10 @@
     
     <item>
       <title>Nando’s Finder</title>
-      <link>http://blog.bramp.net/android-app/nandos-finder/</link>
+      <link>https://blog.bramp.net/android-app/nandos-finder/</link>
       <pubDate>Sun, 29 Apr 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/android-app/nandos-finder/</guid>
+      <guid>https://blog.bramp.net/android-app/nandos-finder/</guid>
       <description>
 
 &lt;div class=&#34;pull-right text-center&#34;&gt;
@@ -95,10 +95,10 @@
     
     <item>
       <title>Scorer for Android</title>
-      <link>http://blog.bramp.net/android-app/scorer/</link>
+      <link>https://blog.bramp.net/android-app/scorer/</link>
       <pubDate>Sun, 29 Apr 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/android-app/scorer/</guid>
+      <guid>https://blog.bramp.net/android-app/scorer/</guid>
       <description>
 
 &lt;div class=&#34;pull-right text-center&#34;&gt;
@@ -118,7 +118,7 @@
 &lt;li&gt;Free!&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;If you love or hate this app, or have any suggestions then feel free to &lt;a href=&#34;http://blog.bramp.net/about-me/&#34;&gt;contact me&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If you love or hate this app, or have any suggestions then feel free to &lt;a href=&#34;https://blog.bramp.net/about-me/&#34;&gt;contact me&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h3 id=&#34;screenshots:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Screenshots&lt;/h3&gt;
 

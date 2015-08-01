@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Threadnetperf on bramp.net</title>
-    <link>http://blog.bramp.net/tags/threadnetperf/</link>
+    <link>https://blog.bramp.net/tags/threadnetperf/</link>
     <description>Recent content in Threadnetperf on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Mon, 01 Jun 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://blog.bramp.net/tags/threadnetperf/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.bramp.net/tags/threadnetperf/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Threadnetperf v1.0</title>
-      <link>http://blog.bramp.net/post/2009/06/01/threadnetperf-v1.0/</link>
+      <link>https://blog.bramp.net/post/2009/06/01/threadnetperf-v1.0/</link>
       <pubDate>Mon, 01 Jun 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2009/06/01/threadnetperf-v1.0/</guid>
+      <guid>https://blog.bramp.net/post/2009/06/01/threadnetperf-v1.0/</guid>
       <description>&lt;p&gt;Today I am proud to announce that I&amp;#8217;m releasing a tool I&amp;#8217;ve used privately for well over a year now. It is a multi-threaded network testing tool which gives the user great control over how many connections, threads and processes the tool uses, and which CPU cores the threads/processes are allowed to execute on.&lt;/p&gt;
 
 &lt;p&gt;Currently the tool runs on Linux, FreeBSD, and Windows, and has performance as good as (if not better) than other similar tools, such as netperf, iperf, but with the added flexibility. Additionally, Threadnetperf has been completely written from scratch in C, using modern programming techniques and APIs (such as ePoll on Linux) which ensures the program runs as far as possible with minimal overheads.&lt;/p&gt;

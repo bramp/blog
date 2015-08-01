@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Opendns on bramp.net</title>
-    <link>http://blog.bramp.net/tags/opendns/</link>
+    <link>https://blog.bramp.net/tags/opendns/</link>
     <description>Recent content in Opendns on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Fri, 04 Dec 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://blog.bramp.net/tags/opendns/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.bramp.net/tags/opendns/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Google DNS Benchmarked</title>
-      <link>http://blog.bramp.net/post/2009/12/04/google-dns-benchmarked/</link>
+      <link>https://blog.bramp.net/post/2009/12/04/google-dns-benchmarked/</link>
       <pubDate>Fri, 04 Dec 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2009/12/04/google-dns-benchmarked/</guid>
+      <guid>https://blog.bramp.net/post/2009/12/04/google-dns-benchmarked/</guid>
       <description>
 
 &lt;p&gt;Today &lt;a href=&#34;http://googleblog.blogspot.com/2009/12/introducing-google-public-dns.html&#34;&gt;Google announced&lt;/a&gt; a public DNS service they are hosting. They claim that their DNS infrastructure is &lt;a href=&#34;http://code.google.com/speed/public-dns/docs/performance.html&#34;&gt;faster and more secure&lt;/a&gt;, because their servers do some clever things. I wanted to test their performance claims, so I wrote a &lt;a href=&#34;dns.php&#34;&gt;little script&lt;/a&gt; to measure a lookup times for different domains across a number of DNS servers.&lt;/p&gt;

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Grub2 on bramp.net</title>
-    <link>http://blog.bramp.net/tags/grub2/</link>
+    <link>https://blog.bramp.net/tags/grub2/</link>
     <description>Recent content in Grub2 on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Thu, 10 Sep 2009 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://blog.bramp.net/tags/grub2/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.bramp.net/tags/grub2/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Grub2 and Windows</title>
-      <link>http://blog.bramp.net/post/2009/09/10/grub2-and-windows/</link>
+      <link>https://blog.bramp.net/post/2009/09/10/grub2-and-windows/</link>
       <pubDate>Thu, 10 Sep 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2009/09/10/grub2-and-windows/</guid>
+      <guid>https://blog.bramp.net/post/2009/09/10/grub2-and-windows/</guid>
       <description>&lt;p&gt;I&amp;#8217;ve just installed grub2 on my Debian laptop, and I wanted to write a quick note on how to get dual booting working. Grub2 seems to have a far more complex configuration system than grub, this may be a good or a bad thing. One feature of this is a /etc/grub.d directory which contains a set of scripts to configure what items should be listed on the boot menu.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;ls /etc/grub.d/
 00_header  05_debian_theme  10_linux  30_os-prober  40_custom  README

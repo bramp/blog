@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Freebsd on bramp.net</title>
-    <link>http://blog.bramp.net/tags/freebsd/</link>
+    <link>https://blog.bramp.net/tags/freebsd/</link>
     <description>Recent content in Freebsd on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Thu, 14 Jan 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://blog.bramp.net/tags/freebsd/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.bramp.net/tags/freebsd/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Installing packages into your user directory</title>
-      <link>http://blog.bramp.net/post/2010/01/14/installing-packages-into-your-user-directory/</link>
+      <link>https://blog.bramp.net/post/2010/01/14/installing-packages-into-your-user-directory/</link>
       <pubDate>Thu, 14 Jan 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2010/01/14/installing-packages-into-your-user-directory/</guid>
+      <guid>https://blog.bramp.net/post/2010/01/14/installing-packages-into-your-user-directory/</guid>
       <description>&lt;p&gt;Today I had the need to install some &lt;a href=&#34;http://www.freebsd.org/&#34;&gt;FreeBSD&lt;/a&gt; and &lt;a href=&#34;http://www.ubuntu.com/&#34;&gt;Ubuntu&lt;/a&gt; packages inside my home directory because I did not have root permissions to install them.&lt;/p&gt;
 
 &lt;p&gt;It was quite simple to install the packages on FreeBSD&lt;/p&gt;
@@ -31,10 +31,10 @@
     
     <item>
       <title>Updating…/-\|/-|</title>
-      <link>http://blog.bramp.net/post/2009/12/19/updating/-%5C/-/</link>
+      <link>https://blog.bramp.net/post/2009/12/19/updating/-%5C/-/</link>
       <pubDate>Sat, 19 Dec 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2009/12/19/updating/-%5C/-/</guid>
+      <guid>https://blog.bramp.net/post/2009/12/19/updating/-%5C/-/</guid>
       <description>&lt;p&gt;Do people other than me find updating their servers to be relaxing? At every opportunity I run &amp;#8220;apt-get update&amp;#8221;. Today I&amp;#8217;m updating 7 different machines simultaneously.&lt;/p&gt;
 
 &lt;p&gt;My Debian machines I simply issue the following commands:&lt;/p&gt;
@@ -53,10 +53,10 @@ portmanager -u
     
     <item>
       <title>Useful scripts/configurations</title>
-      <link>http://blog.bramp.net/post/2009/11/28/useful-scripts/configurations/</link>
+      <link>https://blog.bramp.net/post/2009/11/28/useful-scripts/configurations/</link>
       <pubDate>Sat, 28 Nov 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2009/11/28/useful-scripts/configurations/</guid>
+      <guid>https://blog.bramp.net/post/2009/11/28/useful-scripts/configurations/</guid>
       <description>&lt;p&gt;Make &lt;a href=&#34;http://git-scm.com&#34;&gt;git&lt;/a&gt; colourful&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;git config --global color.diff auto
 git config --global color.status auto
@@ -116,10 +116,10 @@ Edit ~/.subversion/config&lt;/p&gt;
     
     <item>
       <title>FreeBSD Software Watchdog</title>
-      <link>http://blog.bramp.net/post/2009/10/16/freebsd-software-watchdog/</link>
+      <link>https://blog.bramp.net/post/2009/10/16/freebsd-software-watchdog/</link>
       <pubDate>Fri, 16 Oct 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2009/10/16/freebsd-software-watchdog/</guid>
+      <guid>https://blog.bramp.net/post/2009/10/16/freebsd-software-watchdog/</guid>
       <description>&lt;p&gt;Recently I&amp;#8217;ve been doing some kernel hacking and I managed to deadlock my system. The system still responded to pings but the terminal was unresponsive, and it needed a hard reboot to fix. I would have loved to drop into a debugger or panic&amp;#8217;ed the kernel to get a suitable back-trace.&lt;/p&gt;
 
 &lt;p&gt;I found that FreeBSD has a software watchdog feature, that will panic the kernel if a problem like this occurs. The watchdog does not seem to be built into the kernel by default, and I found the documentation a bit lacking. So here is what I did:&lt;/p&gt;
@@ -138,10 +138,10 @@ Edit ~/.subversion/config&lt;/p&gt;
     
     <item>
       <title>memcmp broken in the FreeBSD kernel</title>
-      <link>http://blog.bramp.net/post/2009/08/10/memcmp-broken-in-the-freebsd-kernel/</link>
+      <link>https://blog.bramp.net/post/2009/08/10/memcmp-broken-in-the-freebsd-kernel/</link>
       <pubDate>Mon, 10 Aug 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2009/08/10/memcmp-broken-in-the-freebsd-kernel/</guid>
+      <guid>https://blog.bramp.net/post/2009/08/10/memcmp-broken-in-the-freebsd-kernel/</guid>
       <description>&lt;p&gt;I&amp;#8217;ve spent a day tracking down a bug in a FreeBSD kernel module I&amp;#8217;m developing, and to my surprise the bug was due to memcmp being broken! For those that don&amp;#8217;t know, memcmp is used to compare two byte strings and returns 0 if they are identical, a negative number of the first string is less than the second, and a positive number of the first string is greater than the second.&lt;/p&gt;
 
 &lt;p&gt;However, the implementation of memcmp in the FreeBSD kernel looks like this:&lt;/p&gt;
@@ -172,10 +172,10 @@ Edit ~/.subversion/config&lt;/p&gt;
     
     <item>
       <title>Threadnetperf v1.0</title>
-      <link>http://blog.bramp.net/post/2009/06/01/threadnetperf-v1.0/</link>
+      <link>https://blog.bramp.net/post/2009/06/01/threadnetperf-v1.0/</link>
       <pubDate>Mon, 01 Jun 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2009/06/01/threadnetperf-v1.0/</guid>
+      <guid>https://blog.bramp.net/post/2009/06/01/threadnetperf-v1.0/</guid>
       <description>&lt;p&gt;Today I am proud to announce that I&amp;#8217;m releasing a tool I&amp;#8217;ve used privately for well over a year now. It is a multi-threaded network testing tool which gives the user great control over how many connections, threads and processes the tool uses, and which CPU cores the threads/processes are allowed to execute on.&lt;/p&gt;
 
 &lt;p&gt;Currently the tool runs on Linux, FreeBSD, and Windows, and has performance as good as (if not better) than other similar tools, such as netperf, iperf, but with the added flexibility. Additionally, Threadnetperf has been completely written from scratch in C, using modern programming techniques and APIs (such as ePoll on Linux) which ensures the program runs as far as possible with minimal overheads.&lt;/p&gt;
@@ -273,10 +273,10 @@ please contact us.
     
     <item>
       <title>Compiler defined symbols</title>
-      <link>http://blog.bramp.net/post/2009/03/06/compiler-defined-symbols/</link>
+      <link>https://blog.bramp.net/post/2009/03/06/compiler-defined-symbols/</link>
       <pubDate>Fri, 06 Mar 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2009/03/06/compiler-defined-symbols/</guid>
+      <guid>https://blog.bramp.net/post/2009/03/06/compiler-defined-symbols/</guid>
       <description>&lt;p&gt;I found this neat little command to list all the GCC compiler defined symbols&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;gcc -dM -E - &amp;gt; /dev/null
 &lt;/pre&gt;&lt;/div&gt;
@@ -530,10 +530,10 @@ please contact us.
     
     <item>
       <title>Autoload symbols for FreeBSD kernel module</title>
-      <link>http://blog.bramp.net/post/2009/01/11/autoload-symbols-for-freebsd-kernel-module/</link>
+      <link>https://blog.bramp.net/post/2009/01/11/autoload-symbols-for-freebsd-kernel-module/</link>
       <pubDate>Sun, 11 Jan 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2009/01/11/autoload-symbols-for-freebsd-kernel-module/</guid>
+      <guid>https://blog.bramp.net/post/2009/01/11/autoload-symbols-for-freebsd-kernel-module/</guid>
       <description>&lt;p&gt;When debugging FreeBSD kernel modules with GDB, you have to tell GDB the correct symbols for the module, and the location the module is loaded in RAM. This is helpfully explained in the &lt;a href=&#34;http://www.freebsd.org/doc/en/books/developers-handbook/kerneldebug-kld.html&#34;&gt;FreeBSD Developers&amp;#8217; Handbook&lt;/a&gt;. First you must load the module, then run kldstat, note down the address the module is loaded at, and finally execute a command in GDB that looks like the following.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;add-symbol-file /sys/modules/linux/linux.ko 0xc0ae22d0
 &lt;/pre&gt;&lt;/div&gt;
@@ -573,10 +573,10 @@ please contact us.
     
     <item>
       <title>linuxoffsets for FreeBSD</title>
-      <link>http://blog.bramp.net/post/2009/01/11/linuxoffsets-for-freebsd/</link>
+      <link>https://blog.bramp.net/post/2009/01/11/linuxoffsets-for-freebsd/</link>
       <pubDate>Sun, 11 Jan 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2009/01/11/linuxoffsets-for-freebsd/</guid>
+      <guid>https://blog.bramp.net/post/2009/01/11/linuxoffsets-for-freebsd/</guid>
       <description>&lt;p&gt;VMWare 6 and above has this neat debugging functionality where you can attach gdb running on a host, to a guest running inside VMWare. This allows you to debug a running kernel, or on linux running processes.&lt;/p&gt;
 
 &lt;p&gt;However, VMWare seems to have coded a bit of a hack to allow gdb to understand what process/threads are inside the virtual machine. Now this hack involves using something called linuxoffsets, which provides the offset for certain fields in a linux kernel struct.&lt;/p&gt;

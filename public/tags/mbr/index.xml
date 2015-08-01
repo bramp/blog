@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Mbr on bramp.net</title>
-    <link>http://blog.bramp.net/tags/mbr/</link>
+    <link>https://blog.bramp.net/tags/mbr/</link>
     <description>Recent content in Mbr on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Mon, 30 Aug 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://blog.bramp.net/tags/mbr/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.bramp.net/tags/mbr/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Converting MBR to GPT without deleting your partitions</title>
-      <link>http://blog.bramp.net/post/2010/08/30/converting-mbr-to-gpt-without-deleting-your-partitions/</link>
+      <link>https://blog.bramp.net/post/2010/08/30/converting-mbr-to-gpt-without-deleting-your-partitions/</link>
       <pubDate>Mon, 30 Aug 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2010/08/30/converting-mbr-to-gpt-without-deleting-your-partitions/</guid>
+      <guid>https://blog.bramp.net/post/2010/08/30/converting-mbr-to-gpt-without-deleting-your-partitions/</guid>
       <description>&lt;p&gt;Today I tired to convert my Windows 2TB RAID disk from a &lt;a href=&#34;http://en.wikipedia.org/wiki/Master_boot_record&#34;&gt;master boot record&lt;/a&gt; (MBR) layout to a &lt;a href=&#34;http://en.wikipedia.org/wiki/GUID_Partition_Table&#34;&gt;GUID partition table&lt;/a&gt; (GPT) one. The reason I wanted to swap is that GPT supports partitions larger than 2TB. Normally it is easy to convert a MBR disk to a GPT one by &lt;a href=&#34;http://technet.microsoft.com/en-us/library/cc738416(WS.10).aspx&#34;&gt;using the Disk Management GUI&lt;/a&gt;. However, Microsoft do not allow you to convert you disk if you have any partitions on the disk.&lt;/p&gt;
 
 &lt;p&gt;After some searching I found that you could &lt;a href=&#34;https://bbs.archlinux.org/viewtopic.php?id=62984&#34;&gt;convert the disk non-destructively on Linux&lt;/a&gt;, but due to various reasons, my RAID &lt;a href=&#34;http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=411172&#34;&gt;does not work&lt;/a&gt; inside my Debian Linux :( I had also read a &lt;a href=&#34;http://www.rodsbooks.com/gdisk/mbr2gpt.html&#34;&gt;document outlining how to the conversion works&lt;/a&gt;, and it seems such a simple process I was surprised that Microsoft didn&amp;#8217;t support it.&lt;/p&gt;
