@@ -1,6 +1,7 @@
 baseurl: "http://blog.bramp.net"
 languageCode: "en-gb"
 title: "bramp.net"
+MetaDataFormat: "yaml"
 
 theme: "bramp"
 author:
