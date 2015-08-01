@@ -3,8 +3,13 @@
   
   <url>
     <loc>http://blog.bramp.net/</loc>
-    <lastmod>2014-12-21T00:00:00+00:00</lastmod>
+    <lastmod>2015-08-01T12:24:59-07:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.bramp.net/post/2015/08/01/decompile-and-recompile-android-apk/</loc>
+    <lastmod>2015-08-01T12:24:59-07:00</lastmod>
   </url>
   
   <url>
@@ -123,12 +128,12 @@
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/android-app/finder/</loc>
+    <loc>http://blog.bramp.net/android-app/nandos-finder/</loc>
     <lastmod>2012-04-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/android-app/nandos-finder/</loc>
+    <loc>http://blog.bramp.net/android-app/finder/</loc>
     <lastmod>2012-04-29T00:00:00+00:00</lastmod>
   </url>
   
