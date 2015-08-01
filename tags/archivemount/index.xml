@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Archivemount on bramp.net</title>
-    <link>http://blog.bramp.net/tags/archivemount/</link>
+    <link>https://blog.bramp.net/tags/archivemount/</link>
     <description>Recent content in Archivemount on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Tue, 08 Nov 2011 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://blog.bramp.net/tags/archivemount/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.bramp.net/tags/archivemount/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Archive Mount</title>
-      <link>http://blog.bramp.net/post/2011/11/08/archive-mount/</link>
+      <link>https://blog.bramp.net/post/2011/11/08/archive-mount/</link>
       <pubDate>Tue, 08 Nov 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2011/11/08/archive-mount/</guid>
+      <guid>https://blog.bramp.net/post/2011/11/08/archive-mount/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://en.wikipedia.org/wiki/Archivemount&#34;&gt;Archive Mount&lt;/a&gt; is a &lt;a href=&#34;http://en.wikipedia.org/wiki/Filesystem_in_Userspace&#34;&gt;FUSE application&lt;/a&gt; that allows you to mount any zip/gz/bz/tar file (in fact anything that &lt;a href=&#34;http://code.google.com/p/libarchive/&#34;&gt;libarchive&lt;/a&gt; supports). This is very useful if you don&amp;#8217;t want to get at the files inside a archive without extracting it.&lt;/p&gt;
 
 &lt;p&gt;In my use case I&amp;#8217;m using Archive Mount with a zip file containing 10,000 files. This seemed to be very problematic as Archive Mount would take ~20 seconds to actually mount the zip file, and just as long to run a &amp;#8220;ls&amp;#8221; in the mounted directory.&lt;/p&gt;

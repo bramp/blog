@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on bramp.net</title>
-    <link>http://blog.bramp.net/tags/python/</link>
+    <link>https://blog.bramp.net/tags/python/</link>
     <description>Recent content in Python on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Mon, 24 Jan 2011 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://blog.bramp.net/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.bramp.net/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Intel ucode firmware version parser</title>
-      <link>http://blog.bramp.net/post/2011/01/24/intel-ucode-firmware-version-parser/</link>
+      <link>https://blog.bramp.net/post/2011/01/24/intel-ucode-firmware-version-parser/</link>
       <pubDate>Mon, 24 Jan 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2011/01/24/intel-ucode-firmware-version-parser/</guid>
+      <guid>https://blog.bramp.net/post/2011/01/24/intel-ucode-firmware-version-parser/</guid>
       <description>&lt;p&gt;Out of fun I wrote a simple Python script to pull the version number out of Intel&amp;#8217;s ucode firmware, for example, the firmware used by my wifi driver. I needed this so I could see what version I was running versus a new version I had downloaded from &lt;a href=&#34;http://intellinuxwireless.org/?n=Downloads&#34;&gt;Intel&amp;#8217;s Linux Wireless site&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;So here is the code if anyone finds it interesting:&lt;/p&gt;
@@ -40,10 +40,10 @@ iwlwifi-6050-5.ucode    : ver 41.28.5.1 &lt;span class=&#34;o&#34;&gt;(&lt;/span
     
     <item>
       <title>UTF-8 Directory Listing</title>
-      <link>http://blog.bramp.net/post/2010/09/23/utf-8-directory-listing/</link>
+      <link>https://blog.bramp.net/post/2010/09/23/utf-8-directory-listing/</link>
       <pubDate>Thu, 23 Sep 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2010/09/23/utf-8-directory-listing/</guid>
+      <guid>https://blog.bramp.net/post/2010/09/23/utf-8-directory-listing/</guid>
       <description>&lt;p&gt;I had a need to create a directory listing with all the UTF-8 characters intact. This seems quite a chore on Windows, as doing anything via the shell seems to mangle the characters and show ???? instead of the real characters. For example, both the built in &lt;strong&gt;dir&lt;/strong&gt; and Cygwin &lt;strong&gt;ls&lt;/strong&gt; or &lt;strong&gt;find&lt;/strong&gt; seemed affected. This turns out to be a &lt;a href=&#34;http://stackoverflow.com/questions/379240/is-there-a-windows-command-shell-that-will-display-unicode-characters&#34;&gt;limitation in the windows shell&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;To solve this problem I wrote a bit of python to read the file names in full UTF-8 and output the results directly to a file (and not via a pipe, which would again be via the shell). The resulting very simple script is as follows:&lt;/p&gt;
@@ -65,10 +65,10 @@ iwlwifi-6050-5.ucode    : ver 41.28.5.1 &lt;span class=&#34;o&#34;&gt;(&lt;/span
     
     <item>
       <title>Persec python script</title>
-      <link>http://blog.bramp.net/post/2010/08/31/persec-python-script/</link>
+      <link>https://blog.bramp.net/post/2010/08/31/persec-python-script/</link>
       <pubDate>Tue, 31 Aug 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2010/08/31/persec-python-script/</guid>
+      <guid>https://blog.bramp.net/post/2010/08/31/persec-python-script/</guid>
       <description>&lt;p&gt;A while ago I wrote a python script that does a similar job to GNU&amp;#8217;s &lt;a href=&#34;http://linux.die.net/man/1/watch&#34;&gt;watch&lt;/a&gt; command. You use it like so:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;./persec.py &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;--interval&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&amp;lt;n&amp;gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &amp;lt;&lt;span class=&#34;nb&#34;&gt;command&lt;/span&gt;&amp;gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -109,10 +109,10 @@ iwlwifi-6050-5.ucode    : ver 41.28.5.1 &lt;span class=&#34;o&#34;&gt;(&lt;/span
     
     <item>
       <title>Python close_fds issue</title>
-      <link>http://blog.bramp.net/post/2010/05/11/python-close_fds-issue/</link>
+      <link>https://blog.bramp.net/post/2010/05/11/python-close_fds-issue/</link>
       <pubDate>Tue, 11 May 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2010/05/11/python-close_fds-issue/</guid>
+      <guid>https://blog.bramp.net/post/2010/05/11/python-close_fds-issue/</guid>
       <description>&lt;p&gt;So I spent the better part of my evening trying to track down a bug, which turns out to be a &amp;#8220;feature&amp;#8221; of python.&lt;/p&gt;
 
 &lt;p&gt;I had just installed the &lt;a href=&#34;http://trac-hacks.org/wiki/GitPlugin&#34;&gt;GitPlugin&lt;/a&gt; for &lt;a href=&#34;http://trac.edgewall.org/&#34;&gt;trac&lt;/a&gt; but I started to experience problems. When browsing the source inside trac it was taking over 30seconds to load the page and sometimes it would fail completely. A lot of searching didn&amp;#8217;t help much, so I attempted to debug the problem myself. The first thing I noticed was Apache was taking 100% of the processor for a good 30seconds. I attached &lt;a href=&#34;http://en.wikipedia.org/wiki/Strace&#34;&gt;strace&lt;/a&gt; to it and saw something like this:&lt;/p&gt;
@@ -145,10 +145,10 @@ iwlwifi-6050-5.ucode    : ver 41.28.5.1 &lt;span class=&#34;o&#34;&gt;(&lt;/span
     
     <item>
       <title>Follow HTTP Stream (with decompression)</title>
-      <link>http://blog.bramp.net/post/2010/01/10/follow-http-stream-with-decompression/</link>
+      <link>https://blog.bramp.net/post/2010/01/10/follow-http-stream-with-decompression/</link>
       <pubDate>Sun, 10 Jan 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2010/01/10/follow-http-stream-with-decompression/</guid>
+      <guid>https://blog.bramp.net/post/2010/01/10/follow-http-stream-with-decompression/</guid>
       <description>&lt;p&gt;I was using &lt;a href=&#34;http://www.wireshark.org/&#34;&gt;Wireshark&lt;/a&gt; to capture an exchange of HTTP packets, however, some of the HTTP responses were using &amp;#8220;content-encoding: gzip&amp;#8221;, which meant I couldn&amp;#8217;t view them decompressed in the &amp;#8220;Follow TCP Stream&amp;#8221;. Wireshark does decompress them in Packet Details view, but it is hard to follow the full stream like this.&lt;/p&gt;
 
 &lt;p&gt;The solution was to write some &lt;a href=&#34;http://www.python.org/&#34;&gt;Python&lt;/a&gt; which made use of the &lt;a href=&#34;http://code.google.com/p/dpkt/&#34;&gt;dpkt library&lt;/a&gt;. My code naively reassembles the TCP flow and then assumes traffic on port 80 is HTTP. Therefore there is much room for improvement, but here is the code anyway.&lt;/p&gt;
@@ -251,16 +251,16 @@ iwlwifi-6050-5.ucode    : ver 41.28.5.1 &lt;span class=&#34;o&#34;&gt;(&lt;/span
     &lt;span class=&#34;n&#34;&gt;parse_pcap_file&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sys&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;argv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;, I had to make a couple of changes to the dpkt library, which I have submitted &lt;a href=&#34;http://groups.google.com/group/dpkt/browse_thread/thread/5315199f9749b91a&#34;&gt;back for review&lt;/a&gt;. Those changes can be found in the following patches &lt;a href=&#34;http://blog.bramp.net/patches/dpkt-pcap-snaplen.patch&#34;&gt;1&lt;/a&gt; &lt;a href=&#34;http://blog.bramp.net/patches/dpkt-http-len.patch&#34;&gt;2&lt;/a&gt; &lt;a href=&#34;http://blog.bramp.net/patches/dpkt-http-gz.patch&#34;&gt;3&lt;/a&gt;. I will update this code if/when the patches get accepted.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;, I had to make a couple of changes to the dpkt library, which I have submitted &lt;a href=&#34;http://groups.google.com/group/dpkt/browse_thread/thread/5315199f9749b91a&#34;&gt;back for review&lt;/a&gt;. Those changes can be found in the following patches &lt;a href=&#34;https://blog.bramp.net/patches/dpkt-pcap-snaplen.patch&#34;&gt;1&lt;/a&gt; &lt;a href=&#34;https://blog.bramp.net/patches/dpkt-http-len.patch&#34;&gt;2&lt;/a&gt; &lt;a href=&#34;https://blog.bramp.net/patches/dpkt-http-gz.patch&#34;&gt;3&lt;/a&gt;. I will update this code if/when the patches get accepted.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Autoload symbols for FreeBSD kernel module</title>
-      <link>http://blog.bramp.net/post/2009/01/11/autoload-symbols-for-freebsd-kernel-module/</link>
+      <link>https://blog.bramp.net/post/2009/01/11/autoload-symbols-for-freebsd-kernel-module/</link>
       <pubDate>Sun, 11 Jan 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2009/01/11/autoload-symbols-for-freebsd-kernel-module/</guid>
+      <guid>https://blog.bramp.net/post/2009/01/11/autoload-symbols-for-freebsd-kernel-module/</guid>
       <description>&lt;p&gt;When debugging FreeBSD kernel modules with GDB, you have to tell GDB the correct symbols for the module, and the location the module is loaded in RAM. This is helpfully explained in the &lt;a href=&#34;http://www.freebsd.org/doc/en/books/developers-handbook/kerneldebug-kld.html&#34;&gt;FreeBSD Developers&amp;#8217; Handbook&lt;/a&gt;. First you must load the module, then run kldstat, note down the address the module is loaded at, and finally execute a command in GDB that looks like the following.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;add-symbol-file /sys/modules/linux/linux.ko 0xc0ae22d0
 &lt;/pre&gt;&lt;/div&gt;

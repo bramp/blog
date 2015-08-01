@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hacking on bramp.net</title>
-    <link>http://blog.bramp.net/tags/hacking/</link>
+    <link>https://blog.bramp.net/tags/hacking/</link>
     <description>Recent content in Hacking on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Thu, 25 Nov 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://blog.bramp.net/tags/hacking/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.bramp.net/tags/hacking/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Verizon FiOS MI424WR rev. F Router</title>
-      <link>http://blog.bramp.net/post/2010/11/25/verizon-fios-mi424wr-rev.-f-router/</link>
+      <link>https://blog.bramp.net/post/2010/11/25/verizon-fios-mi424wr-rev.-f-router/</link>
       <pubDate>Thu, 25 Nov 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2010/11/25/verizon-fios-mi424wr-rev.-f-router/</guid>
+      <guid>https://blog.bramp.net/post/2010/11/25/verizon-fios-mi424wr-rev.-f-router/</guid>
       <description>&lt;p&gt;I just got a FiOS wifi router and I must say I really like it. The web interface has many more options than any home router I&amp;#8217;ve ever played with, and it seems like it&amp;#8217;d be easy for a beginner but doesn&amp;#8217;t get in the way of an expert. It also telnet access (optionally over SSL), which puts you into a custom shell. Poking around the commands I find one awesome one:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;Wireless Broadband Router&amp;gt; &lt;span class=&#34;nb&#34;&gt;help &lt;/span&gt;system shell
 shell   Spawn busybox shell in foreground

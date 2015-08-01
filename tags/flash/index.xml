@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Flash on bramp.net</title>
-    <link>http://blog.bramp.net/tags/flash/</link>
+    <link>https://blog.bramp.net/tags/flash/</link>
     <description>Recent content in Flash on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 19 Jun 2011 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://blog.bramp.net/tags/flash/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.bramp.net/tags/flash/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Linux 64bit Flash glibc memcpy bug</title>
-      <link>http://blog.bramp.net/post/2011/06/19/linux-64bit-flash-glibc-memcpy-bug/</link>
+      <link>https://blog.bramp.net/post/2011/06/19/linux-64bit-flash-glibc-memcpy-bug/</link>
       <pubDate>Sun, 19 Jun 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2011/06/19/linux-64bit-flash-glibc-memcpy-bug/</guid>
+      <guid>https://blog.bramp.net/post/2011/06/19/linux-64bit-flash-glibc-memcpy-bug/</guid>
       <description>&lt;p&gt;Does your Linux 64bit version of Flash now make anonying beeping/distortion noises while playing videos? Well it turns out a recent &amp;#8220;&lt;a href=&#34;http://lwn.net/Articles/414467/&#34;&gt;improvement&lt;/a&gt;&amp;#8221; to glibc has caused some programs to now crash or do weird things. This is to do with an improvement of &lt;a href=&#34;http://linux.die.net/man/3/memcpy&#34;&gt;memcpy&lt;/a&gt;, which makes its use more strict, causing those applications that incorrectly used it to now crash.&lt;/p&gt;
 
 &lt;p&gt;On Debian, there is a simple a fix that allows you to use the original memcpy. You can load the application using an additional .so file:&lt;/p&gt;
@@ -44,10 +44,10 @@
     
     <item>
       <title>Fullscreen Hack for Flash 10.1</title>
-      <link>http://blog.bramp.net/post/2010/05/24/fullscreen-hack-for-flash-10.1/</link>
+      <link>https://blog.bramp.net/post/2010/05/24/fullscreen-hack-for-flash-10.1/</link>
       <pubDate>Mon, 24 May 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2010/05/24/fullscreen-hack-for-flash-10.1/</guid>
+      <guid>https://blog.bramp.net/post/2010/05/24/fullscreen-hack-for-flash-10.1/</guid>
       <description>&lt;p&gt;After watching a few hours of &lt;a href=&#34;http://www.channel4.com/programmes/4od&#34;&gt;4oD&lt;/a&gt; today I got annoyed that i couldn&amp;#8217;t do something on one monitor while my other monitor plays full screen flash. The reason, flash will instantly lose full screen if another application gains focus (e.g the web browser on my other monitor.)&lt;/p&gt;
 
 &lt;p&gt;After a bit of googling I found these links &lt;a href=&#34;http://my.opera.com/d.i.z./blog/2009/04/22/watch-fullscreen-flash-while-working-on-another-screen&#34;&gt;&lt;a href=&#34;http://www.channel4.com/programmes/4od&#34;&gt;1&lt;/a&gt;&lt;/a&gt; &lt;a href=&#34;http://jmaxxz.com/index.php?option=com_content&amp;amp;view=article&amp;amp;id=89:flashhacker&amp;amp;catid=16:downloads&amp;amp;Itemid=32&#34;&gt;&lt;a href=&#34;http://my.opera.com/d.i.z./blog/2009/04/22/watch-fullscreen-flash-while-working-on-another-screen&#34;&gt;2&lt;/a&gt;&lt;/a&gt;. However, both of these sites only support flash 9 and flash 10.0, whereas I&amp;#8217;m currently on 10.1.53.38. Additionally the second link mentioned no one has been able to hack this into 10.1, so I instantly recongised a challenge.&lt;/p&gt;

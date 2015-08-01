@@ -2,603 +2,603 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.bramp.net/</loc>
+    <loc>https://blog.bramp.net/</loc>
     <lastmod>2015-08-01T12:24:59-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2015/08/01/decompile-and-recompile-android-apk/</loc>
+    <loc>https://blog.bramp.net/post/2015/08/01/decompile-and-recompile-android-apk/</loc>
     <lastmod>2015-08-01T12:24:59-07:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2014/12/21/nationjs-talk-on-nodejs-now-on-vimeo/</loc>
+    <loc>https://blog.bramp.net/post/2014/12/21/nationjs-talk-on-nodejs-now-on-vimeo/</loc>
     <lastmod>2014-12-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2014/08/20/modern-software-development-life-cycle/</loc>
+    <loc>https://blog.bramp.net/post/2014/08/20/modern-software-development-life-cycle/</loc>
     <lastmod>2014-08-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2014/08/16/grabbing-a-certificate-with-openssl-and-importing-it-into-java/</loc>
+    <loc>https://blog.bramp.net/post/2014/08/16/grabbing-a-certificate-with-openssl-and-importing-it-into-java/</loc>
     <lastmod>2014-08-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2013/08/25/sms-character-count/</loc>
+    <loc>https://blog.bramp.net/post/2013/08/25/sms-character-count/</loc>
     <lastmod>2013-08-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2013/03/31/alignment-of-raphael-text/</loc>
+    <loc>https://blog.bramp.net/post/2013/03/31/alignment-of-raphael-text/</loc>
     <lastmod>2013-03-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2013/03/25/most-starred-project-this-week/</loc>
+    <loc>https://blog.bramp.net/post/2013/03/25/most-starred-project-this-week/</loc>
     <lastmod>2013-03-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2013/03/23/draw-uml-sequence-diagrams-with-javascript/</loc>
+    <loc>https://blog.bramp.net/post/2013/03/23/draw-uml-sequence-diagrams-with-javascript/</loc>
     <lastmod>2013-03-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2013/03/17/mongodb-compression/</loc>
+    <loc>https://blog.bramp.net/post/2013/03/17/mongodb-compression/</loc>
     <lastmod>2013-03-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2013/02/16/how-many-ways-are-there-to-say-phone-number/</loc>
+    <loc>https://blog.bramp.net/post/2013/02/16/how-many-ways-are-there-to-say-phone-number/</loc>
     <lastmod>2013-02-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2012/11/27/invalid-ip-range-checking-defeated-by-dns/</loc>
+    <loc>https://blog.bramp.net/post/2012/11/27/invalid-ip-range-checking-defeated-by-dns/</loc>
     <lastmod>2012-11-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2012/11/23/jshint-x-is-an-implied-global-variable/</loc>
+    <loc>https://blog.bramp.net/post/2012/11/23/jshint-x-is-an-implied-global-variable/</loc>
     <lastmod>2012-11-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2012/11/14/nodewii-talk-at-node-dc/</loc>
+    <loc>https://blog.bramp.net/post/2012/11/14/nodewii-talk-at-node-dc/</loc>
     <lastmod>2012-11-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2012/10/21/libcec-daemon/</loc>
+    <loc>https://blog.bramp.net/post/2012/10/21/libcec-daemon/</loc>
     <lastmod>2012-10-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2012/09/30/pt-kill-centos-init.d-script/</loc>
+    <loc>https://blog.bramp.net/post/2012/09/30/pt-kill-centos-init.d-script/</loc>
     <lastmod>2012-09-30T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2012/09/09/using-make-to-parallelise-a-task/</loc>
+    <loc>https://blog.bramp.net/post/2012/09/09/using-make-to-parallelise-a-task/</loc>
     <lastmod>2012-09-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2012/09/04/setting-up-git-p4/</loc>
+    <loc>https://blog.bramp.net/post/2012/09/04/setting-up-git-p4/</loc>
     <lastmod>2012-09-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2012/09/03/rfc-1123-dates-in-php/</loc>
+    <loc>https://blog.bramp.net/post/2012/09/03/rfc-1123-dates-in-php/</loc>
     <lastmod>2012-09-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2012/07/04/groovy-/-grails/</loc>
+    <loc>https://blog.bramp.net/post/2012/07/04/groovy-/-grails/</loc>
     <lastmod>2012-07-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2012/06/30/gmail-tagged-48-valid-emails-as-spam/</loc>
+    <loc>https://blog.bramp.net/post/2012/06/30/gmail-tagged-48-valid-emails-as-spam/</loc>
     <lastmod>2012-06-30T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2012/06/26/i-have-native-ipv6/</loc>
+    <loc>https://blog.bramp.net/post/2012/06/26/i-have-native-ipv6/</loc>
     <lastmod>2012-06-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2012/06/24/abusing-googles-im-feeling-lucky-to-work-like-bit.ly--brampa2d/</loc>
+    <loc>https://blog.bramp.net/post/2012/06/24/abusing-googles-im-feeling-lucky-to-work-like-bit.ly--brampa2d/</loc>
     <lastmod>2012-06-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2012/05/15/mri-scan-of-my-brain/</loc>
+    <loc>https://blog.bramp.net/post/2012/05/15/mri-scan-of-my-brain/</loc>
     <lastmod>2012-05-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/android-app/musicgrid/</loc>
+    <loc>https://blog.bramp.net/android-app/musicgrid/</loc>
     <lastmod>2012-05-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/android-app/nandos-finder/</loc>
+    <loc>https://blog.bramp.net/android-app/finder/</loc>
     <lastmod>2012-04-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/android-app/finder/</loc>
+    <loc>https://blog.bramp.net/android-app/nandos-finder/</loc>
     <lastmod>2012-04-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/android-app/scorer/</loc>
+    <loc>https://blog.bramp.net/android-app/scorer/</loc>
     <lastmod>2012-04-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2012/04/29/failed-ubuntu-update/</loc>
+    <loc>https://blog.bramp.net/post/2012/04/29/failed-ubuntu-update/</loc>
     <lastmod>2012-04-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2012/04/15/latex-error-file-layaureo.sty-not-found/</loc>
+    <loc>https://blog.bramp.net/post/2012/04/15/latex-error-file-layaureo.sty-not-found/</loc>
     <lastmod>2012-04-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2012/01/24/hacking-linksys-e4200v2-firmware/</loc>
+    <loc>https://blog.bramp.net/post/2012/01/24/hacking-linksys-e4200v2-firmware/</loc>
     <lastmod>2012-01-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/</loc>
+    <loc>https://blog.bramp.net/post/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/</loc>
     <lastmod>2012-01-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2012/01/14/avoid-bloat-freezer-free/</loc>
+    <loc>https://blog.bramp.net/post/2012/01/14/avoid-bloat-freezer-free/</loc>
     <lastmod>2012-01-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2011/11/26/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/</loc>
+    <loc>https://blog.bramp.net/post/2011/11/26/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/</loc>
     <lastmod>2011-11-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2011/11/22/building-phps-debian-package-nightmare/</loc>
+    <loc>https://blog.bramp.net/post/2011/11/22/building-phps-debian-package-nightmare/</loc>
     <lastmod>2011-11-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2011/11/09/i-am-gnome/</loc>
+    <loc>https://blog.bramp.net/post/2011/11/09/i-am-gnome/</loc>
     <lastmod>2011-11-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2011/11/08/archive-mount/</loc>
+    <loc>https://blog.bramp.net/post/2011/11/08/archive-mount/</loc>
     <lastmod>2011-11-08T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2011/11/02/php-destructor-objects/</loc>
+    <loc>https://blog.bramp.net/post/2011/11/02/php-destructor-objects/</loc>
     <lastmod>2011-11-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2011/10/31/2010-census-tiger/line-shapefiles-code-names/</loc>
+    <loc>https://blog.bramp.net/post/2011/10/31/2010-census-tiger/line-shapefiles-code-names/</loc>
     <lastmod>2011-10-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2011/10/25/sqlstatehy000-general-error-2053/</loc>
+    <loc>https://blog.bramp.net/post/2011/10/25/sqlstatehy000-general-error-2053/</loc>
     <lastmod>2011-10-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/</loc>
+    <loc>https://blog.bramp.net/post/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/</loc>
     <lastmod>2011-10-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2011/09/23/md5-digest-authorisation-in-sip-with-php/</loc>
+    <loc>https://blog.bramp.net/post/2011/09/23/md5-digest-authorisation-in-sip-with-php/</loc>
     <lastmod>2011-09-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2011/08/07/default-to-curses-interface-for-mtr/</loc>
+    <loc>https://blog.bramp.net/post/2011/08/07/default-to-curses-interface-for-mtr/</loc>
     <lastmod>2011-08-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2011/08/02/google-chrome-javascript-console.log-bug/</loc>
+    <loc>https://blog.bramp.net/post/2011/08/02/google-chrome-javascript-console.log-bug/</loc>
     <lastmod>2011-08-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2011/07/27/html5-canvas-lunch-wheel/</loc>
+    <loc>https://blog.bramp.net/post/2011/07/27/html5-canvas-lunch-wheel/</loc>
     <lastmod>2011-07-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2011/06/19/beware-the-%5Cr%5Cn-with-grep--f-also-perhaps-php-is-a-better-choice/</loc>
+    <loc>https://blog.bramp.net/post/2011/06/19/beware-the-%5Cr%5Cn-with-grep--f-also-perhaps-php-is-a-better-choice/</loc>
     <lastmod>2011-06-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2011/06/19/linux-64bit-flash-glibc-memcpy-bug/</loc>
+    <loc>https://blog.bramp.net/post/2011/06/19/linux-64bit-flash-glibc-memcpy-bug/</loc>
     <lastmod>2011-06-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2011/01/24/intel-ucode-firmware-version-parser/</loc>
+    <loc>https://blog.bramp.net/post/2011/01/24/intel-ucode-firmware-version-parser/</loc>
     <lastmod>2011-01-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2010/11/25/verizon-fios-mi424wr-rev.-f-router/</loc>
+    <loc>https://blog.bramp.net/post/2010/11/25/verizon-fios-mi424wr-rev.-f-router/</loc>
     <lastmod>2010-11-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2010/09/23/utf-8-directory-listing/</loc>
+    <loc>https://blog.bramp.net/post/2010/09/23/utf-8-directory-listing/</loc>
     <lastmod>2010-09-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2010/09/06/ifconfig-stats-gotcha/</loc>
+    <loc>https://blog.bramp.net/post/2010/09/06/ifconfig-stats-gotcha/</loc>
     <lastmod>2010-09-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2010/08/31/persec-python-script/</loc>
+    <loc>https://blog.bramp.net/post/2010/08/31/persec-python-script/</loc>
     <lastmod>2010-08-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2010/08/30/converting-mbr-to-gpt-without-deleting-your-partitions/</loc>
+    <loc>https://blog.bramp.net/post/2010/08/30/converting-mbr-to-gpt-without-deleting-your-partitions/</loc>
     <lastmod>2010-08-30T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2010/07/27/sonisphere-2010-running-order/</loc>
+    <loc>https://blog.bramp.net/post/2010/07/27/sonisphere-2010-running-order/</loc>
     <lastmod>2010-07-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2010/07/23/my-rant-about-the-university-webcache/</loc>
+    <loc>https://blog.bramp.net/post/2010/07/23/my-rant-about-the-university-webcache/</loc>
     <lastmod>2010-07-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2010/07/14/iteratively-solving-time-travel/</loc>
+    <loc>https://blog.bramp.net/post/2010/07/14/iteratively-solving-time-travel/</loc>
     <lastmod>2010-07-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2010/06/09/old-schools-not-cool/</loc>
+    <loc>https://blog.bramp.net/post/2010/06/09/old-schools-not-cool/</loc>
     <lastmod>2010-06-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2010/05/24/fullscreen-hack-for-flash-10.1/</loc>
+    <loc>https://blog.bramp.net/post/2010/05/24/fullscreen-hack-for-flash-10.1/</loc>
     <lastmod>2010-05-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/</loc>
+    <loc>https://blog.bramp.net/post/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/</loc>
     <lastmod>2010-05-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2010/05/11/python-close_fds-issue/</loc>
+    <loc>https://blog.bramp.net/post/2010/05/11/python-close_fds-issue/</loc>
     <lastmod>2010-05-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2010/05/07/humble-indie-bundle-md5sums/</loc>
+    <loc>https://blog.bramp.net/post/2010/05/07/humble-indie-bundle-md5sums/</loc>
     <lastmod>2010-05-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2010/03/19/vmware-breaks-shift-key/</loc>
+    <loc>https://blog.bramp.net/post/2010/03/19/vmware-breaks-shift-key/</loc>
     <lastmod>2010-03-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2010/02/13/latex-qr-based-business-card/</loc>
+    <loc>https://blog.bramp.net/post/2010/02/13/latex-qr-based-business-card/</loc>
     <lastmod>2010-02-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/publication/facilitating-network-auto-configuration-in-next-generation-internet-protocols/</loc>
+    <loc>https://blog.bramp.net/publication/facilitating-network-auto-configuration-in-next-generation-internet-protocols/</loc>
     <lastmod>2010-02-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2010/01/26/redirect-local-traffic-to-a-web-cache-with-iptables/</loc>
+    <loc>https://blog.bramp.net/post/2010/01/26/redirect-local-traffic-to-a-web-cache-with-iptables/</loc>
     <lastmod>2010-01-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2010/01/14/installing-packages-into-your-user-directory/</loc>
+    <loc>https://blog.bramp.net/post/2010/01/14/installing-packages-into-your-user-directory/</loc>
     <lastmod>2010-01-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2010/01/13/my-rsa-public-key/</loc>
+    <loc>https://blog.bramp.net/post/2010/01/13/my-rsa-public-key/</loc>
     <lastmod>2010-01-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2010/01/10/follow-http-stream-with-decompression/</loc>
+    <loc>https://blog.bramp.net/post/2010/01/10/follow-http-stream-with-decompression/</loc>
     <lastmod>2010-01-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/12/19/updating/-%5C/-/</loc>
+    <loc>https://blog.bramp.net/post/2009/12/19/updating/-%5C/-/</loc>
     <lastmod>2009-12-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/12/06/foursquare-rules/</loc>
+    <loc>https://blog.bramp.net/post/2009/12/06/foursquare-rules/</loc>
     <lastmod>2009-12-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/12/04/google-dns-benchmarked/</loc>
+    <loc>https://blog.bramp.net/post/2009/12/04/google-dns-benchmarked/</loc>
     <lastmod>2009-12-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/11/28/useful-scripts/configurations/</loc>
+    <loc>https://blog.bramp.net/post/2009/11/28/useful-scripts/configurations/</loc>
     <lastmod>2009-11-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/11/27/the-7-month-fork-bomb/</loc>
+    <loc>https://blog.bramp.net/post/2009/11/27/the-7-month-fork-bomb/</loc>
     <lastmod>2009-11-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/10/26/power-consumption/</loc>
+    <loc>https://blog.bramp.net/post/2009/10/26/power-consumption/</loc>
     <lastmod>2009-10-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/10/16/freebsd-software-watchdog/</loc>
+    <loc>https://blog.bramp.net/post/2009/10/16/freebsd-software-watchdog/</loc>
     <lastmod>2009-10-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/09/12/derren-browns-coin-game/</loc>
+    <loc>https://blog.bramp.net/post/2009/09/12/derren-browns-coin-game/</loc>
     <lastmod>2009-09-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/09/10/grub2-and-windows/</loc>
+    <loc>https://blog.bramp.net/post/2009/09/10/grub2-and-windows/</loc>
     <lastmod>2009-09-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/08/11/bloodstock-2009-running-order/</loc>
+    <loc>https://blog.bramp.net/post/2009/08/11/bloodstock-2009-running-order/</loc>
     <lastmod>2009-08-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/08/10/memcmp-broken-in-the-freebsd-kernel/</loc>
+    <loc>https://blog.bramp.net/post/2009/08/10/memcmp-broken-in-the-freebsd-kernel/</loc>
     <lastmod>2009-08-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/07/10/final-version-of-my-thesis-online/</loc>
+    <loc>https://blog.bramp.net/post/2009/07/10/final-version-of-my-thesis-online/</loc>
     <lastmod>2009-07-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/06/01/threadnetperf-v1.0/</loc>
+    <loc>https://blog.bramp.net/post/2009/06/01/threadnetperf-v1.0/</loc>
     <lastmod>2009-06-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/publication/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/</loc>
+    <loc>https://blog.bramp.net/publication/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/</loc>
     <lastmod>2009-05-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/04/07/open-source-government-petition/</loc>
+    <loc>https://blog.bramp.net/post/2009/04/07/open-source-government-petition/</loc>
     <lastmod>2009-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/03/25/last-fm-s-boffin-wordle/</loc>
+    <loc>https://blog.bramp.net/post/2009/03/25/last-fm-s-boffin-wordle/</loc>
     <lastmod>2009-03-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/03/16/irq-affinity-on-freebsd/</loc>
+    <loc>https://blog.bramp.net/post/2009/03/16/irq-affinity-on-freebsd/</loc>
     <lastmod>2009-03-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/03/06/compiler-defined-symbols/</loc>
+    <loc>https://blog.bramp.net/post/2009/03/06/compiler-defined-symbols/</loc>
     <lastmod>2009-03-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/02/15/64bit-tortoisegit/</loc>
+    <loc>https://blog.bramp.net/post/2009/02/15/64bit-tortoisegit/</loc>
     <lastmod>2009-02-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/02/04/a-practical-introduction-to-version-control-systems/</loc>
+    <loc>https://blog.bramp.net/post/2009/02/04/a-practical-introduction-to-version-control-systems/</loc>
     <lastmod>2009-02-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/01/27/what-happens-when-you-mix/</loc>
+    <loc>https://blog.bramp.net/post/2009/01/27/what-happens-when-you-mix/</loc>
     <lastmod>2009-01-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/01/21/read/write-permissions-for-php-scripts-at-lancs.ac.uk/</loc>
+    <loc>https://blog.bramp.net/post/2009/01/21/read/write-permissions-for-php-scripts-at-lancs.ac.uk/</loc>
     <lastmod>2009-01-21T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/01/11/autoload-symbols-for-freebsd-kernel-module/</loc>
+    <loc>https://blog.bramp.net/post/2009/01/11/autoload-symbols-for-freebsd-kernel-module/</loc>
     <lastmod>2009-01-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/01/11/linuxoffsets-for-freebsd/</loc>
+    <loc>https://blog.bramp.net/post/2009/01/11/linuxoffsets-for-freebsd/</loc>
     <lastmod>2009-01-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2009/01/04/ndsfs--a-fuse-application-to-mount-nintendo-ds-roms/</loc>
+    <loc>https://blog.bramp.net/post/2009/01/04/ndsfs--a-fuse-application-to-mount-nintendo-ds-roms/</loc>
     <lastmod>2009-01-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2008/12/25/philips-wac7500/</loc>
+    <loc>https://blog.bramp.net/post/2008/12/25/philips-wac7500/</loc>
     <lastmod>2008-12-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2008/12/15/passed-my-viva/</loc>
+    <loc>https://blog.bramp.net/post/2008/12/15/passed-my-viva/</loc>
     <lastmod>2008-12-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2008/10/27/bat-pumpkin/</loc>
+    <loc>https://blog.bramp.net/post/2008/10/27/bat-pumpkin/</loc>
     <lastmod>2008-10-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2008/10/01/jolt-cola/</loc>
+    <loc>https://blog.bramp.net/post/2008/10/01/jolt-cola/</loc>
     <lastmod>2008-10-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/publication/the-impact-of-highly-interactive-workloads-on-video-on-demand-systems/</loc>
+    <loc>https://blog.bramp.net/publication/the-impact-of-highly-interactive-workloads-on-video-on-demand-systems/</loc>
     <lastmod>2008-10-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2008/09/24/please-notify-the-author-of-the-software-that-produced-this-file/</loc>
+    <loc>https://blog.bramp.net/post/2008/09/24/please-notify-the-author-of-the-software-that-produced-this-file/</loc>
     <lastmod>2008-09-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/publication/a-case-for-hybrid-content-distribution-for-interactive-video-on-demand/</loc>
+    <loc>https://blog.bramp.net/publication/a-case-for-hybrid-content-distribution-for-interactive-video-on-demand/</loc>
     <lastmod>2008-09-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2008/09/01/asus-x56se-linux/</loc>
+    <loc>https://blog.bramp.net/post/2008/09/01/asus-x56se-linux/</loc>
     <lastmod>2008-09-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2008/06/23/create-bootable-windows-server-2008-usb-stick/</loc>
+    <loc>https://blog.bramp.net/post/2008/06/23/create-bootable-windows-server-2008-usb-stick/</loc>
     <lastmod>2008-06-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2008/06/20/2tb-is-too-much-for-xp/</loc>
+    <loc>https://blog.bramp.net/post/2008/06/20/2tb-is-too-much-for-xp/</loc>
     <lastmod>2008-06-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2008/06/04/ordnance-survey-easting/northing-to-lat/long/</loc>
+    <loc>https://blog.bramp.net/post/2008/06/04/ordnance-survey-easting/northing-to-lat/long/</loc>
     <lastmod>2008-06-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/publication/characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand/</loc>
+    <loc>https://blog.bramp.net/publication/characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand/</loc>
     <lastmod>2008-05-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2008/04/28/google-calendar-exploit/</loc>
+    <loc>https://blog.bramp.net/post/2008/04/28/google-calendar-exploit/</loc>
     <lastmod>2008-04-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2008/04/19/infolab21-vector-logo/</loc>
+    <loc>https://blog.bramp.net/post/2008/04/19/infolab21-vector-logo/</loc>
     <lastmod>2008-04-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2008/04/07/networking-conference-calendar/</loc>
+    <loc>https://blog.bramp.net/post/2008/04/07/networking-conference-calendar/</loc>
     <lastmod>2008-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2008/04/05/linux-kernel-patch-for-tcp-timestamping/</loc>
+    <loc>https://blog.bramp.net/post/2008/04/05/linux-kernel-patch-for-tcp-timestamping/</loc>
     <lastmod>2008-04-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/publication/characterising-user-interactivity-for-sports-video-on-demand/</loc>
+    <loc>https://blog.bramp.net/publication/characterising-user-interactivity-for-sports-video-on-demand/</loc>
     <lastmod>2007-07-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/publication/performance-modelling-of-peer-to-peer-routing/</loc>
+    <loc>https://blog.bramp.net/publication/performance-modelling-of-peer-to-peer-routing/</loc>
     <lastmod>2007-03-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/publication/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/</loc>
+    <loc>https://blog.bramp.net/publication/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/</loc>
     <lastmod>2006-12-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2006/07/02/how-to-build-wings/</loc>
+    <loc>https://blog.bramp.net/post/2006/07/02/how-to-build-wings/</loc>
     <lastmod>2006-07-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/publication/authentication-in-stealth-distributed-hash-tables/</loc>
+    <loc>https://blog.bramp.net/publication/authentication-in-stealth-distributed-hash-tables/</loc>
     <lastmod>2006-07-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/post/2006/06/25/flvtool-a-command-line-flash-video-file-flv-editor/</loc>
+    <loc>https://blog.bramp.net/post/2006/06/25/flvtool-a-command-line-flash-video-file-flv-editor/</loc>
     <lastmod>2006-06-25T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/publication/performance-analysis-of-stealth-dht-with-mobile-nodes./</loc>
+    <loc>https://blog.bramp.net/publication/performance-analysis-of-stealth-dht-with-mobile-nodes./</loc>
     <lastmod>2006-03-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/publication/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/</loc>
+    <loc>https://blog.bramp.net/publication/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/</loc>
     <lastmod>2005-10-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/opensource-project/</loc>
+    <loc>https://blog.bramp.net/opensource-project/</loc>
     <lastmod>2013-02-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/publication/</loc>
+    <loc>https://blog.bramp.net/publication/</loc>
     <lastmod>2013-02-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.bramp.net/about-me/</loc>
+    <loc>https://blog.bramp.net/about-me/</loc>
     <lastmod>2009-09-20T00:00:00+00:00</lastmod>
   </url>
   

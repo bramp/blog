@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Gzip on bramp.net</title>
-    <link>http://blog.bramp.net/tags/gzip/</link>
+    <link>https://blog.bramp.net/tags/gzip/</link>
     <description>Recent content in Gzip on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 10 Jan 2010 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://blog.bramp.net/tags/gzip/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.bramp.net/tags/gzip/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Follow HTTP Stream (with decompression)</title>
-      <link>http://blog.bramp.net/post/2010/01/10/follow-http-stream-with-decompression/</link>
+      <link>https://blog.bramp.net/post/2010/01/10/follow-http-stream-with-decompression/</link>
       <pubDate>Sun, 10 Jan 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2010/01/10/follow-http-stream-with-decompression/</guid>
+      <guid>https://blog.bramp.net/post/2010/01/10/follow-http-stream-with-decompression/</guid>
       <description>&lt;p&gt;I was using &lt;a href=&#34;http://www.wireshark.org/&#34;&gt;Wireshark&lt;/a&gt; to capture an exchange of HTTP packets, however, some of the HTTP responses were using &amp;#8220;content-encoding: gzip&amp;#8221;, which meant I couldn&amp;#8217;t view them decompressed in the &amp;#8220;Follow TCP Stream&amp;#8221;. Wireshark does decompress them in Packet Details view, but it is hard to follow the full stream like this.&lt;/p&gt;
 
 &lt;p&gt;The solution was to write some &lt;a href=&#34;http://www.python.org/&#34;&gt;Python&lt;/a&gt; which made use of the &lt;a href=&#34;http://code.google.com/p/dpkt/&#34;&gt;dpkt library&lt;/a&gt;. My code naively reassembles the TCP flow and then assumes traffic on port 80 is HTTP. Therefore there is much room for improvement, but here is the code anyway.&lt;/p&gt;
@@ -117,7 +117,7 @@
     &lt;span class=&#34;n&#34;&gt;parse_pcap_file&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sys&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;argv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;, I had to make a couple of changes to the dpkt library, which I have submitted &lt;a href=&#34;http://groups.google.com/group/dpkt/browse_thread/thread/5315199f9749b91a&#34;&gt;back for review&lt;/a&gt;. Those changes can be found in the following patches &lt;a href=&#34;http://blog.bramp.net/patches/dpkt-pcap-snaplen.patch&#34;&gt;1&lt;/a&gt; &lt;a href=&#34;http://blog.bramp.net/patches/dpkt-http-len.patch&#34;&gt;2&lt;/a&gt; &lt;a href=&#34;http://blog.bramp.net/patches/dpkt-http-gz.patch&#34;&gt;3&lt;/a&gt;. I will update this code if/when the patches get accepted.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;, I had to make a couple of changes to the dpkt library, which I have submitted &lt;a href=&#34;http://groups.google.com/group/dpkt/browse_thread/thread/5315199f9749b91a&#34;&gt;back for review&lt;/a&gt;. Those changes can be found in the following patches &lt;a href=&#34;https://blog.bramp.net/patches/dpkt-pcap-snaplen.patch&#34;&gt;1&lt;/a&gt; &lt;a href=&#34;https://blog.bramp.net/patches/dpkt-http-len.patch&#34;&gt;2&lt;/a&gt; &lt;a href=&#34;https://blog.bramp.net/patches/dpkt-http-gz.patch&#34;&gt;3&lt;/a&gt;. I will update this code if/when the patches get accepted.&lt;/p&gt;
 </description>
     </item>
     

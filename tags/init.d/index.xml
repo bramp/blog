@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Init.D on bramp.net</title>
-    <link>http://blog.bramp.net/tags/init/index.d/</link>
+    <link>https://blog.bramp.net/tags/init/index.d/</link>
     <description>Recent content in Init.D on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 30 Sep 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://blog.bramp.net/tags/init.d/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.bramp.net/tags/init.d/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>pt-kill CentOS init.d script</title>
-      <link>http://blog.bramp.net/post/2012/09/30/pt-kill-centos-init.d-script/</link>
+      <link>https://blog.bramp.net/post/2012/09/30/pt-kill-centos-init.d-script/</link>
       <pubDate>Sun, 30 Sep 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2012/09/30/pt-kill-centos-init.d-script/</guid>
+      <guid>https://blog.bramp.net/post/2012/09/30/pt-kill-centos-init.d-script/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://www.percona.com/doc/percona-toolkit/2.1/pt-kill.html&#34;&gt;pt-kill&lt;/a&gt; is a neat little application that can stop long running MySQL queries. It was formally know as &lt;a href=&#34;http://www.maatkit.org/doc/mk-kill.html&#34;&gt;mk-kill&lt;/a&gt; before &lt;a href=&#34;http://www.Percona.com&#34;&gt;Percona&lt;/a&gt; took over the project. Here is the init.d script I use (as one doesn&amp;#8217;t seem provided by the project):&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;#!/bin/sh&lt;/span&gt;
 &lt;span class=&#34;c&#34;&gt;#&lt;/span&gt;

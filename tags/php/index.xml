@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Php on bramp.net</title>
-    <link>http://blog.bramp.net/tags/php/</link>
+    <link>https://blog.bramp.net/tags/php/</link>
     <description>Recent content in Php on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Mon, 03 Sep 2012 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://blog.bramp.net/tags/php/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.bramp.net/tags/php/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>RFC 1123 dates in PHP</title>
-      <link>http://blog.bramp.net/post/2012/09/03/rfc-1123-dates-in-php/</link>
+      <link>https://blog.bramp.net/post/2012/09/03/rfc-1123-dates-in-php/</link>
       <pubDate>Mon, 03 Sep 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2012/09/03/rfc-1123-dates-in-php/</guid>
+      <guid>https://blog.bramp.net/post/2012/09/03/rfc-1123-dates-in-php/</guid>
       <description>&lt;p&gt;While playing with &lt;a href=&#34;http://redbot.org/&#34;&gt;REDbot&lt;/a&gt; I realised my last-modified headers (being sent by PHP) were not RFC 1123 complaint. A complaint date looks like &lt;code&gt;Sun, 06 Nov 1994 08:49:37 GMT&lt;/code&gt;. There are two ways to generate such a date in PHP;&lt;/p&gt;
 
 &lt;ol&gt;
@@ -39,10 +39,10 @@
     
     <item>
       <title>PHP Polygon Clipper using the Sutherland-Hodgman algorithm</title>
-      <link>http://blog.bramp.net/post/2011/11/26/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/</link>
+      <link>https://blog.bramp.net/post/2011/11/26/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/</link>
       <pubDate>Sat, 26 Nov 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2011/11/26/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/</guid>
+      <guid>https://blog.bramp.net/post/2011/11/26/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/</guid>
       <description>&lt;p&gt;I wrote a PHP implementation of the polygon clipping algorithm by Sutherland-Hodgman. Available below, or from &lt;a href=&#34;https://gist.github.com/bramp/1396058#file-clip-class-php&#34;&gt;github&lt;/a&gt;.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;
 &lt;span class=&#34;sd&#34;&gt;/**&lt;/span&gt;
@@ -268,10 +268,10 @@
     
     <item>
       <title>Building PHP’s Debian package nightmare</title>
-      <link>http://blog.bramp.net/post/2011/11/22/building-phps-debian-package-nightmare/</link>
+      <link>https://blog.bramp.net/post/2011/11/22/building-phps-debian-package-nightmare/</link>
       <pubDate>Tue, 22 Nov 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2011/11/22/building-phps-debian-package-nightmare/</guid>
+      <guid>https://blog.bramp.net/post/2011/11/22/building-phps-debian-package-nightmare/</guid>
       <description>&lt;p&gt;I just tried to compile the Debian PHP packages, so I could make some &lt;a href=&#34;http://www.howtoforge.com/recompiling-php5-with-bundled-support-for-gd-on-ubuntu&#34;&gt;minor tweaks&lt;/a&gt; to the source, to fix a bug I&amp;#8217;m hopefully going to document shortly. This turned out to be very problematic, mainly due to the testing phase!&lt;/p&gt;
 
 &lt;p&gt;To build the Debian packages you typically do the following:&lt;/p&gt;
@@ -321,10 +321,10 @@ dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed
     
     <item>
       <title>PHP Destructor objects</title>
-      <link>http://blog.bramp.net/post/2011/11/02/php-destructor-objects/</link>
+      <link>https://blog.bramp.net/post/2011/11/02/php-destructor-objects/</link>
       <pubDate>Wed, 02 Nov 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2011/11/02/php-destructor-objects/</guid>
+      <guid>https://blog.bramp.net/post/2011/11/02/php-destructor-objects/</guid>
       <description>&lt;p&gt;PHP&amp;#8217;s lack of a finally keyword is apalling, and even though there seems to be some hacks around it, I have come up with own today. I&amp;#8217;m following the C++ concept of allocating objects on the stack, and letting them cleanup any resources when the stack is rolled back.&lt;/p&gt;
 
 &lt;p&gt;Take an example. I am creating some files that I want to always be deleted after the script has finished. In any sane language (that has Exceptions) I would write:&lt;/p&gt;
@@ -367,10 +367,10 @@ dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed
     
     <item>
       <title>SQLSTATE[HY000]: General error: 2053</title>
-      <link>http://blog.bramp.net/post/2011/10/25/sqlstatehy000-general-error-2053/</link>
+      <link>https://blog.bramp.net/post/2011/10/25/sqlstatehy000-general-error-2053/</link>
       <pubDate>Tue, 25 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2011/10/25/sqlstatehy000-general-error-2053/</guid>
+      <guid>https://blog.bramp.net/post/2011/10/25/sqlstatehy000-general-error-2053/</guid>
       <description>&lt;p&gt;I encountered the following odd exception:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;PHP Fatal error:  Uncaught exception &amp;#39;PDOException&amp;#39; with message &amp;#39;SQLSTATE[HY000]: General error: 2053 &amp;#39; in /home/bramp/my.php:29
 Stack trace:
@@ -395,10 +395,10 @@ Stack trace:
     
     <item>
       <title>MD5 Digest Authorisation in SIP with PHP</title>
-      <link>http://blog.bramp.net/post/2011/09/23/md5-digest-authorisation-in-sip-with-php/</link>
+      <link>https://blog.bramp.net/post/2011/09/23/md5-digest-authorisation-in-sip-with-php/</link>
       <pubDate>Fri, 23 Sep 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2011/09/23/md5-digest-authorisation-in-sip-with-php/</guid>
+      <guid>https://blog.bramp.net/post/2011/09/23/md5-digest-authorisation-in-sip-with-php/</guid>
       <description>&lt;p&gt;Today I needed to work out the MD5 Digest hash for SIP authorisation. A quick search on Google revealed &lt;a href=&#34;http://alexkr.com/memos/66/digest-authorization-in-sip-with-md5/&#34;&gt;instructions&lt;/a&gt; on how to generate the hash, and then I made this simple PHP script.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;
 &lt;span class=&#34;nv&#34;&gt;$username&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;1234&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
@@ -420,10 +420,10 @@ Stack trace:
     
     <item>
       <title>Google DNS Benchmarked</title>
-      <link>http://blog.bramp.net/post/2009/12/04/google-dns-benchmarked/</link>
+      <link>https://blog.bramp.net/post/2009/12/04/google-dns-benchmarked/</link>
       <pubDate>Fri, 04 Dec 2009 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2009/12/04/google-dns-benchmarked/</guid>
+      <guid>https://blog.bramp.net/post/2009/12/04/google-dns-benchmarked/</guid>
       <description>
 
 &lt;p&gt;Today &lt;a href=&#34;http://googleblog.blogspot.com/2009/12/introducing-google-public-dns.html&#34;&gt;Google announced&lt;/a&gt; a public DNS service they are hosting. They claim that their DNS infrastructure is &lt;a href=&#34;http://code.google.com/speed/public-dns/docs/performance.html&#34;&gt;faster and more secure&lt;/a&gt;, because their servers do some clever things. I wanted to test their performance claims, so I wrote a &lt;a href=&#34;dns.php&#34;&gt;little script&lt;/a&gt; to measure a lookup times for different domains across a number of DNS servers.&lt;/p&gt;
@@ -590,10 +590,10 @@ Stack trace:
     
     <item>
       <title>Ordnance Survey Easting/Northing to Lat/Long</title>
-      <link>http://blog.bramp.net/post/2008/06/04/ordnance-survey-easting/northing-to-lat/long/</link>
+      <link>https://blog.bramp.net/post/2008/06/04/ordnance-survey-easting/northing-to-lat/long/</link>
       <pubDate>Wed, 04 Jun 2008 00:00:00 +0000</pubDate>
       
-      <guid>http://blog.bramp.net/post/2008/06/04/ordnance-survey-easting/northing-to-lat/long/</guid>
+      <guid>https://blog.bramp.net/post/2008/06/04/ordnance-survey-easting/northing-to-lat/long/</guid>
       <description>&lt;p&gt;Recently I had the need to convert Ordnance Survey East/North coordinates to Latitude and Longitude. By using the resources available on the OS site I wrote the following piece of PHP code:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;// Converts OS Easting/Northing to Lat/Long&lt;/span&gt;
