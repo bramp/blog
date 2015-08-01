@@ -20,7 +20,7 @@ help:
 	@echo ""
 	@echo "New article:"
 	@echo "  hugo new post/the_title"
-	@echo "  $EDITOR content/post/the_title.md"
+	@echo "  $$EDITOR content/post/the_title.md"
 	@echo "  make watch"
 	@echo "  open "
 
