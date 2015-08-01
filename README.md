@@ -39,7 +39,7 @@ TODO
 ----
  [ ] Fix disqus (dsq_thread_id). Have to update URLs on disque
  [x] Problem parsing last link in markdown. (e.g [N] doesn't work) Fix at https://github.com/russross/blackfriday/issues/180
- [ ] Check the links haven't changed. Write script to check all URLs on bramp.net still exist
+ [x] Check the links haven't changed. Write script to check all URLs on bramp.net still exist
  [x] Test 404
  [x] Center all tables
  [x] Ensure no broken links
@@ -53,3 +53,5 @@ TODO (nice to have)
  [ ] Test twitter card
  [ ] Investigate facebook card
  [ ] Minify CSS
+ [ ] Report bug in hugo with tags with dots in the name. For example "last.fm" is handled incorrectly.
+ [ ] Sitemap.xml does not contain all pages (such as /opensource-project/*)

@@ -6,7 +6,7 @@
 	<p class="meta">
 		<i class="fa fa-calendar-o"></i> {{ .Date.Format  "2006-01-02" }}
 		{{ range .Params.tags }}
-		| <a href="{{ $baseurl }}/tags/{{ . | urlize }}">{{ . }}</a>
+		| <a href="{{ $baseurl }}/tags/{{ . | urlize }}/">{{ . }}</a>
 		{{ end }}
 	</p>
 	<div class="post">
