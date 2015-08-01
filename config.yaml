@@ -1,4 +1,4 @@
-baseurl: "http://blog.bramp.net"
+baseurl: "https://blog.bramp.net"
 languageCode: "en-gb"
 title: "bramp.net"
 MetaDataFormat: "yaml"
