@@ -51,7 +51,7 @@
   
   <meta property="og:description" content="Andrew Brampton&#39;s Tech blog" />
   
-  <meta property="og:locale" content="en-gb" />
+  <meta property="og:locale" content="en_GB" />
 
 
   
