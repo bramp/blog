@@ -3,16 +3,25 @@
 <head>
 
 
+  
+
+
+
+
 
 
   <meta charset="utf-8">
   <title>Last.Fm</title>
-  <meta name="description" content="">
+  
+  <meta name="description" content="Andrew Brampton&#39;s Tech blog">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Hugo"/>
   <link rel="canonical" href="https://blog.bramp.net/tags/last/index.fm/" />
 
+
   <link href="https://blog.bramp.net/tags/last.fm/index.xml" rel="alternate" type="application/rss+xml" title="Last.Fm" />
+
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <link href="/css/bramp.css" rel="stylesheet">
   <link href="/css/pygments-friendly.css" rel="stylesheet">
@@ -26,12 +35,28 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@TheBramp" />
   <meta name="twitter:title" content="Last.Fm" />
-  <meta name="twitter:description" content="" />
+  <meta name="twitter:url" content="https://blog.bramp.net/tags/last/index.fm/" />
+  
+  <meta name="twitter:description" content="Andrew Brampton&#39;s Tech blog" />
+  
 
 
+  
+  
+    <meta property="og:type" content="website" />
+  
+  <meta property="og:url" content="https://blog.bramp.net/tags/last/index.fm/" />
+  <meta property="og:site_name" content="bramp.net" />
+  <meta property="og:title" content="Last.Fm" />
+  
+  <meta property="og:description" content="Andrew Brampton&#39;s Tech blog" />
+  
+  <meta property="og:locale" content="en-gb" />
 
+
+  
   <meta name="google-site-verification" content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ" />
-
+  
 
   <script>
   
@@ -102,10 +127,15 @@
      <div class="container main">
 
 
-  <div id="article">
-      <h1>Last.Fm</h1>
+  <div id="article" itemscope="" itemtype="http://schema.org/Blog">
+      <h1 itemprop="name">Last.Fm</h1>
       
-      <p><span><a href="/post/2009/03/25/last-fm-s-boffin-wordle/">Last.fm’s Boffin &#43; Wordle</a><time class="pull-right post-list">Wed, Mar 25, 2009</h4></time></span></span></p>
+      <p itemprop="blogPost" itemscope="" itemtype="http://schema.org/BlogPosting">
+      	<a href="/post/2009/03/25/last-fm-s-boffin-wordle/" itemprop="url">
+      		<span itemprop="name">Last.fm’s Boffin &#43; Wordle</span>
+      	</a>
+      	<time class="pull-right post-list" datetime="2009-03-25">Wed, Mar 25, 2009</time>
+      </p>
       
   </div>
     <br />

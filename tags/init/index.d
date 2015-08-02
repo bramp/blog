@@ -3,16 +3,25 @@
 <head>
 
 
+  
+
+
+
+
 
 
   <meta charset="utf-8">
   <title>Init.D</title>
-  <meta name="description" content="">
+  
+  <meta name="description" content="Andrew Brampton&#39;s Tech blog">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Hugo"/>
   <link rel="canonical" href="https://blog.bramp.net/tags/init/index.d/" />
 
+
   <link href="https://blog.bramp.net/tags/init.d/index.xml" rel="alternate" type="application/rss+xml" title="Init.D" />
+
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <link href="/css/bramp.css" rel="stylesheet">
   <link href="/css/pygments-friendly.css" rel="stylesheet">
@@ -26,12 +35,28 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@TheBramp" />
   <meta name="twitter:title" content="Init.D" />
-  <meta name="twitter:description" content="" />
+  <meta name="twitter:url" content="https://blog.bramp.net/tags/init/index.d/" />
+  
+  <meta name="twitter:description" content="Andrew Brampton&#39;s Tech blog" />
+  
 
 
+  
+  
+    <meta property="og:type" content="website" />
+  
+  <meta property="og:url" content="https://blog.bramp.net/tags/init/index.d/" />
+  <meta property="og:site_name" content="bramp.net" />
+  <meta property="og:title" content="Init.D" />
+  
+  <meta property="og:description" content="Andrew Brampton&#39;s Tech blog" />
+  
+  <meta property="og:locale" content="en-gb" />
 
+
+  
   <meta name="google-site-verification" content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ" />
-
+  
 
   <script>
   
@@ -102,10 +127,15 @@
      <div class="container main">
 
 
-  <div id="article">
-      <h1>Init.D</h1>
+  <div id="article" itemscope="" itemtype="http://schema.org/Blog">
+      <h1 itemprop="name">Init.D</h1>
       
-      <p><span><a href="/post/2012/09/30/pt-kill-centos-init.d-script/">pt-kill CentOS init.d script</a><time class="pull-right post-list">Sun, Sep 30, 2012</h4></time></span></span></p>
+      <p itemprop="blogPost" itemscope="" itemtype="http://schema.org/BlogPosting">
+      	<a href="/post/2012/09/30/pt-kill-centos-init.d-script/" itemprop="url">
+      		<span itemprop="name">pt-kill CentOS init.d script</span>
+      	</a>
+      	<time class="pull-right post-list" datetime="2012-09-30">Sun, Sep 30, 2012</time>
+      </p>
       
   </div>
     <br />
