@@ -1,5 +1,5 @@
 baseurl: "https://blog.bramp.net"
-languageCode: "en-gb"
+languageCode: "en_GB"
 title: "bramp.net"
 
 MetaDataFormat: "yaml"
