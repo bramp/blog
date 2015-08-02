@@ -10,7 +10,7 @@ tags:
 - blog
 ---
 
-While developing my blog using [Hugo](https://gohugo.io/), I created a simple Makefile to help automate some steps. Hopefully someone else will find this useful:
+While developing my blog using [Hugo](https://gohugo.io/), I created a simple Makefile to help automate some steps. Hopefully someone else will find this useful<!--more-->:
 
 ```make
 .PHONY: all clean minified server watch help

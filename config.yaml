@@ -1,6 +1,7 @@
 baseurl: "https://blog.bramp.net"
 languageCode: "en-gb"
 title: "bramp.net"
+
 MetaDataFormat: "yaml"
 
 theme: "bramp"
@@ -8,6 +9,7 @@ author:
   name: "Andrew Brampton"
 
 params:
+  Description: "Andrew Brampton's Tech blog"
   github: "bramp"
   twitter: "TheBramp"
   linkedin: "bramp"

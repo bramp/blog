@@ -1,8 +1,13 @@
 {{ template "theme/partials/header.html" . }}
-  <div id="article">
-      <h1>{{.Title}}</h1>
+  <div id="article" itemscope="" itemtype="http://schema.org/Blog">
+      <h1 itemprop="name">{{.Title}}</h1>
       {{ range .Data.Pages }}
-      <p><a href="{{ .RelPermalink }}">{{ .Title }}</a> &#8211; {{ .Description }}</p>
+      <p itemprop="blogPost" itemscope="" itemtype="http://schema.org/BlogPosting">
+      	<a href="{{ .RelPermalink }}" itemprop="url">
+      		<span itemprop="name">{{ .Title }}</span>
+      	</a> &#8211;
+      	<span itemprop="description">{{ .Description }}</span>
+      </p>
       {{ end }}
 
   </div>
