@@ -55,3 +55,4 @@ TODO (nice to have)
  [ ] Minify CSS
  [ ] Report bug in hugo with tags with dots in the name. For example "last.fm" is handled incorrectly.
  [ ] Sitemap.xml does not contain all pages (such as /opensource-project/*)
+ [ ] The Summary/Descriptions are wrong on pages using the <!--more--> syntax
