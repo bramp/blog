@@ -3,8 +3,13 @@
   
   <url>
     <loc>https://blog.bramp.net/</loc>
-    <lastmod>2015-08-01T14:02:29-07:00</lastmod>
+    <lastmod>2015-08-07T20:53:41-07:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/post/2015/08/07/introducing-hilbert/</loc>
+    <lastmod>2015-08-07T20:53:41-07:00</lastmod>
   </url>
   
   <url>
@@ -133,12 +138,12 @@
   </url>
   
   <url>
-    <loc>https://blog.bramp.net/android-app/nandos-finder/</loc>
+    <loc>https://blog.bramp.net/android-app/finder/</loc>
     <lastmod>2012-04-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.bramp.net/android-app/finder/</loc>
+    <loc>https://blog.bramp.net/android-app/nandos-finder/</loc>
     <lastmod>2012-04-29T00:00:00+00:00</lastmod>
   </url>
   
