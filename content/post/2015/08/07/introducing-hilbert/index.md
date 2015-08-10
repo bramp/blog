@@ -1,6 +1,9 @@
 ---
 title: Introducing Hilbert. A Go library to map values onto a Hilbert curve.
 slug: introducing-hilbert
+description: A Hilbert curve is a space-filling (snakey) curve through a 2D space. This can be very useful for mapping a 1D value, into a 2D space. I recently created a library for Go that can map to and from a curve. The project is hosted on Github, and can be used like so.
+images:
+- hilbert.png
 author: bramp
 categories:
 - Blog
@@ -9,6 +12,7 @@ layout: post
 tags:
 - hilbert
 - golang
+- opensource
 ---
 
 A [Hilbert curve][1] is a space-filling (snakey) curve through a 2D space:
