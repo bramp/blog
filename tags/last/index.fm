@@ -3,7 +3,15 @@
 <head>
 
 
+
+
+
+
   
+    
+    
+  
+
 
 
 
@@ -12,9 +20,10 @@
 
   <meta charset="utf-8">
   <title>Last.Fm</title>
-  
-  <meta name="description" content="Andrew Brampton&#39;s Tech blog">
-  
+
+  <meta name="description" content="Index of pages tagged Last.Fm">
+
+  <meta name="author" content="Andrew Brampton">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Hugo"/>
   <link rel="canonical" href="https://blog.bramp.net/tags/last/index.fm/" />
@@ -30,28 +39,36 @@
   
   
 
-
   
-  <meta name="twitter:card" content="summary" />
+  
+    <meta name="twitter:card" content="summary"/>
+  
+
   <meta name="twitter:site" content="@TheBramp" />
   <meta name="twitter:title" content="Last.Fm" />
   <meta name="twitter:url" content="https://blog.bramp.net/tags/last/index.fm/" />
+  <meta name="twitter:creator" content="@TheBramp"/>
+
   
-  <meta name="twitter:description" content="Andrew Brampton&#39;s Tech blog" />
+  <meta name="twitter:description" content="Index of pages tagged Last.Fm" />
   
 
 
-  
-  
-    <meta property="og:type" content="website" />
-  
+
+
+  <meta property="og:type" content="website" />
+
   <meta property="og:url" content="https://blog.bramp.net/tags/last/index.fm/" />
   <meta property="og:site_name" content="bramp.net" />
   <meta property="og:title" content="Last.Fm" />
-  
-  <meta property="og:description" content="Andrew Brampton&#39;s Tech blog" />
-  
+
+  <meta property="og:description" content="Index of pages tagged Last.Fm" />
+
+
+  <meta property="og:updated_time" content="2009-03-25T00:00:00&#43;00:00"/>
+
   <meta property="og:locale" content="en_GB" />
+  
 
 
   
