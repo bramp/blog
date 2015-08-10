@@ -3,7 +3,7 @@ title: Hacking Linksys E4200v2 firmware
 author: bramp
 layout: post
 date: 2012-01-24
-dsq_thread_id: 1614115116
+disqus_identifier: 1614115116
 categories:
   - Blog
 tags:

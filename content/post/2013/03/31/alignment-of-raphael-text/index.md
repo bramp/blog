@@ -4,7 +4,7 @@ author: bramp
 layout: post
 date: 2013-03-31
 slug: alignment-of-raphael-text
-dsq_thread_id: 1614111094
+disqus_identifier: 1614111094
 categories:
   - Blog
 aliases:

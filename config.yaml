@@ -15,7 +15,7 @@ params:
   linkedin: "bramp"
   facebook: "bramp"
   GoogleAnalytics: "UA-136478-5"
-  disqusShortname: "bramp"
+  DisqusShortname: "bramp"
   GoogleSiteVerification: "RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"
 
 permalinks:
