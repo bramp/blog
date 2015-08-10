@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang=en><head><meta charset=utf-8><title>Setting up git-p4</title><meta name=description content="I couldn&#8217;t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I&#8217;d quickly write this up.
-"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo"/><link rel=canonical href="https://blog.bramp.net/post/2012/09/04/setting-up-git-p4/"/><link href=/css/bootstrap.min.css rel=stylesheet><link href=/css/bramp.css rel=stylesheet><link href=/css/pygments-friendly.css rel=stylesheet><link href=//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css rel=stylesheet><meta name=twitter:card content="summary"/><meta name=twitter:site content="@TheBramp"/><meta name=twitter:title content="Setting up git-p4"/><meta name=twitter:url content="https://blog.bramp.net/post/2012/09/04/setting-up-git-p4/"/><meta name=twitter:description content="I couldn&#8217;t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I&#8217;d quickly write this up.
-"/><meta property=og:type content="article"/><meta property=article:author content="Andrew Brampton"/><meta property=article:published_time content="2012-09-04T00:00:00&#43;07:00"/><meta property=article:tag content="Git"/><meta property=article:tag content="perforce"/><meta property=og:url content="https://blog.bramp.net/post/2012/09/04/setting-up-git-p4/"/><meta property=og:site_name content="bramp.net"/><meta property=og:title content="Setting up git-p4"/><meta property=og:description content="I couldn&#8217;t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I&#8217;d quickly write this up.
-"/><meta property=og:locale content="en_GB"/><meta name=google-site-verification content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"/><script></script><body><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+"><meta name=author content="Andrew Brampton"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo"/><link rel=canonical href="https://blog.bramp.net/post/2012/09/04/setting-up-git-p4/"/><link href=/css/bootstrap.min.css rel=stylesheet><link href=/css/bramp.css rel=stylesheet><link href=/css/pygments-friendly.css rel=stylesheet><link href=//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css rel=stylesheet><meta name=twitter:card content="summary"/><meta name=twitter:site content="@TheBramp"/><meta name=twitter:title content="Setting up git-p4"/><meta name=twitter:url content="https://blog.bramp.net/post/2012/09/04/setting-up-git-p4/"/><meta name=twitter:creator content="@TheBramp"/><meta name=twitter:description content="I couldn&#8217;t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I&#8217;d quickly write this up.
+"/><meta property=og:type content="article"/><meta property=article:author content="https://www.facebook.com/bramp"/><meta property=article:published_time content="2012-09-04T00:00:00&#43;07:00"/><meta property=article:tag content="Git"/><meta property=article:tag content="perforce"/><meta property=og:url content="https://blog.bramp.net/post/2012/09/04/setting-up-git-p4/"/><meta property=og:site_name content="bramp.net"/><meta property=og:title content="Setting up git-p4"/><meta property=og:description content="I couldn&#8217;t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I&#8217;d quickly write this up.
+"/><meta property=og:updated_time content="2012-09-04T00:00:00&#43;00:00"/><meta property=og:locale content="en_GB"/><meta name=google-site-verification content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"/><script></script><body><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
@@ -19,18 +19,17 @@ git p4 clone //depot/path/to/project/@all project
 <span class=nb>export </span><span class=nv>P4USER</span><span class=o>=</span>myuser
 <span class=nb>export </span><span class=nv>P4EDITOR</span><span class=o>=</span>nano
 </pre></div><p>and then logged in</p><div class=highlight><pre>p4 login
-</pre></div><p>More information on that set up can be found in the <a href=http://www.perforce.com/perforce/doc.current/manuals/p4guide/02_config.html>official documentation</a>.</p><p>Once cloned, you can change to the project directory and use many of the normal git commands, such as &#8220;git log&#8221;. You may notice that your newly checked out git repo only has one commit. If you want to see a full history use @all on the end of your depot path.</p></div></div><div class=addthis_sharing_toolbox></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2012/09/03/rfc-1123-dates-in-php/">&larr; RFC 1123 dates in PHP</a></li>&nbsp;<li class=next><a href="/post/2012/09/09/using-make-to-parallelise-a-task/">Using Make to parallelise a task &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>var disqus_shortname = 'bramp';
+</pre></div><p>More information on that set up can be found in the <a href=http://www.perforce.com/perforce/doc.current/manuals/p4guide/02_config.html>official documentation</a>.</p><p>Once cloned, you can change to the project directory and use many of the normal git commands, such as &#8220;git log&#8221;. You may notice that your newly checked out git repo only has one commit. If you want to see a full history use @all on the end of your depot path.</p></div></div><div class=addthis_sharing_toolbox></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2012/09/03/rfc-1123-dates-in-php/">&larr; RFC 1123 dates in PHP</a></li>&nbsp;<li class=next><a href="/post/2012/09/09/using-make-to-parallelise-a-task/">Using Make to parallelise a task &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>var disqus_shortname = '';
+    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2012\/09\/04\/setting-up-git-p4\/';
+    var disqus_title = 'Setting up git-p4';
+    var disqus_url = 'https:\/\/blog.bramp.net\/post\/2012\/09\/04\/setting-up-git-p4\/';
+    (function() {
+	    
+	    
+	    if (window.location.hostname == "localhost")
+	        return;
 
-
-(function() {
-
-    
-    
-    if (window.location.hostname == "localhost" || window.location.port == 1313) 
-        return;
-
-
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a><br/><footer><p class="text-muted credit">&copy; 2015. All rights reserved.</p></footer></div></div><script src=/js/jquery-1.10.2.min.js></script><script src=/js/bootstrap.min.js></script><script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a><br/><footer><p class="text-muted credit">&copy; 2015. All rights reserved.</p></footer></div></div><script src=/js/jquery-1.10.2.min.js></script><script src=/js/bootstrap.min.js></script><script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>

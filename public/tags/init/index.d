@@ -3,7 +3,15 @@
 <head>
 
 
+
+
+
+
   
+    
+    
+  
+
 
 
 
@@ -12,9 +20,10 @@
 
   <meta charset="utf-8">
   <title>Init.D</title>
-  
-  <meta name="description" content="Andrew Brampton&#39;s Tech blog">
-  
+
+  <meta name="description" content="Index of pages tagged Init.D">
+
+  <meta name="author" content="Andrew Brampton">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="Hugo"/>
   <link rel="canonical" href="https://blog.bramp.net/tags/init/index.d/" />
@@ -30,28 +39,36 @@
   
   
 
-
   
-  <meta name="twitter:card" content="summary" />
+  
+    <meta name="twitter:card" content="summary"/>
+  
+
   <meta name="twitter:site" content="@TheBramp" />
   <meta name="twitter:title" content="Init.D" />
   <meta name="twitter:url" content="https://blog.bramp.net/tags/init/index.d/" />
+  <meta name="twitter:creator" content="@TheBramp"/>
+
   
-  <meta name="twitter:description" content="Andrew Brampton&#39;s Tech blog" />
+  <meta name="twitter:description" content="Index of pages tagged Init.D" />
   
 
 
-  
-  
-    <meta property="og:type" content="website" />
-  
+
+
+  <meta property="og:type" content="website" />
+
   <meta property="og:url" content="https://blog.bramp.net/tags/init/index.d/" />
   <meta property="og:site_name" content="bramp.net" />
   <meta property="og:title" content="Init.D" />
-  
-  <meta property="og:description" content="Andrew Brampton&#39;s Tech blog" />
-  
+
+  <meta property="og:description" content="Index of pages tagged Init.D" />
+
+
+  <meta property="og:updated_time" content="2012-09-30T00:00:00&#43;00:00"/>
+
   <meta property="og:locale" content="en_GB" />
+  
 
 
   
