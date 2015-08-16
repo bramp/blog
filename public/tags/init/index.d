@@ -31,11 +31,29 @@
 
   <link href="https://blog.bramp.net/tags/init.d/index.xml" rel="alternate" type="application/rss+xml" title="Init.D" />
 
-  <link href="/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/css/bramp.css" rel="stylesheet">
-  <link href="/css/pygments-friendly.css" rel="stylesheet">
 
-  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon-precomposed" href="/images/favicon.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/images/favicon-57x57.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/favicon-72x72.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/images/favicon-76x76.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/favicon-114x114.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/images/favicon-120x120.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/favicon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/images/favicon-152x152.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/images/favicon-180x180.png" />
+
+  <meta name="msapplication-TileColor" content="#4582EC">
+  <meta name="msapplication-TileImage" content="/images/favicon-144x144.png">
+
+  <meta name="theme-color" content="#4582EC">
+  <link rel="icon" sizes="192x192" href="/images/favicon-192x192.png" />
+
+  <link href="/css/all.min.css" rel="stylesheet">
+  
+
+  <link href='https://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
   
   
 
@@ -89,6 +107,7 @@
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-136478-5', 'auto');
+    ga('require', 'linkid', 'linkid.js');
     ga('send', 'pageview');
   </script>
   
@@ -107,7 +126,7 @@
           </button>
           <div class="navbar-brand">
             <a href="/">
-              <img src="//secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
+              <img src="https://secure.gravatar.com/avatar/69259b422a1a9266e17977f8ec9d939e?s=64" class="profile-image" alt="Home">
             </a>
             <div>
               <a href="/about-me/">Andrew Brampton</a>
@@ -164,8 +183,9 @@
     </div> 
 
 	
-    <script src="/js/jquery-1.10.2.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/all.min.js"></script>
+    
+
     
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async="async"></script>
 
