@@ -7,11 +7,12 @@
     </div> <!-- .wrapper-->
 
 	<!-- Bootstrap core JavaScript-->
-    <script src="/js/all.min.js"></script>
-    <!--
+{{ if in (printf "%s" .Site.BaseURL) "localhost" }}
     <script src="/js/jquery-1.10.2.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    -->
+{{ else }}
+    <script src="/js/all.min.js"></script>
+{{ end }}
 
     {{ template "theme/partials/addthis.html" . }}
   </body>

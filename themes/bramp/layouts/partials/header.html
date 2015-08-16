@@ -56,12 +56,16 @@
   <meta name="theme-color" content="#4582EC">
   <link rel="icon" sizes="192x192" href="/images/favicon-192x192.png" />
 
-  <link href="/css/all.min.css" rel="stylesheet">
-  <!--
+<!-- we use printf "%s"... because BaseURL is a URL, not a String. This should be fixed in Hugo
+     at some point. http://discuss.gohugo.io/t/implementing-breadcrumb-navigation-in-hugo/1048/5
+     and https://github.com/spf13/cast/issues/13 -->
+{{ if in (printf "%s" .Site.BaseURL) "localhost" }}
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <link href="/css/bramp.css" rel="stylesheet">
   <link href="/css/pygments-friendly.css" rel="stylesheet">
-  -->
+{{ else }}
+  <link href="/css/all.min.css" rel="stylesheet">
+{{ end }}
 
   <link href='https://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
   <link href="https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
