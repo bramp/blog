@@ -1,7 +1,10 @@
 .PHONY: all clean minified server watch help
 
 HUGO := ./hugo.sh
-HTML_MINIFIER := html-minifier -c html-minifier.conf
+NODE_MODULES := node_modules/.bin
+HTML_MINIFIER := $(NODE_MODULES)/html-minifier -c html-minifier.conf
+UGLIFYJS := $(NODE_MODULES)/uglifyjs
+CLEANCSS := $(NODE_MODULES)/cleancss
 
 # All input files
 FILES=$(shell find content layouts static themes -type f)
@@ -30,7 +33,7 @@ clean:
 
 minified: .minified
 
-server: public
+server: public minified
 	cd public && python -m SimpleHTTPServer 1313
 
 watch: clean
@@ -51,8 +54,13 @@ public: $(FILES) config.yaml
 	# Ensure the public folder has it's mtime updated.
 	touch $@
 
-.minified: public html-minifier.conf
+.minified: public html-minifier.conf public/css/all.min.css public/js/all.min.js
 	# Find all HTML and in parallel run the minifier
 	find public -type f -iname '*.html' | parallel --tag $(HTML_MINIFIER) "{}" -o "{}"
 	touch .minified
 
+public/css/all.min.css: public/css/bootstrap.css public/css/bramp.css public/css/pygments-friendly.css
+	$(CLEANCSS) -o public/css/all.min.css $^
+
+public/js/all.min.js: public/js/jquery-1.10.2.min.js public/js/bootstrap.min.js
+	$(UGLIFYJS) --compress --mangle -o public/js/all.min.js $^
