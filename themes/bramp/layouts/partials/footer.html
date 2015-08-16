@@ -13,8 +13,11 @@
 {{ else }}
     <script src="/js/all.min.js"></script>
 {{ end }}
+<!-- Disabled because a Single Page Webapp doesn't play nice with Disque or Addthis -->
+<!--
     <script src="/js/instantclick.min.js" data-no-instant></script>
     <script data-no-instant>InstantClick.init('mousedown');</script>
+-->
     {{ template "theme/partials/addthis.html" . }}
   </body>
 </html>
