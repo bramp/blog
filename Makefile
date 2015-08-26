@@ -22,8 +22,8 @@ help:
 	@echo "  watch   Runs hugo in watch mode, waiting for changes"
 	@echo ""
 	@echo "New article:"
-	@echo "  hugo new post/the_title"
-	@echo "  $$EDITOR content/post/the_title.md"
+	@echo "  hugo new post/$(shell date +%Y-%m-%d)-the-title.md"
+	@echo "  $$EDITOR content/post/$(shell date +%Y-%m-%d)-the-title.md"
 	@echo "  make watch"
 	@echo "  open "
 
