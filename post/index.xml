@@ -6,8 +6,85 @@
     <description>Recent content in Posts on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Fri, 07 Aug 2015 20:53:41 -0700</lastBuildDate>
+    <lastBuildDate>Mon, 24 Aug 2015 20:13:58 -0700</lastBuildDate>
     <atom:link href="https://blog.bramp.net/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Unsafe Part 1: sun.misc.Unsafe Helper Classes</title>
+      <link>https://blog.bramp.net/post/2015/08/24/unsafe-part-1-sun.misc.unsafe-helper-classes/</link>
+      <pubDate>Mon, 24 Aug 2015 20:13:58 -0700</pubDate>
+      
+      <guid>https://blog.bramp.net/post/2015/08/24/unsafe-part-1-sun.misc.unsafe-helper-classes/</guid>
+      <description>&lt;p&gt;I recently came across the &lt;a href=&#34;http://www.docjar.com/docs/api/sun/misc/Unsafe.html&#34;&gt;sun.misc.Unsafe class&lt;/a&gt;, a poorly documented, internal API that gives your java program direct access to the JVM’s memory. Of course accessing the JVM’s memory can be considered unsafe, but allows for some exciting opportunities.&lt;/p&gt;
+
+&lt;p&gt;You can use Unsafe to inspect and manipulate the layout of your objects in RAM, allocate memory off the heap, do interesting things with threads, or even &lt;a href=&#34;http://mishadoff.com/blog/java-magic-part-4-sun-dot-misc-dot-unsafe/&#34;&gt;hack in multiple inheritance&lt;/a&gt;. Multiple people have &lt;a href=&#34;https://dzone.com/articles/understanding-sunmiscunsafe&#34;&gt;written about Unsafe&lt;/a&gt; before, and there are some really &lt;a href=&#34;http://mydailyjava.blogspot.com/2013/12/sunmiscunsafe.html&#34;&gt;good articles&lt;/a&gt;, so we won’t cover it here.&lt;/p&gt;
+
+&lt;p&gt;Using unsafe is not too difficult, but I found the need for a few helper methods, thus I created a collection of classes wrapping the Unsafe code, starting with &lt;a href=&#34;https://bramp.github.io/unsafe/index.html?net/bramp/unsafe/UnsafeHelper.html&#34;&gt;UnsafeHelper&lt;/a&gt;. The main methods of interest are &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#getUnsafe--&#34;&gt;getUnsafe()&lt;/a&gt;, &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#sizeOf-java.lang.Object-&#34;&gt;sizeOf()&lt;/a&gt;, &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#firstFieldOffset-java.lang.Class-&#34;&gt;firstFieldOffset()&lt;/a&gt;, &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#toByteArray-java.lang.Object-&#34;&gt;toByteArray()&lt;/a&gt; and &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#hexDump-java.io.PrintStream-java.lang.Object-&#34;&gt;hexDump()&lt;/a&gt;. The &lt;a href=&#34;https://bramp.github.io/unsafe/&#34;&gt;javadoc&lt;/a&gt; is the best place to look for documentation, however I’ll quickly explain their use.&lt;/p&gt;
+
+&lt;p&gt;To get an sun.misc.Unsafe instance, you have to extract it from a private static field within sun.misc.Unsafe class. For ease, the &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#getUnsafe--&#34;&gt;UnsafeHelper.getUnsafe()&lt;/a&gt; method does that.&lt;/p&gt;
+
+&lt;p&gt;When accessing an object, you typically need to know the size of the object (in bytes), and be able to find the offset to individual fields. If you &lt;a href=&#34;http://www.codeinstructions.com/2008/12/java-objects-memory-structure.html&#34;&gt;understand the memory layout&lt;/a&gt; the JVM uses, you’ll know there is a header in front of the Object’s fields. Typically it looks like this, but varies based on CPU architecture, platform, etc:&lt;/p&gt;
+
+&lt;p&gt;&lt;table class=&#34;table table-bordered&#34; style=&#34;margin-bottom: 0px&#34;&gt;
+  &lt;tr&gt;
+    &lt;th class=&#34;text-center&#34;&gt;0&lt;/th&gt;
+    &lt;th class=&#34;text-center&#34;&gt;1&lt;/th&gt;
+    &lt;th class=&#34;text-center&#34;&gt;2&lt;/th&gt;
+    &lt;th class=&#34;text-center&#34;&gt;3&lt;/th&gt;
+    &lt;th class=&#34;text-center&#34;&gt;4&lt;/th&gt;
+    &lt;th class=&#34;text-center&#34;&gt;5&lt;/th&gt;
+    &lt;th class=&#34;text-center&#34;&gt;6&lt;/th&gt;
+    &lt;th class=&#34;text-center&#34;&gt;7&lt;/th&gt;
+    &lt;th class=&#34;text-center&#34;&gt;8&lt;/th&gt;
+    &lt;th class=&#34;text-center&#34;&gt;9&lt;/th&gt;
+    &lt;th class=&#34;text-center&#34;&gt;10&lt;/th&gt;
+    &lt;th class=&#34;text-center&#34;&gt;11&lt;/th&gt;
+    &lt;th class=&#34;text-center&#34;&gt;12&lt;/th&gt;
+    &lt;th class=&#34;text-center&#34;&gt;13&lt;/th&gt;
+    &lt;th class=&#34;text-center&#34;&gt;14&lt;/th&gt;
+    &lt;th class=&#34;text-center&#34;&gt;15&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&#34;text-center&#34; colspan=&#34;8&#34;&gt;mark word(8)&lt;/td&gt;
+    &lt;td class=&#34;text-center&#34; colspan=&#34;4&#34;&gt;klass pointer(4)&lt;/td&gt;
+    &lt;td class=&#34;text-center&#34; colspan=&#34;4&#34;&gt;padding&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;div class=&#34;text-right&#34;&gt;More information &lt;a href=&#34;http://www.codeinstructions.com/2008/12/java-objects-memory-structure.html&#34;&gt;here&lt;/a&gt; and &lt;a href=&#34;http://stackoverflow.com/a/17348396/88646&#34;&gt;here&lt;/a&gt;.&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;To hide some of the details, &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#headerSize-java.lang.Object-&#34;&gt;headerSize()&lt;/a&gt; returns the size of the header, and &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#sizeOf-java.lang.Object-&#34;&gt;sizeOf()&lt;/a&gt; return the total size an object including the header in bytes. &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#firstFieldOffset-java.lang.Class-&#34;&gt;firstFieldOffset()&lt;/a&gt; is then useful as it provides the the offset to the first field. Note that &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#headerSize-java.lang.Object-&#34;&gt;headerSize()&lt;/a&gt; and &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#firstFieldOffset-java.lang.Class-&#34;&gt;firstFieldOffset()&lt;/a&gt; do not always return identical results, as padding (not part of the header) may be used to correctly align the first field.&lt;/p&gt;
+
+&lt;p&gt;Next &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#toByteArray-java.lang.Object-&#34;&gt;toByteArray()&lt;/a&gt; will take an object, and copy it (and its header) into a byte array. Useful for easily inspecting, and serialising the object. Finally, &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#hexDump-java.io.PrintStream-java.lang.Object-&#34;&gt;hexDump()&lt;/a&gt; uses the &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#toByteArray-java.lang.Object-&#34;&gt;toByteArray()&lt;/a&gt; to grab an object, and print out a hex representation of the memory, for example:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;cm&#34;&gt;/**&lt;/span&gt;
+&lt;span class=&#34;cm&#34;&gt; * hexDump(new Class4()) prints:&lt;/span&gt;
+&lt;span class=&#34;cm&#34;&gt; * 0x00000000: 01 00 00 00 00 00 00 00  8A BF 62 DF 67 45 23 01&lt;/span&gt;
+&lt;span class=&#34;cm&#34;&gt; */&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Class4&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x01234567&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;cm&#34;&gt;/**&lt;/span&gt;
+&lt;span class=&#34;cm&#34;&gt; * Longs are always 8 byte aligned, so 4 bytes of padding&lt;/span&gt;
+&lt;span class=&#34;cm&#34;&gt; * hexDump(new Class8()) prints:&lt;/span&gt;
+&lt;span class=&#34;cm&#34;&gt; * 0x00000000: 01 00 00 00 00 00 00 00  9B 81 61 DF 00 00 00 00&lt;/span&gt;
+&lt;span class=&#34;cm&#34;&gt; * 0x00000010: EF CD AB 89 67 45 23 01&lt;/span&gt;
+&lt;span class=&#34;cm&#34;&gt; */&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Class8&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x0123456789ABCDEF&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;L&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;In the first example, Class4, a simple class with a single int field, takes up 16 bytes of memory, with the first 8 used by the JVM, the 2nd 4 bytes being a class pointer (basically how the object knows what kind of class it is), and the last four actually being the value of the field. The second example shows a similar header, but with bytes 12-16 being used as padding, so that the long field value is 8 byte aligned.&lt;/p&gt;
+
+&lt;p&gt;These helper methods are available in &lt;a href=&#34;https://github.com/bramp/unsafe&#34;&gt;new project on Github&lt;/a&gt;, and downloadable via Maven. Just &lt;a href=&#34;https://oss.sonatype.org/service/local/repositories/releases/content/net/bramp/unsafe/unsafe-helper/1.0/unsafe-helper-1.0.jar&#34;&gt;download the jar file&lt;/a&gt;, or include a maven dependency, and &lt;code&gt;import net.bramp.unsafe.UnsafeHelper&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;net.bramp.unsafe&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;unsafe-helper&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;1.0&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Introducing Hilbert. A Go library to map values onto a Hilbert curve.</title>
@@ -644,23 +721,6 @@ Warning:
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This will tell it that the variable is declared at a global scope. Check out one of &lt;a href=&#34;https://github.com/bramp/js-sequence-diagrams/blob/master/diagram.js&#34;&gt;my projects&lt;/a&gt; for example.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Nodewii talk at Node DC</title>
-      <link>https://blog.bramp.net/post/2012/11/14/nodewii-talk-at-node-dc/</link>
-      <pubDate>Wed, 14 Nov 2012 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bramp.net/post/2012/11/14/nodewii-talk-at-node-dc/</guid>
-      <description>&lt;p&gt;Last night I gave a short talk at &lt;a href=&#34;http://nodedc.github.com/&#34;&gt;NodeDC&lt;/a&gt;, on how to use Node.js with a wiimote. The offical title was &amp;#8220;Controlling Node.js with a wiimote &amp;#8211; My experiences with developing multi-threaded nodejs addon&amp;#8221;. I&amp;#8217;d like to thank the NodeDC guys for arranging everything last night, it was a great night, with some great talks.&lt;/p&gt;
-
-&lt;p&gt;&lt;div class=&#34;text-center&#34;&gt;
-    &lt;a href=&#34;https://bramp.github.io/nodewii-talk/&#34;&gt;
-        &lt;img src=&#34;nodewii-talk.png&#34; alt=&#34;&#34; title=&#34;nodewii-talk&#34; width=&#34;981&#34; height=&#34;763&#34;/&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-The slides can be found here: &lt;a href=&#34;https://bramp.github.io/nodewii-talk/&#34;&gt;https://bramp.github.io/nodewii-talk/&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
