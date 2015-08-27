@@ -83,6 +83,8 @@ These helper methods are available in [new project on Github][8], and downloadab
 </dependency>
 ```
 
+[Next article][18], we'll make use of this new UnsafeHelper to build a special List which copies objects, instead of storing references.
+
 [1]: http://www.docjar.com/docs/api/sun/misc/Unsafe.html
 [2]: http://mishadoff.com/blog/java-magic-part-4-sun-dot-misc-dot-unsafe/
 [3]: https://dzone.com/articles/understanding-sunmiscunsafe
@@ -91,7 +93,6 @@ These helper methods are available in [new project on Github][8], and downloadab
 [6]: http://www.codeinstructions.com/2008/12/java-objects-memory-structure.html
 [7]: http://stackoverflow.com/a/17348396/88646
 [8]: https://github.com/bramp/unsafe
-
 [9]: https://bramp.github.io/unsafe/
 [10]: https://bramp.github.io/unsafe/index.html?net/bramp/unsafe/UnsafeHelper.html
 [11]: https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#getUnsafe--
@@ -101,3 +102,4 @@ These helper methods are available in [new project on Github][8], and downloadab
 [15]: https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#hexDump-java.io.PrintStream-java.lang.Object-
 [16]: https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#headerSize-java.lang.Object-
 [17]: https://oss.sonatype.org/service/local/repositories/releases/content/net/bramp/unsafe/unsafe-helper/1.0/unsafe-helper-1.0.jar
+[18]: https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/
