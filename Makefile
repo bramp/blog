@@ -37,7 +37,7 @@ server: public minified
 	cd public && python -m SimpleHTTPServer 1313
 
 watch: clean
-	$(HUGO) server -w
+	$(HUGO) server -w -D -F
 
 # Below are file based targets
 public: $(FILES) config.yaml
