@@ -118,7 +118,7 @@ In conclusion, this approach has some pros and cons, but was mostly created for 
  * Additional CPU cycles needed to copies objects in and out of array
  * Copies the class out of the garbage collector’s view, thus if a stored object contains the only references to other objects, the garbage collector will not know it is still used.
 
-In the next article, we'll benchmark this UnsafeArrayList, and investigate the performance impact of the cache locality, and other overheads.
+In the [next article][14], we'll benchmark this UnsafeArrayList, and investigate the performance impact of the cache locality, and other overheads.
 
 [1]: http://mechanical-sympathy.blogspot.com/2012/10/compact-off-heap-structurestuples-in.html
 [2]: https://en.wikipedia.org/wiki/Flyweight_pattern
@@ -133,3 +133,4 @@ In the next article, we'll benchmark this UnsafeArrayList, and investigate the p
 [11]: https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeArrayList.html#get-int-
 [12]: https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeArrayList.html#set-int-T-
 [13]: https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeArrayList.html#get-T-int-
+[14]: https://blog.bramp.net/post/2015/08/27/unsafe-part-3-benchmarking-a-java-unsafearraylist/
