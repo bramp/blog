@@ -8,7 +8,6 @@ layout: post
 tags:
 - unsafe
 - java
-draft: true
 ---
 
 Previously we introduced a [UnsafeArrayList][1], a ArrayList style collection that instead of storing references to the objects, it would copy them into heap allocated memory. This has the unique property of keeping all objects contiguous in memory, and avoids a pointer indirection, at the cost of needing to copy values in and out. I would argue that the copy cost is minor, as it is effectively prefetching the object’s fields into the CPU cache. Saving a memory load when the field is actually used (most likely shortly after it is pulled from the list). However, instead of speculating, this article aims to benchmark the list.
