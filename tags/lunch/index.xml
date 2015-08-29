@@ -17,7 +17,7 @@
       <guid>https://blog.bramp.net/post/2011/07/27/html5-canvas-lunch-wheel/</guid>
       <description>&lt;p&gt;In the on going battle to make my lunch time more optimised I decided to learn some Javascript, and how to use the HTML5 &lt;a href=&#34;https://html.spec.whatwg.org/multipage/scripting.html#the-canvas-element&#34;&gt;Canvas&lt;/a&gt; element. Turns out it&amp;#8217;s not that hard, and I have now created&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;http://bramp.net/javascript/lunchwheel.html&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.bramp.net/wheel/&#34;&gt;
 &lt;figure &gt;
     
         &lt;img src=&#34;lunchwheel.png&#34; /&gt;
@@ -31,7 +31,7 @@
 &lt;/figure&gt;
 &lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;The Lunch Wheel]&lt;a href=&#34;http://bramp.net/javascript/lunchwheel.html&#34;&gt;3&lt;/a&gt;. It helps me find lunch close to my office in the &lt;a href=&#34;http://maps.google.com/maps?q=Courthouse,+Arlington,+VA&amp;amp;hl=en&amp;amp;sll=37.0625,-95.677068&amp;amp;sspn=59.206892,135.263672&amp;amp;z=15&#34;&gt;Courthouse area of Arlington, VA&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The Lunch Wheel]&lt;a href=&#34;https://blog.bramp.net/wheel/&#34;&gt;3&lt;/a&gt;. It helps me find lunch close to my office in the &lt;a href=&#34;http://maps.google.com/maps?q=Courthouse,+Arlington,+VA&amp;amp;hl=en&amp;amp;sll=37.0625,-95.677068&amp;amp;sspn=59.206892,135.263672&amp;amp;z=15&#34;&gt;Courthouse area of Arlington, VA&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;While making this I found that information on the Canvas element seemed to be lacking. For example, not many sites talked about ways to optimise or profile the javascript. Also I was disappointed to see that not all browsers supported the Canvas completely. Here is a quick list of the problems:&lt;/p&gt;
 
