@@ -42,7 +42,7 @@ Also, thanks to [jQuery][7], [TinySort][8] and [ExplorerCanvas][9] (which I stil
 **Update:** Soon to come, the ability to find your own lunch places, as well as integration with [foursquare][10] so you can see how popular the venues are with your friends.
 
  [1]: https://html.spec.whatwg.org/multipage/scripting.html#the-canvas-element
- [3]: http://bramp.net/javascript/lunchwheel.html
+ [3]: https://blog.bramp.net/wheel/
  [4]: http://maps.google.com/maps?q=Courthouse,+Arlington,+VA&hl=en&sll=37.0625,-95.677068&sspn=59.206892,135.263672&z=15
  [5]: https://developer.mozilla.org/En/HTML/Element/audio
  [6]: https://html.spec.whatwg.org/multipage/scripting.html#dom-context-2d-clip
