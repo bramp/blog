@@ -3,13 +3,10 @@
 	<div class="jumbotron">
 		<h2>Welcome to my site.</h2>
 		<p>Below are some recent ramblings, above you can find my android apps, open source work and academic publications.</p>
-		Andrew Brampton
-		<div class="text-right">
-			<!-- https://feedly.com/factory.html -->
-			<a href='https://cloud.feedly.com/#subscription%2Ffeed%2F{{ .Site.BaseURL }}/index.xml' target='blank'>
-				<img id='feedlyFollow' src='https://s3.feedly.com/img/follows/feedly-follow-rectangle-volume-medium_2x.png' alt='follow us in feedly' width='71' height='28'>
-			</a>
+		<div class="pull-right">
+			{{ template "theme/partials/follow.html" . }}
 		</div>
+		<p>Andrew Brampton</p>
 	</div>
 
 	<h1>Recent Articles</h1>
