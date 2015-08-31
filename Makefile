@@ -65,3 +65,6 @@ public/css/all.min.css: public/css/bootstrap.css public/css/bootstrap-social.css
 
 public/js/all.min.js: public/js/jquery-1.10.2.min.js public/js/bootstrap.min.js
 	$(UGLIFYJS) --compress --mangle -o public/js/all.min.js $^
+
+public/%.css public/%.js: public
+	@# Empty rule, to force public to be built when js/css is needed.
