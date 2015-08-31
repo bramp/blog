@@ -126,15 +126,6 @@
   {{ with .Site.Params.GoogleSiteVerification }}
   <meta name="google-site-verification" content="{{ . }}" />
   {{ end }}
-
-  <script>
-  /* //NASTY SSL hack
-  var host = "bramp.github.io";
-  if ((host == window.location.host) && (window.location.protocol != "https:")) {
-    window.location.protocol = "https";
-  }
-  */
-  </script>
 </head>
 <body>
 {{ template "theme/partials/googleanalytics.html" . }}
