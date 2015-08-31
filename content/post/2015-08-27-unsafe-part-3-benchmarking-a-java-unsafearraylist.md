@@ -10,7 +10,7 @@ tags:
 - java
 ---
 
-Previously we introduced a [UnsafeArrayList][1], a ArrayList style collection that instead of storing references to the objects, it would copy them into heap allocated memory. This has the unique property of keeping all objects contiguous in memory, and avoids a pointer indirection, at the cost of needing to copy values in and out. I would argue that the copy cost is minor, as it is effectively prefetching the object’s fields into the CPU cache. Saving a memory load when the field is actually used (most likely shortly after it is pulled from the list). However, instead of speculating, this article aims to benchmark the list.
+Previously we introduced a [UnsafeArrayList][1], an ArrayList style collection that instead of storing references to the objects, it would use [sun.misc.Unsafe][15] and [UnsafeHelper][16] to copy the objects into heap allocated memory. This has the unique property of keeping all objects contiguous in memory, and avoids a pointer indirection, at the cost of needing to copy values in and out. This article aims to benchmark this list, and understand its unique characteristics.
 
 ## Methodology
 To test the performance of this new style of list, a series of benchmarks were devised. The new [JMH benchmark framework][3] was used, and final benchmark code is [available here][2].
@@ -79,7 +79,8 @@ With the UnsafeArrayList in-place test, it takes an average of 5.53 nanoseconds 
 ### Sorting
 The second benchmark measured the speed at which the lists could be read and written to somewhat randomly, and in particular sorted. This should cause a less predictable reads from memory.  To sort 80 million elements in the ArrayList took 70.31 ±3.939 seconds, and only 18.69 ±3.158 seconds for the UnsafeArrayList using the in-place get. The relative times is not as impressive as the previous test, but still the UnsafeArrayList is ~3.7 times as quick.  I’m unsure exactly why the UnsafeArrayList would be faster, but I suspect it is related to the fewer memory indirections, and prefetching effect the copying of fields has.
 
-It’s also worth noting, the increase performance becomes less profound as the size of the stored class increases. For the FourLong the difference between ArrayList and UnsafeArrayList is 3.2x, and for EightLong the difference is 2.4x. This can easily be explained by the increasing cost of copying the fields in and out of the list.
+It’s also worth noting, the increase performance becomes less profound as the size of the stored class increases. For the FourLong the difference between ArrayList and UnsafeArrayList is 3.2x, and for EightLong the difference is 2.4x. This can easily be explained by the increasing cost of copying the fields in and out of the list. Even so, I would argue that the copy cost is in part hidden, as it is effectively prefetching the object’s fields into the CPU cache. Saving a memory load when the field is actually used (most likely shortly after it is pulled from the list).
+
 
 ### Other observations
 Overlooked is the smaller memory requirements for the UnsafeArrayList. A TwoLong instance is 16 bytes of data, plus 16 bytes of JVM object header. Thus an ArrayList of 40 million instances take 2.4 GiB of RAM (32 bytes x 80M), plus an additional 305MiB for an array of 80 million references (assuming [compressed object pointers][12] takes 4 bytes each). Totalling 2.68 GiB, whereas the UnsafeArray takes 16 bytes per entry, totaling only 1.2GiB (roughly half the size!).
@@ -107,3 +108,5 @@ Your results may vary, and as always you should benchmark your exact workload in
 [12]: https://docs.oracle.com/javase/7/docs/technotes/guides/vm/performance-enhancements-7.html#compressedOop
 [13]: http://www.docjar.com/docs/api/sun/misc/Unsafe.html
 [14]: http://blog.dripstat.com/removal-of-sun-misc-unsafe-a-disaster-in-the-making/
+[15]: http://www.docjar.com/docs/api/sun/misc/Unsafe.html
+[16]: https://blog.bramp.net/post/2015/08/24/unsafe-part-1-sun.misc.unsafe-helper-classes/
