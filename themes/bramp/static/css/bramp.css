@@ -12,6 +12,10 @@ code {
 	border-radius: 4px;
 }
 
+pre {
+    font-family: Hack, monospace;
+}
+
 figure {
 	text-align: center;
 	padding: 10px;
