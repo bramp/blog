@@ -60,7 +60,7 @@ public: $(FILES) config.yaml
 	find public -type f -iname '*.html' | parallel --tag $(HTML_MINIFIER) "{}" -o "{}"
 	touch .minified
 
-public/css/all.min.css: public/css/bootstrap.css public/css/bramp.css public/css/pygments-friendly.css
+public/css/all.min.css: public/css/bootstrap.css public/css/bootstrap-social.css public/css/pygments-friendly.css public/css/bramp.css
 	$(CLEANCSS) -o public/css/all.min.css $^
 
 public/js/all.min.js: public/js/jquery-1.10.2.min.js public/js/bootstrap.min.js
