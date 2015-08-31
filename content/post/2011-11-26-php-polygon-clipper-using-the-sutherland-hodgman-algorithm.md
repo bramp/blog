@@ -125,7 +125,6 @@ class RightEdge extends VertEdge {
 }
 
 class LeftEdge extends VertEdge {
-
 	function inside($p) {
 		return $p[0] >= $this->bound; //X
 	}
