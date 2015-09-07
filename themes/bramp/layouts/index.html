@@ -3,10 +3,20 @@
 	<div class="jumbotron">
 		<h2>Welcome to my site.</h2>
 		<p>Below are some recent ramblings, above you can find my android apps, open source work and academic publications.</p>
-		<div class="pull-right">
-			{{ template "theme/partials/follow.html" . }}
+		<p class="text-right">Andrew Brampton</p>
+		<div class="btn-toolbar">
+			{{ with .Site.Params.FeedBurner }}
+			<div class="btn-group pull-right">
+				<a class="btn btn-sm btn-soundcloud" href='https://feeds.feedburner.com/{{ . }}' aria-label="RSS feed">
+				<i class="fa fa-rss-square"></i> Subscribe via RSS</a>
+			</div>
+			{{end}}
+			{{ with .Site.Params.twitter }}
+			<div class="btn-group pull-right">
+				<a class="btn btn-sm btn-twitter" href="https://twitter.com/{{ . }}"><i class="fa fa-twitter"></i> Follow @TheBramp</a>
+			</div>
+			{{end}}
 		</div>
-		<p>Andrew Brampton</p>
 	</div>
 
 	<h1>Recent Articles</h1>

@@ -163,7 +163,9 @@
               {{ with .Site.Params.github }}
                 <a href="https://github.com/{{ . }}" aria-label="GitHub"><i class="fa fa-github-square"></i></a>
               {{end}}
-                <a href="https://cloud.feedly.com/#subscription%2Ffeed%2F{{ .Site.BaseURL }}/index.xml" aria-label="RSS feed"><i class="fa fa-rss-square"></i></a>
+              {{ with .Site.Params.FeedBurner }}
+                <a href="https://feeds.feedburner.com/{{ . }}" aria-label="RSS feed"><i class="fa fa-rss-square"></i></a>
+              {{end}}
              </div>
             </div>
           </div>
