@@ -8,7 +8,7 @@
     (function() {
 	    // Don't ever inject Disqus on localhost--it creates unwanted
 	    // discussions from 'localhost:1313' on your Disqus account...
-	    if (window.location.hostname == "localhost" || window.location.hostname == "127.0.0.1")
+	    if (window.location.host.lastIndexOf(":1313") >= 0)
 	        return;
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
