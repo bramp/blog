@@ -1,2 +1,2 @@
 #!/bin/bash
-go run $GOPATH/src/bramp.net/hugo/main.go "$@"
+go run $GOPATH/src/github.com/bramp/hugo/main.go "$@"
