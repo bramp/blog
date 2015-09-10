@@ -32,11 +32,11 @@ figcaption h4 {
 }
 
 .jumbotron {
-	padding: 10px 30px;
+	padding: 10px 20px 20px 20px;
 }
 
 @media screen and (min-width: 768px){.container .jumbotron {
-    padding: 10px 30px;
+    padding: 10px 20px 20px 20px;
 }}
 
 #article .post {

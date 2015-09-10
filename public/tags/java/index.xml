@@ -6,8 +6,310 @@
     <description>Recent content in Java on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Thu, 27 Aug 2015 20:39:04 -0700</lastBuildDate>
+    <lastBuildDate>Wed, 09 Sep 2015 20:29:04 -0700</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Unrolling loops at runtime with Byte Buddy</title>
+      <link>https://blog.bramp.net/post/2015/09/09/unrolling-loops-at-runtime-with-byte-buddy/</link>
+      <pubDate>Wed, 09 Sep 2015 20:29:04 -0700</pubDate>
+      
+      <guid>https://blog.bramp.net/post/2015/09/09/unrolling-loops-at-runtime-with-byte-buddy/</guid>
+      <description>
+
+&lt;p&gt;While creating the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt;, I encountered a problem that I felt I could optimise. The &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; copies objects into off-heap memory, instead of what a normal &lt;code&gt;ArrayList&lt;/code&gt; would do, which is to store references to the object in an array on the heap. For example an &lt;code&gt;UnsafeArrayList&amp;lt;FourLong&amp;gt;&lt;/code&gt; holds instances of &lt;a href=&#34;https://github.com/bramp/unsafe/blob/master/unsafe-tests/src/main/java/net/bramp/unsafe/examples/FourLongs.java&#34;&gt;FourLongs&lt;/a&gt;, whose fields consume a total of 32 bytes (4×8 bytes) of memory. By design, when &lt;code&gt;set()&lt;/code&gt; or &lt;code&gt;get()&lt;/code&gt; are called, the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; copies these 32 bytes into or out of a contiguous segment of memory.&lt;/p&gt;
+
+&lt;p&gt;To achieve the copying, &lt;code&gt;sun.misc.Unsafe&lt;/code&gt;’s &lt;a href=&#34;http://www.docjar.com/docs/api/sun/misc/Unsafe.html#putLong(long,+long)&#34;&gt;putLong()&lt;/a&gt; is repeatedly called, moving 8 bytes at a time. For example, this simple loop will copy a long’s worth of memory each iteration, from src, into dest:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getUnsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;copy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;destOffset&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+	&lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;destEnd&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sizeOf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+	&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;destOffset&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dstEnd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;putLong&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dstOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getLong&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+		&lt;span class=&#34;n&#34;&gt;destOffset&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+		&lt;span class=&#34;n&#34;&gt;src&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Note, we use &lt;code&gt;putLong&lt;/code&gt;, not because the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; is storing objects made up of longs, but because this is the &lt;code&gt;Unsafe&lt;/code&gt; method that can copy the most in one go. This &lt;code&gt;putLong&lt;/code&gt; method is thus being used as the building block to build a more complex looping copy method. Note, this works great for memory which is aligned on a 8 byte boundary, and the total copy is a multiple of 8 bytes. For the sake of this article, we make the assumption that this is always true.&lt;/p&gt;
+
+&lt;p&gt;In the &lt;code&gt;FourLong&lt;/code&gt;&amp;rsquo;s case, the copy method would iterates four times. This is predictable, and occurs every time we &lt;code&gt;get()&lt;/code&gt; on a &lt;code&gt;UnsafeArrayList&amp;lt;FourLong&amp;gt;&lt;/code&gt; instance. Since this copy loop will be executed every time &lt;code&gt;get()&lt;/code&gt; is called, it is worth seeing if we can make it execute faster. A common optimisation is for the developer to manually &lt;a href=&#34;https://en.wikipedia.org/wiki/Loop_unrolling&#34;&gt;unroll the loop&lt;/a&gt;, avoiding the loop counter, and producing potentially quicker code&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:c06ac0517fe34f3baebcf975054ca129:unrolled&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:c06ac0517fe34f3baebcf975054ca129:unrolled&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. In this case, manually unrolling the code is not possible because the parameterised type could be any size. For example, a &lt;code&gt;UnsafeArrayList&amp;lt;Point&amp;gt;&lt;/code&gt; would only need to copy 8 bytes (two 4 byte ints). You would hope that the JIT would notice the loop always iterates the same number of times (for a particular list), and be able to remove the loop. Sadly, it does not seem to do this, perhaps because the JVM does not know what side effects &lt;code&gt;unsafe.{get,put}Long&lt;/code&gt; have. To measure the cost of the looping we compare the previous code to this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getUnsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;copy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;assert&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UnsafeHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sizeOf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;destOffset&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+	&lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;putLong&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;destOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getLong&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;destOffset&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;src&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+	&lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;putLong&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;destOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getLong&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;destOffset&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;src&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+	&lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;putLong&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;destOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getLong&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;destOffset&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;src&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+	&lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;putLong&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;destOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getLong&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;When benchmarked, this manually unrolled code runs 2 times faster! This got me thinking, since a particular &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; instance is always going to copy the same sized object, again and again and again, it could perhaps generate bytecode during creation, that unrolled the loop.&lt;/p&gt;
+
+&lt;h2 id=&#34;enter-byte-buddy:c06ac0517fe34f3baebcf975054ca129&#34;&gt;Enter Byte Buddy&lt;/h2&gt;
+
+&lt;p&gt;Thus investigation into &lt;a href=&#34;http://bytebuddy.net/&#34;&gt;Byte Buddy&lt;/a&gt; began, a library designed for generating bytecode at runtime. The rest of this article explains how to use Byte Buddy for this goal.&lt;/p&gt;
+
+&lt;p&gt;To start, I used Intellij IDEA’s “&lt;a href=&#34;https://plugins.jetbrains.com/plugin/5918&#34;&gt;Show Bytecode&lt;/a&gt;” option, to inspect the code generated by my hand unrolled code.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c1&#34;&gt;; Initialisation&lt;/span&gt;
+  &lt;span class=&#34;c1&#34;&gt;; long destOffset = 0;&lt;/span&gt;
+  &lt;span class=&#34;nf&#34;&gt;LCONST_0&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;; Load the long zero&lt;/span&gt;
+  &lt;span class=&#34;nf&#34;&gt;LSTORE&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;; Store it in “destOffset”&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;; Copy&lt;/span&gt;
+  &lt;span class=&#34;c1&#34;&gt;; unsafe.putLong(dest, destOffset, unsafe.getLong(src));&lt;/span&gt;
+  &lt;span class=&#34;nf&#34;&gt;ALOAD&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;; Load “this”&lt;/span&gt;
+  &lt;span class=&#34;c1&#34;&gt;; The the “unsafe” member from this.&lt;/span&gt;
+  &lt;span class=&#34;nf&#34;&gt;GETFIELD&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;net&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;bramp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;Test.unsafe&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;Lsun&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;misc&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;Unsafe&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;;&lt;/span&gt;
+
+  &lt;span class=&#34;nf&#34;&gt;ALOAD&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;; Load dest&lt;/span&gt;
+  &lt;span class=&#34;nf&#34;&gt;LLOAD&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;; Load dstOffset&lt;/span&gt;
+  &lt;span class=&#34;nf&#34;&gt;ALOAD&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;; Load this&lt;/span&gt;
+  &lt;span class=&#34;c1&#34;&gt;; The the “unsafe” member from this.&lt;/span&gt;
+  &lt;span class=&#34;nf&#34;&gt;GETFIELD&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;net&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;bramp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;Test.unsafe&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;Lsun&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;misc&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;Unsafe&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;;&lt;/span&gt;
+
+  &lt;span class=&#34;nf&#34;&gt;LLOAD&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;; Load src&lt;/span&gt;
+  &lt;span class=&#34;c1&#34;&gt;; unsafe.getLong(src), storing result on stack.&lt;/span&gt;
+  &lt;span class=&#34;nf&#34;&gt;INVOKEVIRTUAL&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;sun&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;misc&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;Unsafe.getLong&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;J&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;J&lt;/span&gt;
+  &lt;span class=&#34;c1&#34;&gt;; unsafe.putLong(dest, dstOffset, {stack result})&lt;/span&gt;
+  &lt;span class=&#34;nf&#34;&gt;INVOKEVIRTUAL&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;sun&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;misc&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;Unsafe.putLong&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;Ljava&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;lang&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;;JJ)V&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;;; Increment&lt;/span&gt;
+  &lt;span class=&#34;c1&#34;&gt;; dstOffset += 8;&lt;/span&gt;
+  &lt;span class=&#34;nf&#34;&gt;LLOAD&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;   &lt;span class=&#34;c1&#34;&gt;; Load dstOffset&lt;/span&gt;
+  &lt;span class=&#34;nf&#34;&gt;LDC&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;; Load 8&lt;/span&gt;
+  &lt;span class=&#34;nf&#34;&gt;LADD&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;; Add dstOffset and 8&lt;/span&gt;
+  &lt;span class=&#34;nf&#34;&gt;LSTORE&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;; Store result to dstOffset&lt;/span&gt;
+
+  &lt;span class=&#34;c1&#34;&gt;; src += 8;&lt;/span&gt;
+  &lt;span class=&#34;nf&#34;&gt;LLOAD&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;   &lt;span class=&#34;c1&#34;&gt;; Load src&lt;/span&gt;
+  &lt;span class=&#34;nf&#34;&gt;LDC&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;; Load 8&lt;/span&gt;
+  &lt;span class=&#34;nf&#34;&gt;LADD&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;; Add src and 8&lt;/span&gt;
+  &lt;span class=&#34;nf&#34;&gt;LSTORE&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;; Store result to src&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;After reading a &lt;a href=&#34;http://download.forge.objectweb.org/asm/asm4-guide.pdf&#34;&gt;primer to bytecode&lt;/a&gt;, this generated bytecode looked quite simple. It can be broken up into three steps, initialisation, copy, and increment. At runtime, Byte Buddy can be used to generate bytecode that is an unrolled equivalent, such that there is 1 initialisation step, N copy steps, and N-1 increment steps, where N is based on the size of the object the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; plans to copy.&lt;/p&gt;
+
+&lt;p&gt;Reading through the Byte Buddy API it seems the best way to achieve this is to create an abstract class, which will form the base of a generated class. Then at runtime create an instantiation of this abstract class, specialised with the unrolled copy bytecode.&lt;/p&gt;
+
+&lt;p&gt;For example, the base class would look like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;UnsafeCopier&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;kd&#34;&gt;protected&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;UnsafeCopier&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;unsafe&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;checkNotNull&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+	&lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;copy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Leaving us to implement the &lt;code&gt;copy(…)&lt;/code&gt; method optimally for the size of object being copied.&lt;/p&gt;
+
+&lt;p&gt;Using the &lt;a href=&#34;https://en.wikipedia.org/wiki/Builder_pattern&#34;&gt;Builder pattern&lt;/a&gt; I created the &lt;a href=&#34;https://bramp.github.io/unsafe/index.html?net/bramp/unsafe/UnrolledUnsafeCopierBuilder.html&#34;&gt;&lt;code&gt;UnrolledUnsafeCopierBuilder&lt;/code&gt;&lt;/a&gt; class. The &lt;code&gt;build()&lt;/code&gt; method will calculate the size of the class being copied, then using Byte Buddy generate the copy implementation, and returns a specialised instance UnsafeCopier.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeCopier&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sizeOf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;clazz&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+	&lt;span class=&#34;n&#34;&gt;Class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dynamicType&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ByteBuddy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+		&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;subclass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UnsafeCopier&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+		&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;named&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;copy&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt;
+		&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;intercept&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;CopierImplementation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;make&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+		&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;load&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;getClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getClassLoader&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ClassLoadingStrategy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Default&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;WRAPPER&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+		&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getLoaded&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UnsafeCopier&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dynamicType&lt;/span&gt;
+		&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDeclaredConstructor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+		&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;newInstance&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This begins by calculating the size of the class. Then using a &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/index.html?net/bytebuddy/ByteBuddy.html&#34;&gt;ByteBuddy&lt;/a&gt; instance, creates a new dynamicType, which extends &lt;code&gt;UnsafeCopier&lt;/code&gt;. This subclass then obtains its copy method with code generated by &lt;code&gt;CopierImplementation(length)&lt;/code&gt;. Finally, this new dynamicType is used to create an instance of the copier, which is now specialised for copying instances of clazz.&lt;/p&gt;
+
+&lt;p&gt;The real meat of the code is in &lt;code&gt;CopierImplementation&lt;/code&gt;, which can be explained in pieces:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;CopierImplementation&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ByteCodeAppender&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Implementation&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+
+	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+	&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;CopierImplementation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+	&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StackManipulation&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildStack&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;throws&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+		&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StackManipulation&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;setupStack&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+		&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StackManipulation&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;copyStack&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+		&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StackManipulation&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;incrementStack&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+
+		&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;iterations&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+		&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StackManipulation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;stack&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StackManipulation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;iterations&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
+		
+		&lt;span class=&#34;n&#34;&gt;stack&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;setupStack&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+		&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;iterations&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+			&lt;span class=&#34;n&#34;&gt;stack&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;copyStack&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+			&lt;span class=&#34;n&#34;&gt;stack&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;incrementStack&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+		&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+		&lt;span class=&#34;c1&#34;&gt;// Override the last incrementStack with a &amp;quot;return&amp;quot;&lt;/span&gt;
+		&lt;span class=&#34;n&#34;&gt;stack&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;stack&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MethodReturn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;VOID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+		&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StackManipulation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Compound&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;stack&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+	&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Byte Buddy uses &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; objects to define what bytecode to generate. These &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; objects can be built up hierarchically and contain all the bytecode instructions to execute. We define a separate &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; object for each step, and in the &lt;code&gt;buildStack()&lt;/code&gt; method combine the steps multiple times into one array. In particular, this stack array contains one initialise step, N copy steps, and N-1 increment steps, with a &lt;code&gt;return&lt;/code&gt; instruction on the end.&lt;/p&gt;
+
+&lt;p&gt;Recall from the early bytecode listing, that the initialisation was two bytecode operations, a LCONST, and LSTORE. In Byte Buddy, we can thus do the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StackManipulation&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;setupStack&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StackManipulation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Compound&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;LongConstant&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ZERO&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;                       &lt;span class=&#34;c1&#34;&gt;// LCONST_0&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;MethodVariableStore&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;LONG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;storeOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;// LSTORE 4&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Byte Buddy provides the primitives for most bytecode instructions, and can be built up in these &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; arrays. However, some instructions are missing, for example LADD (needed by the increment step). But it is simple enough to create one from scratch, as &lt;a href=&#34;https://github.com/bramp/unsafe/tree/master/unsafe-unroller/src/main/java/net/bramp/unsafe/bytebuddy&#34;&gt;shown  outside of this article&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Next the copy step is defined which is a few more instructions than the increment, but relatively simple:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Field&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafeField&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeCopier&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDeclaredField&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;unsafe&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Method&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;getLongMethod&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;getLong&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Method&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;putLongMethod&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;putLong&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StackManipulation&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;copyStack&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StackManipulation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Compound&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;
+	&lt;span class=&#34;c1&#34;&gt;// unsafe.putLong(dest, destOffset, unsafe.getLong(src));&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;MethodVariableAccess&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;REFERENCE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;loadOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// ALOAD 0 this&lt;/span&gt;
+
+	&lt;span class=&#34;n&#34;&gt;FieldAccess&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;forField&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;FieldDescription&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ForLoadedField&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unsafeField&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt;
+	                                   &lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(),&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// GETFIELD&lt;/span&gt;
+
+	&lt;span class=&#34;n&#34;&gt;MethodVariableAccess&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;REFERENCE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;loadOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// ALOAD 1 dest&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;MethodVariableAccess&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;LONG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;loadOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;],&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;// LLOAD 4 destOffset&lt;/span&gt;
+
+	&lt;span class=&#34;n&#34;&gt;MethodVariableAccess&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;REFERENCE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;loadOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// ALOAD 0 this&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;FieldAccess&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;forField&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;FieldDescription&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ForLoadedField&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unsafeField&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt;
+	                                   &lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(),&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// GETFIELD&lt;/span&gt;
+
+	&lt;span class=&#34;n&#34;&gt;MethodVariableAccess&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;LONG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;loadOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;],&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;// LLOAD 2 src&lt;/span&gt;
+
+	&lt;span class=&#34;n&#34;&gt;MethodInvocation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;invoke&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MethodDescription&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ForLoadedMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;getLongMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)),&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;MethodInvocation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;invoke&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MethodDescription&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ForLoadedMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;putLongMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Again, the bytecode instructions are created as a sequence of &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt;, replicating the bytecode the java compiler code had generated earlier. This example contains a couple of new &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; classes, in particular the Field and Method Descriptions classes.&lt;/p&gt;
+
+&lt;p&gt;The final step is the increment step, which won’t be explained, but for the interested reader &lt;a href=&#34;https://github.com/bramp/unsafe/blob/ff8f463bf60661ff63133e8a3beada7fd65c7c45/unsafe-unroller/src/main/java/net/bramp/unsafe/CopierImplementation.java#L86&#34;&gt;the source can be found here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;One last piece of information Byte Buddy needs, is the size of the stack needed for the &lt;code&gt;copy()&lt;/code&gt; method, including any space local variables may need. The &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; comes in handy here, as it is able to infer some of these details from the byte code it represents. In particular, the following code calculates the stack size:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Size&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;apply&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MethodVisitor&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;methodVisitor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Implementation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Context&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;implementationContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+   &lt;span class=&#34;n&#34;&gt;MethodDescription&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;instrumentedMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+
+	&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// Call buildStack() (from above) to generate the bytecode&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;StackManipulation&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;stack&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;buildStack&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// Calculate the size of this bytecode&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;StackManipulation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Size&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;finalStackSize&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;stack&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;apply&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;methodVisitor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;implementationContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// Now return the size of this bytecode, plus two, which is the size of the local&lt;/span&gt;
+	&lt;span class=&#34;c1&#34;&gt;// destOffset variable.&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;finalStackSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getMaximalSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;instrumentedMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getStackSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;An important part here, is the &lt;code&gt;+2&lt;/code&gt;, which makes room for the &lt;code&gt;long destOffset&lt;/code&gt; variable. If that was missing, the generated bytecode would incorrectly write over instructions on the stack, and most likely crash the JVM.&lt;/p&gt;
+
+&lt;p&gt;Now at runtime the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt;&amp;rsquo;s constructor can use the &lt;a href=&#34;https://bramp.github.io/unsafe/index.html?net/bramp/unsafe/UnrolledUnsafeCopierBuilder.html&#34;&gt;&lt;code&gt;UnrolledUnsafeCopierBuilder&lt;/code&gt;&lt;/a&gt; to generate a specialised &lt;code&gt;UnsafeCopier&lt;/code&gt; designed for the exact class the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; is storing.&lt;/p&gt;
+
+&lt;h2 id=&#34;results:c06ac0517fe34f3baebcf975054ca129&#34;&gt;Results&lt;/h2&gt;
+
+&lt;p&gt;Now we have most of what we need, it is worth benchmarking this code. Using &lt;a href=&#34;http://openjdk.java.net/projects/code-tools/jmh/&#34;&gt;JMH&lt;/a&gt;, we can write three microbenchmarks. One using the original looping code, one using the hand unrolled code, and one using the Byte Buddy unrolled code. The &lt;a href=&#34;https://github.com/bramp/unsafe/blob/master/unsafe-benchmark/src/main/java/net/bramp/unsafe/copier/UnrolledCopierBenchmark.java&#34;&gt;code for the benchmarks&lt;/a&gt; is on GitHub, and follows a similar methodology to that in a &lt;a href=&#34;https://blog.bramp.net/post/2015/08/27/unsafe-part-3-benchmarking-a-java-unsafearraylist/&#34;&gt;previous article&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The results are as you may expect:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Benchmark&lt;/th&gt;
+&lt;th&gt;Mode&lt;/th&gt;
+&lt;th&gt;Cnt&lt;/th&gt;
+&lt;th&gt;Score&lt;/th&gt;
+&lt;th&gt;Error&lt;/th&gt;
+&lt;th&gt;Units&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Loop&lt;/td&gt;
+&lt;td&gt;thrpt&lt;/td&gt;
+&lt;td&gt;25&lt;/td&gt;
+&lt;td&gt;218.056&lt;/td&gt;
+&lt;td&gt;± 11.123&lt;/td&gt;
+&lt;td&gt;ops/us&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Hand Unrolled&lt;/td&gt;
+&lt;td&gt;thrpt&lt;/td&gt;
+&lt;td&gt;25&lt;/td&gt;
+&lt;td&gt;430.376&lt;/td&gt;
+&lt;td&gt;± 27.448&lt;/td&gt;
+&lt;td&gt;ops/us&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Byte Buddy Unrolled&lt;/td&gt;
+&lt;td&gt;thrpt&lt;/td&gt;
+&lt;td&gt;25&lt;/td&gt;
+&lt;td&gt;437.139&lt;/td&gt;
+&lt;td&gt;± 22.811&lt;/td&gt;
+&lt;td&gt;ops/us&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The loop code can execute ~218 times per microseconds, whereas both the Byte Buddy, and hand unrolled code had near identical performance, of ~430-437 iterations per microsecond, nearly twice as fast. Of course, not measured here is the startup cost of generating the unrolled code. It is assumed this technique would only be used when the generated code would exist for a long time. Otherwise the setup cost undoes any per execution savings.&lt;/p&gt;
+
+&lt;h2 id=&#34;conclusion:c06ac0517fe34f3baebcf975054ca129&#34;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;In summary, we managed to unroll a loop at runtime by generating on demand bytecode for that specific purpose. This was possible by inspecting machine generated bytecode, and using Byte Buddy to generate equivalent bytecode at runtime, customised specifically with the correct number of unrolled iterations.&lt;/p&gt;
+
+&lt;p&gt;This technique may seem completely crazy, and I don’t suggest its used unless you know what you are doing. That includes, actually measuring you have a performance problem which could be fixed with this, and not being able to depend on the JVM’s own JIT to do this optimisation for you.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Helpful Links:&lt;/em&gt; &lt;a href=&#34;https://github.com/bramp/unsafe/&#34;&gt;GitHub Home&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/unsafe/tree/master/unsafe-unroller/src/main/java/net/bramp/unsafe&#34;&gt;Gitub Code&lt;/a&gt; | &lt;a href=&#34;https://bramp.github.io/unsafe/&#34;&gt;JavaDoc&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:c06ac0517fe34f3baebcf975054ca129:unrolled&#34;&gt;Unrolled code is not always faster, as larger code may not fit into CPU instruction cache.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:c06ac0517fe34f3baebcf975054ca129:unrolled&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Unsafe Part 3: Benchmarking a java UnsafeArrayList</title>
