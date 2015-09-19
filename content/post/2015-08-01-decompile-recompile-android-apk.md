@@ -46,7 +46,7 @@ Now poke around, and edit any of the files in the application directory. If you 
 
 ```bash
 # Convert the Dex files into standard class files
-d2j-dex2jar.sh application/classes.dex
+dex2jar application/classes.dex
 
 # Now use the JD (Java Decompiler) to inspect the source
 jd-gui classes-dex2jar.jar
