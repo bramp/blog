@@ -64,12 +64,12 @@ While conducting QA/UAT/etc you should certainly be logging all defects to a bug
 **Deployments**  
 Finally, your code has been written, it must be pushed out into production. Some will tell you that you should no longer do deployments manually, and you should use automation tools such as [Chef][24]/[Puppet][25]/[Capistrano][26], and I would agree. It makes the deployments testable, repeatable, and predictable. You remove a large amount of human error from the process. However, when things do go wrong, they typically go wrong fast and wide spread. So make sure you test your deployment scripts, as you would test your code.
 
-**SLDC**  
-I mention there were different techniques for the SDLC, Agile based approaches (Scrum, Kanban, etc), Waterfall, etc. The SLDC should allow for [continuous integration][27], constantly running the pipeline and revalidating each step. Some will argue Agile is the way to go, and I would tend to agree. Agile seems to prefer short iterations with constant feedback. Feedback should be often, and rapid. If you break some code, a unit test should notify a human quickly, and not at the end of a development cycle. QA should be done in an agile manner, testing as soon as the feature is complete. This allows a human is quickly test the new feature and give feedback to the developers shortly after the code was written.
+**SDLC**  
+I mention there were different techniques for the SDLC, Agile based approaches (Scrum, Kanban, etc), Waterfall, etc. The SDLC should allow for [continuous integration][27], constantly running the pipeline and revalidating each step. Some will argue Agile is the way to go, and I would tend to agree. Agile seems to prefer short iterations with constant feedback. Feedback should be often, and rapid. If you break some code, a unit test should notify a human quickly, and not at the end of a development cycle. QA should be done in an agile manner, testing as soon as the feature is complete. This allows a human is quickly test the new feature and give feedback to the developers shortly after the code was written.
 
-Different teams, and different projects, require different SLDCs. I personally have a team working on two week Scrum sprints, with deployments happening at the end of each. In other cases, I have projects with far less rigorous schedules.
+Different teams, and different projects, require different SDLCs. I personally have a team working on two week Scrum sprints, with deployments happening at the end of each. In other cases, I have projects with far less rigorous schedules.
 
-I highly recommend the [The Phoenix Project][28], it talks about SLDC, and is a good read (even for those non-technical readers).
+I highly recommend the [The Phoenix Project][28], it talks about SDLC, and is a good read (even for those non-technical readers).
 
 Finally, I’d like to quickly introduce the newer concept of [Continuous Delivery][29]. This extends continuous integration, by making your pipeline end at deployment. From code check-in to being live in a production environment, should be as automated as possible. Companies like [Etsy][30] and [Facebook][31] like to advertise that they deploy numerous times a day.
 
