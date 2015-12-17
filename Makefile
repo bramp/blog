@@ -30,6 +30,7 @@ help:
 clean:
 	-rm -rf public
 	-rm .minified
+	-rm -rf $(TMPDIR)/hugo_cache
 
 minified: .minified
 
