@@ -16,6 +16,10 @@ pre {
     font-family: Hack, monospace;
 }
 
+pre code {
+    border: 0;
+}
+
 figure {
 	text-align: center;
 	padding: 10px;
