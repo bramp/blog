@@ -16,11 +16,11 @@
       
       <guid>https://blog.bramp.net/post/2009/03/06/compiler-defined-symbols/</guid>
       <description>&lt;p&gt;I found this neat little command to list all the GCC compiler defined symbols&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;gcc -dM -E - &amp;gt; /dev/null
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;gcc -dM -E - &amp;gt; /dev/null
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This can help if you aren&amp;rsquo;t quite sure which defines are used on your systems. For example my FreeBSD 7.1 machine outputs this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;cp&#34;&gt;#define __DBL_MIN_EXP__ (-1021)&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#define __DBL_MIN_EXP__ (-1021)&lt;/span&gt;
 &lt;span class=&#34;cp&#34;&gt;#define __FLT_MIN__ 1.17549435e-38F&lt;/span&gt;
 &lt;span class=&#34;cp&#34;&gt;#define __DEC64_DEN__ 0.000000000000001E-383DD&lt;/span&gt;
 &lt;span class=&#34;cp&#34;&gt;#define __CHAR_BIT__ 8&lt;/span&gt;
@@ -131,10 +131,10 @@
 &lt;span class=&#34;cp&#34;&gt;#define __DEC128_MANT_DIG__ 34&lt;/span&gt;
 &lt;span class=&#34;cp&#34;&gt;#define __LDBL_MIN_10_EXP__ (-4931)&lt;/span&gt;
 &lt;span class=&#34;cp&#34;&gt;#define __GNUC_GNU_INLINE__ 1&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;and my Debian Linux machine outputs this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;cp&#34;&gt;#define __DBL_MIN_EXP__ (-1021)&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#define __DBL_MIN_EXP__ (-1021)&lt;/span&gt;
 &lt;span class=&#34;cp&#34;&gt;#define __FLT_MIN__ 1.17549435e-38F&lt;/span&gt;
 &lt;span class=&#34;cp&#34;&gt;#define __DEC64_DEN__ 0.000000000000001E-383DD&lt;/span&gt;
 &lt;span class=&#34;cp&#34;&gt;#define __CHAR_BIT__ 8&lt;/span&gt;
@@ -262,7 +262,7 @@
 &lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_LONG_LONG__ 8&lt;/span&gt;
 &lt;span class=&#34;cp&#34;&gt;#define __LDBL_DIG__ 18&lt;/span&gt;
 &lt;span class=&#34;cp&#34;&gt;#define __GNUC_GNU_INLINE__ 1&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
     </item>
     

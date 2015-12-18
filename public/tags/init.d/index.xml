@@ -16,7 +16,7 @@
       
       <guid>https://blog.bramp.net/post/2012/09/30/pt-kill-centos-init.d-script/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://www.percona.com/doc/percona-toolkit/2.1/pt-kill.html&#34;&gt;pt-kill&lt;/a&gt; is a neat little application that can stop long running MySQL queries. It was formally know as &lt;a href=&#34;http://www.maatkit.org/doc/mk-kill.html&#34;&gt;mk-kill&lt;/a&gt; before &lt;a href=&#34;http://www.Percona.com&#34;&gt;Percona&lt;/a&gt; took over the project. Here is the init.d script I use (as one doesn&amp;#8217;t seem provided by the project):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;#!/bin/sh&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c&#34;&gt;#!/bin/sh&lt;/span&gt;
 &lt;span class=&#34;c&#34;&gt;#&lt;/span&gt;
 &lt;span class=&#34;c&#34;&gt;# pt-kill   This shell script takes care of starting and stopping&lt;/span&gt;
 &lt;span class=&#34;c&#34;&gt;#               the pt-kill services.&lt;/span&gt;
@@ -72,7 +72,7 @@
 &lt;span class=&#34;k&#34;&gt;esac&lt;/span&gt;
  
 &lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$RETVAL&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;strong&gt;Usage:&lt;/strong&gt;&lt;/p&gt;
 

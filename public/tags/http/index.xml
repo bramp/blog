@@ -20,11 +20,11 @@
 &lt;p&gt;For example, there is a simple proxy called &lt;a href=&#34;https://github.com/atmos/camo&#34;&gt;Camo&lt;/a&gt;, which is used to fetch third party images when you need to display them on a SSL secure site. (Read more about Camo on the &lt;a href=&#34;https://github.com/blog/743-sidejack-prevention-phase-3-ssl-proxied-assets&#34;&gt;GitHub blog&lt;/a&gt;).&lt;/p&gt;
 
 &lt;p&gt;This kind of application can be incorrectly setup such that the application has access to internal servers and resources that wouldn&amp;#8217;t normally be exposed to the Internet. This make the proxy application a good way a hacker could gain information about a private network. However Camo tries to address this issue by forbidding URLs that contain private IP addresses. It does a check like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nv&#34;&gt;RESTRICTED_IPS = &lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;/^((10\.)|(127\.)|(169\.254)|(192\.168)|(172\.((1[6-9])|(2[0-9])|(3[0-1]))))/&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-coffeescript&#34; data-lang=&#34;coffeescript&#34;&gt;&lt;span class=&#34;nv&#34;&gt;RESTRICTED_IPS = &lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;/^((10\.)|(127\.)|(169\.254)|(192\.168)|(172\.((1[6-9])|(2[0-9])|(3[0-1]))))/&lt;/span&gt;
 
 &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;host&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;match&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;RESTRICTED_IPS&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
   &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;four_oh_four&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;resp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;Hitting excluded hostnames&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This code (written for &lt;a href=&#34;http://nodejs.org/&#34;&gt;Node.js&lt;/a&gt; in &lt;a href=&#34;http://coffeescript.org/&#34;&gt;CoffeeScript&lt;/a&gt;) is taking a &lt;a href=&#34;http://nodejs.org/api/url.html&#34;&gt;url object&lt;/a&gt; and checking the hostname doesn&amp;#8217;t match a restricted address. This works great against URLs such as &lt;a href=&#34;http://127.0.0.1/&#34;&gt;http://127.0.0.1/&lt;/a&gt;, or &lt;a href=&#34;http://10.0.0.1/&#34;&gt;http://10.0.0.1/&lt;/a&gt;, however this check can easily be defeated. If you create a domain name, such as localhost.bramp.net, which resolves to 127.0.0.1, and ask the proxy to fetch &lt;a href=&#34;http://localhost.bramp.net/&#34;&gt;http://localhost.bramp.net/&lt;/a&gt;, then it won&amp;#8217;t be caught by that check. Now the proxy will continue to try and fetch a resource from 127.0.0.1.&lt;/p&gt;
 
@@ -33,7 +33,7 @@
 &lt;p&gt;One might naively assume they could do a DNS check, and then hand the processing to a HTTP library to make the actual request. The issue here is that the DNS record the HTTP library uses might not be the same as the one you checked against with the DNS check. For example, many domains have multiple A records, and some DNS servers can be configured to round robin DNS records. If you can&amp;#8217;t be sure the HTTP library will do another DNS requests, then you&amp;#8217;d be vulnerable.&lt;/p&gt;
 
 &lt;p&gt;Luckily, in Camo&amp;#8217;s case the fix was relatively easy (see my &lt;a href=&#34;https://github.com/atmos/camo/pull/19&#34;&gt;pull request&lt;/a&gt;).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c1&#34;&gt;# We do DNS lookup ourselves&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-coffeescript&#34; data-lang=&#34;coffeescript&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# We do DNS lookup ourselves&lt;/span&gt;
 &lt;span class=&#34;nx&#34;&gt;Dns&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;lookup&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;host&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;(err, address, family) -&amp;gt;&lt;/span&gt;
   &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;address&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;match&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;RESTRICTED_IPS&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;four_oh_four&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;resp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;Hitting excluded hostnames&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -47,7 +47,7 @@
 
 &lt;span class=&#34;s&#34;&gt;  # Boom, we make the request&lt;/span&gt;
 &lt;span class=&#34;s&#34;&gt;  srcReq = src.request &amp;#39;GET&amp;#39;, query_path, headers&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The above code was simplified a little from the real code, but basically we do the DNS lookup, check the returned address is good, and then make a HTTP request to that IP address with a &lt;code&gt;Host:&lt;/code&gt; header to ensure the request will work.&lt;/p&gt;
 
@@ -64,7 +64,7 @@
       <description>&lt;p&gt;I was using &lt;a href=&#34;http://www.wireshark.org/&#34;&gt;Wireshark&lt;/a&gt; to capture an exchange of HTTP packets, however, some of the HTTP responses were using &amp;#8220;content-encoding: gzip&amp;#8221;, which meant I couldn&amp;#8217;t view them decompressed in the &amp;#8220;Follow TCP Stream&amp;#8221;. Wireshark does decompress them in Packet Details view, but it is hard to follow the full stream like this.&lt;/p&gt;
 
 &lt;p&gt;The solution was to write some &lt;a href=&#34;http://www.python.org/&#34;&gt;Python&lt;/a&gt; which made use of the &lt;a href=&#34;http://code.google.com/p/dpkt/&#34;&gt;dpkt library&lt;/a&gt;. My code naively reassembles the TCP flow and then assumes traffic on port 80 is HTTP. Therefore there is much room for improvement, but here is the code anyway.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;#!/usr/bin/env python&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;c&#34;&gt;#!/usr/bin/env python&lt;/span&gt;
 &lt;span class=&#34;c&#34;&gt;# Turns a pcap file with http gzip compressed data into plain text, making it&lt;/span&gt;
 &lt;span class=&#34;c&#34;&gt;# easier to follow.&lt;/span&gt;
 
@@ -161,7 +161,7 @@
         &lt;span class=&#34;n&#34;&gt;sys&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;exit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
     &lt;span class=&#34;n&#34;&gt;parse_pcap_file&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sys&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;argv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;strong&gt;Please note&lt;/strong&gt;, I had to make a couple of changes to the dpkt library, which I have submitted &lt;a href=&#34;http://groups.google.com/group/dpkt/browse_thread/thread/5315199f9749b91a&#34;&gt;back for review&lt;/a&gt;. Those changes can be found in the following patches &lt;a href=&#34;https://blog.bramp.net/patches/dpkt-pcap-snaplen.patch&#34;&gt;1&lt;/a&gt; &lt;a href=&#34;https://blog.bramp.net/patches/dpkt-http-len.patch&#34;&gt;2&lt;/a&gt; &lt;a href=&#34;https://blog.bramp.net/patches/dpkt-http-gz.patch&#34;&gt;3&lt;/a&gt;. I will update this code if/when the patches get accepted.&lt;/p&gt;
 </description>

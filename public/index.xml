@@ -6,8 +6,225 @@
     <description>Recent content on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Wed, 09 Sep 2015 20:29:04 -0700</lastBuildDate>
+    <lastBuildDate>Thu, 17 Dec 2015 01:00:00 +0000</lastBuildDate>
     <atom:link href="https://blog.bramp.net/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>The importance of tuning your thread pools</title>
+      <link>https://blog.bramp.net/post/2015/12/17/the-importance-of-tuning-your-thread-pools/</link>
+      <pubDate>Thu, 17 Dec 2015 01:00:00 +0000</pubDate>
+      
+      <guid>https://blog.bramp.net/post/2015/12/17/the-importance-of-tuning-your-thread-pools/</guid>
+      <description>
+
+&lt;p&gt;&lt;em&gt;Originally &lt;a href=&#34;http://www.javaadvent.com/2015/12/the-importance-of-tuning-your-thread-pools.html&#34;&gt;published&lt;/a&gt; as part of the Java Advent 2015 series&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Whether you know it or not, your Java web application is most likely using a thread pool to handle incoming requests. This is an implementation detail that many overlook, but sooner or later you will need to understand how the pool is used, and how to correctly tune it for your application. This article aims to explain the threaded model, what a thread pool is, and what you need to do to correctly configure them.&lt;/p&gt;
+
+&lt;h2 id=&#34;single-threaded:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Single Threaded&lt;/h2&gt;
+
+&lt;p&gt;Let us start with some basics, and progress with the evolution of the threaded model. No matter which application server or framework you use, &lt;a href=&#34;https://tomcat.apache.org/&#34;&gt;Tomcat&lt;/a&gt;, &lt;a href=&#34;http://www.dropwizard.io/&#34;&gt;Dropwizard&lt;/a&gt;, &lt;a href=&#34;https://eclipse.org/jetty/&#34;&gt;Jetty&lt;/a&gt;, they all use the same fundamental approach. Buried deep inside the web server is a socket. This socket is listening for incoming TCP connections, and accepting them. Once accepted, data can be read from the newly established TCP connection, parsed, and turned into a HTTP request. This request is then handed off to the web application, to do with what it wants.&lt;/p&gt;
+
+&lt;p&gt;To provide an understanding of the role of threads, we won’t use an application server, instead we will build a simple server from scratch. This server mirrors what most application servers do under the hood. To start with, a single threaded web server may look like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;ServerSocket&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;listener&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServerSocket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8080&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;n&#34;&gt;Socket&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;listener&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;accept&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+		&lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+			&lt;span class=&#34;n&#34;&gt;handleRequest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+		&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;IOException&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+			&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;printStackTrace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+		&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;finally&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;listener&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This code creates a &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/net/ServerSocket.html&#34;&gt;ServerSocket&lt;/a&gt; on port 8080, then in a tight loop the ServerSocket checks for new connections to accept. Once accepted the socket is passed to a handleRequest method. That method would typically read the HTTP request, do whatever process is needed, and write a response. In this simple example, handleRequest reads a single line, and returns a short HTTP response. It would be normal for handleRequest to do something more complex, such as reading from a database, or conducting some other kind of IO.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;response&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;quot;HTTP/1.0 200 OK\r\n&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;quot;Content-type: text/plain\r\n&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;quot;\r\n&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;quot;Hello World\r\n&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;handleRequest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Socket&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;throws&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IOException&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;c1&#34;&gt;// Read the input stream, and return &amp;quot;200 OK&amp;quot;&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;n&#34;&gt;BufferedReader&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BufferedReader&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;
+			&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;InputStreamReader&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getInputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()));&lt;/span&gt;
+		
+		&lt;span class=&#34;n&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;info&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;in&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;readLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+
+		&lt;span class=&#34;n&#34;&gt;OutputStream&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;out&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getOutputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+		&lt;span class=&#34;n&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;write&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;response&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getBytes&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;StandardCharsets&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;UTF_8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;finally&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;As there is only a single thread handling all accepted sockets, each request must be fully handled, before accepting the next.  In a real application it could be normal for the equivalent handleRequest method to take on the order of 100 milliseconds to return. If this was the case, the server would be limited to handling only 10 requests per second, one after the other.&lt;/p&gt;
+
+&lt;h2 id=&#34;multi-threaded:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Multi-threaded&lt;/h2&gt;
+
+&lt;p&gt;Even though handleRequest may be blocked on IO, the CPU is free to handle more requests. With a single threaded approach this is not possible. Thus this server can be improved to allow concurrent operations, via creating multiple threads:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;HandleRequestRunnable&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Runnable&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Socket&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;HandleRequestRunnable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Socket&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;socket&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;run&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+			&lt;span class=&#34;n&#34;&gt;handleRequest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+		&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;IOException&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+			&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;printStackTrace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+		&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;// Main loop here&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;ServerSocket&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;listener&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServerSocket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8080&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;n&#34;&gt;Socket&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;listener&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;accept&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+		&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Thread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HandleRequestRunnable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;start&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;finally&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;listener&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Here, accept() is still called in a tight loop within a single thread, but once a TCP connection is accepted, and a socket available, a new thread is spawned. This spawned thread executes a HandleRequestRunnable, which simply calls the same handleRequest method from above.&lt;/p&gt;
+
+&lt;p&gt;Creating the new thread, now frees up the original accept() thread to handle more TCP connections, and allows the application to handle requests concurrently. This technique is referred to as a “thread per request”, and is the most popular approach taken. It is worth noting there are other approaches, such as the event driven asynchronous model &lt;a href=&#34;https://www.nginx.com/&#34;&gt;NGINX&lt;/a&gt; and &lt;a href=&#34;https://nodejs.org/&#34;&gt;Node.js&lt;/a&gt; deploy, but they don’t use thread pools, and thus are out of scope for this article.&lt;/p&gt;
+
+&lt;p&gt;In the thread per request approach, creating a new thread (and later destroying it) can be expensive, as both the JVM and the OS needs to allocate resources. Additionally in the above implementation, the number of threads being created is unbounded. Being unbounded is very problematic, as it can quickly led to resource exhaustion.&lt;/p&gt;
+
+&lt;h2 id=&#34;resource-exhaustion:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Resource exhaustion&lt;/h2&gt;
+
+&lt;p&gt;Each thread requires a certain amount of memory for the stack. On recent 64bit JVMs, the &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html&#34;&gt;default stack size&lt;/a&gt; is 1024KB. If the server receives a flood of requests, or the handleRequest method becomes slow, the server may end up with huge number of concurrent threads. Thus to manage 1000 concurrent requests, the 1000 threads would consume 1GB of the JVM’s RAM just for thread’s stacks. In addition the code executing in each thread will be creating objects on the heap needed to process the request. This very quickly adds up, and can exceed the heap space assigned to the JVM, putting pressure on the garbage collector, causing thrashing and eventually leading to &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/lang/OutOfMemoryError.html&#34;&gt;OutOfMemoryErrors&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Not only consuming RAM, the threads may use other finite resources, such as file handles, or database connections. Exceeding these may led to other types of errors or crashes. Thus to avoid exhausting resources it is important to avoid unbounded data structures.&lt;/p&gt;
+
+&lt;p&gt;Not a panacea, but the stack size issue can be somewhat mitigated by tuning the stack size with the -Xss flag. A smaller stack will reduce the per thread overhead, but potentially leads to &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/lang/StackOverflowError.html&#34;&gt;StackOverflowErrors&lt;/a&gt;. Your mileage will vary, but for many applications the default 1024KB is excessive, and smaller 256KB or 512KB values might be more appropriate. The smallest value Java will allow is 16KB.&lt;/p&gt;
+
+&lt;h2 id=&#34;thread-pool:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Thread pool&lt;/h2&gt;
+
+&lt;p&gt;To avoid continuously creating new threads, and to bound the maximum number, a simple thread pool can be used. Simply put, the pool keeps track of all threads, creating new ones when needed up to an upper bound, and where possible reusing idle threads.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;ServerSocket&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;listener&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServerSocket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8080&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;ExecutorService&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;executor&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Executors&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;newFixedThreadPool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;n&#34;&gt;Socket&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;listener&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;accept&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+		&lt;span class=&#34;n&#34;&gt;executor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;submit&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HandleRequestRunnable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;finally&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;listener&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, instead of directly creating threads, this code uses an ExecutorService, which submits work (in the term of Runnables) to be executed across a pool of threads. In this example a fixed thread pool of four threads is used to handle all incoming requests. This bounds the number of “in-flight” requests, and thus places bounds on the resource usage.&lt;/p&gt;
+
+&lt;p&gt;In addition to &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newFixedThreadPool(int)&#34;&gt;newFixedThreadPool&lt;/a&gt;, the Executors utility class also provides a &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newCachedThreadPool()&#34;&gt;newCachedThreadPool&lt;/a&gt; method. This suffers from the earlier unbounded number of threads, but whenever possible makes use of previously created but now idle threads. Typically this type of pool is useful for short-lived requests that do not block on external resources.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.html&#34;&gt;ThreadPoolExecutors&lt;/a&gt; can be constructed directly, allowing for its behaviour to be customised. For example, the min and max number of threads within the pool can be defined, as well as policies for when threads are created and destroyed. An example of this is shown shortly.&lt;/p&gt;
+
+&lt;h2 id=&#34;work-queue:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Work queue&lt;/h2&gt;
+
+&lt;p&gt;In the fixed thread pool case, the observant reader may wonder what happens if all threads are busy, and a new request comes in. Well the ThreadPoolExecutor uses a queue to hold pending requests before a thread becomes available. Both the Executors.newFixedThreadPool, and Executors.newCachedThreadPool by default use an unbounded LinkedList. Again this leads to the resource exhaustion problem, albeit much slower since each queued request is smaller than a full thread, and will typically not be use as many resources. However, in our examples, each queued request is holding a socket which (depending on OS) would be consuming a file handle. This is the kind of resource that the operating system will limit, so it may not be best to hold on to it unless needed. Therefore it also makes sense to bound the size of the work queue.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ExecutorService&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;newBoundedFixedThreadPool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nThreads&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;capacity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ThreadPoolExecutor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nThreads&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nThreads&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;mi&#34;&gt;0L&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TimeUnit&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;MILLISECONDS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;LinkedBlockingQueue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Runnable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;capacity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt;
+		&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ThreadPoolExecutor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;DiscardPolicy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;boundedThreadPoolServerSocket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;throws&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IOException&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;ServerSocket&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;listener&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServerSocket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8080&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;n&#34;&gt;ExecutorService&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;executor&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;newBoundedFixedThreadPool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+			&lt;span class=&#34;n&#34;&gt;Socket&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;listener&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;accept&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+			&lt;span class=&#34;n&#34;&gt;executor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;submit&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HandleRequestRunnable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+		&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;finally&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;n&#34;&gt;listener&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Again, we create a thread pool, but instead of using the Executors.newFixedThreadPool helper method, we create the ThreadPoolExecutor ourselves, passing a bounded &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/LinkedBlockingQueue.html&#34;&gt;LinkedBlockingQueue&lt;/a&gt; capped to 16 elements. Alternatively an &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ArrayBlockingQueue.html&#34;&gt;ArrayBlockingQueue&lt;/a&gt; could have be used, which is an implementation of a bounded buffer.&lt;/p&gt;
+
+&lt;p&gt;If all threads are busy, and the queue fills up, what happens next is defined by the last argument to the ThreadPoolExecutor. In this example, a &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.DiscardPolicy.html&#34;&gt;DiscardPolicy&lt;/a&gt; is used, which simply discards any work that would overflow the queue. There are other policies, such as the &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.AbortPolicy.html&#34;&gt;AbortPolicy&lt;/a&gt; which throws an exception, or the &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.CallerRunsPolicy.html&#34;&gt;CallerRunsPolicy&lt;/a&gt; which executes the job on the caller’s thread. This CallerRunsPolicy provides a simple way to self limit the rate jobs can be added, however, it could be harmful, blocking a thread that should stay unblocked.&lt;/p&gt;
+
+&lt;p&gt;A good default policy is to Discard or Abort, which both drop the work. In these cases it would be easy to return a simple error to the client, such as a &lt;a href=&#34;http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4&#34;&gt;HTTP 503 “Service unavailable”&lt;/a&gt;. Some would argue that the queue size could just be increased, and then all work would eventually be run. However, users are unwilling to wait forever, and if fundamentally the rate at which work comes in, exceeds the rate it can be executed, then the queue will grow indefinitely. Instead the queue should only be used to smooth out bursts of requests, or handle short stalls in processing. In normal operation the queue should be empty.&lt;/p&gt;
+
+&lt;h2 id=&#34;how-many-threads:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;How many threads?&lt;/h2&gt;
+
+&lt;p&gt;Now we understand how to create a thread pool, the hard question is how many threads should be available? We have determined that the maximum number should be bounded to not cause resource exhaustion. This includes all types of resources, memory (stack and heap), open file handles, open TCP connections, the number of connections a remote database can handle, and any other finite resource. Conversely, if the threads are CPU bound instead of IO bound, then the number of physical cores should be considered finite, and perhaps no more than one thread per core should be created.&lt;/p&gt;
+
+&lt;p&gt;This all depends on the work the application is doing. A user should run load tests using various pool sizes, and a realistic mix of requests. Each time increasing their thread pool size until breaking point. This makes it possible to find the upper bound, for when resources are exhausted. In some cases it may be prudent to increase the number of available resources, for example making more RAM available to the JVM, or tuning the OS to allow for more file handles. However, at some point the theoretical upper bound will be reached, and should be noted, but this is not the end of the story.&lt;/p&gt;
+
+&lt;h2 id=&#34;little-s-law:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Little’s Law&lt;/h2&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;littlelaw.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;Little&amp;#39;s Law equation&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;Queuing theory, in particular, &lt;a href=&#34;https://en.wikipedia.org/wiki/Little%27s_law&#34;&gt;Little’s Law&lt;/a&gt;, can be used to help understand the properties of the thread pool. In simple terms, Little’s Law describes the relationship between three variables; L the number of requests in-flight, λ the rate at which new requests arrive, and W the average time to handle the request. For example, if there are 10 requests arriving per second, and each request takes one second to process, there is an average of 10 request in-flight at any time. In our example, this maps to using 10 threads. If the time to process a single request is doubled, then the average in-flight requests also doubles to 20, and thus requires 20 threads.&lt;/p&gt;
+
+&lt;p&gt;Understanding the impact that execution time has on in-flight request is very important. It is common for some backend resource (such as a database) to stall, causing requests to take longer to process, quickly exhausting a thread pool. Therefore the theoretical upper bound may not be an appropriate limit for the pool size. Instead, a limit should be placed on execution time, and used in combination with the theoretical upper bound.&lt;/p&gt;
+
+&lt;p&gt;For example, let’s say the maximum in-flight requests that can be handled is 1000 before the JVM exceeds its memory allocation. If we budget for each request to take no longer than 30 seconds, we should expect in the worst case to handle no more than 33 ⅓ requests per second. However, if everything is working correctly, and requests take only 500ms to handle, the application can handle 2000 requests per second, on only 1000 threads. It may also be reasonable to specify that a queue can be used to smooth out short bursts of delay.&lt;/p&gt;
+
+&lt;h2 id=&#34;why-the-hassle:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Why the hassle?&lt;/h2&gt;
+
+&lt;p&gt;If the thread pool has too few threads, you run the risk of under utilising the resources, and turning users away unnecessarily. However, if too many threads are allowed, resource exhaustion occurs, which can be more damaging.&lt;/p&gt;
+
+&lt;p&gt;Not only can local resources be exhausted but it is possible to adversely impact others. Take for example, multiple applications querying the same backend database. Databases typically have a hard limit on the number of concurrent connections. If one misbehaving unbounded application consumes all these connections, it would block the others from accessing the database. Causing a widespread outage.&lt;/p&gt;
+
+&lt;p&gt;Even worse, a cascading failure could occur. Imagine an environment with multiple instances of a single application, behind a common load balancer. If one of the instances begins to run out of memory due to excessive in-flight requests, the JVM will spend more time garbage collecting, and less time handling the requests. That slow down, will reduce the capacity of that one instance, and force the other instances to handle a higher fraction of incoming requests. As they now handle more requests, with their unbounded thread pools, the same problem occurs. They run out of memory, and again begin aggressively garbage collecting. This vicious cycle cascades across all instances, until there is a systemic failure.&lt;/p&gt;
+
+&lt;p&gt;Far too often I’ve observed that load testing is not conducted, and an arbitrarily high number of threads is allowed. In the common case the application can happily process requests at the incoming rate using a small number of threads. If however, processing the requests depends on a remote service, and that service temporarily slows down, the impact of increasing W (the average processing time) can very quickly exhaust the pool. Because the application was never load tested at the maximum number, all the resource exhaustion issues outlined before are exhibited.&lt;/p&gt;
+
+&lt;h2 id=&#34;how-many-thread-pools:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;How many thread pools?&lt;/h2&gt;
+
+&lt;p&gt;In &lt;a href=&#34;http://martinfowler.com/articles/microservices.html&#34;&gt;microservice&lt;/a&gt;, or &lt;a href=&#34;https://en.wikipedia.org/wiki/Service-oriented_architecture&#34;&gt;service oriented architectures&lt;/a&gt; (SOA), it is normal to access multiple remote backend services. This setup is particularly susceptible to failures, and thought should be made in gracefully dealing with them. If a remote service’s performance degrades, it can cause the thread pool to quickly hit its limit, and subsequent requests are dropped. However, not all requests may require this unhealthy backend, but since the thread pool is full these requests are needlessly dropped.&lt;/p&gt;
+
+&lt;p&gt;The failure of each backend can be isolated by providing backend specific thread pools. In this pattern, there is still a single request worker pool, but if the request needs to call a remote service, the work is transferred to that backend’s thread pool. This leaves the main request pool unburden by a single slow backend. Then only requests needing that particular backend pool are impacted when it malfunctions.&lt;/p&gt;
+
+&lt;p&gt;A final benefit of multiple thread pools, is it helps avoid a form of deadlock. If every available thread becomes blocked on a result of a yet to be processed request, then a deadlock occurs, and no thread is able to move forward. When using multiple pools, and having a good understanding of the work they execute, this issue can be somewhat mitigated.&lt;/p&gt;
+
+&lt;h2 id=&#34;deadlines-and-other-best-practices:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Deadlines and other best practices&lt;/h2&gt;
+
+&lt;p&gt;A common best practice is to ensure there is a deadline on all remote calls. That is, if the remote service does not respond within a reasonable time, the request is abandoned. The same technique can be used for work within the thread pool. Specifically, if the thread is processing one request for longer than a defined deadline, it should be terminated. Making room for a new request, and placing an upper bound on W.  This may seem like a waste, but if the user (which might typically be a web browser) is waiting for a response, then after 30 seconds the browser might just give up anyway, or more likely the user becomes impatient and navigates away.&lt;/p&gt;
+
+&lt;p&gt;Failing fast, is another approach that can be taken when creating pools for backends. If the backend has failed, the thread pool will quickly fill up with request waiting to connect to the unresponsive backend. Instead, the backend can be flagged as unhealthy, all subsequent requests could fail instantly instead of needlessly waiting. Note however, that a mechanism is needed to determine when the backend has become healthy again.&lt;/p&gt;
+
+&lt;p&gt;Finally, if a request will need to call multiple backends independently, it should be possible to call them in parallel, instead of sequentially. This would reduce the wait time, at the cost of increased threads.&lt;/p&gt;
+
+&lt;p&gt;Luckily, there is a great library, &lt;a href=&#34;https://github.com/Netflix/Hystrix&#34;&gt;hystrix&lt;/a&gt;, which packages many of these best practices and exposes them in a simple and safe way.&lt;/p&gt;
+
+&lt;h2 id=&#34;conclusion:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Hopefully this article has improved your understanding of thread pools.  By understanding the application’s needs, and using a combination of the maximum thread count, and the average response time, an appropriate thread pool can be determined. Not only will this avoid cascading failures, but help plan and provision your service.&lt;/p&gt;
+
+&lt;p&gt;Even though your application may not explicitly use a thread pool, they are implicitly used by your application server or higher level abstraction. &lt;a href=&#34;https://tomcat.apache.org/tomcat-8.0-doc/config/http.html&#34;&gt;Tomcat&lt;/a&gt;, &lt;a href=&#34;https://developer.jboss.org/wiki/ThreadPoolConfiguration&#34;&gt;JBoss&lt;/a&gt;, &lt;a href=&#34;http://undertow.io/undertow-docs/undertow-docs-1.2.0/listeners.html&#34;&gt;Undertow&lt;/a&gt;, &lt;a href=&#34;https://dropwizard.github.io/dropwizard/0.7.1/docs/manual/configuration.html&#34;&gt;Dropwizard&lt;/a&gt; all provides multiple tunables to their thread pools (the pool which your servlet is executed).&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Unrolling loops at runtime with Byte Buddy</title>
@@ -20,7 +237,7 @@
 &lt;p&gt;While creating the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt;, I encountered a problem that I felt I could optimise. The &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; copies objects into off-heap memory, instead of what a normal &lt;code&gt;ArrayList&lt;/code&gt; would do, which is to store references to the object in an array on the heap. For example an &lt;code&gt;UnsafeArrayList&amp;lt;FourLong&amp;gt;&lt;/code&gt; holds instances of &lt;a href=&#34;https://github.com/bramp/unsafe/blob/master/unsafe-tests/src/main/java/net/bramp/unsafe/examples/FourLongs.java&#34;&gt;FourLongs&lt;/a&gt;, whose fields consume a total of 32 bytes (4×8 bytes) of memory. By design, when &lt;code&gt;set()&lt;/code&gt; or &lt;code&gt;get()&lt;/code&gt; are called, the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; copies these 32 bytes into or out of a contiguous segment of memory.&lt;/p&gt;
 
 &lt;p&gt;To achieve the copying, &lt;code&gt;sun.misc.Unsafe&lt;/code&gt;’s &lt;a href=&#34;http://www.docjar.com/docs/api/sun/misc/Unsafe.html#putLong(long,+long)&#34;&gt;putLong()&lt;/a&gt; is repeatedly called, moving 8 bytes at a time. For example, this simple loop will copy a long’s worth of memory each iteration, from src, into dest:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getUnsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
 
 &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;copy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
@@ -33,12 +250,12 @@
 		&lt;span class=&#34;n&#34;&gt;src&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Note, we use &lt;code&gt;putLong&lt;/code&gt;, not because the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; is storing objects made up of longs, but because this is the &lt;code&gt;Unsafe&lt;/code&gt; method that can copy the most in one go. This &lt;code&gt;putLong&lt;/code&gt; method is thus being used as the building block to build a more complex looping copy method. Note, this works great for memory which is aligned on a 8 byte boundary, and the total copy is a multiple of 8 bytes. For the sake of this article, we make the assumption that this is always true.&lt;/p&gt;
 
 &lt;p&gt;In the &lt;code&gt;FourLong&lt;/code&gt;&amp;rsquo;s case, the copy method would iterates four times. This is predictable, and occurs every time we &lt;code&gt;get()&lt;/code&gt; on a &lt;code&gt;UnsafeArrayList&amp;lt;FourLong&amp;gt;&lt;/code&gt; instance. Since this copy loop will be executed every time &lt;code&gt;get()&lt;/code&gt; is called, it is worth seeing if we can make it execute faster. A common optimisation is for the developer to manually &lt;a href=&#34;https://en.wikipedia.org/wiki/Loop_unrolling&#34;&gt;unroll the loop&lt;/a&gt;, avoiding the loop counter, and producing potentially quicker code&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:c06ac0517fe34f3baebcf975054ca129:unrolled&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:c06ac0517fe34f3baebcf975054ca129:unrolled&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. In this case, manually unrolling the code is not possible because the parameterised type could be any size. For example, a &lt;code&gt;UnsafeArrayList&amp;lt;Point&amp;gt;&lt;/code&gt; would only need to copy 8 bytes (two 4 byte ints). You would hope that the JIT would notice the loop always iterates the same number of times (for a particular list), and be able to remove the loop. Sadly, it does not seem to do this, perhaps because the JVM does not know what side effects &lt;code&gt;unsafe.{get,put}Long&lt;/code&gt; have. To measure the cost of the looping we compare the previous code to this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getUnsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
 
 &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;copy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
@@ -60,7 +277,7 @@
 
 	&lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;putLong&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;destOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getLong&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;When benchmarked, this manually unrolled code runs 2 times faster! This got me thinking, since a particular &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; instance is always going to copy the same sized object, again and again and again, it could perhaps generate bytecode during creation, that unrolled the loop.&lt;/p&gt;
 
@@ -69,7 +286,7 @@
 &lt;p&gt;Thus investigation into &lt;a href=&#34;http://bytebuddy.net/&#34;&gt;Byte Buddy&lt;/a&gt; began, a library designed for generating bytecode at runtime. The rest of this article explains how to use Byte Buddy for this goal.&lt;/p&gt;
 
 &lt;p&gt;To start, I used Intellij IDEA’s “&lt;a href=&#34;https://plugins.jetbrains.com/plugin/5918&#34;&gt;Show Bytecode&lt;/a&gt;” option, to inspect the code generated by my hand unrolled code.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c1&#34;&gt;; Initialisation&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-nasm&#34; data-lang=&#34;nasm&#34;&gt;&lt;span class=&#34;c1&#34;&gt;; Initialisation&lt;/span&gt;
   &lt;span class=&#34;c1&#34;&gt;; long destOffset = 0;&lt;/span&gt;
   &lt;span class=&#34;nf&#34;&gt;LCONST_0&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;; Load the long zero&lt;/span&gt;
   &lt;span class=&#34;nf&#34;&gt;LSTORE&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;; Store it in “destOffset”&lt;/span&gt;
@@ -104,14 +321,14 @@
   &lt;span class=&#34;nf&#34;&gt;LDC&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;; Load 8&lt;/span&gt;
   &lt;span class=&#34;nf&#34;&gt;LADD&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;; Add src and 8&lt;/span&gt;
   &lt;span class=&#34;nf&#34;&gt;LSTORE&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;; Store result to src&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;After reading a &lt;a href=&#34;http://download.forge.objectweb.org/asm/asm4-guide.pdf&#34;&gt;primer to bytecode&lt;/a&gt;, this generated bytecode looked quite simple. It can be broken up into three steps, initialisation, copy, and increment. At runtime, Byte Buddy can be used to generate bytecode that is an unrolled equivalent, such that there is 1 initialisation step, N copy steps, and N-1 increment steps, where N is based on the size of the object the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; plans to copy.&lt;/p&gt;
 
 &lt;p&gt;Reading through the Byte Buddy API it seems the best way to achieve this is to create an abstract class, which will form the base of a generated class. Then at runtime create an instantiation of this abstract class, specialised with the unrolled copy bytecode.&lt;/p&gt;
 
 &lt;p&gt;For example, the base class would look like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;UnsafeCopier&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;UnsafeCopier&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;kd&#34;&gt;protected&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 
 	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;UnsafeCopier&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
@@ -120,12 +337,12 @@
 
 	&lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;copy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Leaving us to implement the &lt;code&gt;copy(…)&lt;/code&gt; method optimally for the size of object being copied.&lt;/p&gt;
 
 &lt;p&gt;Using the &lt;a href=&#34;https://en.wikipedia.org/wiki/Builder_pattern&#34;&gt;Builder pattern&lt;/a&gt; I created the &lt;a href=&#34;https://bramp.github.io/unsafe/index.html?net/bramp/unsafe/UnrolledUnsafeCopierBuilder.html&#34;&gt;&lt;code&gt;UnrolledUnsafeCopierBuilder&lt;/code&gt;&lt;/a&gt; class. The &lt;code&gt;build()&lt;/code&gt; method will calculate the size of the class being copied, then using Byte Buddy generate the copy implementation, and returns a specialised instance UnsafeCopier.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeCopier&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeCopier&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sizeOf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;clazz&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
 
 	&lt;span class=&#34;n&#34;&gt;Class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dynamicType&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ByteBuddy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
@@ -139,12 +356,12 @@
 		&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDeclaredConstructor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
 		&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;newInstance&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This begins by calculating the size of the class. Then using a &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/index.html?net/bytebuddy/ByteBuddy.html&#34;&gt;ByteBuddy&lt;/a&gt; instance, creates a new dynamicType, which extends &lt;code&gt;UnsafeCopier&lt;/code&gt;. This subclass then obtains its copy method with code generated by &lt;code&gt;CopierImplementation(length)&lt;/code&gt;. Finally, this new dynamicType is used to create an instance of the copier, which is now specialised for copying instances of clazz.&lt;/p&gt;
 
 &lt;p&gt;The real meat of the code is in &lt;code&gt;CopierImplementation&lt;/code&gt;, which can be explained in pieces:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;CopierImplementation&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ByteCodeAppender&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Implementation&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;CopierImplementation&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ByteCodeAppender&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Implementation&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
 
 	&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 
@@ -177,21 +394,21 @@
 
 	&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Byte Buddy uses &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; objects to define what bytecode to generate. These &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; objects can be built up hierarchically and contain all the bytecode instructions to execute. We define a separate &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; object for each step, and in the &lt;code&gt;buildStack()&lt;/code&gt; method combine the steps multiple times into one array. In particular, this stack array contains one initialise step, N copy steps, and N-1 increment steps, with a &lt;code&gt;return&lt;/code&gt; instruction on the end.&lt;/p&gt;
 
 &lt;p&gt;Recall from the early bytecode listing, that the initialisation was two bytecode operations, a LCONST, and LSTORE. In Byte Buddy, we can thus do the following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StackManipulation&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;setupStack&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StackManipulation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Compound&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StackManipulation&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;setupStack&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StackManipulation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Compound&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;
 	&lt;span class=&#34;n&#34;&gt;LongConstant&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ZERO&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;                       &lt;span class=&#34;c1&#34;&gt;// LCONST_0&lt;/span&gt;
 	&lt;span class=&#34;n&#34;&gt;MethodVariableStore&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;LONG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;storeOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;// LSTORE 4&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Byte Buddy provides the primitives for most bytecode instructions, and can be built up in these &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; arrays. However, some instructions are missing, for example LADD (needed by the increment step). But it is simple enough to create one from scratch, as &lt;a href=&#34;https://github.com/bramp/unsafe/tree/master/unsafe-unroller/src/main/java/net/bramp/unsafe/bytebuddy&#34;&gt;shown  outside of this article&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Next the copy step is defined which is a few more instructions than the increment, but relatively simple:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Field&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafeField&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeCopier&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDeclaredField&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;unsafe&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Field&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafeField&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeCopier&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDeclaredField&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;unsafe&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Method&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;getLongMethod&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;getLong&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Method&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;putLongMethod&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;putLong&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
 
@@ -214,14 +431,14 @@
 	&lt;span class=&#34;n&#34;&gt;MethodInvocation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;invoke&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MethodDescription&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ForLoadedMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;getLongMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)),&lt;/span&gt;
 	&lt;span class=&#34;n&#34;&gt;MethodInvocation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;invoke&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MethodDescription&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ForLoadedMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;putLongMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Again, the bytecode instructions are created as a sequence of &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt;, replicating the bytecode the java compiler code had generated earlier. This example contains a couple of new &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; classes, in particular the Field and Method Descriptions classes.&lt;/p&gt;
 
 &lt;p&gt;The final step is the increment step, which won’t be explained, but for the interested reader &lt;a href=&#34;https://github.com/bramp/unsafe/blob/ff8f463bf60661ff63133e8a3beada7fd65c7c45/unsafe-unroller/src/main/java/net/bramp/unsafe/CopierImplementation.java#L86&#34;&gt;the source can be found here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;One last piece of information Byte Buddy needs, is the size of the stack needed for the &lt;code&gt;copy()&lt;/code&gt; method, including any space local variables may need. The &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; comes in handy here, as it is able to infer some of these details from the byte code it represents. In particular, the following code calculates the stack size:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Size&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;apply&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MethodVisitor&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;methodVisitor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Implementation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Context&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;implementationContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Size&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;apply&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MethodVisitor&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;methodVisitor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Implementation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Context&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;implementationContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
    &lt;span class=&#34;n&#34;&gt;MethodDescription&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;instrumentedMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
 
 	&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
@@ -236,7 +453,7 @@
 	&lt;span class=&#34;c1&#34;&gt;// destOffset variable.&lt;/span&gt;
 	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;finalStackSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getMaximalSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;instrumentedMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getStackSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;An important part here, is the &lt;code&gt;+2&lt;/code&gt;, which makes room for the &lt;code&gt;long destOffset&lt;/code&gt; variable. If that was missing, the generated bytecode would incorrectly write over instructions on the stack, and most likely crash the JVM.&lt;/p&gt;
 
@@ -418,13 +635,13 @@
       
       <guid>https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/</guid>
       <description>&lt;p&gt;I recently came across an article from the &lt;a href=&#34;http://mechanical-sympathy.blogspot.com/2012/10/compact-off-heap-structurestuples-in.html&#34;&gt;Mechanical Sympathy blog&lt;/a&gt;, that used the &lt;a href=&#34;https://en.wikipedia.org/wiki/Flyweight_pattern&#34;&gt;flyweight pattern&lt;/a&gt; to build a “compact off-heap” array of objects. They basically allocated an area of memory large enough to store N copies of their object. Then using a single instance of a proxy object, would pack/unpack fields into this memory. For example, let&amp;rsquo;s say we needed to store an array of &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/awt/Point.html&#34;&gt;Point&lt;/a&gt; objects. We could construct a simple array like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;n&#34;&gt;Point&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;points&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Point&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;Point&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;points&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Point&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The inefficiency here is that each instance of a Point requires 12-16 bytes of overhead to store metadata about the object (such as class, GC state, etc), and each additional instance adds to the cost of garbage collection. Additionally, the array actually contains references to Point objects stored elsewhere in RAM. These references require a memory indirection when accessing the actual instances.&lt;/p&gt;
 
 &lt;p&gt;In the &lt;a href=&#34;http://mechanical-sympathy.blogspot.com/2012/10/compact-off-heap-structurestuples-in.html&#34;&gt;Mechanical Sympathy&lt;/a&gt; article, they instead packed all the fields of the instances into a contiguous array. For simplification I changed their example, but it was something like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;memory&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;memory&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
 
 &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;ProxyPoint&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
@@ -441,7 +658,7 @@
     	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;memory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;With this approach there is no overhead for each Point object (as there is only ever one PointProxy, and one array). This also has the interesting property that the fields for all the Points are stored in the same contiguous region of memory.  Which leads to some great cache/CPU benefits. For example, if you read all the points sequentially, adjacent objects share the same CPU cache line, and the CPU can predictably prefetch the next point. This would not be possible with an array of references to Points, as each Point could potentially be stored anywhere in RAM.&lt;/p&gt;
 
@@ -452,48 +669,48 @@
 &lt;p&gt;To begin with the list is constructed like so &lt;code&gt;new UnsafeArrayList&amp;lt;Point&amp;gt;(Point.class)&lt;/code&gt;. The &lt;code&gt;Point.class&lt;/code&gt; is passed in so that the list knows what kind of objects it will be storing. This is required due to a limitation in Java’s implementation of generics, that makes it &lt;a href=&#34;http://stackoverflow.com/q/182636/88646&#34;&gt;impossible for a class to know its own generic type&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;The constructor begins by calculating the size of an instance, and uses the UnsafeHelper to calculates the offset to the first field within an instance.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;UnsafeArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;capacity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;UnsafeArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;capacity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;firstFieldOffset&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;firstFieldOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;elementSize&lt;/span&gt;      &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sizeOf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;firstFieldOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;unsafe&lt;/span&gt;           &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getUnsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;An area of memory is then allocated, like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;    &lt;span class=&#34;n&#34;&gt;base&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;allocateMemory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;elementSize&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;capacity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;    &lt;span class=&#34;n&#34;&gt;base&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;allocateMemory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;elementSize&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;capacity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This base variable holds the address to the beginning of the memory, and can only be used via the Unsafe class. The memory is large enough to hold &lt;code&gt;capacity&lt;/code&gt; objects of &lt;code&gt;elementSize&lt;/code&gt; bytes.&lt;/p&gt;
 
 &lt;p&gt;Unlike a Java reference, this base address allows &lt;a href=&#34;https://www.cs.umd.edu/class/sum2003/cmsc311/Notes/BitOp/pointer.html&#34;&gt;pointer arithmetic&lt;/a&gt;, and thus to access a particular element we have a simple method to calculate the memory offset:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;offset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;offset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
         &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;base&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;elementSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Then to &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeArrayList.html#set-int-T-&#34;&gt;set&lt;/a&gt; an element within this List, we copy its fields into the allocated memory:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;    &lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;    &lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
     &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;element&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
         &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;copyMemory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;element&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;firstFieldOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// src, src_offset&lt;/span&gt;
                           &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;offset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt;       &lt;span class=&#34;c1&#34;&gt;// dst, dst_offset&lt;/span&gt;
                           &lt;span class=&#34;n&#34;&gt;elementSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;              &lt;span class=&#34;c1&#34;&gt;// size&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This copies from object &lt;code&gt;element&lt;/code&gt;, starting at offset &lt;code&gt;firstFieldOffset&lt;/code&gt;, into the raw memory address determined by &lt;code&gt;offset(index)&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;The &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeArrayList.html#get-int-&#34;&gt;get&lt;/a&gt; method is a little more problematic, as the List interface expects get to return an instance of the object. Since we aren’t actually storing references to the objects (but copies of their fields), we need to construct an instance and populate it. This is quite costly, and defeats the point of this UnsafeArrayList. Instead an additional &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeArrayList.html#get-T-int-&#34;&gt;get&lt;/a&gt; method is provided, that allows an object to be passed in, which will have its fields replaced.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
         &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;copyMemory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;offset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt;
                           &lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;firstFieldOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
                           &lt;span class=&#34;n&#34;&gt;elementSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
         &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;For completeness a standard &lt;code&gt;get(int index)&lt;/code&gt; method is provided, which creates a new instance of the object (using unsafe.allocateInstance() instead of &lt;code&gt;new Type&lt;/code&gt;).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
         &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;allocateInstance&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;You can inspect the rest of the &lt;a href=&#34;https://github.com/bramp/unsafe/blob/master/unsafe-collection/src/main/java/net/bramp/unsafe/UnsafeArrayList.java&#34;&gt;code via GitHub&lt;/a&gt;, but these are the main parts.&lt;/p&gt;
 
@@ -567,7 +784,7 @@
 &lt;p&gt;To hide some of the details, &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#headerSize-java.lang.Object-&#34;&gt;headerSize()&lt;/a&gt; returns the size of the header, and &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#sizeOf-java.lang.Object-&#34;&gt;sizeOf()&lt;/a&gt; return the total size an object including the header in bytes. &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#firstFieldOffset-java.lang.Class-&#34;&gt;firstFieldOffset()&lt;/a&gt; is then useful as it provides the the offset to the first field. Note that &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#headerSize-java.lang.Object-&#34;&gt;headerSize()&lt;/a&gt; and &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#firstFieldOffset-java.lang.Class-&#34;&gt;firstFieldOffset()&lt;/a&gt; do not always return identical results, as padding (not part of the header) may be used to correctly align the first field.&lt;/p&gt;
 
 &lt;p&gt;Next &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#toByteArray-java.lang.Object-&#34;&gt;toByteArray()&lt;/a&gt; will take an object, and copy it (and its header) into a byte array. Useful for easily inspecting, and serialising the object. Finally, &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#hexDump-java.io.PrintStream-java.lang.Object-&#34;&gt;hexDump()&lt;/a&gt; uses the &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#toByteArray-java.lang.Object-&#34;&gt;toByteArray()&lt;/a&gt; to grab an object, and print out a hex representation of the memory, for example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;cm&#34;&gt;/**&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;cm&#34;&gt;/**&lt;/span&gt;
 &lt;span class=&#34;cm&#34;&gt; * hexDump(new Class4()) prints:&lt;/span&gt;
 &lt;span class=&#34;cm&#34;&gt; * 0x00000000: 01 00 00 00 00 00 00 00  8A BF 62 DF 67 45 23 01&lt;/span&gt;
 &lt;span class=&#34;cm&#34;&gt; */&lt;/span&gt;
@@ -584,17 +801,17 @@
 &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Class8&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x0123456789ABCDEF&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;L&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;In the first example, Class4, a simple class with a single int field, takes up 16 bytes of memory, with the first 8 used by the JVM, the 2nd 4 bytes being a class pointer (basically how the object knows what kind of class it is), and the last four actually being the value of the field. The second example shows a similar header, but with bytes 12-16 being used as padding, so that the long field value is 8 byte aligned.&lt;/p&gt;
 
 &lt;p&gt;These helper methods are available in &lt;a href=&#34;https://github.com/bramp/unsafe&#34;&gt;new project on Github&lt;/a&gt;, and downloadable via Maven. Just &lt;a href=&#34;https://oss.sonatype.org/service/local/repositories/releases/content/net/bramp/unsafe/unsafe-helper/1.0/unsafe-helper-1.0.jar&#34;&gt;download the jar file&lt;/a&gt;, or include a maven dependency, and &lt;code&gt;import net.bramp.unsafe.UnsafeHelper&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
     &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;net.bramp.unsafe&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
     &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;unsafe-helper&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
     &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;1.0&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;Next article&lt;/a&gt;, we&amp;rsquo;ll make use of this new UnsafeHelper to build a special List which copies objects, instead of storing references.&lt;/p&gt;
 </description>
@@ -625,7 +842,7 @@
 &lt;p&gt;This can be very useful for mapping a 1D value, into a 2D space. For example, it is commonly used to &lt;a href=&#34;https://xkcd.com/195/&#34;&gt;map IP addresses into a 2D space&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;I recently created a library for &lt;a href=&#34;https://golang.org/&#34;&gt;Go&lt;/a&gt; that can map to and from a curve. The project is &lt;a href=&#34;http://github.com/google/hilbert&#34;&gt;hosted on Github&lt;/a&gt;, and can be used like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;github.com/google/hilbert&amp;quot;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;github.com/google/hilbert&amp;quot;&lt;/span&gt;
 
 &lt;span class=&#34;c1&#34;&gt;// Create a Hilbert curve for mapping to and from a 16 by 16 space.&lt;/span&gt;
 &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;hilbert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;New&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -636,11 +853,11 @@
 
 &lt;span class=&#34;c1&#34;&gt;// Also map back from (x,y) to t.&lt;/span&gt;
 &lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;MapInverse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The project contains some demos, such as this cool animations:&lt;/p&gt;
 
-
+&lt;p&gt;
 &lt;figure &gt;
     
         &lt;img src=&#34;hilbert_animation.gif&#34; /&gt;
@@ -652,7 +869,7 @@
     &lt;/figcaption&gt;
     
 &lt;/figure&gt;
-
+&lt;/p&gt;
 </description>
     </item>
     
@@ -663,7 +880,7 @@
       
       <guid>https://blog.bramp.net/post/2015/08/01/hugo-makefile/</guid>
       <description>&lt;p&gt;While developing my blog using &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt;, I created a simple Makefile to help automate some steps. Hopefully someone else will find this useful:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nf&#34;&gt;.PHONY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;all&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;clean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minified&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;server&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;watch&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;help&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-make&#34; data-lang=&#34;make&#34;&gt;&lt;span class=&#34;nf&#34;&gt;.PHONY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;all&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;clean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minified&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;server&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;watch&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;help&lt;/span&gt;
 
 &lt;span class=&#34;nv&#34;&gt;HUGO&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; hugo
 &lt;span class=&#34;nv&#34;&gt;HTML_MINIFIER&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; html-minifier -c html-minifier.conf
@@ -718,7 +935,7 @@
 &lt;span class=&#34;c&#34;&gt;	# Find all HTML and in parallel run the minifier&lt;/span&gt;
 	find public -type f -iname &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.html&amp;#39;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; parallel --tag &lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;HTML_MINIFIER&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;{}&amp;quot;&lt;/span&gt; -o &lt;span class=&#34;s2&#34;&gt;&amp;quot;{}&amp;quot;&lt;/span&gt;
 	touch .minified
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The latest version is always checked into github &lt;a href=&#34;https://github.com/bramp/blog&#34;&gt;with my blog&lt;/a&gt;, but the above is easy to copy and paste.&lt;/p&gt;
 
@@ -763,44 +980,44 @@
 &lt;p&gt;We assume you are on a Linux or Mac, but this will work (with some tweaking) on Windows. Install a recent Java JDK, then the &lt;a href=&#34;https://developer.android.com/sdk/installing/index.html?pkg=tools&#34;&gt;Stand-alone Android SDK&lt;/a&gt;, and finally &lt;a href=&#34;http://ibotpeaches.github.io/Apktool/&#34;&gt;apktool&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Optionally setup some alias:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nb&#34;&gt;alias &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;apktool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;java -jar ~/bin/apktool_2.0.1.jar&amp;#39;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;alias &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;apktool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;java -jar ~/bin/apktool_2.0.1.jar&amp;#39;&lt;/span&gt;
 &lt;span class=&#34;nb&#34;&gt;alias &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;dex2jar&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;~/bin/dex2jar-2.0/d2j-dex2jar.sh&amp;#39;&lt;/span&gt;
 &lt;span class=&#34;nb&#34;&gt;alias &lt;/span&gt;jd-gui&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;java -jar ~/bin/jd-gui-1.3.0.jar&amp;#39;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;First, unpack the application.apk file. This will create a &amp;ldquo;application&amp;rdquo; directory with assets, resources, compiled code, etc.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;apktool d -r -s application.apk
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apktool d -r -s application.apk
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Now poke around, and edit any of the files in the application directory. If you wish to decompile any java you can do the following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;# Convert the Dex files into standard class files&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c&#34;&gt;# Convert the Dex files into standard class files&lt;/span&gt;
 d2j-dex2jar.sh application/classes.dex
 
 &lt;span class=&#34;c&#34;&gt;# Now use the JD (Java Decompiler) to inspect the source&lt;/span&gt;
 jd-gui classes-dex2jar.jar
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Once you have made your changes, you need to repack the APK. This will create a &lt;code&gt;my_application.apk&lt;/code&gt; file:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;apktool b -f -d application
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apktool b -f -d application
 mv application/dist/application.apk my_application.apk
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The APK must be signed before it will run on a device. Create a key if you don&amp;rsquo;t have an existing one. If prompted for a password, enter anything (but remember it).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;keytool -genkey -v -keystore my-release-key.keystore -alias alias_name &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;keytool -genkey -v -keystore my-release-key.keystore -alias alias_name &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
                    -keyalg RSA -keysize &lt;span class=&#34;m&#34;&gt;2048&lt;/span&gt; -validity 10000
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Now sign the APK with the key:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;# Sign the apk&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c&#34;&gt;# Sign the apk&lt;/span&gt;
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore my_application.apk alias_name
 
 &lt;span class=&#34;c&#34;&gt;# Verify apk&lt;/span&gt;
 jarsigner -verify -verbose -certs my_application.apk
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Finally, the apk must be aligned for optimal loading:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;zipalign -v &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; my_application.apk my_application-aligned.apk
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;zipalign -v &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; my_application.apk my_application-aligned.apk
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Voila, now you have a &lt;code&gt;my_application-aligned.apk&lt;/code&gt; file, which you can side load onto your device.&lt;/p&gt;
 </description>
@@ -879,12 +1096,12 @@ While conducting QA/UAT/etc you should certainly be logging all defects to a bug
 &lt;p&gt;&lt;strong&gt;Deployments&lt;/strong&gt;&lt;br /&gt;
 Finally, your code has been written, it must be pushed out into production. Some will tell you that you should no longer do deployments manually, and you should use automation tools such as &lt;a href=&#34;http://www.getchef.com/chef/&#34;&gt;Chef&lt;/a&gt;/&lt;a href=&#34;http://puppetlabs.com/&#34;&gt;Puppet&lt;/a&gt;/&lt;a href=&#34;http://capistranorb.com/&#34;&gt;Capistrano&lt;/a&gt;, and I would agree. It makes the deployments testable, repeatable, and predictable. You remove a large amount of human error from the process. However, when things do go wrong, they typically go wrong fast and wide spread. So make sure you test your deployment scripts, as you would test your code.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;SLDC&lt;/strong&gt;&lt;br /&gt;
-I mention there were different techniques for the SDLC, Agile based approaches (Scrum, Kanban, etc), Waterfall, etc. The SLDC should allow for &lt;a href=&#34;http://www.amazon.com/gp/product/0321336380/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0321336380&amp;amp;linkCode=as2&amp;amp;tag=brampnet-20&amp;amp;linkId=IMYQST6ZM7V6733U&#34;&gt;continuous integration&lt;/a&gt;, constantly running the pipeline and revalidating each step. Some will argue Agile is the way to go, and I would tend to agree. Agile seems to prefer short iterations with constant feedback. Feedback should be often, and rapid. If you break some code, a unit test should notify a human quickly, and not at the end of a development cycle. QA should be done in an agile manner, testing as soon as the feature is complete. This allows a human is quickly test the new feature and give feedback to the developers shortly after the code was written.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;SDLC&lt;/strong&gt;&lt;br /&gt;
+I mention there were different techniques for the SDLC, Agile based approaches (Scrum, Kanban, etc), Waterfall, etc. The SDLC should allow for &lt;a href=&#34;http://www.amazon.com/gp/product/0321336380/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0321336380&amp;amp;linkCode=as2&amp;amp;tag=brampnet-20&amp;amp;linkId=IMYQST6ZM7V6733U&#34;&gt;continuous integration&lt;/a&gt;, constantly running the pipeline and revalidating each step. Some will argue Agile is the way to go, and I would tend to agree. Agile seems to prefer short iterations with constant feedback. Feedback should be often, and rapid. If you break some code, a unit test should notify a human quickly, and not at the end of a development cycle. QA should be done in an agile manner, testing as soon as the feature is complete. This allows a human is quickly test the new feature and give feedback to the developers shortly after the code was written.&lt;/p&gt;
 
-&lt;p&gt;Different teams, and different projects, require different SLDCs. I personally have a team working on two week Scrum sprints, with deployments happening at the end of each. In other cases, I have projects with far less rigorous schedules.&lt;/p&gt;
+&lt;p&gt;Different teams, and different projects, require different SDLCs. I personally have a team working on two week Scrum sprints, with deployments happening at the end of each. In other cases, I have projects with far less rigorous schedules.&lt;/p&gt;
 
-&lt;p&gt;I highly recommend the &lt;a href=&#34;http://www.amazon.com/gp/product/0988262592/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0988262592&amp;amp;linkCode=as2&amp;amp;tag=brampnet-20&amp;amp;linkId=36PJQM4IDQIMEWXH&#34;&gt;The Phoenix Project&lt;/a&gt;, it talks about SLDC, and is a good read (even for those non-technical readers).&lt;/p&gt;
+&lt;p&gt;I highly recommend the &lt;a href=&#34;http://www.amazon.com/gp/product/0988262592/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0988262592&amp;amp;linkCode=as2&amp;amp;tag=brampnet-20&amp;amp;linkId=36PJQM4IDQIMEWXH&#34;&gt;The Phoenix Project&lt;/a&gt;, it talks about SDLC, and is a good read (even for those non-technical readers).&lt;/p&gt;
 
 &lt;p&gt;Finally, I’d like to quickly introduce the newer concept of &lt;a href=&#34;http://www.amazon.com/gp/product/0321601912/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0321601912&amp;amp;linkCode=as2&amp;amp;tag=brampnet-20&amp;amp;linkId=VBPKIQYH5SL4PKCD&#34;&gt;Continuous Delivery&lt;/a&gt;. This extends continuous integration, by making your pipeline end at deployment. From code check-in to being live in a production environment, should be as automated as possible. Companies like &lt;a href=&#34;http://www.slideshare.net/mikebrittain/principles-and-practices-in-continuous-deployment-at-etsy&#34;&gt;Etsy&lt;/a&gt; and &lt;a href=&#34;http://www.forbes.com/sites/quora/2013/08/12/how-do-facebook-and-google-manage-software-releases-without-causing-major-problems/&#34;&gt;Facebook&lt;/a&gt; like to advertise that they deploy numerous times a day.&lt;/p&gt;
 </description>
@@ -897,7 +1114,7 @@ I mention there were different techniques for the SDLC, Agile based approaches (
       
       <guid>https://blog.bramp.net/post/2014/08/16/grabbing-a-certificate-with-openssl-and-importing-it-into-java/</guid>
       <description>&lt;p&gt;Occasionally I have to grab a SSL cert from a server, and turn it into something that Java can use. Here are the quick instructions&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;# Store the cert issued by a web server&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c&#34;&gt;# Store the cert issued by a web server&lt;/span&gt;
 openssl s_client -showcerts -connect www.google.com:443 &amp;gt; www.google.com.pem
 
 &lt;span class=&#34;c&#34;&gt;# Convert it from PEM format to DER format&lt;/span&gt;
@@ -907,7 +1124,7 @@ openssl x509 -in www.google.com.pem -inform PEM -out www.google.com.der -outform
 sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.der -keystore /usr/java6/jre/lib/security/cacerts
 
 &lt;span class=&#34;c&#34;&gt;# The keystore password is by default &amp;quot;changeit&amp;quot;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
     </item>
     
@@ -948,7 +1165,7 @@ https:/blog.bramp.net/sms/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;In this I&amp;#8217;m drawing text with it&amp;#8217;s bounding box show, and a cross over the x,y coordinates the text is meant to appear. As you can see &lt;a href=&#34;http://raphaeljs.com/reference.html#Paper.text&#34;&gt;Paper.text(&amp;#8230;)&lt;/a&gt; defaults to centre aligning vertically and horizontally. &lt;a href=&#34;http://raphaeljs.com/reference.html#Paper.print&#34;&gt;Paper.print(&amp;#8230;)&lt;/a&gt; aligns with the baseline of the first line, and I&amp;#8217;m guess horizontally with the left edge (with a small amount of padding). The last example I wrote a simple method to centre &lt;a href=&#34;http://raphaeljs.com/reference.html#Paper.print&#34;&gt;Paper.print(&amp;#8230;)&lt;/a&gt; so it acts like &lt;a href=&#34;http://raphaeljs.com/reference.html#Paper.text&#34;&gt;Paper.text(&amp;#8230;)&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Code to draw this SVG is below, with my normalised print method named print_center.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nx&#34;&gt;Raphael&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;line&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;x2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;nx&#34;&gt;Raphael&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;line&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;x2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;c1&#34;&gt;//assert(_.all([x1,x2,y1,y2], _.isFinite), &amp;quot;x1,x2,y1,y2 must be numeric&amp;quot;);&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;M{0},{1} L{2},{3}&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;x1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;x2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
@@ -1010,7 +1227,7 @@ https:/blog.bramp.net/sms/&lt;/a&gt;&lt;/p&gt;
 
     &lt;span class=&#34;nx&#34;&gt;draw_bb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;getBBox&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
     </item>
     
@@ -1045,102 +1262,12 @@ https:/blog.bramp.net/sms/&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 
 &lt;p&gt;You can alter the diagram in real time, and I even have a simple jQuery plugin to make this easy to use on your own sites.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;src=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;sequence-diagram-min.js&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&#34;na&#34;&gt;src=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;sequence-diagram-min.js&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;nt&#34;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;diagram&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;A-&amp;gt;B: Message&lt;span class=&#34;nt&#34;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;nt&#34;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;.diagram&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;sequenceDiagram&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;theme&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;hand&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
 &lt;span class=&#34;nt&#34;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>MongoDB Compression</title>
-      <link>https://blog.bramp.net/post/2013/03/17/mongodb-compression/</link>
-      <pubDate>Sun, 17 Mar 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bramp.net/post/2013/03/17/mongodb-compression/</guid>
-      <description>
-
-&lt;p&gt;For a while people have wanted MongoDB to &lt;a href=&#34;https://jira.mongodb.org/browse/SERVER-164&#34;&gt;compress their data&lt;/a&gt;, or at least &lt;a href=&#34;https://jira.mongodb.org/browse/SERVER-863&#34;&gt;compress their field names&lt;/a&gt;. This would be beneficial in not only reducing the amount of disk space required, but also in theory improving performance as we trade disk IO with CPU IO. I thought this be a fun project to investigate, so I started by working out if this would actually be useful.&lt;/p&gt;
-
-&lt;p&gt;Lets start with compressing the data. I&amp;#8217;ve taken a project I&amp;#8217;ve been working on, where most of the records have the similar set of fields. An example record may look like (which across the database had an average size of 547 bytes):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-	&lt;span class=&#34;s2&#34;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;ObjectId&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;5134b1c644ae658fc8c050c0&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
-	&lt;span class=&#34;s2&#34;&gt;&amp;quot;version&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;NumberLong&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
-	&lt;span class=&#34;s2&#34;&gt;&amp;quot;attributes&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-		&lt;span class=&#34;s2&#34;&gt;&amp;quot;firstName&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Andrew&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-		&lt;span class=&#34;s2&#34;&gt;&amp;quot;lastName&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Brampton&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-		&lt;span class=&#34;s2&#34;&gt;&amp;quot;birthday&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;1982-01-01T00:18:00.000-05:00&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;		
-	&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
-	&lt;span class=&#34;s2&#34;&gt;&amp;quot;tags&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;25-30 years&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;dc&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;male&amp;quot;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
-	&lt;span class=&#34;s2&#34;&gt;&amp;quot;contactPoints&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[{&lt;/span&gt;
-		&lt;span class=&#34;s2&#34;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;+11235551234&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-		&lt;span class=&#34;s2&#34;&gt;&amp;quot;type&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;sms&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-		&lt;span class=&#34;s2&#34;&gt;&amp;quot;number&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-			&lt;span class=&#34;s2&#34;&gt;&amp;quot;E164&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;+11235551234&amp;quot;&lt;/span&gt;
-		&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
-		&lt;span class=&#34;s2&#34;&gt;&amp;quot;version&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;NumberLong&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
-		&lt;span class=&#34;s2&#34;&gt;&amp;quot;subscriptions&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[{&lt;/span&gt;
-			&lt;span class=&#34;s2&#34;&gt;&amp;quot;version&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;NumberLong&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
-			&lt;span class=&#34;s2&#34;&gt;&amp;quot;event&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;ObjectId&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;5134b1c644ae658fc8c050aa&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
-			&lt;span class=&#34;s2&#34;&gt;&amp;quot;status&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;ACTIVE&amp;quot;&lt;/span&gt;
-		&lt;span class=&#34;p&#34;&gt;}]&lt;/span&gt;
-	&lt;span class=&#34;p&#34;&gt;},{&lt;/span&gt;
-		&lt;span class=&#34;s2&#34;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;a@b.com&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-		&lt;span class=&#34;s2&#34;&gt;&amp;quot;type&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-		&lt;span class=&#34;s2&#34;&gt;&amp;quot;email&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;a@b.com&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-		&lt;span class=&#34;s2&#34;&gt;&amp;quot;version&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;NumberLong&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
-		&lt;span class=&#34;s2&#34;&gt;&amp;quot;subscriptions&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-	&lt;span class=&#34;p&#34;&gt;}]&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;There are some excellent &lt;a href=&#34;http://www.10gen.com/presentations/mongosv-2011/mongodb-storage-engine-bit-by-bit&#34;&gt;presentations&lt;/a&gt; and &lt;a href=&#34;https://dzone.com/articles/mongodb%E2%80%99s-storage-engine-bit&#34;&gt;articles&lt;/a&gt; on how MongoDB structures the data on the disk. For the sake of this investigation I took a single data file (of size 2 GiB) that was full of just these kinds of records.&lt;/p&gt;
-
-&lt;h2 id=&#34;full-compression:9d5a085065491877b685ce659abbd446&#34;&gt;Full Compression&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;gzip datafile.5
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Original size:&lt;/strong&gt; 2,146,435,072 bytes (2.0 GiB)&lt;br /&gt;
-&lt;strong&gt;Compressed gzip size:&lt;/strong&gt; 453,359,908 bytes (432 MiB) / 21% of the original size&lt;/p&gt;
-
-&lt;p&gt;Simple gzip across the whole file gave a 4.7x saving in file size. This is obviously best case, as it covers the full file. Next lets look at the savings from compressing the field names.&lt;/p&gt;
-
-&lt;h2 id=&#34;field-name-compression:9d5a085065491877b685ce659abbd446&#34;&gt;Field name Compression&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;strings -n3 datafile.5 &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sort &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; uniq -c &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sort -n &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; tail -n20
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;That prints out a list of the most popular strings in the data file, sorted by frequency. From those stats we can infer&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Unique fields:&lt;/strong&gt; 14&lt;br /&gt;
-&lt;strong&gt;Fields:&lt;/strong&gt; 75,764,300&lt;br /&gt;
-&lt;strong&gt;Field bytes:&lt;/strong&gt; 506,244,611 bytes (482 MiB) / 23% of the total data file size&lt;/p&gt;
-
-&lt;p&gt;If we assume that we can encode each field to just a single byte, then we reduce the bytes taken by the field names from 482 MiB to 72.2 MiB, a 6.6x saving of the field names. That&amp;#8217;s a good saving, but as the field names only take up 23% of the file, the overall saving would be 20% of the total data file size.&lt;/p&gt;
-
-&lt;h2 id=&#34;document-compression:9d5a085065491877b685ce659abbd446&#34;&gt;Document Compression&lt;/h2&gt;
-
-&lt;p&gt;Compression of individual document might provide a better solution than field compression. It&amp;#8217;s not possible to compress the whole database, as that&amp;#8217;ll make it extremely hard to alter individual documents. So instead each document would be compressed independently of the others. This is different to field compression would would have to be compressed across documents.&lt;/p&gt;
-
-&lt;p&gt;To try this out I wrote a &lt;a href=&#34;https://gist.github.com/bramp/5183117&#34;&gt;simple Python script&lt;/a&gt; instead of hacking the MongoDB code. This script simulates the compression by finding each BSON encoded document on disk, compresses it (with zlib), and sums up the uncompressed and compressed document sizes.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Uncompressed document length:&lt;/strong&gt; 1,888,733,156 bytes (1.75 GiB)&lt;br /&gt;
-&lt;strong&gt;Compressed document length:&lt;/strong&gt; 1,261,267,661 bytes (1.17 GiB) / 66% of the total document length&lt;/p&gt;
-
-&lt;p&gt;The keen reader will notice the documents only made up 1.75 GiB, of the total 2 GiB data file. The rest of the file contains non-document data, such as indexes, padding, and perhaps deleted documents. As the non-document data wasn&amp;#8217;t compressed in this test, the total savings was about 30% of the total file. This could improve if the document was more compressible (for example if they were larger), or if a better compression scheme was used.&lt;/p&gt;
-
-&lt;h2 id=&#34;conclusion:9d5a085065491877b685ce659abbd446&#34;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;In conclusion, compression could certainly help reduce the size on disk, and this could lead to performance improvements. Field level compression gave us 20% reduction and document compression gave us 30%. The next step is to actually implement this, and run various benchmarks.&lt;/p&gt;
-
-&lt;h2 id=&#34;future:9d5a085065491877b685ce659abbd446&#34;&gt;Future&lt;/h2&gt;
-
-&lt;p&gt;My current thinking on field level compression is to create a simple lookup table that maps field names to a token. This lookup table would be stored in the extents, which contains numerous documents. As new extents are created new lookup tables will be created. This allows the lookup tables to adapt as new types of documents are put into the system. The lookup table will only be appended to, to ensure existing documents continue to work. The table can then be optimised when a compact operation is called.&lt;/p&gt;
-
-&lt;p&gt;Looking at the existing MongoDB code, adding field level compression might be quite tricky, as the BSON objects are memory mapped, and multiple places make assumptions about being able to access fields. So an easier approach might be to do full BSON object compression, and create uncompressed copies in memory.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/bramp/mongo/tree/SERVER-164&#34;&gt;Look forward to my attempt of compression&lt;/a&gt;.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
     </item>
     

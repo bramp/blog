@@ -18,13 +18,13 @@
       <description>&lt;p&gt;In a previous post I &lt;a href=&#34;https://blog.bramp.net/post/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/&#34;&gt;obtained the Linksys E4200v2 firmware&lt;/a&gt;, now I plan to break it apart and see what I can find.&lt;/p&gt;
 
 &lt;p&gt;I start off by simplying using &amp;#8220;file&amp;#8221; on the firmware:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;file FW_E4200_2.0.36.126507.SSA 
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;file FW_E4200_2.0.36.126507.SSA 
 
 FW_E4200_2.0.36.126507.SSA: u-boot legacy uImage, Linux-2.6.35.8, Linux/ARM, OS Kernel Image &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Not compressed&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, &lt;span class=&#34;m&#34;&gt;2677476&lt;/span&gt; bytes, Thu Dec &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; 19:40:21 2011, Load Address: 0x00008000, Entry Point: 0x00008000, Header CRC: 0x6ADD9801, Data CRC: 0xB010442D
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Well this is a great start. We know we are dealing with Linux, and that this is a normal uImage. I then move on to use a neat little tool called &lt;a href=&#34;https://github.com/devttys0/binwalk&#34;&gt;binwalk&lt;/a&gt;. By using libmagic, binwalk tries to find interesting sections of the file.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;/usr/local/bin/binwalk FW_E4200_2.0.36.126507.SSA 
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;/usr/local/bin/binwalk FW_E4200_2.0.36.126507.SSA 
 
 DECIMAL   	HEX       	DESCRIPTION
 -------------------------------------------------------------------------------------------------------
@@ -35,44 +35,44 @@ DECIMAL   	HEX       	DESCRIPTION
 ..A whole lot of JFFS2 sections..
 &lt;span class=&#34;m&#34;&gt;20974612&lt;/span&gt;  	0x1400C14 	JFFS2 filesystem data little endian, JFFS node length: 51
 &lt;span class=&#34;m&#34;&gt;20974664&lt;/span&gt;  	0x1400C48 	JFFS2 filesystem data little endian, JFFS node length: 193
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;We find a small LZMA section, and large gzip section, and lots of JFFS2 sections. JFFS2 is a popular embedded file system, so we can guess the bulk of the file system is here. Next we can extract each section using dd:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;dd &lt;span class=&#34;nv&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;skip&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1124&lt;/span&gt;  &lt;span class=&#34;nv&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;15512&lt;/span&gt;   &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;FW_E4200_2.0.36.126507.SSA &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-1.lzma
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;dd &lt;span class=&#34;nv&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;skip&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1124&lt;/span&gt;  &lt;span class=&#34;nv&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;15512&lt;/span&gt;   &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;FW_E4200_2.0.36.126507.SSA &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-1.lzma
 dd &lt;span class=&#34;nv&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;skip&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;16636&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2735876&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;FW_E4200_2.0.36.126507.SSA &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-2.gz
 dd &lt;span class=&#34;nv&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;skip&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2752512&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;FW_E4200_2.0.36.126507.SSA &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-3.jffs2
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Notice we are using a block size of 1 (so we can count in bytes), and we skip the offset into the file. Then we manually work out the sizes for the lzma and gzip sections. They can be no larger than their start until the next section. If they don&amp;#8217;t fill that full space, then not to worry as these tools will normally ignore trailing data.&lt;/p&gt;
 
 &lt;p&gt;As I&amp;#8217;m interested to see what&amp;#8217;s in the JFFS filesystem, we should mount it. You can&amp;#8217;t mount JFFS like a normal loopback device, you have to create a fake flash device. The following set of command can solve that:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;sudo modprobe mtdram &lt;span class=&#34;nv&#34;&gt;total_size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;32768&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;erase_size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;256
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo modprobe mtdram &lt;span class=&#34;nv&#34;&gt;total_size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;32768&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;erase_size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;256
 sudo modprobe mtdblock
 sudo modprobe mtdchar
 &lt;span class=&#34;c&#34;&gt;# sudo mknod /dev/mtdblock0 b 31 0&lt;/span&gt;
 dd &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-3.jffs2 &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/dev/mtdblock0
 mount -t jffs2 /dev/mtdblock0 /mnt/disk
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The mknod line is only needed if you don&amp;#8217;t already have a /dev/mtdblock0. Also a /mnt/disk needs to be created ahead of time so the mounting works. Anyway once that was done, I cd /mnt/disk and found that it does appear to contain most of the file system. There are all the HTML pages, and binaries (for example busybox).&lt;/p&gt;
 
 &lt;p&gt;Now we should go back to image-1.lzma and image-2.gz. Well straight away trying to decompress image-1&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;lzma -dc image-1.lzma &amp;gt; image-1
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;lzma -dc image-1.lzma &amp;gt; image-1
 lzma: Decoder error
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;results in a error. So we can assume that was a incorrectly detected by binwalk. Lets now try and decompress image-2.gz:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;gzip -dc image-2.gz &amp;gt; image-2
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;gzip -dc image-2.gz &amp;gt; image-2
 gzip: image-2.gz: decompression OK, trailing garbage ignored
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;So that does indeed produce a large image-2 file, so we can ignore the trailing garbage warning. A quick &amp;#8220;file&amp;#8221; on image-2 doesn&amp;#8217;t reveal anything useful, so I run binwalk on it. This turns up a set of false positives. So I take a different approach. I run:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;strings image-2
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;strings image-2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This produces a whole host of valid looking strings. From the contents of the strings it makes me think it&amp;#8217;s the actual kernel. A line like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;Linux version 2.6.35.8 (root@ubuntu) (gcc version 4.2.0 20070413 (prerelease) (CodeSourcery Sourcery G++ Lite 2007q1-21)) #1 Thu Dec 22 16:40:10 PST 2011
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;Linux version 2.6.35.8 (root@ubuntu) (gcc version 4.2.0 20070413 (prerelease) (CodeSourcery Sourcery G++ Lite 2007q1-21)) #1 Thu Dec 22 16:40:10 PST 2011
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;helps me come to that conclusion.&lt;/p&gt;
 
@@ -97,7 +97,7 @@ gzip: image-2.gz: decompression OK, trailing garbage ignored
 &lt;p&gt;So, I grabbed a &lt;a href=&#34;http://code.activestate.com/recipes/491264-mini-fake-dns-server/&#34;&gt;simple DNS server&lt;/a&gt;, and set up a simple SSL server following &lt;a href=&#34;http://wirewatcher.wordpress.com/2010/07/20/decrypting-ssl-traffic-with-wireshark-and-ways-to-prevent-it/&#34;&gt;these instructions&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Now with DNS spoofing, and a fake SSL server, I could intercept encrypted traffic from the router, as long as it does not validate the SSL certificate. Luckily it didn&amp;#8217;t check the validity, and thus I was able to capture the request: (BTW Not checking the cert completely defeats the point of using SSL&amp;#8230; bad Linksys!).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nf&#34;&gt;POST&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;/cds/update&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;HTTP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1.1&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span class=&#34;nf&#34;&gt;POST&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;/cds/update&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;HTTP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1.1&lt;/span&gt;
 &lt;span class=&#34;na&#34;&gt;Host&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;update.linksys.com&lt;/span&gt;
 &lt;span class=&#34;na&#34;&gt;Accept&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;*/*&lt;/span&gt;
 &lt;span class=&#34;na&#34;&gt;Content-Type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;text/xml&lt;/span&gt;
@@ -116,10 +116,10 @@ gzip: image-2.gz: decompression OK, trailing garbage ignored
     &lt;span class=&#34;nt&#34;&gt;&amp;lt;/ns:GetFirmwareFromDeviceRequest&amp;gt;&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;&amp;lt;/SOAP-ENV:Body&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;nt&#34;&gt;&amp;lt;/SOAP-ENV:Envelope&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;and the response:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kr&#34;&gt;HTTP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1.1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;200&lt;/span&gt; &lt;span class=&#34;ne&#34;&gt;OK&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span class=&#34;kr&#34;&gt;HTTP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1.1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;200&lt;/span&gt; &lt;span class=&#34;ne&#34;&gt;OK&lt;/span&gt;
 &lt;span class=&#34;na&#34;&gt;Content-Language&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;en-US&lt;/span&gt;
 &lt;span class=&#34;na&#34;&gt;Content-Type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;text/xml&lt;/span&gt;
 &lt;span class=&#34;na&#34;&gt;SOAPAction&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;&amp;quot;&amp;quot;&lt;/span&gt;
@@ -145,17 +145,17 @@ gzip: image-2.gz: decompression OK, trailing garbage ignored
     &lt;span class=&#34;nt&#34;&gt;&amp;lt;/ns:GetFirmwareFromDeviceResponse&amp;gt;&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;&amp;lt;/soapenv:Body&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;nt&#34;&gt;&amp;lt;/soapenv:Envelope&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;(I slightly modified portions of the request and response to hide the identify of my router.).&lt;/p&gt;
 
 &lt;p&gt;I might write a script to make fake requests, but until then you can easily create a request with curl:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;curl -d @request.raw https://update.linksys.com/cds/update
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl -d @request.raw https://update.linksys.com/cds/update
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Then you just extract the DownloadURI and&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Voila I now have the firmware. Now I need to figure out what to do with it.&lt;/p&gt;
 

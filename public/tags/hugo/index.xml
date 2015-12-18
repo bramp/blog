@@ -16,7 +16,7 @@
       
       <guid>https://blog.bramp.net/post/2015/08/01/hugo-makefile/</guid>
       <description>&lt;p&gt;While developing my blog using &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt;, I created a simple Makefile to help automate some steps. Hopefully someone else will find this useful:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nf&#34;&gt;.PHONY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;all&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;clean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minified&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;server&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;watch&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;help&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-make&#34; data-lang=&#34;make&#34;&gt;&lt;span class=&#34;nf&#34;&gt;.PHONY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;all&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;clean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minified&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;server&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;watch&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;help&lt;/span&gt;
 
 &lt;span class=&#34;nv&#34;&gt;HUGO&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; hugo
 &lt;span class=&#34;nv&#34;&gt;HTML_MINIFIER&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; html-minifier -c html-minifier.conf
@@ -71,7 +71,7 @@
 &lt;span class=&#34;c&#34;&gt;	# Find all HTML and in parallel run the minifier&lt;/span&gt;
 	find public -type f -iname &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.html&amp;#39;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; parallel --tag &lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;HTML_MINIFIER&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;{}&amp;quot;&lt;/span&gt; -o &lt;span class=&#34;s2&#34;&gt;&amp;quot;{}&amp;quot;&lt;/span&gt;
 	touch .minified
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The latest version is always checked into github &lt;a href=&#34;https://github.com/bramp/blog&#34;&gt;with my blog&lt;/a&gt;, but the above is easy to copy and paste.&lt;/p&gt;
 

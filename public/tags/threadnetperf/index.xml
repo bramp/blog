@@ -22,7 +22,7 @@
 &lt;p&gt;You can &lt;a href=&#34;https://github.com/bramp/threadnetperf&#34;&gt;download the source from GitHub&lt;/a&gt;, which contains instructions on how to build it.&lt;/p&gt;
 
 &lt;p&gt;So that you get an extra idea of it&amp;#8217;s features here is the README.txt&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;****** Threadnetperf ******
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;****** Threadnetperf ******
 A multi-threaded network benchmark tool
  by  Andrew Brampton (2007-2009)
  and Mathew Faulkner (2007-2009)
@@ -106,7 +106,7 @@ told otherwise.
 
 If you find this tool useful, or you have any suggestions for improvements then
 please contact us.
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
     </item>
     
