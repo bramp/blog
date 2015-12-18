@@ -51,7 +51,7 @@
 
 &lt;p&gt;Now poke around, and edit any of the files in the application directory. If you wish to decompile any java you can do the following:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c&#34;&gt;# Convert the Dex files into standard class files&lt;/span&gt;
-d2j-dex2jar.sh application/classes.dex
+dex2jar application/classes.dex
 
 &lt;span class=&#34;c&#34;&gt;# Now use the JD (Java Decompiler) to inspect the source&lt;/span&gt;
 jd-gui classes-dex2jar.jar
