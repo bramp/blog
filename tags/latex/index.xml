@@ -55,7 +55,7 @@ LaTeX Error: File `algorithm.sty&amp;#39; not found. solution: apt-get install t
 
 
 &lt;p&gt;I doubt I&amp;#8217;ll print this card, but just in case you want to make a similar one, here is the LaTeX source:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;k&#34;&gt;\documentclass&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;[11pt,a4paper]&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;memoir&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;k&#34;&gt;\documentclass&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;[11pt,a4paper]&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;memoir&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
 
 &lt;span class=&#34;k&#34;&gt;\setstocksize&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;55mm&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;85mm&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;% UK Stock size&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;\setpagecc&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;55mm&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;85mm&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;*&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
@@ -108,7 +108,7 @@ LaTeX Error: File `algorithm.sty&amp;#39; not found. solution: apt-get install t
     &lt;span class=&#34;k&#34;&gt;\rule&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;75mm&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;1mm&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;\end&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;Spacing&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;\end&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;document&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
     </item>
     

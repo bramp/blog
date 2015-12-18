@@ -20,7 +20,7 @@
 &lt;p&gt;So here is the code if anyone finds it interesting:&lt;/p&gt;
 
 &lt;p&gt;and example of using it is:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;./ucode.py /lib/firmware/*.ucode
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;./ucode.py /lib/firmware/*.ucode
 iwlwifi-1000-3.ucode    : ver 128.50.3.1
 iwlwifi-3945-1.ucode    : ver 15.28.1.6
 iwlwifi-3945-2.ucode    : ver 15.32.2.9
@@ -34,7 +34,7 @@ iwlwifi-6000g2a-5.ucode : ver 17.168.5.1 &lt;span class=&#34;o&#34;&gt;(&lt;/spa
 iwlwifi-6000g2b-5.ucode : ver 17.168.5.1 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;6000g2b fw v17.168.5.1 build 33993&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
 iwlwifi-6050-4.ucode    : ver 9.201.4.1
 iwlwifi-6050-5.ucode    : ver 41.28.5.1 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;6050&lt;/span&gt; fw v41.28.5.1 build 33926&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
     </item>
     

@@ -283,7 +283,7 @@ Networking 2008&lt;/li&gt;
 &lt;h2 id=&#34;bibtex:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;BibTeX&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://raw.githubusercontent.com/bramp/curriculum-vitae/master/publications.bib&#34;&gt;Download&lt;/a&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kd&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;brampton2005sdh&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bibtex&#34; data-lang=&#34;bibtex&#34;&gt;&lt;span class=&#34;kd&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;brampton2005sdh&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
        &lt;span class=&#34;na&#34;&gt;booktitle&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;ACM Conference on Emerging Network Experiments and Technology (CoNEXT) (Student Workshop Session)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
            &lt;span class=&#34;na&#34;&gt;month&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;October&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
            &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Stealth Distributed Hash Table: Unleashing the Real Potential of Peer-to-Peer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
@@ -396,7 +396,7 @@ Networking 2008&lt;/li&gt;
           &lt;span class=&#34;na&#34;&gt;school&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Lancaster University, UK&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
             &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;2008&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
     </item>
     

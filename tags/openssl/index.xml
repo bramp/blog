@@ -16,7 +16,7 @@
       
       <guid>https://blog.bramp.net/post/2014/08/16/grabbing-a-certificate-with-openssl-and-importing-it-into-java/</guid>
       <description>&lt;p&gt;Occasionally I have to grab a SSL cert from a server, and turn it into something that Java can use. Here are the quick instructions&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;c&#34;&gt;# Store the cert issued by a web server&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c&#34;&gt;# Store the cert issued by a web server&lt;/span&gt;
 openssl s_client -showcerts -connect www.google.com:443 &amp;gt; www.google.com.pem
 
 &lt;span class=&#34;c&#34;&gt;# Convert it from PEM format to DER format&lt;/span&gt;
@@ -26,7 +26,7 @@ openssl x509 -in www.google.com.pem -inform PEM -out www.google.com.der -outform
 sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.der -keystore /usr/java6/jre/lib/security/cacerts
 
 &lt;span class=&#34;c&#34;&gt;# The keystore password is by default &amp;quot;changeit&amp;quot;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
     </item>
     

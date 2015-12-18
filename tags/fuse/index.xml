@@ -46,12 +46,12 @@
 &lt;p&gt;To do this I found a tool call &lt;a href=&#34;http://darkfader.net/ds/&#34;&gt;ndstool&lt;/a&gt;, which can browse and extract the file system in the rom image. However, being a nerd I decided to write a FUSE file system application to do the same task.&lt;/p&gt;
 
 &lt;p&gt;The &lt;a href=&#34;https://github.com/bramp/ndsfs&#34;&gt;source code&lt;/a&gt; is available on GitHub, you can compile it yourself:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;make
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;make
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;and then run it like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;ndsfs &amp;lt;rom file&amp;gt; &amp;lt;mount point&amp;gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ndsfs &amp;lt;rom file&amp;gt; &amp;lt;mount point&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;I&amp;#8217;m not sure it will work on all roms, but it is worth a try.&lt;/p&gt;
 </description>
