@@ -109,7 +109,7 @@
 
 &lt;p&gt;Not only consuming RAM, the threads may use other finite resources, such as file handles, or database connections. Exceeding these may led to other types of errors or crashes. Thus to avoid exhausting resources it is important to avoid unbounded data structures.&lt;/p&gt;
 
-&lt;p&gt;Not a panacea, but the stack size issue can be somewhat mitigated by tuning the stack size with the -Xss flag. A smaller stack will reduce the per thread overhead, but potentially leads to &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/lang/StackOverflowError.html&#34;&gt;StackOverflowErrors&lt;/a&gt;. Your mileage will vary, but for many applications the default 1024KB is excessive, and smaller 256KB or 512KB values might be more appropriate. The smallest value Java will allow is 16KB.&lt;/p&gt;
+&lt;p&gt;Not a panacea, but the stack size issue can be somewhat mitigated by tuning the stack size with the -Xss flag. A smaller stack will reduce the per thread overhead, but potentially leads to &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/lang/StackOverflowError.html&#34;&gt;StackOverflowErrors&lt;/a&gt;. Your mileage will vary, but for many applications the default 1024KB is excessive, and smaller 256KB or 512KB values might be more appropriate. The smallest value Java will allow is 160KB.&lt;/p&gt;
 
 &lt;h2 id=&#34;thread-pool:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Thread pool&lt;/h2&gt;
 
