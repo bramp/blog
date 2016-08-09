@@ -2,21 +2,24 @@
 author: bramp
 categories:
 - Blog
-date: 2016-04-10T21:33:33-07:00
+date: 2016-08-08T21:33:33-07:00
 layout: post
 tags:
 - random
 - probability
 - distributions
 - github
-title: Introducing Prob.js - Generate random numbers from different probability distributions
+title: Introducing Prob.js
+slug: introducing-prob.js
 ---
+
+## Generate random numbers from different probability distributions
 
 There are multiple libraries for generating random numbers from a uniform, and sometimes normal distributions. However,
 I needed code to generate them from a expontential or lognormal distribution. I had written code to do this ~10 years ago
 in Java, but I needed a more modern Javascript solution.
 
-Introducing Prob.js, a javascript library to generate random numbers from different probability distributions. Avaiable via both bower and NPM, prob.js can generate random numbers from the following distrubtions:
+Introducing [Prob.js](https://github.com/bramp/prob.js), a javascript library to generate random numbers from different probability distributions. Avaiable via both bower and NPM, prob.js can generate random numbers from the following distrubtions:
 
 ```javascript
 Prob.uniform(min, max) // Uniform distribution in range [min, max).
@@ -40,4 +43,9 @@ r.Mean     // The expected mean for this distribution.
 r.Variance // The expected variance for this distribution.
 ```
 
-I created a quick demo site that generates 1 million random numbers from each distribution in the browser, and plots the PDF as it goes.
+I created a [quick demo site](https://bramp.github.io/prob.js/) that generates 1 million random numbers from each distribution in the browser, and plots the PDF as it goes. Same samples:
+
+{{< figure src="normal.png" title="Normal (μ = 0, σ = 1.0)" >}}
+{{< figure src="lognormal.png" title="Log-normal (μ = 0, σ = 1.0)" >}}
+{{< figure src="zipf.png" title="Zipf (s = 1, N = 100)" >}}
+
