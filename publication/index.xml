@@ -248,20 +248,20 @@ This allows the protocol to change its transmission characteristics depending on
 
 &lt;p&gt;Most of the LaTeX for these publications, as well as associated conference presentations can be found at &lt;a href=&#34;https://github.com/bramp/publication&#34;&gt;github.com/bramp/publication&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&#34;phd-thesis:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;PhD Thesis&lt;/h2&gt;
+&lt;h2 id=&#34;phd-thesis&#34;&gt;PhD Thesis&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://blog.bramp.net/publication/the-impact-of-highly-interactive-workloads-on-video-on-demand-systems/&#34;&gt;The Impact of Highly Interactive Workloads on Video-on-Demand Systems&lt;/a&gt; &amp;#8211; 2009&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;networking:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Networking&lt;/h2&gt;
+&lt;h2 id=&#34;networking&#34;&gt;Networking&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://blog.bramp.net/publication/facilitating-network-auto-configuration-in-next-generation-internet-protocols/&#34;&gt;Facilitating Network Auto Configuration In Next Generation Internet Protocols&lt;/a&gt; &amp;#8211; GLOBECOM 2009&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://blog.bramp.net/publication/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/&#34;&gt;Evaluating the Performance of Network Protocol Processing on Multi-core Systems&lt;/a&gt; &amp;#8211; AINA 2009&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;content-distribution-networks-video-on-demand:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Content Distribution Networks / Video-on-demand&lt;/h2&gt;
+&lt;h2 id=&#34;content-distribution-networks-video-on-demand&#34;&gt;Content Distribution Networks / Video-on-demand&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://blog.bramp.net/publication/characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand/&#34;&gt;Characterising and Exploiting Workloads of Highly Interactive Video-on-Demand&lt;/a&gt; &amp;#8211; Multimedia Systems Journal 2009&lt;/li&gt;
@@ -270,7 +270,7 @@ Networking 2008&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://blog.bramp.net/publication/characterising-user-interactivity-for-sports-video-on-demand/&#34;&gt;Characterising user interactivity for sports video-on-demand&lt;/a&gt; &amp;#8211; NOSSDAV 2007&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;distributed-hash-table-peer-to-peer:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Distributed Hash Table / Peer-to-peer&lt;/h2&gt;
+&lt;h2 id=&#34;distributed-hash-table-peer-to-peer&#34;&gt;Distributed Hash Table / Peer-to-peer&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://blog.bramp.net/publication/performance-modelling-of-peer-to-peer-routing/&#34;&gt;Performance modelling of peer-to-peer routing&lt;/a&gt; &amp;#8211; HOTP2P 2007&lt;/li&gt;
@@ -280,7 +280,7 @@ Networking 2008&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://blog.bramp.net/publication/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/&#34;&gt;Stealth Distributed Hash Table: Unleashing the Real Potential of Peer-to-Peer&lt;/a&gt; &amp;#8211; CoNEXT 2005&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;bibtex:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;BibTeX&lt;/h2&gt;
+&lt;h2 id=&#34;bibtex&#34;&gt;BibTeX&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://raw.githubusercontent.com/bramp/curriculum-vitae/master/publications.bib&#34;&gt;Download&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bibtex&#34; data-lang=&#34;bibtex&#34;&gt;&lt;span class=&#34;kd&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;brampton2005sdh&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;

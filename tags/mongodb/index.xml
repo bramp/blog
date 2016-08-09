@@ -53,7 +53,7 @@
 
 &lt;p&gt;There are some excellent &lt;a href=&#34;http://www.10gen.com/presentations/mongosv-2011/mongodb-storage-engine-bit-by-bit&#34;&gt;presentations&lt;/a&gt; and &lt;a href=&#34;https://dzone.com/articles/mongodb%E2%80%99s-storage-engine-bit&#34;&gt;articles&lt;/a&gt; on how MongoDB structures the data on the disk. For the sake of this investigation I took a single data file (of size 2 GiB) that was full of just these kinds of records.&lt;/p&gt;
 
-&lt;h2 id=&#34;full-compression:9d5a085065491877b685ce659abbd446&#34;&gt;Full Compression&lt;/h2&gt;
+&lt;h2 id=&#34;full-compression&#34;&gt;Full Compression&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;gzip datafile.5
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
@@ -62,7 +62,7 @@
 
 &lt;p&gt;Simple gzip across the whole file gave a 4.7x saving in file size. This is obviously best case, as it covers the full file. Next lets look at the savings from compressing the field names.&lt;/p&gt;
 
-&lt;h2 id=&#34;field-name-compression:9d5a085065491877b685ce659abbd446&#34;&gt;Field name Compression&lt;/h2&gt;
+&lt;h2 id=&#34;field-name-compression&#34;&gt;Field name Compression&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;strings -n3 datafile.5 &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sort &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; uniq -c &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sort -n &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; tail -n20
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
@@ -74,7 +74,7 @@
 
 &lt;p&gt;If we assume that we can encode each field to just a single byte, then we reduce the bytes taken by the field names from 482 MiB to 72.2 MiB, a 6.6x saving of the field names. That&amp;#8217;s a good saving, but as the field names only take up 23% of the file, the overall saving would be 20% of the total data file size.&lt;/p&gt;
 
-&lt;h2 id=&#34;document-compression:9d5a085065491877b685ce659abbd446&#34;&gt;Document Compression&lt;/h2&gt;
+&lt;h2 id=&#34;document-compression&#34;&gt;Document Compression&lt;/h2&gt;
 
 &lt;p&gt;Compression of individual document might provide a better solution than field compression. It&amp;#8217;s not possible to compress the whole database, as that&amp;#8217;ll make it extremely hard to alter individual documents. So instead each document would be compressed independently of the others. This is different to field compression would would have to be compressed across documents.&lt;/p&gt;
 
@@ -85,11 +85,11 @@
 
 &lt;p&gt;The keen reader will notice the documents only made up 1.75 GiB, of the total 2 GiB data file. The rest of the file contains non-document data, such as indexes, padding, and perhaps deleted documents. As the non-document data wasn&amp;#8217;t compressed in this test, the total savings was about 30% of the total file. This could improve if the document was more compressible (for example if they were larger), or if a better compression scheme was used.&lt;/p&gt;
 
-&lt;h2 id=&#34;conclusion:9d5a085065491877b685ce659abbd446&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;In conclusion, compression could certainly help reduce the size on disk, and this could lead to performance improvements. Field level compression gave us 20% reduction and document compression gave us 30%. The next step is to actually implement this, and run various benchmarks.&lt;/p&gt;
 
-&lt;h2 id=&#34;future:9d5a085065491877b685ce659abbd446&#34;&gt;Future&lt;/h2&gt;
+&lt;h2 id=&#34;future&#34;&gt;Future&lt;/h2&gt;
 
 &lt;p&gt;My current thinking on field level compression is to create a simple lookup table that maps field names to a token. This lookup table would be stored in the extents, which contains numerous documents. As new extents are created new lookup tables will be created. This allows the lookup tables to adapt as new types of documents are put into the system. The lookup table will only be appended to, to ensure existing documents continue to work. The table can then be optimised when a compact operation is called.&lt;/p&gt;
 

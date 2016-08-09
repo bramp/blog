@@ -49,7 +49,7 @@
 
 &lt;p&gt;The project contains some demos, such as this cool animations:&lt;/p&gt;
 
-&lt;p&gt;
+
 &lt;figure &gt;
     
         &lt;img src=&#34;hilbert_animation.gif&#34; /&gt;
@@ -61,7 +61,7 @@
     &lt;/figcaption&gt;
     
 &lt;/figure&gt;
-&lt;/p&gt;
+
 </description>
     </item>
     

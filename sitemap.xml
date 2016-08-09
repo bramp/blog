@@ -3,18 +3,22 @@
   
   <url>
     <loc>https://blog.bramp.net/</loc>
-    <lastmod>2016-06-08T19:37:47-07:00</lastmod>
-    <priority>0</priority>
+    <lastmod>2016-08-08T21:35:35-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/post/2016/08/08/peano-curves/</loc>
+    <lastmod>2016-08-08T21:35:35-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/post/2016/08/08/introducing-prob.js/</loc>
+    <lastmod>2016-08-08T21:33:33-07:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.bramp.net/post/2016/06/08/turn-on-github-io-ssl/</loc>
     <lastmod>2016-06-08T19:37:47-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.bramp.net/post/2016/04/10/introducing-prob.js---generate-random-numbers-from-different-probability-distributions/</loc>
-    <lastmod>2016-04-10T21:33:33-07:00</lastmod>
   </url>
   
   <url>
@@ -618,7 +622,7 @@
   </url>
   
   <url>
-    <loc>https://blog.bramp.net/post/2006/06/25/flvtool-a-command-line-flash-video-file-flv-editor/</loc>
+    <loc>https://blog.bramp.net/post/2006/06/25/flvtool&#43;&#43;-a-command-line-flash-video-file-flv-editor/</loc>
     <lastmod>2006-06-25T00:00:00+00:00</lastmod>
   </url>
   

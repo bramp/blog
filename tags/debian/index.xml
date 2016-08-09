@@ -22,11 +22,12 @@
 &lt;p&gt;Once TexLive 2011 is installed &lt;code&gt;apt-get install -t unstable texlive-lang-italian&lt;/code&gt; to bring in the layaureo package.&lt;/p&gt;
 
 &lt;p&gt;I also encountered the following problems that was easier to resolve:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;LaTeX Error: File `marvosym.sty&amp;#39; not found. solution: apt-get install texlive-fonts-recommended
-LaTeX Error: File `fullpage.sty&amp;#39; not found. solution: apt-get install texlive-latex-extra
-LaTeX Error: File `multibib.sty&amp;#39; not found. solution: apt-get install texlive-bibtex-extra
-LaTeX Error: File `algorithm.sty&amp;#39; not found. solution: apt-get install texlive-science
-&lt;/pre&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code&gt;LaTeX Error: File `marvosym.sty&#39; not found. solution: apt-get install texlive-fonts-recommended
+LaTeX Error: File `fullpage.sty&#39; not found. solution: apt-get install texlive-latex-extra
+LaTeX Error: File `multibib.sty&#39; not found. solution: apt-get install texlive-bibtex-extra
+LaTeX Error: File `algorithm.sty&#39; not found. solution: apt-get install texlive-science
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     

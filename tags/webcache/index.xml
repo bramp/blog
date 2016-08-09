@@ -19,15 +19,15 @@
 
 &lt;p&gt;I wrote this a while ago and posted it on the &lt;a href=&#34;http://www.facebook.com/group.php?gid=253120796980&#34;&gt;Get rid of the university webcache!&lt;/a&gt; Facebook group. I&amp;#8217;ve just been reminded of it and thought I&amp;#8217;ll post it here:&lt;/p&gt;
 
-&lt;h4 id=&#34;get-rid-of-the-university-webcache:f855ee3218f7e7ef58ec61b699a8cd60&#34;&gt;Get rid of the university webcache!&lt;/h4&gt;
+&lt;h4 id=&#34;get-rid-of-the-university-webcache&#34;&gt;Get rid of the university webcache!&lt;/h4&gt;
 
 &lt;p&gt;As many of you know, to access any website on the Internet from campus you must configure your browser to use the webcache. This is both inconvenient and frustrating. I am a researcher in the computer science department and I have had enough of this annoyance. It regularly gets in the way of my work and I spend countless hours trying to work around it.&lt;/p&gt;
 
 &lt;p&gt;Over the years I have asked members of ISS why they still have a webcache when many other University do not, and especially most computing departments do not. I have compiled a list of the common reasons, and what I think of them.&lt;/p&gt;
 
-&lt;h4 id=&#34;reasons-for-the-webcache:f855ee3218f7e7ef58ec61b699a8cd60&#34;&gt;Reasons for the webcache&lt;/h4&gt;
+&lt;h4 id=&#34;reasons-for-the-webcache&#34;&gt;Reasons for the webcache&lt;/h4&gt;
 
-&lt;h4 id=&#34;1-the-webcache-reduces-bandwidth-usage-by-caching-popular-items:f855ee3218f7e7ef58ec61b699a8cd60&#34;&gt;1. The webcache reduces bandwidth usage by caching popular items&lt;/h4&gt;
+&lt;h4 id=&#34;1-the-webcache-reduces-bandwidth-usage-by-caching-popular-items&#34;&gt;1. The webcache reduces bandwidth usage by caching popular items&lt;/h4&gt;
 
 &lt;p&gt;Typically webcaches were deployed to save money by reducing the number of files fetched from the Internet. Each file a user views would be stored in the cache. If another user came along to view the same file the cache would serve the file from its local file system instead of going onto the Internet. This would reduce the bandwidth usage, as well as make the user&amp;rsquo;s web browsing experience faster.&lt;/p&gt;
 
@@ -35,28 +35,28 @@
 
 &lt;p&gt;Sure, there is still content which is cacheable. For example, static images on websites such as logos will not change offer and therefore be cached. However having a look at this URL: &lt;a href=&#34;http://wwwcache.lancs.ac.uk/cachestatus&#34;&gt;http://wwwcache.lancs.ac.uk/cachestatus&lt;/a&gt; shows how effective the caches actually are. There is a metric called Hit Rate, which is the percentage of requests (and bandwidth) that have been served locally instead of going to the Internet. Higher numbers are better, but looking at the hit rate now, it shows an average of 15% requests and 3% bandwidth. Overall 3% of bandwidth doesn&amp;rsquo;t seem very useful. In the past when the webcache was first deployed it was easy to get &amp;gt;60%.&lt;/p&gt;
 
-&lt;h4 id=&#34;2-the-cache-allows-iss-to-monitor-what-people-are-doing-as-well-as-block-websites:f855ee3218f7e7ef58ec61b699a8cd60&#34;&gt;2. The cache allows ISS to monitor what people are doing, as well as block websites&lt;/h4&gt;
+&lt;h4 id=&#34;2-the-cache-allows-iss-to-monitor-what-people-are-doing-as-well-as-block-websites&#34;&gt;2. The cache allows ISS to monitor what people are doing, as well as block websites&lt;/h4&gt;
 
 &lt;p&gt;The webcache is most likely configured to log every site people visit, allowing ISS to look though your history. I&amp;rsquo;m sure this is very useful for dealing with the many copyright notices the university receives after student&amp;rsquo;s download something inappropriate. In the past ISS have also used the webcache to blocked sites, for example, the infamous LUSerNet site. The only argument I can give to these benefits is that there are other ways to achieving logging and blocking which are just as simple, and I would be surprised if ISS weren&amp;rsquo;t using some of these techniques already.&lt;/p&gt;
 
-&lt;h4 id=&#34;3-the-webcache-keeps-us-safe-from-viruses:f855ee3218f7e7ef58ec61b699a8cd60&#34;&gt;3. The webcache keeps us safe from viruses.&lt;/h4&gt;
+&lt;h4 id=&#34;3-the-webcache-keeps-us-safe-from-viruses&#34;&gt;3. The webcache keeps us safe from viruses.&lt;/h4&gt;
 
 &lt;p&gt;I was told that every file downloaded will be scanned for viruses, this attempts to keep your computer clean. I&amp;rsquo;m unsure if the webcache is actually able to scan for viruses that quickly, but if it is I&amp;rsquo;m unsure of its usefulness. Most desktop PCs (if not all) have some kind of virus scanner installed. Additionally the big viruses that have hit the news in recent years, such as Slammer, or Conficker would not have been stopped by the webcache as they do not spread over HTTP.&lt;/p&gt;
 
 &lt;p&gt;As well as the advantages of the webcache there are many reasons against having webcaches.&lt;/p&gt;
 
-&lt;h4 id=&#34;reasons-against-the-webcache:f855ee3218f7e7ef58ec61b699a8cd60&#34;&gt;Reasons against the webcache&lt;/h4&gt;
+&lt;h4 id=&#34;reasons-against-the-webcache&#34;&gt;Reasons against the webcache&lt;/h4&gt;
 
-&lt;h4 id=&#34;1-reduced-redundancy:f855ee3218f7e7ef58ec61b699a8cd60&#34;&gt;1. Reduced redundancy&lt;/h4&gt;
+&lt;h4 id=&#34;1-reduced-redundancy&#34;&gt;1. Reduced redundancy&lt;/h4&gt;
 
 &lt;p&gt;From what I understand the university has multiple Internet connections, and the network is set up in such a way that if all the cables running between the two ends of campus were cut, both halves would still have Internet connection. This sounds like a great thing in ensuring the network is always working. However, I&amp;rsquo;ve been told that the webcaches are in a single central location, completely negating the benefits of the network&amp;rsquo;s resilience. Because, if the link to the single location is cut the whole campus loses web access.&lt;/p&gt;
 
-&lt;h4 id=&#34;2-inconvenient-to-configure-software:f855ee3218f7e7ef58ec61b699a8cd60&#34;&gt;2. Inconvenient to configure software&lt;/h4&gt;
+&lt;h4 id=&#34;2-inconvenient-to-configure-software&#34;&gt;2. Inconvenient to configure software&lt;/h4&gt;
 
 &lt;p&gt;This is what annoys me the most, is that I have to ensure all the software I use can use a web proxy, and that all of it is configured to do so. As more and more applications start to use the Internet, it is not just web browsers that need to be configured. Things like, instant messengers, online music applications, software updaters, and many more all need the Internet. Every few months I have to spend my time hacking a solution to make it work behind the webcache.&lt;br /&gt;
 There is also the added inconvenience that if you take a Laptop between home and university, you have to flip the cache settings on and off. This has caused many headaches for people that have forgotten to do so.&lt;/p&gt;
 
-&lt;h4 id=&#34;alternatives:f855ee3218f7e7ef58ec61b699a8cd60&#34;&gt;Alternatives&lt;/h4&gt;
+&lt;h4 id=&#34;alternatives&#34;&gt;Alternatives&lt;/h4&gt;
 
 &lt;p&gt;Now most Universities have scrapped their webcaches because they just weren&amp;rsquo;t useful anymore. However, if Lancaster wishes to keep theirs they could implement it in a different way. A transparent proxy is one such solution which would greatly improve the user&amp;rsquo;s experience. Basically every time you try and visit a website the transparent proxy handles your request without the user even knowing. This means you don&amp;rsquo;t have to change any settings in your web browser! Transparent proxies have been used by large ISPs to handle 1000s of clients, so I don&amp;rsquo;t see why ISS couldn&amp;#8217;t do this.&lt;/p&gt;
 </description>
