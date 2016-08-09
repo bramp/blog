@@ -35,7 +35,7 @@
 &lt;li&gt;&lt;a href=&#34;https://github.com/pxb1988/dex2jar&#34;&gt;dex2jar&lt;/a&gt; - Converts Android dex files to class/jar files.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;instructions:096e0b1b76096499632c44bee24eac64&#34;&gt;Instructions:&lt;/h2&gt;
+&lt;h2 id=&#34;instructions&#34;&gt;Instructions:&lt;/h2&gt;
 
 &lt;p&gt;We assume you are on a Linux or Mac, but this will work (with some tweaking) on Windows. Install a recent Java JDK, then the &lt;a href=&#34;https://developer.android.com/sdk/installing/index.html?pkg=tools&#34;&gt;Stand-alone Android SDK&lt;/a&gt;, and finally &lt;a href=&#34;http://ibotpeaches.github.io/Apktool/&#34;&gt;apktool&lt;/a&gt;.&lt;/p&gt;
 

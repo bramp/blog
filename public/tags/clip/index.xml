@@ -16,7 +16,7 @@
       
       <guid>https://blog.bramp.net/post/2011/11/26/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/</guid>
       <description>&lt;p&gt;I wrote a PHP implementation of the polygon clipping algorithm by Sutherland-Hodgman. Available below, or from &lt;a href=&#34;https://gist.github.com/bramp/1396058#file-clip-class-php&#34;&gt;github&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class=&#34;sd&#34;&gt;/**&lt;/span&gt;
 &lt;span class=&#34;sd&#34;&gt; * Polygon Clipping&lt;/span&gt;
 &lt;span class=&#34;sd&#34;&gt; * @author Andrew Brampton me &amp;lt;at&amp;gt; bramp &amp;lt;dot&amp;gt; net&lt;/span&gt;

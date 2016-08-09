@@ -21,7 +21,7 @@
 
 &lt;p&gt;Whether you know it or not, your Java web application is most likely using a thread pool to handle incoming requests. This is an implementation detail that many overlook, but sooner or later you will need to understand how the pool is used, and how to correctly tune it for your application. This article aims to explain the threaded model, what a thread pool is, and what you need to do to correctly configure them.&lt;/p&gt;
 
-&lt;h2 id=&#34;single-threaded:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Single Threaded&lt;/h2&gt;
+&lt;h2 id=&#34;single-threaded&#34;&gt;Single Threaded&lt;/h2&gt;
 
 &lt;p&gt;Let us start with some basics, and progress with the evolution of the threaded model. No matter which application server or framework you use, &lt;a href=&#34;https://tomcat.apache.org/&#34;&gt;Tomcat&lt;/a&gt;, &lt;a href=&#34;http://www.dropwizard.io/&#34;&gt;Dropwizard&lt;/a&gt;, &lt;a href=&#34;https://eclipse.org/jetty/&#34;&gt;Jetty&lt;/a&gt;, they all use the same fundamental approach. Buried deep inside the web server is a socket. This socket is listening for incoming TCP connections, and accepting them. Once accepted, data can be read from the newly established TCP connection, parsed, and turned into a HTTP request. This request is then handed off to the web application, to do with what it wants.&lt;/p&gt;
 
@@ -66,7 +66,7 @@
 
 &lt;p&gt;As there is only a single thread handling all accepted sockets, each request must be fully handled, before accepting the next.  In a real application it could be normal for the equivalent handleRequest method to take on the order of 100 milliseconds to return. If this was the case, the server would be limited to handling only 10 requests per second, one after the other.&lt;/p&gt;
 
-&lt;h2 id=&#34;multi-threaded:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Multi-threaded&lt;/h2&gt;
+&lt;h2 id=&#34;multi-threaded&#34;&gt;Multi-threaded&lt;/h2&gt;
 
 &lt;p&gt;Even though handleRequest may be blocked on IO, the CPU is free to handle more requests. With a single threaded approach this is not possible. Thus this server can be improved to allow concurrent operations, via creating multiple threads:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;HandleRequestRunnable&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Runnable&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
@@ -103,7 +103,7 @@
 
 &lt;p&gt;In the thread per request approach, creating a new thread (and later destroying it) can be expensive, as both the JVM and the OS needs to allocate resources. Additionally in the above implementation, the number of threads being created is unbounded. Being unbounded is very problematic, as it can quickly led to resource exhaustion.&lt;/p&gt;
 
-&lt;h2 id=&#34;resource-exhaustion:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Resource exhaustion&lt;/h2&gt;
+&lt;h2 id=&#34;resource-exhaustion&#34;&gt;Resource exhaustion&lt;/h2&gt;
 
 &lt;p&gt;Each thread requires a certain amount of memory for the stack. On recent 64bit JVMs, the &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html&#34;&gt;default stack size&lt;/a&gt; is 1024KB. If the server receives a flood of requests, or the handleRequest method becomes slow, the server may end up with huge number of concurrent threads. Thus to manage 1000 concurrent requests, the 1000 threads would consume 1GB of the JVM’s RAM just for thread’s stacks. In addition the code executing in each thread will be creating objects on the heap needed to process the request. This very quickly adds up, and can exceed the heap space assigned to the JVM, putting pressure on the garbage collector, causing thrashing and eventually leading to &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/lang/OutOfMemoryError.html&#34;&gt;OutOfMemoryErrors&lt;/a&gt;.&lt;/p&gt;
 
@@ -111,7 +111,7 @@
 
 &lt;p&gt;Not a panacea, but the stack size issue can be somewhat mitigated by tuning the stack size with the -Xss flag. A smaller stack will reduce the per thread overhead, but potentially leads to &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/lang/StackOverflowError.html&#34;&gt;StackOverflowErrors&lt;/a&gt;. Your mileage will vary, but for many applications the default 1024KB is excessive, and smaller 256KB or 512KB values might be more appropriate. The smallest value Java will allow is 160KB.&lt;/p&gt;
 
-&lt;h2 id=&#34;thread-pool:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Thread pool&lt;/h2&gt;
+&lt;h2 id=&#34;thread-pool&#34;&gt;Thread pool&lt;/h2&gt;
 
 &lt;p&gt;To avoid continuously creating new threads, and to bound the maximum number, a simple thread pool can be used. Simply put, the pool keeps track of all threads, creating new ones when needed up to an upper bound, and where possible reusing idle threads.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;ServerSocket&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;listener&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServerSocket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8080&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
@@ -132,7 +132,7 @@
 
 &lt;p&gt;&lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.html&#34;&gt;ThreadPoolExecutors&lt;/a&gt; can be constructed directly, allowing for its behaviour to be customised. For example, the min and max number of threads within the pool can be defined, as well as policies for when threads are created and destroyed. An example of this is shown shortly.&lt;/p&gt;
 
-&lt;h2 id=&#34;work-queue:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Work queue&lt;/h2&gt;
+&lt;h2 id=&#34;work-queue&#34;&gt;Work queue&lt;/h2&gt;
 
 &lt;p&gt;In the fixed thread pool case, the observant reader may wonder what happens if all threads are busy, and a new request comes in. Well the ThreadPoolExecutor may use a queue to hold pending requests before a thread becomes available. The Executors.newFixedThreadPool by default use an unbounded LinkedList. Again this leads to the resource exhaustion problem, albeit much slower since each queued request is smaller than a full thread, and will typically not be using as many resources. However, in our examples, each queued request is holding a socket which (depending on OS) would be consuming a file handle. This is the kind of resource that the operating system will limit, so it may not be best to hold on to it unless needed. Therefore it also makes sense to bound the size of the work queue.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ExecutorService&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;newBoundedFixedThreadPool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nThreads&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;capacity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
@@ -162,13 +162,13 @@
 
 &lt;p&gt;A good default policy is to Discard or Abort, which both drop the work. In these cases it would be easy to return a simple error to the client, such as a &lt;a href=&#34;http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4&#34;&gt;HTTP 503 “Service unavailable”&lt;/a&gt;. Some would argue that the queue size could just be increased, and then all work would eventually be run. However, users are unwilling to wait forever, and if fundamentally the rate at which work comes in, exceeds the rate it can be executed, then the queue will grow indefinitely. Instead the queue should only be used to smooth out bursts of requests, or handle short stalls in processing. In normal operation the queue should be empty.&lt;/p&gt;
 
-&lt;h2 id=&#34;how-many-threads:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;How many threads?&lt;/h2&gt;
+&lt;h2 id=&#34;how-many-threads&#34;&gt;How many threads?&lt;/h2&gt;
 
 &lt;p&gt;Now we understand how to create a thread pool, the hard question is how many threads should be available? We have determined that the maximum number should be bounded to not cause resource exhaustion. This includes all types of resources, memory (stack and heap), open file handles, open TCP connections, the number of connections a remote database can handle, and any other finite resource. Conversely, if the threads are CPU bound instead of IO bound, then the number of physical cores should be considered finite, and perhaps no more than one thread per core should be created.&lt;/p&gt;
 
 &lt;p&gt;This all depends on the work the application is doing. A user should run load tests using various pool sizes, and a realistic mix of requests. Each time increasing their thread pool size until breaking point. This makes it possible to find the upper bound, for when resources are exhausted. In some cases it may be prudent to increase the number of available resources, for example making more RAM available to the JVM, or tuning the OS to allow for more file handles. However, at some point the theoretical upper bound will be reached, and should be noted, but this is not the end of the story.&lt;/p&gt;
 
-&lt;h2 id=&#34;little-s-law:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Little’s Law&lt;/h2&gt;
+&lt;h2 id=&#34;little-s-law&#34;&gt;Little’s Law&lt;/h2&gt;
 
 
 &lt;figure &gt;
@@ -190,7 +190,7 @@
 
 &lt;p&gt;For example, let’s say the maximum in-flight requests that can be handled is 1000 before the JVM exceeds its memory allocation. If we budget for each request to take no longer than 30 seconds, we should expect in the worst case to handle no more than 33 ⅓ requests per second. However, if everything is working correctly, and requests take only 500ms to handle, the application can handle 2000 requests per second, on only 1000 threads. It may also be reasonable to specify that a queue can be used to smooth out short bursts of delay.&lt;/p&gt;
 
-&lt;h2 id=&#34;why-the-hassle:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Why the hassle?&lt;/h2&gt;
+&lt;h2 id=&#34;why-the-hassle&#34;&gt;Why the hassle?&lt;/h2&gt;
 
 &lt;p&gt;If the thread pool has too few threads, you run the risk of under utilising the resources, and turning users away unnecessarily. However, if too many threads are allowed, resource exhaustion occurs, which can be more damaging.&lt;/p&gt;
 
@@ -200,7 +200,7 @@
 
 &lt;p&gt;Far too often I’ve observed that load testing is not conducted, and an arbitrarily high number of threads is allowed. In the common case the application can happily process requests at the incoming rate using a small number of threads. If however, processing the requests depends on a remote service, and that service temporarily slows down, the impact of increasing W (the average processing time) can very quickly exhaust the pool. Because the application was never load tested at the maximum number, all the resource exhaustion issues outlined before are exhibited.&lt;/p&gt;
 
-&lt;h2 id=&#34;how-many-thread-pools:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;How many thread pools?&lt;/h2&gt;
+&lt;h2 id=&#34;how-many-thread-pools&#34;&gt;How many thread pools?&lt;/h2&gt;
 
 &lt;p&gt;In &lt;a href=&#34;http://martinfowler.com/articles/microservices.html&#34;&gt;microservice&lt;/a&gt;, or &lt;a href=&#34;https://en.wikipedia.org/wiki/Service-oriented_architecture&#34;&gt;service oriented architectures&lt;/a&gt; (SOA), it is normal to access multiple remote backend services. This setup is particularly susceptible to failures, and thought should be given to gracefully dealing with them. If a remote service’s performance degrades, it can cause the thread pool to quickly hit its limit, and subsequent requests are dropped. However, not all requests may require this unhealthy backend, but since the thread pool is full these requests are needlessly dropped.&lt;/p&gt;
 
@@ -208,7 +208,7 @@
 
 &lt;p&gt;A final benefit of multiple thread pools, is it helps avoid a form of deadlock. If every available thread becomes blocked on a result of a yet to be processed request, then a deadlock occurs, and no thread is able to move forward. When using multiple pools, and having a good understanding of the work they execute, this issue can be somewhat mitigated.&lt;/p&gt;
 
-&lt;h2 id=&#34;deadlines-and-other-best-practices:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Deadlines and other best practices&lt;/h2&gt;
+&lt;h2 id=&#34;deadlines-and-other-best-practices&#34;&gt;Deadlines and other best practices&lt;/h2&gt;
 
 &lt;p&gt;A common best practice is to ensure there is a deadline on all remote calls. That is, if the remote service does not respond within a reasonable time, the request is abandoned. The same technique can be used for work within the thread pool. Specifically, if the thread is processing one request for longer than a defined deadline, it should be terminated. Making room for a new request, and placing an upper bound on W.  This may seem like a waste, but if the user (which might typically be a web browser) is waiting for a response, then after 30 seconds the browser might just give up anyway, or more likely the user becomes impatient and navigates away.&lt;/p&gt;
 
@@ -218,7 +218,7 @@
 
 &lt;p&gt;Luckily, there is a great library, &lt;a href=&#34;https://github.com/Netflix/Hystrix&#34;&gt;hystrix&lt;/a&gt;, which packages many of these best practices and exposes them in a simple and safe way.&lt;/p&gt;
 
-&lt;h2 id=&#34;conclusion:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;Hopefully this article has improved your understanding of thread pools.  By understanding the application’s needs, and using a combination of the maximum thread count, and the average response time, an appropriate thread pool can be determined. Not only will this avoid cascading failures, but help plan and provision your service.&lt;/p&gt;
 
@@ -254,7 +254,7 @@
 
 &lt;p&gt;Note, we use &lt;code&gt;putLong&lt;/code&gt;, not because the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; is storing objects made up of longs, but because this is the &lt;code&gt;Unsafe&lt;/code&gt; method that can copy the most in one go. This &lt;code&gt;putLong&lt;/code&gt; method is thus being used as the building block to build a more complex looping copy method. Note, this works great for memory which is aligned on a 8 byte boundary, and the total copy is a multiple of 8 bytes. For the sake of this article, we make the assumption that this is always true.&lt;/p&gt;
 
-&lt;p&gt;In the &lt;code&gt;FourLong&lt;/code&gt;&amp;rsquo;s case, the copy method would iterates four times. This is predictable, and occurs every time we &lt;code&gt;get()&lt;/code&gt; on a &lt;code&gt;UnsafeArrayList&amp;lt;FourLong&amp;gt;&lt;/code&gt; instance. Since this copy loop will be executed every time &lt;code&gt;get()&lt;/code&gt; is called, it is worth seeing if we can make it execute faster. A common optimisation is for the developer to manually &lt;a href=&#34;https://en.wikipedia.org/wiki/Loop_unrolling&#34;&gt;unroll the loop&lt;/a&gt;, avoiding the loop counter, and producing potentially quicker code&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:c06ac0517fe34f3baebcf975054ca129:unrolled&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:c06ac0517fe34f3baebcf975054ca129:unrolled&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. In this case, manually unrolling the code is not possible because the parameterised type could be any size. For example, a &lt;code&gt;UnsafeArrayList&amp;lt;Point&amp;gt;&lt;/code&gt; would only need to copy 8 bytes (two 4 byte ints). You would hope that the JIT would notice the loop always iterates the same number of times (for a particular list), and be able to remove the loop. Sadly, it does not seem to do this, perhaps because the JVM does not know what side effects &lt;code&gt;unsafe.{get,put}Long&lt;/code&gt; have. To measure the cost of the looping we compare the previous code to this:&lt;/p&gt;
+&lt;p&gt;In the &lt;code&gt;FourLong&lt;/code&gt;&amp;rsquo;s case, the copy method would iterates four times. This is predictable, and occurs every time we &lt;code&gt;get()&lt;/code&gt; on a &lt;code&gt;UnsafeArrayList&amp;lt;FourLong&amp;gt;&lt;/code&gt; instance. Since this copy loop will be executed every time &lt;code&gt;get()&lt;/code&gt; is called, it is worth seeing if we can make it execute faster. A common optimisation is for the developer to manually &lt;a href=&#34;https://en.wikipedia.org/wiki/Loop_unrolling&#34;&gt;unroll the loop&lt;/a&gt;, avoiding the loop counter, and producing potentially quicker code&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:unrolled&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:unrolled&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. In this case, manually unrolling the code is not possible because the parameterised type could be any size. For example, a &lt;code&gt;UnsafeArrayList&amp;lt;Point&amp;gt;&lt;/code&gt; would only need to copy 8 bytes (two 4 byte ints). You would hope that the JIT would notice the loop always iterates the same number of times (for a particular list), and be able to remove the loop. Sadly, it does not seem to do this, perhaps because the JVM does not know what side effects &lt;code&gt;unsafe.{get,put}Long&lt;/code&gt; have. To measure the cost of the looping we compare the previous code to this:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getUnsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
 
@@ -281,7 +281,7 @@
 
 &lt;p&gt;When benchmarked, this manually unrolled code runs 2 times faster! This got me thinking, since a particular &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; instance is always going to copy the same sized object, again and again and again, it could perhaps generate bytecode during creation, that unrolled the loop.&lt;/p&gt;
 
-&lt;h2 id=&#34;enter-byte-buddy:c06ac0517fe34f3baebcf975054ca129&#34;&gt;Enter Byte Buddy&lt;/h2&gt;
+&lt;h2 id=&#34;enter-byte-buddy&#34;&gt;Enter Byte Buddy&lt;/h2&gt;
 
 &lt;p&gt;Thus investigation into &lt;a href=&#34;http://bytebuddy.net/&#34;&gt;Byte Buddy&lt;/a&gt; began, a library designed for generating bytecode at runtime. The rest of this article explains how to use Byte Buddy for this goal.&lt;/p&gt;
 
@@ -459,7 +459,7 @@
 
 &lt;p&gt;Now at runtime the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt;&amp;rsquo;s constructor can use the &lt;a href=&#34;https://bramp.github.io/unsafe/index.html?net/bramp/unsafe/UnrolledUnsafeCopierBuilder.html&#34;&gt;&lt;code&gt;UnrolledUnsafeCopierBuilder&lt;/code&gt;&lt;/a&gt; to generate a specialised &lt;code&gt;UnsafeCopier&lt;/code&gt; designed for the exact class the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; is storing.&lt;/p&gt;
 
-&lt;h2 id=&#34;results:c06ac0517fe34f3baebcf975054ca129&#34;&gt;Results&lt;/h2&gt;
+&lt;h2 id=&#34;results&#34;&gt;Results&lt;/h2&gt;
 
 &lt;p&gt;Now we have most of what we need, it is worth benchmarking this code. Using &lt;a href=&#34;http://openjdk.java.net/projects/code-tools/jmh/&#34;&gt;JMH&lt;/a&gt;, we can write three microbenchmarks. One using the original looping code, one using the hand unrolled code, and one using the Byte Buddy unrolled code. The &lt;a href=&#34;https://github.com/bramp/unsafe/blob/master/unsafe-benchmark/src/main/java/net/bramp/unsafe/copier/UnrolledCopierBenchmark.java&#34;&gt;code for the benchmarks&lt;/a&gt; is on GitHub, and follows a similar methodology to that in a &lt;a href=&#34;https://blog.bramp.net/post/2015/08/27/unsafe-part-3-benchmarking-a-java-unsafearraylist/&#34;&gt;previous article&lt;/a&gt;.&lt;/p&gt;
 
@@ -509,7 +509,7 @@
 
 &lt;p&gt;The loop code can execute ~218 times per microseconds, whereas both the Byte Buddy, and hand unrolled code had near identical performance, of ~430-437 iterations per microsecond, nearly twice as fast. Of course, not measured here is the startup cost of generating the unrolled code. It is assumed this technique would only be used when the generated code would exist for a long time. Otherwise the setup cost undoes any per execution savings.&lt;/p&gt;
 
-&lt;h2 id=&#34;conclusion:c06ac0517fe34f3baebcf975054ca129&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;In summary, we managed to unroll a loop at runtime by generating on demand bytecode for that specific purpose. This was possible by inspecting machine generated bytecode, and using Byte Buddy to generate equivalent bytecode at runtime, customised specifically with the correct number of unrolled iterations.&lt;/p&gt;
 
@@ -521,8 +521,8 @@
 &lt;hr /&gt;
 
 &lt;ol&gt;
-&lt;li id=&#34;fn:c06ac0517fe34f3baebcf975054ca129:unrolled&#34;&gt;Unrolled code is not always faster, as larger code may not fit into CPU instruction cache.
- &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:c06ac0517fe34f3baebcf975054ca129:unrolled&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:unrolled&#34;&gt;Unrolled code is not always faster, as larger code may not fit into CPU instruction cache.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:unrolled&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
 </description>
@@ -538,7 +538,7 @@
 
 &lt;p&gt;Previously we introduced a &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;UnsafeArrayList&lt;/a&gt;, an ArrayList style collection that instead of storing references to the objects, it would use &lt;a href=&#34;http://www.docjar.com/docs/api/sun/misc/Unsafe.html&#34;&gt;sun.misc.Unsafe&lt;/a&gt; and &lt;a href=&#34;https://blog.bramp.net/post/2015/08/24/unsafe-part-1-sun.misc.unsafe-helper-classes/&#34;&gt;UnsafeHelper&lt;/a&gt; to copy the objects into heap allocated memory. This has the unique property of keeping all objects contiguous in memory, and avoids a pointer indirection, at the cost of needing to copy values in and out. This article aims to benchmark this list, and understand its unique characteristics.&lt;/p&gt;
 
-&lt;h2 id=&#34;methodology:096ff4ca83bc43bcc2f474076ba9052e&#34;&gt;Methodology&lt;/h2&gt;
+&lt;h2 id=&#34;methodology&#34;&gt;Methodology&lt;/h2&gt;
 
 &lt;p&gt;To test the performance of this new style of list, a series of benchmarks were devised. The new &lt;a href=&#34;http://openjdk.java.net/projects/code-tools/jmh/&#34;&gt;JMH benchmark framework&lt;/a&gt; was used, and final benchmark code is &lt;a href=&#34;https://github.com/bramp/unsafe/tree/master/unsafe-benchmark&#34;&gt;available here&lt;/a&gt;.&lt;/p&gt;
 
@@ -555,7 +555,7 @@
 
 &lt;p&gt;Three test classes of different sizes were created to be stored within the ArrayLists, one class had two long fields, one had four long fields, and finally one with eight long fields . Named TwoLongs, FourLongs and EightLongs requiring 16, 32, and 64 bytes for the fields respectively. Each iteration these classes were created with random values in the fields.&lt;/p&gt;
 
-&lt;h2 id=&#34;the-results:096ff4ca83bc43bcc2f474076ba9052e&#34;&gt;The Results&lt;/h2&gt;
+&lt;h2 id=&#34;the-results&#34;&gt;The Results&lt;/h2&gt;
 
 &lt;table class=&#34;table table-hover table-striped table-condensed&#34;&gt;
     &lt;thead&gt;
@@ -584,7 +584,7 @@
     &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h3 id=&#34;iterate:096ff4ca83bc43bcc2f474076ba9052e&#34;&gt;Iterate&lt;/h3&gt;
+&lt;h3 id=&#34;iterate&#34;&gt;Iterate&lt;/h3&gt;
 
 &lt;p&gt;Starting with the smallest test object, TwoLongs, to read the first field of all 80 million  elements within an ArrayList took on average 2.266 ± 0.229 seconds. To do the same with the UnsafeArrayList (which doesn’t store objects, and instead copies elements in/out) took on average 1.79 ±0.03 seconds (an 24% improvement).&lt;/p&gt;
 
@@ -606,13 +606,13 @@
 
 &lt;p&gt;With the UnsafeArrayList in-place test, it takes an average of 5.53 nanoseconds per element. As the fields are stored contiguously in memory, the CPU can efficiency pipeline the requests, amortizing the 9-18 ns memory read cost. Here the speed is most likely limited by either the memory’s bandwidth, or the CPU’s clock cycles.  To read 80 million memory addresses in 0.442 seconds, requires 180 Megatransfers per second, and assuming each object is two longs, or 16 bytes requires ~2.68 GiB/s of throughput. Neither of those values approach the upper limit of what DDR3 is capable of, thus I suspect the time is a combination of this and CPU instructions.&lt;/p&gt;
 
-&lt;h3 id=&#34;sorting:096ff4ca83bc43bcc2f474076ba9052e&#34;&gt;Sorting&lt;/h3&gt;
+&lt;h3 id=&#34;sorting&#34;&gt;Sorting&lt;/h3&gt;
 
 &lt;p&gt;The second benchmark measured the speed at which the lists could be read and written to somewhat randomly, and in particular sorted. This should cause a less predictable reads from memory.  To sort 80 million elements in the ArrayList took 70.31 ±3.939 seconds, and only 18.69 ±3.158 seconds for the UnsafeArrayList using the in-place get. The relative times is not as impressive as the previous test, but still the UnsafeArrayList is ~3.7 times as quick.  I’m unsure exactly why the UnsafeArrayList would be faster, but I suspect it is related to the fewer memory indirections, and prefetching effect the copying of fields has.&lt;/p&gt;
 
 &lt;p&gt;It’s also worth noting, the increase performance becomes less profound as the size of the stored class increases. For the FourLong the difference between ArrayList and UnsafeArrayList is 3.2x, and for EightLong the difference is 2.4x. This can easily be explained by the increasing cost of copying the fields in and out of the list. Even so, I would argue that the copy cost is in part hidden, as it is effectively prefetching the object’s fields into the CPU cache. Saving a memory load when the field is actually used (most likely shortly after it is pulled from the list).&lt;/p&gt;
 
-&lt;h3 id=&#34;other-observations:096ff4ca83bc43bcc2f474076ba9052e&#34;&gt;Other observations&lt;/h3&gt;
+&lt;h3 id=&#34;other-observations&#34;&gt;Other observations&lt;/h3&gt;
 
 &lt;p&gt;Overlooked is the smaller memory requirements for the UnsafeArrayList. A TwoLong instance is 16 bytes of data, plus 16 bytes of JVM object header. Thus an ArrayList of 40 million instances take 2.4 GiB of RAM (32 bytes x 80M), plus an additional 305MiB for an array of 80 million references (assuming &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/technotes/guides/vm/performance-enhancements-7.html#compressedOop&#34;&gt;compressed object pointers&lt;/a&gt; takes 4 bytes each). Totalling 2.68 GiB, whereas the UnsafeArray takes 16 bytes per entry, totaling only 1.2GiB (roughly half the size!).&lt;/p&gt;
 
@@ -620,7 +620,7 @@
 
 &lt;p&gt;One last observation of interest is the confidence intervals for the results. A larger error implies more variability in the test runs. For example, if the garbage collector ran during some of the runs, and slowed down the test, it would increase this error. In all the tests using the UnsafeArrayList in-place methods, the confidence interval is smaller, implying more constancy and predictability. This can be important in certain situations, such as real-time systems.&lt;/p&gt;
 
-&lt;h2 id=&#34;conclusion:096ff4ca83bc43bcc2f474076ba9052e&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;We benchmarked the &lt;a href=&#34;https://bramp.github.io/unsafe/index.html?net/bramp/unsafe/UnsafeHelper.html&#34;&gt;UnsafeArrayList&lt;/a&gt;, against a normal ArrayList in two artificial workloads. We found that in both the start-to-finish iteration, and in the sorting case, that the UnsafeArrayList was 4-5x faster than its counterpart. This result itself is interesting when designing high performance data structures, however, the use of &lt;a href=&#34;http://www.docjar.com/docs/api/sun/misc/Unsafe.html&#34;&gt;sun.misc.Unsafe&lt;/a&gt; is considered dangerous, and thus the performance comes with many caveats and risks. In fact, it was recently announced that the &lt;a href=&#34;http://blog.dripstat.com/removal-of-sun-misc-unsafe-a-disaster-in-the-making/&#34;&gt;Unsafe class is being deprecated and hidden in java 9&lt;/a&gt;. So instead, this was just an insightful journey into how the CPU can optomise particular workloads, and how Java can be pushed to extreme speeds.&lt;/p&gt;
 
@@ -843,7 +843,7 @@
 &lt;li&gt;&lt;a href=&#34;https://github.com/pxb1988/dex2jar&#34;&gt;dex2jar&lt;/a&gt; - Converts Android dex files to class/jar files.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;instructions:096e0b1b76096499632c44bee24eac64&#34;&gt;Instructions:&lt;/h2&gt;
+&lt;h2 id=&#34;instructions&#34;&gt;Instructions:&lt;/h2&gt;
 
 &lt;p&gt;We assume you are on a Linux or Mac, but this will work (with some tweaking) on Windows. Install a recent Java JDK, then the &lt;a href=&#34;https://developer.android.com/sdk/installing/index.html?pkg=tools&#34;&gt;Stand-alone Android SDK&lt;/a&gt;, and finally &lt;a href=&#34;http://ibotpeaches.github.io/Apktool/&#34;&gt;apktool&lt;/a&gt;.&lt;/p&gt;
 
@@ -924,9 +924,9 @@ sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.d
 
 &lt;p&gt;This all sounds great but I think both of these technologies are still young and there are a lot of things to work out. I was consistently hitting bugs in Grails, and I found the support for Groovy to be lacking in my IDE of choice Ecplise, forcing me to move to IntelliJ which did a lot better job.&lt;/p&gt;
 
-&lt;h1 id=&#34;groovy:3c667ab411b201f728af02293c4d56f8&#34;&gt;Groovy&lt;/h1&gt;
+&lt;h1 id=&#34;groovy&#34;&gt;Groovy&lt;/h1&gt;
 
-&lt;h2 id=&#34;dynamic-typing:3c667ab411b201f728af02293c4d56f8&#34;&gt;Dynamic typing&lt;/h2&gt;
+&lt;h2 id=&#34;dynamic-typing&#34;&gt;Dynamic typing&lt;/h2&gt;
 
 &lt;p&gt;The dynamic variable typing allows you to create a variable and not declare what type it is. Then as you use the variable you can very easily convert it between types. To be honest, and maybe I miss the point, but I&amp;#8217;ve never been fond of dynamic typing in other languages. I tend to create a variable and ensure I keep it a particular type. I do this because dynamic typing can introduce all sorts of errors, and you have to truely understand the rules. For example, if I try and convert a String to a boolean (as I might do in a condition), what type of Strings evaluate to true and false? In Groovy a empty string is false, but a string with a single whitespace char would be true.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-groovy&#34; data-lang=&#34;groovy&#34;&gt;&lt;span class=&#34;kt&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;someString&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&amp;quot;&lt;/span&gt;
@@ -949,15 +949,15 @@ sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.d
 
 &lt;p&gt;It looks like Groovy 2.0 is trying to resolve this concern with &lt;a href=&#34;http://docs.codehaus.org/display/GroovyJSR/GEP+8+-+Static+type+checking&#34;&gt;GEP 8&lt;/a&gt;, a new type of annotation that will force Groovy to statically check your class/method at compile time.&lt;/p&gt;
 
-&lt;h1 id=&#34;grails:3c667ab411b201f728af02293c4d56f8&#34;&gt;Grails&lt;/h1&gt;
+&lt;h1 id=&#34;grails&#34;&gt;Grails&lt;/h1&gt;
 
-&lt;h2 id=&#34;gorm:3c667ab411b201f728af02293c4d56f8&#34;&gt;GORM&lt;/h2&gt;
+&lt;h2 id=&#34;gorm&#34;&gt;GORM&lt;/h2&gt;
 
 &lt;p&gt;The GORM is Grails&amp;#8217;s &lt;a href=&#34;http://en.wikipedia.org/wiki/Object-relational_mapping&#34;&gt;ORM&lt;/a&gt;, which sits on top of &lt;a href=&#34;http://www.hibernate.org/&#34;&gt;Hibernate&lt;/a&gt;. It takes advantage of Groovy&amp;#8217;s &lt;a href=&#34;http://groovy.codehaus.org/Collections&#34;&gt;collection syntax&lt;/a&gt; to make configuring a model easy. However, I think due to the young nature of Grails I found multiple problems with GORM. I started by using the super convenient &lt;a href=&#34;http://www.h2database.com/&#34;&gt;H2&lt;/a&gt; data source for testing. Then as I progressed I moved to MySQL. However, the code that worked perfectly with with H2 stopped working in MySQL. There were little things, like reserved keywords being different, which tripped up MySQL. Looking at the generated SQL the MySQL queries weren&amp;#8217;t being escaped, which would have solved this issue. Secondly, and a bigger issue, but I was using hierarchical data models. That is, I had a generic abstract Base model, and multiple specific models that extended from the base. This worked well in H2 and avoided a lot of duplication of code, but with the MySQL data source it was handled incorrectly, causing me to spend hours investigating and modifying the code.&lt;/p&gt;
 
 &lt;p&gt;I also tried the &lt;a href=&#34;http://grails.org/plugin/mongodb&#34;&gt;MongoDB plugin&lt;/a&gt;, as the document store concept works great for my heirachy concept. However it wasn&amp;#8217;t a direct drop in replacement for H2/MySQL, and I even found some bugs, which I &lt;a href=&#34;http://jira.grails.org/browse/GPMONGODB-210&#34;&gt;reported&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&#34;scaffolding:3c667ab411b201f728af02293c4d56f8&#34;&gt;Scaffolding&lt;/h2&gt;
+&lt;h2 id=&#34;scaffolding&#34;&gt;Scaffolding&lt;/h2&gt;
 
 &lt;p&gt;This was one of the coolest features, but also one of the biggest let downs. Scaffolding generates all the code you quickly need for a simple CRUD application. There are two modes, dynamic and static. A dynaimic one literally allows you to create a controller in just a few lines, with all the code for create/read/update/delete hidden behind the scenes. Static scaffolding is very similar in features, but placed all the code in the groovy file ready for you to edit.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-groovy&#34; data-lang=&#34;groovy&#34;&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;SomeController&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
@@ -968,7 +968,7 @@ sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.d
 
 &lt;p&gt;The problem I found here is that it dynamic scaffolding served little purpose than showing off how little you could write. To actually customise it you would have to use static scaffolding. Even then, the static scaffolding didn&amp;#8217;t seem particular neat and simple (as compared to other rapid dev frameworks I&amp;#8217;ve used), and you eventually had to throw 90% of that generated code away and write it all yourself.&lt;/p&gt;
 
-&lt;h2 id=&#34;closures:3c667ab411b201f728af02293c4d56f8&#34;&gt;Closures&lt;/h2&gt;
+&lt;h2 id=&#34;closures&#34;&gt;Closures&lt;/h2&gt;
 
 &lt;p&gt;The concept of closures and anonymous functions is a very cool one, which in fact I have quite liked using in Python and JavaScript. The implementation here also seemed quite good, except for some minor pet pevs I had. The real issue I had with closures is how it polluted the call stack. Some of my call stacks were now chains of methods like:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;at _GrailsCompile_groovy$_run_closure2.doCall(_GrailsCompile_groovy:46)
@@ -980,11 +980,11 @@ at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:133)
 
 &lt;p&gt;This is no doubt a limitation of being built onto of the JVM that couldn&amp;#8217;t provide more helpful output.&lt;/p&gt;
 
-&lt;h2 id=&#34;run-app:3c667ab411b201f728af02293c4d56f8&#34;&gt;Run-app&lt;/h2&gt;
+&lt;h2 id=&#34;run-app&#34;&gt;Run-app&lt;/h2&gt;
 
 &lt;p&gt;Grails comes with a CLI tool that does a lot of the code generation for you. One of the useful commands is &lt;code&gt;grails run-app&lt;/code&gt;, this will start up an embedded webserver which runs your application, and better yet, allows you to make code changes without recompiling/redeploying. This truly makes it quicker to develop and test your Java/Groovy, and allows those minor tweaks to your Controllers, etc without a wait. However, yet again I was let down by this feature. Lots of simple changes would cause the run-app to stop serving my pages with odd exception. The solution was to stop the webserver and start it again, which defeats the purpose. Even worse, I sometimes had to &lt;code&gt;grails clean&lt;/code&gt; as it did not always pick up my code changes.&lt;/p&gt;
 
-&lt;h1 id=&#34;conclusion:3c667ab411b201f728af02293c4d56f8&#34;&gt;Conclusion&lt;/h1&gt;
+&lt;h1 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h1&gt;
 
 &lt;p&gt;I liked everything that Groovy and Grails was trying to do, but I think their implementation isn&amp;#8217;t good enough yet, and there are too many gotchas for me to considering using this in a production environment. I no doubt will follow it&amp;#8217;s progress and play with it every so often.&lt;/p&gt;
 </description>

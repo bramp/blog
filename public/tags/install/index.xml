@@ -20,7 +20,8 @@
 &lt;p&gt;If you google for this laptop you won&amp;#8217;t find many pages about it, in fact I could find no information about the laptop on all of ASUS&amp;#8217;s website. However, there is the &lt;a href=&#34;http://www.asus.com/products.aspx?l1=5&amp;amp;l2=74&amp;amp;l3=604&amp;amp;l4=0&amp;amp;model=2109&amp;amp;modelmenu=1&#34;&gt;ASUS M51Se&lt;/a&gt; which looks very similar in the photographs. I&amp;#8217;ve even &lt;a href=&#34;http://vip.asus.com/forum/view.aspx?board_id=3&amp;amp;model=X53Se&amp;amp;id=20080831051338546&amp;amp;page=1&amp;amp;SLanguage=en-us&#34;&gt;asked on the ASUS forums&lt;/a&gt; if anyone know more information.&lt;/p&gt;
 
 &lt;p&gt;Using Vista (which was pre-installed) I was able to get this list of hardware, which should help me with the installation process:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;Atheros L1 Gigabit Ethernet
+
+&lt;pre&gt;&lt;code&gt;Atheros L1 Gigabit Ethernet
 Intel Wireless 3945ABG
 JMicron JMB36X
 ATI Mobility Radeon HD 3470
@@ -31,7 +32,7 @@ Realtek HD Audio
 Intel(R) GM965 Express Chipset
 Intel 82GM965 Memory Controller
 Intel(R) 965GM Graphics And Memory Controller Hub(GMCH)
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Regardless of knowing if Linux would install or not, I went ahead and tried &lt;a href=&#34;http://www.debian.org/devel/debian-installer/&#34;&gt;Debian lenny beta 2&lt;/a&gt;. However, as it was booting it would crash and fill the screen with &amp;#8220;pretty&amp;#8221; colours. I then tried a old Debian disc I had lying around, then a new and old Ubuntu disk, and all these failed to load. So then I tried different kernel options, and eventually I found this command worked:&lt;/p&gt;
 

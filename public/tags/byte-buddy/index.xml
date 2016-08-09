@@ -37,7 +37,7 @@
 
 &lt;p&gt;Note, we use &lt;code&gt;putLong&lt;/code&gt;, not because the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; is storing objects made up of longs, but because this is the &lt;code&gt;Unsafe&lt;/code&gt; method that can copy the most in one go. This &lt;code&gt;putLong&lt;/code&gt; method is thus being used as the building block to build a more complex looping copy method. Note, this works great for memory which is aligned on a 8 byte boundary, and the total copy is a multiple of 8 bytes. For the sake of this article, we make the assumption that this is always true.&lt;/p&gt;
 
-&lt;p&gt;In the &lt;code&gt;FourLong&lt;/code&gt;&amp;rsquo;s case, the copy method would iterates four times. This is predictable, and occurs every time we &lt;code&gt;get()&lt;/code&gt; on a &lt;code&gt;UnsafeArrayList&amp;lt;FourLong&amp;gt;&lt;/code&gt; instance. Since this copy loop will be executed every time &lt;code&gt;get()&lt;/code&gt; is called, it is worth seeing if we can make it execute faster. A common optimisation is for the developer to manually &lt;a href=&#34;https://en.wikipedia.org/wiki/Loop_unrolling&#34;&gt;unroll the loop&lt;/a&gt;, avoiding the loop counter, and producing potentially quicker code&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:c06ac0517fe34f3baebcf975054ca129:unrolled&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:c06ac0517fe34f3baebcf975054ca129:unrolled&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. In this case, manually unrolling the code is not possible because the parameterised type could be any size. For example, a &lt;code&gt;UnsafeArrayList&amp;lt;Point&amp;gt;&lt;/code&gt; would only need to copy 8 bytes (two 4 byte ints). You would hope that the JIT would notice the loop always iterates the same number of times (for a particular list), and be able to remove the loop. Sadly, it does not seem to do this, perhaps because the JVM does not know what side effects &lt;code&gt;unsafe.{get,put}Long&lt;/code&gt; have. To measure the cost of the looping we compare the previous code to this:&lt;/p&gt;
+&lt;p&gt;In the &lt;code&gt;FourLong&lt;/code&gt;&amp;rsquo;s case, the copy method would iterates four times. This is predictable, and occurs every time we &lt;code&gt;get()&lt;/code&gt; on a &lt;code&gt;UnsafeArrayList&amp;lt;FourLong&amp;gt;&lt;/code&gt; instance. Since this copy loop will be executed every time &lt;code&gt;get()&lt;/code&gt; is called, it is worth seeing if we can make it execute faster. A common optimisation is for the developer to manually &lt;a href=&#34;https://en.wikipedia.org/wiki/Loop_unrolling&#34;&gt;unroll the loop&lt;/a&gt;, avoiding the loop counter, and producing potentially quicker code&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:unrolled&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:unrolled&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. In this case, manually unrolling the code is not possible because the parameterised type could be any size. For example, a &lt;code&gt;UnsafeArrayList&amp;lt;Point&amp;gt;&lt;/code&gt; would only need to copy 8 bytes (two 4 byte ints). You would hope that the JIT would notice the loop always iterates the same number of times (for a particular list), and be able to remove the loop. Sadly, it does not seem to do this, perhaps because the JVM does not know what side effects &lt;code&gt;unsafe.{get,put}Long&lt;/code&gt; have. To measure the cost of the looping we compare the previous code to this:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getUnsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
 
@@ -64,7 +64,7 @@
 
 &lt;p&gt;When benchmarked, this manually unrolled code runs 2 times faster! This got me thinking, since a particular &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; instance is always going to copy the same sized object, again and again and again, it could perhaps generate bytecode during creation, that unrolled the loop.&lt;/p&gt;
 
-&lt;h2 id=&#34;enter-byte-buddy:c06ac0517fe34f3baebcf975054ca129&#34;&gt;Enter Byte Buddy&lt;/h2&gt;
+&lt;h2 id=&#34;enter-byte-buddy&#34;&gt;Enter Byte Buddy&lt;/h2&gt;
 
 &lt;p&gt;Thus investigation into &lt;a href=&#34;http://bytebuddy.net/&#34;&gt;Byte Buddy&lt;/a&gt; began, a library designed for generating bytecode at runtime. The rest of this article explains how to use Byte Buddy for this goal.&lt;/p&gt;
 
@@ -242,7 +242,7 @@
 
 &lt;p&gt;Now at runtime the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt;&amp;rsquo;s constructor can use the &lt;a href=&#34;https://bramp.github.io/unsafe/index.html?net/bramp/unsafe/UnrolledUnsafeCopierBuilder.html&#34;&gt;&lt;code&gt;UnrolledUnsafeCopierBuilder&lt;/code&gt;&lt;/a&gt; to generate a specialised &lt;code&gt;UnsafeCopier&lt;/code&gt; designed for the exact class the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; is storing.&lt;/p&gt;
 
-&lt;h2 id=&#34;results:c06ac0517fe34f3baebcf975054ca129&#34;&gt;Results&lt;/h2&gt;
+&lt;h2 id=&#34;results&#34;&gt;Results&lt;/h2&gt;
 
 &lt;p&gt;Now we have most of what we need, it is worth benchmarking this code. Using &lt;a href=&#34;http://openjdk.java.net/projects/code-tools/jmh/&#34;&gt;JMH&lt;/a&gt;, we can write three microbenchmarks. One using the original looping code, one using the hand unrolled code, and one using the Byte Buddy unrolled code. The &lt;a href=&#34;https://github.com/bramp/unsafe/blob/master/unsafe-benchmark/src/main/java/net/bramp/unsafe/copier/UnrolledCopierBenchmark.java&#34;&gt;code for the benchmarks&lt;/a&gt; is on GitHub, and follows a similar methodology to that in a &lt;a href=&#34;https://blog.bramp.net/post/2015/08/27/unsafe-part-3-benchmarking-a-java-unsafearraylist/&#34;&gt;previous article&lt;/a&gt;.&lt;/p&gt;
 
@@ -292,7 +292,7 @@
 
 &lt;p&gt;The loop code can execute ~218 times per microseconds, whereas both the Byte Buddy, and hand unrolled code had near identical performance, of ~430-437 iterations per microsecond, nearly twice as fast. Of course, not measured here is the startup cost of generating the unrolled code. It is assumed this technique would only be used when the generated code would exist for a long time. Otherwise the setup cost undoes any per execution savings.&lt;/p&gt;
 
-&lt;h2 id=&#34;conclusion:c06ac0517fe34f3baebcf975054ca129&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;In summary, we managed to unroll a loop at runtime by generating on demand bytecode for that specific purpose. This was possible by inspecting machine generated bytecode, and using Byte Buddy to generate equivalent bytecode at runtime, customised specifically with the correct number of unrolled iterations.&lt;/p&gt;
 
@@ -304,8 +304,8 @@
 &lt;hr /&gt;
 
 &lt;ol&gt;
-&lt;li id=&#34;fn:c06ac0517fe34f3baebcf975054ca129:unrolled&#34;&gt;Unrolled code is not always faster, as larger code may not fit into CPU instruction cache.
- &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:c06ac0517fe34f3baebcf975054ca129:unrolled&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:unrolled&#34;&gt;Unrolled code is not always faster, as larger code may not fit into CPU instruction cache.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:unrolled&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
 </description>

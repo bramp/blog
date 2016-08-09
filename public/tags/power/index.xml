@@ -19,7 +19,7 @@
 
 &lt;p&gt;I have mentioned many times that I would like to know how much current something is drawing, so today Nic brought me a mains power meter. It is a very simple meter which plugs between the mains and the device and can measure volts, amps, watts, frequency, and a few other metrics. I decided to run around my house measuring everything I could.&lt;/p&gt;
 
-&lt;h3 id=&#34;methodology:5b73a8938321839a6e535990b74cc8eb&#34;&gt;Methodology&lt;/h3&gt;
+&lt;h3 id=&#34;methodology&#34;&gt;Methodology&lt;/h3&gt;
 
 &lt;p&gt;A couple notes about my methodology, firstly, I was very lazy in my measurement taking. I repeated some of the measurements, but not all. However, when I did repeat the measurements they always seem to have the same value, so this discouraged me from repeating.&lt;/p&gt;
 
@@ -27,7 +27,7 @@
 
 &lt;p&gt;All these measurements were taken in my house in the UK, which according to my meter has mains electricity at 248V and at a AC frequency of 59.9Hz&lt;/p&gt;
 
-&lt;h3 id=&#34;results:5b73a8938321839a6e535990b74cc8eb&#34;&gt;Results&lt;/h3&gt;
+&lt;h3 id=&#34;results&#34;&gt;Results&lt;/h3&gt;
 
 &lt;table&gt;
 &lt;thead&gt;

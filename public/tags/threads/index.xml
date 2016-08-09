@@ -21,7 +21,7 @@
 
 &lt;p&gt;Whether you know it or not, your Java web application is most likely using a thread pool to handle incoming requests. This is an implementation detail that many overlook, but sooner or later you will need to understand how the pool is used, and how to correctly tune it for your application. This article aims to explain the threaded model, what a thread pool is, and what you need to do to correctly configure them.&lt;/p&gt;
 
-&lt;h2 id=&#34;single-threaded:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Single Threaded&lt;/h2&gt;
+&lt;h2 id=&#34;single-threaded&#34;&gt;Single Threaded&lt;/h2&gt;
 
 &lt;p&gt;Let us start with some basics, and progress with the evolution of the threaded model. No matter which application server or framework you use, &lt;a href=&#34;https://tomcat.apache.org/&#34;&gt;Tomcat&lt;/a&gt;, &lt;a href=&#34;http://www.dropwizard.io/&#34;&gt;Dropwizard&lt;/a&gt;, &lt;a href=&#34;https://eclipse.org/jetty/&#34;&gt;Jetty&lt;/a&gt;, they all use the same fundamental approach. Buried deep inside the web server is a socket. This socket is listening for incoming TCP connections, and accepting them. Once accepted, data can be read from the newly established TCP connection, parsed, and turned into a HTTP request. This request is then handed off to the web application, to do with what it wants.&lt;/p&gt;
 
@@ -66,7 +66,7 @@
 
 &lt;p&gt;As there is only a single thread handling all accepted sockets, each request must be fully handled, before accepting the next.  In a real application it could be normal for the equivalent handleRequest method to take on the order of 100 milliseconds to return. If this was the case, the server would be limited to handling only 10 requests per second, one after the other.&lt;/p&gt;
 
-&lt;h2 id=&#34;multi-threaded:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Multi-threaded&lt;/h2&gt;
+&lt;h2 id=&#34;multi-threaded&#34;&gt;Multi-threaded&lt;/h2&gt;
 
 &lt;p&gt;Even though handleRequest may be blocked on IO, the CPU is free to handle more requests. With a single threaded approach this is not possible. Thus this server can be improved to allow concurrent operations, via creating multiple threads:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;HandleRequestRunnable&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Runnable&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
@@ -103,7 +103,7 @@
 
 &lt;p&gt;In the thread per request approach, creating a new thread (and later destroying it) can be expensive, as both the JVM and the OS needs to allocate resources. Additionally in the above implementation, the number of threads being created is unbounded. Being unbounded is very problematic, as it can quickly led to resource exhaustion.&lt;/p&gt;
 
-&lt;h2 id=&#34;resource-exhaustion:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Resource exhaustion&lt;/h2&gt;
+&lt;h2 id=&#34;resource-exhaustion&#34;&gt;Resource exhaustion&lt;/h2&gt;
 
 &lt;p&gt;Each thread requires a certain amount of memory for the stack. On recent 64bit JVMs, the &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html&#34;&gt;default stack size&lt;/a&gt; is 1024KB. If the server receives a flood of requests, or the handleRequest method becomes slow, the server may end up with huge number of concurrent threads. Thus to manage 1000 concurrent requests, the 1000 threads would consume 1GB of the JVM’s RAM just for thread’s stacks. In addition the code executing in each thread will be creating objects on the heap needed to process the request. This very quickly adds up, and can exceed the heap space assigned to the JVM, putting pressure on the garbage collector, causing thrashing and eventually leading to &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/lang/OutOfMemoryError.html&#34;&gt;OutOfMemoryErrors&lt;/a&gt;.&lt;/p&gt;
 
@@ -111,7 +111,7 @@
 
 &lt;p&gt;Not a panacea, but the stack size issue can be somewhat mitigated by tuning the stack size with the -Xss flag. A smaller stack will reduce the per thread overhead, but potentially leads to &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/lang/StackOverflowError.html&#34;&gt;StackOverflowErrors&lt;/a&gt;. Your mileage will vary, but for many applications the default 1024KB is excessive, and smaller 256KB or 512KB values might be more appropriate. The smallest value Java will allow is 160KB.&lt;/p&gt;
 
-&lt;h2 id=&#34;thread-pool:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Thread pool&lt;/h2&gt;
+&lt;h2 id=&#34;thread-pool&#34;&gt;Thread pool&lt;/h2&gt;
 
 &lt;p&gt;To avoid continuously creating new threads, and to bound the maximum number, a simple thread pool can be used. Simply put, the pool keeps track of all threads, creating new ones when needed up to an upper bound, and where possible reusing idle threads.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;ServerSocket&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;listener&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServerSocket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8080&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
@@ -132,7 +132,7 @@
 
 &lt;p&gt;&lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.html&#34;&gt;ThreadPoolExecutors&lt;/a&gt; can be constructed directly, allowing for its behaviour to be customised. For example, the min and max number of threads within the pool can be defined, as well as policies for when threads are created and destroyed. An example of this is shown shortly.&lt;/p&gt;
 
-&lt;h2 id=&#34;work-queue:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Work queue&lt;/h2&gt;
+&lt;h2 id=&#34;work-queue&#34;&gt;Work queue&lt;/h2&gt;
 
 &lt;p&gt;In the fixed thread pool case, the observant reader may wonder what happens if all threads are busy, and a new request comes in. Well the ThreadPoolExecutor may use a queue to hold pending requests before a thread becomes available. The Executors.newFixedThreadPool by default use an unbounded LinkedList. Again this leads to the resource exhaustion problem, albeit much slower since each queued request is smaller than a full thread, and will typically not be using as many resources. However, in our examples, each queued request is holding a socket which (depending on OS) would be consuming a file handle. This is the kind of resource that the operating system will limit, so it may not be best to hold on to it unless needed. Therefore it also makes sense to bound the size of the work queue.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ExecutorService&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;newBoundedFixedThreadPool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nThreads&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;capacity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
@@ -162,13 +162,13 @@
 
 &lt;p&gt;A good default policy is to Discard or Abort, which both drop the work. In these cases it would be easy to return a simple error to the client, such as a &lt;a href=&#34;http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4&#34;&gt;HTTP 503 “Service unavailable”&lt;/a&gt;. Some would argue that the queue size could just be increased, and then all work would eventually be run. However, users are unwilling to wait forever, and if fundamentally the rate at which work comes in, exceeds the rate it can be executed, then the queue will grow indefinitely. Instead the queue should only be used to smooth out bursts of requests, or handle short stalls in processing. In normal operation the queue should be empty.&lt;/p&gt;
 
-&lt;h2 id=&#34;how-many-threads:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;How many threads?&lt;/h2&gt;
+&lt;h2 id=&#34;how-many-threads&#34;&gt;How many threads?&lt;/h2&gt;
 
 &lt;p&gt;Now we understand how to create a thread pool, the hard question is how many threads should be available? We have determined that the maximum number should be bounded to not cause resource exhaustion. This includes all types of resources, memory (stack and heap), open file handles, open TCP connections, the number of connections a remote database can handle, and any other finite resource. Conversely, if the threads are CPU bound instead of IO bound, then the number of physical cores should be considered finite, and perhaps no more than one thread per core should be created.&lt;/p&gt;
 
 &lt;p&gt;This all depends on the work the application is doing. A user should run load tests using various pool sizes, and a realistic mix of requests. Each time increasing their thread pool size until breaking point. This makes it possible to find the upper bound, for when resources are exhausted. In some cases it may be prudent to increase the number of available resources, for example making more RAM available to the JVM, or tuning the OS to allow for more file handles. However, at some point the theoretical upper bound will be reached, and should be noted, but this is not the end of the story.&lt;/p&gt;
 
-&lt;h2 id=&#34;little-s-law:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Little’s Law&lt;/h2&gt;
+&lt;h2 id=&#34;little-s-law&#34;&gt;Little’s Law&lt;/h2&gt;
 
 
 &lt;figure &gt;
@@ -190,7 +190,7 @@
 
 &lt;p&gt;For example, let’s say the maximum in-flight requests that can be handled is 1000 before the JVM exceeds its memory allocation. If we budget for each request to take no longer than 30 seconds, we should expect in the worst case to handle no more than 33 ⅓ requests per second. However, if everything is working correctly, and requests take only 500ms to handle, the application can handle 2000 requests per second, on only 1000 threads. It may also be reasonable to specify that a queue can be used to smooth out short bursts of delay.&lt;/p&gt;
 
-&lt;h2 id=&#34;why-the-hassle:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Why the hassle?&lt;/h2&gt;
+&lt;h2 id=&#34;why-the-hassle&#34;&gt;Why the hassle?&lt;/h2&gt;
 
 &lt;p&gt;If the thread pool has too few threads, you run the risk of under utilising the resources, and turning users away unnecessarily. However, if too many threads are allowed, resource exhaustion occurs, which can be more damaging.&lt;/p&gt;
 
@@ -200,7 +200,7 @@
 
 &lt;p&gt;Far too often I’ve observed that load testing is not conducted, and an arbitrarily high number of threads is allowed. In the common case the application can happily process requests at the incoming rate using a small number of threads. If however, processing the requests depends on a remote service, and that service temporarily slows down, the impact of increasing W (the average processing time) can very quickly exhaust the pool. Because the application was never load tested at the maximum number, all the resource exhaustion issues outlined before are exhibited.&lt;/p&gt;
 
-&lt;h2 id=&#34;how-many-thread-pools:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;How many thread pools?&lt;/h2&gt;
+&lt;h2 id=&#34;how-many-thread-pools&#34;&gt;How many thread pools?&lt;/h2&gt;
 
 &lt;p&gt;In &lt;a href=&#34;http://martinfowler.com/articles/microservices.html&#34;&gt;microservice&lt;/a&gt;, or &lt;a href=&#34;https://en.wikipedia.org/wiki/Service-oriented_architecture&#34;&gt;service oriented architectures&lt;/a&gt; (SOA), it is normal to access multiple remote backend services. This setup is particularly susceptible to failures, and thought should be given to gracefully dealing with them. If a remote service’s performance degrades, it can cause the thread pool to quickly hit its limit, and subsequent requests are dropped. However, not all requests may require this unhealthy backend, but since the thread pool is full these requests are needlessly dropped.&lt;/p&gt;
 
@@ -208,7 +208,7 @@
 
 &lt;p&gt;A final benefit of multiple thread pools, is it helps avoid a form of deadlock. If every available thread becomes blocked on a result of a yet to be processed request, then a deadlock occurs, and no thread is able to move forward. When using multiple pools, and having a good understanding of the work they execute, this issue can be somewhat mitigated.&lt;/p&gt;
 
-&lt;h2 id=&#34;deadlines-and-other-best-practices:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Deadlines and other best practices&lt;/h2&gt;
+&lt;h2 id=&#34;deadlines-and-other-best-practices&#34;&gt;Deadlines and other best practices&lt;/h2&gt;
 
 &lt;p&gt;A common best practice is to ensure there is a deadline on all remote calls. That is, if the remote service does not respond within a reasonable time, the request is abandoned. The same technique can be used for work within the thread pool. Specifically, if the thread is processing one request for longer than a defined deadline, it should be terminated. Making room for a new request, and placing an upper bound on W.  This may seem like a waste, but if the user (which might typically be a web browser) is waiting for a response, then after 30 seconds the browser might just give up anyway, or more likely the user becomes impatient and navigates away.&lt;/p&gt;
 
@@ -218,7 +218,7 @@
 
 &lt;p&gt;Luckily, there is a great library, &lt;a href=&#34;https://github.com/Netflix/Hystrix&#34;&gt;hystrix&lt;/a&gt;, which packages many of these best practices and exposes them in a simple and safe way.&lt;/p&gt;
 
-&lt;h2 id=&#34;conclusion:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;Hopefully this article has improved your understanding of thread pools.  By understanding the application’s needs, and using a combination of the maximum thread count, and the average response time, an appropriate thread pool can be determined. Not only will this avoid cascading failures, but help plan and provision your service.&lt;/p&gt;
 
@@ -238,7 +238,7 @@
 
 &lt;p&gt;While adapting &lt;a href=&#34;https://github.com/bramp/nodewii&#34;&gt;nodewii&lt;/a&gt; to use this callback mechanism I learnt a couple of things about developing multi-threaded nodejs extensions that I thought I&amp;#8217;d share.&lt;/p&gt;
 
-&lt;h4 id=&#34;1-all-v8-operations-must-run-from-the-main-thread:e499f9e6850a25dae3a7acbe432b8d5f&#34;&gt;1) All V8 operations must run from the main thread&lt;/h4&gt;
+&lt;h4 id=&#34;1-all-v8-operations-must-run-from-the-main-thread&#34;&gt;1) All V8 operations must run from the main thread&lt;/h4&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://nodejs.org/&#34;&gt;Nodejs&lt;/a&gt; uses a single thread for executing the &lt;a href=&#34;http://code.google.com/p/v8/&#34;&gt;V8 JavaScript engine&lt;/a&gt;, and multiple worker threads to execute longer running non-JavaScript blocking tasks. Because V8 is not thread safe, all V8 operations must be executed from this single V8 thread. That means you are not allowed to create V8 objects, integers, strings, etc, from any other thread. If you try, race conditions happen, memory get corrupted and nodejs is likely to crash. Helpfully, nodejs does provide a mechanism to simplify using these threads:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span class=&#34;n&#34;&gt;eio_custom&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;eio_cb&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;execute&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pri&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;eio_cb&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
@@ -324,7 +324,7 @@
 
 &lt;p&gt;This simple pattern makes writing callback code relatively simple. However, this only works well if you are in control of creating the callback.&lt;/p&gt;
 
-&lt;h4 id=&#34;2-how-to-run-something-on-the-main-thread-without-eio-custom:e499f9e6850a25dae3a7acbe432b8d5f&#34;&gt;2) How to run something on the main thread without eio_custom&lt;/h4&gt;
+&lt;h4 id=&#34;2-how-to-run-something-on-the-main-thread-without-eio-custom&#34;&gt;2) How to run something on the main thread without eio_custom&lt;/h4&gt;
 
 &lt;p&gt;Libcwiid creates it&amp;#8217;s own thread, which is uses to read data from the wiimote. When data is received, it invokes a callback function passing this new data. This callback function is run on the libcwiid thread. This restricts us from interacting with V8. We ideally need this callback function running in the context of the main thread. The answer to this problem is:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span class=&#34;n&#34;&gt;eio_req&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;eio_nop&lt;/span&gt;       &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pri&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;eio_cb&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;

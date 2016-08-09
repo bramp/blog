@@ -19,22 +19,22 @@
 
 &lt;p&gt;Today &lt;a href=&#34;http://googleblog.blogspot.com/2009/12/introducing-google-public-dns.html&#34;&gt;Google announced&lt;/a&gt; a public DNS service they are hosting. They claim that their DNS infrastructure is &lt;a href=&#34;http://code.google.com/speed/public-dns/docs/performance.html&#34;&gt;faster and more secure&lt;/a&gt;, because their servers do some clever things. I wanted to test their performance claims, so I wrote a &lt;a href=&#34;dns.php&#34;&gt;little script&lt;/a&gt; to measure a lookup times for different domains across a number of DNS servers.&lt;/p&gt;
 
-&lt;h3 id=&#34;methodology:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Methodology&lt;/h3&gt;
+&lt;h3 id=&#34;methodology&#34;&gt;Methodology&lt;/h3&gt;
 
 &lt;p&gt;Firstly I found a &lt;a href=&#34;http://www.quantcast.com/top-sites-1&#34;&gt;list of the 1 million most popular sites&lt;/a&gt;. I then picked a number of DNS servers to test against. I chose &lt;a href=&#34;http://code.google.com/speed/public-dns/&#34;&gt;Google&lt;/a&gt;&amp;#8216;s, &lt;a href=&#34;http://www.opendns.com/&#34;&gt;OpenDNS&lt;/a&gt;&amp;#8216;s, my ISP (&lt;a href=&#34;http://broadband.sky.com/&#34;&gt;Sky/Easynet&lt;/a&gt;) and my old ISP&amp;#8217;s (&lt;a href=&#34;http://www.plus.net/&#34;&gt;Plus.net&lt;/a&gt;).&lt;/p&gt;
 
 &lt;p&gt;I decided I would query an &lt;a href=&#34;http://en.wikipedia.org/wiki/List_of_DNS_record_types&#34;&gt;A record&lt;/a&gt; for each of the domains in the list, one at a time, starting with the most popular. I would query each server three times for the same domain name. The ordering was like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;k&#34;&gt;foreach&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;domain&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-   &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-      &lt;span class=&#34;k&#34;&gt;foreach&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;server&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-         &lt;span class=&#34;nx&#34;&gt;query&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;server&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;domain&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;x&#34;&gt;foreach (domain)&lt;/span&gt;
+&lt;span class=&#34;x&#34;&gt;   for (i =0; i&amp;lt;3;i++)&lt;/span&gt;
+&lt;span class=&#34;x&#34;&gt;      foreach (server)&lt;/span&gt;
+&lt;span class=&#34;x&#34;&gt;         query(server, domain)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;I recorded the time it took for each query to be answered, and I also recorded the replies. I was curious to see if some servers replied with different answers, or if some returned more information, i.e. additional records.&lt;/p&gt;
 
 &lt;p&gt;I &lt;a href=&#34;dns.php&#34;&gt;wrote a script&lt;/a&gt; in PHP 5.3, and ran it from the command line on my Windows Server 2008 machine. The script used PEAR&amp;rsquo;s Net_DNS to craft and send the DNS questions. I was not using my operating system&amp;rsquo;s resolver, and I was not using any form of client side caching. I ran the experiments from my home ADSL connection and as far as I know my ISP was not interfering with my DNS requests in any way. I live in the North West of the UK.&lt;/p&gt;
 
-&lt;h3 id=&#34;results:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Results&lt;/h3&gt;
+&lt;h3 id=&#34;results&#34;&gt;Results&lt;/h3&gt;
 
 &lt;p&gt;After letting this run for a few hours, and querying roughly the top 10,000 domains, I have some preliminary results.&lt;/p&gt;
 
@@ -169,11 +169,11 @@
 
 &lt;p&gt;Finally, I&amp;rsquo;m surprised that the 2nd and 3rd requests are slower, especially since I&amp;rsquo;m requesting the most popular domain names. Surely others would have already requested the domain name, and thus the DNS server has no need to fetch it. Looking through the list of domain names I see that none of them have the www prefix. I personally never type the www and just hope the site works, but perhaps many users do. Maybe I should re-run the experiment with the www prefix.&lt;/p&gt;
 
-&lt;h3 id=&#34;conclusion:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;Conclusion&lt;/h3&gt;
+&lt;h3 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h3&gt;
 
 &lt;p&gt;For now I would stick to using OpenDNS, as this is clearly the winner. However, the Google DNS service is very new, so perhaps the servers haven&amp;rsquo;t had enough time to fill their caches, and their admins haven&amp;rsquo;t had enough time to tweak them. I will perhaps rerun this experiment in a few weeks and see what happens.&lt;/p&gt;
 
-&lt;h3 id=&#34;todo:d680e8a854a7cbad6d490c445cba2eba&#34;&gt;TODO&lt;/h3&gt;
+&lt;h3 id=&#34;todo&#34;&gt;TODO&lt;/h3&gt;
 
 &lt;p&gt;I still have some analysis to do, for example, looking at packet loss, the type of records returned, and anything else I can think of.&lt;/p&gt;
 </description>
@@ -189,7 +189,7 @@
 
 &lt;p&gt;I have mentioned many times that I would like to know how much current something is drawing, so today Nic brought me a mains power meter. It is a very simple meter which plugs between the mains and the device and can measure volts, amps, watts, frequency, and a few other metrics. I decided to run around my house measuring everything I could.&lt;/p&gt;
 
-&lt;h3 id=&#34;methodology:5b73a8938321839a6e535990b74cc8eb&#34;&gt;Methodology&lt;/h3&gt;
+&lt;h3 id=&#34;methodology&#34;&gt;Methodology&lt;/h3&gt;
 
 &lt;p&gt;A couple notes about my methodology, firstly, I was very lazy in my measurement taking. I repeated some of the measurements, but not all. However, when I did repeat the measurements they always seem to have the same value, so this discouraged me from repeating.&lt;/p&gt;
 
@@ -197,7 +197,7 @@
 
 &lt;p&gt;All these measurements were taken in my house in the UK, which according to my meter has mains electricity at 248V and at a AC frequency of 59.9Hz&lt;/p&gt;
 
-&lt;h3 id=&#34;results:5b73a8938321839a6e535990b74cc8eb&#34;&gt;Results&lt;/h3&gt;
+&lt;h3 id=&#34;results&#34;&gt;Results&lt;/h3&gt;
 
 &lt;table&gt;
 &lt;thead&gt;

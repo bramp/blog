@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Flvtool on bramp.net</title>
-    <link>https://blog.bramp.net/tags/flvtool/</link>
-    <description>Recent content in Flvtool on bramp.net</description>
+    <title>Flvtool&#43;&#43; on bramp.net</title>
+    <link>https://blog.bramp.net/tags/flvtool&#43;&#43;/</link>
+    <description>Recent content in Flvtool&#43;&#43; on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Sun, 25 Jun 2006 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://blog.bramp.net/tags/flvtool/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.bramp.net/tags/flvtool&#43;&#43;/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>flvtool&#43;&#43; A command line Flash Video file (FLV) editor</title>
-      <link>https://blog.bramp.net/post/2006/06/25/flvtool-a-command-line-flash-video-file-flv-editor/</link>
+      <link>https://blog.bramp.net/post/2006/06/25/flvtool&#43;&#43;-a-command-line-flash-video-file-flv-editor/</link>
       <pubDate>Sun, 25 Jun 2006 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.bramp.net/post/2006/06/25/flvtool-a-command-line-flash-video-file-flv-editor/</guid>
+      <guid>https://blog.bramp.net/post/2006/06/25/flvtool&#43;&#43;-a-command-line-flash-video-file-flv-editor/</guid>
       <description>
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/bramp/flvtool-plus-plus&#34;&gt;Download from GitHub&lt;/a&gt;&lt;/p&gt;
@@ -45,7 +45,7 @@
 &lt;li&gt;And whatever &lt;a href=&#34;https://github.com/bramp/flvtool-plus-plus/issues&#34;&gt;you request&lt;/a&gt;&amp;#8230;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&#34;usage:58bd2f08b766614b942fda12ff3e160b&#34;&gt;Usage&lt;/h4&gt;
+&lt;h4 id=&#34;usage&#34;&gt;Usage&lt;/h4&gt;
 
 &lt;p&gt;flvtool++ is used from the command line, so far it has a few simple parameters&lt;/p&gt;
 
@@ -57,7 +57,7 @@
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;flvtool++ -i &amp;lt;input file&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;h4 id=&#34;compiling:58bd2f08b766614b942fda12ff3e160b&#34;&gt;Compiling&lt;/h4&gt;
+&lt;h4 id=&#34;compiling&#34;&gt;Compiling&lt;/h4&gt;
 
 &lt;p&gt;&lt;strong&gt;Windows:&lt;/strong&gt;&lt;/p&gt;
 

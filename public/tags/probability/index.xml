@@ -6,20 +6,24 @@
     <description>Recent content in Probability on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Sun, 10 Apr 2016 21:33:33 -0700</lastBuildDate>
+    <lastBuildDate>Mon, 08 Aug 2016 21:33:33 -0700</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/probability/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Introducing Prob.js - Generate random numbers from different probability distributions</title>
-      <link>https://blog.bramp.net/post/2016/04/10/introducing-prob.js---generate-random-numbers-from-different-probability-distributions/</link>
-      <pubDate>Sun, 10 Apr 2016 21:33:33 -0700</pubDate>
+      <title>Introducing Prob.js</title>
+      <link>https://blog.bramp.net/post/2016/08/08/introducing-prob.js/</link>
+      <pubDate>Mon, 08 Aug 2016 21:33:33 -0700</pubDate>
       
-      <guid>https://blog.bramp.net/post/2016/04/10/introducing-prob.js---generate-random-numbers-from-different-probability-distributions/</guid>
-      <description>&lt;p&gt;There are multiple libraries for generating random numbers from a uniform, and sometimes normal distributions. However,
+      <guid>https://blog.bramp.net/post/2016/08/08/introducing-prob.js/</guid>
+      <description>
+
+&lt;h2 id=&#34;generate-random-numbers-from-different-probability-distributions&#34;&gt;Generate random numbers from different probability distributions&lt;/h2&gt;
+
+&lt;p&gt;There are multiple libraries for generating random numbers from a uniform, and sometimes normal distributions. However,
 I needed code to generate them from a expontential or lognormal distribution. I had written code to do this ~10 years ago
 in Java, but I needed a more modern Javascript solution.&lt;/p&gt;
 
-&lt;p&gt;Introducing Prob.js, a javascript library to generate random numbers from different probability distributions. Avaiable via both bower and NPM, prob.js can generate random numbers from the following distrubtions:&lt;/p&gt;
+&lt;p&gt;Introducing &lt;a href=&#34;https://github.com/bramp/prob.js&#34;&gt;Prob.js&lt;/a&gt;, a javascript library to generate random numbers from different probability distributions. Avaiable via both bower and NPM, prob.js can generate random numbers from the following distrubtions:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;uniform&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;min&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// Uniform distribution in range [min, max).&lt;/span&gt;
 &lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;normal&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;μ&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;σ&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;// Normal distribution with mean and standard deviation.&lt;/span&gt;
 &lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;exponential&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;λ&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;// Exponential distribution with lambda.&lt;/span&gt;
@@ -39,7 +43,47 @@ in Java, but I needed a more modern Javascript solution.&lt;/p&gt;
 &lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Variance&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// The expected variance for this distribution.&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;I created a quick demo site that generates 1 million random numbers from each distribution in the browser, and plots the PDF as it goes.&lt;/p&gt;
+&lt;p&gt;I created a &lt;a href=&#34;https://bramp.github.io/prob.js/&#34;&gt;quick demo site&lt;/a&gt; that generates 1 million random numbers from each distribution in the browser, and plots the PDF as it goes. Same samples:&lt;/p&gt;
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;normal.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;Normal (μ = 0, σ = 1.0)&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;lognormal.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;Log-normal (μ = 0, σ = 1.0)&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;zipf.png&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;Zipf (s = 1, N = 100)&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+&lt;/p&gt;
 </description>
     </item>
     
