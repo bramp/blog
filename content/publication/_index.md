@@ -3,16 +3,17 @@ title: Publications
 author: bramp
 layout: page
 date: 2013-02-16
-slug: /
 weight: 1
 aliases:
   - /blog/publications/
 ---
+Here are all my publications from when I was a PhD student, and later a research associate. I haven't published in a while :(
+
 Most of the LaTeX for these publications, as well as associated conference presentations can be found at [github.com/bramp/publication][1].
 
 ## PhD Thesis
 
-  * [The Impact of Highly Interactive Workloads on Video-on-Demand Systems][2] &#8211; 2009
+  * [The Impact of Highly Interactive Workloads on Video-on-Demand Systems][2] &#8211; 2008
 
 ## Networking
 

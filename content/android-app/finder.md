@@ -32,5 +32,5 @@ So far this framework is used by one application, [Nando&#8217;s Finder][1]. If 
   * Add support for easily changing database.
 
  [1]: {{< relref "android-app/nandos-finder/index.md" >}} "Nando’s Finder"
- [2]: {{< relref "about-me/index.md" >}}
+ [2]: {{< relref "about-me.md" >}}
  

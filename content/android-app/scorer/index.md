@@ -60,5 +60,5 @@ If you love or hate this app, or have any suggestions then feel free to [contact
 The software was written by Andrew Brampton. The scorer icon was taken from [FatCow][2]. The French translation was done by Vevert.
 
 
- [1]: {{< relref "about-me/index.md" >}}
+ [1]: {{< relref "about-me.md" >}}
  [2]: http://www.fatcow.com/free-icons/

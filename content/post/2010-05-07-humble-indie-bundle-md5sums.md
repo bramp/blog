@@ -46,5 +46,5 @@ e115f7cfcf9710d7aa5b2a5a9186b3736bb55cf2 *penumbra_overture_1.1.sh
 Note, these were correct and validated on the 8th of May, however, if any of the files have been updated the hashes might no longer much. Feel free to [contact me][2] to tell me if this happens.
 
  [1]: http://www.wolfire.com/humble
- [2]: {{< relref "about-me/index.md" >}}
+ [2]: {{< relref "about-me.md" >}}
  

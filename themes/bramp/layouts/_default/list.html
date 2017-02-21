@@ -1,6 +1,8 @@
 {{ template "theme/partials/header.html" . }}
   <div id="article" itemscope="" itemtype="http://schema.org/Blog">
       <h1 itemprop="name">{{.Title}}</h1>
+      {{ .Content }} 
+
       {{ range .Data.Pages }}
       <p itemprop="blogPost" itemscope="" itemtype="http://schema.org/BlogPosting">
       	<a href="{{ .RelPermalink }}" itemprop="url">

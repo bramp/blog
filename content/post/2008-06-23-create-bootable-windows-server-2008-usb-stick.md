@@ -52,4 +52,4 @@ I have yet to repeat this procedure and I might have previous partitioned or for
 
  [1]: http://blogs.dirteam.com/blogs/sanderberkouwer/archive/2008/05/01/installing-windows-server-2008.aspx
  [2]: http://www.jesscoburn.com/archives/2007/10/15/installing-windows-2008-via-usb-thumbdrive/
- [3]: /about-me/#contact
+ [3]: {{< relref "about-me.md" >}}
