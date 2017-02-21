@@ -2,11 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blog on bramp.net</title>
-    <link>https://blog.bramp.net/tags/blog/</link>
+    <link>https://blog.bramp.net</link>
     <description>Recent content in Blog on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Sat, 01 Aug 2015 14:02:29 -0700</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/blog/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
@@ -81,8 +80,7 @@
 &lt;li&gt;&lt;code&gt;make clean&lt;/code&gt; deletes all previously generated files, which may help delete files lingering around.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;make server&lt;/code&gt; starts a web server serving a static copy of the minified result.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;make watch&lt;/code&gt; also starts a web server, but directly from hugo that will live reload as you make changes. The main difference is this output isn&amp;rsquo;t minified.&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+&lt;/ul&gt;</description>
     </item>
     
   </channel>

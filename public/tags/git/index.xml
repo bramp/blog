@@ -2,11 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Git on bramp.net</title>
-    <link>https://blog.bramp.net/tags/git/</link>
+    <link>https://blog.bramp.net</link>
     <description>Recent content in Git on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Tue, 04 Sep 2012 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/git/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
@@ -15,7 +14,7 @@
       <pubDate>Tue, 04 Sep 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2012/09/04/setting-up-git-p4/</guid>
-      <description>&lt;p&gt;I couldn&amp;#8217;t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I&amp;#8217;d quickly write this up.&lt;/p&gt;
+      <description>&lt;p&gt;I couldn&amp;#8217;t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I&amp;#8217;d quickly write this up. &lt;/p&gt;
 
 &lt;p&gt;Git-p4 is a tool for using git on top of a perforce server. This is great if your team wants to work with a DVCS, but your company requires a centralised VCS.&lt;/p&gt;
 
@@ -47,8 +46,7 @@ git p4 clone //depot/path/to/project/@all project
 
 &lt;p&gt;More information on that set up can be found in the &lt;a href=&#34;http://www.perforce.com/perforce/doc.current/manuals/p4guide/02_config.html&#34;&gt; official documentation&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;Once cloned, you can change to the project directory and use many of the normal git commands, such as &amp;#8220;git log&amp;#8221;. You may notice that your newly checked out git repo only has one commit. If you want to see a full history use @all on the end of your depot path.&lt;/p&gt;
-</description>
+&lt;p&gt;Once cloned, you can change to the project directory and use many of the normal git commands, such as &amp;#8220;git log&amp;#8221;. You may notice that your newly checked out git repo only has one commit. If you want to see a full history use @all on the end of your depot path.&lt;/p&gt;</description>
     </item>
     
     <item>

@@ -2,11 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>64bit on bramp.net</title>
-    <link>https://blog.bramp.net/tags/64bit/</link>
+    <link>https://blog.bramp.net</link>
     <description>Recent content in 64bit on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Sun, 19 Jun 2011 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/64bit/index.xml" rel="self" type="application/rss+xml" />
     
     <item>

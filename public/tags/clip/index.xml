@@ -2,11 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Clip on bramp.net</title>
-    <link>https://blog.bramp.net/tags/clip/</link>
+    <link>https://blog.bramp.net</link>
     <description>Recent content in Clip on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Sat, 26 Nov 2011 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/clip/index.xml" rel="self" type="application/rss+xml" />
     
     <item>

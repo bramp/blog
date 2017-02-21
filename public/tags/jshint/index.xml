@@ -2,11 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Jshint on bramp.net</title>
-    <link>https://blog.bramp.net/tags/jshint/</link>
+    <link>https://blog.bramp.net</link>
     <description>Recent content in Jshint on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Fri, 23 Nov 2012 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/jshint/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
@@ -22,14 +21,15 @@ Warning:
      85,1: &amp;#39;grammar&amp;#39; is an implied global variable.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
+&lt;p&gt;&lt;/p&gt;
+
 &lt;p&gt;This is saying that I&amp;#8217;m using some variable that I&amp;#8217;ve not declared in my javascript file. In most cases that would be a mistake, but in my case I was expecting it to be in the global scope included from another javascript file.&lt;/p&gt;
 
 &lt;p&gt;To make JSHint stop complaining about this, you can simply place the following at the top of your javascript document:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;cm&#34;&gt;/*global grammar */&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;This will tell it that the variable is declared at a global scope. Check out one of &lt;a href=&#34;https://github.com/bramp/js-sequence-diagrams/blob/master/diagram.js&#34;&gt;my projects&lt;/a&gt; for example.&lt;/p&gt;
-</description>
+&lt;p&gt;This will tell it that the variable is declared at a global scope. Check out one of &lt;a href=&#34;https://github.com/bramp/js-sequence-diagrams/blob/master/diagram.js&#34;&gt;my projects&lt;/a&gt; for example.&lt;/p&gt;</description>
     </item>
     
   </channel>

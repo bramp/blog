@@ -2,11 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Nodejs on bramp.net</title>
-    <link>https://blog.bramp.net/tags/nodejs/</link>
+    <link>https://blog.bramp.net</link>
     <description>Recent content in Nodejs on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Sun, 21 Dec 2014 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
@@ -30,7 +29,7 @@
       <pubDate>Tue, 27 Nov 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2012/11/27/invalid-ip-range-checking-defeated-by-dns/</guid>
-      <description>&lt;p&gt;I&amp;#8217;ve seen a particular kind of vulnerability in a few different applications but I&amp;#8217;m not sure of an appropriate name for it. So I thought I&amp;#8217;d write about it, and informally call it the &amp;#8220;DNS defeated IP address check&amp;#8221;. Basically, if you have an application that can be used as a proxy, or can be instructed to make web request, you don&amp;#8217;t want it fetching files from internal services.&lt;/p&gt;
+      <description>&lt;p&gt;I&amp;#8217;ve seen a particular kind of vulnerability in a few different applications but I&amp;#8217;m not sure of an appropriate name for it. So I thought I&amp;#8217;d write about it, and informally call it the &amp;#8220;DNS defeated IP address check&amp;#8221;. Basically, if you have an application that can be used as a proxy, or can be instructed to make web request, you don&amp;#8217;t want it fetching files from internal services. &lt;/p&gt;
 
 &lt;p&gt;For example, there is a simple proxy called &lt;a href=&#34;https://github.com/atmos/camo&#34;&gt;Camo&lt;/a&gt;, which is used to fetch third party images when you need to display them on a SSL secure site. (Read more about Camo on the &lt;a href=&#34;https://github.com/blog/743-sidejack-prevention-phase-3-ssl-proxied-assets&#34;&gt;GitHub blog&lt;/a&gt;).&lt;/p&gt;
 
@@ -66,8 +65,7 @@
 
 &lt;p&gt;The above code was simplified a little from the real code, but basically we do the DNS lookup, check the returned address is good, and then make a HTTP request to that IP address with a &lt;code&gt;Host:&lt;/code&gt; header to ensure the request will work.&lt;/p&gt;
 
-&lt;p&gt;Really though, the correct solution to this is to configure a suitably paranoid firewall to stop requests from the proxy machine to anything internal. However, as with all security, the more &lt;a href=&#34;http://en.wikipedia.org/wiki/Swiss_cheese_model&#34;&gt;layers of protection&lt;/a&gt; you have the better, and you should never depend on just one.&lt;/p&gt;
-</description>
+&lt;p&gt;Really though, the correct solution to this is to configure a suitably paranoid firewall to stop requests from the proxy machine to anything internal. However, as with all security, the more &lt;a href=&#34;http://en.wikipedia.org/wiki/Swiss_cheese_model&#34;&gt;layers of protection&lt;/a&gt; you have the better, and you should never depend on just one.&lt;/p&gt;</description>
     </item>
     
     <item>

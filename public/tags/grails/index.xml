@@ -2,11 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Grails on bramp.net</title>
-    <link>https://blog.bramp.net/tags/grails/</link>
+    <link>https://blog.bramp.net</link>
     <description>Recent content in Grails on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Wed, 04 Jul 2012 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/grails/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
@@ -15,9 +14,9 @@
       <pubDate>Wed, 04 Jul 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2012/07/04/groovy-/-grails/</guid>
-      <description>
+      <description>&lt;p&gt;Over the past couple of weeks I&amp;#8217;ve been playing with Groovy and Grails, and after a somewhat frustrainting week I thought I&amp;#8217;d share my thoughts. &lt;a href=&#34;http://groovy.codehaus.org/&#34; title=&#34;Groovy&#34;&gt;Groovy&lt;/a&gt; is a dynamic language that runs in a standard JVM, and effectively extends the Java langugage. This makes it easy for existing Java programmer to pick it up and ease into it. &lt;a href=&#34;http://grails.org/&#34;&gt;Grails&lt;/a&gt; is the Groovy equilivant of &lt;a href=&#34;http://rubyonrails.org/&#34;&gt;Ruby on Rails&lt;/a&gt;, a rapid web development framework. I had high hopes for both as Groovy adds lots of interesting features to Java, such as &lt;a href=&#34;http://en.wikipedia.org/wiki/Closure_(computer_science)&#34;&gt;Closures&lt;/a&gt;, &lt;a href=&#34;http://en.wikipedia.org/wiki/Type_system&#34;&gt;Dynamic typing&lt;/a&gt;, &lt;a href=&#34;http://en.wikipedia.org/wiki/Mixin&#34;&gt;Mixins&lt;/a&gt;, and lots of clever syntax to reduce code and to speed up the average developer. On top of this Grails can quickly scaffold a &lt;a href=&#34;http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller&#34;&gt;MVC&lt;/a&gt; framework, allowing you to literally build a &lt;a href=&#34;http://en.wikipedia.org/wiki/Create,_read,_update_and_delete&#34;&gt;CRUD&lt;/a&gt; based application in minutes.&lt;/p&gt;
 
-&lt;p&gt;Over the past couple of weeks I&amp;#8217;ve been playing with Groovy and Grails, and after a somewhat frustrainting week I thought I&amp;#8217;d share my thoughts. &lt;a href=&#34;http://groovy.codehaus.org/&#34; title=&#34;Groovy&#34;&gt;Groovy&lt;/a&gt; is a dynamic language that runs in a standard JVM, and effectively extends the Java langugage. This makes it easy for existing Java programmer to pick it up and ease into it. &lt;a href=&#34;http://grails.org/&#34;&gt;Grails&lt;/a&gt; is the Groovy equilivant of &lt;a href=&#34;http://rubyonrails.org/&#34;&gt;Ruby on Rails&lt;/a&gt;, a rapid web development framework. I had high hopes for both as Groovy adds lots of interesting features to Java, such as &lt;a href=&#34;http://en.wikipedia.org/wiki/Closure_(computer_science)&#34;&gt;Closures&lt;/a&gt;, &lt;a href=&#34;http://en.wikipedia.org/wiki/Type_system&#34;&gt;Dynamic typing&lt;/a&gt;, &lt;a href=&#34;http://en.wikipedia.org/wiki/Mixin&#34;&gt;Mixins&lt;/a&gt;, and lots of clever syntax to reduce code and to speed up the average developer. On top of this Grails can quickly scaffold a &lt;a href=&#34;http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller&#34;&gt;MVC&lt;/a&gt; framework, allowing you to literally build a &lt;a href=&#34;http://en.wikipedia.org/wiki/Create,_read,_update_and_delete&#34;&gt;CRUD&lt;/a&gt; based application in minutes.&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;This all sounds great but I think both of these technologies are still young and there are a lot of things to work out. I was consistently hitting bugs in Grails, and I found the support for Groovy to be lacking in my IDE of choice Ecplise, forcing me to move to IntelliJ which did a lot better job.&lt;/p&gt;
 
@@ -83,8 +82,7 @@ at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:133)
 
 &lt;h1 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h1&gt;
 
-&lt;p&gt;I liked everything that Groovy and Grails was trying to do, but I think their implementation isn&amp;#8217;t good enough yet, and there are too many gotchas for me to considering using this in a production environment. I no doubt will follow it&amp;#8217;s progress and play with it every so often.&lt;/p&gt;
-</description>
+&lt;p&gt;I liked everything that Groovy and Grails was trying to do, but I think their implementation isn&amp;#8217;t good enough yet, and there are too many gotchas for me to considering using this in a production environment. I no doubt will follow it&amp;#8217;s progress and play with it every so often.&lt;/p&gt;</description>
     </item>
     
   </channel>

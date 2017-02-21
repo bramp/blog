@@ -2,11 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Android on bramp.net</title>
-    <link>https://blog.bramp.net/tags/android/</link>
+    <link>https://blog.bramp.net</link>
     <description>Recent content in Android on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Sat, 01 Aug 2015 12:24:59 -0700</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/android/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
@@ -89,7 +88,7 @@ jarsigner -verify -verbose -certs my_application.apk
       <pubDate>Tue, 26 Jun 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2012/06/26/i-have-native-ipv6/</guid>
-      <description>&lt;p&gt;I&amp;#8217;m more excited than I should be, but today I noticed that Comcast has enabled IPv6 on my home internet connection. All my devices in the home have picked up one or more Internet routable IPv6 addresses. Here are a few screen shots:&lt;/p&gt;
+      <description>&lt;p&gt;I&amp;#8217;m more excited than I should be, but today I noticed that Comcast has enabled IPv6 on my home internet connection. All my devices in the home have picked up one or more Internet routable IPv6 addresses. Here are a few screen shots: &lt;/p&gt;
 
 &lt;p&gt;
 &lt;figure &gt;
@@ -157,8 +156,7 @@ jarsigner -verify -verbose -certs my_application.apk
 &lt;/figure&gt;
 &lt;/p&gt;
 
-&lt;p&gt;So this is very cool, but this has identified a few issues. The most important of which, is that I had previously been using my NAT as a firewall, protecting all devices on the internal network. However, now they all have external IP addresses, they are effectively open to the Internet and un-firewalled. That&amp;#8217;s not an issue for my Linux machines, but could be problematic for my girlfriend&amp;#8217;s Windows laptop, and my various embedded devices (phones, tablets, and TVs).&lt;/p&gt;
-</description>
+&lt;p&gt;So this is very cool, but this has identified a few issues. The most important of which, is that I had previously been using my NAT as a firewall, protecting all devices on the internal network. However, now they all have external IP addresses, they are effectively open to the Internet and un-firewalled. That&amp;#8217;s not an issue for my Linux machines, but could be problematic for my girlfriend&amp;#8217;s Windows laptop, and my various embedded devices (phones, tablets, and TVs).&lt;/p&gt;</description>
     </item>
     
     <item>

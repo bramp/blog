@@ -2,11 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Make on bramp.net</title>
-    <link>https://blog.bramp.net/tags/make/</link>
+    <link>https://blog.bramp.net</link>
     <description>Recent content in Make on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Sun, 09 Sep 2012 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/make/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
@@ -19,7 +18,7 @@
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt; in *.txt&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; ./script &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;This works fine, however, I have a quad core machine, and this task was CPU bound on one core. So I thought about parallelising this task so the script would run on four files at once. I didn&amp;#8217;t want to get into the nitty gritty of changing the script to cope in this way, so instead, I &amp;#8220;abused&amp;#8221; Make to do this.&lt;/p&gt;
+&lt;p&gt;This works fine, however, I have a quad core machine, and this task was CPU bound on one core. So I thought about parallelising this task so the script would run on four files at once. I didn&amp;#8217;t want to get into the nitty gritty of changing the script to cope in this way, so instead, I &amp;#8220;abused&amp;#8221; Make to do this. &lt;/p&gt;
 
 &lt;p&gt;I created a file named &amp;#8220;Makefile&amp;#8221; with the following:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-makefile&#34; data-lang=&#34;makefile&#34;&gt;&lt;span class=&#34;nv&#34;&gt;FILES&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;shell ls *.txt&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
@@ -35,8 +34,7 @@
 
 &lt;p&gt;then you just run &lt;code&gt;make -j4&lt;/code&gt;, and four instances of the script will start running, with the concurrency being handled by Make. You can also now type &lt;code&gt;make a.txt b.txt c.txt&lt;/code&gt; and it&amp;#8217;ll just run the script on those three files.&lt;/p&gt;
 
-&lt;p&gt;You can also extend this Makefile to handle dependencies, such as running a script before all the others. Make is pretty powerful, and should be considered for more than just compiling programs.&lt;/p&gt;
-</description>
+&lt;p&gt;You can also extend this Makefile to handle dependencies, such as running a script before all the others. Make is pretty powerful, and should be considered for more than just compiling programs.&lt;/p&gt;</description>
     </item>
     
   </channel>

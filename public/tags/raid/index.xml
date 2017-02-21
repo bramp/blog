@@ -2,11 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Raid on bramp.net</title>
-    <link>https://blog.bramp.net/tags/raid/</link>
+    <link>https://blog.bramp.net</link>
     <description>Recent content in Raid on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Fri, 20 Jun 2008 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/raid/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
