@@ -10,6 +10,7 @@ tags:
   - Javascript
   - svg
   - uml
+  - opensource
 aliases:
   - /blog/2013/03/23/draw-uml-sequence-with-javascript/
 ---

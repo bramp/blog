@@ -8,6 +8,8 @@ tags:
 - hilbert
 - github
 - peano
+- go
+- opensource
 title: Peano Curves
 slug: peano-curves
 ---

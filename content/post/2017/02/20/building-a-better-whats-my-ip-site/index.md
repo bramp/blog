@@ -8,6 +8,7 @@ tags:
 - App Engine
 - Go
 - AJAX
+- opensource
 title: Building a better “What's My IP?” site
 ---
 

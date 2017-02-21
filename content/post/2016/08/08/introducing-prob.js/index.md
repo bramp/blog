@@ -9,6 +9,7 @@ tags:
 - probability
 - distributions
 - github
+- opensource
 title: Introducing Prob.js
 slug: introducing-prob.js
 ---
