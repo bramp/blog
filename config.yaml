@@ -31,4 +31,4 @@ taxonomies:
 pygmentscodefences: true
 pygmentsuseclasses: true
 pygmentsstyle: monokai
-pygmentsoptions: startinline=true
+#pygmentsoptions: startinline=true
