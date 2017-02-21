@@ -2,8 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.bramp.net/</loc>
-    <lastmod>2016-08-08T21:35:35-07:00</lastmod>
+    <loc>https://blog.bramp.net/publication/</loc>
+    <lastmod>2013-02-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/post/2017/02/20/building-a-better-whats-my-ip-site/</loc>
+    <lastmod>2017-02-20T12:50:31-08:00</lastmod>
   </url>
   
   <url>
@@ -103,6 +108,11 @@
   
   <url>
     <loc>https://blog.bramp.net/post/2013/02/16/how-many-ways-are-there-to-say-phone-number/</loc>
+    <lastmod>2013-02-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/opensource-project/</loc>
     <lastmod>2013-02-16T00:00:00+00:00</lastmod>
   </url>
   
@@ -427,6 +437,11 @@
   </url>
   
   <url>
+    <loc>https://blog.bramp.net/about-me/</loc>
+    <lastmod>2009-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.bramp.net/post/2009/09/12/derren-browns-coin-game/</loc>
     <lastmod>2009-09-12T00:00:00+00:00</lastmod>
   </url>
@@ -637,18 +652,1393 @@
   </url>
   
   <url>
-    <loc>https://blog.bramp.net/opensource-project/</loc>
-    <lastmod>2013-02-16T00:00:00+00:00</lastmod>
+    <loc>https://blog.bramp.net/tags/64bit/</loc>
+    <lastmod>2011-06-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://blog.bramp.net/publication/</loc>
-    <lastmod>2013-02-16T00:00:00+00:00</lastmod>
+    <loc>https://blog.bramp.net/tags/aapt/</loc>
+    <lastmod>2010-05-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://blog.bramp.net/about-me/</loc>
-    <lastmod>2009-09-20T00:00:00+00:00</lastmod>
+    <loc>https://blog.bramp.net/tags/acl/</loc>
+    <lastmod>2009-01-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/adobe/</loc>
+    <lastmod>2008-09-24T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/affinity/</loc>
+    <lastmod>2009-03-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/ajax/</loc>
+    <lastmod>2017-02-20T12:50:31-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/algorithm/</loc>
+    <lastmod>2011-11-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/android/</loc>
+    <lastmod>2015-08-01T12:24:59-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/android-app/</loc>
+    <lastmod>2012-05-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/app-engine/</loc>
+    <lastmod>2017-02-20T12:50:31-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/apt-get/</loc>
+    <lastmod>2009-12-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/archivemount/</loc>
+    <lastmod>2011-11-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/asm/</loc>
+    <lastmod>2010-05-24T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/asus/</loc>
+    <lastmod>2008-09-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/batman/</loc>
+    <lastmod>2008-10-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/becca/</loc>
+    <lastmod>2006-07-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/benchmark/</loc>
+    <lastmod>2009-06-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/blog/</loc>
+    <lastmod>2015-08-01T14:02:29-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/categories/blog/</loc>
+    <lastmod>2017-02-20T12:50:31-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/bloodstock/</loc>
+    <lastmod>2009-08-11T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/boffin/</loc>
+    <lastmod>2009-03-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/brain/</loc>
+    <lastmod>2012-05-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/bug/</loc>
+    <lastmod>2011-08-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/build/</loc>
+    <lastmod>2011-11-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/business-card/</loc>
+    <lastmod>2010-02-13T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/byte-buddy/</loc>
+    <lastmod>2015-09-09T20:29:04-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/c/</loc>
+    <lastmod>2011-11-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/cakes/</loc>
+    <lastmod>2009-02-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/calendar/</loc>
+    <lastmod>2008-04-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/camo/</loc>
+    <lastmod>2012-11-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/canvas/</loc>
+    <lastmod>2011-07-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/cdn/</loc>
+    <lastmod>2008-09-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/census/</loc>
+    <lastmod>2011-10-31T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/certificate/</loc>
+    <lastmod>2014-08-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/chrome/</loc>
+    <lastmod>2011-08-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/clip/</loc>
+    <lastmod>2011-11-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/coin/</loc>
+    <lastmod>2009-09-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/compression/</loc>
+    <lastmod>2013-03-17T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/conferences/</loc>
+    <lastmod>2008-04-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/configuration/</loc>
+    <lastmod>2009-11-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/cpu/</loc>
+    <lastmod>2009-03-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/curses/</loc>
+    <lastmod>2011-08-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/date/</loc>
+    <lastmod>2012-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/debian/</loc>
+    <lastmod>2012-04-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/debug/</loc>
+    <lastmod>2009-01-11T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/defines/</loc>
+    <lastmod>2009-03-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/derren-brown/</loc>
+    <lastmod>2009-09-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/development/</loc>
+    <lastmod>2014-08-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/diagrams/</loc>
+    <lastmod>2013-03-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/directory-listing/</loc>
+    <lastmod>2010-09-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/distributions/</loc>
+    <lastmod>2016-08-08T21:33:33-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/dns/</loc>
+    <lastmod>2009-12-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/dpkt/</loc>
+    <lastmod>2010-01-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/e4200v2/</loc>
+    <lastmod>2012-01-24T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/experiment/</loc>
+    <lastmod>2009-12-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/exploit/</loc>
+    <lastmod>2008-04-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/final/</loc>
+    <lastmod>2009-07-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/firmware/</loc>
+    <lastmod>2012-01-24T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/flash/</loc>
+    <lastmod>2011-06-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/flvtool&#43;&#43;/</loc>
+    <lastmod>2006-06-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/fork/</loc>
+    <lastmod>2009-11-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/foss/</loc>
+    <lastmod>2009-04-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/foursquare/</loc>
+    <lastmod>2009-12-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/freebsd/</loc>
+    <lastmod>2010-01-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/fuse/</loc>
+    <lastmod>2011-11-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/game/</loc>
+    <lastmod>2009-12-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/games/</loc>
+    <lastmod>2010-05-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/gantt/</loc>
+    <lastmod>2010-07-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/gcc/</loc>
+    <lastmod>2009-03-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/gdb/</loc>
+    <lastmod>2009-01-11T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/git/</loc>
+    <lastmod>2012-09-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/github/</loc>
+    <lastmod>2016-08-08T21:35:35-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/gmail/</loc>
+    <lastmod>2012-06-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/gnome/</loc>
+    <lastmod>2011-11-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/go/</loc>
+    <lastmod>2017-02-20T12:50:31-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/golang/</loc>
+    <lastmod>2015-08-07T20:53:41-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/google/</loc>
+    <lastmod>2010-06-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/governement/</loc>
+    <lastmod>2009-04-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/gps/</loc>
+    <lastmod>2008-06-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/gpt/</loc>
+    <lastmod>2010-08-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/gptgen/</loc>
+    <lastmod>2010-08-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/grails/</loc>
+    <lastmod>2012-07-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/groovy/</loc>
+    <lastmod>2012-07-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/grub/</loc>
+    <lastmod>2009-09-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/grub2/</loc>
+    <lastmod>2009-09-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/gzip/</loc>
+    <lastmod>2010-01-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/hack/</loc>
+    <lastmod>2012-11-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/hacking/</loc>
+    <lastmod>2010-11-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/hacks/</loc>
+    <lastmod>2010-05-24T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/hilbert/</loc>
+    <lastmod>2016-08-08T21:35:35-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/html5/</loc>
+    <lastmod>2012-05-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/http/</loc>
+    <lastmod>2012-11-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/hugo/</loc>
+    <lastmod>2015-08-01T14:02:29-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/ifconfig/</loc>
+    <lastmod>2010-09-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/infolab21/</loc>
+    <lastmod>2008-04-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/init/index.d/</loc>
+    <lastmod>2012-09-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/install/</loc>
+    <lastmod>2008-09-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/internet/</loc>
+    <lastmod>2012-06-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/iptables/</loc>
+    <lastmod>2010-01-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/ipv6/</loc>
+    <lastmod>2012-06-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/irq/</loc>
+    <lastmod>2009-03-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/java/</loc>
+    <lastmod>2015-12-17T01:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/javascript/</loc>
+    <lastmod>2013-08-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/jolt/</loc>
+    <lastmod>2008-10-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/jshint/</loc>
+    <lastmod>2012-11-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/kernel/</loc>
+    <lastmod>2009-08-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/lancaster/</loc>
+    <lastmod>2010-07-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/lancs/</loc>
+    <lastmod>2009-02-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/last/index.fm/</loc>
+    <lastmod>2009-03-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/latex/</loc>
+    <lastmod>2012-04-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/latitude/</loc>
+    <lastmod>2008-06-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/linksys/</loc>
+    <lastmod>2012-01-24T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/linux/</loc>
+    <lastmod>2012-09-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/linuxoffset/</loc>
+    <lastmod>2009-01-11T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/logo/</loc>
+    <lastmod>2008-10-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/longitude/</loc>
+    <lastmod>2008-06-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/lunch/</loc>
+    <lastmod>2011-07-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/make/</loc>
+    <lastmod>2012-09-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/maps/</loc>
+    <lastmod>2011-10-31T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/maths/</loc>
+    <lastmod>2010-07-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/mbr/</loc>
+    <lastmod>2010-08-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/md5/</loc>
+    <lastmod>2011-09-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/measurements/</loc>
+    <lastmod>2009-10-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/memcmp/</loc>
+    <lastmod>2009-08-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/memcpy/</loc>
+    <lastmod>2011-06-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/metal/</loc>
+    <lastmod>2009-03-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/microsoft/</loc>
+    <lastmod>2008-09-24T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/mobile/</loc>
+    <lastmod>2009-01-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/mongodb/</loc>
+    <lastmod>2013-03-17T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/mri/</loc>
+    <lastmod>2012-05-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/mtr/</loc>
+    <lastmod>2011-08-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/multicore/</loc>
+    <lastmod>2009-05-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/mysql/</loc>
+    <lastmod>2012-09-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/nano/</loc>
+    <lastmod>2009-11-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/nationjs/</loc>
+    <lastmod>2014-12-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/ndsfs/</loc>
+    <lastmod>2009-01-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/network/</loc>
+    <lastmod>2010-02-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/nintendo-ds/</loc>
+    <lastmod>2009-01-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/nodejs/</loc>
+    <lastmod>2014-12-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/opendns/</loc>
+    <lastmod>2009-12-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/opensource/</loc>
+    <lastmod>2015-08-07T20:53:41-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/openssl/</loc>
+    <lastmod>2014-08-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/ordnance-survey/</loc>
+    <lastmod>2008-06-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/panic/</loc>
+    <lastmod>2009-10-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/patch/</loc>
+    <lastmod>2008-04-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/pcap/</loc>
+    <lastmod>2010-01-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/pdf/</loc>
+    <lastmod>2008-09-24T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/pdo/</loc>
+    <lastmod>2011-10-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/peano/</loc>
+    <lastmod>2016-08-08T21:35:35-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/perforce/</loc>
+    <lastmod>2012-09-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/petition/</loc>
+    <lastmod>2009-04-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/phd/</loc>
+    <lastmod>2009-07-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/philips/</loc>
+    <lastmod>2008-12-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/phone/</loc>
+    <lastmod>2009-01-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/php/</loc>
+    <lastmod>2012-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/physics/</loc>
+    <lastmod>2010-07-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/portmanager/</loc>
+    <lastmod>2009-12-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/portsnap/</loc>
+    <lastmod>2009-12-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/post/</loc>
+    <lastmod>2017-02-20T12:50:31-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/power/</loc>
+    <lastmod>2009-10-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/probability/</loc>
+    <lastmod>2016-08-08T21:33:33-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/public-key/</loc>
+    <lastmod>2010-01-13T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/publication/</loc>
+    <lastmod>2009-07-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/categories/publications/</loc>
+    <lastmod>2010-02-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/pumpkin/</loc>
+    <lastmod>2008-10-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/python/</loc>
+    <lastmod>2011-01-24T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/qr-code/</loc>
+    <lastmod>2010-02-13T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/raid/</loc>
+    <lastmod>2008-06-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/random/</loc>
+    <lastmod>2016-08-08T21:33:33-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/rant/</loc>
+    <lastmod>2010-07-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/rfc/</loc>
+    <lastmod>2012-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/rocsoc/</loc>
+    <lastmod>2006-07-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/rom/</loc>
+    <lastmod>2009-01-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/router/</loc>
+    <lastmod>2012-01-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/rsa/</loc>
+    <lastmod>2010-01-13T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/scripting/</loc>
+    <lastmod>2010-08-31T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/scripts/</loc>
+    <lastmod>2009-11-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/sdk/</loc>
+    <lastmod>2010-05-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/sdlc/</loc>
+    <lastmod>2014-08-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/setxkbmap/</loc>
+    <lastmod>2010-03-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/sip/</loc>
+    <lastmod>2011-09-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/sms/</loc>
+    <lastmod>2013-08-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/sonisphere/</loc>
+    <lastmod>2010-07-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/spam/</loc>
+    <lastmod>2012-06-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/ssl/</loc>
+    <lastmod>2016-06-08T19:37:47-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/stats/</loc>
+    <lastmod>2010-09-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/stealthdht/</loc>
+    <lastmod>2007-03-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/sunos/</loc>
+    <lastmod>2009-01-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/svg/</loc>
+    <lastmod>2013-03-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/svn/</loc>
+    <lastmod>2009-02-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/talk/</loc>
+    <lastmod>2009-02-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/tcp/</loc>
+    <lastmod>2008-04-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/testing/</loc>
+    <lastmod>2014-08-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/thesis/</loc>
+    <lastmod>2009-07-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/thread-pools/</loc>
+    <lastmod>2015-12-17T01:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/threadnetperf/</loc>
+    <lastmod>2009-06-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/threads/</loc>
+    <lastmod>2015-12-17T01:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/tiger/</loc>
+    <lastmod>2011-10-31T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/time-travel/</loc>
+    <lastmod>2010-07-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/tortoisegit/</loc>
+    <lastmod>2009-02-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/tortoisesvn/</loc>
+    <lastmod>2009-02-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/trac/</loc>
+    <lastmod>2010-05-11T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/ubuntu/</loc>
+    <lastmod>2012-04-29T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/ucode/</loc>
+    <lastmod>2011-01-24T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/uml/</loc>
+    <lastmod>2013-03-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/unsafe/</loc>
+    <lastmod>2015-09-09T20:29:04-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/updating/</loc>
+    <lastmod>2009-12-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/usb/</loc>
+    <lastmod>2008-06-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/utf8/</loc>
+    <lastmod>2010-09-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/verizon/</loc>
+    <lastmod>2010-11-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/version-control/</loc>
+    <lastmod>2009-02-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/video/</loc>
+    <lastmod>2012-05-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/visio/</loc>
+    <lastmod>2008-09-24T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/viva/</loc>
+    <lastmod>2008-12-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/vmware/</loc>
+    <lastmod>2010-03-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/vod/</loc>
+    <lastmod>2008-09-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/wac7500/</loc>
+    <lastmod>2008-12-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/watchdog/</loc>
+    <lastmod>2009-10-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/watt/</loc>
+    <lastmod>2009-10-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/webcache/</loc>
+    <lastmod>2010-07-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/whitespace/</loc>
+    <lastmod>2009-11-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/wii/</loc>
+    <lastmod>2012-11-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/windows/</loc>
+    <lastmod>2010-09-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/windows-server/</loc>
+    <lastmod>2008-06-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/windows-xp/</loc>
+    <lastmod>2008-06-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/wings/</loc>
+    <lastmod>2006-07-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/wordle/</loc>
+    <lastmod>2009-03-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/www/</loc>
+    <lastmod>2009-01-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/zip/</loc>
+    <lastmod>2011-11-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/</loc>
+    <lastmod>2017-02-20T12:50:31-08:00</lastmod>
+    <priority>0</priority>
   </url>
   
 </urlset>

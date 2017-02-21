@@ -2,11 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Curses on bramp.net</title>
-    <link>https://blog.bramp.net/tags/curses/</link>
+    <link>https://blog.bramp.net</link>
     <description>Recent content in Curses on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Sun, 07 Aug 2011 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/curses/index.xml" rel="self" type="application/rss+xml" />
     
     <item>

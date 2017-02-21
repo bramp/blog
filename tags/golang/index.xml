@@ -2,11 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Golang on bramp.net</title>
-    <link>https://blog.bramp.net/tags/golang/</link>
+    <link>https://blog.bramp.net</link>
     <description>Recent content in Golang on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Fri, 07 Aug 2015 20:53:41 -0700</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
