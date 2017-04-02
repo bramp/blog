@@ -47,18 +47,21 @@ public: $(FILES) config.yaml
 	# Post process some files (to make the HTML more bootstrap friendly)
 	# Add a table class to all tables (with don't already have a clas= field)
 	# TODO Replace these grep/sed with something better
-	grep -IR --include=*.html --null -l -- "<table" public | xargs -0 sed -i '' '/<table class/!s/<table/<table class="table"/g'
+	grep -IR --include=*.html --null -l -- "<table" public | xargs -0 sed -i.bak '/<table class/!s/<table/<table class="table"/g'
 
 	# Replace "align=..."" with class="test-..."
-	grep -IR --include=*.html --null -l -- "<th" public | xargs -0 sed -i '' 's/<th align="/<th class="text-/g'
-	grep -IR --include=*.html --null -l -- "<td" public | xargs -0 sed -i '' 's/<td align="/<td class="text-/g'
+	grep -IR --include=*.html --null -l -- "<th" public | xargs -0 sed -i.bak 's/<th align="/<th class="text-/g'
+	grep -IR --include=*.html --null -l -- "<td" public | xargs -0 sed -i.bak 's/<td align="/<td class="text-/g'
+
+	# Cleanup after the sed backups
+	find public -type f -iname '*.bak' -delete
 
 	# Ensure the public folder has it's mtime updated.
 	touch $@
 
 .minified: public html-minifier.conf public/css/all.min.css public/js/all.min.js
 	# Find all HTML and in parallel run the minifier
-	find public -type f -iname '*.html' | parallel --tag $(HTML_MINIFIER) "{}" -o "{}"
+	find public -type f -iname '*.html' | parallel --no-notice --tag $(HTML_MINIFIER) "{}" -o "{}"
 	touch .minified
 
 public/css/all.min.css: public/css/bootstrap.css public/css/bootstrap-social.css public/css/pygments-friendly.css public/css/bramp.css
