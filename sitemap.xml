@@ -7,6 +7,11 @@
   </url>
   
   <url>
+    <loc>https://blog.bramp.net/post/2017/04/01/maven-plugins-on-java-8/</loc>
+    <lastmod>2017-04-01T15:21:27-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.bramp.net/post/2017/02/20/building-a-better-whats-my-ip-site/</loc>
     <lastmod>2017-02-20T12:50:31-08:00</lastmod>
   </url>
@@ -761,7 +766,7 @@
   
   <url>
     <loc>https://blog.bramp.net/categories/blog/</loc>
-    <lastmod>2017-02-20T12:50:31-08:00</lastmod>
+    <lastmod>2017-04-01T15:21:27-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1107,14 +1112,8 @@
   </url>
   
   <url>
-    <loc>https://blog.bramp.net/tags/golang/</loc>
-    <lastmod>2015-08-07T20:53:41-07:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.bramp.net/tags/google/</loc>
-    <lastmod>2010-06-09T00:00:00+00:00</lastmod>
+    <lastmod>2017-04-01T15:21:27-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1264,7 +1263,7 @@
   
   <url>
     <loc>https://blog.bramp.net/tags/java/</loc>
-    <lastmod>2015-12-17T01:00:00+00:00</lastmod>
+    <lastmod>2017-04-01T15:21:27-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1373,6 +1372,12 @@
   <url>
     <loc>https://blog.bramp.net/tags/maths/</loc>
     <lastmod>2010-07-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/maven/</loc>
+    <lastmod>2017-04-01T15:21:27-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1498,7 +1503,7 @@
   
   <url>
     <loc>https://blog.bramp.net/tags/opensource/</loc>
-    <lastmod>2015-08-07T20:53:41-07:00</lastmod>
+    <lastmod>2017-02-20T12:50:31-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1606,7 +1611,7 @@
   
   <url>
     <loc>https://blog.bramp.net/post/</loc>
-    <lastmod>2017-02-20T12:50:31-08:00</lastmod>
+    <lastmod>2017-04-01T15:21:27-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -2037,7 +2042,7 @@
   
   <url>
     <loc>https://blog.bramp.net/</loc>
-    <lastmod>2017-02-20T12:50:31-08:00</lastmod>
+    <lastmod>2017-04-01T15:21:27-07:00</lastmod>
     <priority>0</priority>
   </url>
   
