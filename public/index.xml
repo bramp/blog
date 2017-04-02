@@ -6,8 +6,99 @@
     <description>Recent content on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Mon, 20 Feb 2017 12:50:31 -0800</lastBuildDate>
+    <lastBuildDate>Sat, 01 Apr 2017 15:21:27 -0700</lastBuildDate>
     <atom:link href="https://blog.bramp.net/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Maven Plugins on Java 8</title>
+      <link>https://blog.bramp.net/post/2017/04/01/maven-plugins-on-java-8/</link>
+      <pubDate>Sat, 01 Apr 2017 15:21:27 -0700</pubDate>
+      
+      <guid>https://blog.bramp.net/post/2017/04/01/maven-plugins-on-java-8/</guid>
+      <description>&lt;p&gt;As part of my standard Maven configuration, I like to use two plugins backed by Google technologies, the first to help keep my code formatted correctly, and the second to check for compile time errors. However, Google recently moved to require JDK 1.8, which broke anyone trying to compile my projects with an older JDK. In this article I&amp;rsquo;ll quickly explain how to configure Maven to work around this problem.&lt;/p&gt;
+
+&lt;p&gt;Specifically I use the following two plugins:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/coveo/fmt-maven-plugin&#34;&gt;coveo/fmt-maven-plugin&lt;/a&gt; (which uses &lt;a href=&#34;https://github.com/google/google-java-format&#34;&gt;google-java-format&lt;/a&gt;). This follows the &lt;a href=&#34;https://google.github.io/styleguide/javaguide.html&#34;&gt;Google&amp;rsquo;s Java Style&lt;/a&gt; guide, and reformats the code to ensure it stays consistent. This is great when accepting external contributions, as it keeps the code base uniform, and avoids style discussion on pull requests.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/codehaus-plexus/plexus-compiler&#34;&gt;plexus-compiler-javac-errorprone&lt;/a&gt; (which uses Google&amp;rsquo;s &lt;a href=&#34;https://github.com/google/error-prone&#34;&gt;errorprone&lt;/a&gt;). This is a static code analysis tool, that checks for simple errors at compile time, and fails the build if they are found. Again, this helps improve the quality of the code.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Even though my projects typically target 1.7, these plugins require to run under 1.8. Really I&amp;rsquo;d prefer I could bump all my projects to target 1.8+, but since a few of my projects are libraries (which other people include into their projects), that is easier said than done. To deal with this, I changed my Maven configuration to only run these two plugins when run under the sufficient JDK. This means those using a older JDK don&amp;rsquo;t get the benefits, but since locally I use JDK 8, and all my open source projects use &lt;a href=&#34;https://travis-ci.org&#34;&gt;Travis CI&lt;/a&gt;, eventually these issues will be identified.&lt;/p&gt;
+
+&lt;p&gt;So if you get an error like&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;java.lang.UnsupportedClassVersionError: com/google/googlejavaformat/java/FormatterException : Unsupported major.minor version 52.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;An API incompatibility was encountered while executing org.apache.maven.plugins:maven-compiler-plugin:3.5.1:compile: java.lang.UnsupportedClassVersionError: javax/tools/DiagnosticListener : Unsupported major.minor version 52.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Please update to JDK 1.8, or update your Maven configuration to restrict these plugins to when run on a modern JDK:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;project&amp;gt;&lt;/span&gt;
+...
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;profiles&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;profile&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;id&amp;gt;&lt;/span&gt;java18&lt;span class=&#34;nt&#34;&gt;&amp;lt;/id&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;activation&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;lt;jdk&amp;gt;&lt;/span&gt;1.8&lt;span class=&#34;nt&#34;&gt;&amp;lt;/jdk&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;/activation&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;build&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;lt;plugins&amp;gt;&lt;/span&gt;
+                    &lt;span class=&#34;nt&#34;&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
+                        &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;com.coveo&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+                        &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;fmt-maven-plugin&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+                        &lt;span class=&#34;nt&#34;&gt;&amp;lt;executions&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;execution&amp;gt;&lt;/span&gt;
+                                &lt;span class=&#34;nt&#34;&gt;&amp;lt;goals&amp;gt;&lt;/span&gt;
+                                    &lt;span class=&#34;nt&#34;&gt;&amp;lt;goal&amp;gt;&lt;/span&gt;format&lt;span class=&#34;nt&#34;&gt;&amp;lt;/goal&amp;gt;&lt;/span&gt;
+                                &lt;span class=&#34;nt&#34;&gt;&amp;lt;/goals&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;/execution&amp;gt;&lt;/span&gt;
+                        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/executions&amp;gt;&lt;/span&gt;
+                    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
+                    &lt;span class=&#34;nt&#34;&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
+                        &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.apache.maven.plugins&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+                        &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;maven-compiler-plugin&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+                        &lt;span class=&#34;nt&#34;&gt;&amp;lt;configuration&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;compilerId&amp;gt;&lt;/span&gt;javac-with-errorprone&lt;span class=&#34;nt&#34;&gt;&amp;lt;/compilerId&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;forceJavacCompilerUse&amp;gt;&lt;/span&gt;true&lt;span class=&#34;nt&#34;&gt;&amp;lt;/forceJavacCompilerUse&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;showWarnings&amp;gt;&lt;/span&gt;true&lt;span class=&#34;nt&#34;&gt;&amp;lt;/showWarnings&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;compilerArgs&amp;gt;&lt;/span&gt;
+                                &lt;span class=&#34;nt&#34;&gt;&amp;lt;arg&amp;gt;&lt;/span&gt;-Xlint:all&lt;span class=&#34;nt&#34;&gt;&amp;lt;/arg&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;/compilerArgs&amp;gt;&lt;/span&gt;
+                        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/configuration&amp;gt;&lt;/span&gt;
+                        &lt;span class=&#34;nt&#34;&gt;&amp;lt;dependencies&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+                                &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.codehaus.plexus&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+                                &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;plexus-compiler-javac-errorprone&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+                                &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2.8.1&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- override plexus-compiler-javac-errorprone&amp;#39;s dependency on&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;                                 Error Prone with the latest version --&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+                                &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;com.google.errorprone&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+                                &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;error_prone_core&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+                                &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2.0.19&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+                        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependencies&amp;gt;&lt;/span&gt;
+                    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;nt&#34;&gt;&amp;lt;/plugins&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;nt&#34;&gt;&amp;lt;/build&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/profile&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/profiles&amp;gt;&lt;/span&gt;
+...
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/project&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This defines a new profile, that is only &amp;ldquo;activated&amp;rdquo; under Java 1.8. When activated the &lt;code&gt;&amp;lt;build&amp;gt;&lt;/code&gt; section has the two additional plugins added.
+Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&amp;lt;build&amp;gt;&lt;/code&gt; section, and only in the &lt;code&gt;&amp;lt;profile&amp;gt;&amp;lt;build&amp;gt;&lt;/code&gt; section.&lt;/p&gt;
+
+&lt;p&gt;An example of this change can be found in &lt;a href=&#34;https://github.com/bramp/ffmpeg-cli-wrapper/commit/4985ba3ab3ef84839bc0f4ca8b63573b77e33c67&#34;&gt;recent commit&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Building a better “What&#39;s My IP?” site</title>
@@ -1404,27 +1495,6 @@ I mention there were different techniques for the SDLC, Agile based approaches (
 &lt;p&gt;I highly recommend the &lt;a href=&#34;http://www.amazon.com/gp/product/0988262592/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0988262592&amp;amp;linkCode=as2&amp;amp;tag=brampnet-20&amp;amp;linkId=36PJQM4IDQIMEWXH&#34;&gt;The Phoenix Project&lt;/a&gt;, it talks about SDLC, and is a good read (even for those non-technical readers).&lt;/p&gt;
 
 &lt;p&gt;Finally, I’d like to quickly introduce the newer concept of &lt;a href=&#34;http://www.amazon.com/gp/product/0321601912/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0321601912&amp;amp;linkCode=as2&amp;amp;tag=brampnet-20&amp;amp;linkId=VBPKIQYH5SL4PKCD&#34;&gt;Continuous Delivery&lt;/a&gt;. This extends continuous integration, by making your pipeline end at deployment. From code check-in to being live in a production environment, should be as automated as possible. Companies like &lt;a href=&#34;http://www.slideshare.net/mikebrittain/principles-and-practices-in-continuous-deployment-at-etsy&#34;&gt;Etsy&lt;/a&gt; and &lt;a href=&#34;http://www.forbes.com/sites/quora/2013/08/12/how-do-facebook-and-google-manage-software-releases-without-causing-major-problems/&#34;&gt;Facebook&lt;/a&gt; like to advertise that they deploy numerous times a day.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Grabbing a Certificate with OpenSSL and importing it into Java</title>
-      <link>https://blog.bramp.net/post/2014/08/16/grabbing-a-certificate-with-openssl-and-importing-it-into-java/</link>
-      <pubDate>Sat, 16 Aug 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bramp.net/post/2014/08/16/grabbing-a-certificate-with-openssl-and-importing-it-into-java/</guid>
-      <description>&lt;p&gt;Occasionally I have to grab a SSL cert from a server, and turn it into something that Java can use. Here are the quick instructions&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c&#34;&gt;# Store the cert issued by a web server&lt;/span&gt;
-openssl s_client -showcerts -connect www.google.com:443 &amp;gt; www.google.com.pem
-
-&lt;span class=&#34;c&#34;&gt;# Convert it from PEM format to DER format&lt;/span&gt;
-openssl x509 -in www.google.com.pem -inform PEM -out www.google.com.der -outform DER
-
-&lt;span class=&#34;c&#34;&gt;# Import it into your keystore&lt;/span&gt;
-sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.der -keystore /usr/java6/jre/lib/security/cacerts
-
-&lt;span class=&#34;c&#34;&gt;# The keystore password is by default &amp;quot;changeit&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
     </item>
     
