@@ -7,6 +7,11 @@
   </url>
   
   <url>
+    <loc>https://blog.bramp.net/post/2017/07/15/teaching-binary-to-8th-graders/</loc>
+    <lastmod>2017-07-15T12:23:18-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.bramp.net/post/2017/04/01/maven-plugins-on-java-8/</loc>
     <lastmod>2017-04-01T15:21:27-07:00</lastmod>
   </url>
@@ -759,6 +764,12 @@
   </url>
   
   <url>
+    <loc>https://blog.bramp.net/tags/binary/</loc>
+    <lastmod>2017-07-15T12:23:18-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.bramp.net/tags/blog/</loc>
     <lastmod>2015-08-01T14:02:29-07:00</lastmod>
     <priority>0</priority>
@@ -766,7 +777,7 @@
   
   <url>
     <loc>https://blog.bramp.net/categories/blog/</loc>
-    <lastmod>2017-04-01T15:21:27-07:00</lastmod>
+    <lastmod>2017-07-15T12:23:18-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1113,7 +1124,7 @@
   
   <url>
     <loc>https://blog.bramp.net/tags/google/</loc>
-    <lastmod>2017-04-01T15:21:27-07:00</lastmod>
+    <lastmod>2017-07-15T12:23:18-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1611,7 +1622,7 @@
   
   <url>
     <loc>https://blog.bramp.net/post/</loc>
-    <lastmod>2017-04-01T15:21:27-07:00</lastmod>
+    <lastmod>2017-07-15T12:23:18-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1815,6 +1826,12 @@
   <url>
     <loc>https://blog.bramp.net/tags/tcp/</loc>
     <lastmod>2008-04-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/teaching/</loc>
+    <lastmod>2017-07-15T12:23:18-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -2042,7 +2059,7 @@
   
   <url>
     <loc>https://blog.bramp.net/</loc>
-    <lastmod>2017-04-01T15:21:27-07:00</lastmod>
+    <lastmod>2017-07-15T12:23:18-07:00</lastmod>
     <priority>0</priority>
   </url>
   
