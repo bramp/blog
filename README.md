@@ -40,6 +40,15 @@ Build
 ./deploy.sh
 ```
 
+New Article
+-----------
+```bash
+# `make help` shows the example:
+hugo new post/2017-07-15-the-title.md
+nano content/post/2017-07-15-the-title.md
+make watch
+```
+
 Checks
 ------
 ```bash
