@@ -6,7 +6,8 @@
     <description>Recent content in Flash on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <atom:link href="https://blog.bramp.net/tags/flash/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 19 Jun 2011 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://blog.bramp.net/tags/flash/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Linux 64bit Flash glibc memcpy bug</title>

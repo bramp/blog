@@ -6,7 +6,8 @@
     <description>Recent content in Random on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <atom:link href="https://blog.bramp.net/tags/random/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 Aug 2016 21:33:33 -0700</lastBuildDate>
+    <atom:link href="https://blog.bramp.net/tags/random/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Introducing Prob.js</title>

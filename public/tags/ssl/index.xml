@@ -6,7 +6,8 @@
     <description>Recent content in Ssl on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <atom:link href="https://blog.bramp.net/tags/ssl/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 08 Jun 2016 19:37:47 -0700</lastBuildDate>
+    <atom:link href="https://blog.bramp.net/tags/ssl/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Turn on HTTPS for all GitHub Pages</title>

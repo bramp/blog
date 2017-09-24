@@ -6,7 +6,8 @@
     <description>Recent content in Clip on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <atom:link href="https://blog.bramp.net/tags/clip/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 26 Nov 2011 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://blog.bramp.net/tags/clip/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>PHP Polygon Clipper using the Sutherland-Hodgman algorithm</title>

@@ -1,0 +1,8 @@
+<html>
+<head>
+<meta name="go-import" content="bramp.net/dsector git https://github.com/bramp/dsector.git">
+<meta http-equiv="refresh" content="0; url=https://github.com/bramp/dsector" />
+</head>
+<body onload="window.location = 'https://github.com/bramp/dsector'">
+</body>
+</html>

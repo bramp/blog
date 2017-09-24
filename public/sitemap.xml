@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
     <loc>https://blog.bramp.net/publication/</loc>
@@ -122,7 +123,7 @@
   </url>
   
   <url>
-    <loc>https://blog.bramp.net/opensource-project/</loc>
+    <loc>https://blog.bramp.net/opensource/</loc>
     <lastmod>2013-02-16T00:00:00+00:00</lastmod>
   </url>
   
@@ -647,7 +648,7 @@
   </url>
   
   <url>
-    <loc>https://blog.bramp.net/post/2006/06/25/flvtool&#43;&#43;-a-command-line-flash-video-file-flv-editor/</loc>
+    <loc>https://blog.bramp.net/post/2006/06/25/flvtool---a-command-line-flash-video-file-flv-editor/</loc>
     <lastmod>2006-06-25T00:00:00+00:00</lastmod>
   </url>
   
@@ -855,6 +856,7 @@
   
   <url>
     <loc>https://blog.bramp.net/categories/</loc>
+    <lastmod>2017-07-15T12:23:18-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1237,7 +1239,7 @@
   </url>
   
   <url>
-    <loc>https://blog.bramp.net/tags/init/index.d/</loc>
+    <loc>https://blog.bramp.net/tags/init.d/</loc>
     <lastmod>2012-09-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -1315,7 +1317,7 @@
   </url>
   
   <url>
-    <loc>https://blog.bramp.net/tags/last/index.fm/</loc>
+    <loc>https://blog.bramp.net/tags/last.fm/</loc>
     <lastmod>2009-03-25T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -1627,6 +1629,11 @@
   </url>
   
   <url>
+    <loc>https://blog.bramp.net/posts/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.bramp.net/tags/power/</loc>
     <lastmod>2009-10-26T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -1814,6 +1821,7 @@
   
   <url>
     <loc>https://blog.bramp.net/tags/</loc>
+    <lastmod>2011-06-19T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

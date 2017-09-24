@@ -6,7 +6,8 @@
     <description>Recent content in Multicore on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <atom:link href="https://blog.bramp.net/tags/multicore/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 26 May 2009 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://blog.bramp.net/tags/multicore/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Evaluating the Performance of Network Protocol Processing on Multi-core Systems</title>

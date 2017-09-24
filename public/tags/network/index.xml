@@ -6,7 +6,8 @@
     <description>Recent content in Network on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <atom:link href="https://blog.bramp.net/tags/network/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 09 Feb 2010 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://blog.bramp.net/tags/network/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Facilitating Network Auto Configuration In Next Generation Internet Protocols</title>
