@@ -1,18 +1,18 @@
 {{ template "theme/partials/header.html" . }}
 {{ $baseurl := .Site.BaseURL }}
 
-<div id="article">
-	<h1>{{ .Title }}</h1>
+<article id="article" itemProp="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 itemprop="headline">{{ .Title }}</h1>
 	<p class="meta">
-		<i class="fa fa-calendar-o"></i> {{ .Date.Format  "2006-01-02" }}
+		<i class="fa fa-calendar-o"></i> <time itemprop="datePublished">{{ .Date.Format  "2006-01-02" }}</time>
 		{{ range .Params.tags }}
 		| <a href="{{ $baseurl }}/tags/{{ . | urlize }}/">{{ . }}</a>
 		{{ end }}
 	</p>
-	<div class="post">
+	<div class="post" itemprop="articleBody">
 		{{ .Content }}
 	</div>
-</div>
+</article>
 
 <!--
  <a href="https://twitter.com/share" class="twitter-share-button " data-size="small" data-count="none">Tweet</a>

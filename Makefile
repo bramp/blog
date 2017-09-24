@@ -7,7 +7,7 @@ UGLIFYJS := $(NODE_MODULES)/uglifyjs
 CLEANCSS := $(NODE_MODULES)/cleancss
 
 # All input files
-FILES=$(shell find content layouts static themes -type f)
+FILES=$(shell find content static themes -type f)
 
 # Below are PHONY targets
 all: public minified

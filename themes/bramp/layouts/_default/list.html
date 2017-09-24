@@ -1,12 +1,12 @@
 {{ template "theme/partials/header.html" . }}
-  <div id="article" itemscope="" itemtype="http://schema.org/Blog">
-      <h1 itemprop="name">{{.Title}}</h1>
+  <div id="article">
+      <h1>{{.Title}}</h1>
       {{ .Content }} 
 
       {{ range .Data.Pages }}
-      <p itemprop="blogPost" itemscope="" itemtype="http://schema.org/BlogPosting">
-      	<a href="{{ .RelPermalink }}" itemprop="url">
-      		<span itemprop="name">{{ .Title }}</span>
+      <p>
+      	<a href="{{ .RelPermalink }}">
+      		<span>{{ .Title }}</span>
       	</a>
       	<time class="pull-right post-list" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Mon, Jan 2, 2006" }}</time>
       </p>

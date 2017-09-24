@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head itemscope itemtype="http://schema.org/WebSite" >
 <!-- TODO make sure we match https://github.com/spf13/hugo/blob/master/tpl/template_embedded.go -->
 <!-- Default Description set to the site's description -->
 {{ $.Scratch.Set "description" .Site.Params.Description }}
@@ -25,14 +25,14 @@
 {{ $description := $.Scratch.Get "description" }}
 
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link itemprop="url" rel="canonical" href="{{ .Permalink }}" />
   <title>{{ $title }}</title>
 {{ with $description }}
-  <meta name="description" content="{{ . }}">
+  <meta itemprop="description" name="description" content="{{ . | truncate 200 }}">
 {{ end }}
-  <meta name="author" content="{{ .Site.Author.name }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="generator" content="Hugo"/>
-  <link rel="canonical" href="{{ .Permalink }}" />
+  <meta itemprop="creator" name="author" content="{{ .Site.Author.name }}">
+  <meta name="generator" content="{{ .Hugo.Generator }}"/>
 
 {{ if .Site.RSSLink  }}
   <link href="{{ .Site.RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
@@ -79,23 +79,16 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 {{ with .Site.Params.twitter }}
-  <!--Test here https://cards-dev.twitter.com/validator-->
+  <!--Test here https://cards-dev.twitter.com/validator -->
   {{ with $.Params.images }}
-  <!-- Twitter summary card with large image must be at least 280x150px -->
+    <!-- Twitter summary card with large image must be at least 280x150px -->
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:image:src" content="{{ $.Permalink }}{{ index . 0 }}"/>
   {{ else }}
     <meta name="twitter:card" content="summary"/>
   {{ end }}
 
   <meta name="twitter:site" content="@{{ . }}" />
-  <meta name="twitter:title" content="{{ $title }}" />
-  <meta name="twitter:url" content="{{ $.Permalink }}" />
   <meta name="twitter:creator" content="@{{ . }}"/>
-
-  {{ with $description }}
-  <meta name="twitter:description" content="{{ . }}" />
-  {{ end }}
 {{ end }}
 
 <!-- Open Graph. Test here https://developers.facebook.com/tools/debug/ -->
@@ -114,9 +107,7 @@
   <meta property="og:url" content="{{ .Permalink }}" />
   <meta property="og:site_name" content="{{ .Site.Title }}" />
   <meta property="og:title" content="{{ $title }}" />
-{{ with $description }}
-  <meta property="og:description" content="{{ . }}" />
-{{ end }}
+  <meta property="og:description" content="{{ $description | truncate 200 }}" />
 {{ if not .Date.IsZero }}
   <meta property="og:updated_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}"/>
 {{ end }}
@@ -130,11 +121,10 @@
   <meta name="google-site-verification" content="{{ . }}" />
   {{ end }}
 </head>
-<body>
+<body itemscope itemtype="Blog">
 {{ template "theme/partials/googleanalytics.html" . }}
 
 <div id="wrapper">
-
   <div class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
@@ -148,8 +138,8 @@
             <a href="/">
               <img src="/images/favicon-64x64.png" class="profile-image" alt="Home">
             </a>
-            <div>
-              <a href="/about-me/">{{ .Site.Author.name }}</a>
+            <div itemprop="author" itemscope itemtype="https://schema.org/Person">
+              <a href="/about-me/" itemprop="name">{{ .Site.Author.name }}</a>
 
               <div id="social-wrapper">
               {{ with .Site.Params.twitter }}
