@@ -1,9 +1,9 @@
 ---
 title: Most starred project this week, and second most forked.
+slug: most-starred-project-this-week
 author: bramp
 layout: post
 date: 2013-03-25
-slug: most-starred-project-this-week
 disqus_identifier: 1614115164
 categories:
   - Blog

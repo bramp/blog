@@ -31,6 +31,5 @@ So far this framework is used by one application, [Nando&#8217;s Finder][1]. If 
   * When in landscape make the button_list display in two columns.
   * Add support for easily changing database.
 
- [1]: {{< relref "android-app/nandos-finder/index.md" >}} "Nando’s Finder"
+ [1]: {{< relref "android-app/nandos-finder.md" >}} "Nando’s Finder"
  [2]: {{< relref "about-me.md" >}}
- 

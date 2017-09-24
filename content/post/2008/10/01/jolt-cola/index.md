@@ -1,5 +1,6 @@
 ---
 title: Jolt Cola
+slug: jolt-cola
 author: bramp
 layout: post
 date: 2008-10-01

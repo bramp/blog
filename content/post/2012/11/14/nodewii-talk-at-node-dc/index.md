@@ -1,5 +1,6 @@
 ---
 title: Nodewii talk at Node DC
+slug: nodewii-talk-at-node-dc
 author: bramp
 layout: post
 date: 2012-11-14

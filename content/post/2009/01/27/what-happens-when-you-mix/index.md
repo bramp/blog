@@ -1,5 +1,6 @@
 ---
 title: What happens when you mix…
+slug: what-happens-when-you-mix
 author: bramp
 layout: post
 date: 2009-01-27

@@ -1,7 +1,7 @@
 ---
 title: Facilitating Network Auto Configuration In Next Generation Internet Protocols
 author: bramp
-layout: post
+layout: publication
 date: 2010-02-09
 categories:
   - Publications

@@ -1,5 +1,6 @@
 ---
 title: How to Build Wings
+slug: how-to-build-wings
 author: bramp
 layout: post
 date: 2006-07-02

@@ -1,7 +1,7 @@
 ---
 title: A Case for Hybrid Content Distribution for Interactive Video-on-Demand
 author: bramp
-layout: post
+layout: publication
 date: 2008-09-16
 categories:
   - Publications

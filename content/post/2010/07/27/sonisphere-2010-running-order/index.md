@@ -1,5 +1,6 @@
 ---
 title: Sonisphere 2010 Running Order
+slug: sonisphere-2010-running-order
 author: bramp
 layout: post
 date: 2010-07-27

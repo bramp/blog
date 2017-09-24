@@ -1,7 +1,7 @@
 ---
 title: Performance analysis of Stealth DHT with mobile nodes.
 author: bramp
-layout: post
+layout: publication
 date: 2006-03-01
 categories:
   - Publications

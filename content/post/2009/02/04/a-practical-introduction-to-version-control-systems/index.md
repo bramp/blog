@@ -1,5 +1,6 @@
 ---
 title: A Practical Introduction to Version Control Systems
+slug: a-practical-introduction-to-version-control-systems
 author: bramp
 layout: post
 date: 2009-02-04

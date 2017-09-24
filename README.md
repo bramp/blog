@@ -13,14 +13,14 @@ Dependencies
 ------------
 ```bash
 # Install hugo (Mac)
-brew install hugo@0.18.1
+brew install hugo@v0.26
 
 # Install hugo (Linux)
 sudo apt-get install hugo
 
 # Install hugo (Other)
 go get github.com/kardianos/govendor
-govendor get github.com/spf13/hugo@v0.18.1
+govendor get github.com/spf13/hugo@v0.26
 
 # Pygments for code highlighting
 pip install --user Pygments

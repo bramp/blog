@@ -1,5 +1,6 @@
 ---
 title: Draw UML Sequence Diagrams with Javascript
+slug: draw-uml-sequence-diagrams-with-javascript
 author: bramp
 layout: post
 date: 2013-03-23

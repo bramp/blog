@@ -1,5 +1,6 @@
 ---
 title: MRI scan of my brain
+slug: mri-scan-of-my-brain
 author: bramp
 layout: post
 date: 2012-05-15

@@ -1,5 +1,6 @@
 ---
 title: Bat-Pumpkin
+slug: bat-pumpkin
 author: bramp
 layout: post
 date: 2008-10-27

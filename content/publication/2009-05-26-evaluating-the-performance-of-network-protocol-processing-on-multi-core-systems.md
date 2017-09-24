@@ -1,7 +1,7 @@
 ---
 title: Evaluating the Performance of Network Protocol Processing on Multi-core Systems
 author: bramp
-layout: post
+layout: publication
 date: 2009-05-26
 categories:
   - Publications

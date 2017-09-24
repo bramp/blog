@@ -1,7 +1,7 @@
 ---
 title: Characterising user interactivity for sports video-on-demand
 author: bramp
-layout: post
+layout: publication
 date: 2007-07-01
 categories:
   - Publications

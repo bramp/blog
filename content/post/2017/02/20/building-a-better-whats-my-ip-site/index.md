@@ -10,6 +10,7 @@ tags:
 - AJAX
 - opensource
 title: Building a better “What's My IP?” site
+slug: building-a-better-whats-my-ip-site
 ---
 
 Occasionally I’m curious to know what network my device is using, if it has a IPv6 address, and who owns the address space. For example, when in a coffee shop I’m curious to know their ISP, or when roaming internationally I’m always curious to understand which mobile operator’s IP address gets assigned to device.

@@ -1,5 +1,6 @@
 ---
 title: SMS Character Count
+slug: sms-character-count
 author: bramp
 layout: post
 date: 2013-08-25

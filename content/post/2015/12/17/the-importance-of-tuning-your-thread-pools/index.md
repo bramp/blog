@@ -9,6 +9,7 @@ tags:
 - threads
 - thread pools
 title: The importance of tuning your thread pools
+slug: the-importance-of-tuning-your-thread-pools
 ---
 
 _Originally [published](http://www.javaadvent.com/2015/12/the-importance-of-tuning-your-thread-pools.html) as part of the Java Advent 2015 series_

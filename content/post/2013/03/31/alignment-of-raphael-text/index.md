@@ -1,9 +1,9 @@
 ---
 title: Alignment of Raphaël Paper.text(…) and Paper.print(…)
+slug: alignment-of-raphael-text
 author: bramp
 layout: post
 date: 2013-03-31
-slug: alignment-of-raphael-text
 disqus_identifier: 1614111094
 categories:
   - Blog

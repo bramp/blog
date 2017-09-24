@@ -1,7 +1,7 @@
 ---
 title: Performance modelling of peer-to-peer routing
 author: bramp
-layout: post
+layout: publication
 date: 2007-03-01
 categories:
   - Publications

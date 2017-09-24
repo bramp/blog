@@ -1,5 +1,6 @@
 ---
 title: Iteratively Solving Time Travel
+slug: iteratively-solving-time-travel
 author: bramp
 layout: post
 date: 2010-07-14

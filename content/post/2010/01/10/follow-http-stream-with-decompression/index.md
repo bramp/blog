@@ -1,5 +1,6 @@
 ---
 title: Follow HTTP Stream (with decompression)
+slug: follow-http-stream-with-decompression
 author: bramp
 layout: post
 date: 2010-01-10

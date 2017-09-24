@@ -1,5 +1,6 @@
 ---
 title: Infolab21 Vector Logo
+slug: infolab21-vector-logo
 author: bramp
 layout: post
 date: 2008-04-19

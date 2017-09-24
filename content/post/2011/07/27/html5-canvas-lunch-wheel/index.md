@@ -1,5 +1,6 @@
 ---
 title: 'HTML5 Canvas: Lunch Wheel'
+slug: html5-canvas-lunch-wheel
 author: bramp
 layout: post
 date: 2011-07-27

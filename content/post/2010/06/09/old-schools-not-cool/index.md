@@ -1,5 +1,6 @@
 ---
 title: Old school’s not cool.
+slug: old-schools-not-cool
 author: bramp
 layout: post
 date: 2010-06-09

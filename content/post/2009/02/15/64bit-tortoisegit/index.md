@@ -1,5 +1,6 @@
 ---
 title: 64bit TortoiseGit
+slug: 64bit-tortoisegit
 author: bramp
 layout: post
 date: 2009-02-15

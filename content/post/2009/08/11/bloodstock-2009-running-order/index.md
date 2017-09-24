@@ -1,5 +1,6 @@
 ---
 title: Bloodstock 2009 Running Order
+slug: bloodstock-2009-running-order
 author: bramp
 layout: post
 date: 2009-08-11

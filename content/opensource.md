@@ -3,6 +3,10 @@ title: Open Source Projects
 author: bramp
 layout: page
 date: 2013-02-16
+aliases:
+  - /opensource
+  - /open-source
+  - /opensource-project
 ---
 I&#8217;ve always been a big fan of open source, and always try and contribute where I can. In addition over the years I have created multiple small projects that I give back to the community. Here are the ones I have on GitHub:
 

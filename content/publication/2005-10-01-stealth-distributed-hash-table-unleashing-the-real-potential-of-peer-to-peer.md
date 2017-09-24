@@ -1,7 +1,7 @@
 ---
 title: 'Stealth Distributed Hash Table: Unleashing the Real Potential of Peer-to-Peer'
 author: bramp
-layout: post
+layout: publication
 date: 2005-10-01
 categories:
   - Publications

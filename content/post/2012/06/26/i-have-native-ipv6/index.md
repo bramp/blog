@@ -1,5 +1,6 @@
 ---
 title: I have native IPv6
+slug: i-have-native-ipv6
 author: bramp
 layout: post
 date: 2012-06-26

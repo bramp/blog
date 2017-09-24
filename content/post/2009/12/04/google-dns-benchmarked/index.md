@@ -1,5 +1,6 @@
 ---
 title: Google DNS Benchmarked
+slug: google-dns-benchmarked
 author: bramp
 layout: post
 date: 2009-12-04

@@ -1,7 +1,7 @@
 ---
 title: 'Stealth Distributed Hash Table: A robust and flexible super-peered DHT'
 author: bramp
-layout: post
+layout: publication
 date: 2006-12-01
 categories:
   - Publications

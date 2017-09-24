@@ -1,7 +1,7 @@
 ---
 title: Authentication in Stealth Distributed Hash Tables
 author: bramp
-layout: post
+layout: publication
 date: 2006-07-01
 categories:
   - Publications

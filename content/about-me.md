@@ -24,7 +24,7 @@ Contact Me
 
 I can be reached at <a href="mailto:me AT bramp.net">me ![][6] bramp.net</a>
 
- [1]: {{< relref "opensource-project.md" >}}
+ [1]: {{< relref "opensource.md" >}}
  [2]: http://www.meetup.com/
  [3]: http://www.lancs.ac.uk/
  [4]: https://github.com/bramp/curriculum-vitae/blob/master/cv.pdf?raw=true

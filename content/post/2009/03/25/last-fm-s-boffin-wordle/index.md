@@ -1,9 +1,9 @@
 ---
 title: Last.fm’s Boffin + Wordle
+slug: last-fm-s-boffin-wordle
 author: bramp
 layout: post
 date: 2009-03-25
-slug: last-fm-s-boffin-wordle
 categories:
   - Blog
 tags:

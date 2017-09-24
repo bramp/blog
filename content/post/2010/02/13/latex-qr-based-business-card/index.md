@@ -1,5 +1,6 @@
 ---
 title: LaTeX QR Based Business Card
+slug: latex-qr-based-business-card
 author: bramp
 layout: post
 date: 2010-02-13
