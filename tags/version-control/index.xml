@@ -6,7 +6,8 @@
     <description>Recent content in Version Control on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <atom:link href="https://blog.bramp.net/tags/version-control/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 04 Feb 2009 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://blog.bramp.net/tags/version-control/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>A Practical Introduction to Version Control Systems</title>

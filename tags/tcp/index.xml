@@ -6,7 +6,8 @@
     <description>Recent content in Tcp on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <atom:link href="https://blog.bramp.net/tags/tcp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Apr 2008 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://blog.bramp.net/tags/tcp/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Linux kernel patch for TCP timestamping</title>

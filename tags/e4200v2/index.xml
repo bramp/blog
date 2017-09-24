@@ -6,7 +6,8 @@
     <description>Recent content in E4200v2 on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <atom:link href="https://blog.bramp.net/tags/e4200v2/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 24 Jan 2012 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://blog.bramp.net/tags/e4200v2/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Hacking Linksys E4200v2 firmware</title>

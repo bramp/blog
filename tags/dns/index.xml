@@ -6,7 +6,8 @@
     <description>Recent content in Dns on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <atom:link href="https://blog.bramp.net/tags/dns/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 04 Dec 2009 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://blog.bramp.net/tags/dns/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Google DNS Benchmarked</title>
