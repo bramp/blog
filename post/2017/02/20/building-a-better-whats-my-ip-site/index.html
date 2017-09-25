@@ -1,31 +1,158 @@
-<!DOCTYPE html><html lang=en><head><meta charset=utf-8><title>Building a better “What&#39;s My IP?” site</title><meta name=description content="Occasionally I’m curious to know what network my device is using, if it has a IPv6 address, and who owns the address space. For example, when in a coffee shop I’m curious to know their ISP, or when roaming internationally I’m always curious to understand which mobile operator’s IP address gets assigned to device.
-Most &ldquo;What’s my IP address&rdquo; sites, will either only show you one of your IPv4, or IPv6."><meta name=author content="Andrew Brampton"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo"/><link rel=canonical href="https://blog.bramp.net/post/2017/02/20/building-a-better-whats-my-ip-site/"/><link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title="bramp.net"/><link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title="bramp.net"/><link rel="shortcut icon" href=/favicon.ico type="image/x-icon"/><link rel=apple-touch-icon-precomposed href="/images/favicon.png"/><link rel=apple-touch-icon-precomposed sizes=57x57 href="/images/favicon-57x57.png"/><link rel=apple-touch-icon-precomposed sizes=72x72 href="/images/favicon-72x72.png"/><link rel=apple-touch-icon-precomposed sizes=76x76 href="/images/favicon-76x76.png"/><link rel=apple-touch-icon-precomposed sizes=114x114 href="/images/favicon-114x114.png"/><link rel=apple-touch-icon-precomposed sizes=120x120 href="/images/favicon-120x120.png"/><link rel=apple-touch-icon-precomposed sizes=144x144 href="/images/favicon-144x144.png"/><link rel=apple-touch-icon-precomposed sizes=152x152 href="/images/favicon-152x152.png"/><link rel=apple-touch-icon-precomposed sizes=180x180 href="/images/favicon-180x180.png"/><meta name=msapplication-TileColor content=#4582EC><meta name=msapplication-TileImage content=/images/favicon-144x144.png><meta name=theme-color content=#4582EC><link rel=icon sizes=192x192 href="/images/favicon-192x192.png"/><link href=/css/all.min.css rel=stylesheet><link href=https://fonts.gstatic.com rel=preconnect crossorigin><link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel=stylesheet type=text/css><link href=https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css><meta name=twitter:card content="summary"/><meta name=twitter:site content="@TheBramp"/><meta name=twitter:title content="Building a better “What&#39;s My IP?” site"/><meta name=twitter:url content="https://blog.bramp.net/post/2017/02/20/building-a-better-whats-my-ip-site/"/><meta name=twitter:creator content="@TheBramp"/><meta name=twitter:description content="Occasionally I’m curious to know what network my device is using, if it has a IPv6 address, and who owns the address space. For example, when in a coffee shop I’m curious to know their ISP, or when roaming internationally I’m always curious to understand which mobile operator’s IP address gets assigned to device.
-Most &ldquo;What’s my IP address&rdquo; sites, will either only show you one of your IPv4, or IPv6."/><meta property=og:type content="article"/><meta property=article:author content="https://www.facebook.com/bramp"/><meta property=article:published_time content="2017-02-20T12:50:31&#43;07:00"/><meta property=article:tag content="App Engine"/><meta property=article:tag content="Go"/><meta property=article:tag content="AJAX"/><meta property=article:tag content="opensource"/><meta property=og:url content="https://blog.bramp.net/post/2017/02/20/building-a-better-whats-my-ip-site/"/><meta property=og:site_name content="bramp.net"/><meta property=og:title content="Building a better “What&#39;s My IP?” site"/><meta property=og:description content="Occasionally I’m curious to know what network my device is using, if it has a IPv6 address, and who owns the address space. For example, when in a coffee shop I’m curious to know their ISP, or when roaming internationally I’m always curious to understand which mobile operator’s IP address gets assigned to device.
-Most &ldquo;What’s my IP address&rdquo; sites, will either only show you one of your IPv4, or IPv6."/><meta property=og:updated_time content="2017-02-20T12:50:31-08:00"/><meta property=og:locale content="en_GB"/><meta name=google-site-verification content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"/><body><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<!DOCTYPE html>
+<html lang=en>
+<head itemscope itemtype=http://schema.org/WebSite>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<link itemprop=url rel=canonical href="https://blog.bramp.net/post/2017/02/20/building-a-better-whats-my-ip-site/"/>
+<title>Building a better “What&#39;s My IP?” site</title>
+<meta itemprop=description name=description content="Occasionally I’m curious to know what network my device is using, if it has a IPv6 address, and who owns the address space. For example, when in a coffee shop I’m curious to know their ISP, or when …">
+<meta itemprop=creator name=author content="Andrew Brampton">
+<meta name=generator content=""/>
+<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title="bramp.net"/>
+<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title="bramp.net"/>
+<link rel="shortcut icon" href=/favicon.ico type="image/x-icon"/>
+<link rel=apple-touch-icon-precomposed href="/images/favicon.png"/>
+<link rel=apple-touch-icon-precomposed sizes=57x57 href="/images/favicon-57x57.png"/>
+<link rel=apple-touch-icon-precomposed sizes=72x72 href="/images/favicon-72x72.png"/>
+<link rel=apple-touch-icon-precomposed sizes=76x76 href="/images/favicon-76x76.png"/>
+<link rel=apple-touch-icon-precomposed sizes=114x114 href="/images/favicon-114x114.png"/>
+<link rel=apple-touch-icon-precomposed sizes=120x120 href="/images/favicon-120x120.png"/>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href="/images/favicon-144x144.png"/>
+<link rel=apple-touch-icon-precomposed sizes=152x152 href="/images/favicon-152x152.png"/>
+<link rel=apple-touch-icon-precomposed sizes=180x180 href="/images/favicon-180x180.png"/>
+<meta name=msapplication-TileColor content=#4582EC>
+<meta name=msapplication-TileImage content=/images/favicon-144x144.png>
+<meta name=theme-color content=#4582EC>
+<link rel=icon sizes=192x192 href="/images/favicon-192x192.png"/>
+<link href=/css/all.min.css rel=stylesheet>
+<link href=https://fonts.gstatic.com rel=preconnect crossorigin>
+<link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel=stylesheet type=text/css>
+<link href=https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css>
+<meta name=twitter:card content="summary"/>
+<meta name=twitter:site content="@TheBramp"/>
+<meta name=twitter:creator content="@TheBramp"/>
+<meta property=og:type content="article"/>
+<meta property=article:author content="https://www.facebook.com/bramp"/>
+<meta property=article:published_time content="2017-02-20T12:50:31&#43;07:00"/>
+<meta property=article:tag content="App Engine"/>
+<meta property=article:tag content="Go"/>
+<meta property=article:tag content="AJAX"/>
+<meta property=article:tag content="opensource"/>
+<meta property=og:url content="https://blog.bramp.net/post/2017/02/20/building-a-better-whats-my-ip-site/"/>
+<meta property=og:site_name content="bramp.net"/>
+<meta property=og:title content="Building a better “What&#39;s My IP?” site"/>
+<meta property=og:description content="Occasionally I’m curious to know what network my device is using, if it has a IPv6 address, and who owns the address space. For example, when in a coffee shop I’m curious to know their ISP, or when …"/>
+<meta property=og:updated_time content="2017-02-20T12:50:31-08:00"/>
+<meta property=og:locale content="en_GB"/>
+<meta name=google-site-verification content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"/>
+
+<body itemscope itemtype=Blog>
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-136478-5', 'auto');
     ga('require', 'linkid', 'linkid.js');
-    ga('send', 'pageview');</script><div id=wrapper><div class="navbar navbar-default"><div class=container><div class=navbar-header><button type=button class=navbar-toggle data-toggle=collapse data-target=.navbar-collapse><span class=sr-only>Toggle navigation</span> <span class=icon-bar></span> <span class=icon-bar></span> <span class=icon-bar></span></button><div class=navbar-brand aria-label="About Andrew Brampton"><a href="/"><img src=/images/favicon-64x64.png class=profile-image alt=Home></a><div><a href="/about-me/">Andrew Brampton</a><div id=social-wrapper><a href=https://twitter.com/TheBramp aria-label=Twitter><i class="fa fa-twitter-square"></i></a> <a href=https://www.linkedin.com/in/bramp aria-label=LinkedIn><i class="fa fa-linkedin-square"></i></a> <a href=https://www.facebook.com/bramp aria-label=Facebook><i class="fa fa-facebook-square"></i></a> <a href=https://github.com/bramp aria-label=GitHub><i class="fa fa-github-square"></i></a> <a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed"><i class="fa fa-rss-square"></i></a></div></div></div></div><div class="navbar-collapse collapse"><ul class="nav navbar-nav" role=navigation><li><a href="/">Articles</a></li><li><a href="/about-me/">About Me</a></li><li><a href="/android-app/">Android Apps</a></li><li><a href="/opensource/">Open Source</a></li><li><a href="/publication/">Publications</a></li></ul></div></div></div><div class="container main"><div id=article><h1>Building a better “What&#39;s My IP?” site</h1><p class=meta><i class="fa fa-calendar-o"></i> 2017-02-20 | <a href="https://blog.bramp.net/tags/app-engine/">App Engine</a> | <a href="https://blog.bramp.net/tags/go/">Go</a> | <a href="https://blog.bramp.net/tags/ajax/">AJAX</a> | <a href="https://blog.bramp.net/tags/opensource/">opensource</a></p><div class=post><p>Occasionally I’m curious to know what network my device is using, if it has a IPv6 address, and who owns the address space. For example, when in a coffee shop I’m curious to know their ISP, or when roaming internationally I’m always curious to understand which mobile operator’s IP address gets assigned to device.</p><p>Most &ldquo;<a href="https://www.google.com/search?q=What’s+my+IP+address">What’s my IP address</a>&rdquo; sites, will either only show you one of your IPv4, or IPv6. It won’t do a DNS lookup, and they rarely do a WHOIS lookup. Doing all these things, shouldn’t be too hard, so I figured in a weekend I could hack together a site to do this.</p><p>This blog post explains the creation of <a href=http://ip.bramp.net>ip.bramp.net</a>.</p><div class=text-center><img src=screenshot.png alt="Screenshot of ip.bramp.net in action"></div><h2 id=how-to-get-both-ipv4-and-ipv6-address>How to get both IPv4 and IPv6 address?</h2><p>When navigating to a website your browser makes a connection, normally over one of IPv4, or IPv6. Which one is based on the DNS records available for the website’s domain, and the preference of your OS and browser. Thus your web server sees a single incoming connection, with a single remote address. This address is typically stored in a variable named REMOTE_ADDR. Most &ldquo;What’s my IP&rdquo; sites then display this variable back to the user as their IP address. However, as I’d like to see both IPv4 and IPv6 addresses, I need to somehow force the browser to make two requests, one over each.</p><p>There is no API to tell a browser to use IPv6 over IPv4, however, I use a trick with two domain names. Namely, I have ip4.bramp.net, and ip6.bramp.net. Both resolve to the same web server, but the former only has <a href=https://tools.ietf.org/html/rfc1035>DNS A records</a>, and the latter only <a href=https://tools.ietf.org/html/rfc3596>DNS AAAA records</a>. For example:</p><div class=highlight><pre><code class=language-bash data-lang=bash><span class=nv>$ </span>dig ip4.bramp.net
+    ga('send', 'pageview');</script>
+<div id=wrapper>
+<div class="navbar navbar-default">
+<div class=container>
+<div class=navbar-header>
+<button type=button class=navbar-toggle data-toggle=collapse data-target=.navbar-collapse>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<div class=navbar-brand aria-label="About Andrew Brampton">
+<a href="/">
+<img src=/images/favicon-64x64.png class=profile-image alt=Home>
+</a>
+<div itemprop=author itemscope itemtype=https://schema.org/Person>
+<a href="/about-me/" itemprop=name>Andrew Brampton</a>
+<div id=social-wrapper>
+<a href=https://twitter.com/TheBramp aria-label=Twitter><i class="fa fa-twitter-square"></i></a>
+<a href=https://www.linkedin.com/in/bramp aria-label=LinkedIn><i class="fa fa-linkedin-square"></i></a>
+<a href=https://www.facebook.com/bramp aria-label=Facebook><i class="fa fa-facebook-square"></i></a>
+<a href=https://github.com/bramp aria-label=GitHub><i class="fa fa-github-square"></i></a>
+<a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed"><i class="fa fa-rss-square"></i></a>
+</div>
+</div>
+</div>
+</div>
+<div class="navbar-collapse collapse">
+<ul class="nav navbar-nav" role=navigation>
+<li><a href="/">Articles</a></li>
+<li><a href="/about-me/">About Me</a></li>
+<li><a href="/android-app/">Android Apps</a></li>
+<li><a href="/opensource/">Open Source</a></li>
+<li><a href="/publication/">Publications</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="container main">
+<article id=article itemProp=blogPost itemscope itemtype=http://schema.org/BlogPosting>
+<h1 itemprop=headline>Building a better “What&#39;s My IP?” site</h1>
+<p class=meta>
+<i class="fa fa-calendar-o"></i> <time itemprop=datePublished>2017-02-20</time>
+| <a href="https://blog.bramp.net/tags/app-engine/">App Engine</a>
+| <a href="https://blog.bramp.net/tags/go/">Go</a>
+| <a href="https://blog.bramp.net/tags/ajax/">AJAX</a>
+| <a href="https://blog.bramp.net/tags/opensource/">opensource</a>
+</p>
+<div class=post itemprop=articleBody>
+<p>Occasionally I’m curious to know what network my device is using, if it has a IPv6 address, and who owns the address space. For example, when in a coffee shop I’m curious to know their ISP, or when roaming internationally I’m always curious to understand which mobile operator’s IP address gets assigned to device.</p>
+<p>Most &ldquo;<a href="https://www.google.com/search?q=What’s+my+IP+address">What’s my IP address</a>&rdquo; sites, will either only show you one of your IPv4, or IPv6. It won’t do a DNS lookup, and they rarely do a WHOIS lookup. Doing all these things, shouldn’t be too hard, so I figured in a weekend I could hack together a site to do this.</p>
+<p>This blog post explains the creation of <a href=http://ip.bramp.net>ip.bramp.net</a>.</p>
+<div class=text-center>
+<img src=screenshot.png alt="Screenshot of ip.bramp.net in action">
+</div>
+<h2 id=how-to-get-both-ipv4-and-ipv6-address>How to get both IPv4 and IPv6 address?</h2>
+<p>When navigating to a website your browser makes a connection, normally over one of IPv4, or IPv6. Which one is based on the DNS records available for the website’s domain, and the preference of your OS and browser. Thus your web server sees a single incoming connection, with a single remote address. This address is typically stored in a variable named REMOTE_ADDR. Most &ldquo;What’s my IP&rdquo; sites then display this variable back to the user as their IP address. However, as I’d like to see both IPv4 and IPv6 addresses, I need to somehow force the browser to make two requests, one over each.</p>
+<p>There is no API to tell a browser to use IPv6 over IPv4, however, I use a trick with two domain names. Namely, I have ip4.bramp.net, and ip6.bramp.net. Both resolve to the same web server, but the former only has <a href=https://tools.ietf.org/html/rfc1035>DNS A records</a>, and the latter only <a href=https://tools.ietf.org/html/rfc3596>DNS AAAA records</a>. For example:</p>
+<div class=highlight><pre><code class=language-bash data-lang=bash><span class=nv>$ </span>dig ip4.bramp.net
 ip4.bramp.net.		300	IN	A	216.239.32.21
 
 <span class=nv>$ </span>dig AAAA ip6.bramp.net
 ip6.bramp.net.		291	IN	AAAA	2001:4860:4802:32::15
-</code></pre></div><p>This forces the connection to be over either IPv4, or IPv6. If a browser doesn’t support IPv6, then the connection is never made, and an error is returned. Interesting side note, some browsers uses a technique called <a href=https://en.wikipedia.org/wiki/Happy_Eyeballs>Happy Eyeballs</a>, which tries to connect over both concurrently, but abandons the slower or worse behaving of the two connections.</p><h2 id=how-do-you-make-two-requests-from-one-page>How do you make two requests from one page?</h2><p>To force the site to make requests to both of these domains, I issue two <a href=https://en.wikipedia.org/wiki/Ajax_(programming)>AJAX</a> queries. The typical flow looks like:</p><div class=text-center><object data=diagram.svg type=image/svg+xml height=364 width=583 alt="diagram of AJAX calls"><img src="diagram.png"/></object></div><p>These AJAX queries return a simple JSON object, containing information about the requesting user. In my application an example response may look like:</p><div class=highlight><pre><code class=language-json data-lang=json><span class=p>{</span>
+</code></pre></div>
+<p>This forces the connection to be over either IPv4, or IPv6. If a browser doesn’t support IPv6, then the connection is never made, and an error is returned. Interesting side note, some browsers uses a technique called <a href=https://en.wikipedia.org/wiki/Happy_Eyeballs>Happy Eyeballs</a>, which tries to connect over both concurrently, but abandons the slower or worse behaving of the two connections.</p>
+<h2 id=how-do-you-make-two-requests-from-one-page>How do you make two requests from one page?</h2>
+<p>To force the site to make requests to both of these domains, I issue two <a href=https://en.wikipedia.org/wiki/Ajax_(programming)>AJAX</a> queries. The typical flow looks like:</p>
+<div class=text-center>
+<object data=diagram.svg type=image/svg+xml height=364 width=583 alt="diagram of AJAX calls">
+<img src="diagram.png"/>
+</object>
+</div>
+
+<p>These AJAX queries return a simple JSON object, containing information about the requesting user. In my application an example response may look like:</p>
+<div class=highlight><pre><code class=language-json data-lang=json><span class=p>{</span>
   <span class=nt>&quot;RemoteAddrFamily&quot;</span><span class=p>:</span> <span class=s2>&quot;IPv6&quot;</span><span class=p>,</span>
   <span class=nt>&quot;RemoteAddr&quot;</span><span class=p>:</span>       <span class=s2>&quot;2601:646:c200:b466:b446:ff32:b227:a53c&quot;</span>
 <span class=p>}</span>
-</code></pre></div><p>This response can then be used to update the page, to display the appropriate address.</p><p>An experienced reader may be aware of some security issues with making AJAX request to a different domain. In particular, there are subtle ways in which a malicious site could abuse your AJAX endpoints. This is easily fixed by using cross-origin resource sharing (<a href=https://en.wikipedia.org/wiki/Cross-origin_resource_sharing>CORS</a>) headers, in particular ip4.bramp.net, and ip6.bramp.net return the following:</p><div class=highlight><pre><code class=language-bash data-lang=bash><span class=nv>$ </span>curl -v ip4.bramp.net/json
+</code></pre></div>
+<p>This response can then be used to update the page, to display the appropriate address.</p>
+<p>An experienced reader may be aware of some security issues with making AJAX request to a different domain. In particular, there are subtle ways in which a malicious site could abuse your AJAX endpoints. This is easily fixed by using cross-origin resource sharing (<a href=https://en.wikipedia.org/wiki/Cross-origin_resource_sharing>CORS</a>) headers, in particular ip4.bramp.net, and ip6.bramp.net return the following:</p>
+<div class=highlight><pre><code class=language-bash data-lang=bash><span class=nv>$ </span>curl -v ip4.bramp.net/json
 
 &lt; HTTP/1.1 <span class=m>200</span> OK
 &lt; Content-Type: application/json
 &lt; Access-Control-Allow-Origin: http://ip.bramp.net
-</code></pre></div><p>The last header, explicitly allows requests from ip.bramp.net only, and thus forbids requests from other sites. Without this header, the AJAX request would be issued, but then rejected by the browser.</p><h2 id=what-about-the-reverse-dns-and-whois>What about the reverse DNS and WHOIS?</h2><p>I noted I wanted to display both the reverse DNS, and WHOIS records. This is something the browser doesn’t support, but the server side could. Thus as part of processing the /json AJAX request, the application makes various additional requests to remote DNS and WHOIS servers.</p><p>To reverse lookup a IP address, you need to issue a <a href=https://tools.ietf.org/html/rfc1035>PTR DNS request</a>. This is a special DNS request which requires the IP address to be formatted as a in-addr.arpa or ip6.arpa name. For example, the IP address 1.2.3.4, would become 4.3.2.1.in-addr.arpa. Then when a request is sent for that in-addr.arpa. name, the reverse DNS is returned.</p><div class=highlight><pre><code class=language-bash data-lang=bash><span class=nv>$ </span>dig PTR 4.3.2.1.in-addr.arpa.
+</code></pre></div>
+<p>The last header, explicitly allows requests from ip.bramp.net only, and thus forbids requests from other sites. Without this header, the AJAX request would be issued, but then rejected by the browser.</p>
+<h2 id=what-about-the-reverse-dns-and-whois>What about the reverse DNS and WHOIS?</h2>
+<p>I noted I wanted to display both the reverse DNS, and WHOIS records. This is something the browser doesn’t support, but the server side could. Thus as part of processing the /json AJAX request, the application makes various additional requests to remote DNS and WHOIS servers.</p>
+<p>To reverse lookup a IP address, you need to issue a <a href=https://tools.ietf.org/html/rfc1035>PTR DNS request</a>. This is a special DNS request which requires the IP address to be formatted as a in-addr.arpa or ip6.arpa name. For example, the IP address 1.2.3.4, would become 4.3.2.1.in-addr.arpa. Then when a request is sent for that in-addr.arpa. name, the reverse DNS is returned.</p>
+<div class=highlight><pre><code class=language-bash data-lang=bash><span class=nv>$ </span>dig PTR 4.3.2.1.in-addr.arpa.
 
 4.3.2.1.in-addr.arpa.	74312	IN	PTR	c-1-2-3-4.example.com.
-</code></pre></div><p>The in-addr.arpa transformation, and lookup is commonly provided by <a href=https://linux.die.net/man/3/getaddrinfo>getaddrinfo(3)</a> function, which makes this easy to do.</p><p>The WHOIS lookup is a little bit more complex. Each domain is represented by a different WHOIS server, that can be determined by the ccTLD or TLD of the domain. However, with IP addresses, you must identify the Regional Internet Registry (<a href=https://en.wikipedia.org/wiki/Regional_Internet_registry>RIR</a>) that owns the IP space. Sadly there is not a trivial mapping, so instead I issue a WHOIS query to the Internet Assigned Numbers Authority (<a href=https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority>IANA</a>), who replies with the RIR which owns the IP address. From there, I can query the correct registry directly, typically one of <a href=https://en.wikipedia.org/wiki/AFRINIC>AFRINIC</a>, <a href=https://en.wikipedia.org/wiki/American_Registry_for_Internet_Numbers>ARIN</a>, <a href=https://en.wikipedia.org/wiki/Asia-Pacific_Network_Information_Centre>APNIC</a>, <a href=https://en.wikipedia.org/wiki/Latin_America_and_Caribbean_Network_Information_Centre>LACNIC</a>, or <a href=https://en.wikipedia.org/wiki/R%C3%A9seaux_IP_Europ%C3%A9ens_Network_Coordination_Centre>RIPE NCC</a>. Thus a typical WHOIS request looks like this:</p><div class=highlight><pre><code class=language-bash data-lang=bash><span class=nv>$ </span>whois -h whois.iana.org 1.2.3.4
+</code></pre></div>
+<p>The in-addr.arpa transformation, and lookup is commonly provided by <a href=https://linux.die.net/man/3/getaddrinfo>getaddrinfo(3)</a> function, which makes this easy to do.</p>
+<p>The WHOIS lookup is a little bit more complex. Each domain is represented by a different WHOIS server, that can be determined by the ccTLD or TLD of the domain. However, with IP addresses, you must identify the Regional Internet Registry (<a href=https://en.wikipedia.org/wiki/Regional_Internet_registry>RIR</a>) that owns the IP space. Sadly there is not a trivial mapping, so instead I issue a WHOIS query to the Internet Assigned Numbers Authority (<a href=https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority>IANA</a>), who replies with the RIR which owns the IP address. From there, I can query the correct registry directly, typically one of <a href=https://en.wikipedia.org/wiki/AFRINIC>AFRINIC</a>, <a href=https://en.wikipedia.org/wiki/American_Registry_for_Internet_Numbers>ARIN</a>, <a href=https://en.wikipedia.org/wiki/Asia-Pacific_Network_Information_Centre>APNIC</a>, <a href=https://en.wikipedia.org/wiki/Latin_America_and_Caribbean_Network_Information_Centre>LACNIC</a>, or <a href=https://en.wikipedia.org/wiki/R%C3%A9seaux_IP_Europ%C3%A9ens_Network_Coordination_Centre>RIPE NCC</a>. Thus a typical WHOIS request looks like this:</p>
+<div class=highlight><pre><code class=language-bash data-lang=bash><span class=nv>$ </span>whois -h whois.iana.org 1.2.3.4
 
 % IANA WHOIS server
 % <span class=k>for</span> more information on IANA, visit http://www.iana.org
@@ -37,7 +164,8 @@ status:       ALLOCATED
 whois:        whois.apnic.net
 changed:      2010-01
 <span class=nb>source</span>:       IANA
-</code></pre></div><div class=highlight><pre><code class=language-bash data-lang=bash><span class=nv>$ </span>whois -h whois.apnic.net 1.2.3.4
+</code></pre></div>
+<div class=highlight><pre><code class=language-bash data-lang=bash><span class=nv>$ </span>whois -h whois.apnic.net 1.2.3.4
 
 % <span class=o>[</span>whois.apnic.net<span class=o>]</span>
 % Whois data copyright terms    http://www.apnic.net/db/dbcopyright.html
@@ -49,7 +177,9 @@ descr:          APNIC Example Project
 ...
 
 % This query was served by the APNIC Whois Service version 1.69.1-APNICv1r0
-</code></pre></div><p>Both the reverse DNS and WHOIS response is returned as part of the AJAX JSON response.</p><div class=highlight><pre><code class=language-json data-lang=json><span class=p>{</span>
+</code></pre></div>
+<p>Both the reverse DNS and WHOIS response is returned as part of the AJAX JSON response.</p>
+<div class=highlight><pre><code class=language-json data-lang=json><span class=p>{</span>
   <span class=nt>&quot;RemoteAddrFamily&quot;</span><span class=p>:</span>  <span class=s2>&quot;IPv4&quot;</span><span class=p>,</span>
   <span class=nt>&quot;RemoteAddr&quot;</span><span class=p>:</span>        <span class=s2>&quot;1.2.3.4&quot;</span><span class=p>,</span>
   <span class=nt>&quot;RemoteAddrReverse&quot;</span><span class=p>:</span> <span class=s2>&quot;c-1-2-3-4.example.com.&quot;</span><span class=p>,</span>
@@ -64,7 +194,38 @@ descr:          APNIC Example Project
 <span class=s2>    ...</span>
 <span class=s2>  &quot;</span>
 <span class=p>}</span>
-</code></pre></div><h2 id=what-about-proxies>What about proxies?</h2><p>Many users are behind proxies, which connects to the webserver on the user’s behalf. Thus the REMOTE_ADDR is the address of the proxy, not the actual user. Some proxies have a workaround for this, by placing the user’s real IP address in the <a href=https://en.wikipedia.org/wiki/X-Forwarded-For>X-Forwarded-For</a> (XFF), or newer <a href=https://tools.ietf.org/html/rfc7239>Forwarded</a> HTTP header. However, these headers are easily set by the user, so can not be trusted. Thus for the moment I ignore these headers, and will instead display the proxy’s IP address. It is conceivable to create a whitelist of proxies, that I would trust the XFF header, but for now I didn’t want that headache. Especially since the server side issues requests to external hosts, if I trusted the XFF header, an abusive user could use my site as a proxy, or even use my site as a relay to <a href=https://en.wikipedia.org/wiki/Denial-of-service_attack>denial of service</a> these remote servers.</p><h2 id=tying-this-all-together>Tying this all together</h2><p>Server side I use <a href="https://cloud.google.com/appengine/">App Engine</a>, and <a href="https://golang.org/">Go</a>. Why? Because I wanted to play with App Engine, and I’m a fan of Go right now. On the client side I use <a href=http://getbootstrap.com>Bootstrap</a> to make the page look nice, and <a href=https://angularjs.org>AngularJS</a>. AngularJS because I’m familiar with it, and because it is really easy to issue an AJAX requests and transform the result into a web page.</p><p>I like App Engine, because of the <a href=https://en.wikipedia.org/wiki/Platform_as_a_service>PaaS</a> model. It keeps my costs down, and I don’t need to setup a virtual machine, or create docker images. Instead I just write a single binary and upload it. However, App Engine does place some restrictions on what I can do, in particular limiting outbound connections to ones made via its own library. Thus I had to jump through a few hoops to make the reverse DNS and WHOIS requests. Instead of using <a href=https://linux.die.net/man/3/getaddrinfo>getaddrinfo(3)</a>, I had to issue DNS requests myself using App Engine’s socket library and my own UDP packets on port 53. Luckily the Go DNS library, <a href=https://github.com/miekg/dns>miekg/dns</a>, makes this relatively easy. Similarly I had to implement the WHOIS lookup by hand, but again aided by a library, this time <a href=https://github.com/domainr/whois>domainr/whois</a>.</p><p>In conclusion, though the use of multiple domain names, some AJAX queries, and server side support. I was able to make &ldquo;(a better) What&rsquo;s My IP Address?&rdquo; site in under a weekend.</p><p>Check out the <a href=https://github.com/bramp/myip>full source on github</a>, or view the site at <a href="http://ip.bramp.net/">ip.bramp.net</a></p></div></div><div class=row><div class=col-sm-6><div class=addthis_sharing_toolbox></div></div><div class=col-sm-6><div class=btn-toolbar><div class=btn-group><a class="btn btn-sm btn-soundcloud" href=https://feeds.feedburner.com/brampnet aria-label="RSS feed"><i class="fa fa-rss-square"></i> Subscribe via RSS</a></div><div class=btn-group><a class="btn btn-sm btn-twitter" href=https://twitter.com/TheBramp><i class="fa fa-twitter"></i> Follow @TheBramp</a></div></div></div></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2016/08/08/peano-curves/">&larr; Peano Curves</a></li>&nbsp;<li class=next><a href="/post/2017/04/01/maven-plugins-on-java-8/">Maven Plugins on Java 8 &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>var disqus_shortname = 'bramp';
+</code></pre></div>
+<h2 id=what-about-proxies>What about proxies?</h2>
+<p>Many users are behind proxies, which connects to the webserver on the user’s behalf. Thus the REMOTE_ADDR is the address of the proxy, not the actual user. Some proxies have a workaround for this, by placing the user’s real IP address in the <a href=https://en.wikipedia.org/wiki/X-Forwarded-For>X-Forwarded-For</a> (XFF), or newer <a href=https://tools.ietf.org/html/rfc7239>Forwarded</a> HTTP header. However, these headers are easily set by the user, so can not be trusted. Thus for the moment I ignore these headers, and will instead display the proxy’s IP address. It is conceivable to create a whitelist of proxies, that I would trust the XFF header, but for now I didn’t want that headache. Especially since the server side issues requests to external hosts, if I trusted the XFF header, an abusive user could use my site as a proxy, or even use my site as a relay to <a href=https://en.wikipedia.org/wiki/Denial-of-service_attack>denial of service</a> these remote servers.</p>
+<h2 id=tying-this-all-together>Tying this all together</h2>
+<p>Server side I use <a href="https://cloud.google.com/appengine/">App Engine</a>, and <a href="https://golang.org/">Go</a>. Why? Because I wanted to play with App Engine, and I’m a fan of Go right now. On the client side I use <a href=http://getbootstrap.com>Bootstrap</a> to make the page look nice, and <a href=https://angularjs.org>AngularJS</a>. AngularJS because I’m familiar with it, and because it is really easy to issue an AJAX requests and transform the result into a web page.</p>
+<p>I like App Engine, because of the <a href=https://en.wikipedia.org/wiki/Platform_as_a_service>PaaS</a> model. It keeps my costs down, and I don’t need to setup a virtual machine, or create docker images. Instead I just write a single binary and upload it. However, App Engine does place some restrictions on what I can do, in particular limiting outbound connections to ones made via its own library. Thus I had to jump through a few hoops to make the reverse DNS and WHOIS requests. Instead of using <a href=https://linux.die.net/man/3/getaddrinfo>getaddrinfo(3)</a>, I had to issue DNS requests myself using App Engine’s socket library and my own UDP packets on port 53. Luckily the Go DNS library, <a href=https://github.com/miekg/dns>miekg/dns</a>, makes this relatively easy. Similarly I had to implement the WHOIS lookup by hand, but again aided by a library, this time <a href=https://github.com/domainr/whois>domainr/whois</a>.</p>
+<p>In conclusion, though the use of multiple domain names, some AJAX queries, and server side support. I was able to make &ldquo;(a better) What&rsquo;s My IP Address?&rdquo; site in under a weekend.</p>
+<p>Check out the <a href=https://github.com/bramp/myip>full source on github</a>, or view the site at <a href="http://ip.bramp.net/">ip.bramp.net</a></p>
+</div>
+</article>
+<div class=row>
+<div class=col-sm-6>
+<div class=addthis_sharing_toolbox></div>
+</div>
+<div class=col-sm-6>
+<div class=btn-toolbar>
+<div class=btn-group>
+<a class="btn btn-sm btn-soundcloud" href=https://feeds.feedburner.com/brampnet aria-label="RSS feed">
+<i class="fa fa-rss-square"></i> Subscribe via RSS</a>
+</div>
+<div class=btn-group>
+<a class="btn btn-sm btn-twitter" href=https://twitter.com/TheBramp><i class="fa fa-twitter"></i> Follow @TheBramp</a>
+</div>
+</div>
+</div>
+</div>
+<ul class=pager>
+&nbsp;<li class=previous><a href="/post/2016/08/08/peano-curves/">&larr; Peano Curves</a></li>
+&nbsp;<li class=next><a href="/post/2017/04/01/maven-plugins-on-java-8/"> Maven Plugins on Java 8 &rarr;</a></li>
+</ul>
+<div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
+<script type=text/javascript>var disqus_shortname = 'bramp';
     var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2017\/02\/20\/building-a-better-whats-my-ip-site\/';
     var disqus_title = 'Building a better “What\x27s My IP?” site';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2017\/02\/20\/building-a-better-whats-my-ip-site\/';
@@ -77,4 +238,15 @@ descr:          APNIC Example Project
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a><br/><footer><p class="text-muted credit">&copy; 2017. All rights reserved.</p></footer></div></div><script src=/js/all.min.js></script><script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
+    })();</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+<br/>
+<footer>
+<p class="text-muted credit">&copy; 2017. All rights reserved. </p>
+</footer>
+</div>
+</div>
+<script src=/js/all.min.js></script>
+<script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
+
