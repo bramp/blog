@@ -1,21 +1,153 @@
-<!DOCTYPE html><html lang=en><head><meta charset=utf-8><title>Android Linux SDK revision 6 aapt library bug</title><meta name=description content="UPDATE &#8211; I reported this bug and it was promptly fixed the next day. Read the bug report for solution on how to fix.
-Android 2.2 just came out and along with it came a updated set of SDK tools. I&#8217;ve been using these tools on Windows, but today I took my Linux laptop out and I&#8217;ve been sat in a coffee shop hyped up on caffeine but completely unproductive because I&#8217;m going round in circles with what I think is a bug."><meta name=author content="Andrew Brampton"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo"/><link rel=canonical href="https://blog.bramp.net/post/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/"/><link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title="bramp.net"/><link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title="bramp.net"/><link rel="shortcut icon" href=/favicon.ico type="image/x-icon"/><link rel=apple-touch-icon-precomposed href="/images/favicon.png"/><link rel=apple-touch-icon-precomposed sizes=57x57 href="/images/favicon-57x57.png"/><link rel=apple-touch-icon-precomposed sizes=72x72 href="/images/favicon-72x72.png"/><link rel=apple-touch-icon-precomposed sizes=76x76 href="/images/favicon-76x76.png"/><link rel=apple-touch-icon-precomposed sizes=114x114 href="/images/favicon-114x114.png"/><link rel=apple-touch-icon-precomposed sizes=120x120 href="/images/favicon-120x120.png"/><link rel=apple-touch-icon-precomposed sizes=144x144 href="/images/favicon-144x144.png"/><link rel=apple-touch-icon-precomposed sizes=152x152 href="/images/favicon-152x152.png"/><link rel=apple-touch-icon-precomposed sizes=180x180 href="/images/favicon-180x180.png"/><meta name=msapplication-TileColor content=#4582EC><meta name=msapplication-TileImage content=/images/favicon-144x144.png><meta name=theme-color content=#4582EC><link rel=icon sizes=192x192 href="/images/favicon-192x192.png"/><link href=/css/all.min.css rel=stylesheet><link href=https://fonts.gstatic.com rel=preconnect crossorigin><link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel=stylesheet type=text/css><link href=https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css><meta name=twitter:card content="summary"/><meta name=twitter:site content="@TheBramp"/><meta name=twitter:title content="Android Linux SDK revision 6 aapt library bug"/><meta name=twitter:url content="https://blog.bramp.net/post/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/"/><meta name=twitter:creator content="@TheBramp"/><meta name=twitter:description content="UPDATE &#8211; I reported this bug and it was promptly fixed the next day. Read the bug report for solution on how to fix.
-Android 2.2 just came out and along with it came a updated set of SDK tools. I&#8217;ve been using these tools on Windows, but today I took my Linux laptop out and I&#8217;ve been sat in a coffee shop hyped up on caffeine but completely unproductive because I&#8217;m going round in circles with what I think is a bug."/><meta property=og:type content="article"/><meta property=article:author content="https://www.facebook.com/bramp"/><meta property=article:published_time content="2010-05-23T00:00:00&#43;07:00"/><meta property=article:tag content="aapt"/><meta property=article:tag content="android"/><meta property=article:tag content="bug"/><meta property=article:tag content="sdk"/><meta property=og:url content="https://blog.bramp.net/post/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/"/><meta property=og:site_name content="bramp.net"/><meta property=og:title content="Android Linux SDK revision 6 aapt library bug"/><meta property=og:description content="UPDATE &#8211; I reported this bug and it was promptly fixed the next day. Read the bug report for solution on how to fix.
-Android 2.2 just came out and along with it came a updated set of SDK tools. I&#8217;ve been using these tools on Windows, but today I took my Linux laptop out and I&#8217;ve been sat in a coffee shop hyped up on caffeine but completely unproductive because I&#8217;m going round in circles with what I think is a bug."/><meta property=og:updated_time content="2010-05-23T00:00:00&#43;00:00"/><meta property=og:locale content="en_GB"/><meta name=google-site-verification content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"/><body><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<!DOCTYPE html>
+<html lang=en>
+<head itemscope itemtype=http://schema.org/WebSite>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<link itemprop=url rel=canonical href="https://blog.bramp.net/post/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/"/>
+<title>Android Linux SDK revision 6 aapt library bug</title>
+<meta itemprop=description name=description content="UPDATE &#8211; I reported this bug and it was promptly fixed the next day. Read the bug report for solution on how to fix.
+Android 2.2 just came out and along with it came a updated set of SDK tools. …">
+<meta itemprop=creator name=author content="Andrew Brampton">
+<meta name=generator content=""/>
+<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title="bramp.net"/>
+<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title="bramp.net"/>
+<link rel="shortcut icon" href=/favicon.ico type="image/x-icon"/>
+<link rel=apple-touch-icon-precomposed href="/images/favicon.png"/>
+<link rel=apple-touch-icon-precomposed sizes=57x57 href="/images/favicon-57x57.png"/>
+<link rel=apple-touch-icon-precomposed sizes=72x72 href="/images/favicon-72x72.png"/>
+<link rel=apple-touch-icon-precomposed sizes=76x76 href="/images/favicon-76x76.png"/>
+<link rel=apple-touch-icon-precomposed sizes=114x114 href="/images/favicon-114x114.png"/>
+<link rel=apple-touch-icon-precomposed sizes=120x120 href="/images/favicon-120x120.png"/>
+<link rel=apple-touch-icon-precomposed sizes=144x144 href="/images/favicon-144x144.png"/>
+<link rel=apple-touch-icon-precomposed sizes=152x152 href="/images/favicon-152x152.png"/>
+<link rel=apple-touch-icon-precomposed sizes=180x180 href="/images/favicon-180x180.png"/>
+<meta name=msapplication-TileColor content=#4582EC>
+<meta name=msapplication-TileImage content=/images/favicon-144x144.png>
+<meta name=theme-color content=#4582EC>
+<link rel=icon sizes=192x192 href="/images/favicon-192x192.png"/>
+<link href=/css/all.min.css rel=stylesheet>
+<link href=https://fonts.gstatic.com rel=preconnect crossorigin>
+<link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel=stylesheet type=text/css>
+<link href=https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css>
+<meta name=twitter:card content="summary"/>
+<meta name=twitter:site content="@TheBramp"/>
+<meta name=twitter:creator content="@TheBramp"/>
+<meta property=og:type content="article"/>
+<meta property=article:author content="https://www.facebook.com/bramp"/>
+<meta property=article:published_time content="2010-05-23T00:00:00&#43;07:00"/>
+<meta property=article:tag content="aapt"/>
+<meta property=article:tag content="android"/>
+<meta property=article:tag content="bug"/>
+<meta property=article:tag content="sdk"/>
+<meta property=og:url content="https://blog.bramp.net/post/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/"/>
+<meta property=og:site_name content="bramp.net"/>
+<meta property=og:title content="Android Linux SDK revision 6 aapt library bug"/>
+<meta property=og:description content="UPDATE &#8211; I reported this bug and it was promptly fixed the next day. Read the bug report for solution on how to fix.
+Android 2.2 just came out and along with it came a updated set of SDK tools. …"/>
+<meta property=og:updated_time content="2010-05-23T00:00:00&#43;00:00"/>
+<meta property=og:locale content="en_GB"/>
+<meta name=google-site-verification content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"/>
+
+<body itemscope itemtype=Blog>
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-136478-5', 'auto');
     ga('require', 'linkid', 'linkid.js');
-    ga('send', 'pageview');</script><div id=wrapper><div class="navbar navbar-default"><div class=container><div class=navbar-header><button type=button class=navbar-toggle data-toggle=collapse data-target=.navbar-collapse><span class=sr-only>Toggle navigation</span> <span class=icon-bar></span> <span class=icon-bar></span> <span class=icon-bar></span></button><div class=navbar-brand aria-label="About Andrew Brampton"><a href="/"><img src=/images/favicon-64x64.png class=profile-image alt=Home></a><div><a href="/about-me/">Andrew Brampton</a><div id=social-wrapper><a href=https://twitter.com/TheBramp aria-label=Twitter><i class="fa fa-twitter-square"></i></a> <a href=https://www.linkedin.com/in/bramp aria-label=LinkedIn><i class="fa fa-linkedin-square"></i></a> <a href=https://www.facebook.com/bramp aria-label=Facebook><i class="fa fa-facebook-square"></i></a> <a href=https://github.com/bramp aria-label=GitHub><i class="fa fa-github-square"></i></a> <a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed"><i class="fa fa-rss-square"></i></a></div></div></div></div><div class="navbar-collapse collapse"><ul class="nav navbar-nav" role=navigation><li><a href="/">Articles</a></li><li><a href="/about-me/">About Me</a></li><li><a href="/android-app/">Android Apps</a></li><li><a href="/opensource/">Open Source</a></li><li><a href="/publication/">Publications</a></li></ul></div></div></div><div class="container main"><div id=article><h1>Android Linux SDK revision 6 aapt library bug</h1><p class=meta><i class="fa fa-calendar-o"></i> 2010-05-23 | <a href="https://blog.bramp.net/tags/aapt/">aapt</a> | <a href="https://blog.bramp.net/tags/android/">android</a> | <a href="https://blog.bramp.net/tags/bug/">bug</a> | <a href="https://blog.bramp.net/tags/sdk/">sdk</a></p><div class=post><p><strong>UPDATE &#8211; I <a href="http://code.google.com/p/android/issues/detail?id=8498">reported this bug</a> and it was promptly fixed the next day. Read the <a href="http://code.google.com/p/android/issues/detail?id=8498">bug report</a> for solution on how to fix.</strong></p><p><a href=http://android-developers.blogspot.com/2010/05/android-22-and-developers-goodies.html>Android 2.2</a> just came out and along with it came a updated set of <a href=http://developer.android.com/sdk/tools-notes.html>SDK tools</a>. I&#8217;ve been using these tools on Windows, but today I took my Linux laptop out and I&#8217;ve been sat in a <a href="http://www.juicafe.co.uk/">coffee shop</a> hyped up on caffeine but completely unproductive because I&#8217;m going round in circles with what I think is a bug.</p><p>So, I&#8217;m trying the <a href=http://developer.android.com/guide/developing/other-ide.html#libraryProject>new library feature</a>, where you can have a Android library project, which is referenced by one or more Android projects. This allows multiple projects to easily share the same code. The problem is when I set-up my Android project to use a library project I get the following error printed in my eclipse console:</p><div class=highlight><pre><code class=language-text data-lang=text>ERROR: Unknown option &#39;--auto-add-overlay&#39;
+    ga('send', 'pageview');</script>
+<div id=wrapper>
+<div class="navbar navbar-default">
+<div class=container>
+<div class=navbar-header>
+<button type=button class=navbar-toggle data-toggle=collapse data-target=.navbar-collapse>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<div class=navbar-brand aria-label="About Andrew Brampton">
+<a href="/">
+<img src=/images/favicon-64x64.png class=profile-image alt=Home>
+</a>
+<div itemprop=author itemscope itemtype=https://schema.org/Person>
+<a href="/about-me/" itemprop=name>Andrew Brampton</a>
+<div id=social-wrapper>
+<a href=https://twitter.com/TheBramp aria-label=Twitter><i class="fa fa-twitter-square"></i></a>
+<a href=https://www.linkedin.com/in/bramp aria-label=LinkedIn><i class="fa fa-linkedin-square"></i></a>
+<a href=https://www.facebook.com/bramp aria-label=Facebook><i class="fa fa-facebook-square"></i></a>
+<a href=https://github.com/bramp aria-label=GitHub><i class="fa fa-github-square"></i></a>
+<a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed"><i class="fa fa-rss-square"></i></a>
+</div>
+</div>
+</div>
+</div>
+<div class="navbar-collapse collapse">
+<ul class="nav navbar-nav" role=navigation>
+<li><a href="/">Articles</a></li>
+<li><a href="/about-me/">About Me</a></li>
+<li><a href="/android-app/">Android Apps</a></li>
+<li><a href="/opensource/">Open Source</a></li>
+<li><a href="/publication/">Publications</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="container main">
+<article id=article itemProp=blogPost itemscope itemtype=http://schema.org/BlogPosting>
+<h1 itemprop=headline>Android Linux SDK revision 6 aapt library bug</h1>
+<p class=meta>
+<i class="fa fa-calendar-o"></i> <time itemprop=datePublished>2010-05-23</time>
+| <a href="https://blog.bramp.net/tags/aapt/">aapt</a>
+| <a href="https://blog.bramp.net/tags/android/">android</a>
+| <a href="https://blog.bramp.net/tags/bug/">bug</a>
+| <a href="https://blog.bramp.net/tags/sdk/">sdk</a>
+</p>
+<div class=post itemprop=articleBody>
+<p><strong>UPDATE &#8211; I <a href="http://code.google.com/p/android/issues/detail?id=8498">reported this bug</a> and it was promptly fixed the next day. Read the <a href="http://code.google.com/p/android/issues/detail?id=8498">bug report</a> for solution on how to fix.</strong></p>
+<p><a href=http://android-developers.blogspot.com/2010/05/android-22-and-developers-goodies.html>Android 2.2</a> just came out and along with it came a updated set of <a href=http://developer.android.com/sdk/tools-notes.html>SDK tools</a>. I&#8217;ve been using these tools on Windows, but today I took my Linux laptop out and I&#8217;ve been sat in a <a href="http://www.juicafe.co.uk/">coffee shop</a> hyped up on caffeine but completely unproductive because I&#8217;m going round in circles with what I think is a bug.</p>
+<p>So, I&#8217;m trying the <a href=http://developer.android.com/guide/developing/other-ide.html#libraryProject>new library feature</a>, where you can have a Android library project, which is referenced by one or more Android projects. This allows multiple projects to easily share the same code. The problem is when I set-up my Android project to use a library project I get the following error printed in my eclipse console:</p>
+<div class=highlight><pre><code class=language-text data-lang=text>ERROR: Unknown option &#39;--auto-add-overlay&#39;
 Android Asset Packaging Tool
-</code></pre></div><p>and the code fails to compile. If I remove the reference to the library project this error goes away.</p><p>The error is coming from the aapt command, which seems to be installed multiple times, once for each SDK version:</p><div class=highlight><pre><code class=language-bash data-lang=bash><span class=nv>$ </span>locate -r <span class=s2>&quot;aapt</span><span class=nv>$&quot;</span><span class=s2></span>
+</code></pre></div>
+<p>and the code fails to compile. If I remove the reference to the library project this error goes away.</p>
+<p>The error is coming from the aapt command, which seems to be installed multiple times, once for each SDK version:</p>
+<div class=highlight><pre><code class=language-bash data-lang=bash><span class=nv>$ </span>locate -r <span class=s2>&quot;aapt</span><span class=nv>$&quot;</span><span class=s2></span>
 <span class=s2>/home/bramp/android-sdk-linux_86/platforms/android-3/tools/aapt</span>
 <span class=s2>/home/bramp/android-sdk-linux_86/platforms/android-4/tools/aapt</span>
 <span class=s2>/home/bramp/android-sdk-linux_86/platforms/android-7/tools/aapt</span>
 <span class=s2>/home/bramp/android-sdk-linux_86/platforms/android-8/tools/aapt</span>
-</code></pre></div><p>Checking each command I see that only versions 7 and 8 have the <em>&#8211;auto-add-overlay</em> option. Both my library and main projects are targeted at Android 1.6 (i.e. android-4). I tried re-targeting my main project to Android 2.2 (i.e. android-8) and the problem seems to go away.</p><p>So for the moment this seems an annoyance, but I can live with it by setting my target to 2.2. Hopefully Google will release a fix so I can still use the older targets with the new library feature.</p><p><strong>Just a quick update:</strong><br/>I noticed that on Windows all versions of the aapt tool support the &#8216;&#8211;auto-add-overlay&#8217; option. So what I suspect has happened is that someone forgot to update the aapt binary for the old platforms.</p></div></div><div class=row><div class=col-sm-6><div class=addthis_sharing_toolbox></div></div><div class=col-sm-6><div class=btn-toolbar><div class=btn-group><a class="btn btn-sm btn-soundcloud" href=https://feeds.feedburner.com/brampnet aria-label="RSS feed"><i class="fa fa-rss-square"></i> Subscribe via RSS</a></div><div class=btn-group><a class="btn btn-sm btn-twitter" href=https://twitter.com/TheBramp><i class="fa fa-twitter"></i> Follow @TheBramp</a></div></div></div></div><ul class=pager>&nbsp;<li class=previous><a href="/post/2010/05/11/python-close_fds-issue/">&larr; Python close_fds issue</a></li>&nbsp;<li class=next><a href="/post/2010/05/24/fullscreen-hack-for-flash-10.1/">Fullscreen Hack for Flash 10.1 &rarr;</a></li></ul><div id=disqus_thread></div><script type=text/javascript>var disqus_shortname = 'bramp';
+</code></pre></div>
+<p>Checking each command I see that only versions 7 and 8 have the <em>&#8211;auto-add-overlay</em> option. Both my library and main projects are targeted at Android 1.6 (i.e. android-4). I tried re-targeting my main project to Android 2.2 (i.e. android-8) and the problem seems to go away.</p>
+<p>So for the moment this seems an annoyance, but I can live with it by setting my target to 2.2. Hopefully Google will release a fix so I can still use the older targets with the new library feature.</p>
+<p><strong>Just a quick update:</strong><br/>
+I noticed that on Windows all versions of the aapt tool support the &#8216;&#8211;auto-add-overlay&#8217; option. So what I suspect has happened is that someone forgot to update the aapt binary for the old platforms.</p>
+</div>
+</article>
+<div class=row>
+<div class=col-sm-6>
+<div class=addthis_sharing_toolbox></div>
+</div>
+<div class=col-sm-6>
+<div class=btn-toolbar>
+<div class=btn-group>
+<a class="btn btn-sm btn-soundcloud" href=https://feeds.feedburner.com/brampnet aria-label="RSS feed">
+<i class="fa fa-rss-square"></i> Subscribe via RSS</a>
+</div>
+<div class=btn-group>
+<a class="btn btn-sm btn-twitter" href=https://twitter.com/TheBramp><i class="fa fa-twitter"></i> Follow @TheBramp</a>
+</div>
+</div>
+</div>
+</div>
+<ul class=pager>
+&nbsp;<li class=previous><a href="/post/2010/05/11/python-close_fds-issue/">&larr; Python close_fds issue</a></li>
+&nbsp;<li class=next><a href="/post/2010/05/24/fullscreen-hack-for-flash-10.1/"> Fullscreen Hack for Flash 10.1 &rarr;</a></li>
+</ul>
+<div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
+<script type=text/javascript>var disqus_shortname = 'bramp';
     var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2010\/05\/23\/android-linux-sdk-revision-6-aapt-library-bug\/';
     var disqus_title = 'Android Linux SDK revision 6 aapt library bug';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2010\/05\/23\/android-linux-sdk-revision-6-aapt-library-bug\/';
@@ -28,4 +160,15 @@ Android Asset Packaging Tool
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a><br/><footer><p class="text-muted credit">&copy; 2017. All rights reserved.</p></footer></div></div><script src=/js/all.min.js></script><script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
+    })();</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+<br/>
+<footer>
+<p class="text-muted credit">&copy; 2017. All rights reserved. </p>
+</footer>
+</div>
+</div>
+<script src=/js/all.min.js></script>
+<script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
+
