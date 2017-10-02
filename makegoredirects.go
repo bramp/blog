@@ -22,13 +22,17 @@ import (
 )
 
 const VANITY = "bramp.net"
-const OUTPUT = "static"
+const OUTPUT = "public"
 const TEMPLATE = `<html>
 <head>
 <meta name="go-import" content="{{.Name}} git {{.RepoURL}}">
 <meta http-equiv="refresh" content="0; url={{.SiteURL}}" />
+<link rel="canonical" href="{{.SiteURL}}" />
+<script>
+	window.location.replace("{{.SiteURL}}");
+</script>
 </head>
-<body onload="window.location = '{{.SiteURL}}'">
+<body>
 	<h1>Redirecting to <a href="{{.SiteURL}}">{{.SiteURL}}</a></h1>
 </body>
 </html>
