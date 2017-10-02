@@ -1,4 +1,4 @@
-.PHONY: all clean minified server watch help
+.PHONY: all clean minified server watch help goredirects
 
 HUGO := ./hugo.sh
 NODE_MODULES := node_modules/.bin
@@ -41,7 +41,7 @@ watch: clean
 	$(HUGO) server -w -D -F -v --bind="0.0.0.0"
 
 # Below are file based targets
-public: $(FILES) config.yaml
+public: $(FILES) config.yaml goredirects
 	$(HUGO)
 
 	# Post process some files (to make the HTML more bootstrap friendly)
@@ -58,6 +58,9 @@ public: $(FILES) config.yaml
 
 	# Ensure the public folder has it's mtime updated.
 	touch $@
+
+goredirects:
+	go run makegoredirects.go
 
 .minified: public html-minifier.conf public/css/all.min.css public/js/all.min.js
 	# Find all HTML and in parallel run the minifier
