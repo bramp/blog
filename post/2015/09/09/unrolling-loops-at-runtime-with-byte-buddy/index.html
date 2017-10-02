@@ -45,7 +45,7 @@
 <meta property=og:updated_time content="2015-09-09T20:29:04-07:00"/>
 <meta property=og:locale content="en_GB"/>
 <meta name=google-site-verification content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"/>
-
+</head>
 <body itemscope itemtype=Blog>
 <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -309,40 +309,40 @@
 <table class=table>
 <thead>
 <tr>
-<th>Benchmark
-<th>Mode
-<th>Cnt
-<th>Score
-<th>Error
-<th>Units
-
-
+<th>Benchmark</th>
+<th>Mode</th>
+<th>Cnt</th>
+<th>Score</th>
+<th>Error</th>
+<th>Units</th>
+</tr>
+</thead>
 <tbody>
 <tr>
-<td>Loop
-<td>thrpt
-<td>25
-<td>218.056
-<td>± 11.123
-<td>ops/us
-
+<td>Loop</td>
+<td>thrpt</td>
+<td>25</td>
+<td>218.056</td>
+<td>± 11.123</td>
+<td>ops/us</td>
+</tr>
 <tr>
-<td>Hand Unrolled
-<td>thrpt
-<td>25
-<td>430.376
-<td>± 27.448
-<td>ops/us
-
+<td>Hand Unrolled</td>
+<td>thrpt</td>
+<td>25</td>
+<td>430.376</td>
+<td>± 27.448</td>
+<td>ops/us</td>
+</tr>
 <tr>
-<td>Byte Buddy Unrolled
-<td>thrpt
-<td>25
-<td>437.139
-<td>± 22.811
-<td>ops/us
-
-
+<td>Byte Buddy Unrolled</td>
+<td>thrpt</td>
+<td>25</td>
+<td>437.139</td>
+<td>± 22.811</td>
+<td>ops/us</td>
+</tr>
+</tbody>
 </table>
 <p>The loop code can execute ~218 times per microseconds, whereas both the Byte Buddy, and hand unrolled code had near identical performance, of ~430-437 iterations per microsecond, nearly twice as fast. Of course, not measured here is the startup cost of generating the unrolled code. It is assumed this technique would only be used when the generated code would exist for a long time. Otherwise the setup cost undoes any per execution savings.</p>
 <h2 id=conclusion>Conclusion</h2>
@@ -403,4 +403,5 @@
 </div>
 <script src=/js/all.min.js></script>
 <script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
-
+</body>
+</html>
