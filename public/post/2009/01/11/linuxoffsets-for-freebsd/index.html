@@ -46,7 +46,7 @@
 <meta property=og:updated_time content="2009-01-11T00:00:00&#43;00:00"/>
 <meta property=og:locale content="en_GB"/>
 <meta name=google-site-verification content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"/>
-
+</head>
 <body itemscope itemtype=Blog>
 <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -110,98 +110,98 @@
 <table class=table>
 <thead>
 <tr>
-<th>
-<th>Linux Values
-<th>FreeBSD 7.1 Values
-<th>Notes
-
-
+<th></th>
+<th>Linux Values</th>
+<th>FreeBSD 7.1 Values</th>
+<th>Notes</th>
+</tr>
+</thead>
 <tbody>
 <tr>
-<td>&lt;version&gt;
-<td>
-<td>
-<td>Version number of linux kernel, ie 0x020609 (2.6.9)
-
+<td>&lt;version&gt;</td>
+<td></td>
+<td></td>
+<td>Version number of linux kernel, ie 0x020609 (2.6.9)</td>
+</tr>
 <tr>
-<td>&lt;mm&gt;
-<td>task_struct-&gt;mm
-<td>
-<td>
-
+<td>&lt;mm&gt;</td>
+<td>task_struct-&gt;mm</td>
+<td></td>
+<td></td>
+</tr>
 <tr>
-<td>&lt;next_task&gt;
-<td>task_struct-&gt;next_task (linux &lt; 2.4.15)
-<td>struct proc-&gt;p_list-&gt;le_next
-<td>Pointer to next task struct
-
+<td>&lt;next_task&gt;</td>
+<td>task_struct-&gt;next_task (linux &lt; 2.4.15)</td>
+<td>struct proc-&gt;p_list-&gt;le_next</td>
+<td>Pointer to next task struct</td>
+</tr>
 <tr>
-<td>&lt;tasks&gt;
-<td>task_struct-&gt;tasks (linux &gt;= 2.4.15)
-<td>0
-<td>Pointers to prev and next task struct
-
+<td>&lt;tasks&gt;</td>
+<td>task_struct-&gt;tasks (linux &gt;= 2.4.15)</td>
+<td>0</td>
+<td>Pointers to prev and next task struct</td>
+</tr>
 <tr>
-<td>&lt;comm&gt;
-<td>task_struct-&gt;comm
-<td>struct proc-&gt;p_comm
-<td>executable name
-
+<td>&lt;comm&gt;</td>
+<td>task_struct-&gt;comm</td>
+<td>struct proc-&gt;p_comm</td>
+<td>executable name</td>
+</tr>
 <tr>
-<td>&lt;pid&gt;
-<td>task_struct-&gt;pid
-<td>struct proc-&gt;p_pid
-<td>pid of the process
-
+<td>&lt;pid&gt;</td>
+<td>task_struct-&gt;pid</td>
+<td>struct proc-&gt;p_pid</td>
+<td>pid of the process</td>
+</tr>
 <tr>
-<td>&lt;thread&gt;
-<td>task_struct-&gt;thread
-<td>
-<td>
-
+<td>&lt;thread&gt;</td>
+<td>task_struct-&gt;thread</td>
+<td></td>
+<td></td>
+</tr>
 <tr>
-<td>&lt;pgd&gt;
-<td>mm_struct-&gt;pgd
-<td>
-<td>
-
+<td>&lt;pgd&gt;</td>
+<td>mm_struct-&gt;pgd</td>
+<td></td>
+<td></td>
+</tr>
 <tr>
-<td>&lt;rsp0/esp0&gt;
-<td>thread_struct-&gt;rsp0 (or thread_struct-&gt;esp0 32bit)
-<td>struct thread-&gt;td_sigstk-&gt;ss_sp
-<td>
-
+<td>&lt;rsp0/esp0&gt;</td>
+<td>thread_struct-&gt;rsp0 (or thread_struct-&gt;esp0 32bit)</td>
+<td>struct thread-&gt;td_sigstk-&gt;ss_sp</td>
+<td></td>
+</tr>
 <tr>
-<td>&lt;fs&gt;
-<td>thread_struct-&gt;fs
-<td>
-<td>
-
+<td>&lt;fs&gt;</td>
+<td>thread_struct-&gt;fs</td>
+<td></td>
+<td></td>
+</tr>
 <tr>
-<td>&lt;threadsize&gt;
-<td>0x2000 or sizeof(union thread_union-&gt;stack) (linux &gt;= 2.6)
-<td>
-<td>
-
+<td>&lt;threadsize&gt;</td>
+<td>0x2000 or sizeof(union thread_union-&gt;stack) (linux &gt;= 2.6)</td>
+<td></td>
+<td></td>
+</tr>
 <tr>
-<td>&lt;grouplead&gt;
-<td>task_struct-&gt;group_leader (linux &gt;= 2.6.11)
-<td>0
-<td>
-
+<td>&lt;grouplead&gt;</td>
+<td>task_struct-&gt;group_leader (linux &gt;= 2.6.11)</td>
+<td>0</td>
+<td></td>
+</tr>
 <tr>
-<td>&lt;threadgroup&gt;
-<td>task_struct-&gt;thread_group (linux &gt;= 2.6.11)
-<td>0
-<td>
-
+<td>&lt;threadgroup&gt;</td>
+<td>task_struct-&gt;thread_group (linux &gt;= 2.6.11)</td>
+<td>0</td>
+<td></td>
+</tr>
 <tr>
-<td>&lt;commsize&gt;
-<td>sizeof(struct task_struct-&gt;comm)
-<td>sizeof(struct proc-&gt;p_comm)
-<td>executable name’s max len
-
-
+<td>&lt;commsize&gt;</td>
+<td>sizeof(struct task_struct-&gt;comm)</td>
+<td>sizeof(struct proc-&gt;p_comm)</td>
+<td>executable name’s max len</td>
+</tr>
+</tbody>
 </table>
 <p>However, after some time I feel this isn&#8217;t going to be possible. Each value represents a offset into a Linux task_struct struct, however, nothing represents the location of the first task_struct in RAM. I suspect VMWare is figuring out the location via some other means. Since FreeBSD doesn&#8217;t have a task_struct it most likely won&#8217;t be able to find what it needs.</p>
 <p>Regardless I&#8217;ve posted this entry in case someone wants to continue my work. However, not all is lost as my next solution involves playing with gdb-python.</p>
@@ -252,4 +252,5 @@
 </div>
 <script src=/js/all.min.js></script>
 <script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
-
+</body>
+</html>
