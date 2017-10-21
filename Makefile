@@ -5,6 +5,7 @@ NODE_MODULES := node_modules/.bin
 HTML_MINIFIER := $(NODE_MODULES)/html-minifier -c html-minifier.conf
 UGLIFYJS := $(NODE_MODULES)/uglifyjs
 CLEANCSS := $(NODE_MODULES)/cleancss
+GOREDIRECTS := goredirects
 
 # All input files
 FILES=$(shell find content static themes -type f)
@@ -60,7 +61,7 @@ public: $(FILES) config.yaml goredirects
 	touch $@
 
 goredirects:
-	go run makegoredirects.go
+	$(GOREDIRECTS) bramp.net public
 
 .minified: public html-minifier.conf public/css/all.min.css public/js/all.min.js
 	# Find all HTML and in parallel run the minifier
