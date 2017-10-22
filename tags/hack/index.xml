@@ -20,12 +20,11 @@
 &lt;p&gt;For example, there is a simple proxy called &lt;a href=&#34;https://github.com/atmos/camo&#34;&gt;Camo&lt;/a&gt;, which is used to fetch third party images when you need to display them on a SSL secure site. (Read more about Camo on the &lt;a href=&#34;https://github.com/blog/743-sidejack-prevention-phase-3-ssl-proxied-assets&#34;&gt;GitHub blog&lt;/a&gt;).&lt;/p&gt;
 
 &lt;p&gt;This kind of application can be incorrectly setup such that the application has access to internal servers and resources that wouldn&amp;#8217;t normally be exposed to the Internet. This make the proxy application a good way a hacker could gain information about a private network. However Camo tries to address this issue by forbidding URLs that contain private IP addresses. It does a check like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-coffeescript&#34; data-lang=&#34;coffeescript&#34;&gt;&lt;span class=&#34;nv&#34;&gt;RESTRICTED_IPS = &lt;/span&gt;&lt;span class=&#34;sr&#34;&gt;/^((10\.)|(127\.)|(169\.254)|(192\.168)|(172\.((1[6-9])|(2[0-9])|(3[0-1]))))/&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-coffeescript&#34; data-lang=&#34;coffeescript&#34;&gt;&lt;span class=&#34;s7e3&#34;&gt;RESTRICTED_IPS = &lt;/span&gt;&lt;span class=&#34;sc2a&#34;&gt;/^((10\.)|(127\.)|(169\.254)|(192\.168)|(172\.((1[6-9])|(2[0-9])|(3[0-1]))))/&lt;/span&gt;
 
-&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;host&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;match&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;RESTRICTED_IPS&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;four_oh_four&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;resp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;Hitting excluded hostnames&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt; (url.host.match(RESTRICTED_IPS))
+  &lt;span class=&#34;s3e8&#34;&gt;return&lt;/span&gt; four_oh_four(resp, &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;Hitting excluded hostnames&amp;#34;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;This code (written for &lt;a href=&#34;http://nodejs.org/&#34;&gt;Node.js&lt;/a&gt; in &lt;a href=&#34;http://coffeescript.org/&#34;&gt;CoffeeScript&lt;/a&gt;) is taking a &lt;a href=&#34;http://nodejs.org/api/url.html&#34;&gt;url object&lt;/a&gt; and checking the hostname doesn&amp;#8217;t match a restricted address. This works great against URLs such as &lt;a href=&#34;http://127.0.0.1/&#34;&gt;http://127.0.0.1/&lt;/a&gt;, or &lt;a href=&#34;http://10.0.0.1/&#34;&gt;http://10.0.0.1/&lt;/a&gt;, however this check can easily be defeated. If you create a domain name, such as localhost.bramp.net, which resolves to 127.0.0.1, and ask the proxy to fetch &lt;a href=&#34;http://localhost.bramp.net/&#34;&gt;http://localhost.bramp.net/&lt;/a&gt;, then it won&amp;#8217;t be caught by that check. Now the proxy will continue to try and fetch a resource from 127.0.0.1.&lt;/p&gt;
 
 &lt;p&gt;The solution to this problem is to do that IP address check &lt;strong&gt;after&lt;/strong&gt; the DNS name has been resolved. This can also be problematic if you use a standard library for making web requests, as they will do the DNS lookup for you, and don&amp;#8217;t give you the fine grain control you need. For example, I&amp;#8217;ve seen this be a problem for a Java application using the &lt;a href=&#34;http://hc.apache.org/httpclient-3.x/&#34;&gt;Apache HTTP Client&lt;/a&gt;.&lt;/p&gt;
@@ -33,22 +32,21 @@
 &lt;p&gt;One might naively assume they could do a DNS check, and then hand the processing to a HTTP library to make the actual request. The issue here is that the DNS record the HTTP library uses might not be the same as the one you checked against with the DNS check. For example, many domains have multiple A records, and some DNS servers can be configured to round robin DNS records. If you can&amp;#8217;t be sure the HTTP library will do another DNS requests, then you&amp;#8217;d be vulnerable.&lt;/p&gt;
 
 &lt;p&gt;Luckily, in Camo&amp;#8217;s case the fix was relatively easy (see my &lt;a href=&#34;https://github.com/atmos/camo/pull/19&#34;&gt;pull request&lt;/a&gt;).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-coffeescript&#34; data-lang=&#34;coffeescript&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# We do DNS lookup ourselves&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;Dns&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;lookup&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;host&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;(err, address, family) -&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;address&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;match&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;RESTRICTED_IPS&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;four_oh_four&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;resp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;Hitting excluded hostnames&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-coffeescript&#34; data-lang=&#34;coffeescript&#34;&gt;&lt;span class=&#34;s1770&#34;&gt;# We do DNS lookup ourselves
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;Dns.lookup url.host, &lt;span class=&#34;s7d9&#34;&gt;(err, address, family) -&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt; address.match(RESTRICTED_IPS)
+    &lt;span class=&#34;s3e8&#34;&gt;return&lt;/span&gt; four_oh_four(resp, &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;Hitting excluded hostnames&amp;#34;&lt;/span&gt;)
 
-  &lt;span class=&#34;c1&#34;&gt;# We connect to the IP address, not hostname&lt;/span&gt;
-  &lt;span class=&#34;nv&#34;&gt;src = &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;createClient&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;port&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;80&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;address&lt;/span&gt;
+  &lt;span class=&#34;s1770&#34;&gt;# We connect to the IP address, not hostname
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;s7e3&#34;&gt;src = &lt;/span&gt;Http.createClient url.port &lt;span class=&#34;sfa0&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;sc80&#34;&gt;80&lt;/span&gt;, address
 
-  &lt;span class=&#34;c1&#34;&gt;# We add a host header, so the request will work&lt;/span&gt;
-  &lt;span class=&#34;nv&#34;&gt;headers = &lt;/span&gt;
-    &lt;span class=&#34;s&#34;&gt;&amp;quot;Host&amp;#39; : url.host&lt;/span&gt;
-
-&lt;span class=&#34;s&#34;&gt;  # Boom, we make the request&lt;/span&gt;
-&lt;span class=&#34;s&#34;&gt;  srcReq = src.request &amp;#39;GET&amp;#39;, query_path, headers&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+  &lt;span class=&#34;s1770&#34;&gt;# We add a host header, so the request will work
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;s7e3&#34;&gt;headers = &lt;/span&gt;
+    &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;Host&amp;#39; : url.host
+&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;  # Boom, we make the request
+&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;  srcReq = src.request &amp;#39;GET&amp;#39;, query_path, headers&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;The above code was simplified a little from the real code, but basically we do the DNS lookup, check the returned address is good, and then make a HTTP request to that IP address with a &lt;code&gt;Host:&lt;/code&gt; header to ensure the request will work.&lt;/p&gt;
 
 &lt;p&gt;Really though, the correct solution to this is to configure a suitably paranoid firewall to stop requests from the proxy machine to anything internal. However, as with all security, the more &lt;a href=&#34;http://en.wikipedia.org/wiki/Swiss_cheese_model&#34;&gt;layers of protection&lt;/a&gt; you have the better, and you should never depend on just one.&lt;/p&gt;</description>
@@ -63,37 +61,35 @@
       <description>&lt;p&gt;PHP&amp;#8217;s lack of a finally keyword is apalling, and even though there seems to be some hacks around it, I have come up with own today. I&amp;#8217;m following the C++ concept of allocating objects on the stack, and letting them cleanup any resources when the stack is rolled back.&lt;/p&gt;
 
 &lt;p&gt;Take an example. I am creating some files that I want to always be deleted after the script has finished. In any sane language (that has Exceptions) I would write:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;x&#34;&gt;try {&lt;/span&gt;
-&lt;span class=&#34;x&#34;&gt;  // Create files&lt;/span&gt;
-&lt;span class=&#34;x&#34;&gt;  // Do something with the files&lt;/span&gt;
-&lt;span class=&#34;x&#34;&gt;} finally {&lt;/span&gt;
-&lt;span class=&#34;x&#34;&gt;  // Delete files - This code will run no matter what exceptions or errors occur while creating the files.&lt;/span&gt;
-&lt;span class=&#34;x&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;try {
+  // Create files
+  // Do something with the files
+} finally {
+  // Delete files - This code will run no matter what exceptions or errors occur while creating the files.
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;However, this is the hack I&amp;#8217;ve managed with PHP:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;x&#34;&gt;class UnlinkMe {&lt;/span&gt;
-&lt;span class=&#34;x&#34;&gt;    var $filename;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;class UnlinkMe {
+    var $filename;
 
-&lt;span class=&#34;x&#34;&gt;    function __construct($filename) {&lt;/span&gt;
-&lt;span class=&#34;x&#34;&gt;        $this-&amp;gt;filename = $filename;&lt;/span&gt;
-&lt;span class=&#34;x&#34;&gt;    }&lt;/span&gt;
+    function __construct($filename) {
+        $this-&amp;gt;filename = $filename;
+    }
 
-&lt;span class=&#34;x&#34;&gt;    function __destruct() {&lt;/span&gt;
-&lt;span class=&#34;x&#34;&gt;        unlink($this-&amp;gt;filename);&lt;/span&gt;
-&lt;span class=&#34;x&#34;&gt;    }&lt;/span&gt;
-&lt;span class=&#34;x&#34;&gt;}&lt;/span&gt;
+    function __destruct() {
+        unlink($this-&amp;gt;filename);
+    }
+}
 
-&lt;span class=&#34;x&#34;&gt;// To use:&lt;/span&gt;
-&lt;span class=&#34;x&#34;&gt;function doSomething() {&lt;/span&gt;
-&lt;span class=&#34;x&#34;&gt;  $unlinkme = new UnlinkMe(&amp;#39;/tmp/filename&amp;#39;):&lt;/span&gt;
+// To use:
+function doSomething() {
+  $unlinkme = new UnlinkMe(&amp;#39;/tmp/filename&amp;#39;):
 
-&lt;span class=&#34;x&#34;&gt;  // Do some work with the files&lt;/span&gt;
+  // Do some work with the files
 
-&lt;span class=&#34;x&#34;&gt;  return;&lt;/span&gt;
-&lt;span class=&#34;x&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+  return;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Here we are creating a UnlinkMe object, that has a destructor set up to delete a file. This UnlinkMe object is only used in the doSomething() function. Once that function returns, there are no longer any references to the object. When PHP decides to garbage collect (to free up some memory), it will destroy the UnlinkMe object, and thus call the __destruct method. Voila, we now call unlink and have cleaned up the file, even after the script has finished running.&lt;/p&gt;
 
 &lt;p&gt;There is lots of room for improvement, and this technique has lots of gotchas. For example, PHP has some bizzare rules for when __destruct method will not be called. So please don&amp;#8217;t rely on this technique, but it might be useful, and keep your code cleaner and more organised.&lt;/p&gt;

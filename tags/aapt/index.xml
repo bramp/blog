@@ -20,20 +20,18 @@
 &lt;p&gt;&lt;a href=&#34;http://android-developers.blogspot.com/2010/05/android-22-and-developers-goodies.html&#34;&gt;Android 2.2&lt;/a&gt; just came out and along with it came a updated set of &lt;a href=&#34;http://developer.android.com/sdk/tools-notes.html&#34;&gt;SDK tools&lt;/a&gt;. I&amp;#8217;ve been using these tools on Windows, but today I took my Linux laptop out and I&amp;#8217;ve been sat in a &lt;a href=&#34;http://www.juicafe.co.uk/&#34;&gt;coffee shop&lt;/a&gt; hyped up on caffeine but completely unproductive because I&amp;#8217;m going round in circles with what I think is a bug.&lt;/p&gt;
 
 &lt;p&gt;So, I&amp;#8217;m trying the &lt;a href=&#34;http://developer.android.com/guide/developing/other-ide.html#libraryProject&#34;&gt;new library feature&lt;/a&gt;, where you can have a Android library project, which is referenced by one or more Android projects. This allows multiple projects to easily share the same code. The problem is when I set-up my Android project to use a library project I get the following error printed in my eclipse console:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;ERROR: Unknown option &amp;#39;--auto-add-overlay&amp;#39;
-Android Asset Packaging Tool
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;ERROR: Unknown option &amp;#39;--auto-add-overlay&amp;#39;
+Android Asset Packaging Tool&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;and the code fails to compile. If I remove the reference to the library project this error goes away.&lt;/p&gt;
 
 &lt;p&gt;The error is coming from the aapt command, which seems to be installed multiple times, once for each SDK version:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;locate -r &lt;span class=&#34;s2&#34;&gt;&amp;quot;aapt&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$&amp;quot;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&lt;/span&gt;
-&lt;span class=&#34;s2&#34;&gt;/home/bramp/android-sdk-linux_86/platforms/android-3/tools/aapt&lt;/span&gt;
-&lt;span class=&#34;s2&#34;&gt;/home/bramp/android-sdk-linux_86/platforms/android-4/tools/aapt&lt;/span&gt;
-&lt;span class=&#34;s2&#34;&gt;/home/bramp/android-sdk-linux_86/platforms/android-7/tools/aapt&lt;/span&gt;
-&lt;span class=&#34;s2&#34;&gt;/home/bramp/android-sdk-linux_86/platforms/android-8/tools/aapt&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ locate -r &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;aapt&lt;/span&gt;$&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;&lt;/span&gt;
+/home/bramp/android-sdk-linux_86/platforms/android-3/tools/aapt
+/home/bramp/android-sdk-linux_86/platforms/android-4/tools/aapt
+/home/bramp/android-sdk-linux_86/platforms/android-7/tools/aapt
+/home/bramp/android-sdk-linux_86/platforms/android-8/tools/aapt&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Checking each command I see that only versions 7 and 8 have the &lt;em&gt;&amp;#8211;auto-add-overlay&lt;/em&gt; option. Both my library and main projects are targeted at Android 1.6 (i.e. android-4). I tried re-targeting my main project to Android 2.2 (i.e. android-8) and the problem seems to go away.&lt;/p&gt;
 
 &lt;p&gt;So for the moment this seems an annoyance, but I can live with it by setting my target to 2.2. Hopefully Google will release a fix so I can still use the older targets with the new library feature.&lt;/p&gt;

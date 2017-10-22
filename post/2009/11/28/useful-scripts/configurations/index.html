@@ -115,48 +115,48 @@ cp /usr/local/share/examples/nano/nanorc.sample …"/>
 </p>
 <div class=post itemprop=articleBody>
 <p>Make <a href=http://git-scm.com>git</a> colourful</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>git config --global color.diff auto
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>git config --global color.diff auto
 git config --global color.status auto
-git config --global color.branch auto
-</code></pre></div>
+git config --global color.branch auto</code></pre>
+</div>
 <p>Make <a href="http://www.nano-editor.org/">nano</a> colourful</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>cp /usr/local/share/examples/nano/nanorc.sample ~/.nanorc
-<span class=c># or</span>
-zcat /usr/share/doc/nano/examples/nanorc.sample.gz &gt;~/.nanorc
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>cp /usr/local/share/examples/nano/nanorc.sample ~/.nanorc
+<span class=s1770># or
+</span><span class=s1770></span>zcat /usr/share/doc/nano/examples/nanorc.sample.gz &gt;~/.nanorc
 
-<span class=c># then</span>
-nano ~/.nanorc
-</code></pre></div>
+<span class=s1770># then
+</span><span class=s1770></span>nano ~/.nanorc</code></pre>
+</div>
 <p>To trim trailing whitespace from *.cc on Linux (taken from <a href=http://zebert.blogspot.com/2009/06/clean-up-trailing-whitespaces-in.html>this blog</a>):</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>find . -name <span class=s1>&#39;*.cc&#39;</span> -exec sed -i <span class=o>{}</span> -e <span class=s1>&#39;s/[ \t]*$//&#39;</span> <span class=s1>&#39;;&#39;</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>find . -name <span class=sc1c>&#39;*.cc&#39;</span> -exec sed -i <span class=sfa0>{}</span> -e <span class=sc1c>&#39;s/[ \t]*$//&#39;</span> <span class=sc1c>&#39;;&#39;</span></code></pre>
+</div>
 <p>and on BSDs:</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>find . -name <span class=s1>&#39;*.cc&#39;</span> -exec sed -i <span class=s1>&#39;&#39;</span> -e <span class=s1>&#39;s/\ *$//&#39;</span> <span class=o>{}</span> <span class=s1>&#39;;&#39;</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>find . -name <span class=sc1c>&#39;*.cc&#39;</span> -exec sed -i <span class=sc1c>&#39;&#39;</span> -e <span class=sc1c>&#39;s/\ *$//&#39;</span> <span class=sfa0>{}</span> <span class=sc1c>&#39;;&#39;</span></code></pre>
+</div>
 <p>Linux style &#8216;ls&#8217; colours on FreeBSD (taken from <a href=http://www.puresimplicity.net/~hemi/freebsd/misc.html>here</a>):</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash><span class=nb>export </span><span class=nv>CLICOLOR</span><span class=o>=</span><span class=s2>&quot;YES&quot;</span>
-<span class=nb>export </span><span class=nv>LSCOLORS</span><span class=o>=</span><span class=s2>&quot;ExGxFxdxCxDxDxhbadExEx&quot;</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=s7d2>export</span> <span class=s7e3>CLICOLOR</span><span class=sfa0>=</span><span class=sc1c>&#34;YES&#34;</span>
+<span class=s7d2>export</span> <span class=s7e3>LSCOLORS</span><span class=sfa0>=</span><span class=sc1c>&#34;ExGxFxdxCxDxDxhbadExEx&#34;</span></code></pre>
+</div>
 <p>To ensure the http_proxy environmental variable is passed to sudo. Edit the sudoers file by running visudo. Then add the following.</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>Defaults env_keep +<span class=o>=</span> <span class=s2>&quot;ftp_proxy http_proxy https_proxy&quot;</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>Defaults <span class=s7e3>env_keep</span> <span class=sfa0>+=</span> <span class=sc1c>&#34;ftp_proxy http_proxy https_proxy&#34;</span></code></pre>
+</div>
 <p>Bash autocompletion on FreeBSD:</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash><span class=nb>cd</span>  /usr/ports/shells/bash-completion
-sudo make install clean
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=s7d2>cd</span>  /usr/ports/shells/bash-completion
+sudo make install clean</code></pre>
+</div>
 <p>Edit ~/.bashrc and add</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash><span class=k>if</span> <span class=o>[</span> -f /usr/local/etc/bash_completion <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=s3e8>if</span> <span class=sfa0>[</span> -f /usr/local/etc/bash_completion <span class=sfa0>]</span>; <span class=s3e8>then</span>
     . /usr/local/etc/bash_completion
-<span class=k>fi</span>
-</code></pre></div>
+<span class=s3e8>fi</span></code></pre>
+</div>
 <p>Make svn output colorful<br/>
 Edit ~/.subversion/config</p>
-<div class=highlight><pre><code class=language-ini data-lang=ini><span class=k>[helpers]</span>
-<span class=na>diff-cmd</span> <span class=o>=</span> <span class=s>/usr/bin/colordiff</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-ini data-lang=ini><span class=s3e8>[helpers]</span>
+<span class=s7d1>diff-cmd</span> <span class=sfa0>=</span> <span class=sc1c>/usr/bin/colordiff</span></code></pre>
+</div>
 <p>Create diffs with function names and ignoring whitespace</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>svn diff -x -uwp
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>svn diff -x -uwp</code></pre>
+</div>
 <p>To be continued&#8230;</p>
 </div>
 </article>

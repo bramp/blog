@@ -110,11 +110,11 @@
 <h3 id=methodology>Methodology</h3>
 <p>Firstly I found a <a href=http://www.quantcast.com/top-sites-1>list of the 1 million most popular sites</a>. I then picked a number of DNS servers to test against. I chose <a href="http://code.google.com/speed/public-dns/">Google</a>&#8216;s, <a href="http://www.opendns.com/">OpenDNS</a>&#8216;s, my ISP (<a href="http://broadband.sky.com/">Sky/Easynet</a>) and my old ISP&#8217;s (<a href="http://www.plus.net/">Plus.net</a>).</p>
 <p>I decided I would query an <a href=http://en.wikipedia.org/wiki/List_of_DNS_record_types>A record</a> for each of the domains in the list, one at a time, starting with the most popular. I would query each server three times for the same domain name. The ordering was like this:</p>
-<div class=highlight><pre><code class=language-php data-lang=php><span class=x>foreach (domain)</span>
-<span class=x>   for (i =0; i&lt;3;i++)</span>
-<span class=x>      foreach (server)</span>
-<span class=x>         query(server, domain)</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php>foreach (domain)
+   for (i =0; i&lt;3;i++)
+      foreach (server)
+         query(server, domain)</code></pre>
+</div>
 <p>I recorded the time it took for each query to be answered, and I also recorded the replies. I was curious to see if some servers replied with different answers, or if some returned more information, i.e. additional records.</p>
 <p>I <a href=dns.php>wrote a script</a> in PHP 5.3, and ran it from the command line on my Windows Server 2008 machine. The script used PEAR&rsquo;s Net_DNS to craft and send the DNS questions. I was not using my operating system&rsquo;s resolver, and I was not using any form of client side caching. I ran the experiments from my home ADSL connection and as far as I know my ISP was not interfering with my DNS requests in any way. I live in the North West of the UK.</p>
 <h3 id=results>Results</h3>

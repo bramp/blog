@@ -104,8 +104,8 @@
 <div class=post itemprop=articleBody>
 <p>I really like <a href="http://www.bitwizard.nl/mtr/">mtr</a> (the traceroute tool), however, it always bugged me that it launches a GUI app instead of using the <a href=http://en.wikipedia.org/wiki/Curses_(programming_library)>curses</a> interface. You can easily pass the &#8220;-t&#8221; or &#8220;&#8211;curses&#8221; flag to default to the curses interface, but I always forget.</p>
 <p>So today I set about writing a patch for mtr to read a environment varable to force the curses interface. While I was reading the source I noticed there was already a simple undocumented way!</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash><span class=nb>export </span><span class=nv>MTR_OPTIONS</span><span class=o>=</span>-t
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=s7d2>export</span> <span class=s7e3>MTR_OPTIONS</span><span class=sfa0>=</span>-t</code></pre>
+</div>
 <p>Voila the curses interface is now used by default. This is certainly going into my ~/.bashrc</p>
 </div>
 </article>

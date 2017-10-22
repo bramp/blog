@@ -16,63 +16,62 @@
       
       <guid>https://blog.bramp.net/post/2015/08/01/hugo-makefile/</guid>
       <description>&lt;p&gt;While developing my blog using &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt;, I created a simple Makefile to help automate some steps. Hopefully someone else will find this useful:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-make&#34; data-lang=&#34;make&#34;&gt;&lt;span class=&#34;nf&#34;&gt;.PHONY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;all&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;clean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minified&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;server&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;watch&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;help&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-make&#34; data-lang=&#34;make&#34;&gt;&lt;span class=&#34;s7d9&#34;&gt;.PHONY&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; all clean minified server watch help
 
-&lt;span class=&#34;nv&#34;&gt;HUGO&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; hugo
-&lt;span class=&#34;nv&#34;&gt;HTML_MINIFIER&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; html-minifier -c html-minifier.conf
+&lt;span class=&#34;s7e3&#34;&gt;HUGO&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:=&lt;/span&gt; hugo
+&lt;span class=&#34;s7e3&#34;&gt;HTML_MINIFIER&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:=&lt;/span&gt; html-minifier -c html-minifier.conf
 
-&lt;span class=&#34;c&#34;&gt;# All input files&lt;/span&gt;
-&lt;span class=&#34;nv&#34;&gt;FILES&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;shell find content layouts static themes -type f&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;s1770&#34;&gt;# All input files
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s7e3&#34;&gt;FILES&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s3e8&#34;&gt;$(&lt;/span&gt;shell find content layouts static themes -type f&lt;span class=&#34;s3e8&#34;&gt;)&lt;/span&gt;
 
-&lt;span class=&#34;c&#34;&gt;# Below are PHONY targets&lt;/span&gt;
-&lt;span class=&#34;nf&#34;&gt;all&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minified&lt;/span&gt;
+&lt;span class=&#34;s1770&#34;&gt;# Below are PHONY targets
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s7d9&#34;&gt;all&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; public minified
 
-&lt;span class=&#34;nf&#34;&gt;help&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
-	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;Usage: make &amp;lt;command&amp;gt;&amp;quot;&lt;/span&gt;
-	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;  all     Builds the blog and minifies it&amp;quot;&lt;/span&gt;
-	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;  clean   Cleans all build files&amp;quot;&lt;/span&gt;
-	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;  server  Runs a webserver on port 1313 to test the final minified result&amp;quot;&lt;/span&gt;
-	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;  watch   Runs hugo in watch mode, waiting for changes&amp;quot;&lt;/span&gt;
-	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;&amp;quot;&lt;/span&gt;
-	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;New article:&amp;quot;&lt;/span&gt;
-	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;  hugo new post/the_title&amp;quot;&lt;/span&gt;
-	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;  &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$$&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;EDITOR content/post/the_title.md&amp;quot;&lt;/span&gt;
-	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;  make watch&amp;quot;&lt;/span&gt;
-	@echo &lt;span class=&#34;s2&#34;&gt;&amp;quot;  open &amp;quot;&lt;/span&gt;
+&lt;span class=&#34;s7d9&#34;&gt;help&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt;
+	@echo &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;Usage: make &amp;lt;command&amp;gt;&amp;#34;&lt;/span&gt;
+	@echo &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;  all     Builds the blog and minifies it&amp;#34;&lt;/span&gt;
+	@echo &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;  clean   Cleans all build files&amp;#34;&lt;/span&gt;
+	@echo &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;  server  Runs a webserver on port 1313 to test the final minified result&amp;#34;&lt;/span&gt;
+	@echo &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;  watch   Runs hugo in watch mode, waiting for changes&amp;#34;&lt;/span&gt;
+	@echo &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
+	@echo &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;New article:&amp;#34;&lt;/span&gt;
+	@echo &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;  hugo new post/the_title&amp;#34;&lt;/span&gt;
+	@echo &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;  &lt;/span&gt;&lt;span class=&#34;s7e3&#34;&gt;$$&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;EDITOR content/post/the_title.md&amp;#34;&lt;/span&gt;
+	@echo &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;  make watch&amp;#34;&lt;/span&gt;
+	@echo &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;  open &amp;#34;&lt;/span&gt;
 
-&lt;span class=&#34;nf&#34;&gt;clean&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
+&lt;span class=&#34;s7d9&#34;&gt;clean&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt;
 	-rm -rf public
 	-rm .minified
 
-&lt;span class=&#34;nf&#34;&gt;minified&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; .&lt;span class=&#34;n&#34;&gt;minified&lt;/span&gt;
+&lt;span class=&#34;s7d9&#34;&gt;minified&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; .minified
 
-&lt;span class=&#34;nf&#34;&gt;server&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;public&lt;/span&gt;
-	&lt;span class=&#34;nb&#34;&gt;cd &lt;/span&gt;public &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; python -m SimpleHTTPServer 1313
+&lt;span class=&#34;s7d9&#34;&gt;server&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; public
+	&lt;span class=&#34;s7d2&#34;&gt;cd&lt;/span&gt; public &lt;span class=&#34;sfa0&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; python -m SimpleHTTPServer &lt;span class=&#34;sc80&#34;&gt;1313&lt;/span&gt;
 
-&lt;span class=&#34;nf&#34;&gt;watch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;clean&lt;/span&gt;
-	&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;HUGO&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; server -w
+&lt;span class=&#34;s7d9&#34;&gt;watch&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; clean
+	&lt;span class=&#34;s3e8&#34;&gt;$(&lt;/span&gt;HUGO&lt;span class=&#34;s3e8&#34;&gt;)&lt;/span&gt; server -w
 
-&lt;span class=&#34;c&#34;&gt;# Below are file based targets&lt;/span&gt;
-&lt;span class=&#34;nf&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;FILES&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;.&lt;span class=&#34;n&#34;&gt;yaml&lt;/span&gt;
-	&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;HUGO&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;s1770&#34;&gt;# Below are file based targets
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s7d9&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s3e8&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;s7e3&#34;&gt;FILES&lt;/span&gt;&lt;span class=&#34;s3e8&#34;&gt;)&lt;/span&gt; config.yaml
+	&lt;span class=&#34;s3e8&#34;&gt;$(&lt;/span&gt;HUGO&lt;span class=&#34;s3e8&#34;&gt;)&lt;/span&gt;
 
-&lt;span class=&#34;c&#34;&gt;	# Post process some files (to make the HTML more bootstrap friendly)&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;	# Add a table class to all tables&lt;/span&gt;
-	grep -IR --include&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;*.html --null -l -- &lt;span class=&#34;s2&#34;&gt;&amp;quot;&amp;lt;table&amp;quot;&lt;/span&gt; public/ &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; xargs -0 sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/&amp;lt;table/&amp;lt;table class=&amp;quot;table&amp;quot;/g&amp;#39;&lt;/span&gt;
+	&lt;span class=&#34;s1770&#34;&gt;# Post process some files (to make the HTML more bootstrap friendly)
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;s1770&#34;&gt;# Add a table class to all tables
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;	grep -IR --include&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;*.html --null -l -- &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;&amp;lt;table&amp;#34;&lt;/span&gt; public/ | xargs -0 sed -i &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;s/&amp;lt;table/&amp;lt;table class=&amp;#34;table&amp;#34;/g&amp;#39;&lt;/span&gt;
 
-&lt;span class=&#34;c&#34;&gt;	# Replace &amp;quot;align=...&amp;quot;&amp;quot; with class=&amp;quot;test-...&amp;quot;&lt;/span&gt;
-	grep -IR --include&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;*.html --null -l -- &lt;span class=&#34;s2&#34;&gt;&amp;quot;&amp;lt;th&amp;quot;&lt;/span&gt; public/ &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; xargs -0 sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/&amp;lt;th align=&amp;quot;/&amp;lt;th class=&amp;quot;text-/g&amp;#39;&lt;/span&gt;
-	grep -IR --include&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;*.html --null -l -- &lt;span class=&#34;s2&#34;&gt;&amp;quot;&amp;lt;td&amp;quot;&lt;/span&gt; public/ &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; xargs -0 sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/&amp;lt;td align=&amp;quot;/&amp;lt;td class=&amp;quot;text-/g&amp;#39;&lt;/span&gt;
+	&lt;span class=&#34;s1770&#34;&gt;# Replace &amp;#34;align=...&amp;#34;&amp;#34; with class=&amp;#34;test-...&amp;#34;
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;	grep -IR --include&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;*.html --null -l -- &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;&amp;lt;th&amp;#34;&lt;/span&gt; public/ | xargs -0 sed -i &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;s/&amp;lt;th align=&amp;#34;/&amp;lt;th class=&amp;#34;text-/g&amp;#39;&lt;/span&gt;
+	grep -IR --include&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;*.html --null -l -- &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;&amp;lt;td&amp;#34;&lt;/span&gt; public/ | xargs -0 sed -i &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;s/&amp;lt;td align=&amp;#34;/&amp;lt;td class=&amp;#34;text-/g&amp;#39;&lt;/span&gt;
 
-&lt;span class=&#34;c&#34;&gt;	# Ensure the public folder has it&amp;#39;s mtime updated.&lt;/span&gt;
-	touch &lt;span class=&#34;nv&#34;&gt;$@&lt;/span&gt;
+	&lt;span class=&#34;s1770&#34;&gt;# Ensure the public folder has it&amp;#39;s mtime updated.
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;	touch &lt;span class=&#34;s7e3&#34;&gt;$@&lt;/span&gt;
 
-&lt;span class=&#34;nf&#34;&gt;.minified&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;html&lt;/span&gt;-&lt;span class=&#34;n&#34;&gt;minifier&lt;/span&gt;.&lt;span class=&#34;n&#34;&gt;conf&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;	# Find all HTML and in parallel run the minifier&lt;/span&gt;
-	find public -type f -iname &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.html&amp;#39;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; parallel --tag &lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;HTML_MINIFIER&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;{}&amp;quot;&lt;/span&gt; -o &lt;span class=&#34;s2&#34;&gt;&amp;quot;{}&amp;quot;&lt;/span&gt;
-	touch .minified
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class=&#34;s7d9&#34;&gt;.minified&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; public html-minifier.conf
+	&lt;span class=&#34;s1770&#34;&gt;# Find all HTML and in parallel run the minifier
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;	find public -type f -iname &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;*.html&amp;#39;&lt;/span&gt; | parallel --tag &lt;span class=&#34;s3e8&#34;&gt;$(&lt;/span&gt;HTML_MINIFIER&lt;span class=&#34;s3e8&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;{}&amp;#34;&lt;/span&gt; -o &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;{}&amp;#34;&lt;/span&gt;
+	&lt;span class=&#34;ss4&#34;&gt;touch&lt;/span&gt; &lt;span class=&#34;ss4&#34;&gt;.minified&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;The latest version is always checked into github &lt;a href=&#34;https://github.com/bramp/blog&#34;&gt;with my blog&lt;/a&gt;, but the above is easy to copy and paste.&lt;/p&gt;
 
 &lt;ul&gt;

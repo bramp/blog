@@ -105,17 +105,17 @@
 </p>
 <div class=post itemprop=articleBody>
 <p>Occasionally I have to grab a SSL cert from a server, and turn it into something that Java can use. Here are the quick instructions</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash><span class=c># Store the cert issued by a web server</span>
-openssl s_client -showcerts -connect www.google.com:443 &gt; www.google.com.pem
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=s1770># Store the cert issued by a web server
+</span><span class=s1770></span>openssl s_client -showcerts -connect www.google.com:443 &gt; www.google.com.pem
 
-<span class=c># Convert it from PEM format to DER format</span>
-openssl x509 -in www.google.com.pem -inform PEM -out www.google.com.der -outform DER
+<span class=s1770># Convert it from PEM format to DER format
+</span><span class=s1770></span>openssl x509 -in www.google.com.pem -inform PEM -out www.google.com.der -outform DER
 
-<span class=c># Import it into your keystore</span>
-sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.der -keystore /usr/java6/jre/lib/security/cacerts
+<span class=s1770># Import it into your keystore
+</span><span class=s1770></span>sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.der -keystore /usr/java6/jre/lib/security/cacerts
 
-<span class=c># The keystore password is by default &quot;changeit&quot;</span>
-</code></pre></div>
+# The keystore password is by default <span class=sc1c>&#34;changeit&#34;</span></code></pre>
+</div>
 </div>
 </article>
 <div class=row>

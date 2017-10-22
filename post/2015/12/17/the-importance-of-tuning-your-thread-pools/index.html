@@ -109,72 +109,72 @@ Whether you know it or not, your Java web application is most likely using a thr
 <h2 id=single-threaded>Single Threaded</h2>
 <p>Let us start with some basics, and progress with the evolution of the threaded model. No matter which application server or framework you use, <a href="https://tomcat.apache.org/">Tomcat</a>, <a href="http://www.dropwizard.io/">Dropwizard</a>, <a href="https://eclipse.org/jetty/">Jetty</a>, they all use the same fundamental approach. Buried deep inside the web server is a socket. This socket is listening for incoming TCP connections, and accepting them. Once accepted, data can be read from the newly established TCP connection, parsed, and turned into a HTTP request. This request is then handed off to the web application, to do with what it wants.</p>
 <p>To provide an understanding of the role of threads, we won’t use an application server, instead we will build a simple server from scratch. This server mirrors what most application servers do under the hood. To start with, a single threaded web server may look like this:</p>
-<div class=highlight><pre><code class=language-java data-lang=java><span class=n>ServerSocket</span> <span class=n>listener</span> <span class=o>=</span> <span class=k>new</span> <span class=n>ServerSocket</span><span class=o>(</span><span class=mi>8080</span><span class=o>);</span>
-<span class=k>try</span> <span class=o>{</span>
-	<span class=k>while</span> <span class=o>(</span><span class=kc>true</span><span class=o>)</span> <span class=o>{</span>
-		<span class=n>Socket</span> <span class=n>socket</span> <span class=o>=</span> <span class=n>listener</span><span class=o>.</span><span class=na>accept</span><span class=o>();</span>
-		<span class=k>try</span> <span class=o>{</span>
-			<span class=n>handleRequest</span><span class=o>(</span><span class=n>socket</span><span class=o>);</span>
-		<span class=o>}</span> <span class=k>catch</span> <span class=o>(</span><span class=n>IOException</span> <span class=n>e</span><span class=o>)</span> <span class=o>{</span>
-			<span class=n>e</span><span class=o>.</span><span class=na>printStackTrace</span><span class=o>();</span>
-		<span class=o>}</span>
-	<span class=o>}</span>
-<span class=o>}</span> <span class=k>finally</span> <span class=o>{</span>
-	<span class=n>listener</span><span class=o>.</span><span class=na>close</span><span class=o>();</span>
-<span class=o>}</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-java data-lang=java>ServerSocket listener <span class=sfa0>=</span> <span class=s3e8>new</span> ServerSocket<span class=sfa0>(</span>8080<span class=sfa0>);</span>
+<span class=s3e8>try</span> <span class=sfa0>{</span>
+	<span class=s3e8>while</span> <span class=sfa0>(</span><span class=s3e8>true</span><span class=sfa0>)</span> <span class=sfa0>{</span>
+		Socket socket <span class=sfa0>=</span> listener<span class=sfa0>.</span><span class=s7d1>accept</span><span class=sfa0>();</span>
+		<span class=s3e8>try</span> <span class=sfa0>{</span>
+			handleRequest<span class=sfa0>(</span>socket<span class=sfa0>);</span>
+		<span class=sfa0>}</span> <span class=s3e8>catch</span> <span class=sfa0>(</span>IOException e<span class=sfa0>)</span> <span class=sfa0>{</span>
+			e<span class=sfa0>.</span><span class=s7d1>printStackTrace</span><span class=sfa0>();</span>
+		<span class=sfa0>}</span>
+	<span class=sfa0>}</span>
+<span class=sfa0>}</span> <span class=s3e8>finally</span> <span class=sfa0>{</span>
+	listener<span class=sfa0>.</span><span class=s7d1>close</span><span class=sfa0>();</span>
+<span class=sfa0>}</span></code></pre>
+</div>
 <p>This code creates a <a href=https://docs.oracle.com/javase/7/docs/api/java/net/ServerSocket.html>ServerSocket</a> on port 8080, then in a tight loop the ServerSocket checks for new connections to accept. Once accepted the socket is passed to a handleRequest method. That method would typically read the HTTP request, do whatever process is needed, and write a response. In this simple example, handleRequest reads a single line, and returns a short HTTP response. It would be normal for handleRequest to do something more complex, such as reading from a database, or conducting some other kind of IO.</p>
-<div class=highlight><pre><code class=language-java data-lang=java><span class=kd>final</span> <span class=kd>static</span> <span class=n>String</span> <span class=n>response</span> <span class=o>=</span>
-	<span class=s>&quot;HTTP/1.0 200 OK\r\n&quot;</span> <span class=o>+</span>
-	<span class=s>&quot;Content-type: text/plain\r\n&quot;</span> <span class=o>+</span>
-	<span class=s>&quot;\r\n&quot;</span> <span class=o>+</span>
-	<span class=s>&quot;Hello World\r\n&quot;</span><span class=o>;</span>
+<div class=highlight><pre class=chroma><code class=language-java data-lang=java><span class=s3e8>final</span> <span class=s3e8>static</span> String response <span class=sfa0>=</span>
+	<span class=sc1c>&#34;HTTP/1.0 200 OK\r\n&#34;</span> <span class=sfa0>+</span>
+	<span class=sc1c>&#34;Content-type: text/plain\r\n&#34;</span> <span class=sfa0>+</span>
+	<span class=sc1c>&#34;\r\n&#34;</span> <span class=sfa0>+</span>
+	<span class=sc1c>&#34;Hello World\r\n&#34;</span><span class=sfa0>;</span>
 
-<span class=kd>public</span> <span class=kd>static</span> <span class=kt>void</span> <span class=nf>handleRequest</span><span class=o>(</span><span class=n>Socket</span> <span class=n>socket</span><span class=o>)</span> <span class=kd>throws</span> <span class=n>IOException</span> <span class=o>{</span>
-	<span class=c1>// Read the input stream, and return &quot;200 OK&quot;</span>
-	<span class=k>try</span> <span class=o>{</span>
-		<span class=n>BufferedReader</span> <span class=n>in</span> <span class=o>=</span> <span class=k>new</span> <span class=n>BufferedReader</span><span class=o>(</span>
-			<span class=k>new</span> <span class=n>InputStreamReader</span><span class=o>(</span><span class=n>socket</span><span class=o>.</span><span class=na>getInputStream</span><span class=o>()));</span>
+<span class=s3e8>public</span> <span class=s3e8>static</span> <span class=s3ee>void</span> <span class=s7d9>handleRequest</span><span class=sfa0>(</span>Socket socket<span class=sfa0>)</span> <span class=s3e8>throws</span> IOException <span class=sfa0>{</span>
+	<span class=s1770>// Read the input stream, and return &#34;200 OK&#34;
+</span><span class=s1770></span>	<span class=s3e8>try</span> <span class=sfa0>{</span>
+		BufferedReader in <span class=sfa0>=</span> <span class=s3e8>new</span> BufferedReader<span class=sfa0>(</span>
+			<span class=s3e8>new</span> InputStreamReader<span class=sfa0>(</span>socket<span class=sfa0>.</span><span class=s7d1>getInputStream</span><span class=sfa0>()));</span>
 		
-		<span class=n>log</span><span class=o>.</span><span class=na>info</span><span class=o>(</span><span class=n>in</span><span class=o>.</span><span class=na>readLine</span><span class=o>());</span>
+		log<span class=sfa0>.</span><span class=s7d1>info</span><span class=sfa0>(</span>in<span class=sfa0>.</span><span class=s7d1>readLine</span><span class=sfa0>());</span>
 
-		<span class=n>OutputStream</span> <span class=n>out</span> <span class=o>=</span> <span class=n>socket</span><span class=o>.</span><span class=na>getOutputStream</span><span class=o>();</span>
-		<span class=n>out</span><span class=o>.</span><span class=na>write</span><span class=o>(</span><span class=n>response</span><span class=o>.</span><span class=na>getBytes</span><span class=o>(</span><span class=n>StandardCharsets</span><span class=o>.</span><span class=na>UTF_8</span><span class=o>));</span>
-	<span class=o>}</span> <span class=k>finally</span> <span class=o>{</span>
-		<span class=n>socket</span><span class=o>.</span><span class=na>close</span><span class=o>();</span>
-	<span class=o>}</span>
-<span class=o>}</span>
-</code></pre></div>
+		OutputStream out <span class=sfa0>=</span> socket<span class=sfa0>.</span><span class=s7d1>getOutputStream</span><span class=sfa0>();</span>
+		out<span class=sfa0>.</span><span class=s7d1>write</span><span class=sfa0>(</span>response<span class=sfa0>.</span><span class=s7d1>getBytes</span><span class=sfa0>(</span>StandardCharsets<span class=sfa0>.</span><span class=s7d1>UTF_8</span><span class=sfa0>));</span>
+	<span class=sfa0>}</span> <span class=s3e8>finally</span> <span class=sfa0>{</span>
+		socket<span class=sfa0>.</span><span class=s7d1>close</span><span class=sfa0>();</span>
+	<span class=sfa0>}</span>
+<span class=sfa0>}</span></code></pre>
+</div>
 <p>As there is only a single thread handling all accepted sockets, each request must be fully handled, before accepting the next. In a real application it could be normal for the equivalent handleRequest method to take on the order of 100 milliseconds to return. If this was the case, the server would be limited to handling only 10 requests per second, one after the other.</p>
 <h2 id=multi-threaded>Multi-threaded</h2>
 <p>Even though handleRequest may be blocked on IO, the CPU is free to handle more requests. With a single threaded approach this is not possible. Thus this server can be improved to allow concurrent operations, via creating multiple threads:</p>
-<div class=highlight><pre><code class=language-java data-lang=java><span class=kd>public</span> <span class=kd>static</span> <span class=kd>class</span> <span class=nc>HandleRequestRunnable</span> <span class=kd>implements</span> <span class=n>Runnable</span> <span class=o>{</span>
-	<span class=kd>final</span> <span class=n>Socket</span> <span class=n>socket</span><span class=o>;</span>
+<div class=highlight><pre class=chroma><code class=language-java data-lang=java><span class=s3e8>public</span> <span class=s3e8>static</span> <span class=s3e8>class</span> <span class=s7d4>HandleRequestRunnable</span> <span class=s3e8>implements</span> Runnable <span class=sfa0>{</span>
+	<span class=s3e8>final</span> Socket socket<span class=sfa0>;</span>
 
-	<span class=kd>public</span> <span class=nf>HandleRequestRunnable</span><span class=o>(</span><span class=n>Socket</span> <span class=n>socket</span><span class=o>)</span> <span class=o>{</span>
-		<span class=k>this</span><span class=o>.</span><span class=na>socket</span> <span class=o>=</span> <span class=n>socket</span><span class=o>;</span>
-	<span class=o>}</span>
+	<span class=s3e8>public</span> <span class=s7d9>HandleRequestRunnable</span><span class=sfa0>(</span>Socket socket<span class=sfa0>)</span> <span class=sfa0>{</span>
+		<span class=s3e8>this</span><span class=sfa0>.</span><span class=s7d1>socket</span> <span class=sfa0>=</span> socket<span class=sfa0>;</span>
+	<span class=sfa0>}</span>
 
-	<span class=kd>public</span> <span class=kt>void</span> <span class=nf>run</span><span class=o>()</span> <span class=o>{</span>
-		<span class=k>try</span> <span class=o>{</span>
-			<span class=n>handleRequest</span><span class=o>(</span><span class=n>socket</span><span class=o>);</span>
-		<span class=o>}</span> <span class=k>catch</span> <span class=o>(</span><span class=n>IOException</span> <span class=n>e</span><span class=o>)</span> <span class=o>{</span>
-			<span class=n>e</span><span class=o>.</span><span class=na>printStackTrace</span><span class=o>();</span>
-		<span class=o>}</span>
-	<span class=o>}</span>
-<span class=o>}</span>
+	<span class=s3e8>public</span> <span class=s3ee>void</span> <span class=s7d9>run</span><span class=sfa0>()</span> <span class=sfa0>{</span>
+		<span class=s3e8>try</span> <span class=sfa0>{</span>
+			handleRequest<span class=sfa0>(</span>socket<span class=sfa0>);</span>
+		<span class=sfa0>}</span> <span class=s3e8>catch</span> <span class=sfa0>(</span>IOException e<span class=sfa0>)</span> <span class=sfa0>{</span>
+			e<span class=sfa0>.</span><span class=s7d1>printStackTrace</span><span class=sfa0>();</span>
+		<span class=sfa0>}</span>
+	<span class=sfa0>}</span>
+<span class=sfa0>}</span>
 
-<span class=c1>// Main loop here</span>
-<span class=n>ServerSocket</span> <span class=n>listener</span> <span class=o>=</span> <span class=k>new</span> <span class=n>ServerSocket</span><span class=o>(</span><span class=mi>8080</span><span class=o>);</span>
-<span class=k>try</span> <span class=o>{</span>
-	<span class=k>while</span> <span class=o>(</span><span class=kc>true</span><span class=o>)</span> <span class=o>{</span>
-		<span class=n>Socket</span> <span class=n>socket</span> <span class=o>=</span> <span class=n>listener</span><span class=o>.</span><span class=na>accept</span><span class=o>();</span>
-		<span class=k>new</span> <span class=n>Thread</span><span class=o>(</span> <span class=k>new</span> <span class=n>HandleRequestRunnable</span><span class=o>(</span><span class=n>socket</span><span class=o>)</span> <span class=o>).</span><span class=na>start</span><span class=o>();</span>
-	<span class=o>}</span>
-<span class=o>}</span> <span class=k>finally</span> <span class=o>{</span>
-	<span class=n>listener</span><span class=o>.</span><span class=na>close</span><span class=o>();</span>
-<span class=o>}</span>
-</code></pre></div>
+<span class=s1770>// Main loop here
+</span><span class=s1770></span>ServerSocket listener <span class=sfa0>=</span> <span class=s3e8>new</span> ServerSocket<span class=sfa0>(</span>8080<span class=sfa0>);</span>
+<span class=s3e8>try</span> <span class=sfa0>{</span>
+	<span class=s3e8>while</span> <span class=sfa0>(</span><span class=s3e8>true</span><span class=sfa0>)</span> <span class=sfa0>{</span>
+		Socket socket <span class=sfa0>=</span> listener<span class=sfa0>.</span><span class=s7d1>accept</span><span class=sfa0>();</span>
+		<span class=s3e8>new</span> Thread<span class=sfa0>(</span> <span class=s3e8>new</span> HandleRequestRunnable<span class=sfa0>(</span>socket<span class=sfa0>)</span> <span class=sfa0>).</span><span class=s7d1>start</span><span class=sfa0>();</span>
+	<span class=sfa0>}</span>
+<span class=sfa0>}</span> <span class=s3e8>finally</span> <span class=sfa0>{</span>
+	listener<span class=sfa0>.</span><span class=s7d1>close</span><span class=sfa0>();</span>
+<span class=sfa0>}</span></code></pre>
+</div>
 <p>Here, accept() is still called in a tight loop within a single thread, but once a TCP connection is accepted, and a socket available, a new thread is spawned. This spawned thread executes a HandleRequestRunnable, which simply calls the same handleRequest method from above.</p>
 <p>Creating the new thread, now frees up the original accept() thread to handle more TCP connections, and allows the application to handle requests concurrently. This technique is referred to as a “thread per request”, and is the most popular approach taken. It is worth noting there are other approaches, such as the event driven asynchronous model <a href="https://www.nginx.com/">NGINX</a> and <a href="https://nodejs.org/">Node.js</a> deploy, but they don’t use thread pools, and thus are out of scope for this article.</p>
 <p>In the thread per request approach, creating a new thread (and later destroying it) can be expensive, as both the JVM and the OS needs to allocate resources. Additionally in the above implementation, the number of threads being created is unbounded. Being unbounded is very problematic, as it can quickly led to resource exhaustion.</p>
@@ -184,42 +184,42 @@ Whether you know it or not, your Java web application is most likely using a thr
 <p>Not a panacea, but the stack size issue can be somewhat mitigated by tuning the stack size with the -Xss flag. A smaller stack will reduce the per thread overhead, but potentially leads to <a href=https://docs.oracle.com/javase/7/docs/api/java/lang/StackOverflowError.html>StackOverflowErrors</a>. Your mileage will vary, but for many applications the default 1024KB is excessive, and smaller 256KB or 512KB values might be more appropriate. The smallest value Java will allow is 160KB.</p>
 <h2 id=thread-pool>Thread pool</h2>
 <p>To avoid continuously creating new threads, and to bound the maximum number, a simple thread pool can be used. Simply put, the pool keeps track of all threads, creating new ones when needed up to an upper bound, and where possible reusing idle threads.</p>
-<div class=highlight><pre><code class=language-java data-lang=java><span class=n>ServerSocket</span> <span class=n>listener</span> <span class=o>=</span> <span class=k>new</span> <span class=n>ServerSocket</span><span class=o>(</span><span class=mi>8080</span><span class=o>);</span>
-<span class=n>ExecutorService</span> <span class=n>executor</span> <span class=o>=</span> <span class=n>Executors</span><span class=o>.</span><span class=na>newFixedThreadPool</span><span class=o>(</span><span class=mi>4</span><span class=o>);</span>
-<span class=k>try</span> <span class=o>{</span>
-	<span class=k>while</span> <span class=o>(</span><span class=kc>true</span><span class=o>)</span> <span class=o>{</span>
-		<span class=n>Socket</span> <span class=n>socket</span> <span class=o>=</span> <span class=n>listener</span><span class=o>.</span><span class=na>accept</span><span class=o>();</span>
-		<span class=n>executor</span><span class=o>.</span><span class=na>submit</span><span class=o>(</span> <span class=k>new</span> <span class=n>HandleRequestRunnable</span><span class=o>(</span><span class=n>socket</span><span class=o>)</span> <span class=o>);</span>
-	<span class=o>}</span>
-<span class=o>}</span> <span class=k>finally</span> <span class=o>{</span>
-	<span class=n>listener</span><span class=o>.</span><span class=na>close</span><span class=o>();</span>
-<span class=o>}</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-java data-lang=java>ServerSocket listener <span class=sfa0>=</span> <span class=s3e8>new</span> ServerSocket<span class=sfa0>(</span>8080<span class=sfa0>);</span>
+ExecutorService executor <span class=sfa0>=</span> Executors<span class=sfa0>.</span><span class=s7d1>newFixedThreadPool</span><span class=sfa0>(</span>4<span class=sfa0>);</span>
+<span class=s3e8>try</span> <span class=sfa0>{</span>
+	<span class=s3e8>while</span> <span class=sfa0>(</span><span class=s3e8>true</span><span class=sfa0>)</span> <span class=sfa0>{</span>
+		Socket socket <span class=sfa0>=</span> listener<span class=sfa0>.</span><span class=s7d1>accept</span><span class=sfa0>();</span>
+		executor<span class=sfa0>.</span><span class=s7d1>submit</span><span class=sfa0>(</span> <span class=s3e8>new</span> HandleRequestRunnable<span class=sfa0>(</span>socket<span class=sfa0>)</span> <span class=sfa0>);</span>
+	<span class=sfa0>}</span>
+<span class=sfa0>}</span> <span class=s3e8>finally</span> <span class=sfa0>{</span>
+	listener<span class=sfa0>.</span><span class=s7d1>close</span><span class=sfa0>();</span>
+<span class=sfa0>}</span></code></pre>
+</div>
 <p>Now, instead of directly creating threads, this code uses an ExecutorService, which submits work (in the term of Runnables) to be executed across a pool of threads. In this example a fixed thread pool of four threads is used to handle all incoming requests. This bounds the number of “in-flight” requests, and thus places bounds on the resource usage.</p>
 <p>In addition to <a href=https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newFixedThreadPool(int)>newFixedThreadPool</a>, the Executors utility class also provides a <a href=https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newCachedThreadPool()>newCachedThreadPool</a> method. This suffers from the earlier unbounded number of threads, but whenever possible makes use of previously created but now idle threads. Typically this type of pool is useful for short-lived requests that do not block on external resources.</p>
 <p><a href=https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.html>ThreadPoolExecutors</a> can be constructed directly, allowing for its behaviour to be customised. For example, the min and max number of threads within the pool can be defined, as well as policies for when threads are created and destroyed. An example of this is shown shortly.</p>
 <h2 id=work-queue>Work queue</h2>
 <p>In the fixed thread pool case, the observant reader may wonder what happens if all threads are busy, and a new request comes in. Well the ThreadPoolExecutor may use a queue to hold pending requests before a thread becomes available. The Executors.newFixedThreadPool by default use an unbounded LinkedList. Again this leads to the resource exhaustion problem, albeit much slower since each queued request is smaller than a full thread, and will typically not be using as many resources. However, in our examples, each queued request is holding a socket which (depending on OS) would be consuming a file handle. This is the kind of resource that the operating system will limit, so it may not be best to hold on to it unless needed. Therefore it also makes sense to bound the size of the work queue.</p>
-<div class=highlight><pre><code class=language-java data-lang=java><span class=kd>public</span> <span class=kd>static</span> <span class=n>ExecutorService</span> <span class=nf>newBoundedFixedThreadPool</span><span class=o>(</span><span class=kt>int</span> <span class=n>nThreads</span><span class=o>,</span> <span class=kt>int</span> <span class=n>capacity</span><span class=o>)</span> <span class=o>{</span>
-	<span class=k>return</span> <span class=k>new</span> <span class=n>ThreadPoolExecutor</span><span class=o>(</span><span class=n>nThreads</span><span class=o>,</span> <span class=n>nThreads</span><span class=o>,</span>
-		<span class=mi>0L</span><span class=o>,</span> <span class=n>TimeUnit</span><span class=o>.</span><span class=na>MILLISECONDS</span><span class=o>,</span>
-		<span class=k>new</span> <span class=n>LinkedBlockingQueue</span><span class=o>&lt;</span><span class=n>Runnable</span><span class=o>&gt;(</span><span class=n>capacity</span><span class=o>),</span>
-		<span class=k>new</span> <span class=n>ThreadPoolExecutor</span><span class=o>.</span><span class=na>DiscardPolicy</span><span class=o>());</span>
-<span class=o>}</span>
+<div class=highlight><pre class=chroma><code class=language-java data-lang=java><span class=s3e8>public</span> <span class=s3e8>static</span> ExecutorService <span class=s7d9>newBoundedFixedThreadPool</span><span class=sfa0>(</span><span class=s3ee>int</span> nThreads<span class=sfa0>,</span> <span class=s3ee>int</span> capacity<span class=sfa0>)</span> <span class=sfa0>{</span>
+	<span class=s3e8>return</span> <span class=s3e8>new</span> ThreadPoolExecutor<span class=sfa0>(</span>nThreads<span class=sfa0>,</span> nThreads<span class=sfa0>,</span>
+		0L<span class=sfa0>,</span> TimeUnit<span class=sfa0>.</span><span class=s7d1>MILLISECONDS</span><span class=sfa0>,</span>
+		<span class=s3e8>new</span> LinkedBlockingQueue<span class=sfa0>&lt;</span>Runnable<span class=sfa0>&gt;(</span>capacity<span class=sfa0>),</span>
+		<span class=s3e8>new</span> ThreadPoolExecutor<span class=sfa0>.</span><span class=s7d1>DiscardPolicy</span><span class=sfa0>());</span>
+<span class=sfa0>}</span>
 
-<span class=kd>public</span> <span class=kd>static</span> <span class=kt>void</span> <span class=nf>boundedThreadPoolServerSocket</span><span class=o>()</span> <span class=kd>throws</span> <span class=n>IOException</span> <span class=o>{</span>
-	<span class=n>ServerSocket</span> <span class=n>listener</span> <span class=o>=</span> <span class=k>new</span> <span class=n>ServerSocket</span><span class=o>(</span><span class=mi>8080</span><span class=o>);</span>
-	<span class=n>ExecutorService</span> <span class=n>executor</span> <span class=o>=</span> <span class=n>newBoundedFixedThreadPool</span><span class=o>(</span><span class=mi>4</span><span class=o>,</span> <span class=mi>16</span><span class=o>);</span>
-	<span class=k>try</span> <span class=o>{</span>
-		<span class=k>while</span> <span class=o>(</span><span class=kc>true</span><span class=o>)</span> <span class=o>{</span>
-			<span class=n>Socket</span> <span class=n>socket</span> <span class=o>=</span> <span class=n>listener</span><span class=o>.</span><span class=na>accept</span><span class=o>();</span>
-			<span class=n>executor</span><span class=o>.</span><span class=na>submit</span><span class=o>(</span> <span class=k>new</span> <span class=n>HandleRequestRunnable</span><span class=o>(</span><span class=n>socket</span><span class=o>)</span> <span class=o>);</span>
-		<span class=o>}</span>
-	<span class=o>}</span> <span class=k>finally</span> <span class=o>{</span>
-		<span class=n>listener</span><span class=o>.</span><span class=na>close</span><span class=o>();</span>
-	<span class=o>}</span>
-<span class=o>}</span>
-</code></pre></div>
+<span class=s3e8>public</span> <span class=s3e8>static</span> <span class=s3ee>void</span> <span class=s7d9>boundedThreadPoolServerSocket</span><span class=sfa0>()</span> <span class=s3e8>throws</span> IOException <span class=sfa0>{</span>
+	ServerSocket listener <span class=sfa0>=</span> <span class=s3e8>new</span> ServerSocket<span class=sfa0>(</span>8080<span class=sfa0>);</span>
+	ExecutorService executor <span class=sfa0>=</span> newBoundedFixedThreadPool<span class=sfa0>(</span>4<span class=sfa0>,</span> 16<span class=sfa0>);</span>
+	<span class=s3e8>try</span> <span class=sfa0>{</span>
+		<span class=s3e8>while</span> <span class=sfa0>(</span><span class=s3e8>true</span><span class=sfa0>)</span> <span class=sfa0>{</span>
+			Socket socket <span class=sfa0>=</span> listener<span class=sfa0>.</span><span class=s7d1>accept</span><span class=sfa0>();</span>
+			executor<span class=sfa0>.</span><span class=s7d1>submit</span><span class=sfa0>(</span> <span class=s3e8>new</span> HandleRequestRunnable<span class=sfa0>(</span>socket<span class=sfa0>)</span> <span class=sfa0>);</span>
+		<span class=sfa0>}</span>
+	<span class=sfa0>}</span> <span class=s3e8>finally</span> <span class=sfa0>{</span>
+		listener<span class=sfa0>.</span><span class=s7d1>close</span><span class=sfa0>();</span>
+	<span class=sfa0>}</span>
+<span class=sfa0>}</span></code></pre>
+</div>
 <p>Again, we create a thread pool, but instead of using the Executors.newFixedThreadPool helper method, we create the ThreadPoolExecutor ourselves, passing a bounded <a href=https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/LinkedBlockingQueue.html>LinkedBlockingQueue</a> capped to 16 elements. Alternatively an <a href=https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ArrayBlockingQueue.html>ArrayBlockingQueue</a> could have be used, which is an implementation of a bounded buffer.</p>
 <p>If all threads are busy, and the queue fills up, what happens next is defined by the last argument to the ThreadPoolExecutor. In this example, a <a href=https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.DiscardPolicy.html>DiscardPolicy</a> is used, which simply discards any work that would overflow the queue. There are other policies, such as the <a href=https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.AbortPolicy.html>AbortPolicy</a> which throws an exception, or the <a href=https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.CallerRunsPolicy.html>CallerRunsPolicy</a> which executes the job on the caller’s thread. This CallerRunsPolicy provides a simple way to self limit the rate jobs can be added, however, it could be harmful, blocking a thread that should stay unblocked.</p>
 <p>A good default policy is to Discard or Abort, which both drop the work. In these cases it would be easy to return a simple error to the client, such as a <a href=http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4>HTTP 503 “Service unavailable”</a>. Some would argue that the queue size could just be increased, and then all work would eventually be run. However, users are unwilling to wait forever, and if fundamentally the rate at which work comes in, exceeds the rate it can be executed, then the queue will grow indefinitely. Instead the queue should only be used to smooth out bursts of requests, or handle short stalls in processing. In normal operation the queue should be empty.</p>

@@ -128,38 +128,38 @@
 </div>
 </div>
 <p>I don&#8217;t know the exact layout, but on the CD I seemed to have 12 different scans, each with a series of images. The name of the files were all 8 digits numbers, with the first three being the scan number (0 to 11), and the following five digits being (0 to whatever). For example:</p>
-<div class=highlight><pre><code class=language-text data-lang=text>DICOM/185723/00000000: DICOM medical imaging data
+<div class=highlight><pre class=chroma><code class=language-text data-lang=text>DICOM/185723/00000000: DICOM medical imaging data
 DICOM/185723/00000001: DICOM medical imaging data
 DICOM/185723/00000002: DICOM medical imaging data
 ...
 DICOM/185723/00100000: DICOM medical imaging data
 DICOM/185723/00100001: DICOM medical imaging data
 DICOM/185723/00100002: DICOM medical imaging data
-...
-</code></pre></div>
+...</code></pre>
+</div>
 <p>To create videos the first thing I did was to convert the images from DICOM to PNG</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>sudo apt-get install medcon
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>sudo apt-get install medcon
 mkdir png
-<span class=k>for</span> i in DICOM/185723/*<span class=p>;</span> <span class=k>do</span> medcon -f <span class=nv>$i</span> -c png -o png/<span class=sb>`</span>basename <span class=nv>$i</span><span class=sb>`</span>.png <span class=p>;</span> <span class=k>done</span><span class=p>;</span>
-</code></pre></div>
+<span class=s3e8>for</span> i in DICOM/185723/*; <span class=s3e8>do</span> medcon -f <span class=s7e3>$i</span> -c png -o png/<span class=sc1c>`</span>basename <span class=s7e3>$i</span><span class=sc1c>`</span>.png ; <span class=s3e8>done</span>;</code></pre>
+</div>
 <p>Now to batch the images I started by creating animated gifs.</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>sudo apt-get install imagemagick
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>sudo apt-get install imagemagick
 
-<span class=c># Create animated gifs</span>
-<span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> 011<span class=sb>`</span><span class=p>;</span> <span class=k>do</span> convert -delay <span class=m>20</span> -loop <span class=m>0</span> png/<span class=nv>$i</span>*.png <span class=nv>$i</span>.gif<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
-</code></pre></div>
+<span class=s1770># Create animated gifs
+</span><span class=s1770></span><span class=s3e8>for</span> i in <span class=sc1c>`</span>seq -w <span class=sc80>000</span> <span class=sc80>011</span><span class=sc1c>`</span>; <span class=s3e8>do</span> convert -delay <span class=sc80>20</span> -loop <span class=sc80>0</span> png/<span class=s7e3>$i</span>*.png <span class=s7e3>$i</span>.gif; <span class=s3e8>done</span>;</code></pre>
+</div>
 <p>However, those gifs were huge, up to 20mb. So next I created a set of videos (that were a order of magnitude smaller than the gifs):</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>sudo apt-get install ffmpeg
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>sudo apt-get install ffmpeg
 
-<span class=c># Create MP4</span>
-<span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> 011<span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.mp4<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
+<span class=s1770># Create MP4
+</span><span class=s1770></span><span class=s3e8>for</span> i in <span class=sc1c>`</span>seq -w <span class=sc80>000</span> <span class=sc80>011</span><span class=sc1c>`</span>; <span class=s3e8>do</span> avconv -r <span class=sc80>5</span> -i png/<span class=s7e3>$i</span>%05d.png -r <span class=sc80>24</span> <span class=s7e3>$i</span>.mp4; <span class=s3e8>done</span>;
 
-<span class=c># Create webm</span>
-<span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> 011<span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.webm<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
+<span class=s1770># Create webm
+</span><span class=s1770></span><span class=s3e8>for</span> i in <span class=sc1c>`</span>seq -w <span class=sc80>000</span> <span class=sc80>011</span><span class=sc1c>`</span>; <span class=s3e8>do</span> avconv -r <span class=sc80>5</span> -i png/<span class=s7e3>$i</span>%05d.png -r <span class=sc80>24</span> <span class=s7e3>$i</span>.webm; <span class=s3e8>done</span>;
 
-<span class=c># Create ogg video</span>
-<span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> 011<span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.ogg<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
-</code></pre></div>
+<span class=s1770># Create ogg video
+</span><span class=s1770></span><span class=s3e8>for</span> i in <span class=sc1c>`</span>seq -w <span class=sc80>000</span> <span class=sc80>011</span><span class=sc1c>`</span>; <span class=s3e8>do</span> avconv -r <span class=sc80>5</span> -i png/<span class=s7e3>$i</span>%05d.png -r <span class=sc80>24</span> <span class=s7e3>$i</span>.ogg; <span class=s3e8>done</span>;</code></pre>
+</div>
 <p>easy!</p>
 </div>
 </article>

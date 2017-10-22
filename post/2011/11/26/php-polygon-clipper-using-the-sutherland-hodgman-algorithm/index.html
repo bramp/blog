@@ -105,224 +105,224 @@
 </p>
 <div class=post itemprop=articleBody>
 <p>I wrote a PHP implementation of the polygon clipping algorithm by Sutherland-Hodgman. Available below, or from <a href=https://gist.github.com/bramp/1396058#file-clip-class-php>github</a>.</p>
-<div class=highlight><pre><code class=language-php data-lang=php><span class=cp>&lt;?php</span>
-<span class=sd>/**</span>
-<span class=sd> * Polygon Clipping</span>
-<span class=sd> * @author Andrew Brampton me &lt;at&gt; bramp &lt;dot&gt; net</span>
-<span class=sd> * @url http://bramp.net/blog/2011/11/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/</span>
-<span class=sd> *</span>
-<span class=sd> * Based on the Sutherland-Hodgman algorithm (1974).</span>
-<span class=sd> * http://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm</span>
-<span class=sd> *</span>
-<span class=sd> * This approache assumes four clip edges (the bounding box).</span>
-<span class=sd> * The original algorithm iterated though each clip edge, and then each point. Instead</span>
-<span class=sd> * we iterate each point, and then clip edge. This reduces the memory usage. TODO Measure if that is useful!</span>
-<span class=sd> *</span>
-<span class=sd> * Usage:</span>
-<span class=sd> *   require(&#39;clip.class.php&#39;);</span>
-<span class=sd> * </span>
-<span class=sd> *   // Create a cliper with bounds defined by the points (x1, y1)-(x2,y2);</span>
-<span class=sd> *   $clip = new SutherlandHodgman($x1, $y1, $x2, $y2);</span>
-<span class=sd> * </span>
-<span class=sd> *   // Create array of 2 tuple coordinates</span>
-<span class=sd> *   $points = { {x1, y1}, {x2, y2} ... {xN, yN} }&#39;</span>
-<span class=sd> *</span>
-<span class=sd> *   // Clip! The resulting array will only have points within the bounds</span>
-<span class=sd> *   $points = $clip-&gt;clip($points);</span>
-<span class=sd> *</span>
-<span class=sd> */</span>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=s17d4>&lt;?php</span>
+<span class=sc23>/**
+</span><span class=sc23> * Polygon Clipping
+</span><span class=sc23> * @author Andrew Brampton me &lt;at&gt; bramp &lt;dot&gt; net
+</span><span class=sc23> * @url http://bramp.net/blog/2011/11/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/
+</span><span class=sc23> *
+</span><span class=sc23> * Based on the Sutherland-Hodgman algorithm (1974).
+</span><span class=sc23> * http://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm
+</span><span class=sc23> *
+</span><span class=sc23> * This approache assumes four clip edges (the bounding box).
+</span><span class=sc23> * The original algorithm iterated though each clip edge, and then each point. Instead
+</span><span class=sc23> * we iterate each point, and then clip edge. This reduces the memory usage. TODO Measure if that is useful!
+</span><span class=sc23> *
+</span><span class=sc23> * Usage:
+</span><span class=sc23> *   require(&#39;clip.class.php&#39;);
+</span><span class=sc23> * 
+</span><span class=sc23> *   // Create a cliper with bounds defined by the points (x1, y1)-(x2,y2);
+</span><span class=sc23> *   $clip = new SutherlandHodgman($x1, $y1, $x2, $y2);
+</span><span class=sc23> * 
+</span><span class=sc23> *   // Create array of 2 tuple coordinates
+</span><span class=sc23> *   $points = { {x1, y1}, {x2, y2} ... {xN, yN} }&#39;
+</span><span class=sc23> *
+</span><span class=sc23> *   // Clip! The resulting array will only have points within the bounds
+</span><span class=sc23> *   $points = $clip-&gt;clip($points);
+</span><span class=sc23> *
+</span><span class=sc23> */</span>
 
-<span class=k>abstract</span> <span class=k>class</span> <span class=nc>Edge</span> <span class=p>{</span>
+<span class=s3e8>abstract</span> <span class=s3e8>class</span> <span class=s7d4>Edge</span> {
 
-	<span class=k>var</span> <span class=nv>$bound</span><span class=p>;</span>
+	<span class=s3e8>var</span> <span class=s7e3>$bound</span>;
 
-	<span class=k>function</span> <span class=nf>__construct</span><span class=p>(</span><span class=nv>$bound</span><span class=p>)</span> <span class=p>{</span>
-		<span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span> <span class=o>=</span> <span class=nv>$bound</span><span class=p>;</span>
-	<span class=p>}</span>
+	<span class=s3e8>function</span> <span class=sfa0></span>__construct(<span class=s7e3>$bound</span>) {
+		<span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span> <span class=sfa0>=</span> <span class=s7e3>$bound</span>;
+	}
 
-	<span class=sd>/**</span>
-<span class=sd>	 * Is point $p inside the bounds. Techinically is it on the inside</span>
-<span class=sd>	 * of the infinite edge defined by $bound</span>
-<span class=sd>	 *</span>
-<span class=sd>	 * @param point $p</span>
-<span class=sd>	 */</span>
-	<span class=k>abstract</span> <span class=k>function</span> <span class=nf>inside</span><span class=p>(</span><span class=nv>$p</span><span class=p>);</span>
+	<span class=sc23>/**
+</span><span class=sc23>	 * Is point $p inside the bounds. Techinically is it on the inside
+</span><span class=sc23>	 * of the infinite edge defined by $bound
+</span><span class=sc23>	 *
+</span><span class=sc23>	 * @param point $p
+</span><span class=sc23>	 */</span>
+	<span class=s3e8>abstract</span> <span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>inside</span>(<span class=s7e3>$p</span>);
 
-	<span class=sd>/**</span>
-<span class=sd>	 * Finds the intersection with the bounds, on the line p1-p2</span>
-<span class=sd>	 *</span>
-<span class=sd>	 * @param point $p1 The point inside the bounds</span>
-<span class=sd>	 * @param point $p2 The point outside the bounds</span>
-<span class=sd>	 */</span>
-	<span class=k>abstract</span> <span class=k>function</span> <span class=nf>intersect</span><span class=p>(</span><span class=nv>$p1</span><span class=p>,</span> <span class=nv>$p2</span><span class=p>);</span>
-<span class=p>}</span>
+	<span class=sc23>/**
+</span><span class=sc23>	 * Finds the intersection with the bounds, on the line p1-p2
+</span><span class=sc23>	 *
+</span><span class=sc23>	 * @param point $p1 The point inside the bounds
+</span><span class=sc23>	 * @param point $p2 The point outside the bounds
+</span><span class=sc23>	 */</span>
+	<span class=s3e8>abstract</span> <span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>intersect</span>(<span class=s7e3>$p1</span>, <span class=s7e3>$p2</span>);
+}
 
-<span class=k>abstract</span> <span class=k>class</span> <span class=nc>HorzEdge</span> <span class=k>extends</span> <span class=nx>Edge</span> <span class=p>{</span>
+<span class=s3e8>abstract</span> <span class=s3e8>class</span> <span class=s7d4>HorzEdge</span> <span class=s3e8>extends</span> Edge {
 
-	<span class=sd>/**</span>
-<span class=sd>	 * Returns the point at which the line $p1-$p2 hits the horz boundary</span>
-<span class=sd>	 *</span>
-<span class=sd>	 * @param point $p1</span>
-<span class=sd>	 * @param point $p2</span>
-<span class=sd>	 *</span>
-<span class=sd>	 * @return point</span>
-<span class=sd>	 */</span>
-	<span class=k>function</span> <span class=nf>intersect</span><span class=p>(</span><span class=nv>$p1</span><span class=p>,</span> <span class=nv>$p2</span><span class=p>)</span> <span class=p>{</span>
-		<span class=nv>$dY</span> <span class=o>=</span> <span class=nv>$p2</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>-</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>1</span><span class=p>];</span>
+	<span class=sc23>/**
+</span><span class=sc23>	 * Returns the point at which the line $p1-$p2 hits the horz boundary
+</span><span class=sc23>	 *
+</span><span class=sc23>	 * @param point $p1
+</span><span class=sc23>	 * @param point $p2
+</span><span class=sc23>	 *
+</span><span class=sc23>	 * @return point
+</span><span class=sc23>	 */</span>
+	<span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>intersect</span>(<span class=s7e3>$p1</span>, <span class=s7e3>$p2</span>) {
+		<span class=s7e3>$dY</span> <span class=sfa0>=</span> <span class=s7e3>$p2</span>[<span class=sc80>1</span>] <span class=sfa0>-</span> <span class=s7e3>$p1</span>[<span class=sc80>1</span>];
 
-		<span class=k>if</span> <span class=p>(</span><span class=nv>$dY</span> <span class=o>==</span> <span class=mi>0</span><span class=p>)</span>
-			<span class=k>return</span> <span class=k>array</span><span class=p>(</span><span class=nv>$p1</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span><span class=p>);</span>
+		<span class=s3e8>if</span> (<span class=s7e3>$dY</span> <span class=sfa0>==</span> <span class=sc80>0</span>)
+			<span class=s3e8>return</span> <span class=s3e8>array</span>(<span class=s7e3>$p1</span>[<span class=sc80>0</span>], <span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span>);
 
-		<span class=nv>$dX</span> <span class=o>=</span> <span class=nv>$p2</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>-</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>0</span><span class=p>];</span>
-		<span class=nv>$dY2</span> <span class=o>=</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span> <span class=o>-</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>1</span><span class=p>]);</span>
+		<span class=s7e3>$dX</span> <span class=sfa0>=</span> <span class=s7e3>$p2</span>[<span class=sc80>0</span>] <span class=sfa0>-</span> <span class=s7e3>$p1</span>[<span class=sc80>0</span>];
+		<span class=s7e3>$dY2</span> <span class=sfa0>=</span> (<span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span> <span class=sfa0>-</span> <span class=s7e3>$p1</span>[<span class=sc80>1</span>]);
 
-		<span class=k>return</span> <span class=k>array</span><span class=p>((</span><span class=nv>$dY2</span> <span class=o>/</span> <span class=nv>$dY</span><span class=p>)</span> <span class=o>*</span> <span class=nv>$dX</span> <span class=o>+</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span><span class=p>);</span>
-	<span class=p>}</span>
-<span class=p>}</span>
+		<span class=s3e8>return</span> <span class=s3e8>array</span>((<span class=s7e3>$dY2</span> <span class=sfa0>/</span> <span class=s7e3>$dY</span>) <span class=sfa0>*</span> <span class=s7e3>$dX</span> <span class=sfa0>+</span> <span class=s7e3>$p1</span>[<span class=sc80>0</span>], <span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span>);
+	}
+}
 
-<span class=k>abstract</span> <span class=k>class</span> <span class=nc>VertEdge</span> <span class=k>extends</span> <span class=nx>Edge</span> <span class=p>{</span>
+<span class=s3e8>abstract</span> <span class=s3e8>class</span> <span class=s7d4>VertEdge</span> <span class=s3e8>extends</span> Edge {
 
-	<span class=sd>/**</span>
-<span class=sd>	* Returns the point at which the line $p1-$p2 hits the vertical boundary</span>
-<span class=sd>	*</span>
-<span class=sd>	* @param point $p1</span>
-<span class=sd>	* @param point $p2</span>
-<span class=sd>	*</span>
-<span class=sd>	* @return point</span>
-<span class=sd>	*/</span>
-	<span class=k>function</span> <span class=nf>intersect</span><span class=p>(</span><span class=nv>$p1</span><span class=p>,</span> <span class=nv>$p2</span><span class=p>)</span> <span class=p>{</span>
-		<span class=nv>$dX</span> <span class=o>=</span> <span class=nv>$p2</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>-</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>0</span><span class=p>];</span>
+	<span class=sc23>/**
+</span><span class=sc23>	* Returns the point at which the line $p1-$p2 hits the vertical boundary
+</span><span class=sc23>	*
+</span><span class=sc23>	* @param point $p1
+</span><span class=sc23>	* @param point $p2
+</span><span class=sc23>	*
+</span><span class=sc23>	* @return point
+</span><span class=sc23>	*/</span>
+	<span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>intersect</span>(<span class=s7e3>$p1</span>, <span class=s7e3>$p2</span>) {
+		<span class=s7e3>$dX</span> <span class=sfa0>=</span> <span class=s7e3>$p2</span>[<span class=sc80>0</span>] <span class=sfa0>-</span> <span class=s7e3>$p1</span>[<span class=sc80>0</span>];
 
-		<span class=k>if</span> <span class=p>(</span><span class=nv>$dX</span> <span class=o>==</span> <span class=mi>0</span><span class=p>)</span>
-			<span class=k>return</span> <span class=k>array</span><span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span><span class=p>,</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>1</span><span class=p>]);</span>
+		<span class=s3e8>if</span> (<span class=s7e3>$dX</span> <span class=sfa0>==</span> <span class=sc80>0</span>)
+			<span class=s3e8>return</span> <span class=s3e8>array</span>(<span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span>, <span class=s7e3>$p1</span>[<span class=sc80>1</span>]);
 
-		<span class=nv>$dY</span> <span class=o>=</span> <span class=nv>$p2</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>-</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>1</span><span class=p>];</span>
-		<span class=nv>$dX2</span> <span class=o>=</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span> <span class=o>-</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>0</span><span class=p>]);</span>
+		<span class=s7e3>$dY</span> <span class=sfa0>=</span> <span class=s7e3>$p2</span>[<span class=sc80>1</span>] <span class=sfa0>-</span> <span class=s7e3>$p1</span>[<span class=sc80>1</span>];
+		<span class=s7e3>$dX2</span> <span class=sfa0>=</span> (<span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span> <span class=sfa0>-</span> <span class=s7e3>$p1</span>[<span class=sc80>0</span>]);
 
-		<span class=k>return</span> <span class=k>array</span><span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span><span class=p>,</span> <span class=p>(</span><span class=nv>$dX2</span> <span class=o>/</span> <span class=nv>$dX</span><span class=p>)</span> <span class=o>*</span> <span class=nv>$dY</span> <span class=o>+</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>1</span><span class=p>]);</span>
-	<span class=p>}</span>
-<span class=p>}</span>
+		<span class=s3e8>return</span> <span class=s3e8>array</span>(<span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span>, (<span class=s7e3>$dX2</span> <span class=sfa0>/</span> <span class=s7e3>$dX</span>) <span class=sfa0>*</span> <span class=s7e3>$dY</span> <span class=sfa0>+</span> <span class=s7e3>$p1</span>[<span class=sc80>1</span>]);
+	}
+}
 
-<span class=k>function</span> <span class=nf>intersect</span><span class=p>(</span><span class=nv>$p1</span><span class=p>,</span> <span class=nv>$p2</span><span class=p>)</span> <span class=p>{</span>
-	<span class=nv>$dX</span> <span class=o>=</span> <span class=nv>$p2</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>-</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>0</span><span class=p>];</span>
-	<span class=nv>$dY</span> <span class=o>=</span> <span class=nv>$p2</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>-</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>1</span><span class=p>];</span>
-<span class=p>}</span>
+<span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>intersect</span>(<span class=s7e3>$p1</span>, <span class=s7e3>$p2</span>) {
+	<span class=s7e3>$dX</span> <span class=sfa0>=</span> <span class=s7e3>$p2</span>[<span class=sc80>0</span>] <span class=sfa0>-</span> <span class=s7e3>$p1</span>[<span class=sc80>0</span>];
+	<span class=s7e3>$dY</span> <span class=sfa0>=</span> <span class=s7e3>$p2</span>[<span class=sc80>1</span>] <span class=sfa0>-</span> <span class=s7e3>$p1</span>[<span class=sc80>1</span>];
+}
 
-<span class=k>class</span> <span class=nc>RightEdge</span> <span class=k>extends</span> <span class=nx>VertEdge</span> <span class=p>{</span>
-	<span class=k>function</span> <span class=nf>inside</span><span class=p>(</span><span class=nv>$p</span><span class=p>)</span> <span class=p>{</span>
-		<span class=k>return</span> <span class=nv>$p</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span><span class=p>;</span> <span class=c1>//X</span>
-	<span class=p>}</span>
-<span class=p>}</span>
+<span class=s3e8>class</span> <span class=s7d4>RightEdge</span> <span class=s3e8>extends</span> VertEdge {
+	<span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>inside</span>(<span class=s7e3>$p</span>) {
+		<span class=s3e8>return</span> <span class=s7e3>$p</span>[<span class=sc80>0</span>] <span class=sfa0>&lt;</span> <span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span>; <span class=s1770>//X
+</span><span class=s1770></span>	}
+}
 
-<span class=k>class</span> <span class=nc>LeftEdge</span> <span class=k>extends</span> <span class=nx>VertEdge</span> <span class=p>{</span>
-	<span class=k>function</span> <span class=nf>inside</span><span class=p>(</span><span class=nv>$p</span><span class=p>)</span> <span class=p>{</span>
-		<span class=k>return</span> <span class=nv>$p</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&gt;=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span><span class=p>;</span> <span class=c1>//X</span>
-	<span class=p>}</span>
-<span class=p>}</span>
+<span class=s3e8>class</span> <span class=s7d4>LeftEdge</span> <span class=s3e8>extends</span> VertEdge {
+	<span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>inside</span>(<span class=s7e3>$p</span>) {
+		<span class=s3e8>return</span> <span class=s7e3>$p</span>[<span class=sc80>0</span>] <span class=sfa0>&gt;=</span> <span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span>; <span class=s1770>//X
+</span><span class=s1770></span>	}
+}
 
-<span class=k>class</span> <span class=nc>TopEdge</span> <span class=k>extends</span> <span class=nx>HorzEdge</span> <span class=p>{</span>
-	<span class=k>function</span> <span class=nf>inside</span><span class=p>(</span><span class=nv>$p</span><span class=p>)</span> <span class=p>{</span>
-		<span class=k>return</span> <span class=nv>$p</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>&gt;=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span><span class=p>;</span> <span class=c1>//Y</span>
-	<span class=p>}</span>
-<span class=p>}</span>
+<span class=s3e8>class</span> <span class=s7d4>TopEdge</span> <span class=s3e8>extends</span> HorzEdge {
+	<span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>inside</span>(<span class=s7e3>$p</span>) {
+		<span class=s3e8>return</span> <span class=s7e3>$p</span>[<span class=sc80>1</span>] <span class=sfa0>&gt;=</span> <span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span>; <span class=s1770>//Y
+</span><span class=s1770></span>	}
+}
 
-<span class=k>class</span> <span class=nc>BottomEdge</span> <span class=k>extends</span> <span class=nx>HorzEdge</span> <span class=p>{</span>
-	<span class=k>function</span> <span class=nf>inside</span><span class=p>(</span><span class=nv>$p</span><span class=p>)</span> <span class=p>{</span>
-		<span class=k>return</span> <span class=nv>$p</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>&lt;</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span><span class=p>;</span> <span class=c1>//Y</span>
-	<span class=p>}</span>
-<span class=p>}</span>
+<span class=s3e8>class</span> <span class=s7d4>BottomEdge</span> <span class=s3e8>extends</span> HorzEdge {
+	<span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>inside</span>(<span class=s7e3>$p</span>) {
+		<span class=s3e8>return</span> <span class=s7e3>$p</span>[<span class=sc80>1</span>] <span class=sfa0>&lt;</span> <span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span>; <span class=s1770>//Y
+</span><span class=s1770></span>	}
+}
 
-<span class=k>function</span> <span class=nf>check_point</span><span class=p>(</span><span class=nv>$p</span><span class=p>,</span> <span class=nv>$msg</span><span class=p>)</span> <span class=p>{</span>
-	<span class=k>if</span> <span class=p>(</span><span class=nv>$p</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;</span> <span class=o>-</span><span class=mi>180</span> <span class=o>||</span> <span class=nv>$p</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&gt;</span> <span class=mi>180</span> <span class=o>||</span> <span class=nv>$p</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>&lt;</span> <span class=o>-</span><span class=mi>90</span> <span class=o>||</span> <span class=nv>$p</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>&gt;</span> <span class=mi>90</span><span class=p>)</span> <span class=p>{</span>
-		<span class=nb>var_dump</span><span class=p>(</span><span class=nv>$p</span><span class=p>);</span>
-		<span class=nb>var_dump</span><span class=p>(</span><span class=nb>debug_backtrace</span><span class=p>());</span>
-		<span class=k>die</span><span class=p>(</span><span class=s2>&quot;Something went wrong! </span><span class=si>$msg</span><span class=s2>&quot;</span><span class=p>);</span>
-	<span class=p>}</span>
-<span class=p>}</span>
+<span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>check_point</span>(<span class=s7e3>$p</span>, <span class=s7e3>$msg</span>) {
+	<span class=s3e8>if</span> (<span class=s7e3>$p</span>[<span class=sc80>0</span>] <span class=sfa0>&lt;</span> <span class=sfa0>-</span><span class=sc80>180</span> <span class=sfa0>||</span> <span class=s7e3>$p</span>[<span class=sc80>0</span>] <span class=sfa0>&gt;</span> <span class=sc80>180</span> <span class=sfa0>||</span> <span class=s7e3>$p</span>[<span class=sc80>1</span>] <span class=sfa0>&lt;</span> <span class=sfa0>-</span><span class=sc80>90</span> <span class=sfa0>||</span> <span class=s7e3>$p</span>[<span class=sc80>1</span>] <span class=sfa0>&gt;</span> <span class=sc80>90</span>) {
+		var_dump(<span class=s7e3>$p</span>);
+		var_dump(debug_backtrace());
+		<span class=s3e8>die</span>(<span class=sc1c>&#34;Something went wrong! </span><span class=sc27>$msg</span><span class=sc1c>&#34;</span>);
+	}
+}
 
-<span class=k>class</span> <span class=nc>SutherlandHodgman</span> <span class=p>{</span>
+<span class=s3e8>class</span> <span class=s7d4>SutherlandHodgman</span> {
 
-	<span class=k>var</span> <span class=nv>$edges</span><span class=p>;</span>
+	<span class=s3e8>var</span> <span class=s7e3>$edges</span>;
 
-	<span class=sd>/**</span>
-<span class=sd>	 * Construct with the bounds of the clipped area</span>
-<span class=sd>	 *</span>
-<span class=sd>	 * @param unknown_type $x1</span>
-<span class=sd>	 * @param unknown_type $y1</span>
-<span class=sd>	 * @param unknown_type $x2</span>
-<span class=sd>	 * @param unknown_type $y2</span>
-<span class=sd>	 */</span>
-	<span class=k>function</span> <span class=nf>__construct</span><span class=p>(</span><span class=nv>$x1</span><span class=p>,</span> <span class=nv>$y1</span><span class=p>,</span> <span class=nv>$x2</span><span class=p>,</span> <span class=nv>$y2</span><span class=p>)</span> <span class=p>{</span>
-		<span class=nb>assert</span><span class=p>(</span><span class=nv>$x1</span> <span class=o>&lt;</span> <span class=nv>$x2</span><span class=p>);</span>
-		<span class=nb>assert</span><span class=p>(</span><span class=nv>$y1</span> <span class=o>&lt;</span> <span class=nv>$y2</span><span class=p>);</span>
+	<span class=sc23>/**
+</span><span class=sc23>	 * Construct with the bounds of the clipped area
+</span><span class=sc23>	 *
+</span><span class=sc23>	 * @param unknown_type $x1
+</span><span class=sc23>	 * @param unknown_type $y1
+</span><span class=sc23>	 * @param unknown_type $x2
+</span><span class=sc23>	 * @param unknown_type $y2
+</span><span class=sc23>	 */</span>
+	<span class=s3e8>function</span> <span class=sfa0></span>__construct(<span class=s7e3>$x1</span>, <span class=s7e3>$y1</span>, <span class=s7e3>$x2</span>, <span class=s7e3>$y2</span>) {
+		assert(<span class=s7e3>$x1</span> <span class=sfa0>&lt;</span> <span class=s7e3>$x2</span>);
+		assert(<span class=s7e3>$y1</span> <span class=sfa0>&lt;</span> <span class=s7e3>$y2</span>);
 
-		<span class=nv>$this</span><span class=o>-&gt;</span><span class=na>edges</span> <span class=o>=</span> <span class=k>array</span><span class=p>(</span>
-			<span class=k>new</span> <span class=nx>RightEdge</span><span class=p>(</span><span class=nv>$x2</span><span class=p>),</span>
-			<span class=k>new</span> <span class=nx>TopEdge</span><span class=p>(</span><span class=nv>$y1</span><span class=p>),</span>
-			<span class=k>new</span> <span class=nx>LeftEdge</span><span class=p>(</span><span class=nv>$x1</span><span class=p>),</span>
-			<span class=k>new</span> <span class=nx>BottomEdge</span><span class=p>(</span><span class=nv>$y2</span><span class=p>)</span>
-		<span class=p>);</span>
-	<span class=p>}</span>
+		<span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>edges</span> <span class=sfa0>=</span> <span class=s3e8>array</span>(
+			<span class=s3e8>new</span> RightEdge(<span class=s7e3>$x2</span>),
+			<span class=s3e8>new</span> TopEdge(<span class=s7e3>$y1</span>),
+			<span class=s3e8>new</span> LeftEdge(<span class=s7e3>$x1</span>),
+			<span class=s3e8>new</span> BottomEdge(<span class=s7e3>$y2</span>)
+		);
+	}
 
-	<span class=sd>/**</span>
-<span class=sd>	 * Clip the array of (x,y) coords to the bounds</span>
-<span class=sd>	 * specified in the constructor</span>
-<span class=sd>	 *</span>
-<span class=sd>	 * @param array $points</span>
-<span class=sd>	 */</span>
-	<span class=k>function</span> <span class=nf>clip</span><span class=p>(</span><span class=nv>$points</span><span class=p>)</span> <span class=p>{</span>
+	<span class=sc23>/**
+</span><span class=sc23>	 * Clip the array of (x,y) coords to the bounds
+</span><span class=sc23>	 * specified in the constructor
+</span><span class=sc23>	 *
+</span><span class=sc23>	 * @param array $points
+</span><span class=sc23>	 */</span>
+	<span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>clip</span>(<span class=s7e3>$points</span>) {
 
-		<span class=k>if</span> <span class=p>(</span><span class=nb>count</span><span class=p>(</span><span class=nv>$points</span><span class=p>)</span> <span class=o>&lt;</span> <span class=mi>3</span><span class=p>)</span>
-			<span class=k>throw</span> <span class=s2>&quot;Clip requires a polygon of three points or more&quot;</span><span class=p>;</span>
+		<span class=s3e8>if</span> (count(<span class=s7e3>$points</span>) <span class=sfa0>&lt;</span> <span class=sc80>3</span>)
+			<span class=s3e8>throw</span> <span class=sc1c>&#34;Clip requires a polygon of three points or more&#34;</span>;
 
-		<span class=k>foreach</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>edges</span> <span class=k>as</span> <span class=nv>$edge</span><span class=p>)</span> <span class=p>{</span>
-			<span class=nv>$output</span> <span class=o>=</span> <span class=k>array</span><span class=p>();</span>
+		<span class=s3e8>foreach</span> (<span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>edges</span> <span class=s3e8>as</span> <span class=s7e3>$edge</span>) {
+			<span class=s7e3>$output</span> <span class=sfa0>=</span> <span class=s3e8>array</span>();
 
-			<span class=k>if</span> <span class=p>(</span><span class=k>empty</span><span class=p>(</span><span class=nv>$points</span><span class=p>))</span>
-				<span class=k>return</span> <span class=nv>$points</span><span class=p>;</span>
+			<span class=s3e8>if</span> (<span class=s3e8>empty</span>(<span class=s7e3>$points</span>))
+				<span class=s3e8>return</span> <span class=s7e3>$points</span>;
 
-			<span class=nv>$previous</span> <span class=o>=</span> <span class=nv>$points</span><span class=p>[</span><span class=mi>0</span><span class=p>];</span>
-			<span class=nv>$previousInside</span> <span class=o>=</span> <span class=nv>$edge</span><span class=o>-&gt;</span><span class=na>inside</span><span class=p>(</span><span class=nv>$previous</span><span class=p>);</span>
+			<span class=s7e3>$previous</span> <span class=sfa0>=</span> <span class=s7e3>$points</span>[<span class=sc80>0</span>];
+			<span class=s7e3>$previousInside</span> <span class=sfa0>=</span> <span class=s7e3>$edge</span><span class=sfa0>-&gt;</span><span class=s7d1>inside</span>(<span class=s7e3>$previous</span>);
 
-			<span class=c1>// Add the first onto the end so it eventually gets processed</span>
-			<span class=nv>$points_count</span> <span class=o>=</span> <span class=nb>count</span><span class=p>(</span><span class=nv>$points</span><span class=p>);</span>
-			<span class=k>if</span> <span class=p>(</span><span class=nv>$points</span><span class=p>[</span><span class=nv>$points_count</span> <span class=o>-</span> <span class=mi>1</span><span class=p>]</span> <span class=o>!==</span> <span class=nv>$points</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span> <span class=p>{</span>
-				<span class=nv>$points</span><span class=p>[]</span> <span class=o>=</span> <span class=nv>$points</span><span class=p>[</span><span class=mi>0</span><span class=p>];</span>
-				<span class=nv>$points_count</span><span class=o>++</span><span class=p>;</span>
-			<span class=p>}</span>
+			<span class=s1770>// Add the first onto the end so it eventually gets processed
+</span><span class=s1770></span>			<span class=s7e3>$points_count</span> <span class=sfa0>=</span> count(<span class=s7e3>$points</span>);
+			<span class=s3e8>if</span> (<span class=s7e3>$points</span>[<span class=s7e3>$points_count</span> <span class=sfa0>-</span> <span class=sc80>1</span>] <span class=sfa0>!==</span> <span class=s7e3>$points</span>[<span class=sc80>0</span>]) {
+				<span class=s7e3>$points</span>[] <span class=sfa0>=</span> <span class=s7e3>$points</span>[<span class=sc80>0</span>];
+				<span class=s7e3>$points_count</span><span class=sfa0>++</span>;
+			}
 
-			<span class=k>for</span> <span class=p>(</span><span class=nv>$i</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span> <span class=nv>$i</span> <span class=o>&lt;</span> <span class=nv>$points_count</span><span class=p>;</span> <span class=nv>$i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
-				<span class=nv>$point</span> <span class=o>=</span> <span class=nv>$points</span><span class=p>[</span><span class=nv>$i</span><span class=p>];</span>
+			<span class=s3e8>for</span> (<span class=s7e3>$i</span> <span class=sfa0>=</span> <span class=sc80>1</span>; <span class=s7e3>$i</span> <span class=sfa0>&lt;</span> <span class=s7e3>$points_count</span>; <span class=s7e3>$i</span><span class=sfa0>++</span>) {
+				<span class=s7e3>$point</span> <span class=sfa0>=</span> <span class=s7e3>$points</span>[<span class=s7e3>$i</span>];
 
-				<span class=nb>assert</span><span class=p>(</span><span class=nb>is_array</span><span class=p>(</span><span class=nv>$point</span><span class=p>));</span>
-				<span class=nb>assert</span><span class=p>(</span><span class=nb>count</span><span class=p>(</span><span class=nv>$point</span><span class=p>)</span> <span class=o>==</span> <span class=mi>2</span><span class=p>);</span>
+				assert(is_array(<span class=s7e3>$point</span>));
+				assert(count(<span class=s7e3>$point</span>) <span class=sfa0>==</span> <span class=sc80>2</span>);
 
-				<span class=nv>$inside</span> <span class=o>=</span> <span class=nv>$edge</span><span class=o>-&gt;</span><span class=na>inside</span><span class=p>(</span><span class=nv>$point</span><span class=p>);</span>
+				<span class=s7e3>$inside</span> <span class=sfa0>=</span> <span class=s7e3>$edge</span><span class=sfa0>-&gt;</span><span class=s7d1>inside</span>(<span class=s7e3>$point</span>);
 
-				<span class=k>if</span> <span class=p>(</span><span class=nv>$inside</span><span class=p>)</span> <span class=p>{</span>
-					<span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nv>$previousInside</span><span class=p>)</span> <span class=p>{</span>
-						<span class=nb>assert</span><span class=p>(</span><span class=o>!</span><span class=nv>$edge</span><span class=o>-&gt;</span><span class=na>inside</span><span class=p>(</span><span class=nv>$previous</span><span class=p>));</span>
-						<span class=nv>$output</span><span class=p>[]</span> <span class=o>=</span> <span class=nv>$edge</span><span class=o>-&gt;</span><span class=na>intersect</span><span class=p>(</span><span class=nv>$point</span><span class=p>,</span> <span class=nv>$previous</span><span class=p>);</span>
-					<span class=p>}</span>
+				<span class=s3e8>if</span> (<span class=s7e3>$inside</span>) {
+					<span class=s3e8>if</span> (<span class=sfa0>!</span><span class=s7e3>$previousInside</span>) {
+						assert(<span class=sfa0>!</span><span class=s7e3>$edge</span><span class=sfa0>-&gt;</span><span class=s7d1>inside</span>(<span class=s7e3>$previous</span>));
+						<span class=s7e3>$output</span>[] <span class=sfa0>=</span> <span class=s7e3>$edge</span><span class=sfa0>-&gt;</span><span class=s7d1>intersect</span>(<span class=s7e3>$point</span>, <span class=s7e3>$previous</span>);
+					}
 
-					<span class=nv>$output</span><span class=p>[]</span> <span class=o>=</span> <span class=nv>$point</span><span class=p>;</span>
+					<span class=s7e3>$output</span>[] <span class=sfa0>=</span> <span class=s7e3>$point</span>;
 
-				<span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=nv>$previousInside</span><span class=p>)</span> <span class=p>{</span>
-					<span class=nb>assert</span><span class=p>(</span><span class=nv>$edge</span><span class=o>-&gt;</span><span class=na>inside</span><span class=p>(</span><span class=nv>$previous</span><span class=p>));</span>
-					<span class=nv>$output</span><span class=p>[]</span> <span class=o>=</span> <span class=nv>$edge</span><span class=o>-&gt;</span><span class=na>intersect</span><span class=p>(</span><span class=nv>$previous</span><span class=p>,</span> <span class=nv>$point</span><span class=p>);</span>
-				<span class=p>}</span>
+				} <span class=s3e8>else</span> <span class=s3e8>if</span> (<span class=s7e3>$previousInside</span>) {
+					assert(<span class=s7e3>$edge</span><span class=sfa0>-&gt;</span><span class=s7d1>inside</span>(<span class=s7e3>$previous</span>));
+					<span class=s7e3>$output</span>[] <span class=sfa0>=</span> <span class=s7e3>$edge</span><span class=sfa0>-&gt;</span><span class=s7d1>intersect</span>(<span class=s7e3>$previous</span>, <span class=s7e3>$point</span>);
+				}
 
-				<span class=nv>$previous</span> <span class=o>=</span> <span class=nv>$point</span><span class=p>;</span>
-				<span class=nv>$previousInside</span> <span class=o>=</span> <span class=nv>$inside</span><span class=p>;</span>
-			<span class=p>}</span>
+				<span class=s7e3>$previous</span> <span class=sfa0>=</span> <span class=s7e3>$point</span>;
+				<span class=s7e3>$previousInside</span> <span class=sfa0>=</span> <span class=s7e3>$inside</span>;
+			}
 
-			<span class=nv>$points</span> <span class=o>=</span> <span class=nv>$output</span><span class=p>;</span>
-		<span class=p>}</span>
+			<span class=s7e3>$points</span> <span class=sfa0>=</span> <span class=s7e3>$output</span>;
+		}
 
-		<span class=k>return</span> <span class=nv>$output</span><span class=p>;</span>
-	<span class=p>}</span>
-<span class=p>}</span>
-</code></pre></div>
+		<span class=s3e8>return</span> <span class=s7e3>$output</span>;
+	}
+}</code></pre>
+</div>
 </div>
 </article>
 <div class=row>

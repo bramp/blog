@@ -105,18 +105,18 @@
 <p>While playing with <a href="http://redbot.org/">REDbot</a> I realised my last-modified headers (being sent by PHP) were not RFC 1123 complaint. A complaint date looks like <code>Sun, 06 Nov 1994 08:49:37 GMT</code>. There are two ways to generate such a date in PHP; </p>
 <ol>
 <li><p>if you have pecl_http &gt;= 0.1.0, then</p>
-<div class=highlight><pre><code class=language-php data-lang=php><span class=x>http_date($timestamp)</span>
-</code></pre></div></li>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php>http_date($timestamp)</code></pre>
+</div></li>
 <li><p>or if you don&#8217;t want to use pecl</p>
-<div class=highlight><pre><code class=language-php data-lang=php><span class=x>gmdate(&#39;D, d M Y H:i:s&#39;, $timestamp).&#39; GMT&#39;</span>
-</code></pre></div></li>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php>gmdate(&#39;D, d M Y H:i:s&#39;, $timestamp).&#39; GMT&#39;</code></pre>
+</div></li>
 <li><p>or if you have PHP &gt;5.2 you can use the DateTime constant</p>
-<div class=highlight><pre><code class=language-php data-lang=php><span class=x>gmdate(DATE_RFC2822, $timestamp)</span>
-</code></pre></div></li>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php>gmdate(DATE_RFC2822, $timestamp)</code></pre>
+</div></li>
 </ol>
 <p>an example of it&#8217;s use:</p>
-<div class=highlight><pre><code class=language-php data-lang=php><span class=x>header(&#39;Last-Modified: &#39; . gmdate(&#39;D, d M Y H:i:s&#39;, $lastModified).&#39; GMT&#39;);</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php>header(&#39;Last-Modified: &#39; . gmdate(&#39;D, d M Y H:i:s&#39;, $lastModified).&#39; GMT&#39;);</code></pre>
+</div>
 </div>
 </article>
 <div class=row>

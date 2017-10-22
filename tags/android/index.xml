@@ -40,45 +40,38 @@
 &lt;p&gt;We assume you are on a Linux or Mac, but this will work (with some tweaking) on Windows. Install a recent Java JDK, then the &lt;a href=&#34;https://developer.android.com/sdk/installing/index.html?pkg=tools&#34;&gt;Stand-alone Android SDK&lt;/a&gt;, and finally &lt;a href=&#34;http://ibotpeaches.github.io/Apktool/&#34;&gt;apktool&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Optionally setup some alias:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;alias &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;apktool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;java -jar ~/bin/apktool_2.0.1.jar&amp;#39;&lt;/span&gt;
-&lt;span class=&#34;nb&#34;&gt;alias &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;dex2jar&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;~/bin/dex2jar-2.0/d2j-dex2jar.sh&amp;#39;&lt;/span&gt;
-&lt;span class=&#34;nb&#34;&gt;alias &lt;/span&gt;jd-gui&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;java -jar ~/bin/jd-gui-1.3.0.jar&amp;#39;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s7d2&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;apktool&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#39;java -jar ~/bin/apktool_2.0.1.jar&amp;#39;&lt;/span&gt;
+&lt;span class=&#34;s7d2&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;dex2jar&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#39;~/bin/dex2jar-2.0/d2j-dex2jar.sh&amp;#39;&lt;/span&gt;
+&lt;span class=&#34;s7d2&#34;&gt;alias&lt;/span&gt; jd-gui&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#39;java -jar ~/bin/jd-gui-1.3.0.jar&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;First, unpack the application.apk file. This will create a &amp;ldquo;application&amp;rdquo; directory with assets, resources, compiled code, etc.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apktool d -r -s application.apk
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apktool d -r -s application.apk&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Now poke around, and edit any of the files in the application directory. If you wish to decompile any java you can do the following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c&#34;&gt;# Convert the Dex files into standard class files&lt;/span&gt;
-dex2jar application/classes.dex
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s1770&#34;&gt;# Convert the Dex files into standard class files
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;dex2jar application/classes.dex
 
-&lt;span class=&#34;c&#34;&gt;# Now use the JD (Java Decompiler) to inspect the source&lt;/span&gt;
-jd-gui classes-dex2jar.jar
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class=&#34;s1770&#34;&gt;# Now use the JD (Java Decompiler) to inspect the source
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;jd-gui classes-dex2jar.jar&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Once you have made your changes, you need to repack the APK. This will create a &lt;code&gt;my_application.apk&lt;/code&gt; file:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apktool b -f -d application
-mv application/dist/application.apk my_application.apk
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apktool b -f -d application
+mv application/dist/application.apk my_application.apk&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;The APK must be signed before it will run on a device. Create a key if you don&amp;rsquo;t have an existing one. If prompted for a password, enter anything (but remember it).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;keytool -genkey -v -keystore my-release-key.keystore -alias alias_name &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-                   -keyalg RSA -keysize &lt;span class=&#34;m&#34;&gt;2048&lt;/span&gt; -validity 10000
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;keytool -genkey -v -keystore my-release-key.keystore -alias alias_name &lt;span class=&#34;sc25&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;                   -keyalg RSA -keysize &lt;span class=&#34;sc80&#34;&gt;2048&lt;/span&gt; -validity &lt;span class=&#34;sc80&#34;&gt;10000&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Now sign the APK with the key:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c&#34;&gt;# Sign the apk&lt;/span&gt;
-jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore my_application.apk alias_name
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s1770&#34;&gt;# Sign the apk
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore my_application.apk alias_name
 
-&lt;span class=&#34;c&#34;&gt;# Verify apk&lt;/span&gt;
-jarsigner -verify -verbose -certs my_application.apk
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class=&#34;s1770&#34;&gt;# Verify apk
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;jarsigner -verify -verbose -certs my_application.apk&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Finally, the apk must be aligned for optimal loading:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;zipalign -v &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; my_application.apk my_application-aligned.apk
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;zipalign -v &lt;span class=&#34;sc80&#34;&gt;4&lt;/span&gt; my_application.apk my_application-aligned.apk&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Voila, now you have a &lt;code&gt;my_application-aligned.apk&lt;/code&gt; file, which you can side load onto your device.&lt;/p&gt;
 </description>
     </item>
@@ -185,20 +178,18 @@ jarsigner -verify -verbose -certs my_application.apk
 &lt;p&gt;&lt;a href=&#34;http://android-developers.blogspot.com/2010/05/android-22-and-developers-goodies.html&#34;&gt;Android 2.2&lt;/a&gt; just came out and along with it came a updated set of &lt;a href=&#34;http://developer.android.com/sdk/tools-notes.html&#34;&gt;SDK tools&lt;/a&gt;. I&amp;#8217;ve been using these tools on Windows, but today I took my Linux laptop out and I&amp;#8217;ve been sat in a &lt;a href=&#34;http://www.juicafe.co.uk/&#34;&gt;coffee shop&lt;/a&gt; hyped up on caffeine but completely unproductive because I&amp;#8217;m going round in circles with what I think is a bug.&lt;/p&gt;
 
 &lt;p&gt;So, I&amp;#8217;m trying the &lt;a href=&#34;http://developer.android.com/guide/developing/other-ide.html#libraryProject&#34;&gt;new library feature&lt;/a&gt;, where you can have a Android library project, which is referenced by one or more Android projects. This allows multiple projects to easily share the same code. The problem is when I set-up my Android project to use a library project I get the following error printed in my eclipse console:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;ERROR: Unknown option &amp;#39;--auto-add-overlay&amp;#39;
-Android Asset Packaging Tool
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;ERROR: Unknown option &amp;#39;--auto-add-overlay&amp;#39;
+Android Asset Packaging Tool&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;and the code fails to compile. If I remove the reference to the library project this error goes away.&lt;/p&gt;
 
 &lt;p&gt;The error is coming from the aapt command, which seems to be installed multiple times, once for each SDK version:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;locate -r &lt;span class=&#34;s2&#34;&gt;&amp;quot;aapt&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$&amp;quot;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&lt;/span&gt;
-&lt;span class=&#34;s2&#34;&gt;/home/bramp/android-sdk-linux_86/platforms/android-3/tools/aapt&lt;/span&gt;
-&lt;span class=&#34;s2&#34;&gt;/home/bramp/android-sdk-linux_86/platforms/android-4/tools/aapt&lt;/span&gt;
-&lt;span class=&#34;s2&#34;&gt;/home/bramp/android-sdk-linux_86/platforms/android-7/tools/aapt&lt;/span&gt;
-&lt;span class=&#34;s2&#34;&gt;/home/bramp/android-sdk-linux_86/platforms/android-8/tools/aapt&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ locate -r &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;aapt&lt;/span&gt;$&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;&lt;/span&gt;
+/home/bramp/android-sdk-linux_86/platforms/android-3/tools/aapt
+/home/bramp/android-sdk-linux_86/platforms/android-4/tools/aapt
+/home/bramp/android-sdk-linux_86/platforms/android-7/tools/aapt
+/home/bramp/android-sdk-linux_86/platforms/android-8/tools/aapt&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Checking each command I see that only versions 7 and 8 have the &lt;em&gt;&amp;#8211;auto-add-overlay&lt;/em&gt; option. Both my library and main projects are targeted at Android 1.6 (i.e. android-4). I tried re-targeting my main project to Android 2.2 (i.e. android-8) and the problem seems to go away.&lt;/p&gt;
 
 &lt;p&gt;So for the moment this seems an annoyance, but I can live with it by setting my target to 2.2. Hopefully Google will release a fix so I can still use the older targets with the new library feature.&lt;/p&gt;
@@ -215,20 +206,19 @@ I noticed that on Windows all versions of the aapt tool support the &amp;#8216;&
       
       <guid>https://blog.bramp.net/post/2009/12/06/foursquare-rules/</guid>
       <description>&lt;p&gt;Everyone plays &lt;a href=&#34;http://foursquare.com/&#34;&gt;foursquare&lt;/a&gt; (the location based android/iPhone app) differently. However, there are no offical rules on what venues are acceptable, and when you can and can&amp;#8217;t check-in. So I wanted to write down the rules that I play by:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;1. You talk about foursquare.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;1. You talk about foursquare.
 2. You talk about foursquare.
 3. When someone is near by you go find them.
 4, Get as many people to a check-in as possible.
 5. One check-in at a time.
 6. Check-in with Android, iPhone, or Blackberry devices.
 7. You check-in as long and late as you can.
-8. If this is your first night at foursquare, you have to check-in.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+8. If this is your first night at foursquare, you have to check-in.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Ok, so that was my attempt of humour by parodying the &lt;a href=&#34;http://www.diggingforfire.net/FightClub/&#34;&gt;rules of fight club&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;I actually do play by a set of rules&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;1. I only check-in to venues where I&amp;#39;m using their service. For example, I only 
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;1. I only check-in to venues where I&amp;#39;m using their service. For example, I only 
   check-in to a coffee shop if I buy a drink, or I check-in to a train station
   only if I get on or off a train.
 
@@ -249,9 +239,8 @@ I noticed that on Windows all versions of the aapt tool support the &amp;#8216;&
 5. I always add full complete information for any venue I create. Sometimes
   when I&amp;#39;m out I&amp;#39;m unable to find the full data, so I fill in as much as I can, and
   later when I get back to my PC I make sure I complete the venue&amp;#39;s details
-  fully.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+  fully.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;So these are my rules and I&amp;#8217;m sure they will evolve as I play the game more. I would love to hear other people&amp;#8217;s rules.&lt;/p&gt;
 </description>
     </item>

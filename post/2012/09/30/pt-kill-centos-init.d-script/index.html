@@ -103,63 +103,63 @@
 </p>
 <div class=post itemprop=articleBody>
 <p><a href=http://www.percona.com/doc/percona-toolkit/2.1/pt-kill.html>pt-kill</a> is a neat little application that can stop long running MySQL queries. It was formally know as <a href=http://www.maatkit.org/doc/mk-kill.html>mk-kill</a> before <a href=http://www.Percona.com>Percona</a> took over the project. Here is the init.d script I use (as one doesn&#8217;t seem provided by the project): </p>
-<div class=highlight><pre><code class=language-bash data-lang=bash><span class=c>#!/bin/sh</span>
-<span class=c>#</span>
-<span class=c># pt-kill   This shell script takes care of starting and stopping</span>
-<span class=c>#               the pt-kill services.</span>
-<span class=c>#</span>
-<span class=c># chkconfig: - 60 20</span>
-<span class=c># description: pt-kill stops long running MySQL queries</span>
-<span class=c>#</span>
-<span class=c># probe: true</span>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=s1770>#!/bin/sh
+</span><span class=s1770></span><span class=s1770>#
+</span><span class=s1770># pt-kill   This shell script takes care of starting and stopping
+</span><span class=s1770>#               the pt-kill services.
+</span><span class=s1770>#
+</span><span class=s1770># chkconfig: - 60 20
+</span><span class=s1770># description: pt-kill stops long running MySQL queries
+</span><span class=s1770>#
+</span><span class=s1770># probe: true
+</span><span class=s1770></span>
+<span class=s1770># Source function library.
+</span><span class=s1770></span>. /etc/rc.d/init.d/functions
 
-<span class=c># Source function library.</span>
-. /etc/rc.d/init.d/functions
+<span class=s7e3>RETVAL</span><span class=sfa0>=</span><span class=sc80>0</span>
 
-<span class=nv>RETVAL</span><span class=o>=</span>0
-
-<span class=c># See how we were called.</span>
-<span class=k>case</span> <span class=s2>&quot;</span><span class=nv>$1</span><span class=s2>&quot;</span> in
-  start<span class=o>)</span>
-    <span class=nb>echo</span> -n <span class=s2>$&quot;Starting pt-kill: &quot;</span>
+<span class=s1770># See how we were called.
+</span><span class=s1770></span><span class=s3e8>case</span> <span class=sc1c>&#34;</span><span class=s7e3>$1</span><span class=sc1c>&#34;</span> in
+  start<span class=sfa0>)</span>
+    <span class=s7d2>echo</span> -n <span class=sc1c>$&#34;Starting pt-kill: &#34;</span>
  
-    pt-kill <span class=se>\</span>
-      --pid /var/run/pt-kill.pid <span class=se>\</span>
-      --daemonize <span class=se>\</span>
-      --interval <span class=m>5</span> <span class=se>\</span>
-      --busy-time <span class=m>60</span> <span class=se>\</span>
-      --wait-after-kill <span class=m>15</span>  <span class=se>\</span>
-      --ignore-info <span class=s1>&#39;(?i-smx:^insert|^update|^delete|^load)&#39;</span> <span class=se>\</span>
-      --match-info <span class=s1>&#39;(?i-xsm:select)&#39;</span> <span class=se>\</span>
-      --ignore-user <span class=s1>&#39;(?i-xsm:root)&#39;</span> <span class=se>\</span>
-      --log /var/log/mysql-kill.log <span class=se>\</span>
-      --print <span class=se>\</span>
-      --execute-command <span class=s1>&#39;(echo &quot;Subject: pt-kill query found on `hostname`&quot;; tail -1 /var/log/mysql-kill.log)|/usr/sbin/sendmail -t you@example.com&#39;</span> <span class=se>\</span>
-      --kill-query
+    pt-kill <span class=sc25>\
+</span><span class=sc25></span>      --pid /var/run/pt-kill.pid <span class=sc25>\
+</span><span class=sc25></span>      --daemonize <span class=sc25>\
+</span><span class=sc25></span>      --interval <span class=sc80>5</span> <span class=sc25>\
+</span><span class=sc25></span>      --busy-time <span class=sc80>60</span> <span class=sc25>\
+</span><span class=sc25></span>      --wait-after-kill <span class=sc80>15</span>  <span class=sc25>\
+</span><span class=sc25></span>      --ignore-info <span class=sc1c>&#39;(?i-smx:^insert|^update|^delete|^load)&#39;</span> <span class=sc25>\
+</span><span class=sc25></span>      --match-info <span class=sc1c>&#39;(?i-xsm:select)&#39;</span> <span class=sc25>\
+</span><span class=sc25></span>      --ignore-user <span class=sc1c>&#39;(?i-xsm:root)&#39;</span> <span class=sc25>\
+</span><span class=sc25></span>      --log /var/log/mysql-kill.log <span class=sc25>\
+</span><span class=sc25></span>      --print <span class=sc25>\
+</span><span class=sc25></span>      --execute-command <span class=sc1c>&#39;(echo &#34;Subject: pt-kill query found on `hostname`&#34;; tail -1 /var/log/mysql-kill.log)|/usr/sbin/sendmail -t you@example.com&#39;</span> <span class=sc25>\
+</span><span class=sc25></span>      --kill-query
  
-    <span class=nv>RETVAL</span><span class=o>=</span><span class=nv>$?</span>
-    <span class=nb>echo</span>
-    <span class=o>[</span> <span class=nv>$RETVAL</span> -ne <span class=m>0</span> <span class=o>]</span> <span class=o>&amp;&amp;</span> <span class=nb>exit</span> <span class=nv>$RETVAL</span>
+    <span class=s7e3>RETVAL</span><span class=sfa0>=</span><span class=s7e3>$?</span>
+    <span class=s7d2>echo</span>
+    <span class=sfa0>[</span> <span class=s7e3>$RETVAL</span> -ne <span class=sc80>0</span> <span class=sfa0>]</span> <span class=sfa0>&amp;&amp;</span> <span class=s7d2>exit</span> <span class=s7e3>$RETVAL</span>
  
-  <span class=p>;;</span>
-  stop<span class=o>)</span>
-        <span class=c># Stop daemons.</span>
-        <span class=nb>echo</span> -n <span class=s2>$&quot;Shutting down pt-kill: &quot;</span>
+  ;;
+  stop<span class=sfa0>)</span>
+        <span class=s1770># Stop daemons.
+</span><span class=s1770></span>        <span class=s7d2>echo</span> -n <span class=sc1c>$&#34;Shutting down pt-kill: &#34;</span>
         killproc pt-kill
-        <span class=nb>echo</span>
-    <span class=p>;;</span>
-  restart<span class=o>)</span>
-    <span class=nv>$0</span> stop
-        <span class=nv>$0</span> start
-        <span class=p>;;</span>
-  *<span class=o>)</span>
-        <span class=nb>echo</span> <span class=s2>$&quot;Usage: pt-kill {start|stop}&quot;</span>
-        <span class=nv>RETVAL</span><span class=o>=</span>3
-        <span class=p>;;</span>
-<span class=k>esac</span>
+        <span class=s7d2>echo</span>
+    ;;
+  restart<span class=sfa0>)</span>
+    <span class=s7e3>$0</span> stop
+        <span class=s7e3>$0</span> start
+        ;;
+  *<span class=sfa0>)</span>
+        <span class=s7d2>echo</span> <span class=sc1c>$&#34;Usage: pt-kill {start|stop}&#34;</span>
+        <span class=s7e3>RETVAL</span><span class=sfa0>=</span><span class=sc80>3</span>
+        ;;
+<span class=s3e8>esac</span>
  
-<span class=nb>exit</span> <span class=nv>$RETVAL</span>
-</code></pre></div>
+<span class=s7d2>exit</span> <span class=s7e3>$RETVAL</span></code></pre>
+</div>
 <p><strong>Usage:</strong></p>
 <p>Create the script as /etc/init.d/pt-kill, and change the pt-kill command in the middle of the script to suit your needs. Then run &#8216;chkconfig &#8211;level 345 pt-kill on&#8217; to ensure this script starts up at boot. Alternatively test the script with &#8216;/etc/init.d/pt-kill start&#8217; or &#8216;/etc/init.d/pt-kill stop&#8217;.</p>
 <p>Thanks to <a href="http://www.mysqldiary.com/you-must-have-a-killer-in-your-system/">MySQL Diary</a> as they provided their default pt-kill command line. Perhaps in future someone could create a more generic startup script.</p>

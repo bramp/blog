@@ -16,7 +16,7 @@
       
       <guid>https://blog.bramp.net/post/2012/04/29/failed-ubuntu-update/</guid>
       <description>&lt;p&gt;While trying to do a &amp;#8220;do-release-upgrade&amp;#8221;, to upgrade to &lt;a href=&#34;http://releases.ubuntu.com/12.04/&#34;&gt;Ubuntu Precise&lt;/a&gt;, I encountered a error that Google did not find a satisfactory answer for:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;An unresolvable problem occurred while calculating the upgrade:
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;An unresolvable problem occurred while calculating the upgrade:
 E:Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
 
 This can be caused by:
@@ -24,9 +24,8 @@ This can be caused by:
 * Running the current pre-release version of Ubuntu
 * Unofficial software packages not provided by Ubuntu
 
-If none of this applies, then please report this bug using the command &amp;#39;ubuntu-bug update-manager&amp;#39; in a terminal.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+If none of this applies, then please report this bug using the command &amp;#39;ubuntu-bug update-manager&amp;#39; in a terminal.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;The problem was I had some packages installed that had no upgrade path, that is, are not available in Precise. To debug this I looked in the &lt;code&gt;/var/log/dist-upgrade/apt.log&lt;/code&gt; file, and it identifies the packages that were &amp;#8220;broken&amp;#8221;. I just had to &amp;#8220;apt-get remove&amp;#8221; them, do the release upgrade, and afterwards I could reinstall them.&lt;/p&gt;
 
 &lt;p&gt;Problem solved.&lt;/p&gt;

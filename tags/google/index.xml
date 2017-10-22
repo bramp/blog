@@ -70,61 +70,60 @@
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Please update to JDK 1.8, or update your Maven configuration to restrict these plugins to when run on a modern JDK:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;project&amp;gt;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;s7e2&#34;&gt;&amp;lt;project&amp;gt;&lt;/span&gt;
 ...
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;profiles&amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;&amp;lt;profile&amp;gt;&lt;/span&gt;
-            &lt;span class=&#34;nt&#34;&gt;&amp;lt;id&amp;gt;&lt;/span&gt;java18&lt;span class=&#34;nt&#34;&gt;&amp;lt;/id&amp;gt;&lt;/span&gt;
-            &lt;span class=&#34;nt&#34;&gt;&amp;lt;activation&amp;gt;&lt;/span&gt;
-                &lt;span class=&#34;nt&#34;&gt;&amp;lt;jdk&amp;gt;&lt;/span&gt;1.8&lt;span class=&#34;nt&#34;&gt;&amp;lt;/jdk&amp;gt;&lt;/span&gt;
-            &lt;span class=&#34;nt&#34;&gt;&amp;lt;/activation&amp;gt;&lt;/span&gt;
-            &lt;span class=&#34;nt&#34;&gt;&amp;lt;build&amp;gt;&lt;/span&gt;
-                &lt;span class=&#34;nt&#34;&gt;&amp;lt;plugins&amp;gt;&lt;/span&gt;
-                    &lt;span class=&#34;nt&#34;&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
-                        &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;com.coveo&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-                        &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;fmt-maven-plugin&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-                        &lt;span class=&#34;nt&#34;&gt;&amp;lt;executions&amp;gt;&lt;/span&gt;
-                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;execution&amp;gt;&lt;/span&gt;
-                                &lt;span class=&#34;nt&#34;&gt;&amp;lt;goals&amp;gt;&lt;/span&gt;
-                                    &lt;span class=&#34;nt&#34;&gt;&amp;lt;goal&amp;gt;&lt;/span&gt;format&lt;span class=&#34;nt&#34;&gt;&amp;lt;/goal&amp;gt;&lt;/span&gt;
-                                &lt;span class=&#34;nt&#34;&gt;&amp;lt;/goals&amp;gt;&lt;/span&gt;
-                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;/execution&amp;gt;&lt;/span&gt;
-                        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/executions&amp;gt;&lt;/span&gt;
-                    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
-                    &lt;span class=&#34;nt&#34;&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
-                        &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.apache.maven.plugins&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-                        &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;maven-compiler-plugin&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-                        &lt;span class=&#34;nt&#34;&gt;&amp;lt;configuration&amp;gt;&lt;/span&gt;
-                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;compilerId&amp;gt;&lt;/span&gt;javac-with-errorprone&lt;span class=&#34;nt&#34;&gt;&amp;lt;/compilerId&amp;gt;&lt;/span&gt;
-                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;forceJavacCompilerUse&amp;gt;&lt;/span&gt;true&lt;span class=&#34;nt&#34;&gt;&amp;lt;/forceJavacCompilerUse&amp;gt;&lt;/span&gt;
-                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;showWarnings&amp;gt;&lt;/span&gt;true&lt;span class=&#34;nt&#34;&gt;&amp;lt;/showWarnings&amp;gt;&lt;/span&gt;
-                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;compilerArgs&amp;gt;&lt;/span&gt;
-                                &lt;span class=&#34;nt&#34;&gt;&amp;lt;arg&amp;gt;&lt;/span&gt;-Xlint:all&lt;span class=&#34;nt&#34;&gt;&amp;lt;/arg&amp;gt;&lt;/span&gt;
-                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;/compilerArgs&amp;gt;&lt;/span&gt;
-                        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/configuration&amp;gt;&lt;/span&gt;
-                        &lt;span class=&#34;nt&#34;&gt;&amp;lt;dependencies&amp;gt;&lt;/span&gt;
-                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
-                                &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.codehaus.plexus&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-                                &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;plexus-compiler-javac-errorprone&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-                                &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2.8.1&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
-                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
-                            &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- override plexus-compiler-javac-errorprone&amp;#39;s dependency on&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;                                 Error Prone with the latest version --&amp;gt;&lt;/span&gt;
-                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
-                                &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;com.google.errorprone&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-                                &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;error_prone_core&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-                                &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2.0.19&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
-                            &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
-                        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependencies&amp;gt;&lt;/span&gt;
-                    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
-                &lt;span class=&#34;nt&#34;&gt;&amp;lt;/plugins&amp;gt;&lt;/span&gt;
-            &lt;span class=&#34;nt&#34;&gt;&amp;lt;/build&amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/profile&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/profiles&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;profiles&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;profile&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;id&amp;gt;&lt;/span&gt;java18&lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/id&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;activation&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;jdk&amp;gt;&lt;/span&gt;1.8&lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/jdk&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/activation&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;build&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;plugins&amp;gt;&lt;/span&gt;
+                    &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
+                        &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;com.coveo&lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+                        &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;fmt-maven-plugin&lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+                        &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;executions&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;execution&amp;gt;&lt;/span&gt;
+                                &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;goals&amp;gt;&lt;/span&gt;
+                                    &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;goal&amp;gt;&lt;/span&gt;format&lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/goal&amp;gt;&lt;/span&gt;
+                                &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/goals&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/execution&amp;gt;&lt;/span&gt;
+                        &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/executions&amp;gt;&lt;/span&gt;
+                    &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
+                    &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
+                        &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.apache.maven.plugins&lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+                        &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;maven-compiler-plugin&lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+                        &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;configuration&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;compilerId&amp;gt;&lt;/span&gt;javac-with-errorprone&lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/compilerId&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;forceJavacCompilerUse&amp;gt;&lt;/span&gt;true&lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/forceJavacCompilerUse&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;showWarnings&amp;gt;&lt;/span&gt;true&lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/showWarnings&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;compilerArgs&amp;gt;&lt;/span&gt;
+                                &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;arg&amp;gt;&lt;/span&gt;-Xlint:all&lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/arg&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/compilerArgs&amp;gt;&lt;/span&gt;
+                        &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/configuration&amp;gt;&lt;/span&gt;
+                        &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;dependencies&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+                                &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.codehaus.plexus&lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+                                &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;plexus-compiler-javac-errorprone&lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+                                &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2.8.1&lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;s1770&#34;&gt;&amp;lt;!-- override plexus-compiler-javac-errorprone&amp;#39;s dependency on
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;                                 Error Prone with the latest version --&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+                                &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;com.google.errorprone&lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+                                &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;error_prone_core&lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+                                &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2.0.19&lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+                            &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+                        &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/dependencies&amp;gt;&lt;/span&gt;
+                    &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
+                &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/plugins&amp;gt;&lt;/span&gt;
+            &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/build&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/profile&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/profiles&amp;gt;&lt;/span&gt;
 ...
-&lt;span class=&#34;nt&#34;&gt;&amp;lt;/project&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class=&#34;s7e2&#34;&gt;&amp;lt;/project&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;This defines a new profile, that is only &amp;ldquo;activated&amp;rdquo; under Java 1.8. When activated the &lt;code&gt;&amp;lt;build&amp;gt;&lt;/code&gt; section has the two additional plugins added.
 Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&amp;lt;build&amp;gt;&lt;/code&gt; section, and only in the &lt;code&gt;&amp;lt;profile&amp;gt;&amp;lt;build&amp;gt;&lt;/code&gt; section.&lt;/p&gt;
 
@@ -175,12 +174,11 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 &lt;p&gt;Firstly I found a &lt;a href=&#34;http://www.quantcast.com/top-sites-1&#34;&gt;list of the 1 million most popular sites&lt;/a&gt;. I then picked a number of DNS servers to test against. I chose &lt;a href=&#34;http://code.google.com/speed/public-dns/&#34;&gt;Google&lt;/a&gt;&amp;#8216;s, &lt;a href=&#34;http://www.opendns.com/&#34;&gt;OpenDNS&lt;/a&gt;&amp;#8216;s, my ISP (&lt;a href=&#34;http://broadband.sky.com/&#34;&gt;Sky/Easynet&lt;/a&gt;) and my old ISP&amp;#8217;s (&lt;a href=&#34;http://www.plus.net/&#34;&gt;Plus.net&lt;/a&gt;).&lt;/p&gt;
 
 &lt;p&gt;I decided I would query an &lt;a href=&#34;http://en.wikipedia.org/wiki/List_of_DNS_record_types&#34;&gt;A record&lt;/a&gt; for each of the domains in the list, one at a time, starting with the most popular. I would query each server three times for the same domain name. The ordering was like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;x&#34;&gt;foreach (domain)&lt;/span&gt;
-&lt;span class=&#34;x&#34;&gt;   for (i =0; i&amp;lt;3;i++)&lt;/span&gt;
-&lt;span class=&#34;x&#34;&gt;      foreach (server)&lt;/span&gt;
-&lt;span class=&#34;x&#34;&gt;         query(server, domain)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;foreach (domain)
+   for (i =0; i&amp;lt;3;i++)
+      foreach (server)
+         query(server, domain)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;I recorded the time it took for each query to be answered, and I also recorded the replies. I was curious to see if some servers replied with different answers, or if some returned more information, i.e. additional records.&lt;/p&gt;
 
 &lt;p&gt;I &lt;a href=&#34;dns.php&#34;&gt;wrote a script&lt;/a&gt; in PHP 5.3, and ran it from the command line on my Windows Server 2008 machine. The script used PEAR&amp;rsquo;s Net_DNS to craft and send the DNS questions. I was not using my operating system&amp;rsquo;s resolver, and I was not using any form of client side caching. I ran the experiments from my home ADSL connection and as far as I know my ISP was not interfering with my DNS requests in any way. I live in the North West of the UK.&lt;/p&gt;

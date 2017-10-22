@@ -109,16 +109,16 @@ Warning:
 </p>
 <div class=post itemprop=articleBody>
 <p>I&#8217;ve started using <a href="http://www.jshint.com/">JSHint</a> to check my javascript. One error I encountered was:</p>
-<div class=highlight><pre><code class=language-text data-lang=text>Errors:
+<div class=highlight><pre class=chroma><code class=language-text data-lang=text>Errors:
      85,5:&#39;grammar&#39; is not defined.
 Warning:
-     85,1: &#39;grammar&#39; is an implied global variable.
-</code></pre></div>
+     85,1: &#39;grammar&#39; is an implied global variable.</code></pre>
+</div>
 <p></p>
 <p>This is saying that I&#8217;m using some variable that I&#8217;ve not declared in my javascript file. In most cases that would be a mistake, but in my case I was expecting it to be in the global scope included from another javascript file.</p>
 <p>To make JSHint stop complaining about this, you can simply place the following at the top of your javascript document:</p>
-<div class=highlight><pre><code class=language-javascript data-lang=javascript><span class=cm>/*global grammar */</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-javascript data-lang=javascript><span class=s1770>/*global grammar */</span></code></pre>
+</div>
 <p>This will tell it that the variable is declared at a global scope. Check out one of <a href=https://github.com/bramp/js-sequence-diagrams/blob/master/diagram.js>my projects</a> for example.</p>
 </div>
 </article>

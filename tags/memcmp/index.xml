@@ -18,29 +18,27 @@
       <description>&lt;p&gt;I&amp;#8217;ve spent a day tracking down a bug in a FreeBSD kernel module I&amp;#8217;m developing, and to my surprise the bug was due to memcmp being broken! For those that don&amp;#8217;t know, memcmp is used to compare two byte strings and returns 0 if they are identical, a negative number of the first string is less than the second, and a positive number of the first string is greater than the second.&lt;/p&gt;
 
 &lt;p&gt;However, the implementation of memcmp in the FreeBSD kernel looks like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;k&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;__inline&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;
-&lt;span class=&#34;nf&#34;&gt;memcmp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bcmp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;s3e8&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;s3e8&#34;&gt;__inline&lt;/span&gt; &lt;span class=&#34;s3ee&#34;&gt;int&lt;/span&gt;
+&lt;span class=&#34;s7d9&#34;&gt;memcmp&lt;/span&gt;(&lt;span class=&#34;s3e8&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;s3ee&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;*&lt;/span&gt;b1, &lt;span class=&#34;s3e8&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;s3ee&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;*&lt;/span&gt;b2, size_t len) {
+    &lt;span class=&#34;s3e8&#34;&gt;return&lt;/span&gt; (bcmp(b1, b2, len));
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;The problem with this is that bcmp is defined to return 0 if the strings are identical, otherwise returns a non-zero integer. This is not the same as memcmp, and you would only notice this if you are testing the signedness of the return value. I suspect this has not been noticed because traditionally FreeBSD has favoured bcmp, and in the few cases it does uses memcmp it only compares it with zero.&lt;/p&gt;
 
 &lt;p&gt;There is some good news, obrien@ noticed this problem in September 2008 and commited a patch (svn r183299). However, it looks like this fix won&amp;#8217;t be included until FreeBSD 8.0. In the mean time I&amp;#8217;m implementing a minor hack to fix this.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;my_memcmp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-	&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-		&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;s3ee&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;s7d9&#34;&gt;my_memcmp&lt;/span&gt;(&lt;span class=&#34;s3e8&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;s3ee&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;*&lt;/span&gt;s1, &lt;span class=&#34;s3e8&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;s3ee&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;*&lt;/span&gt;s2, size_t n) {
+	&lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt; (n &lt;span class=&#34;sfa0&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt;) {
+		&lt;span class=&#34;s3e8&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;s3ee&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;s3ee&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;*&lt;/span&gt;p1 &lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt; s1, &lt;span class=&#34;sfa0&#34;&gt;*&lt;/span&gt;p2 &lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt; s2;
 
-		&lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-			&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-				&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-		&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define memcmp my_memcmp&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</description>
+		&lt;span class=&#34;s3e8&#34;&gt;do&lt;/span&gt; {
+			&lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt; (&lt;span class=&#34;sfa0&#34;&gt;*&lt;/span&gt;p1&lt;span class=&#34;sfa0&#34;&gt;++&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;*&lt;/span&gt;p2&lt;span class=&#34;sfa0&#34;&gt;++&lt;/span&gt;)
+				&lt;span class=&#34;s3e8&#34;&gt;return&lt;/span&gt; (&lt;span class=&#34;sfa0&#34;&gt;*--&lt;/span&gt;p1 &lt;span class=&#34;sfa0&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;*--&lt;/span&gt;p2);
+		} &lt;span class=&#34;s3e8&#34;&gt;while&lt;/span&gt; (&lt;span class=&#34;sfa0&#34;&gt;--&lt;/span&gt;n &lt;span class=&#34;sfa0&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt;);
+	}
+	&lt;span class=&#34;s3e8&#34;&gt;return&lt;/span&gt; (&lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt;);
+}
+&lt;span class=&#34;s17d4&#34;&gt;#define memcmp my_memcmp&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</description>
     </item>
     
   </channel>
