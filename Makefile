@@ -1,4 +1,4 @@
-.PHONY: all clean minified server watch help goredirects
+.PHONY: all clean minified server watch help goredirects chromacss
 
 HUGO := ./hugo.sh
 NODE_MODULES := node_modules/.bin
@@ -42,7 +42,7 @@ watch: clean
 	$(HUGO) server -w -D -F -v --bind="0.0.0.0"
 
 # Below are file based targets
-public: $(FILES) config.yaml goredirects
+public: $(FILES) config.yaml goredirects chromacss
 	$(HUGO)
 
 	# Post process some files (to make the HTML more bootstrap friendly)
@@ -68,7 +68,15 @@ goredirects:
 	find public -type f -iname '*.html' | parallel --no-notice --tag $(HTML_MINIFIER) "{}" -o "{}"
 	touch .minified
 
-public/css/all.min.css: public/css/bootstrap.css public/css/bootstrap-social.css public/css/pygments-friendly.css public/css/bramp.css
+chromacss: themes/bramp/static/css/chroma-monokai.css themes/bramp/static/css/chroma-friendly.css
+
+themes/bramp/static/css/chroma-monokai.css:
+	$(HUGO) gen chromastyles --style=monokai > themes/bramp/static/css/chroma-monokai.css
+
+themes/bramp/static/css/chroma-friendly.css:
+	$(HUGO) gen chromastyles --style=friendly > themes/bramp/static/css/chroma-friendly.css
+
+public/css/all.min.css: public/css/bootstrap.css public/css/bootstrap-social.css public/css/chroma-friendly.css public/css/bramp.css
 	$(CLEANCSS) -o public/css/all.min.css $^
 
 public/js/all.min.js: public/js/jquery-1.10.2.min.js public/js/bootstrap.min.js

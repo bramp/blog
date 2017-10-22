@@ -28,7 +28,7 @@ taxonomies:
   category: "categories"
   post: "posts"
 
-pygmentscodefences: true
-pygmentsuseclasses: true
-pygmentsstyle: monokai
+pygmentsCodeFences: true
+pygmentsUseClasses: true
+pygmentsStyle: friendly
 #pygmentsoptions: startinline=true
