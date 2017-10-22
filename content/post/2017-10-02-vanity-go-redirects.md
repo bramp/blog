@@ -3,7 +3,6 @@ title: "Vanity Go Import Paths"
 author: bramp
 date: 2017-10-02T07:48:23-07:00
 layout: post
-draft: true
 categories:
   - Blog
 tags:
