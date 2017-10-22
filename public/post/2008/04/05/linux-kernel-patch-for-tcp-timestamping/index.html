@@ -103,28 +103,28 @@
 </p>
 <div class=post itemprop=articleBody>
 <p>Recently I needed to measure the time it takes a packet to travel though the Linux network stack. To begin with I thought I&#8217;ll hack the kernel to add my own timing measurements, but then I found this was already built in! I could use the SIOCGSTAMP or SIOCGSTAMPNS ioctl calls to retrieve the timestamp assigned by the network driver when the packet first enters the stack.</p>
-<div class=highlight><pre><code class=language-c data-lang=c><span class=n>SOCKET</span> <span class=n>s</span><span class=p>;</span>
-<span class=k>struct</span> <span class=n>timeval</span> <span class=n>tv</span> <span class=o>=</span> <span class=p>{</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>};</span>
-<span class=k>if</span> <span class=p>(</span> <span class=n>ioctl</span><span class=p>(</span><span class=n>s</span><span class=p>,</span> <span class=n>SIOCGSTAMP</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>tv</span><span class=p>)</span> <span class=p>)</span>
-   <span class=k>return</span> <span class=mi>0</span><span class=p>;</span> <span class=c1>// error</span>
-<span class=n>printf</span><span class=p>(</span> <span class=s>&quot;%ld seconds and %ld nanoseconds&quot;</span><span class=p>,</span>  <span class=n>tv</span><span class=p>.</span><span class=n>tv_sec</span><span class=p>,</span>  <span class=n>tv</span><span class=p>.</span><span class=n>tv_usec</span> <span class=p>);</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-c data-lang=c>SOCKET s;
+<span class=s3e8>struct</span> timeval tv <span class=sfa0>=</span> {<span class=sc80>0</span>,<span class=sc80>0</span>};
+<span class=s3e8>if</span> ( ioctl(s, SIOCGSTAMP, <span class=sfa0>&amp;</span>tv) )
+   <span class=s3e8>return</span> <span class=sc80>0</span>; <span class=s1770>// error
+</span><span class=s1770></span>printf( <span class=sc1c></span><span class=sc1c>&#34;%ld seconds and %ld nanoseconds&#34;</span>,  tv.tv_sec,  tv.tv_usec );</code></pre>
+</div>
 <p>This works great for UDP packets or RAW sockets, but does not work for TCP. There are many good reasons why TCP isn&#8217;t supported, mainly because TCP is a stream protocol, whereas UDP and RAW sockets typically operate on discrete packets.</p>
 <p>Ignoring this fact I decided to hack the kernel anyway to record the timestamps for TCP. It is a simple patch which hopefully others might find useful if they ever need to profile the TCP stack. It applys cleanly to 2.6.24 kernels.</p>
-<div class=highlight><pre><code class=language-diff data-lang=diff><span class=gd>--- a/linux-2.6.24/net/ipv4/tcp.c	2008-01-24 22:58:37.000000000 +0000</span>
-<span class=gi>+++ b/linux-2.6.24/net/ipv4/tcp.c	2008-02-11 19:40:41.000000000 +0000</span>
-<span class=gu>@@ -1180,6 +1180,10 @@</span>
- 		/* Next get a buffer. */
+<div class=highlight><pre class=chroma><code class=language-diff data-lang=diff><span class=s1b59>--- a/linux-2.6.24/net/ipv4/tcp.c	2008-01-24 22:58:37.000000000 +0000
+</span><span class=s1b59></span><span class=s1b5d>+++ b/linux-2.6.24/net/ipv4/tcp.c	2008-02-11 19:40:41.000000000 +0000
+</span><span class=s1b5d></span><span class=s1b61>@@ -1180,6 +1180,10 @@
+</span><span class=s1b61></span> 		/* Next get a buffer. */
  
  		skb = skb_peek(&amp;sk-&gt;sk_receive_queue);
-<span class=gi>+		</span>
-<span class=gi>+		if (skb)</span>
-<span class=gi>+			sock_recv_timestamp(msg, sk, skb); /* HACK */</span>
-<span class=gi>+			</span>
- 		do {
+<span class=s1b5d>+		
+</span><span class=s1b5d>+		if (skb)
+</span><span class=s1b5d>+			sock_recv_timestamp(msg, sk, skb); /* HACK */
+</span><span class=s1b5d>+			
+</span><span class=s1b5d></span> 		do {
  			if (!skb)
- 				break;
-</code></pre></div>
+<span class=ss4> 				break;</span></code></pre>
+</div>
 </div>
 </article>
 <div class=row>

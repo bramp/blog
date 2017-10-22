@@ -105,25 +105,25 @@
 </p>
 <div class=post itemprop=articleBody>
 <p>My girlfriend wanted to create a blog, and she attempted to use her <a href=http://www.lancs.ac.uk/ug/cranen>university provided web space</a>. However, the blog software seemed unable to write to her webspace. Typically you would fix this by changing the write permissions on the file/directory like so:</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>chmod g+w filename
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>chmod g+w filename</code></pre>
+</div>
 <p>or</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>chmod o+w filename
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>chmod o+w filename</code></pre>
+</div>
 <p>However this did not seem to work. I noticed that the files which hosted the website were on a SunOS 5.8 machine, and this seemed to support access control lists (ACLs). So I looked at a few of the ACLs for the files and they looked like this:</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash><span class=nv>$ </span>getfacl filename
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ getfacl filename
 user::rwx
-group::rwx              <span class=c>#effective:rwx</span>
-group:httpadmin:rwx     <span class=c>#effective:rwx</span>
-mask:rwx
-other:r--
-</code></pre></div>
+group::rwx              <span class=s1770>#effective:rwx
+</span><span class=s1770></span>group:httpadmin:rwx     <span class=s1770>#effective:rwx
+</span><span class=s1770></span>mask:rwx
+other:r--</code></pre>
+</div>
 <p>Since there is the group:httpadmin line, ISS are clearly using these ACLs. So I figured I would add the user the webserver is running under to the ACL. A quick look at a phpinfo() page showed me that the web server is running under user www in group www. So I first tried the following:</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>setfacl -m user:www:rw- filename
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>setfacl -m user:www:rw- filename</code></pre>
+</div>
 <p>But that oddly didn&#8217;t work, but then I noted that the webserver was a linux machine, not SunOS, and that the UID of www was 48. A quick look at the UID of www on SunOS and it shows it is a completely different number. So for what ever reason ISS were unable to make the UIDs match between computers, so the correct command to type is:</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>setfacl -m user:48:rw- filename
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>setfacl -m user:48:rw- filename</code></pre>
+</div>
 <p>Bottom line, if you wish to make your files or directories writable by scripts running on the webserver you must log into cent1 (via ssh), change to your www directory &#8220;/home/cent1/NN/username/www/public_html&#8221; and then issue the above command to the appropriate files.</p>
 </div>
 </article>

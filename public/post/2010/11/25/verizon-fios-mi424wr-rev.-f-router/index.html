@@ -103,74 +103,74 @@
 </p>
 <div class=post itemprop=articleBody>
 <p>I just got a FiOS wifi router and I must say I really like it. The web interface has many more options than any home router I&#8217;ve ever played with, and it seems like it&#8217;d be easy for a beginner but doesn&#8217;t get in the way of an expert. It also telnet access (optionally over SSL), which puts you into a custom shell. Poking around the commands I find one awesome one:</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>Wireless Broadband Router&gt; <span class=nb>help </span>system shell
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>Wireless Broadband Router&gt; <span class=s7d2>help</span> system shell
 shell   Spawn busybox shell in foreground
 
 Wireless Broadband Router&gt; system shell
-BusyBox v1.01 <span class=o>(</span>2005.09.07-07:38+0000<span class=o>)</span> Built-in shell <span class=o>(</span>lash<span class=o>)</span>
-Enter <span class=s1>&#39;help&#39;</span> <span class=k>for</span> a list of built-in commands.
+BusyBox v1.01 <span class=sfa0>(</span><span class=sc80>2005</span>.09.07-07:38+0000<span class=sfa0>)</span> Built-in shell <span class=sfa0>(</span>lash<span class=sfa0>)</span>
+Enter <span class=sc1c>&#39;help&#39;</span> <span class=s3e8>for</span> a list of built-in commands.
 
-/ <span class=c># </span>
-</code></pre></div>
+/ # </code></pre>
+</div>
 <p>This is very clearly running Linux, with BusyBox. For those interested here are some interesting bits of information:</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>/ <span class=c># cat /proc/version </span>
-Linux version 2.6.16.14 <span class=c>#1 SMP Sat Nov 28 00:38:50 PST 2009</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>/ <span class=s1770># cat /proc/version 
+</span><span class=s1770></span>Linux version <span class=sc80>2</span>.6.16.14 #1 SMP Sat Nov <span class=sc80>28</span> <span class=sc80>00</span>:38:50 PST <span class=sc80>2009</span></code></pre>
+</div>
 <p>A four year old kernel. Well what do you expect from this kind of device :)</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>/ <span class=c># cat /proc/cpuinfo </span>
-system <span class=nb>type</span>     : MC524WR
-processor       : 0
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>/ <span class=s1770># cat /proc/cpuinfo 
+</span><span class=s1770></span>system <span class=s7d2>type</span>     : MC524WR
+processor       : <span class=sc80>0</span>
 cpu model       : Cavium Networks Octeon CN50XX V0.1
-BogoMIPS        : 1000.48
-<span class=nb>wait </span>instruction    : yes
+BogoMIPS        : <span class=sc80>1000</span>.48
+<span class=s7d2>wait</span> instruction    : yes
 microsecond timers  : yes
-tlb_entries     : 64
+tlb_entries     : <span class=sc80>64</span>
 extra interrupt vector  : yes
 hardware watchpoint : yes
 ASEs implemented    :
 VCED exceptions     : not available
 VCEI exceptions     : not available
-processor       : 1
+processor       : <span class=sc80>1</span>
 cpu model       : Cavium Networks Octeon CN50XX V0.1
-BogoMIPS        : 1000.48
-<span class=nb>wait </span>instruction    : yes
+BogoMIPS        : <span class=sc80>1000</span>.48
+<span class=s7d2>wait</span> instruction    : yes
 microsecond timers  : yes
-tlb_entries     : 64
+tlb_entries     : <span class=sc80>64</span>
 extra interrupt vector  : yes
 hardware watchpoint : yes
 ASEs implemented    :
 VCED exceptions     : not available
-VCEI exceptions     : not available
-</code></pre></div>
+VCEI exceptions     : not available</code></pre>
+</div>
 <p>w00t, a <a href=http://www.caviumnetworks.com/OCTEON-Plus_CN50XX.html>Dual Cores 64bit MIPS chip</a></p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>/ <span class=c># cat /proc/meminfo </span>
-MemTotal:        <span class=m>53200</span> kB
-MemFree:         <span class=m>11588</span> kB
-Buffers:          <span class=m>9252</span> kB
-Cached:           <span class=m>9228</span> kB
-SwapCached:          <span class=m>0</span> kB
-Active:           <span class=m>7796</span> kB
-Inactive:        <span class=m>16220</span> kB
-HighTotal:           <span class=m>0</span> kB
-HighFree:            <span class=m>0</span> kB
-LowTotal:        <span class=m>53200</span> kB
-LowFree:         <span class=m>11588</span> kB
-SwapTotal:           <span class=m>0</span> kB
-SwapFree:            <span class=m>0</span> kB
-Dirty:               <span class=m>0</span> kB
-Writeback:           <span class=m>0</span> kB
-Mapped:          <span class=m>11272</span> kB
-Slab:            <span class=m>13700</span> kB
-CommitLimit:     <span class=m>26600</span> kB
-Committed_AS:    <span class=m>11384</span> kB
-PageTables:        <span class=m>196</span> kB
-VmallocTotal: <span class=m>1073741824</span> kB
-VmallocUsed:      <span class=m>2752</span> kB
-VmallocChunk: <span class=m>1073738692</span> kB
-HugePages_Total:     0
-HugePages_Free:      0
-Hugepagesize:     <span class=m>2048</span> kB
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>/ <span class=s1770># cat /proc/meminfo 
+</span><span class=s1770></span>MemTotal:        <span class=sc80>53200</span> kB
+MemFree:         <span class=sc80>11588</span> kB
+Buffers:          <span class=sc80>9252</span> kB
+Cached:           <span class=sc80>9228</span> kB
+SwapCached:          <span class=sc80>0</span> kB
+Active:           <span class=sc80>7796</span> kB
+Inactive:        <span class=sc80>16220</span> kB
+HighTotal:           <span class=sc80>0</span> kB
+HighFree:            <span class=sc80>0</span> kB
+LowTotal:        <span class=sc80>53200</span> kB
+LowFree:         <span class=sc80>11588</span> kB
+SwapTotal:           <span class=sc80>0</span> kB
+SwapFree:            <span class=sc80>0</span> kB
+Dirty:               <span class=sc80>0</span> kB
+Writeback:           <span class=sc80>0</span> kB
+Mapped:          <span class=sc80>11272</span> kB
+Slab:            <span class=sc80>13700</span> kB
+CommitLimit:     <span class=sc80>26600</span> kB
+Committed_AS:    <span class=sc80>11384</span> kB
+PageTables:        <span class=sc80>196</span> kB
+VmallocTotal: <span class=sc80>1073741824</span> kB
+VmallocUsed:      <span class=sc80>2752</span> kB
+VmallocChunk: <span class=sc80>1073738692</span> kB
+HugePages_Total:     <span class=sc80>0</span>
+HugePages_Free:      <span class=sc80>0</span>
+Hugepagesize:     <span class=sc80>2048</span> kB</code></pre>
+</div>
 <p>Only ~53MB of RAM if I&#8217;m reading that right. Seems most likely to be 64MB to me, but I will investigate further.</p>
 <p>Also, as this is Linux, the <a href="http://opensource.actiontec.com/">source code</a> has been made available. The <a href=http://opensource.actiontec.com/sourcecode/mi424wr/rev_ef/mi424wr-fw-20.10.7.5_readme>README</a> reveals it is a MC524 Router (MI424WR-GEN2 REV E/F).</p>
 <p>The device doesn&#8217;t seem to have many of the standard Linux tools, no doubt to save space. It does however have an external USB port. My plan is to compile more of busybox, as well as some other binaries, and run them from an external USB stick.</p>

@@ -16,17 +16,16 @@
       
       <guid>https://blog.bramp.net/post/2011/08/02/google-chrome-javascript-console.log-bug/</guid>
       <description>&lt;p&gt;I recently stumbled across this issue while debugging some Javascript. Take the following example code:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;array&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
-&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-	&lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-	&lt;span class=&#34;c1&#34;&gt;//alert(&amp;quot;pause&amp;quot;);&lt;/span&gt;
-	&lt;span class=&#34;nx&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;pop&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;s3e8&#34;&gt;var&lt;/span&gt; array &lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt; [&lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt;,&lt;span class=&#34;sc80&#34;&gt;2&lt;/span&gt;,&lt;span class=&#34;sc80&#34;&gt;3&lt;/span&gt;,&lt;span class=&#34;sc80&#34;&gt;4&lt;/span&gt;,&lt;span class=&#34;sc80&#34;&gt;5&lt;/span&gt;,&lt;span class=&#34;sc80&#34;&gt;6&lt;/span&gt;,&lt;span class=&#34;sc80&#34;&gt;7&lt;/span&gt;,&lt;span class=&#34;sc80&#34;&gt;8&lt;/span&gt;,&lt;span class=&#34;sc80&#34;&gt;9&lt;/span&gt;,&lt;span class=&#34;sc80&#34;&gt;10&lt;/span&gt;];
+&lt;span class=&#34;s3e8&#34;&gt;var&lt;/span&gt; i &lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt;;
+&lt;span class=&#34;s3e8&#34;&gt;while&lt;/span&gt;(array.length &lt;span class=&#34;sfa0&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt;) {
+	console.log(i&lt;span class=&#34;sfa0&#34;&gt;++&lt;/span&gt;, array);
+	&lt;span class=&#34;s1770&#34;&gt;//alert(&amp;#34;pause&amp;#34;);
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;	array.pop();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;If you run it in your browser you would expect to see the following printed (in your Javascript console):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;0 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;0 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 1 [1, 2, 3, 4, 5, 6, 7, 8, 9]
 2 [1, 2, 3, 4, 5, 6, 7, 8]
 3 [1, 2, 3, 4, 5, 6, 7]
@@ -35,11 +34,10 @@
 6 [1, 2, 3, 4]
 7 [1, 2, 3]
 8 [1, 2]
-9 [1]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+9 [1]&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;However, I instead saw:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;1 []
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;1 []
 2 []
 3 []
 4 []
@@ -47,9 +45,8 @@
 6 []
 7 []
 8 []
-9 []
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+9 []&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;The issue seems to be that console.log() does not log straight away. In fact it most likely logs in a background thread for performance reasons. Thus by the time it actually logs the array it has changed. I tested this in Firefox (with Firebug) and it logged everything correctly. I also tried slowing down the loop by adding a alert() call. That fixed the issue at the cost of a popup every iterations.&lt;/p&gt;
 
 &lt;p&gt;What really should happen is either&lt;/p&gt;
@@ -63,9 +60,8 @@
 &lt;p&gt;I filed this as a &lt;a href=&#34;https://code.google.com/p/chromium/issues/detail?id=91303&#34;&gt;bug report&lt;/a&gt; on the Chromium site, but I suspect I should have filed it over at the Webkit site.&lt;/p&gt;
 
 &lt;p&gt;For the moment I came up with a &amp;#8220;fix&amp;#8221;. I copy the array before I log it, so in this case I do the following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;slice&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;console.log(i&lt;span class=&#34;sfa0&#34;&gt;++&lt;/span&gt;, array.slice(&lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt;));&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; I previously searched for this bug, but didn&amp;#8217;t find it before writing this article. However, I have just found someone else had &lt;a href=&#34;https://code.google.com/p/chromium/issues/detail?id=50316&#34;&gt;reported&lt;/a&gt; it a few days ago:&lt;/p&gt;
 </description>
     </item>

@@ -111,30 +111,30 @@
 </code></pre>
 <p>However, I find this process tedious, so instead I wrote a quick python script which can be used with an <a href=http://sourceware.org/gdb/wiki/PythonGdb>experimental gdb built with python scripting support</a>.</p>
 <p>So here is the script:</p>
-<div class=highlight><pre><code class=language-python data-lang=python><span class=kn>import</span> <span class=nn>gdb</span>
-<span class=k>class</span> <span class=nc>FreeBSD_ReloadModuleSymbols</span> <span class=p>(</span><span class=n>gdb</span><span class=o>.</span><span class=n>Command</span><span class=p>):</span>
-	<span class=s>&quot;Reloads the symbol files for all loaded kernel modules&quot;</span>
+<div class=highlight><pre class=chroma><code class=language-python data-lang=python><span class=s3e8>import</span> <span class=s7dd>gdb</span>
+<span class=s3e8>class</span> <span class=s7d4>FreeBSD_ReloadModuleSymbols</span> (gdb<span class=sfa0>.</span>Command):
+	<span class=sc1c></span><span class=sc1c>&#34;Reloads the symbol files for all loaded kernel modules&#34;</span>
 
-	<span class=k>def</span> <span class=nf>__init__</span> <span class=p>(</span><span class=bp>self</span><span class=p>):</span>
-		<span class=nb>super</span> <span class=p>(</span><span class=n>FreeBSD_ReloadModuleSymbols</span><span class=p>,</span> <span class=bp>self</span><span class=p>)</span><span class=o>.</span><span class=n>__init__</span> <span class=p>(</span><span class=s>&quot;reload-freebsd-module-symbols&quot;</span><span class=p>,</span>
-			<span class=n>gdb</span><span class=o>.</span><span class=n>COMMAND_FILES</span><span class=p>,</span>
-			<span class=n>gdb</span><span class=o>.</span><span class=n>COMPLETE_NONE</span><span class=p>)</span>
+	<span class=s3e8>def</span> __init__ (self):
+		<span class=s7d2>super</span> (FreeBSD_ReloadModuleSymbols, self)<span class=sfa0>.</span>__init__ (<span class=sc1c></span><span class=sc1c>&#34;reload-freebsd-module-symbols&#34;</span>,
+			gdb<span class=sfa0>.</span>COMMAND_FILES,
+			gdb<span class=sfa0>.</span>COMPLETE_NONE)
 
-	<span class=k>def</span> <span class=nf>invoke</span> <span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>arg</span><span class=p>,</span> <span class=n>from_tty</span><span class=p>):</span>
-		<span class=n>link</span> <span class=o>=</span> <span class=n>gdb</span><span class=o>.</span><span class=n>parse_and_eval</span><span class=p>(</span><span class=s>&quot;linker_files-&gt;tqh_first&quot;</span><span class=p>)</span>
-		<span class=k>while</span> <span class=n>link</span> <span class=o>!=</span> <span class=mi>0</span><span class=p>:</span>
-			<span class=k>print</span> <span class=n>link</span><span class=p>[</span><span class=s>&#39;filename&#39;</span><span class=p>]</span><span class=o>.</span><span class=n>string</span><span class=p>()</span>
-			<span class=k>if</span> <span class=n>link</span><span class=p>[</span><span class=s>&#39;filename&#39;</span><span class=p>]</span><span class=o>.</span><span class=n>string</span><span class=p>()</span> <span class=o>!=</span> <span class=s>&quot;kernel&quot;</span><span class=p>:</span>
-				<span class=n>gdb</span><span class=o>.</span><span class=n>execute</span><span class=p>(</span> <span class=s>&quot;add-symbol-file &quot;</span> <span class=o>+</span> 
-					<span class=n>link</span><span class=p>[</span><span class=s>&#39;pathname&#39;</span><span class=p>]</span><span class=o>.</span><span class=n>string</span><span class=p>()</span> <span class=o>+</span> <span class=s>&quot; &quot;</span> <span class=o>+</span>  
-					<span class=nb>str</span><span class=p>(</span><span class=n>link</span><span class=p>[</span><span class=s>&#39;address&#39;</span><span class=p>]</span><span class=o>.</span><span class=n>address</span><span class=p>())</span> <span class=p>)</span>
-			<span class=n>link</span> <span class=o>=</span> <span class=n>link</span><span class=p>[</span><span class=s>&#39;link&#39;</span><span class=p>][</span><span class=s>&#39;tqe_next&#39;</span><span class=p>]</span>
+	<span class=s3e8>def</span> <span class=s7d9>invoke</span> (self, arg, from_tty):
+		link <span class=sfa0>=</span> gdb<span class=sfa0>.</span>parse_and_eval(<span class=sc1c></span><span class=sc1c>&#34;linker_files-&gt;tqh_first&#34;</span>)
+		<span class=s3e8>while</span> link <span class=sfa0>!=</span> <span class=sc80>0</span>:
+			<span class=s3e8>print</span> link[<span class=sc1c></span><span class=sc1c>&#39;filename&#39;</span>]<span class=sfa0>.</span>string()
+			<span class=s3e8>if</span> link[<span class=sc1c></span><span class=sc1c>&#39;filename&#39;</span>]<span class=sfa0>.</span>string() <span class=sfa0>!=</span> <span class=sc1c></span><span class=sc1c>&#34;kernel&#34;</span>:
+				gdb<span class=sfa0>.</span>execute( <span class=sc1c></span><span class=sc1c>&#34;add-symbol-file &#34;</span> <span class=sfa0>+</span> 
+					link[<span class=sc1c></span><span class=sc1c>&#39;pathname&#39;</span>]<span class=sfa0>.</span>string() <span class=sfa0>+</span> <span class=sc1c></span><span class=sc1c>&#34; &#34;</span> <span class=sfa0>+</span>  
+					<span class=s7d2>str</span>(link[<span class=sc1c></span><span class=sc1c>&#39;address&#39;</span>]<span class=sfa0>.</span>address()) )
+			link <span class=sfa0>=</span> link[<span class=sc1c></span><span class=sc1c>&#39;link&#39;</span>][<span class=sc1c></span><span class=sc1c>&#39;tqe_next&#39;</span>]
 
-<span class=n>FreeBSD_ReloadModuleSymbols</span> <span class=p>()</span>
-</code></pre></div>
+FreeBSD_ReloadModuleSymbols ()</code></pre>
+</div>
 <p>You load this by running the following command in GDB:</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash><span class=nb>source </span>freebsd_load_modules.py
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=s7d2>source</span> freebsd_load_modules.py</code></pre>
+</div>
 <p>Then the command <code>reload-freebsd-module-symbols</code> is magically added to GDB. Running this command will parse the linker table inside the FreeBSD kernel, determine which modules are loaded, and attempt to load their symbols.</p>
 </div>
 </article>

@@ -105,16 +105,16 @@ cat 1 &gt; /proc/irq/#/smp_affinity  This will ensure that IRQ # will always fir
 </p>
 <div class=post itemprop=articleBody>
 <p>On Linux it is quite simple to set the CPU affinity of a IRQ, by for example issuing the following command:</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>cat <span class=m>1</span> &gt; /proc/irq/#/smp_affinity
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>cat <span class=sc80>1</span> &gt; /proc/irq/#/smp_affinity</code></pre>
+</div>
 <p>This will ensure that IRQ # will always fire on core 1. It is also possible to specify affinities such as 3, which pins the IRQ to just core 1 and 2.</p>
 <p>This can be very helpful to stop your IRQ interrupts bouncing between all the cores. For example, if you have a single threaded app which is generating all the network traffic then it makes sense to ensure the network card&#8217;s interrupt will fire on the same core, or at least a core which is close (in terms of cache sharing).</p>
 <p>Recently I was looking for a way to pin IRQ on FreeBSD, however, it appears FreeBSD 7.1 still doesn&#8217;t support this feature, but FreeBSD-CURRENT does! I don&#8217;t advise people try FreeBSD-CURRENT yet, but when it turns into FreeBSD 8.0, then you can issue a command such as:</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>cpuset -l <span class=m>0</span> -x irq#
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>cpuset -l <span class=sc80>0</span> -x irq#</code></pre>
+</div>
 <p>which will pin the IRQ to core 0, or</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>cpuset -l 0,1 -x irq#
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>cpuset -l <span class=sc80>0</span>,1 -x irq#</code></pre>
+</div>
 <p>which will pin the IRQ to cores 0 and 1.</p>
 <p>Hopefully this feature will be back ported to FreeBSD 7.X. I&#8217;m a unsure how likely this will be considering there is a chunk of code missing from the 7.X kernel, which I assume will only be in FreeBSD 8.0.</p>
 </div>

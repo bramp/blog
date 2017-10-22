@@ -103,35 +103,35 @@
 </p>
 <div class=post itemprop=articleBody>
 <p>Very occasionally I come across a Linux application that does not respect the http_proxy variable. This stops the application from working while I&#8217;m at university as they forbid traffic on port 80 unless it goes via their webcache. So today I came up with a hack of a solution that involves iptables:</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash><span class=c># IP address and port number of the webcache</span>
-<span class=nv>WEBCACHE</span><span class=o>=</span>194.80.32.10:8080
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=s1770># IP address and port number of the webcache
+</span><span class=s1770></span><span class=s7e3>WEBCACHE</span><span class=sfa0>=</span><span class=sc80>194</span>.80.32.10:8080
 
-<span class=c># Flush any previous rules</span>
-iptables -t nat --flush
+<span class=s1770># Flush any previous rules
+</span><span class=s1770></span>iptables -t nat --flush
 
-<span class=c># Delete and recreate the chain</span>
-iptables -t nat -X HTTPFORCE
+<span class=s1770># Delete and recreate the chain
+</span><span class=s1770></span>iptables -t nat -X HTTPFORCE
 iptables -t nat -N HTTPFORCE
 
-<span class=c># Don&#39;t touch local traffic (localhost and internal network)</span>
-iptables -t nat -A HTTPFORCE -o lo -j RETURN
-iptables -t nat -A HTTPFORCE --dst 127.0.0.1/8 -j RETURN
-iptables -t nat -A HTTPFORCE --dst 10.0.0.0/8 -j RETURN
-<span class=c># Add any other local networks here.</span>
-
-<span class=c># Now we have two options. Please uncomment out one of them</span>
-<span class=c># 1) Redirect packets on port 80 to the webcache</span>
-<span class=c>#    This may not work unless the webcache is generous with its input</span>
-<span class=c>#iptables -t nat -A HTTPFORCE -p tcp --dport 80 -j DNAT --to $WEBCACHE</span>
-
-<span class=c># 2) Redirect packets on port 80 to localhost port 1234</span>
-<span class=c>#    On port 1234 you need to run a local web proxy, which forwards </span>
-<span class=c>#    requests to the real webcache</span>
-<span class=c>#iptables -t nat -A HTTPFORCE -p tcp --dport 80 -j REDIRECT --to-port 1234</span>
-
-<span class=c># Capture all outgoing TCP syns</span>
-iptables -t nat -A OUTPUT -p tcp --syn -j HTTPFORCE
-</code></pre></div>
+<span class=s1770># Don&#39;t touch local traffic (localhost and internal network)
+</span><span class=s1770></span>iptables -t nat -A HTTPFORCE -o lo -j RETURN
+iptables -t nat -A HTTPFORCE --dst <span class=sc80>127</span>.0.0.1/8 -j RETURN
+iptables -t nat -A HTTPFORCE --dst <span class=sc80>10</span>.0.0.0/8 -j RETURN
+<span class=s1770># Add any other local networks here.
+</span><span class=s1770></span>
+<span class=s1770># Now we have two options. Please uncomment out one of them
+</span><span class=s1770># 1) Redirect packets on port 80 to the webcache
+</span><span class=s1770>#    This may not work unless the webcache is generous with its input
+</span><span class=s1770>#iptables -t nat -A HTTPFORCE -p tcp --dport 80 -j DNAT --to $WEBCACHE
+</span><span class=s1770></span>
+<span class=s1770># 2) Redirect packets on port 80 to localhost port 1234
+</span><span class=s1770>#    On port 1234 you need to run a local web proxy, which forwards 
+</span><span class=s1770>#    requests to the real webcache
+</span><span class=s1770>#iptables -t nat -A HTTPFORCE -p tcp --dport 80 -j REDIRECT --to-port 1234
+</span><span class=s1770></span>
+<span class=s1770># Capture all outgoing TCP syns
+</span><span class=s1770></span>iptables -t nat -A OUTPUT -p tcp --syn -j HTTPFORCE</code></pre>
+</div>
 <p>All outgoing TCP packets on port 80 which are not destined for a local network are captured and changed in one of two ways. The first option just manipulates the IP/TCP header, and the second redirects the traffic to a proxy running on localhost. The reason for the two options was that my university&#8217;s webcache seemed unable to deal with HTTP requests without the full URL in the GET line, even though the request contains a valid Host header. I think this is a misconfiguration of their squid proxy, so instead you can redirect to a local proxy which forwards the request on to the webcache.</p>
 <p>This all seems a hassle but sometimes it is needed when a application does not respect the http_proxy environment. On a good note all libcurl applications should respect it by default.</p>
 </div>

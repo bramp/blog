@@ -105,7 +105,7 @@
 <p>After watching a few hours of <a href=http://www.channel4.com/programmes/4od>4oD</a> today I got annoyed that i couldn&#8217;t do something on one monitor while my other monitor plays full screen flash. The reason, flash will instantly lose full screen if another application gains focus (e.g the web browser on my other monitor.)</p>
 <p>After a bit of googling I found these links <a href=http://my.opera.com/d.i.z./blog/2009/04/22/watch-fullscreen-flash-while-working-on-another-screen><a href=http://www.channel4.com/programmes/4od>1</a></a> <a href="http://jmaxxz.com/index.php?option=com_content&amp;view=article&amp;id=89:flashhacker&amp;catid=16:downloads&amp;Itemid=32"><a href=http://my.opera.com/d.i.z./blog/2009/04/22/watch-fullscreen-flash-while-working-on-another-screen>2</a></a>. However, both of these sites only support flash 9 and flash 10.0, whereas I&#8217;m currently on 10.1.53.38. Additionally the second link mentioned no one has been able to hack this into 10.1, so I instantly recongised a challenge.</p>
 <p>About 4 hours later I figure it out:</p>
-<div class=highlight><pre><code class=language-text data-lang=text>On win32 open
+<div class=highlight><pre class=chroma><code class=language-text data-lang=text>On win32 open
 C:\Windows\System32\Macromed\Flash\NPSWF32.dll
 
 On win64 open
@@ -115,8 +115,8 @@ or if using Google Chrome (as Chrome now comes with the Flash plugin) open
 C:\Users\Andrew\AppData\Local\Google\Chrome\Application\6.0.408.1\gcswf32.dll
 
 or if using Google Chrome on Windows XP:
-C:\Documents and Settings\Andrew\Local Settings\Application Data\Google\Chrome\Application\6.0.408.1
-</code></pre></div>
+C:\Documents and Settings\Andrew\Local Settings\Application Data\Google\Chrome\Application\6.0.408.1</code></pre>
+</div>
 <p>On version 10.1.53.38<br/>
 Jump to offset <strong>0&#215;180227</strong> and change bytes <strong>74 2A</strong> to <strong>90 90</strong>, and voila.</p>
 <p>On version 10.1.53.55<br/>
@@ -132,17 +132,17 @@ Jump to offset <strong>0x180FAF</strong> and change bytes <strong>74 39</strong>
 Jump to offset <strong>0x180AAF</strong> and change bytes <strong>74 39</strong> to <strong>90 90</strong>, and voila.</p>
 <p><strong>Note this method is unsupported, and will most likely break when Flash gets updated again. It is always a good idea to backup any file first, and make sure you are on the same version as me.</strong></p>
 <p>For the curious this changes some code that looks like this:</p>
-<div class=highlight><pre><code class=language-c data-lang=c><span class=k>if</span> <span class=p>(</span><span class=n>msg</span> <span class=o>==</span> <span class=n>WM_KILLFOCUS</span><span class=p>)</span>
-  <span class=n>jump</span> <span class=n>to</span> <span class=n>kill_focus</span>
-<span class=k>if</span> <span class=p>(</span><span class=n>msg</span> <span class=o>==</span> <span class=n>WM_PAINT</span><span class=p>)</span>
-  <span class=n>jump</span> <span class=n>to</span> <span class=n>paint</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-c data-lang=c><span class=s3e8>if</span> (msg <span class=sfa0>==</span> WM_KILLFOCUS)
+  jump to kill_focus
+<span class=s3e8>if</span> (msg <span class=sfa0>==</span> WM_PAINT)
+  jump to paint</code></pre>
+</div>
 <p>to</p>
-<div class=highlight><pre><code class=language-c data-lang=c><span class=k>if</span> <span class=p>(</span><span class=n>msg</span> <span class=o>==</span> <span class=n>WM_KILLFOCUS</span><span class=p>)</span>
-  <span class=n>nop</span> <span class=n>nop</span>
-<span class=k>if</span> <span class=p>(</span><span class=n>msg</span> <span class=o>==</span> <span class=n>WM_PAINT</span><span class=p>)</span>
-  <span class=n>jump</span> <span class=n>to</span> <span class=n>paint</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-c data-lang=c><span class=s3e8>if</span> (msg <span class=sfa0>==</span> WM_KILLFOCUS)
+  nop nop
+<span class=s3e8>if</span> (msg <span class=sfa0>==</span> WM_PAINT)
+  jump to paint</code></pre>
+</div>
 <p>and for some context the version 10.1.53.64 surrounding code looked like this:</p>
 <pre><b>74</b> 39 83 E8 07 <b>74</b> 11 83 E8 05 <b>75</b> 13 8B
 </pre>

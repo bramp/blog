@@ -20,32 +20,31 @@
 &lt;p&gt;&lt;img src=&#34;checkbox.png&#34; alt=&#34;Enforce HTTPS Checkbox&#34;&gt;&lt;/img&gt;&lt;/p&gt;
 
 &lt;p&gt;Sadly I have far too many repositories, and I don&amp;rsquo;t recall which one uses pages. I figured it would be easy to hit &lt;a href=&#34;https://developer.github.com/v3/&#34;&gt;GitHub&amp;rsquo;s API&lt;/a&gt; and enabled this. The API doesn&amp;rsquo;t directly support enabling HTTPS, so instead I wrote a quick script to list all repos with GitHub pages:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;c&#34;&gt;#!/usr/bin/env python&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# Prints a list of all owned repositories with pages.&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# by Andrew Brampton 2016 https://bramp.net&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;#&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;requests&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;s1770&#34;&gt;#!/usr/bin/env python&lt;/span&gt;
+&lt;span class=&#34;s1770&#34;&gt;# Prints a list of all owned repositories with pages.&lt;/span&gt;
+&lt;span class=&#34;s1770&#34;&gt;# by Andrew Brampton 2016 https://bramp.net&lt;/span&gt;
+&lt;span class=&#34;s1770&#34;&gt;#&lt;/span&gt;
+&lt;span class=&#34;s3e8&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;s7dd&#34;&gt;requests&lt;/span&gt;
 
-&lt;span class=&#34;n&#34;&gt;headers&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;Authorization&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;token XXXXX&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# Replace XXXX with a token from https://github.com/settings/tokens&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;params&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;type&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;owner&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;page&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+headers &lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt; {&lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#39;Authorization&amp;#39;&lt;/span&gt;: &lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#39;token XXXXX&amp;#39;&lt;/span&gt;} &lt;span class=&#34;s1770&#34;&gt;# Replace XXXX with a token from https://github.com/settings/tokens&lt;/span&gt;
+params &lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt; {&lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#39;type&amp;#39;&lt;/span&gt;: &lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#39;owner&amp;#39;&lt;/span&gt;, &lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#39;page&amp;#39;&lt;/span&gt;: &lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt;}
 
-&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;True&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-	&lt;span class=&#34;n&#34;&gt;r&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;requests&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;https://api.github.com/user/repos&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;headers&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;headers&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-	&lt;span class=&#34;n&#34;&gt;repos&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;json&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-	&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;repos&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-		&lt;span class=&#34;k&#34;&gt;break&lt;/span&gt;
+&lt;span class=&#34;s3e8&#34;&gt;while&lt;/span&gt; True:
+	r &lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt; requests&lt;span class=&#34;sfa0&#34;&gt;.&lt;/span&gt;get(&lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#39;https://api.github.com/user/repos&amp;#39;&lt;/span&gt;, params&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;params, headers&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;headers)
+	repos &lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt; r&lt;span class=&#34;sfa0&#34;&gt;.&lt;/span&gt;json()
+	&lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;sfa1&#34;&gt;not&lt;/span&gt; repos:
+		&lt;span class=&#34;s3e8&#34;&gt;break&lt;/span&gt;
 
-	&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;repo&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;repos&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;repo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;has_pages&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]:&lt;/span&gt;
-			&lt;span class=&#34;k&#34;&gt;print&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;%32s&lt;/span&gt;&lt;span class=&#34;s&#34;&gt; &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;%s&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;/settings&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;repo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;name&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;repo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;html_url&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
+	&lt;span class=&#34;s3e8&#34;&gt;for&lt;/span&gt; repo &lt;span class=&#34;sfa1&#34;&gt;in&lt;/span&gt; repos:
+		&lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt; repo[&lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#39;has_pages&amp;#39;&lt;/span&gt;]:
+			&lt;span class=&#34;s3e8&#34;&gt;print&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;sc27&#34;&gt;%32s&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt; &lt;/span&gt;&lt;span class=&#34;sc27&#34;&gt;%s&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;/settings&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;%&lt;/span&gt;(repo[&lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#39;name&amp;#39;&lt;/span&gt;], repo[&lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#39;html_url&amp;#39;&lt;/span&gt;])
 
-	&lt;span class=&#34;n&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;page&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+	params[&lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#39;page&amp;#39;&lt;/span&gt;] &lt;span class=&#34;sfa0&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Download &lt;a href=&#34;turn-on-github-ssl.py&#34;&gt;turn-on-github-ssl.py&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;This print out something like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;./turn-on-github-ssl.py
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ./turn-on-github-ssl.py
 
                 blog https://github.com/bramp/blog/settings
   ffmpeg-cli-wrapper https://github.com/bramp/ffmpeg-cli-wrapper/settings
@@ -53,11 +52,10 @@ js-sequence-diagrams https://github.com/bramp/js-sequence-diagrams/settings
            js-sudoku https://github.com/bramp/js-sudoku/settings
         nodewii-talk https://github.com/bramp/nodewii-talk/settings
              prob.js https://github.com/bramp/prob.js/settings
-                &lt;span class=&#34;nb&#34;&gt;test &lt;/span&gt;https://github.com/bramp/test/settings
+                &lt;span class=&#34;s7d2&#34;&gt;test&lt;/span&gt; https://github.com/bramp/test/settings
               unsafe https://github.com/bramp/unsafe/settings
-...
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+...&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Now click on each URL, and just check the box.&lt;/p&gt;
 </description>
     </item>

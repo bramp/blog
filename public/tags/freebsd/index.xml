@@ -18,9 +18,8 @@
       <description>&lt;p&gt;Today I had the need to install some &lt;a href=&#34;http://www.freebsd.org/&#34;&gt;FreeBSD&lt;/a&gt; and &lt;a href=&#34;http://www.ubuntu.com/&#34;&gt;Ubuntu&lt;/a&gt; packages inside my home directory because I did not have root permissions to install them.&lt;/p&gt;
 
 &lt;p&gt;It was quite simple to install the packages on FreeBSD&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;pkg_add -rRP /home/bramp nano
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;pkg_add -rRP /home/bramp nano&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Where nano is the name of the package I wanted.&lt;/p&gt;
 
 &lt;p&gt;I should point out you don&amp;#8217;t need to be root to do this!, but the installed packages only work for you, and in future could cause you hassle if the base OS is updated.&lt;/p&gt;
@@ -38,15 +37,13 @@
       <description>&lt;p&gt;Do people other than me find updating their servers to be relaxing? At every opportunity I run &amp;#8220;apt-get update&amp;#8221;. Today I&amp;#8217;m updating 7 different machines simultaneously.&lt;/p&gt;
 
 &lt;p&gt;My Debian machines I simply issue the following commands:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apt-get update
-apt-get upgrade
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apt-get update
+apt-get upgrade&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;My FreeBSD machines:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;portsnap fetch update
-portmanager -u
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;portsnap fetch update
+portmanager -u&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;I think the Debian process is easier (and clearly the fastest) but it obviously has to do less work because I&amp;#8217;m downloading precompiled code. Portmanager is just as easy but seems to randomly ask me questions through the process whereas apt-get seems to get them out of the way early on. Either way I find this all very easy and relaxing&amp;#8230; until I have to reboot the machines and find something is broken :/&lt;/p&gt;
 </description>
     </item>
@@ -58,58 +55,48 @@ portmanager -u
       
       <guid>https://blog.bramp.net/post/2009/11/28/useful-scripts/configurations/</guid>
       <description>&lt;p&gt;Make &lt;a href=&#34;http://git-scm.com&#34;&gt;git&lt;/a&gt; colourful&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;git config --global color.diff auto
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;git config --global color.diff auto
 git config --global color.status auto
-git config --global color.branch auto
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+git config --global color.branch auto&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Make &lt;a href=&#34;http://www.nano-editor.org/&#34;&gt;nano&lt;/a&gt; colourful&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cp /usr/local/share/examples/nano/nanorc.sample ~/.nanorc
-&lt;span class=&#34;c&#34;&gt;# or&lt;/span&gt;
-zcat /usr/share/doc/nano/examples/nanorc.sample.gz &amp;gt;~/.nanorc
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cp /usr/local/share/examples/nano/nanorc.sample ~/.nanorc
+&lt;span class=&#34;s1770&#34;&gt;# or
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;zcat /usr/share/doc/nano/examples/nanorc.sample.gz &amp;gt;~/.nanorc
 
-&lt;span class=&#34;c&#34;&gt;# then&lt;/span&gt;
-nano ~/.nanorc
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class=&#34;s1770&#34;&gt;# then
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;nano ~/.nanorc&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;To trim trailing whitespace from *.cc on Linux (taken from &lt;a href=&#34;http://zebert.blogspot.com/2009/06/clean-up-trailing-whitespaces-in.html&#34;&gt;this blog&lt;/a&gt;):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;find . -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;o&#34;&gt;{}&lt;/span&gt; -e &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/[ \t]*$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;find . -name &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;sfa0&#34;&gt;{}&lt;/span&gt; -e &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;s/[ \t]*$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;and on BSDs:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;find . -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; -e &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/\ *$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{}&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;find . -name &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; -e &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;s/\ *$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;{}&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Linux style &amp;#8216;ls&amp;#8217; colours on FreeBSD (taken from &lt;a href=&#34;http://www.puresimplicity.net/~hemi/freebsd/misc.html&#34;&gt;here&lt;/a&gt;):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;CLICOLOR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;YES&amp;quot;&lt;/span&gt;
-&lt;span class=&#34;nb&#34;&gt;export &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;LSCOLORS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;ExGxFxdxCxDxDxhbadExEx&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s7d2&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;CLICOLOR&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;YES&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;s7d2&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;LSCOLORS&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;ExGxFxdxCxDxDxhbadExEx&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;To ensure the http_proxy environmental variable is passed to sudo. Edit the sudoers file by running visudo. Then add the following.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Defaults env_keep +&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;ftp_proxy http_proxy https_proxy&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Defaults &lt;span class=&#34;s7e3&#34;&gt;env_keep&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;ftp_proxy http_proxy https_proxy&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Bash autocompletion on FreeBSD:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt;  /usr/ports/shells/bash-completion
-sudo make install clean
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s7d2&#34;&gt;cd&lt;/span&gt;  /usr/ports/shells/bash-completion
+sudo make install clean&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Edit ~/.bashrc and add&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; -f /usr/local/etc/bash_completion &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;[&lt;/span&gt; -f /usr/local/etc/bash_completion &lt;span class=&#34;sfa0&#34;&gt;]&lt;/span&gt;; &lt;span class=&#34;s3e8&#34;&gt;then&lt;/span&gt;
     . /usr/local/etc/bash_completion
-&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class=&#34;s3e8&#34;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Make svn output colorful&lt;br /&gt;
 Edit ~/.subversion/config&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span class=&#34;k&#34;&gt;[helpers]&lt;/span&gt;
-&lt;span class=&#34;na&#34;&gt;diff-cmd&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;/usr/bin/colordiff&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span class=&#34;s3e8&#34;&gt;[helpers]&lt;/span&gt;
+&lt;span class=&#34;s7d1&#34;&gt;diff-cmd&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;/usr/bin/colordiff&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Create diffs with function names and ignoring whitespace&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;svn diff -x -uwp
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;svn diff -x -uwp&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;To be continued&amp;#8230;&lt;/p&gt;
 </description>
     </item>
@@ -145,29 +132,27 @@ Edit ~/.subversion/config&lt;/p&gt;
       <description>&lt;p&gt;I&amp;#8217;ve spent a day tracking down a bug in a FreeBSD kernel module I&amp;#8217;m developing, and to my surprise the bug was due to memcmp being broken! For those that don&amp;#8217;t know, memcmp is used to compare two byte strings and returns 0 if they are identical, a negative number of the first string is less than the second, and a positive number of the first string is greater than the second.&lt;/p&gt;
 
 &lt;p&gt;However, the implementation of memcmp in the FreeBSD kernel looks like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;k&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;__inline&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;
-&lt;span class=&#34;nf&#34;&gt;memcmp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bcmp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;s3e8&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;s3e8&#34;&gt;__inline&lt;/span&gt; &lt;span class=&#34;s3ee&#34;&gt;int&lt;/span&gt;
+&lt;span class=&#34;s7d9&#34;&gt;memcmp&lt;/span&gt;(&lt;span class=&#34;s3e8&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;s3ee&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;*&lt;/span&gt;b1, &lt;span class=&#34;s3e8&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;s3ee&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;*&lt;/span&gt;b2, size_t len) {
+    &lt;span class=&#34;s3e8&#34;&gt;return&lt;/span&gt; (bcmp(b1, b2, len));
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;The problem with this is that bcmp is defined to return 0 if the strings are identical, otherwise returns a non-zero integer. This is not the same as memcmp, and you would only notice this if you are testing the signedness of the return value. I suspect this has not been noticed because traditionally FreeBSD has favoured bcmp, and in the few cases it does uses memcmp it only compares it with zero.&lt;/p&gt;
 
 &lt;p&gt;There is some good news, obrien@ noticed this problem in September 2008 and commited a patch (svn r183299). However, it looks like this fix won&amp;#8217;t be included until FreeBSD 8.0. In the mean time I&amp;#8217;m implementing a minor hack to fix this.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;my_memcmp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-	&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-		&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;s3ee&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;s7d9&#34;&gt;my_memcmp&lt;/span&gt;(&lt;span class=&#34;s3e8&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;s3ee&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;*&lt;/span&gt;s1, &lt;span class=&#34;s3e8&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;s3ee&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;*&lt;/span&gt;s2, size_t n) {
+	&lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt; (n &lt;span class=&#34;sfa0&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt;) {
+		&lt;span class=&#34;s3e8&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;s3ee&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;s3ee&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;*&lt;/span&gt;p1 &lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt; s1, &lt;span class=&#34;sfa0&#34;&gt;*&lt;/span&gt;p2 &lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt; s2;
 
-		&lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-			&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-				&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-		&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define memcmp my_memcmp&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</description>
+		&lt;span class=&#34;s3e8&#34;&gt;do&lt;/span&gt; {
+			&lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt; (&lt;span class=&#34;sfa0&#34;&gt;*&lt;/span&gt;p1&lt;span class=&#34;sfa0&#34;&gt;++&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;*&lt;/span&gt;p2&lt;span class=&#34;sfa0&#34;&gt;++&lt;/span&gt;)
+				&lt;span class=&#34;s3e8&#34;&gt;return&lt;/span&gt; (&lt;span class=&#34;sfa0&#34;&gt;*--&lt;/span&gt;p1 &lt;span class=&#34;sfa0&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;*--&lt;/span&gt;p2);
+		} &lt;span class=&#34;s3e8&#34;&gt;while&lt;/span&gt; (&lt;span class=&#34;sfa0&#34;&gt;--&lt;/span&gt;n &lt;span class=&#34;sfa0&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt;);
+	}
+	&lt;span class=&#34;s3e8&#34;&gt;return&lt;/span&gt; (&lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt;);
+}
+&lt;span class=&#34;s17d4&#34;&gt;#define memcmp my_memcmp&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -183,7 +168,7 @@ Edit ~/.subversion/config&lt;/p&gt;
 &lt;p&gt;You can &lt;a href=&#34;https://github.com/bramp/threadnetperf&#34;&gt;download the source from GitHub&lt;/a&gt;, which contains instructions on how to build it.&lt;/p&gt;
 
 &lt;p&gt;So that you get an extra idea of it&amp;#8217;s features here is the README.txt&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;****** Threadnetperf ******
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;****** Threadnetperf ******
 A multi-threaded network benchmark tool
  by  Andrew Brampton (2007-2009)
  and Mathew Faulkner (2007-2009)
@@ -201,8 +186,8 @@ Threadnetperf has previously worked on Windows, Linux, and FreeBSD, however, we
 do not test it very rigorously so one of these platforms may be broken. All
 patches are welcome.
 
-To build on a *nix style system just use the simple &amp;quot;Makefile&amp;quot; by executing the
-command &amp;quot;make&amp;quot; or &amp;quot;gmake&amp;quot;. To build on Windows just use the provided
+To build on a *nix style system just use the simple &amp;#34;Makefile&amp;#34; by executing the
+command &amp;#34;make&amp;#34; or &amp;#34;gmake&amp;#34;. To build on Windows just use the provided
 threadnetperf.2008.sln file.
 
 All the commands of Threadnetperf are documented within the application, but a
@@ -266,9 +251,8 @@ tests very easy as the daemon will continue to wait for new tests until it is
 told otherwise.
 
 If you find this tool useful, or you have any suggestions for improvements then
-please contact us.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</description>
+please contact us.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -278,254 +262,251 @@ please contact us.
       
       <guid>https://blog.bramp.net/post/2009/03/06/compiler-defined-symbols/</guid>
       <description>&lt;p&gt;I found this neat little command to list all the GCC compiler defined symbols&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;gcc -dM -E - &amp;gt; /dev/null
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;gcc -dM -E - &amp;gt; /dev/null&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;This can help if you aren&amp;rsquo;t quite sure which defines are used on your systems. For example my FreeBSD 7.1 machine outputs this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#define __DBL_MIN_EXP__ (-1021)&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_MIN__ 1.17549435e-38F&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC64_DEN__ 0.000000000000001E-383DD&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __CHAR_BIT__ 8&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __WCHAR_MAX__ 2147483647&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_DENORM_MIN__ 4.9406564584124654e-324&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_EVAL_METHOD__ 0&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_MIN_10_EXP__ (-307)&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FINITE_MATH_ONLY__ 0&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC64_MAX_EXP__ 384&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SHRT_MAX__ 32767&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MAX__ 1.18973149535723176502e+4932L&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __UINTMAX_TYPE__ long unsigned int&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC32_EPSILON__ 1E-6DF&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __unix 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SCHAR_MAX__ 127&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __USER_LABEL_PREFIX__&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __STDC_HOSTED__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC64_MIN_EXP__ (-383)&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_DIG__ 15&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_EPSILON__ 1.19209290e-7F&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MIN__ 3.36210314311209350626e-4932L&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC32_MAX__ 9.999999E96DF&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __unix__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DECIMAL_DIG__ 21&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_HAS_QUIET_NAN__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __GNUC__ 4&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __MMX__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_HAS_DENORM__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FreeBSD_cc_version 700003&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_MAX__ 1.7976931348623157e+308&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_HAS_INFINITY__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC32_MIN_EXP__ (-95)&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_HAS_DENORM__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC32_MIN__ 1E-95DF&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_MAX_EXP__ 1024&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC128_EPSILON__ 1E-33DL&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SSE2_MATH__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __amd64 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LONG_LONG_MAX__ 9223372036854775807LL&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __GXX_ABI_VERSION 1002&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_MIN_EXP__ (-125)&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __x86_64 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_MIN__ 2.2250738585072014e-308&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LP64__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_HAS_QUIET_NAN__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MIN__ 1E-6143DL&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __REGISTER_PREFIX__&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_HAS_DENORM__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __NO_INLINE__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC_EVAL_METHOD__ 2&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_MANT_DIG__ 24&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __VERSION__ &amp;quot;4.2.1 20070719  [FreeBSD]&amp;quot;&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC64_EPSILON__ 1E-15DD&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MIN_EXP__ (-6143)&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define unix 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SIZE_TYPE__ long unsigned int&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC32_DEN__ 0.000001E-95DF&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __ELF__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_RADIX__ 2&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_EPSILON__ 1.08420217248550443401e-19L&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FreeBSD__ 7&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SSE_MATH__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __k8 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_DIG__ 18&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __KPRINTF_ATTRIBUTE__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __x86_64__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_HAS_QUIET_NAN__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_MAX_10_EXP__ 38&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LONG_MAX__ 9223372036854775807L&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_HAS_INFINITY__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC64_MAX__ 9.999999999999999E384DD&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC64_MANT_DIG__ 16&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC32_MAX_EXP__ 96&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC128_DEN__ 0.000000000000000000000000000000001E-6143DL&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MANT_DIG__ 64&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define _LONGLONG 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC32_MANT_DIG__ 7&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __k8__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __WCHAR_TYPE__ int&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_DIG__ 6&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __INT_MAX__ 2147483647&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_MAX_EXP__ 128&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_MANT_DIG__ 53&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC64_MIN__ 1E-383DD&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __WINT_TYPE__ unsigned int&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SSE__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MIN_EXP__ (-16381)&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __amd64__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MAX_EXP__ 16384&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MAX_10_EXP__ 4932&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_EPSILON__ 2.2204460492503131e-16&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define _LP64 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __GNUC_PATCHLEVEL__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_HAS_INFINITY__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __INTMAX_MAX__ 9223372036854775807L&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_DENORM_MIN__ 1.40129846e-45F&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_MAX__ 3.40282347e+38F&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SSE2__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_MIN_10_EXP__ (-37)&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __INTMAX_TYPE__ long int&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MAX_EXP__ 6144&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __GNUC_MINOR__ 2&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_MAX_10_EXP__ 308&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_DENORM_MIN__ 3.64519953188247460253e-4951L&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __STDC__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __PTRDIFF_TYPE__ long int&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MANT_DIG__ 34&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MIN_10_EXP__ (-4931)&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __GNUC_GNU_INLINE__ 1&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_MIN_EXP__ (-1021)
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_MIN__ 1.17549435e-38F
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC64_DEN__ 0.000000000000001E-383DD
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __CHAR_BIT__ 8
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __WCHAR_MAX__ 2147483647
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_DENORM_MIN__ 4.9406564584124654e-324
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_EVAL_METHOD__ 0
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_MIN_10_EXP__ (-307)
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FINITE_MATH_ONLY__ 0
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC64_MAX_EXP__ 384
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SHRT_MAX__ 32767
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_MAX__ 1.18973149535723176502e+4932L
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __UINTMAX_TYPE__ long unsigned int
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC32_EPSILON__ 1E-6DF
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __unix 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SCHAR_MAX__ 127
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __USER_LABEL_PREFIX__
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __STDC_HOSTED__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC64_MIN_EXP__ (-383)
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_DIG__ 15
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_EPSILON__ 1.19209290e-7F
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_MIN__ 3.36210314311209350626e-4932L
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC32_MAX__ 9.999999E96DF
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __unix__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DECIMAL_DIG__ 21
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_HAS_QUIET_NAN__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __GNUC__ 4
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __MMX__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_HAS_DENORM__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FreeBSD_cc_version 700003
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_MAX__ 1.7976931348623157e+308
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_HAS_INFINITY__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC32_MIN_EXP__ (-95)
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_HAS_DENORM__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC32_MIN__ 1E-95DF
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_MAX_EXP__ 1024
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC128_EPSILON__ 1E-33DL
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SSE2_MATH__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __amd64 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LONG_LONG_MAX__ 9223372036854775807LL
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __GXX_ABI_VERSION 1002
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_MIN_EXP__ (-125)
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __x86_64 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_MIN__ 2.2250738585072014e-308
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LP64__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_HAS_QUIET_NAN__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC128_MIN__ 1E-6143DL
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __REGISTER_PREFIX__
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_HAS_DENORM__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __NO_INLINE__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC_EVAL_METHOD__ 2
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_MANT_DIG__ 24
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __VERSION__ &amp;#34;4.2.1 20070719  [FreeBSD]&amp;#34;
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC64_EPSILON__ 1E-15DD
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC128_MIN_EXP__ (-6143)
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define unix 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SIZE_TYPE__ long unsigned int
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC32_DEN__ 0.000001E-95DF
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __ELF__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_RADIX__ 2
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_EPSILON__ 1.08420217248550443401e-19L
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FreeBSD__ 7
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SSE_MATH__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __k8 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_DIG__ 18
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __KPRINTF_ATTRIBUTE__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __x86_64__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_HAS_QUIET_NAN__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_MAX_10_EXP__ 38
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LONG_MAX__ 9223372036854775807L
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_HAS_INFINITY__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC64_MAX__ 9.999999999999999E384DD
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC64_MANT_DIG__ 16
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC32_MAX_EXP__ 96
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC128_DEN__ 0.000000000000000000000000000000001E-6143DL
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_MANT_DIG__ 64
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define _LONGLONG 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC32_MANT_DIG__ 7
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __k8__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __WCHAR_TYPE__ int
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_DIG__ 6
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __INT_MAX__ 2147483647
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_MAX_EXP__ 128
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_MANT_DIG__ 53
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC64_MIN__ 1E-383DD
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __WINT_TYPE__ unsigned int
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SSE__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_MIN_EXP__ (-16381)
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __amd64__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_MAX_EXP__ 16384
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_MAX_10_EXP__ 4932
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_EPSILON__ 2.2204460492503131e-16
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define _LP64 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __GNUC_PATCHLEVEL__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_HAS_INFINITY__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __INTMAX_MAX__ 9223372036854775807L
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_DENORM_MIN__ 1.40129846e-45F
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_MAX__ 3.40282347e+38F
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SSE2__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_MIN_10_EXP__ (-37)
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __INTMAX_TYPE__ long int
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC128_MAX_EXP__ 6144
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __GNUC_MINOR__ 2
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_MAX_10_EXP__ 308
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_DENORM_MIN__ 3.64519953188247460253e-4951L
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __STDC__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __PTRDIFF_TYPE__ long int
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC128_MANT_DIG__ 34
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_MIN_10_EXP__ (-4931)
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __GNUC_GNU_INLINE__ 1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;and my Debian Linux machine outputs this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#define __DBL_MIN_EXP__ (-1021)&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_MIN__ 1.17549435e-38F&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC64_DEN__ 0.000000000000001E-383DD&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __CHAR_BIT__ 8&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __WCHAR_MAX__ 2147483647&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_DENORM_MIN__ 4.9406564584124654e-324&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_8 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_EVAL_METHOD__ 0&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __unix__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __x86_64 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_MIN_10_EXP__ (-307)&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FINITE_MATH_ONLY__ 0&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __GNUC_PATCHLEVEL__ 3&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC64_MAX_EXP__ 384&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SHRT_MAX__ 32767&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MAX__ 1.18973149535723176502e+4932L&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __UINTMAX_TYPE__ long unsigned int&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __linux 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC32_EPSILON__ 1E-6DF&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __unix 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MAX_EXP__ 16384&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __linux__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SCHAR_MAX__ 127&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_DIG__ 15&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_INT__ 4&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_POINTER__ 8&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __USER_LABEL_PREFIX__&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __STDC_HOSTED__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_HAS_INFINITY__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_EPSILON__ 1.19209290e-7F&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MIN__ 3.36210314311209350626e-4932L&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC32_MAX__ 9.999999E96DF&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_LONG__ 8&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DECIMAL_DIG__ 21&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __gnu_linux__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_HAS_QUIET_NAN__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __GNUC__ 4&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __MMX__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_HAS_DENORM__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_LONG_DOUBLE__ 16&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_MAX__ 1.7976931348623157e+308&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_HAS_INFINITY__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC32_MIN_EXP__ (-95)&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_HAS_DENORM__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC32_MIN__ 1E-95DF&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_MAX_EXP__ 1024&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC128_EPSILON__ 1E-33DL&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SSE2_MATH__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __amd64 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LONG_LONG_MAX__ 9223372036854775807LL&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_SIZE_T__ 8&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_WINT_T__ 4&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __GXX_ABI_VERSION 1002&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_MIN_EXP__ (-125)&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_MIN__ 2.2250738585072014e-308&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LP64__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DECIMAL_BID_FORMAT__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MIN__ 1E-6143DL&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __REGISTER_PREFIX__&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_HAS_DENORM__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __NO_INLINE__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_MANT_DIG__ 24&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __VERSION__ &amp;quot;4.3.3&amp;quot;&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC64_EPSILON__ 1E-15DD&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MIN_EXP__ (-6143)&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define unix 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SIZE_TYPE__ long unsigned int&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC32_DEN__ 0.000001E-95DF&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __ELF__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_RADIX__ 2&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_EPSILON__ 1.08420217248550443401e-19L&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SSE_MATH__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __k8 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_PTRDIFF_T__ 8&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __x86_64__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_HAS_QUIET_NAN__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_MAX_10_EXP__ 38&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LONG_MAX__ 9223372036854775807L&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_HAS_INFINITY__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC64_MAX__ 9.999999999999999E384DD&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC64_MANT_DIG__ 16&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC32_MAX_EXP__ 96&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define linux 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC128_DEN__ 0.000000000000000000000000000000001E-6143DL&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SSE2__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MANT_DIG__ 64&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_HAS_QUIET_NAN__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __k8__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __WCHAR_TYPE__ int&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_FLOAT__ 4&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC64_MIN_EXP__ (-383)&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_DIG__ 6&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __INT_MAX__ 2147483647&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __amd64__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_MAX_EXP__ 128&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_MANT_DIG__ 53&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC64_MIN__ 1E-383DD&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __WINT_TYPE__ unsigned int&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_SHORT__ 2&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SSE__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MIN_EXP__ (-16381)&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MAX_10_EXP__ 4932&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_EPSILON__ 2.2204460492503131e-16&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define _LP64 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_WCHAR_T__ 4&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC_EVAL_METHOD__ 2&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __INTMAX_MAX__ 9223372036854775807L&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_DENORM_MIN__ 1.40129846e-45F&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_MAX__ 3.40282347e+38F&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_DOUBLE__ 8&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __FLT_MIN_10_EXP__ (-37)&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __INTMAX_TYPE__ long int&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MAX_EXP__ 6144&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __GNUC_MINOR__ 3&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC32_MANT_DIG__ 7&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DBL_MAX_10_EXP__ 308&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_DENORM_MIN__ 3.64519953188247460253e-4951L&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __STDC__ 1&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __PTRDIFF_TYPE__ long int&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MANT_DIG__ 34&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MIN_10_EXP__ (-4931)&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_LONG_LONG__ 8&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __LDBL_DIG__ 18&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define __GNUC_GNU_INLINE__ 1&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</description>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_MIN_EXP__ (-1021)
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_MIN__ 1.17549435e-38F
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC64_DEN__ 0.000000000000001E-383DD
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __CHAR_BIT__ 8
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __WCHAR_MAX__ 2147483647
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_DENORM_MIN__ 4.9406564584124654e-324
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_8 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_EVAL_METHOD__ 0
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __unix__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __x86_64 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_MIN_10_EXP__ (-307)
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FINITE_MATH_ONLY__ 0
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __GNUC_PATCHLEVEL__ 3
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC64_MAX_EXP__ 384
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SHRT_MAX__ 32767
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_MAX__ 1.18973149535723176502e+4932L
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __UINTMAX_TYPE__ long unsigned int
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __linux 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC32_EPSILON__ 1E-6DF
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __unix 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_MAX_EXP__ 16384
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __linux__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SCHAR_MAX__ 127
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_DIG__ 15
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SIZEOF_INT__ 4
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SIZEOF_POINTER__ 8
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __USER_LABEL_PREFIX__
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __STDC_HOSTED__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_HAS_INFINITY__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_EPSILON__ 1.19209290e-7F
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_MIN__ 3.36210314311209350626e-4932L
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC32_MAX__ 9.999999E96DF
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SIZEOF_LONG__ 8
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DECIMAL_DIG__ 21
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __gnu_linux__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_HAS_QUIET_NAN__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __GNUC__ 4
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __MMX__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_HAS_DENORM__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SIZEOF_LONG_DOUBLE__ 16
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_MAX__ 1.7976931348623157e+308
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_HAS_INFINITY__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC32_MIN_EXP__ (-95)
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_HAS_DENORM__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC32_MIN__ 1E-95DF
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_MAX_EXP__ 1024
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC128_EPSILON__ 1E-33DL
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SSE2_MATH__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __amd64 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LONG_LONG_MAX__ 9223372036854775807LL
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SIZEOF_SIZE_T__ 8
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SIZEOF_WINT_T__ 4
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __GXX_ABI_VERSION 1002
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_MIN_EXP__ (-125)
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_MIN__ 2.2250738585072014e-308
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LP64__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DECIMAL_BID_FORMAT__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC128_MIN__ 1E-6143DL
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __REGISTER_PREFIX__
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_HAS_DENORM__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __NO_INLINE__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_MANT_DIG__ 24
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __VERSION__ &amp;#34;4.3.3&amp;#34;
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC64_EPSILON__ 1E-15DD
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC128_MIN_EXP__ (-6143)
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define unix 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SIZE_TYPE__ long unsigned int
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC32_DEN__ 0.000001E-95DF
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __ELF__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_RADIX__ 2
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_EPSILON__ 1.08420217248550443401e-19L
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SSE_MATH__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __k8 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SIZEOF_PTRDIFF_T__ 8
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __x86_64__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_HAS_QUIET_NAN__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_MAX_10_EXP__ 38
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LONG_MAX__ 9223372036854775807L
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_HAS_INFINITY__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC64_MAX__ 9.999999999999999E384DD
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC64_MANT_DIG__ 16
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC32_MAX_EXP__ 96
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define linux 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC128_DEN__ 0.000000000000000000000000000000001E-6143DL
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SSE2__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_MANT_DIG__ 64
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_HAS_QUIET_NAN__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __k8__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __WCHAR_TYPE__ int
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SIZEOF_FLOAT__ 4
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC64_MIN_EXP__ (-383)
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_DIG__ 6
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __INT_MAX__ 2147483647
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __amd64__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_MAX_EXP__ 128
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_MANT_DIG__ 53
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC64_MIN__ 1E-383DD
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __WINT_TYPE__ unsigned int
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SIZEOF_SHORT__ 2
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SSE__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_MIN_EXP__ (-16381)
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_MAX_10_EXP__ 4932
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_EPSILON__ 2.2204460492503131e-16
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define _LP64 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SIZEOF_WCHAR_T__ 4
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC_EVAL_METHOD__ 2
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __INTMAX_MAX__ 9223372036854775807L
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_DENORM_MIN__ 1.40129846e-45F
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_MAX__ 3.40282347e+38F
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SIZEOF_DOUBLE__ 8
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __FLT_MIN_10_EXP__ (-37)
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __INTMAX_TYPE__ long int
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC128_MAX_EXP__ 6144
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __GNUC_MINOR__ 3
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC32_MANT_DIG__ 7
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DBL_MAX_10_EXP__ 308
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_DENORM_MIN__ 3.64519953188247460253e-4951L
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __STDC__ 1
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __PTRDIFF_TYPE__ long int
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __DEC128_MANT_DIG__ 34
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_MIN_10_EXP__ (-4931)
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __SIZEOF_LONG_LONG__ 8
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __LDBL_DIG__ 18
+&lt;/span&gt;&lt;span class=&#34;s17d4&#34;&gt;#define __GNUC_GNU_INLINE__ 1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -542,32 +523,30 @@ please contact us.
 &lt;p&gt;However, I find this process tedious, so instead I wrote a quick python script which can be used with an &lt;a href=&#34;http://sourceware.org/gdb/wiki/PythonGdb&#34;&gt;experimental gdb built with python scripting support&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;So here is the script:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;gdb&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;FreeBSD_ReloadModuleSymbols&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gdb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Command&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
-	&lt;span class=&#34;s&#34;&gt;&amp;quot;Reloads the symbol files for all loaded kernel modules&amp;quot;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;s3e8&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;s7dd&#34;&gt;gdb&lt;/span&gt;
+&lt;span class=&#34;s3e8&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;s7d4&#34;&gt;FreeBSD_ReloadModuleSymbols&lt;/span&gt; (gdb&lt;span class=&#34;sfa0&#34;&gt;.&lt;/span&gt;Command):
+	&lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;Reloads the symbol files for all loaded kernel modules&amp;#34;&lt;/span&gt;
 
-	&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;__init__&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
-		&lt;span class=&#34;nb&#34;&gt;super&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FreeBSD_ReloadModuleSymbols&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;__init__&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;reload-freebsd-module-symbols&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-			&lt;span class=&#34;n&#34;&gt;gdb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;COMMAND_FILES&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-			&lt;span class=&#34;n&#34;&gt;gdb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;COMPLETE_NONE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+	&lt;span class=&#34;s3e8&#34;&gt;def&lt;/span&gt; __init__ (self):
+		&lt;span class=&#34;s7d2&#34;&gt;super&lt;/span&gt; (FreeBSD_ReloadModuleSymbols, self)&lt;span class=&#34;sfa0&#34;&gt;.&lt;/span&gt;__init__ (&lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;reload-freebsd-module-symbols&amp;#34;&lt;/span&gt;,
+			gdb&lt;span class=&#34;sfa0&#34;&gt;.&lt;/span&gt;COMMAND_FILES,
+			gdb&lt;span class=&#34;sfa0&#34;&gt;.&lt;/span&gt;COMPLETE_NONE)
 
-	&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;invoke&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;arg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;from_tty&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
-		&lt;span class=&#34;n&#34;&gt;link&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gdb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;parse_and_eval&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;linker_files-&amp;gt;tqh_first&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-		&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;link&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-			&lt;span class=&#34;k&#34;&gt;print&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;link&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;filename&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-			&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;link&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;filename&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;kernel&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-				&lt;span class=&#34;n&#34;&gt;gdb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;execute&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;add-symbol-file &amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; 
-					&lt;span class=&#34;n&#34;&gt;link&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;pathname&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;  
-					&lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;link&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;address&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;address&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-			&lt;span class=&#34;n&#34;&gt;link&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;link&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;link&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;][&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;tqe_next&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+	&lt;span class=&#34;s3e8&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;s7d9&#34;&gt;invoke&lt;/span&gt; (self, arg, from_tty):
+		link &lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt; gdb&lt;span class=&#34;sfa0&#34;&gt;.&lt;/span&gt;parse_and_eval(&lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;linker_files-&amp;gt;tqh_first&amp;#34;&lt;/span&gt;)
+		&lt;span class=&#34;s3e8&#34;&gt;while&lt;/span&gt; link &lt;span class=&#34;sfa0&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt;:
+			&lt;span class=&#34;s3e8&#34;&gt;print&lt;/span&gt; link[&lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#39;filename&amp;#39;&lt;/span&gt;]&lt;span class=&#34;sfa0&#34;&gt;.&lt;/span&gt;string()
+			&lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt; link[&lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#39;filename&amp;#39;&lt;/span&gt;]&lt;span class=&#34;sfa0&#34;&gt;.&lt;/span&gt;string() &lt;span class=&#34;sfa0&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;kernel&amp;#34;&lt;/span&gt;:
+				gdb&lt;span class=&#34;sfa0&#34;&gt;.&lt;/span&gt;execute( &lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;add-symbol-file &amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;+&lt;/span&gt; 
+					link[&lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#39;pathname&amp;#39;&lt;/span&gt;]&lt;span class=&#34;sfa0&#34;&gt;.&lt;/span&gt;string() &lt;span class=&#34;sfa0&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;+&lt;/span&gt;  
+					&lt;span class=&#34;s7d2&#34;&gt;str&lt;/span&gt;(link[&lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#39;address&amp;#39;&lt;/span&gt;]&lt;span class=&#34;sfa0&#34;&gt;.&lt;/span&gt;address()) )
+			link &lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt; link[&lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#39;link&amp;#39;&lt;/span&gt;][&lt;span class=&#34;sc1c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#39;tqe_next&amp;#39;&lt;/span&gt;]
 
-&lt;span class=&#34;n&#34;&gt;FreeBSD_ReloadModuleSymbols&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+FreeBSD_ReloadModuleSymbols ()&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;You load this by running the following command in GDB:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;source &lt;/span&gt;freebsd_load_modules.py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s7d2&#34;&gt;source&lt;/span&gt; freebsd_load_modules.py&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Then the command &lt;code&gt;reload-freebsd-module-symbols&lt;/code&gt; is magically added to GDB. Running this command will parse the linker table inside the FreeBSD kernel, determine which modules are loaded, and attempt to load their symbols.&lt;/p&gt;
 </description>
     </item>

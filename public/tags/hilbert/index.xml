@@ -58,19 +58,18 @@
 &lt;p&gt;This can be very useful for mapping a 1D value, into a 2D space. For example, it is commonly used to &lt;a href=&#34;https://xkcd.com/195/&#34;&gt;map IP addresses into a 2D space&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;I recently created a library for &lt;a href=&#34;https://golang.org/&#34;&gt;Go&lt;/a&gt; that can map to and from a curve. The project is &lt;a href=&#34;http://github.com/google/hilbert&#34;&gt;hosted on Github&lt;/a&gt;, and can be used like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;github.com/google/hilbert&amp;quot;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;s3e8&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;github.com/google/hilbert&amp;#34;&lt;/span&gt;
 
-&lt;span class=&#34;c1&#34;&gt;// Create a Hilbert curve for mapping to and from a 16 by 16 space.&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;hilbert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;New&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;s1770&#34;&gt;// Create a Hilbert curve for mapping to and from a 16 by 16 space.
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;s, err &lt;span class=&#34;sfa0&#34;&gt;:=&lt;/span&gt; hilbert.New(&lt;span class=&#34;sc80&#34;&gt;16&lt;/span&gt;)
 
-&lt;span class=&#34;c1&#34;&gt;// Now map one dimension numbers in the range [0, N*N-1], to an x,y&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;// coordinate on the curve where both x and y are in the range [0, N-1].&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;s1770&#34;&gt;// Now map one dimension numbers in the range [0, N*N-1], to an x,y
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;// coordinate on the curve where both x and y are in the range [0, N-1].
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;x, y, err &lt;span class=&#34;sfa0&#34;&gt;:=&lt;/span&gt; s.Map(t)
 
-&lt;span class=&#34;c1&#34;&gt;// Also map back from (x,y) to t.&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;MapInverse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class=&#34;s1770&#34;&gt;// Also map back from (x,y) to t.
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;t, err &lt;span class=&#34;sfa0&#34;&gt;:=&lt;/span&gt; s.MapInverse(x, y)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;The project contains some demos, such as this cool animations:&lt;/p&gt;
 
 

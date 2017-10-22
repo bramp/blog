@@ -22,7 +22,7 @@
 &lt;p&gt;You can &lt;a href=&#34;https://github.com/bramp/threadnetperf&#34;&gt;download the source from GitHub&lt;/a&gt;, which contains instructions on how to build it.&lt;/p&gt;
 
 &lt;p&gt;So that you get an extra idea of it&amp;#8217;s features here is the README.txt&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;****** Threadnetperf ******
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;****** Threadnetperf ******
 A multi-threaded network benchmark tool
  by  Andrew Brampton (2007-2009)
  and Mathew Faulkner (2007-2009)
@@ -40,8 +40,8 @@ Threadnetperf has previously worked on Windows, Linux, and FreeBSD, however, we
 do not test it very rigorously so one of these platforms may be broken. All
 patches are welcome.
 
-To build on a *nix style system just use the simple &amp;quot;Makefile&amp;quot; by executing the
-command &amp;quot;make&amp;quot; or &amp;quot;gmake&amp;quot;. To build on Windows just use the provided
+To build on a *nix style system just use the simple &amp;#34;Makefile&amp;#34; by executing the
+command &amp;#34;make&amp;#34; or &amp;#34;gmake&amp;#34;. To build on Windows just use the provided
 threadnetperf.2008.sln file.
 
 All the commands of Threadnetperf are documented within the application, but a
@@ -105,9 +105,8 @@ tests very easy as the daemon will continue to wait for new tests until it is
 told otherwise.
 
 If you find this tool useful, or you have any suggestions for improvements then
-please contact us.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</description>
+please contact us.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</description>
     </item>
     
   </channel>

@@ -112,18 +112,18 @@
 </figure>
 <p>This can be very useful for mapping a 1D value, into a 2D space. For example, it is commonly used to <a href="https://xkcd.com/195/">map IP addresses into a 2D space</a>.</p>
 <p>I recently created a library for <a href="https://golang.org/">Go</a> that can map to and from a curve. The project is <a href=http://github.com/google/hilbert>hosted on Github</a>, and can be used like so:</p>
-<div class=highlight><pre><code class=language-go data-lang=go><span class=kn>import</span> <span class=s>&quot;github.com/google/hilbert&quot;</span>
+<div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=s3e8>import</span> <span class=sc1c>&#34;github.com/google/hilbert&#34;</span>
 
-<span class=c1>// Create a Hilbert curve for mapping to and from a 16 by 16 space.</span>
-<span class=nx>s</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>hilbert</span><span class=p>.</span><span class=nx>New</span><span class=p>(</span><span class=mi>16</span><span class=p>)</span>
+<span class=s1770>// Create a Hilbert curve for mapping to and from a 16 by 16 space.
+</span><span class=s1770></span>s, err <span class=sfa0>:=</span> hilbert.New(<span class=sc80>16</span>)
 
-<span class=c1>// Now map one dimension numbers in the range [0, N*N-1], to an x,y</span>
-<span class=c1>// coordinate on the curve where both x and y are in the range [0, N-1].</span>
-<span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>s</span><span class=p>.</span><span class=nx>Map</span><span class=p>(</span><span class=nx>t</span><span class=p>)</span>
+<span class=s1770>// Now map one dimension numbers in the range [0, N*N-1], to an x,y
+</span><span class=s1770>// coordinate on the curve where both x and y are in the range [0, N-1].
+</span><span class=s1770></span>x, y, err <span class=sfa0>:=</span> s.Map(t)
 
-<span class=c1>// Also map back from (x,y) to t.</span>
-<span class=nx>t</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>s</span><span class=p>.</span><span class=nx>MapInverse</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>)</span>
-</code></pre></div>
+<span class=s1770>// Also map back from (x,y) to t.
+</span><span class=s1770></span>t, err <span class=sfa0>:=</span> s.MapInverse(x, y)</code></pre>
+</div>
 <p>The project contains some demos, such as this cool animations:</p>
 <figure>
 <img src="hilbert_animation.gif"/>

@@ -105,69 +105,69 @@
 </div>
 <p>In this I&#8217;m drawing text with it&#8217;s bounding box show, and a cross over the x,y coordinates the text is meant to appear. As you can see <a href=http://raphaeljs.com/reference.html#Paper.text>Paper.text(&#8230;)</a> defaults to centre aligning vertically and horizontally. <a href=http://raphaeljs.com/reference.html#Paper.print>Paper.print(&#8230;)</a> aligns with the baseline of the first line, and I&#8217;m guess horizontally with the left edge (with a small amount of padding). The last example I wrote a simple method to centre <a href=http://raphaeljs.com/reference.html#Paper.print>Paper.print(&#8230;)</a> so it acts like <a href=http://raphaeljs.com/reference.html#Paper.text>Paper.text(&#8230;)</a></p>
 <p>Code to draw this SVG is below, with my normalised print method named print_center.</p>
-<div class=highlight><pre><code class=language-javascript data-lang=javascript><span class=nx>Raphael</span><span class=p>.</span><span class=nx>fn</span><span class=p>.</span><span class=nx>line</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(</span><span class=nx>x1</span><span class=p>,</span> <span class=nx>y1</span><span class=p>,</span> <span class=nx>x2</span><span class=p>,</span> <span class=nx>y2</span><span class=p>)</span> <span class=p>{</span>
-    <span class=c1>//assert(_.all([x1,x2,y1,y2], _.isFinite), &quot;x1,x2,y1,y2 must be numeric&quot;);</span>
-    <span class=k>return</span> <span class=k>this</span><span class=p>.</span><span class=nx>path</span><span class=p>(</span><span class=s2>&quot;M{0},{1} L{2},{3}&quot;</span><span class=p>,</span> <span class=nx>x1</span><span class=p>,</span> <span class=nx>y1</span><span class=p>,</span> <span class=nx>x2</span><span class=p>,</span> <span class=nx>y2</span><span class=p>);</span>
-<span class=p>};</span>
+<div class=highlight><pre class=chroma><code class=language-javascript data-lang=javascript>Raphael.fn.line <span class=sfa0>=</span> <span class=s3e8>function</span>(x1, y1, x2, y2) {
+    <span class=s1770>//assert(_.all([x1,x2,y1,y2], _.isFinite), &#34;x1,x2,y1,y2 must be numeric&#34;);
+</span><span class=s1770></span>    <span class=s3e8>return</span> <span class=s3e8>this</span>.path(<span class=sc1c>&#34;M{0},{1} L{2},{3}&#34;</span>, x1, y1, x2, y2);
+};
 
-<span class=cm>/**</span>
-<span class=cm> * Prints, but aligns text in a similar way to text(...)</span>
-<span class=cm> */</span>
-<span class=nx>Raphael</span><span class=p>.</span><span class=nx>fn</span><span class=p>.</span><span class=nx>print_center</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>,</span> <span class=nx>string</span><span class=p>,</span> <span class=nx>font</span><span class=p>,</span> <span class=nx>size</span><span class=p>,</span> <span class=nx>letter_spacing</span><span class=p>)</span> <span class=p>{</span>
-    <span class=kd>var</span> <span class=nx>path</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>print</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>,</span> <span class=nx>string</span><span class=p>,</span> <span class=nx>font</span><span class=p>,</span> <span class=nx>size</span><span class=p>,</span> <span class=s1>&#39;baseline&#39;</span><span class=p>,</span> <span class=nx>letter_spacing</span><span class=p>);</span>
-    <span class=kd>var</span> <span class=nx>bb</span> <span class=o>=</span> <span class=nx>path</span><span class=p>.</span><span class=nx>getBBox</span><span class=p>();</span>
+<span class=s1770>/**
+</span><span class=s1770> * Prints, but aligns text in a similar way to text(...)
+</span><span class=s1770> */</span>
+Raphael.fn.print_center <span class=sfa0>=</span> <span class=s3e8>function</span>(x, y, string, font, size, letter_spacing) {
+    <span class=s3e8>var</span> path <span class=sfa0>=</span> <span class=s3e8>this</span>.print(x, y, string, font, size, <span class=sc1c>&#39;baseline&#39;</span>, letter_spacing);
+    <span class=s3e8>var</span> bb <span class=sfa0>=</span> path.getBBox();
 
-    <span class=kd>var</span> <span class=nx>dx</span> <span class=o>=</span> <span class=p>(</span><span class=nx>x</span> <span class=o>-</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>x</span><span class=p>)</span> <span class=o>-</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>width</span> <span class=o>/</span> <span class=mi>2</span><span class=p>;</span>
-    <span class=kd>var</span> <span class=nx>dy</span> <span class=o>=</span> <span class=p>(</span><span class=nx>y</span> <span class=o>-</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>y</span><span class=p>)</span> <span class=o>-</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>height</span> <span class=o>/</span> <span class=mi>2</span><span class=p>;</span>
+    <span class=s3e8>var</span> dx <span class=sfa0>=</span> (x <span class=sfa0>-</span> bb.x) <span class=sfa0>-</span> bb.width <span class=ss4>/ 2;</span>
+    <span class=s3e8>var</span> dy <span class=sfa0>=</span> (y <span class=sfa0>-</span> bb.y) <span class=sfa0>-</span> bb.height <span class=ss4>/ 2;</span>
 
-    <span class=k>return</span> <span class=nx>path</span><span class=p>.</span><span class=nx>transform</span><span class=p>(</span><span class=s2>&quot;t&quot;</span> <span class=o>+</span> <span class=nx>dx</span> <span class=o>+</span> <span class=s2>&quot;,&quot;</span> <span class=o>+</span> <span class=nx>dy</span><span class=p>);</span>
-<span class=p>}</span>
+    <span class=s3e8>return</span> path.transform(<span class=sc1c>&#34;t&#34;</span> <span class=sfa0>+</span> dx <span class=sfa0>+</span> <span class=sc1c>&#34;,&#34;</span> <span class=sfa0>+</span> dy);
+}
 
-<span class=nx>$</span><span class=p>(</span><span class=nb>document</span><span class=p>).</span><span class=nx>ready</span><span class=p>(</span><span class=kd>function</span><span class=p>(){</span>
-    <span class=kd>var</span> <span class=nx>paper</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Raphael</span><span class=p>(</span><span class=s2>&quot;diagram&quot;</span><span class=p>,</span> <span class=mi>300</span><span class=p>,</span> <span class=mi>600</span><span class=p>);</span>
+$(<span class=s7d2>document</span>).ready(<span class=s3e8>function</span>(){
+    <span class=s3e8>var</span> paper <span class=sfa0>=</span> <span class=s3e8>new</span> Raphael(<span class=sc1c>&#34;diagram&#34;</span>, <span class=sc80>300</span>, <span class=sc80>600</span>);
 
-    <span class=kd>function</span> <span class=nx>draw_cross</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>)</span> <span class=p>{</span>
-        <span class=kd>var</span> <span class=nx>SIZE</span> <span class=o>=</span> <span class=mi>50</span><span class=p>;</span>
-        <span class=nx>paper</span><span class=p>.</span><span class=nx>line</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span> <span class=o>-</span> <span class=nx>SIZE</span><span class=p>,</span> <span class=nx>x</span><span class=p>,</span> <span class=nx>y</span> <span class=o>+</span> <span class=nx>SIZE</span><span class=p>);</span>
-        <span class=nx>paper</span><span class=p>.</span><span class=nx>line</span><span class=p>(</span><span class=nx>x</span> <span class=o>-</span> <span class=nx>SIZE</span><span class=p>,</span> <span class=nx>y</span><span class=p>,</span> <span class=nx>x</span> <span class=o>+</span> <span class=nx>SIZE</span><span class=p>,</span> <span class=nx>y</span><span class=p>);</span>
-    <span class=p>}</span>
+    <span class=s3e8>function</span> draw_cross(x, y) {
+        <span class=s3e8>var</span> SIZE <span class=sfa0>=</span> <span class=sc80>50</span>;
+        paper.line(x, y <span class=sfa0>-</span> SIZE, x, y <span class=sfa0>+</span> SIZE);
+        paper.line(x <span class=sfa0>-</span> SIZE, y, x <span class=sfa0>+</span> SIZE, y);
+    }
 
-    <span class=kd>function</span> <span class=nx>draw_coord</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>)</span> <span class=p>{</span>
-        <span class=kd>var</span> <span class=nx>p</span> <span class=o>=</span> <span class=nx>paper</span><span class=p>.</span><span class=nx>text</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>,</span> <span class=nx>x</span><span class=p>.</span><span class=nx>toFixed</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span> <span class=o>+</span> <span class=s2>&quot;,&quot;</span> <span class=o>+</span> <span class=nx>y</span><span class=p>.</span><span class=nx>toFixed</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
-        <span class=nx>p</span><span class=p>.</span><span class=nx>attr</span><span class=p>({</span><span class=s1>&#39;font-size&#39;</span><span class=o>:</span> <span class=mi>10</span><span class=p>});</span>
-    <span class=p>}</span>
+    <span class=s3e8>function</span> draw_coord(x, y) {
+        <span class=s3e8>var</span> p <span class=sfa0>=</span> paper.text(x, y, x.toFixed(<span class=sc80>0</span>) <span class=sfa0>+</span> <span class=sc1c>&#34;,&#34;</span> <span class=sfa0>+</span> y.toFixed(<span class=sc80>0</span>));
+        p.attr({<span class=sc1c>&#39;font-size&#39;</span><span class=sfa0>:</span> <span class=sc80>10</span>});
+    }
 
-    <span class=kd>function</span> <span class=nx>draw_bb</span><span class=p>(</span><span class=nx>bb</span><span class=p>)</span> <span class=p>{</span>
-        <span class=nx>paper</span><span class=p>.</span><span class=nx>rect</span><span class=p>(</span><span class=nx>bb</span><span class=p>.</span><span class=nx>x</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>y</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>width</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>height</span><span class=p>);</span>
+    <span class=s3e8>function</span> draw_bb(bb) {
+        paper.rect(bb.x, bb.y, bb.width, bb.height);
 
-        <span class=nx>draw_coord</span><span class=p>(</span><span class=nx>bb</span><span class=p>.</span><span class=nx>x</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>y</span><span class=p>);</span>
-        <span class=nx>draw_coord</span><span class=p>(</span><span class=nx>bb</span><span class=p>.</span><span class=nx>x</span> <span class=o>+</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>width</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>y</span><span class=p>);</span>
-        <span class=nx>draw_coord</span><span class=p>(</span><span class=nx>bb</span><span class=p>.</span><span class=nx>x</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>y</span> <span class=o>+</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>height</span><span class=p>);</span>
-        <span class=nx>draw_coord</span><span class=p>(</span><span class=nx>bb</span><span class=p>.</span><span class=nx>x</span> <span class=o>+</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>width</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>y</span> <span class=o>+</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>height</span><span class=p>);</span>
-    <span class=p>}</span>
+        draw_coord(bb.x, bb.y);
+        draw_coord(bb.x <span class=sfa0>+</span> bb.width, bb.y);
+        draw_coord(bb.x, bb.y <span class=sfa0>+</span> bb.height);
+        draw_coord(bb.x <span class=sfa0>+</span> bb.width, bb.y <span class=sfa0>+</span> bb.height);
+    }
 
-    <span class=c1>//////////</span>
-    <span class=nx>draw_cross</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mi>100</span><span class=p>);</span>
-    <span class=kd>var</span> <span class=nx>p</span> <span class=o>=</span> <span class=nx>paper</span><span class=p>.</span><span class=nx>text</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mi>100</span><span class=p>,</span> <span class=s2>&quot;Text\n100,100\nThird&quot;</span><span class=p>);</span>
-    <span class=nx>p</span><span class=p>.</span><span class=nx>attr</span><span class=p>({</span><span class=s1>&#39;font-size&#39;</span><span class=o>:</span> <span class=mi>32</span><span class=p>});</span>
+    <span class=s1770>//////////
+</span><span class=s1770></span>    draw_cross(<span class=sc80>100</span>, <span class=sc80>100</span>);
+    <span class=s3e8>var</span> p <span class=sfa0>=</span> paper.text(<span class=sc80>100</span>, <span class=sc80>100</span>, <span class=sc1c>&#34;Text\n100,100\nThird&#34;</span>);
+    p.attr({<span class=sc1c>&#39;font-size&#39;</span><span class=sfa0>:</span> <span class=sc80>32</span>});
 
-    <span class=nx>draw_bb</span><span class=p>(</span> <span class=nx>p</span><span class=p>.</span><span class=nx>getBBox</span><span class=p>()</span> <span class=p>);</span>
+    draw_bb( p.getBBox() );
 
-    <span class=c1>//////////</span>
-    <span class=nx>draw_cross</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mi>300</span><span class=p>);</span>
-    <span class=kd>var</span> <span class=nx>font</span> <span class=o>=</span> <span class=nx>paper</span><span class=p>.</span><span class=nx>getFont</span><span class=p>(</span><span class=s1>&#39;daniel&#39;</span><span class=p>)</span>
-    <span class=kd>var</span> <span class=nx>p</span> <span class=o>=</span> <span class=nx>paper</span><span class=p>.</span><span class=nx>print</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mi>300</span><span class=p>,</span> <span class=s2>&quot;Print\n100,300\nThird&quot;</span><span class=p>,</span> <span class=nx>font</span><span class=p>,</span> <span class=mi>32</span><span class=p>,</span> <span class=s1>&#39;baseline&#39;</span><span class=p>);</span>
+    <span class=s1770>//////////
+</span><span class=s1770></span>    draw_cross(<span class=sc80>100</span>, <span class=sc80>300</span>);
+    <span class=s3e8>var</span> font <span class=sfa0>=</span> paper.getFont(<span class=sc1c>&#39;daniel&#39;</span>)
+    <span class=s3e8>var</span> p <span class=sfa0>=</span> paper.print(<span class=sc80>100</span>, <span class=sc80>300</span>, <span class=sc1c>&#34;Print\n100,300\nThird&#34;</span>, font, <span class=sc80>32</span>, <span class=sc1c>&#39;baseline&#39;</span>);
 
-    <span class=nx>draw_bb</span><span class=p>(</span> <span class=nx>p</span><span class=p>.</span><span class=nx>getBBox</span><span class=p>()</span> <span class=p>);</span>
+    draw_bb( p.getBBox() );
 
-    <span class=c1>//////////</span>
-    <span class=nx>draw_cross</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mi>500</span><span class=p>);</span>
-    <span class=kd>var</span> <span class=nx>font</span> <span class=o>=</span> <span class=nx>paper</span><span class=p>.</span><span class=nx>getFont</span><span class=p>(</span><span class=s1>&#39;daniel&#39;</span><span class=p>)</span>
-    <span class=kd>var</span> <span class=nx>p</span> <span class=o>=</span> <span class=nx>paper</span><span class=p>.</span><span class=nx>print_center</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mi>500</span><span class=p>,</span> <span class=s2>&quot;MyPrint\n100,500\nThird&quot;</span><span class=p>,</span> <span class=nx>font</span><span class=p>,</span> <span class=mi>32</span><span class=p>);</span>
+    <span class=s1770>//////////
+</span><span class=s1770></span>    draw_cross(<span class=sc80>100</span>, <span class=sc80>500</span>);
+    <span class=s3e8>var</span> font <span class=sfa0>=</span> paper.getFont(<span class=sc1c>&#39;daniel&#39;</span>)
+    <span class=s3e8>var</span> p <span class=sfa0>=</span> paper.print_center(<span class=sc80>100</span>, <span class=sc80>500</span>, <span class=sc1c>&#34;MyPrint\n100,500\nThird&#34;</span>, font, <span class=sc80>32</span>);
 
-    <span class=nx>draw_bb</span><span class=p>(</span> <span class=nx>p</span><span class=p>.</span><span class=nx>getBBox</span><span class=p>()</span> <span class=p>);</span>
-<span class=p>});</span>
-</code></pre></div>
+    draw_bb( p.getBBox() );
+});</code></pre>
+</div>
 </div>
 </article>
 <div class=row>

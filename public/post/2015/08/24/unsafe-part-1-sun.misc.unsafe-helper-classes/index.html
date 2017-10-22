@@ -133,32 +133,32 @@
 <div class=text-right>More information <a href=http://www.codeinstructions.com/2008/12/java-objects-memory-structure.html>here</a> and <a href=http://stackoverflow.com/a/17348396/88646>here</a>.</div></p>
 <p>To hide some of the details, <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#headerSize-java.lang.Object->headerSize()</a> returns the size of the header, and <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#sizeOf-java.lang.Object->sizeOf()</a> return the total size an object including the header in bytes. <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#firstFieldOffset-java.lang.Class->firstFieldOffset()</a> is then useful as it provides the the offset to the first field. Note that <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#headerSize-java.lang.Object->headerSize()</a> and <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#firstFieldOffset-java.lang.Class->firstFieldOffset()</a> do not always return identical results, as padding (not part of the header) may be used to correctly align the first field.</p>
 <p>Next <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#toByteArray-java.lang.Object->toByteArray()</a> will take an object, and copy it (and its header) into a byte array. Useful for easily inspecting, and serialising the object. Finally, <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#hexDump-java.io.PrintStream-java.lang.Object->hexDump()</a> uses the <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#toByteArray-java.lang.Object->toByteArray()</a> to grab an object, and print out a hex representation of the memory, for example:</p>
-<div class=highlight><pre><code class=language-java data-lang=java><span class=cm>/**</span>
-<span class=cm> * hexDump(new Class4()) prints:</span>
-<span class=cm> * 0x00000000: 01 00 00 00 00 00 00 00  8A BF 62 DF 67 45 23 01</span>
-<span class=cm> */</span>
-<span class=kd>static</span> <span class=kd>class</span> <span class=nc>Class4</span> <span class=o>{</span>
-    <span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mh>0x01234567</span><span class=o>;</span>
-<span class=o>}</span>
+<div class=highlight><pre class=chroma><code class=language-java data-lang=java><span class=s1770>/**
+</span><span class=s1770> * hexDump(new Class4()) prints:
+</span><span class=s1770> * 0x00000000: 01 00 00 00 00 00 00 00  8A BF 62 DF 67 45 23 01
+</span><span class=s1770> */</span>
+<span class=s3e8>static</span> <span class=s3e8>class</span> <span class=s7d4>Class4</span> <span class=sfa0>{</span>
+    <span class=s3ee>int</span> i <span class=sfa0>=</span> 0x01234567<span class=sfa0>;</span>
+<span class=sfa0>}</span>
 
-<span class=cm>/**</span>
-<span class=cm> * Longs are always 8 byte aligned, so 4 bytes of padding</span>
-<span class=cm> * hexDump(new Class8()) prints:</span>
-<span class=cm> * 0x00000000: 01 00 00 00 00 00 00 00  9B 81 61 DF 00 00 00 00</span>
-<span class=cm> * 0x00000010: EF CD AB 89 67 45 23 01</span>
-<span class=cm> */</span>
-<span class=kd>static</span> <span class=kd>class</span> <span class=nc>Class8</span> <span class=o>{</span>
-    <span class=kt>long</span> <span class=n>l</span> <span class=o>=</span> <span class=mh>0x0123456789ABCDEF</span><span class=n>L</span><span class=o>;</span>
-<span class=o>}</span>
-</code></pre></div>
+<span class=s1770>/**
+</span><span class=s1770> * Longs are always 8 byte aligned, so 4 bytes of padding
+</span><span class=s1770> * hexDump(new Class8()) prints:
+</span><span class=s1770> * 0x00000000: 01 00 00 00 00 00 00 00  9B 81 61 DF 00 00 00 00
+</span><span class=s1770> * 0x00000010: EF CD AB 89 67 45 23 01
+</span><span class=s1770> */</span>
+<span class=s3e8>static</span> <span class=s3e8>class</span> <span class=s7d4>Class8</span> <span class=sfa0>{</span>
+    <span class=s3ee>long</span> l <span class=sfa0>=</span> 0x0123456789ABCDEFL<span class=sfa0>;</span>
+<span class=sfa0>}</span></code></pre>
+</div>
 <p>In the first example, Class4, a simple class with a single int field, takes up 16 bytes of memory, with the first 8 used by the JVM, the 2nd 4 bytes being a class pointer (basically how the object knows what kind of class it is), and the last four actually being the value of the field. The second example shows a similar header, but with bytes 12-16 being used as padding, so that the long field value is 8 byte aligned.</p>
 <p>These helper methods are available in <a href=https://github.com/bramp/unsafe>new project on Github</a>, and downloadable via Maven. Just <a href=https://oss.sonatype.org/service/local/repositories/releases/content/net/bramp/unsafe/unsafe-helper/1.0/unsafe-helper-1.0.jar>download the jar file</a>, or include a maven dependency, and <code>import net.bramp.unsafe.UnsafeHelper</code>.</p>
-<div class=highlight><pre><code class=language-xml data-lang=xml><span class=nt>&lt;dependency&gt;</span>
-    <span class=nt>&lt;groupId&gt;</span>net.bramp.unsafe<span class=nt>&lt;/groupId&gt;</span>
-    <span class=nt>&lt;artifactId&gt;</span>unsafe-helper<span class=nt>&lt;/artifactId&gt;</span>
-    <span class=nt>&lt;version&gt;</span>1.0<span class=nt>&lt;/version&gt;</span>
-<span class=nt>&lt;/dependency&gt;</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-xml data-lang=xml><span class=s7e2>&lt;dependency&gt;</span>
+    <span class=s7e2>&lt;groupId&gt;</span>net.bramp.unsafe<span class=s7e2>&lt;/groupId&gt;</span>
+    <span class=s7e2>&lt;artifactId&gt;</span>unsafe-helper<span class=s7e2>&lt;/artifactId&gt;</span>
+    <span class=s7e2>&lt;version&gt;</span>1.0<span class=s7e2>&lt;/version&gt;</span>
+<span class=s7e2>&lt;/dependency&gt;</span></code></pre>
+</div>
 <p><a href="https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/">Next article</a>, we&rsquo;ll make use of this new UnsafeHelper to build a special List which copies objects, instead of storing references.</p>
 </div>
 </article>

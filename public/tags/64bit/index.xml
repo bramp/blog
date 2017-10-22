@@ -18,28 +18,23 @@
       <description>&lt;p&gt;Does your Linux 64bit version of Flash now make anonying beeping/distortion noises while playing videos? Well it turns out a recent &amp;#8220;&lt;a href=&#34;http://lwn.net/Articles/414467/&#34;&gt;improvement&lt;/a&gt;&amp;#8221; to glibc has caused some programs to now crash or do weird things. This is to do with an improvement of &lt;a href=&#34;http://linux.die.net/man/3/memcpy&#34;&gt;memcpy&lt;/a&gt;, which makes its use more strict, causing those applications that incorrectly used it to now crash.&lt;/p&gt;
 
 &lt;p&gt;On Debian, there is a simple a fix that allows you to use the original memcpy. You can load the application using an additional .so file:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;LD_PRELOAD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/usr/lib/libc/memcpy-preload.so /path/to/your/program
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s7e3&#34;&gt;LD_PRELOAD&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;/usr/lib/libc/memcpy-preload.so /path/to/your/program&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;As I use Google Chrome when using Flash I had to do the following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;LD_PRELOAD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/usr/lib/libc/memcpy-preload.so /usr/bin/google-chrome
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s7e3&#34;&gt;LD_PRELOAD&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;/usr/lib/libc/memcpy-preload.so /usr/bin/google-chrome&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;but if you want to fix chrome on a system level, you can edit the Chrome Wrapper used to launch it.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo nano /opt/google/chrome/google-chrome
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo nano /opt/google/chrome/google-chrome&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;add the following line&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;LD_PRELOAD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;/usr/lib/libc/memcpy-preload.so&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s7d2&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;LD_PRELOAD&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;/usr/lib/libc/memcpy-preload.so&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;for example&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export &lt;/span&gt;LD_LIBRARY_PATH
-&lt;span class=&#34;nb&#34;&gt;export &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;LD_PRELOAD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;/usr/lib/libc/memcpy-preload.so&amp;quot;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s7d2&#34;&gt;export&lt;/span&gt; LD_LIBRARY_PATH
+&lt;span class=&#34;s7d2&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;LD_PRELOAD&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;/usr/lib/libc/memcpy-preload.so&amp;#34;&lt;/span&gt;
 
-&lt;span class=&#34;nb&#34;&gt;export &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;CHROME_VERSION_EXTRA&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;beta&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</description>
+&lt;span class=&#34;s7d2&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;CHROME_VERSION_EXTRA&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;beta&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</description>
     </item>
     
     <item>

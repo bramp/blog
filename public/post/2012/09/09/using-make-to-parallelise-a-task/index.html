@@ -8,7 +8,6 @@
 <meta itemprop=description name=description content="I needed to run a CPU intensive script over a directory of files. Each file would be run independently, and I was using bash to achieve this:
 for $i in *.txt; do ./script $i; done
 
-
 This works fine, …">
 <meta itemprop=creator name=author content="Andrew Brampton">
 <meta name=generator content=""/>
@@ -45,7 +44,6 @@ This works fine, …">
 <meta property=og:title content="Using Make to parallelise a task"/>
 <meta property=og:description content="I needed to run a CPU intensive script over a directory of files. Each file would be run independently, and I was using bash to achieve this:
 for $i in *.txt; do ./script $i; done
-
 
 This works fine, …"/>
 <meta property=og:updated_time content="2012-09-09T00:00:00&#43;00:00"/>
@@ -107,20 +105,20 @@ This works fine, …"/>
 </p>
 <div class=post itemprop=articleBody>
 <p>I needed to run a CPU intensive script over a directory of files. Each file would be run independently, and I was using bash to achieve this:</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash><span class=k>for</span> <span class=nv>$i</span> in *.txt<span class=p>;</span> <span class=k>do</span> ./script <span class=nv>$i</span><span class=p>;</span> <span class=k>done</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=s3e8>for</span> <span class=s7e3>$i</span> in *.txt; <span class=s3e8>do</span> ./script <span class=s7e3>$i</span>; <span class=s3e8>done</span></code></pre>
+</div>
 <p>This works fine, however, I have a quad core machine, and this task was CPU bound on one core. So I thought about parallelising this task so the script would run on four files at once. I didn&#8217;t want to get into the nitty gritty of changing the script to cope in this way, so instead, I &#8220;abused&#8221; Make to do this. </p>
 <p>I created a file named &#8220;Makefile&#8221; with the following:</p>
-<div class=highlight><pre><code class=language-makefile data-lang=makefile><span class=nv>FILES</span><span class=o>=</span><span class=k>$(</span>shell ls *.txt<span class=k>)</span>
+<div class=highlight><pre class=chroma><code class=language-makefile data-lang=makefile><span class=s7e3>FILES</span><span class=sfa0>=</span><span class=s3e8>$(</span>shell ls *.txt<span class=s3e8>)</span>
 
-<span class=c>#default target of everything</span>
-<span class=nf>all</span><span class=o>:</span> <span class=k>$(</span><span class=nv>FILES</span><span class=k>)</span>
+<span class=s1770>#default target of everything
+</span><span class=s1770></span><span class=s7d9>all</span><span class=sfa0>:</span> <span class=s3e8>$(</span><span class=s7e3>FILES</span><span class=s3e8>)</span>
 
-<span class=nf>$(FILES)</span><span class=o>:</span>
-	./script <span class=nv>$@</span>
+<span class=s7d9>$(FILES)</span><span class=sfa0>:</span>
+	./script <span class=s7e3>$@</span>
 
-<span class=nf>.PHONY</span><span class=o>:</span> <span class=n>all</span> <span class=k>$(</span><span class=nv>FILES</span><span class=k>)</span>
-</code></pre></div>
+<span class=s7d9>.PHONY</span><span class=sfa0>:</span> all <span class=s3e8>$(</span><span class=s7e3>FILES</span><span class=s3e8>)</span></code></pre>
+</div>
 <p>then you just run <code>make -j4</code>, and four instances of the script will start running, with the concurrency being handled by Make. You can also now type <code>make a.txt b.txt c.txt</code> and it&#8217;ll just run the script on those three files.</p>
 <p>You can also extend this Makefile to handle dependencies, such as running a script before all the others. Make is pretty powerful, and should be considered for more than just compiling programs.</p>
 </div>

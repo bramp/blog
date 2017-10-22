@@ -16,34 +16,32 @@
       
       <guid>https://blog.bramp.net/post/2008/06/23/create-bootable-windows-server-2008-usb-stick/</guid>
       <description>&lt;p&gt;I recently had the need to install Windows Server 2008 from a USB stick. This was because I didn&amp;#8217;t have a working DVD drive to hand. I found a couple of &lt;a href=&#34;http://blogs.dirteam.com/blogs/sanderberkouwer/archive/2008/05/01/installing-windows-server-2008.aspx&#34;&gt;tutorials&lt;/a&gt; &lt;a href=&#34;http://www.jesscoburn.com/archives/2007/10/15/installing-windows-2008-via-usb-thumbdrive/&#34;&gt;online&lt;/a&gt; explaining how to create the disk. They generally explained this technique:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;C:&lt;span class=&#34;se&#34;&gt;\&amp;gt;&lt;/span&gt; diskpart
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;C:&lt;span class=&#34;sc25&#34;&gt;\&amp;gt;&lt;/span&gt; diskpart
 
 DISKPART&amp;gt; list disk
 
      Select the USB device from the list and substitute the disk number below
      when necessary
 
-DISKPART&amp;gt; &lt;span class=&#34;k&#34;&gt;select&lt;/span&gt; disk 1
+DISKPART&amp;gt; &lt;span class=&#34;s3e8&#34;&gt;select&lt;/span&gt; disk &lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt;
 DISKPART&amp;gt; clean
 DISKPART&amp;gt; create partition primary
-DISKPART&amp;gt; &lt;span class=&#34;k&#34;&gt;select&lt;/span&gt; partition 1
+DISKPART&amp;gt; &lt;span class=&#34;s3e8&#34;&gt;select&lt;/span&gt; partition &lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt;
 DISKPART&amp;gt; active
-DISKPART&amp;gt; format &lt;span class=&#34;nv&#34;&gt;fs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;fat32
+DISKPART&amp;gt; format &lt;span class=&#34;s7e3&#34;&gt;fs&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;fat32
 DISKPART&amp;gt; assign
-DISKPART&amp;gt; &lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt;
+DISKPART&amp;gt; &lt;span class=&#34;s7d2&#34;&gt;exit&lt;/span&gt;
 
-xcopy X:&lt;span class=&#34;se&#34;&gt;\*&lt;/span&gt;.* /s/e/f Y:&lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-
-     where X:&lt;span class=&#34;se&#34;&gt;\ &lt;/span&gt;is your mounted image or physical DVD and Y:&lt;span class=&#34;se&#34;&gt;\ &lt;/span&gt;is your USB
-     device
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+xcopy X:&lt;span class=&#34;sc25&#34;&gt;\*&lt;/span&gt;.* /s/e/f Y:&lt;span class=&#34;sc25&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;
+     where X:&lt;span class=&#34;sc25&#34;&gt;\ &lt;/span&gt;is your mounted image or physical DVD and Y:&lt;span class=&#34;sc25&#34;&gt;\ &lt;/span&gt;is your USB
+     device&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;However it appears diskpart is unable to see USB sticks under Windows XP. I have later tried on Vista and this limitation appears removed. But for those using Windows XP I have found an alternative method.&lt;/p&gt;
 
 &lt;p&gt;Firstly find the bootsect.exe tool on the Windows Server disc (in the boot directory). Then run this command where U is the drive letter of the USB stick.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;D:&lt;span class=&#34;se&#34;&gt;\b&lt;/span&gt;oot&amp;gt; bootsect.exe /nt60 U:
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;D:&lt;span class=&#34;sc25&#34;&gt;\b&lt;/span&gt;oot&amp;gt; bootsect.exe /nt60 U:&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Now copy all the files from the Windows Server disc onto the USB stick. This can be done by dragging in the GUI or using the xcopy method shown previously.&lt;/p&gt;
 
 &lt;p&gt;I have yet to repeat this procedure and I might have previous partitioned or formatted my USB stick in a unique way. So if this method doesn&amp;#8217;t work &lt;a href=&#34;https://blog.bramp.net/about-me/&#34;&gt;drop me a mail&lt;/a&gt; and I&amp;#8217;ll see what I can do.&lt;/p&gt;

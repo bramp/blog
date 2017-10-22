@@ -10,10 +10,18 @@ code {
 	color: #333333;
 	border: 1px solid #cccccc;
 	border-radius: 4px;
+    background-color: #eef;
+    font-size: .8em;
 }
 
 pre {
     font-family: Hack, monospace;
+    background-color: #eef;
+    font-size: .8em;
+}
+
+pre.chroma {
+	background-color: #eef;
 }
 
 pre code {

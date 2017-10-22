@@ -103,30 +103,30 @@
 <p>GitHub just <a href=https://github.com/blog/2186-https-for-github-pages>announced</a> that all github.io sites can enforce the use of HTTPS. Previously GitHub supported HTTPS on these sites, but you couldn&rsquo;t force users to use HTTPS other than using a <a href=https://gist.github.com/konklone/9968713>javascript redirect hack</a>, or putting a CDN infront of GitHub. Now by checking a single box you can force users to the secure version:</p>
 <p><img src=checkbox.png alt="Enforce HTTPS Checkbox"></p>
 <p>Sadly I have far too many repositories, and I don&rsquo;t recall which one uses pages. I figured it would be easy to hit <a href="https://developer.github.com/v3/">GitHub&rsquo;s API</a> and enabled this. The API doesn&rsquo;t directly support enabling HTTPS, so instead I wrote a quick script to list all repos with GitHub pages:</p>
-<div class=highlight><pre><code class=language-python data-lang=python><span class=c>#!/usr/bin/env python</span>
-<span class=c># Prints a list of all owned repositories with pages.</span>
-<span class=c># by Andrew Brampton 2016 https://bramp.net</span>
-<span class=c>#</span>
-<span class=kn>import</span> <span class=nn>requests</span>
+<div class=highlight><pre class=chroma><code class=language-python data-lang=python><span class=s1770>#!/usr/bin/env python</span>
+<span class=s1770># Prints a list of all owned repositories with pages.</span>
+<span class=s1770># by Andrew Brampton 2016 https://bramp.net</span>
+<span class=s1770>#</span>
+<span class=s3e8>import</span> <span class=s7dd>requests</span>
 
-<span class=n>headers</span> <span class=o>=</span> <span class=p>{</span><span class=s>&#39;Authorization&#39;</span><span class=p>:</span> <span class=s>&#39;token XXXXX&#39;</span><span class=p>}</span> <span class=c># Replace XXXX with a token from https://github.com/settings/tokens</span>
-<span class=n>params</span> <span class=o>=</span> <span class=p>{</span><span class=s>&#39;type&#39;</span><span class=p>:</span> <span class=s>&#39;owner&#39;</span><span class=p>,</span> <span class=s>&#39;page&#39;</span><span class=p>:</span> <span class=mi>1</span><span class=p>}</span>
+headers <span class=sfa0>=</span> {<span class=sc1c></span><span class=sc1c>&#39;Authorization&#39;</span>: <span class=sc1c></span><span class=sc1c>&#39;token XXXXX&#39;</span>} <span class=s1770># Replace XXXX with a token from https://github.com/settings/tokens</span>
+params <span class=sfa0>=</span> {<span class=sc1c></span><span class=sc1c>&#39;type&#39;</span>: <span class=sc1c></span><span class=sc1c>&#39;owner&#39;</span>, <span class=sc1c></span><span class=sc1c>&#39;page&#39;</span>: <span class=sc80>1</span>}
 
-<span class=k>while</span> <span class=bp>True</span><span class=p>:</span>
-	<span class=n>r</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s>&#39;https://api.github.com/user/repos&#39;</span><span class=p>,</span> <span class=n>params</span><span class=o>=</span><span class=n>params</span><span class=p>,</span> <span class=n>headers</span><span class=o>=</span><span class=n>headers</span><span class=p>)</span>
-	<span class=n>repos</span> <span class=o>=</span> <span class=n>r</span><span class=o>.</span><span class=n>json</span><span class=p>()</span>
-	<span class=k>if</span> <span class=ow>not</span> <span class=n>repos</span><span class=p>:</span>
-		<span class=k>break</span>
+<span class=s3e8>while</span> True:
+	r <span class=sfa0>=</span> requests<span class=sfa0>.</span>get(<span class=sc1c></span><span class=sc1c>&#39;https://api.github.com/user/repos&#39;</span>, params<span class=sfa0>=</span>params, headers<span class=sfa0>=</span>headers)
+	repos <span class=sfa0>=</span> r<span class=sfa0>.</span>json()
+	<span class=s3e8>if</span> <span class=sfa1>not</span> repos:
+		<span class=s3e8>break</span>
 
-	<span class=k>for</span> <span class=n>repo</span> <span class=ow>in</span> <span class=n>repos</span><span class=p>:</span>
-		<span class=k>if</span> <span class=n>repo</span><span class=p>[</span><span class=s>&#39;has_pages&#39;</span><span class=p>]:</span>
-			<span class=k>print</span> <span class=s>&quot;</span><span class=si>%32s</span><span class=s> </span><span class=si>%s</span><span class=s>/settings&quot;</span> <span class=o>%</span><span class=p>(</span><span class=n>repo</span><span class=p>[</span><span class=s>&#39;name&#39;</span><span class=p>],</span> <span class=n>repo</span><span class=p>[</span><span class=s>&#39;html_url&#39;</span><span class=p>])</span>
+	<span class=s3e8>for</span> repo <span class=sfa1>in</span> repos:
+		<span class=s3e8>if</span> repo[<span class=sc1c></span><span class=sc1c>&#39;has_pages&#39;</span>]:
+			<span class=s3e8>print</span> <span class=sc1c></span><span class=sc1c>&#34;</span><span class=sc27>%32s</span><span class=sc1c> </span><span class=sc27>%s</span><span class=sc1c>/settings&#34;</span> <span class=sfa0>%</span>(repo[<span class=sc1c></span><span class=sc1c>&#39;name&#39;</span>], repo[<span class=sc1c></span><span class=sc1c>&#39;html_url&#39;</span>])
 
-	<span class=n>params</span><span class=p>[</span><span class=s>&#39;page&#39;</span><span class=p>]</span> <span class=o>+=</span> <span class=mi>1</span>
-</code></pre></div>
+	params[<span class=sc1c></span><span class=sc1c>&#39;page&#39;</span>] <span class=sfa0>+=</span> <span class=sc80>1</span></code></pre>
+</div>
 <p>Download <a href=turn-on-github-ssl.py>turn-on-github-ssl.py</a></p>
 <p>This print out something like so:</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash><span class=nv>$ </span>./turn-on-github-ssl.py
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ ./turn-on-github-ssl.py
 
                 blog https://github.com/bramp/blog/settings
   ffmpeg-cli-wrapper https://github.com/bramp/ffmpeg-cli-wrapper/settings
@@ -134,10 +134,10 @@ js-sequence-diagrams https://github.com/bramp/js-sequence-diagrams/settings
            js-sudoku https://github.com/bramp/js-sudoku/settings
         nodewii-talk https://github.com/bramp/nodewii-talk/settings
              prob.js https://github.com/bramp/prob.js/settings
-                <span class=nb>test </span>https://github.com/bramp/test/settings
+                <span class=s7d2>test</span> https://github.com/bramp/test/settings
               unsafe https://github.com/bramp/unsafe/settings
-...
-</code></pre></div>
+...</code></pre>
+</div>
 <p>Now click on each URL, and just check the box.</p>
 </div>
 </article>

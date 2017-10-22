@@ -103,31 +103,31 @@
 </p>
 <div class=post itemprop=articleBody>
 <p>I recently had the need to install Windows Server 2008 from a USB stick. This was because I didn&#8217;t have a working DVD drive to hand. I found a couple of <a href=http://blogs.dirteam.com/blogs/sanderberkouwer/archive/2008/05/01/installing-windows-server-2008.aspx>tutorials</a> <a href="http://www.jesscoburn.com/archives/2007/10/15/installing-windows-2008-via-usb-thumbdrive/">online</a> explaining how to create the disk. They generally explained this technique:</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>C:<span class=se>\&gt;</span> diskpart
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>C:<span class=sc25>\&gt;</span> diskpart
 
 DISKPART&gt; list disk
 
      Select the USB device from the list and substitute the disk number below
      when necessary
 
-DISKPART&gt; <span class=k>select</span> disk 1
+DISKPART&gt; <span class=s3e8>select</span> disk <span class=sc80>1</span>
 DISKPART&gt; clean
 DISKPART&gt; create partition primary
-DISKPART&gt; <span class=k>select</span> partition 1
+DISKPART&gt; <span class=s3e8>select</span> partition <span class=sc80>1</span>
 DISKPART&gt; active
-DISKPART&gt; format <span class=nv>fs</span><span class=o>=</span>fat32
+DISKPART&gt; format <span class=s7e3>fs</span><span class=sfa0>=</span>fat32
 DISKPART&gt; assign
-DISKPART&gt; <span class=nb>exit</span>
+DISKPART&gt; <span class=s7d2>exit</span>
 
-xcopy X:<span class=se>\*</span>.* /s/e/f Y:<span class=se>\</span>
-
-     where X:<span class=se>\ </span>is your mounted image or physical DVD and Y:<span class=se>\ </span>is your USB
-     device
-</code></pre></div>
+xcopy X:<span class=sc25>\*</span>.* /s/e/f Y:<span class=sc25>\
+</span><span class=sc25></span>
+     where X:<span class=sc25>\ </span>is your mounted image or physical DVD and Y:<span class=sc25>\ </span>is your USB
+     device</code></pre>
+</div>
 <p>However it appears diskpart is unable to see USB sticks under Windows XP. I have later tried on Vista and this limitation appears removed. But for those using Windows XP I have found an alternative method.</p>
 <p>Firstly find the bootsect.exe tool on the Windows Server disc (in the boot directory). Then run this command where U is the drive letter of the USB stick.</p>
-<div class=highlight><pre><code class=language-bash data-lang=bash>D:<span class=se>\b</span>oot&gt; bootsect.exe /nt60 U:
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>D:<span class=sc25>\b</span>oot&gt; bootsect.exe /nt60 U:</code></pre>
+</div>
 <p>Now copy all the files from the Windows Server disc onto the USB stick. This can be done by dragging in the GUI or using the xcopy method shown previously.</p>
 <p>I have yet to repeat this procedure and I might have previous partitioned or formatted my USB stick in a unique way. So if this method doesn&#8217;t work <a href="/about-me/">drop me a mail</a> and I&#8217;ll see what I can do.</p>
 </div>

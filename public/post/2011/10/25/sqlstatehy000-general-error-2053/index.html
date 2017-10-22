@@ -105,20 +105,20 @@ PHP Fatal error: Uncaught exception &#39;PDOException&#39; with message &#39;SQL
 </p>
 <div class=post itemprop=articleBody>
 <p>I encountered the following odd exception:</p>
-<div class=highlight><pre><code class=language-text data-lang=text>PHP Fatal error:  Uncaught exception &#39;PDOException&#39; with message &#39;SQLSTATE[HY000]: General error: 2053 &#39; in /home/bramp/my.php:29
+<div class=highlight><pre class=chroma><code class=language-text data-lang=text>PHP Fatal error:  Uncaught exception &#39;PDOException&#39; with message &#39;SQLSTATE[HY000]: General error: 2053 &#39; in /home/bramp/my.php:29
 Stack trace:
-#0 /home/bramp/my.php(29): PDOStatement-&gt;fetch(2)
-</code></pre></div>
+#0 /home/bramp/my.php(29): PDOStatement-&gt;fetch(2)</code></pre>
+</div>
 <p>Searching on Google didn&#8217;t reveal much help, but I eventually figure out the root cause. Spot the mistake:</p>
-<div class=highlight><pre><code class=language-php data-lang=php><span class=x>...</span>
-<span class=x>$sql = &#39;SELECT TRIGGER_NAME, TRIGGER_GROUP, JOB_NAME FROM QRTZ_TRIGGERS&#39;;</span>
-<span class=x>$sth = $dbh-&gt;prepare($sql) or die(&#39;Failed to prepare SELECT TRIGGER query&#39;);</span>
-<span class=x>while ($row = $sth-&gt;fetch(PDO::FETCH_ASSOC)) {</span>
-<span class=x>...</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php>...
+$sql = &#39;SELECT TRIGGER_NAME, TRIGGER_GROUP, JOB_NAME FROM QRTZ_TRIGGERS&#39;;
+$sth = $dbh-&gt;prepare($sql) or die(&#39;Failed to prepare SELECT TRIGGER query&#39;);
+while ($row = $sth-&gt;fetch(PDO::FETCH_ASSOC)) {
+...</code></pre>
+</div>
 <p>I am missing a</p>
-<div class=highlight><pre><code class=language-php data-lang=php><span class=x>$sth-&gt;execute();</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php>$sth-&gt;execute();</code></pre>
+</div>
 <p>in between the prepare and the fetch. Easy fix. For reference I&#8217;m using a old version of PHP 5.1.6, and MySQL client 5.0.45.</p>
 </div>
 </article>

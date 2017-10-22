@@ -16,64 +16,63 @@
       
       <guid>https://blog.bramp.net/post/2012/09/30/pt-kill-centos-init.d-script/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://www.percona.com/doc/percona-toolkit/2.1/pt-kill.html&#34;&gt;pt-kill&lt;/a&gt; is a neat little application that can stop long running MySQL queries. It was formally know as &lt;a href=&#34;http://www.maatkit.org/doc/mk-kill.html&#34;&gt;mk-kill&lt;/a&gt; before &lt;a href=&#34;http://www.Percona.com&#34;&gt;Percona&lt;/a&gt; took over the project. Here is the init.d script I use (as one doesn&amp;#8217;t seem provided by the project): &lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c&#34;&gt;#!/bin/sh&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;#&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# pt-kill   This shell script takes care of starting and stopping&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;#               the pt-kill services.&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;#&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# chkconfig: - 60 20&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# description: pt-kill stops long running MySQL queries&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;#&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# probe: true&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s1770&#34;&gt;#!/bin/sh
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;#
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;# pt-kill   This shell script takes care of starting and stopping
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;#               the pt-kill services.
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;#
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;# chkconfig: - 60 20
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;# description: pt-kill stops long running MySQL queries
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;#
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;# probe: true
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;s1770&#34;&gt;# Source function library.
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;. /etc/rc.d/init.d/functions
 
-&lt;span class=&#34;c&#34;&gt;# Source function library.&lt;/span&gt;
-. /etc/rc.d/init.d/functions
+&lt;span class=&#34;s7e3&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt;
 
-&lt;span class=&#34;nv&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0
-
-&lt;span class=&#34;c&#34;&gt;# See how we were called.&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;case&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$1&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; in
-  start&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; -n &lt;span class=&#34;s2&#34;&gt;$&amp;quot;Starting pt-kill: &amp;quot;&lt;/span&gt;
+&lt;span class=&#34;s1770&#34;&gt;# See how we were called.
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s3e8&#34;&gt;case&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;s7e3&#34;&gt;$1&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;&lt;/span&gt; in
+  start&lt;span class=&#34;sfa0&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;s7d2&#34;&gt;echo&lt;/span&gt; -n &lt;span class=&#34;sc1c&#34;&gt;$&amp;#34;Starting pt-kill: &amp;#34;&lt;/span&gt;
  
-    pt-kill &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --pid /var/run/pt-kill.pid &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --daemonize &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --interval &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --busy-time &lt;span class=&#34;m&#34;&gt;60&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --wait-after-kill &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;  &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --ignore-info &lt;span class=&#34;s1&#34;&gt;&amp;#39;(?i-smx:^insert|^update|^delete|^load)&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --match-info &lt;span class=&#34;s1&#34;&gt;&amp;#39;(?i-xsm:select)&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --ignore-user &lt;span class=&#34;s1&#34;&gt;&amp;#39;(?i-xsm:root)&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --log /var/log/mysql-kill.log &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --print &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --execute-command &lt;span class=&#34;s1&#34;&gt;&amp;#39;(echo &amp;quot;Subject: pt-kill query found on `hostname`&amp;quot;; tail -1 /var/log/mysql-kill.log)|/usr/sbin/sendmail -t you@example.com&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-      --kill-query
+    pt-kill &lt;span class=&#34;sc25&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --pid /var/run/pt-kill.pid &lt;span class=&#34;sc25&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --daemonize &lt;span class=&#34;sc25&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --interval &lt;span class=&#34;sc80&#34;&gt;5&lt;/span&gt; &lt;span class=&#34;sc25&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --busy-time &lt;span class=&#34;sc80&#34;&gt;60&lt;/span&gt; &lt;span class=&#34;sc25&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --wait-after-kill &lt;span class=&#34;sc80&#34;&gt;15&lt;/span&gt;  &lt;span class=&#34;sc25&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --ignore-info &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;(?i-smx:^insert|^update|^delete|^load)&amp;#39;&lt;/span&gt; &lt;span class=&#34;sc25&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --match-info &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;(?i-xsm:select)&amp;#39;&lt;/span&gt; &lt;span class=&#34;sc25&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --ignore-user &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;(?i-xsm:root)&amp;#39;&lt;/span&gt; &lt;span class=&#34;sc25&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --log /var/log/mysql-kill.log &lt;span class=&#34;sc25&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --print &lt;span class=&#34;sc25&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --execute-command &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;(echo &amp;#34;Subject: pt-kill query found on `hostname`&amp;#34;; tail -1 /var/log/mysql-kill.log)|/usr/sbin/sendmail -t you@example.com&amp;#39;&lt;/span&gt; &lt;span class=&#34;sc25&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --kill-query
  
-    &lt;span class=&#34;nv&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$?&lt;/span&gt;
-    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$RETVAL&lt;/span&gt; -ne &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$RETVAL&lt;/span&gt;
+    &lt;span class=&#34;s7e3&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s7e3&#34;&gt;$?&lt;/span&gt;
+    &lt;span class=&#34;s7d2&#34;&gt;echo&lt;/span&gt;
+    &lt;span class=&#34;sfa0&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;$RETVAL&lt;/span&gt; -ne &lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;s7d2&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;$RETVAL&lt;/span&gt;
  
-  &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
-  stop&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;c&#34;&gt;# Stop daemons.&lt;/span&gt;
-        &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; -n &lt;span class=&#34;s2&#34;&gt;$&amp;quot;Shutting down pt-kill: &amp;quot;&lt;/span&gt;
+  ;;
+  stop&lt;span class=&#34;sfa0&#34;&gt;)&lt;/span&gt;
+        &lt;span class=&#34;s1770&#34;&gt;# Stop daemons.
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;s7d2&#34;&gt;echo&lt;/span&gt; -n &lt;span class=&#34;sc1c&#34;&gt;$&amp;#34;Shutting down pt-kill: &amp;#34;&lt;/span&gt;
         killproc pt-kill
-        &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt;
-    &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
-  restart&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-    &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt; stop
-        &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt; start
-        &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
-  *&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;$&amp;quot;Usage: pt-kill {start|stop}&amp;quot;&lt;/span&gt;
-        &lt;span class=&#34;nv&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;3
-        &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;esac&lt;/span&gt;
+        &lt;span class=&#34;s7d2&#34;&gt;echo&lt;/span&gt;
+    ;;
+  restart&lt;span class=&#34;sfa0&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;s7e3&#34;&gt;$0&lt;/span&gt; stop
+        &lt;span class=&#34;s7e3&#34;&gt;$0&lt;/span&gt; start
+        ;;
+  *&lt;span class=&#34;sfa0&#34;&gt;)&lt;/span&gt;
+        &lt;span class=&#34;s7d2&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;$&amp;#34;Usage: pt-kill {start|stop}&amp;#34;&lt;/span&gt;
+        &lt;span class=&#34;s7e3&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;3&lt;/span&gt;
+        ;;
+&lt;span class=&#34;s3e8&#34;&gt;esac&lt;/span&gt;
  
-&lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$RETVAL&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class=&#34;s7d2&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;$RETVAL&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;Usage:&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Create the script as /etc/init.d/pt-kill, and change the pt-kill command in the middle of the script to suit your needs. Then run &amp;#8216;chkconfig &amp;#8211;level 345 pt-kill on&amp;#8217; to ensure this script starts up at boot. Alternatively test the script with &amp;#8216;/etc/init.d/pt-kill start&amp;#8217; or &amp;#8216;/etc/init.d/pt-kill stop&amp;#8217;.&lt;/p&gt;
@@ -90,62 +89,54 @@
       <description>&lt;p&gt;In a previous post I &lt;a href=&#34;https://blog.bramp.net/post/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/&#34;&gt;obtained the Linksys E4200v2 firmware&lt;/a&gt;, now I plan to break it apart and see what I can find.&lt;/p&gt;
 
 &lt;p&gt;I start off by simplying using &amp;#8220;file&amp;#8221; on the firmware:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;file FW_E4200_2.0.36.126507.SSA 
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ file FW_E4200_2.0.36.126507.SSA 
 
-FW_E4200_2.0.36.126507.SSA: u-boot legacy uImage, Linux-2.6.35.8, Linux/ARM, OS Kernel Image &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Not compressed&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, &lt;span class=&#34;m&#34;&gt;2677476&lt;/span&gt; bytes, Thu Dec &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; 19:40:21 2011, Load Address: 0x00008000, Entry Point: 0x00008000, Header CRC: 0x6ADD9801, Data CRC: 0xB010442D
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+FW_E4200_2.0.36.126507.SSA: u-boot legacy uImage, Linux-2.6.35.8, Linux/ARM, OS Kernel Image &lt;span class=&#34;sfa0&#34;&gt;(&lt;/span&gt;Not compressed&lt;span class=&#34;sfa0&#34;&gt;)&lt;/span&gt;, &lt;span class=&#34;sc80&#34;&gt;2677476&lt;/span&gt; bytes, Thu Dec &lt;span class=&#34;sc80&#34;&gt;22&lt;/span&gt; &lt;span class=&#34;sc80&#34;&gt;19&lt;/span&gt;:40:21 &lt;span class=&#34;sc80&#34;&gt;2011&lt;/span&gt;, Load Address: 0x00008000, Entry Point: 0x00008000, Header CRC: 0x6ADD9801, Data CRC: 0xB010442D&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Well this is a great start. We know we are dealing with Linux, and that this is a normal uImage. I then move on to use a neat little tool called &lt;a href=&#34;https://github.com/devttys0/binwalk&#34;&gt;binwalk&lt;/a&gt;. By using libmagic, binwalk tries to find interesting sections of the file.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;/usr/local/bin/binwalk FW_E4200_2.0.36.126507.SSA 
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ /usr/local/bin/binwalk FW_E4200_2.0.36.126507.SSA 
 
 DECIMAL   	HEX       	DESCRIPTION
 -------------------------------------------------------------------------------------------------------
-&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;         	0x0       	uImage header, header size: &lt;span class=&#34;m&#34;&gt;64&lt;/span&gt; bytes, header CRC: 0x6ADD9801, created: Thu Dec &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; 19:40:21 2011, image size: &lt;span class=&#34;m&#34;&gt;2677476&lt;/span&gt; bytes, Data Address: 0x8000, Entry Point: 0x8000, data CRC: 0xB010442D, OS: Linux, CPU: ARM, image &lt;span class=&#34;nb&#34;&gt;type&lt;/span&gt;: OS Kernel Image, compression &lt;span class=&#34;nb&#34;&gt;type&lt;/span&gt;: none, image name: Linux-2.6.35.8
-&lt;span class=&#34;m&#34;&gt;1124&lt;/span&gt;      	0x464     	LZMA compressed data, properties: 0x87, dictionary size: &lt;span class=&#34;m&#34;&gt;250216448&lt;/span&gt; bytes, uncompressed size: &lt;span class=&#34;m&#34;&gt;14786800&lt;/span&gt; bytes
-&lt;span class=&#34;m&#34;&gt;16636&lt;/span&gt;     	0x40FC    	gzip compressed data, from Unix, last modified: Thu Dec &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; 19:40:18 2011, max compression
-&lt;span class=&#34;m&#34;&gt;2752512&lt;/span&gt;   	0x2A0000  	JFFS2 filesystem data little endian, JFFS node length: 49
+&lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt;         	0x0       	uImage header, header size: &lt;span class=&#34;sc80&#34;&gt;64&lt;/span&gt; bytes, header CRC: 0x6ADD9801, created: Thu Dec &lt;span class=&#34;sc80&#34;&gt;22&lt;/span&gt; &lt;span class=&#34;sc80&#34;&gt;19&lt;/span&gt;:40:21 &lt;span class=&#34;sc80&#34;&gt;2011&lt;/span&gt;, image size: &lt;span class=&#34;sc80&#34;&gt;2677476&lt;/span&gt; bytes, Data Address: 0x8000, Entry Point: 0x8000, data CRC: 0xB010442D, OS: Linux, CPU: ARM, image type: OS Kernel Image, compression type: none, image name: Linux-2.6.35.8
+&lt;span class=&#34;sc80&#34;&gt;1124&lt;/span&gt;      	0x464     	LZMA compressed data, properties: 0x87, dictionary size: &lt;span class=&#34;sc80&#34;&gt;250216448&lt;/span&gt; bytes, uncompressed size: &lt;span class=&#34;sc80&#34;&gt;14786800&lt;/span&gt; bytes
+&lt;span class=&#34;sc80&#34;&gt;16636&lt;/span&gt;     	0x40FC    	gzip compressed data, from Unix, last modified: Thu Dec &lt;span class=&#34;sc80&#34;&gt;22&lt;/span&gt; &lt;span class=&#34;sc80&#34;&gt;19&lt;/span&gt;:40:18 &lt;span class=&#34;sc80&#34;&gt;2011&lt;/span&gt;, max compression
+&lt;span class=&#34;sc80&#34;&gt;2752512&lt;/span&gt;   	0x2A0000  	JFFS2 filesystem data little endian, JFFS node length: &lt;span class=&#34;sc80&#34;&gt;49&lt;/span&gt;
 ..A whole lot of JFFS2 sections..
-&lt;span class=&#34;m&#34;&gt;20974612&lt;/span&gt;  	0x1400C14 	JFFS2 filesystem data little endian, JFFS node length: 51
-&lt;span class=&#34;m&#34;&gt;20974664&lt;/span&gt;  	0x1400C48 	JFFS2 filesystem data little endian, JFFS node length: 193
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class=&#34;sc80&#34;&gt;20974612&lt;/span&gt;  	0x1400C14 	JFFS2 filesystem data little endian, JFFS node length: &lt;span class=&#34;sc80&#34;&gt;51&lt;/span&gt;
+&lt;span class=&#34;sc80&#34;&gt;20974664&lt;/span&gt;  	0x1400C48 	JFFS2 filesystem data little endian, JFFS node length: &lt;span class=&#34;sc80&#34;&gt;193&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;We find a small LZMA section, and large gzip section, and lots of JFFS2 sections. JFFS2 is a popular embedded file system, so we can guess the bulk of the file system is here. Next we can extract each section using dd:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;dd &lt;span class=&#34;nv&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;skip&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1124&lt;/span&gt;  &lt;span class=&#34;nv&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;15512&lt;/span&gt;   &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;FW_E4200_2.0.36.126507.SSA &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-1.lzma
-dd &lt;span class=&#34;nv&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;skip&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;16636&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2735876&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;FW_E4200_2.0.36.126507.SSA &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-2.gz
-dd &lt;span class=&#34;nv&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;skip&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2752512&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;FW_E4200_2.0.36.126507.SSA &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-3.jffs2
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;dd &lt;span class=&#34;s7e3&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;skip&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;1124&lt;/span&gt;  &lt;span class=&#34;s7e3&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;15512&lt;/span&gt;   &lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;FW_E4200_2.0.36.126507.SSA &lt;span class=&#34;s7e3&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;image-1.lzma
+dd &lt;span class=&#34;s7e3&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;skip&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;16636&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;2735876&lt;/span&gt; &lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;FW_E4200_2.0.36.126507.SSA &lt;span class=&#34;s7e3&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;image-2.gz
+dd &lt;span class=&#34;s7e3&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;skip&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;2752512&lt;/span&gt; &lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;FW_E4200_2.0.36.126507.SSA &lt;span class=&#34;s7e3&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;image-3.jffs2&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Notice we are using a block size of 1 (so we can count in bytes), and we skip the offset into the file. Then we manually work out the sizes for the lzma and gzip sections. They can be no larger than their start until the next section. If they don&amp;#8217;t fill that full space, then not to worry as these tools will normally ignore trailing data.&lt;/p&gt;
 
 &lt;p&gt;As I&amp;#8217;m interested to see what&amp;#8217;s in the JFFS filesystem, we should mount it. You can&amp;#8217;t mount JFFS like a normal loopback device, you have to create a fake flash device. The following set of command can solve that:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo modprobe mtdram &lt;span class=&#34;nv&#34;&gt;total_size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;32768&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;erase_size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;256
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo modprobe mtdram &lt;span class=&#34;s7e3&#34;&gt;total_size&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;32768&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;erase_size&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;256&lt;/span&gt;
 sudo modprobe mtdblock
 sudo modprobe mtdchar
-&lt;span class=&#34;c&#34;&gt;# sudo mknod /dev/mtdblock0 b 31 0&lt;/span&gt;
-dd &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-3.jffs2 &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/dev/mtdblock0
-mount -t jffs2 /dev/mtdblock0 /mnt/disk
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class=&#34;s1770&#34;&gt;# sudo mknod /dev/mtdblock0 b 31 0
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;dd &lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;image-3.jffs2 &lt;span class=&#34;s7e3&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;/dev/mtdblock0
+mount -t jffs2 /dev/mtdblock0 /mnt/disk&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;The mknod line is only needed if you don&amp;#8217;t already have a /dev/mtdblock0. Also a /mnt/disk needs to be created ahead of time so the mounting works. Anyway once that was done, I cd /mnt/disk and found that it does appear to contain most of the file system. There are all the HTML pages, and binaries (for example busybox).&lt;/p&gt;
 
 &lt;p&gt;Now we should go back to image-1.lzma and image-2.gz. Well straight away trying to decompress image-1&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;lzma -dc image-1.lzma &amp;gt; image-1
-lzma: Decoder error
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ lzma -dc image-1.lzma &amp;gt; image-1
+lzma: Decoder error&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;results in a error. So we can assume that was a incorrectly detected by binwalk. Lets now try and decompress image-2.gz:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;gzip -dc image-2.gz &amp;gt; image-2
-gzip: image-2.gz: decompression OK, trailing garbage ignored
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ gzip -dc image-2.gz &amp;gt; image-2
+gzip: image-2.gz: decompression OK, trailing garbage ignored&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;So that does indeed produce a large image-2 file, so we can ignore the trailing garbage warning. A quick &amp;#8220;file&amp;#8221; on image-2 doesn&amp;#8217;t reveal anything useful, so I run binwalk on it. This turns up a set of false positives. So I take a different approach. I run:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;strings image-2
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ strings image-2&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;This produces a whole host of valid looking strings. From the contents of the strings it makes me think it&amp;#8217;s the actual kernel. A line like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;Linux version 2.6.35.8 (root@ubuntu) (gcc version 4.2.0 20070413 (prerelease) (CodeSourcery Sourcery G++ Lite 2007q1-21)) #1 Thu Dec 22 16:40:10 PST 2011
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;Linux version 2.6.35.8 (root@ubuntu) (gcc version 4.2.0 20070413 (prerelease) (CodeSourcery Sourcery G++ Lite 2007q1-21)) #1 Thu Dec 22 16:40:10 PST 2011&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;helps me come to that conclusion.&lt;/p&gt;
 
 &lt;p&gt;I haven&amp;#8217;t finished poking around image-2.gz, but I suspect the interesting parts are mostly in the JFFS2 filesystem. Hopefully this will lead to me getting ssh access to the router, and eventually being able to customise the firmware.&lt;/p&gt;
@@ -169,66 +160,62 @@ gzip: image-2.gz: decompression OK, trailing garbage ignored
 &lt;p&gt;So, I grabbed a &lt;a href=&#34;http://code.activestate.com/recipes/491264-mini-fake-dns-server/&#34;&gt;simple DNS server&lt;/a&gt;, and set up a simple SSL server following &lt;a href=&#34;http://wirewatcher.wordpress.com/2010/07/20/decrypting-ssl-traffic-with-wireshark-and-ways-to-prevent-it/&#34;&gt;these instructions&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Now with DNS spoofing, and a fake SSL server, I could intercept encrypted traffic from the router, as long as it does not validate the SSL certificate. Luckily it didn&amp;#8217;t check the validity, and thus I was able to capture the request: (BTW Not checking the cert completely defeats the point of using SSL&amp;#8230; bad Linksys!).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span class=&#34;nf&#34;&gt;POST&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;/cds/update&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;HTTP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1.1&lt;/span&gt;
-&lt;span class=&#34;na&#34;&gt;Host&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;update.linksys.com&lt;/span&gt;
-&lt;span class=&#34;na&#34;&gt;Accept&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;*/*&lt;/span&gt;
-&lt;span class=&#34;na&#34;&gt;Content-Type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;text/xml&lt;/span&gt;
-&lt;span class=&#34;na&#34;&gt;Content-Length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;573&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;POST /cds/update HTTP/1.1
+Host: update.linksys.com
+Accept: */*
+Content-Type: text/xml
+Content-Length: 573
 
-&lt;span class=&#34;nt&#34;&gt;&amp;lt;SOAP-ENV:Envelope&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;xmlns:SOAP-ENV=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;http://schemas.xmlsoap.org/soap/envelope/&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;SOAP-ENV:Header/&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;SOAP-ENV:Body&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;ns:GetFirmwareFromDeviceRequest&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;xmlns:ns=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;http://cisco.com/schemas&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;ns:LanguageCode&amp;gt;&lt;/span&gt;en&lt;span class=&#34;nt&#34;&gt;&amp;lt;/ns:LanguageCode&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;ns:CountryCode&amp;gt;&lt;/span&gt;us&lt;span class=&#34;nt&#34;&gt;&amp;lt;/ns:CountryCode&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;ns:MacAddress&amp;gt;&lt;/span&gt;12:34:56:78:90:ab&lt;span class=&#34;nt&#34;&gt;&amp;lt;/ns:MacAddress&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;ns:ModelNo&amp;gt;&lt;/span&gt;E4200&lt;span class=&#34;nt&#34;&gt;&amp;lt;/ns:ModelNo&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;ns:HardwareVersion&amp;gt;&lt;/span&gt;2&lt;span class=&#34;nt&#34;&gt;&amp;lt;/ns:HardwareVersion&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;ns:CurrentFirmwareVersion&amp;gt;&lt;/span&gt;2.0.36.126507&lt;span class=&#34;nt&#34;&gt;&amp;lt;/ns:CurrentFirmwareVersion&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/ns:GetFirmwareFromDeviceRequest&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/SOAP-ENV:Body&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;nt&#34;&gt;&amp;lt;/SOAP-ENV:Envelope&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&amp;lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&amp;#34;http://schemas.xmlsoap.org/soap/envelope/&amp;#34;&amp;gt;
+  &amp;lt;SOAP-ENV:Header/&amp;gt;
+  &amp;lt;SOAP-ENV:Body&amp;gt;
+    &amp;lt;ns:GetFirmwareFromDeviceRequest xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&amp;gt;
+      &amp;lt;ns:LanguageCode&amp;gt;en&amp;lt;/ns:LanguageCode&amp;gt;
+      &amp;lt;ns:CountryCode&amp;gt;us&amp;lt;/ns:CountryCode&amp;gt;
+      &amp;lt;ns:MacAddress&amp;gt;12:34:56:78:90:ab&amp;lt;/ns:MacAddress&amp;gt;
+      &amp;lt;ns:ModelNo&amp;gt;E4200&amp;lt;/ns:ModelNo&amp;gt;
+      &amp;lt;ns:HardwareVersion&amp;gt;2&amp;lt;/ns:HardwareVersion&amp;gt;
+      &amp;lt;ns:CurrentFirmwareVersion&amp;gt;2.0.36.126507&amp;lt;/ns:CurrentFirmwareVersion&amp;gt;
+    &amp;lt;/ns:GetFirmwareFromDeviceRequest&amp;gt;
+  &amp;lt;/SOAP-ENV:Body&amp;gt;
+&amp;lt;/SOAP-ENV:Envelope&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;and the response:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span class=&#34;kr&#34;&gt;HTTP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1.1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;200&lt;/span&gt; &lt;span class=&#34;ne&#34;&gt;OK&lt;/span&gt;
-&lt;span class=&#34;na&#34;&gt;Content-Language&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;en-US&lt;/span&gt;
-&lt;span class=&#34;na&#34;&gt;Content-Type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;text/xml&lt;/span&gt;
-&lt;span class=&#34;na&#34;&gt;SOAPAction&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;HTTP/1.1 200 OK
+Content-Language: en-US
+Content-Type: text/xml
+SOAPAction: &amp;#34;&amp;#34;
 
-&lt;span class=&#34;nt&#34;&gt;&amp;lt;soapenv:Envelope&lt;/span&gt;
- &lt;span class=&#34;na&#34;&gt;xmlns:soapenv=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;http://schemas.xmlsoap.org/soap/envelope/&amp;quot;&lt;/span&gt;
- &lt;span class=&#34;na&#34;&gt;xmlns:soapenc=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;http://schemas.xmlsoap.org/soap/encoding/&amp;quot;&lt;/span&gt;
- &lt;span class=&#34;na&#34;&gt;xmlns:xsd=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;http://www.w3.org/2001/XMLSchema&amp;quot;&lt;/span&gt;
- &lt;span class=&#34;na&#34;&gt;xmlns:xsi=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;soapenv:Header/&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;soapenv:Body&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;ns:GetFirmwareFromDeviceResponse&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;xmlns:ns=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;http://cisco.com/schemas&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;ns:FirmwareList&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;xmlns:ns=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;http://cisco.com/schemas&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;&amp;lt;ns:Firmware&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;xmlns:ns=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;http://cisco.com/schemas&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;nt&#34;&gt;&amp;lt;ns:Version&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;xmlns:ns=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;http://cisco.com/schemas&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;2.0.36.126507&lt;span class=&#34;nt&#34;&gt;&amp;lt;/ns:Version&amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;nt&#34;&gt;&amp;lt;ns:Revision&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;xmlns:ns=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;http://cisco.com/schemas&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;D&lt;span class=&#34;nt&#34;&gt;&amp;lt;/ns:Revision&amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;nt&#34;&gt;&amp;lt;ns:ReleaseDate&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;xmlns:ns=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;http://cisco.com/schemas&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;2012-01-06T16:48:08Z&lt;span class=&#34;nt&#34;&gt;&amp;lt;/ns:ReleaseDate&amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;nt&#34;&gt;&amp;lt;ns:DownloadURI&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;xmlns:ns=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;http://cisco.com/schemas&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA&lt;span class=&#34;nt&#34;&gt;&amp;lt;/ns:DownloadURI&amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;nt&#34;&gt;&amp;lt;ns:DateFormat&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;xmlns:ns=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;http://cisco.com/schemas&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;yyyy-MM-dd&amp;#39;;T&amp;#39;;HH:mm:ss&amp;#39;;Z&amp;#39;;&lt;span class=&#34;nt&#34;&gt;&amp;lt;/ns:DateFormat&amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;nt&#34;&gt;&amp;lt;ns:Checksum&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;xmlns:ns=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;http://cisco.com/schemas&amp;quot;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;1958710861&lt;span class=&#34;nt&#34;&gt;&amp;lt;/ns:Checksum&amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/ns:Firmware&amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;nt&#34;&gt;&amp;lt;/ns:FirmwareList&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/ns:GetFirmwareFromDeviceResponse&amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/soapenv:Body&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;nt&#34;&gt;&amp;lt;/soapenv:Envelope&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&amp;lt;soapenv:Envelope
+ xmlns:soapenv=&amp;#34;http://schemas.xmlsoap.org/soap/envelope/&amp;#34;
+ xmlns:soapenc=&amp;#34;http://schemas.xmlsoap.org/soap/encoding/&amp;#34;
+ xmlns:xsd=&amp;#34;http://www.w3.org/2001/XMLSchema&amp;#34;
+ xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;&amp;gt;
+  &amp;lt;soapenv:Header/&amp;gt;
+  &amp;lt;soapenv:Body&amp;gt;
+    &amp;lt;ns:GetFirmwareFromDeviceResponse xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&amp;gt;
+      &amp;lt;ns:FirmwareList xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&amp;gt;
+        &amp;lt;ns:Firmware xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&amp;gt;
+          &amp;lt;ns:Version xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&amp;gt;2.0.36.126507&amp;lt;/ns:Version&amp;gt;
+          &amp;lt;ns:Revision xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&amp;gt;D&amp;lt;/ns:Revision&amp;gt;
+          &amp;lt;ns:ReleaseDate xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&amp;gt;2012-01-06T16:48:08Z&amp;lt;/ns:ReleaseDate&amp;gt;
+          &amp;lt;ns:DownloadURI xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&amp;gt;http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA&amp;lt;/ns:DownloadURI&amp;gt;
+          &amp;lt;ns:DateFormat xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&amp;gt;yyyy-MM-dd&amp;#39;;T&amp;#39;;HH:mm:ss&amp;#39;;Z&amp;#39;;&amp;lt;/ns:DateFormat&amp;gt;
+          &amp;lt;ns:Checksum xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&amp;gt;1958710861&amp;lt;/ns:Checksum&amp;gt;
+        &amp;lt;/ns:Firmware&amp;gt;
+      &amp;lt;/ns:FirmwareList&amp;gt;
+    &amp;lt;/ns:GetFirmwareFromDeviceResponse&amp;gt;
+  &amp;lt;/soapenv:Body&amp;gt;
+&amp;lt;/soapenv:Envelope&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;(I slightly modified portions of the request and response to hide the identify of my router.).&lt;/p&gt;
 
 &lt;p&gt;I might write a script to make fake requests, but until then you can easily create a request with curl:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl -d @request.raw https://update.linksys.com/cds/update
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl -d @request.raw https://update.linksys.com/cds/update&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Then you just extract the DownloadURI and&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Voila I now have the firmware. Now I need to figure out what to do with it.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;: As requested I fetched the more recent version of the file:&lt;br /&gt;
@@ -245,42 +232,38 @@ gzip: image-2.gz: decompression OK, trailing garbage ignored
       <description>&lt;p&gt;I just tried to compile the Debian PHP packages, so I could make some &lt;a href=&#34;http://www.howtoforge.com/recompiling-php5-with-bundled-support-for-gd-on-ubuntu&#34;&gt;minor tweaks&lt;/a&gt; to the source, to fix a bug I&amp;#8217;m hopefully going to document shortly. This turned out to be very problematic, mainly due to the testing phase!&lt;/p&gt;
 
 &lt;p&gt;To build the Debian packages you typically do the following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mkdir php
-&lt;span class=&#34;nb&#34;&gt;cd &lt;/span&gt;php
-apt-get &lt;span class=&#34;nb&#34;&gt;source &lt;/span&gt;php5
-&lt;span class=&#34;nb&#34;&gt;cd &lt;/span&gt;php5-*
-debuild -us -uc -j4
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mkdir php
+&lt;span class=&#34;s7d2&#34;&gt;cd&lt;/span&gt; php
+apt-get &lt;span class=&#34;s7d2&#34;&gt;source&lt;/span&gt; php5
+&lt;span class=&#34;s7d2&#34;&gt;cd&lt;/span&gt; php5-*
+debuild -us -uc -j4&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;While testing, the debian/setup_mysql.sh script is called, to create a temporary MySQL database. This however failed to execute correctly because I had some custom options in my &lt;a href=&#34;http://dev.mysql.com/doc/refman/5.1/en/option-files.html&#34;&gt;~/.my.cnf&lt;/a&gt;. Thus it failed like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c&#34;&gt;# start our own mysql server for the tests&lt;/span&gt;
-/bin/sh debian/setup-mysql.sh &lt;span class=&#34;m&#34;&gt;1029&lt;/span&gt; /home/bramp/vendor/php/php5-5.3.8.0/mysql_db
-mysqladmin: connect to server at &lt;span class=&#34;s1&#34;&gt;&amp;#39;localhost&amp;#39;&lt;/span&gt; failed
-error: &lt;span class=&#34;s1&#34;&gt;&amp;#39;Access denied for user &amp;#39;&lt;/span&gt;root&lt;span class=&#34;s1&#34;&gt;&amp;#39;@&amp;#39;&lt;/span&gt;localhost&lt;span class=&#34;s1&#34;&gt;&amp;#39; (using password: YES)&amp;#39;&lt;/span&gt;
-make: *** &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt;-results.txt&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; Error 1
-dpkg-buildpackage: error: debian/rules build gave error &lt;span class=&#34;nb&#34;&gt;exit &lt;/span&gt;status 2
-debuild: fatal error at line 1348:
-dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s1770&#34;&gt;# start our own mysql server for the tests
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;/bin/sh debian/setup-mysql.sh &lt;span class=&#34;sc80&#34;&gt;1029&lt;/span&gt; /home/bramp/vendor/php/php5-5.3.8.0/mysql_db
+mysqladmin: connect to server at &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;localhost&amp;#39;&lt;/span&gt; failed
+error: &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;Access denied for user &amp;#39;&lt;/span&gt;root&lt;span class=&#34;sc1c&#34;&gt;&amp;#39;@&amp;#39;&lt;/span&gt;localhost&lt;span class=&#34;sc1c&#34;&gt;&amp;#39; (using password: YES)&amp;#39;&lt;/span&gt;
+make: *** &lt;span class=&#34;sfa0&#34;&gt;[&lt;/span&gt;test-results.txt&lt;span class=&#34;sfa0&#34;&gt;]&lt;/span&gt; Error &lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt;
+dpkg-buildpackage: error: debian/rules build gave error &lt;span class=&#34;s7d2&#34;&gt;exit&lt;/span&gt; status &lt;span class=&#34;sc80&#34;&gt;2&lt;/span&gt;
+debuild: fatal error at line &lt;span class=&#34;sc80&#34;&gt;1348&lt;/span&gt;:
+dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;After removing the my.cnf things were ok. The below patch fixes it in a more general way:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-diff&#34; data-lang=&#34;diff&#34;&gt;&lt;span class=&#34;gd&#34;&gt;-- debian/setup-mysql.sh.org	2011-11-21 21:57:07.244481175 -0500&lt;/span&gt;
-&lt;span class=&#34;gi&#34;&gt;+++ debian/setup-mysql.sh	2011-11-21 21:40:39.384455880 -0500&lt;/span&gt;
-&lt;span class=&#34;gu&#34;&gt;@@ -16,7 +16,7 @@&lt;/span&gt;
- 
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-diff&#34; data-lang=&#34;diff&#34;&gt;&lt;span class=&#34;s1b59&#34;&gt;-- debian/setup-mysql.sh.org	2011-11-21 21:57:07.244481175 -0500
+&lt;/span&gt;&lt;span class=&#34;s1b59&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1b5d&#34;&gt;+++ debian/setup-mysql.sh	2011-11-21 21:40:39.384455880 -0500
+&lt;/span&gt;&lt;span class=&#34;s1b5d&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1b61&#34;&gt;@@ -16,7 +16,7 @@
+&lt;/span&gt;&lt;span class=&#34;s1b61&#34;&gt;&lt;/span&gt; 
  socket=$datadir/mysql.sock
  # Commands:
-&lt;span class=&#34;gd&#34;&gt;-mysqladmin=&amp;quot;mysqladmin -u root -P $port -h localhost --socket=$socket&amp;quot;&lt;/span&gt;
-&lt;span class=&#34;gi&#34;&gt;+mysqladmin=&amp;quot;mysqladmin --no-defaults -u root -P $port -h localhost --socket=$socket&amp;quot;&lt;/span&gt;
- mysqld=&amp;quot;/usr/sbin/mysqld --no-defaults --bind-address=localhost --port=$port --socket=$socket --datadir=$datadir&amp;quot;
+&lt;span class=&#34;s1b59&#34;&gt;-mysqladmin=&amp;#34;mysqladmin -u root -P $port -h localhost --socket=$socket&amp;#34;
+&lt;/span&gt;&lt;span class=&#34;s1b59&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1b5d&#34;&gt;+mysqladmin=&amp;#34;mysqladmin --no-defaults -u root -P $port -h localhost --socket=$socket&amp;#34;
+&lt;/span&gt;&lt;span class=&#34;s1b5d&#34;&gt;&lt;/span&gt; mysqld=&amp;#34;/usr/sbin/mysqld --no-defaults --bind-address=localhost --port=$port --socket=$socket --datadir=$datadir&amp;#34;
  
- # Main code #
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class=&#34;ss4&#34;&gt; # Main code #&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;The next problem I encountered is that all the automated PHP unit tests were failing, and they would eventually get stuck and use all my RAM and swap space (at least 16GiB of it) :( I&amp;#8217;m not sure what made the machine run out of RAM, but the tests were failing because the version of PHP that was running the tests was incorrectly loading extensions from my system. The quick fix for this was to disable any extensions I had installed to my system. I just&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo mv /etc/php5/conf.d /etc/php5/conf.d.tmp
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo mv /etc/php5/conf.d /etc/php5/conf.d.tmp&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;to do that.&lt;/p&gt;
 
 &lt;p&gt;This made me think that in future I should perhaps find a cleaner environment to build these packages. In fact, it makes me wonder if the builds are just broken if my environment clearly impacts the successful run of tests.&lt;/p&gt;
@@ -298,9 +281,8 @@ dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed
       <description>&lt;p&gt;I really like &lt;a href=&#34;http://www.bitwizard.nl/mtr/&#34;&gt;mtr&lt;/a&gt; (the traceroute tool), however, it always bugged me that it launches a GUI app instead of using the &lt;a href=&#34;http://en.wikipedia.org/wiki/Curses_(programming_library)&#34;&gt;curses&lt;/a&gt; interface. You can easily pass the &amp;#8220;-t&amp;#8221; or &amp;#8220;&amp;#8211;curses&amp;#8221; flag to default to the curses interface, but I always forget.&lt;/p&gt;
 
 &lt;p&gt;So today I set about writing a patch for mtr to read a environment varable to force the curses interface. While I was reading the source I noticed there was already a simple undocumented way!&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;MTR_OPTIONS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;-t
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s7d2&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;MTR_OPTIONS&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;-t&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Voila the curses interface is now used by default. This is certainly going into my ~/.bashrc&lt;/p&gt;
 </description>
     </item>
@@ -314,28 +296,23 @@ dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed
       <description>&lt;p&gt;Does your Linux 64bit version of Flash now make anonying beeping/distortion noises while playing videos? Well it turns out a recent &amp;#8220;&lt;a href=&#34;http://lwn.net/Articles/414467/&#34;&gt;improvement&lt;/a&gt;&amp;#8221; to glibc has caused some programs to now crash or do weird things. This is to do with an improvement of &lt;a href=&#34;http://linux.die.net/man/3/memcpy&#34;&gt;memcpy&lt;/a&gt;, which makes its use more strict, causing those applications that incorrectly used it to now crash.&lt;/p&gt;
 
 &lt;p&gt;On Debian, there is a simple a fix that allows you to use the original memcpy. You can load the application using an additional .so file:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;LD_PRELOAD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/usr/lib/libc/memcpy-preload.so /path/to/your/program
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s7e3&#34;&gt;LD_PRELOAD&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;/usr/lib/libc/memcpy-preload.so /path/to/your/program&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;As I use Google Chrome when using Flash I had to do the following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;LD_PRELOAD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/usr/lib/libc/memcpy-preload.so /usr/bin/google-chrome
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s7e3&#34;&gt;LD_PRELOAD&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;/usr/lib/libc/memcpy-preload.so /usr/bin/google-chrome&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;but if you want to fix chrome on a system level, you can edit the Chrome Wrapper used to launch it.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo nano /opt/google/chrome/google-chrome
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo nano /opt/google/chrome/google-chrome&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;add the following line&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;LD_PRELOAD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;/usr/lib/libc/memcpy-preload.so&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s7d2&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;LD_PRELOAD&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;/usr/lib/libc/memcpy-preload.so&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;for example&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export &lt;/span&gt;LD_LIBRARY_PATH
-&lt;span class=&#34;nb&#34;&gt;export &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;LD_PRELOAD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;/usr/lib/libc/memcpy-preload.so&amp;quot;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s7d2&#34;&gt;export&lt;/span&gt; LD_LIBRARY_PATH
+&lt;span class=&#34;s7d2&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;LD_PRELOAD&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;/usr/lib/libc/memcpy-preload.so&amp;#34;&lt;/span&gt;
 
-&lt;span class=&#34;nb&#34;&gt;export &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;CHROME_VERSION_EXTRA&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;beta&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</description>
+&lt;span class=&#34;s7d2&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;CHROME_VERSION_EXTRA&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;beta&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -349,22 +326,21 @@ dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed
 &lt;p&gt;So here is the code if anyone finds it interesting:&lt;/p&gt;
 
 &lt;p&gt;and example of using it is:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$ &lt;/span&gt;./ucode.py /lib/firmware/*.ucode
-iwlwifi-1000-3.ucode    : ver 128.50.3.1
-iwlwifi-3945-1.ucode    : ver 15.28.1.6
-iwlwifi-3945-2.ucode    : ver 15.32.2.9
-iwlwifi-4965-1.ucode    : ver 228.57.1.21
-iwlwifi-4965-2.ucode    : ver 228.61.2.24
-iwlwifi-5000-1.ucode    : ver 5.4.1.16
-iwlwifi-5000-2.ucode    : ver 8.24.2.12
-iwlwifi-5150-2.ucode    : ver 8.24.2.2
-iwlwifi-6000-4.ucode    : ver 9.221.4.1
-iwlwifi-6000g2a-5.ucode : ver 17.168.5.1 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;6000g2a fw v17.168.5.1 build 33993&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-iwlwifi-6000g2b-5.ucode : ver 17.168.5.1 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;6000g2b fw v17.168.5.1 build 33993&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-iwlwifi-6050-4.ucode    : ver 9.201.4.1
-iwlwifi-6050-5.ucode    : ver 41.28.5.1 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;6050&lt;/span&gt; fw v41.28.5.1 build 33926&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</description>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ./ucode.py /lib/firmware/*.ucode
+iwlwifi-1000-3.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;128&lt;/span&gt;.50.3.1
+iwlwifi-3945-1.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;15&lt;/span&gt;.28.1.6
+iwlwifi-3945-2.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;15&lt;/span&gt;.32.2.9
+iwlwifi-4965-1.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;228&lt;/span&gt;.57.1.21
+iwlwifi-4965-2.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;228&lt;/span&gt;.61.2.24
+iwlwifi-5000-1.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;5&lt;/span&gt;.4.1.16
+iwlwifi-5000-2.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;8&lt;/span&gt;.24.2.12
+iwlwifi-5150-2.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;8&lt;/span&gt;.24.2.2
+iwlwifi-6000-4.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;9&lt;/span&gt;.221.4.1
+iwlwifi-6000g2a-5.ucode : ver &lt;span class=&#34;sc80&#34;&gt;17&lt;/span&gt;.168.5.1 &lt;span class=&#34;sfa0&#34;&gt;(&lt;/span&gt;6000g2a fw v17.168.5.1 build &lt;span class=&#34;sc80&#34;&gt;33993&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;)&lt;/span&gt;
+iwlwifi-6000g2b-5.ucode : ver &lt;span class=&#34;sc80&#34;&gt;17&lt;/span&gt;.168.5.1 &lt;span class=&#34;sfa0&#34;&gt;(&lt;/span&gt;6000g2b fw v17.168.5.1 build &lt;span class=&#34;sc80&#34;&gt;33993&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;)&lt;/span&gt;
+iwlwifi-6050-4.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;9&lt;/span&gt;.201.4.1
+iwlwifi-6050-5.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;41&lt;/span&gt;.28.5.1 &lt;span class=&#34;sfa0&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;6050&lt;/span&gt; fw v41.28.5.1 build &lt;span class=&#34;sc80&#34;&gt;33926&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -390,39 +366,34 @@ iwlwifi-6050-5.ucode    : ver 41.28.5.1 &lt;span class=&#34;o&#34;&gt;(&lt;/span
       
       <guid>https://blog.bramp.net/post/2010/08/31/persec-python-script/</guid>
       <description>&lt;p&gt;A while ago I wrote a python script that does a similar job to GNU&amp;#8217;s &lt;a href=&#34;http://linux.die.net/man/1/watch&#34;&gt;watch&lt;/a&gt; command. You use it like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;./persec.py &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;--interval&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&amp;lt;n&amp;gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &amp;lt;&lt;span class=&#34;nb&#34;&gt;command&lt;/span&gt;&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;./persec.py &lt;span class=&#34;sfa0&#34;&gt;[&lt;/span&gt;--interval&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&amp;lt;n&amp;gt;&lt;span class=&#34;sfa0&#34;&gt;]&lt;/span&gt; &amp;lt;command&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;so for example&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;./persec.py ifconfig
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;./persec.py ifconfig&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Now in a similar way to watch, it executes the command every second, and highlights the differences between each execution. However, in addition to this it finds any numbers that have changed and works out the rate at which they are changing. So for example, ifconfig would typically output this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;usb0      Link encap:Ethernet  HWaddr 02:04:4b:00:d3:cf
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;usb0      Link encap:Ethernet  HWaddr 02:04:4b:00:d3:cf
           inet addr:10.0.0.2  Bcast:10.0.0.255  Mask:255.255.255.0
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:1017422291 errors:0 dropped:0 overruns:0 frame:0
           TX packets:549382406 errors:0 dropped:0 overruns:0 carrier:0
           collisions:0 txqueuelen:1000
-          RX bytes:1910704266 (1.9 GB)  TX bytes:1834667124 (1.8 GB)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+          RX bytes:1910704266 (1.9 GB)  TX bytes:1834667124 (1.8 GB)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;but now outputs something like:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;usb0      Link encap:Ethernet  HWaddr 02:04:4b:00:d3:cf
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;usb0      Link encap:Ethernet  HWaddr 02:04:4b:00:d3:cf
           inet addr:10.0.0.2  Bcast:10.0.0.255  Mask:255.255.255.0
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:&amp;lt;b&amp;gt;2001/s&amp;lt;/b&amp;gt; errors:0 dropped:0 overruns:0 frame:0
           TX packets:&amp;lt;b&amp;gt;2002/s&amp;lt;/b&amp;gt; errors:0 dropped:0 overruns:0 carrier:0
           collisions:0 txqueuelen:1000
-          RX bytes:&amp;lt;b&amp;gt;168120/s&amp;lt;/b&amp;gt; (1.9 GB)  TX bytes:&amp;lt;b&amp;gt;217144/s&amp;lt;/b&amp;gt; (1.8 GB)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+          RX bytes:&amp;lt;b&amp;gt;168120/s&amp;lt;/b&amp;gt; (1.9 GB)  TX bytes:&amp;lt;b&amp;gt;217144/s&amp;lt;/b&amp;gt; (1.8 GB)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Notice the per second (/s) values for RX/TX packets and RX/TX bytes. I have found this quite useful many times in the past, on commands such as:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;./persec.py cat /proc/interrupts
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;./persec.py cat /proc/interrupts
 ./persec.py df
-./persec.py ls -l somefile
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+./persec.py ls -l somefile&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;&lt;a href=&#34;https://raw.githubusercontent.com/bramp/handy-tools/master/persec.py&#34;&gt;Download version 1.1&lt;/a&gt; or &lt;a href=&#34;https://github.com/bramp/handy-tools/blob/master/persec.py&#34;&gt;View on Github&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
@@ -434,7 +405,7 @@ iwlwifi-6050-5.ucode    : ver 41.28.5.1 &lt;span class=&#34;o&#34;&gt;(&lt;/span
       
       <guid>https://blog.bramp.net/post/2010/05/07/humble-indie-bundle-md5sums/</guid>
       <description>&lt;p&gt;I just purchased the &lt;a href=&#34;http://www.wolfire.com/humble&#34;&gt;Humble Indie Bundle&lt;/a&gt;, 5 games which run on Windows, Linux and Mac. They kindly offered md5 hashes, however they weren&amp;#8217;t in a convenient format, so I created a md5sums file.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;187287db6226ef6a306a4cd0cfa8dd45 *Aquaria111.2008.12.12.exe
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;187287db6226ef6a306a4cd0cfa8dd45 *Aquaria111.2008.12.12.exe
 8b24ddeeb553e028bbd501102f891cc2 *aquaria-lnx-humble-bundle.mojo.run
 336d89eb431e0b00535a2b50146c579d *WorldOfGooSetup.1.30.exe
 f5afa40893d0fbcc37885191404f6d8c *WorldOfGooSetup.1.41.tar.gz
@@ -443,11 +414,10 @@ b373132f6e78665f1076752b038a8218 *gish153-1.tar.gz
 41ea2e41fe42c40b5ad017ae1afb45c7 *lugaru-full-linux-x86-1.0c.bin
 d40d4076ed3ffa2a9bc9913202c55a06 *lugaru-windows.zip
 56060bb550e0cd7e90bc7bc60d7c4c23 *penumbra_overture_1.1.exe
-539567b590cf53e65a8e8f1b2bc728b3 *penumbra_overture_1.1.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+539567b590cf53e65a8e8f1b2bc728b3 *penumbra_overture_1.1.sh&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;and for those that prefer sha1:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;ec8fd66bb44c6f67eab40f73e57838dcb5e2f4dd *Aquaria111.2008.12.12.exe
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;ec8fd66bb44c6f67eab40f73e57838dcb5e2f4dd *Aquaria111.2008.12.12.exe
 48267967b3a57fb406fa6545261f8b758edb8fb5 *aquaria-lnx-humble-bundle.mojo.run
 70fad514746d6fc482fc3d681a7e9d498374bdad *WorldOfGooSetup.1.30.exe
 4f7202a4ac17dd1665a1ab7f90153e5b813e16f1 *WorldOfGooSetup.1.41.tar.gz
@@ -456,9 +426,8 @@ d40d4076ed3ffa2a9bc9913202c55a06 *lugaru-windows.zip
 2349bdea3d595c3aaedca0810229d12f96323874 *lugaru-full-linux-x86-1.0c.bin
 73f09414e0cabd371802eea1b9c75c76522c5934 *lugaru-windows.zip
 557c6988eda16c6269d09a35031fd1754e042c02 *penumbra_overture_1.1.exe
-e115f7cfcf9710d7aa5b2a5a9186b3736bb55cf2 *penumbra_overture_1.1.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+e115f7cfcf9710d7aa5b2a5a9186b3736bb55cf2 *penumbra_overture_1.1.sh&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Note, these were correct and validated on the 8th of May, however, if any of the files have been updated the hashes might no longer much. Feel free to &lt;a href=&#34;https://blog.bramp.net/about-me/&#34;&gt;contact me&lt;/a&gt; to tell me if this happens.&lt;/p&gt;
 </description>
     </item>
@@ -470,9 +439,8 @@ e115f7cfcf9710d7aa5b2a5a9186b3736bb55cf2 *penumbra_overture_1.1.sh
       
       <guid>https://blog.bramp.net/post/2010/03/19/vmware-breaks-shift-key/</guid>
       <description>&lt;p&gt;I came into my office today to find that my keyboard would no longer type capital letters. The shift, caps lock, and even num lock keys seemed to be broken. After a quick WTF &lt;a href=&#34;http://www.evolution-systems.co.uk/blogs/matt/view_post&amp;amp;id=37/&#34;&gt;it was pointed out to me&lt;/a&gt; that VMWare occasionally does this to Linux machines. Thanks to &lt;a href=&#34;http://twitter.com/bigkebabman&#34;&gt;Matt&lt;/a&gt; who showed me a quick solution. In a terminal just type:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;setxkbmap
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;setxkbmap&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;And everything should be back to normal. After using VMWare on Linux for a couple of years I&amp;#8217;ve never encountered this problem!&lt;/p&gt;
 </description>
     </item>
@@ -484,36 +452,35 @@ e115f7cfcf9710d7aa5b2a5a9186b3736bb55cf2 *penumbra_overture_1.1.sh
       
       <guid>https://blog.bramp.net/post/2010/01/26/redirect-local-traffic-to-a-web-cache-with-iptables/</guid>
       <description>&lt;p&gt;Very occasionally I come across a Linux application that does not respect the http_proxy variable. This stops the application from working while I&amp;#8217;m at university as they forbid traffic on port 80 unless it goes via their webcache. So today I came up with a hack of a solution that involves iptables:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c&#34;&gt;# IP address and port number of the webcache&lt;/span&gt;
-&lt;span class=&#34;nv&#34;&gt;WEBCACHE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;194.80.32.10:8080
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s1770&#34;&gt;# IP address and port number of the webcache
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s7e3&#34;&gt;WEBCACHE&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;194&lt;/span&gt;.80.32.10:8080
 
-&lt;span class=&#34;c&#34;&gt;# Flush any previous rules&lt;/span&gt;
-iptables -t nat --flush
+&lt;span class=&#34;s1770&#34;&gt;# Flush any previous rules
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;iptables -t nat --flush
 
-&lt;span class=&#34;c&#34;&gt;# Delete and recreate the chain&lt;/span&gt;
-iptables -t nat -X HTTPFORCE
+&lt;span class=&#34;s1770&#34;&gt;# Delete and recreate the chain
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;iptables -t nat -X HTTPFORCE
 iptables -t nat -N HTTPFORCE
 
-&lt;span class=&#34;c&#34;&gt;# Don&amp;#39;t touch local traffic (localhost and internal network)&lt;/span&gt;
-iptables -t nat -A HTTPFORCE -o lo -j RETURN
-iptables -t nat -A HTTPFORCE --dst 127.0.0.1/8 -j RETURN
-iptables -t nat -A HTTPFORCE --dst 10.0.0.0/8 -j RETURN
-&lt;span class=&#34;c&#34;&gt;# Add any other local networks here.&lt;/span&gt;
-
-&lt;span class=&#34;c&#34;&gt;# Now we have two options. Please uncomment out one of them&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;# 1) Redirect packets on port 80 to the webcache&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;#    This may not work unless the webcache is generous with its input&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;#iptables -t nat -A HTTPFORCE -p tcp --dport 80 -j DNAT --to $WEBCACHE&lt;/span&gt;
-
-&lt;span class=&#34;c&#34;&gt;# 2) Redirect packets on port 80 to localhost port 1234&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;#    On port 1234 you need to run a local web proxy, which forwards &lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;#    requests to the real webcache&lt;/span&gt;
-&lt;span class=&#34;c&#34;&gt;#iptables -t nat -A HTTPFORCE -p tcp --dport 80 -j REDIRECT --to-port 1234&lt;/span&gt;
-
-&lt;span class=&#34;c&#34;&gt;# Capture all outgoing TCP syns&lt;/span&gt;
-iptables -t nat -A OUTPUT -p tcp --syn -j HTTPFORCE
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class=&#34;s1770&#34;&gt;# Don&amp;#39;t touch local traffic (localhost and internal network)
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;iptables -t nat -A HTTPFORCE -o lo -j RETURN
+iptables -t nat -A HTTPFORCE --dst &lt;span class=&#34;sc80&#34;&gt;127&lt;/span&gt;.0.0.1/8 -j RETURN
+iptables -t nat -A HTTPFORCE --dst &lt;span class=&#34;sc80&#34;&gt;10&lt;/span&gt;.0.0.0/8 -j RETURN
+&lt;span class=&#34;s1770&#34;&gt;# Add any other local networks here.
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;s1770&#34;&gt;# Now we have two options. Please uncomment out one of them
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;# 1) Redirect packets on port 80 to the webcache
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;#    This may not work unless the webcache is generous with its input
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;#iptables -t nat -A HTTPFORCE -p tcp --dport 80 -j DNAT --to $WEBCACHE
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;s1770&#34;&gt;# 2) Redirect packets on port 80 to localhost port 1234
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;#    On port 1234 you need to run a local web proxy, which forwards 
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;#    requests to the real webcache
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;#iptables -t nat -A HTTPFORCE -p tcp --dport 80 -j REDIRECT --to-port 1234
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;s1770&#34;&gt;# Capture all outgoing TCP syns
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;iptables -t nat -A OUTPUT -p tcp --syn -j HTTPFORCE&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;All outgoing TCP packets on port 80 which are not destined for a local network are captured and changed in one of two ways. The first option just manipulates the IP/TCP header, and the second redirects the traffic to a proxy running on localhost. The reason for the two options was that my university&amp;#8217;s webcache seemed unable to deal with HTTP requests without the full URL in the GET line, even though the request contains a valid Host header. I think this is a misconfiguration of their squid proxy, so instead you can redirect to a local proxy which forwards the request on to the webcache.&lt;/p&gt;
 
 &lt;p&gt;This all seems a hassle but sometimes it is needed when a application does not respect the http_proxy environment. On a good note all libcurl applications should respect it by default.&lt;/p&gt;
@@ -529,9 +496,8 @@ iptables -t nat -A OUTPUT -p tcp --syn -j HTTPFORCE
       <description>&lt;p&gt;Today I had the need to install some &lt;a href=&#34;http://www.freebsd.org/&#34;&gt;FreeBSD&lt;/a&gt; and &lt;a href=&#34;http://www.ubuntu.com/&#34;&gt;Ubuntu&lt;/a&gt; packages inside my home directory because I did not have root permissions to install them.&lt;/p&gt;
 
 &lt;p&gt;It was quite simple to install the packages on FreeBSD&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;pkg_add -rRP /home/bramp nano
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;pkg_add -rRP /home/bramp nano&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Where nano is the name of the package I wanted.&lt;/p&gt;
 
 &lt;p&gt;I should point out you don&amp;#8217;t need to be root to do this!, but the installed packages only work for you, and in future could cause you hassle if the base OS is updated.&lt;/p&gt;
@@ -549,15 +515,13 @@ iptables -t nat -A OUTPUT -p tcp --syn -j HTTPFORCE
       <description>&lt;p&gt;Do people other than me find updating their servers to be relaxing? At every opportunity I run &amp;#8220;apt-get update&amp;#8221;. Today I&amp;#8217;m updating 7 different machines simultaneously.&lt;/p&gt;
 
 &lt;p&gt;My Debian machines I simply issue the following commands:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apt-get update
-apt-get upgrade
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apt-get update
+apt-get upgrade&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;My FreeBSD machines:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;portsnap fetch update
-portmanager -u
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;portsnap fetch update
+portmanager -u&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;I think the Debian process is easier (and clearly the fastest) but it obviously has to do less work because I&amp;#8217;m downloading precompiled code. Portmanager is just as easy but seems to randomly ask me questions through the process whereas apt-get seems to get them out of the way early on. Either way I find this all very easy and relaxing&amp;#8230; until I have to reboot the machines and find something is broken :/&lt;/p&gt;
 </description>
     </item>
@@ -569,58 +533,48 @@ portmanager -u
       
       <guid>https://blog.bramp.net/post/2009/11/28/useful-scripts/configurations/</guid>
       <description>&lt;p&gt;Make &lt;a href=&#34;http://git-scm.com&#34;&gt;git&lt;/a&gt; colourful&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;git config --global color.diff auto
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;git config --global color.diff auto
 git config --global color.status auto
-git config --global color.branch auto
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+git config --global color.branch auto&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Make &lt;a href=&#34;http://www.nano-editor.org/&#34;&gt;nano&lt;/a&gt; colourful&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cp /usr/local/share/examples/nano/nanorc.sample ~/.nanorc
-&lt;span class=&#34;c&#34;&gt;# or&lt;/span&gt;
-zcat /usr/share/doc/nano/examples/nanorc.sample.gz &amp;gt;~/.nanorc
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cp /usr/local/share/examples/nano/nanorc.sample ~/.nanorc
+&lt;span class=&#34;s1770&#34;&gt;# or
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;zcat /usr/share/doc/nano/examples/nanorc.sample.gz &amp;gt;~/.nanorc
 
-&lt;span class=&#34;c&#34;&gt;# then&lt;/span&gt;
-nano ~/.nanorc
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class=&#34;s1770&#34;&gt;# then
+&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;nano ~/.nanorc&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;To trim trailing whitespace from *.cc on Linux (taken from &lt;a href=&#34;http://zebert.blogspot.com/2009/06/clean-up-trailing-whitespaces-in.html&#34;&gt;this blog&lt;/a&gt;):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;find . -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;o&#34;&gt;{}&lt;/span&gt; -e &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/[ \t]*$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;find . -name &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;sfa0&#34;&gt;{}&lt;/span&gt; -e &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;s/[ \t]*$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;and on BSDs:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;find . -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; -e &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/\ *$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{}&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;find . -name &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; -e &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;s/\ *$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;{}&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Linux style &amp;#8216;ls&amp;#8217; colours on FreeBSD (taken from &lt;a href=&#34;http://www.puresimplicity.net/~hemi/freebsd/misc.html&#34;&gt;here&lt;/a&gt;):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;CLICOLOR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;YES&amp;quot;&lt;/span&gt;
-&lt;span class=&#34;nb&#34;&gt;export &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;LSCOLORS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;ExGxFxdxCxDxDxhbadExEx&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s7d2&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;CLICOLOR&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;YES&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;s7d2&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;LSCOLORS&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;ExGxFxdxCxDxDxhbadExEx&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;To ensure the http_proxy environmental variable is passed to sudo. Edit the sudoers file by running visudo. Then add the following.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Defaults env_keep +&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;ftp_proxy http_proxy https_proxy&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Defaults &lt;span class=&#34;s7e3&#34;&gt;env_keep&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;ftp_proxy http_proxy https_proxy&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Bash autocompletion on FreeBSD:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt;  /usr/ports/shells/bash-completion
-sudo make install clean
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s7d2&#34;&gt;cd&lt;/span&gt;  /usr/ports/shells/bash-completion
+sudo make install clean&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Edit ~/.bashrc and add&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; -f /usr/local/etc/bash_completion &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;[&lt;/span&gt; -f /usr/local/etc/bash_completion &lt;span class=&#34;sfa0&#34;&gt;]&lt;/span&gt;; &lt;span class=&#34;s3e8&#34;&gt;then&lt;/span&gt;
     . /usr/local/etc/bash_completion
-&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;span class=&#34;s3e8&#34;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Make svn output colorful&lt;br /&gt;
 Edit ~/.subversion/config&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span class=&#34;k&#34;&gt;[helpers]&lt;/span&gt;
-&lt;span class=&#34;na&#34;&gt;diff-cmd&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;/usr/bin/colordiff&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span class=&#34;s3e8&#34;&gt;[helpers]&lt;/span&gt;
+&lt;span class=&#34;s7d1&#34;&gt;diff-cmd&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;/usr/bin/colordiff&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;Create diffs with function names and ignoring whitespace&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;svn diff -x -uwp
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;svn diff -x -uwp&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;p&gt;To be continued&amp;#8230;&lt;/p&gt;
 </description>
     </item>

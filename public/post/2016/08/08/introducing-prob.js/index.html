@@ -109,23 +109,23 @@
 <h2 id=generate-random-numbers-from-different-probability-distributions>Generate random numbers from different probability distributions</h2>
 <p>There are multiple libraries for generating random numbers from a uniform, and sometimes normal distributions. However, I needed code to generate them from a expontential or lognormal distribution. I had written code to do this ~10 years ago in Java, but I needed a more modern Javascript solution.</p>
 <p>Introducing <a href=https://github.com/bramp/prob.js>Prob.js</a>, a javascript library to generate random numbers from different probability distributions. Avaiable via both bower and NPM, prob.js can generate random numbers from the following distrubtions:</p>
-<div class=highlight><pre><code class=language-javascript data-lang=javascript><span class=nx>Prob</span><span class=p>.</span><span class=nx>uniform</span><span class=p>(</span><span class=nx>min</span><span class=p>,</span> <span class=nx>max</span><span class=p>)</span> <span class=c1>// Uniform distribution in range [min, max).</span>
-<span class=nx>Prob</span><span class=p>.</span><span class=nx>normal</span><span class=p>(</span><span class=nx>μ</span><span class=p>,</span> <span class=nx>σ</span><span class=p>)</span>      <span class=c1>// Normal distribution with mean and standard deviation.</span>
-<span class=nx>Prob</span><span class=p>.</span><span class=nx>exponential</span><span class=p>(</span><span class=nx>λ</span><span class=p>)</span>    <span class=c1>// Exponential distribution with lambda.</span>
-<span class=nx>Prob</span><span class=p>.</span><span class=nx>lognormal</span><span class=p>(</span><span class=nx>μ</span><span class=p>,</span> <span class=nx>σ</span><span class=p>)</span>   <span class=c1>// Log-normal distribution defined as ln(normal(μ, σ)).</span>
-<span class=nx>Prob</span><span class=p>.</span><span class=nx>poisson</span><span class=p>(</span><span class=nx>λ</span><span class=p>)</span>        <span class=c1>// Poisson distribution returning integers &gt;= 0.</span>
-<span class=nx>Prob</span><span class=p>.</span><span class=nx>zipf</span><span class=p>(</span><span class=nx>s</span><span class=p>,</span> <span class=nx>N</span><span class=p>)</span>        <span class=c1>// Zipf&#39;s distribution returning integers in range [1, N].</span>
-<span class=nx>After</span> <span class=nx>generating</span> <span class=nx>a</span> <span class=nx>distribution</span><span class=p>,</span> <span class=nx>the</span> <span class=nx>following</span> <span class=nx>methods</span> <span class=nx>are</span> <span class=nx>available</span><span class=o>:</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-javascript data-lang=javascript>Prob.uniform(min, max) <span class=s1770>// Uniform distribution in range [min, max).
+</span><span class=s1770></span>Prob.normal(μ, σ)      <span class=s1770>// Normal distribution with mean and standard deviation.
+</span><span class=s1770></span>Prob.exponential(λ)    <span class=s1770>// Exponential distribution with lambda.
+</span><span class=s1770></span>Prob.lognormal(μ, σ)   <span class=s1770>// Log-normal distribution defined as ln(normal(μ, σ)).
+</span><span class=s1770></span>Prob.poisson(λ)        <span class=s1770>// Poisson distribution returning integers &gt;= 0.
+</span><span class=s1770></span>Prob.zipf(s, N)        <span class=s1770>// Zipf&#39;s distribution returning integers in range [1, N].
+</span><span class=s1770></span>After generating a distribution, the following methods are available<span class=sfa0>:</span></code></pre>
+</div>
 <p>With a very simple to use API:</p>
-<div class=highlight><pre><code class=language-javascript data-lang=javascript><span class=kd>var</span> <span class=nx>r</span> <span class=o>=</span> <span class=nx>Prob</span><span class=p>.</span><span class=nx>exponential</span><span class=p>(</span><span class=mf>1.0</span><span class=p>);</span> <span class=c1>// Create a distribution.</span>
-<span class=nx>r</span><span class=p>()</span>        <span class=c1>// Generates a number within the distribution.</span>
-<span class=nx>r</span><span class=p>(</span><span class=nx>src</span><span class=p>)</span>     <span class=c1>// Generates a number using a `src` of random numbers. (See note below.)</span>
-<span class=nx>r</span><span class=p>.</span><span class=nx>Min</span>      <span class=c1>// The min random number which could be returned by `r()` (inclusive).</span>
-<span class=nx>r</span><span class=p>.</span><span class=nx>Max</span>      <span class=c1>// The max random number which could be returned by `r()` (exclusive).</span>
-<span class=nx>r</span><span class=p>.</span><span class=nx>Mean</span>     <span class=c1>// The expected mean for this distribution.</span>
-<span class=nx>r</span><span class=p>.</span><span class=nx>Variance</span> <span class=c1>// The expected variance for this distribution.</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-javascript data-lang=javascript><span class=s3e8>var</span> r <span class=sfa0>=</span> Prob.exponential(<span class=sc80>1.0</span>); <span class=s1770>// Create a distribution.
+</span><span class=s1770></span>r()        <span class=s1770>// Generates a number within the distribution.
+</span><span class=s1770></span>r(src)     <span class=s1770>// Generates a number using a `src` of random numbers. (See note below.)
+</span><span class=s1770></span>r.Min      <span class=s1770>// The min random number which could be returned by `r()` (inclusive).
+</span><span class=s1770></span>r.Max      <span class=s1770>// The max random number which could be returned by `r()` (exclusive).
+</span><span class=s1770></span>r.Mean     <span class=s1770>// The expected mean for this distribution.
+</span><span class=s1770></span>r.Variance <span class=ss4>// The expected variance for this distribution.</span></code></pre>
+</div>
 <p>I created a <a href="https://bramp.github.io/prob.js/">quick demo site</a> that generates 1 million random numbers from each distribution in the browser, and plots the PDF as it goes. Same samples:</p>
 <p>
 <figure>

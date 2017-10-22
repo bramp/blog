@@ -15,16 +15,15 @@
       <pubDate>Wed, 13 Jan 2010 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2010/01/13/my-rsa-public-key/</guid>
-      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;---- BEGIN RSA PUBLIC KEY ----
+      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;---- BEGIN RSA PUBLIC KEY ----
 AAAAB3NzaC1yc2EAAAABIwAAAQEAs8kmdDl8z8YnwiGogtZb4K+ptzQkYuG2ZSrR
 cEB7YqrwgtqDdQDyNE6SOd6I0bJ+hIz6lsmBUKz70g2bfL+T9VmtbFlH48/YA7vG
 Nptq1VoExCKhqOxNFQpvcdvqiGAI4oHjlbAJYHEC+CdeWHj/UqXpyfO2vlwuxoLI
 iEnPIsmRDQqBX3jMv5uXMhVaHUM2q3EXpKvvHlsM4WGo/b0JoN2q+k+Z6FP9rVxb
 XXaWZJ4xtuUeV/77NDevwpJF8M+XmmvVYAsd5kFNKA1ImRtM8uhEupUru6aeN+bz
 JulS+vJDhoDPsYk79aiNvFfX/o2ylbAn9IYKD0axh9+4my6/bQ==
----- END RSA PUBLIC KEY ----
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</description>
+---- END RSA PUBLIC KEY ----&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</description>
     </item>
     
   </channel>

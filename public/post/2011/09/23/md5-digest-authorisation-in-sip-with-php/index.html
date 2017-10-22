@@ -105,19 +105,19 @@
 </p>
 <div class=post itemprop=articleBody>
 <p>Today I needed to work out the MD5 Digest hash for SIP authorisation. A quick search on Google revealed <a href="http://alexkr.com/memos/66/digest-authorization-in-sip-with-md5/">instructions</a> on how to generate the hash, and then I made this simple PHP script.</p>
-<div class=highlight><pre><code class=language-php data-lang=php><span class=cp>&lt;?php</span>
-<span class=nv>$username</span> <span class=o>=</span> <span class=s1>&#39;1234&#39;</span><span class=p>;</span>
-<span class=nv>$realm</span>    <span class=o>=</span> <span class=s1>&#39;asterisk&#39;</span><span class=p>;</span>
-<span class=nv>$password</span> <span class=o>=</span> <span class=s1>&#39;PASSWORD&#39;</span><span class=p>;</span>
-<span class=nv>$uri</span>      <span class=o>=</span> <span class=s1>&#39;sip:1.2.3.4&#39;</span><span class=p>;</span>
-<span class=nv>$nonce</span>    <span class=o>=</span> <span class=s1>&#39;abcdef01&#39;</span><span class=p>;</span>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=s17d4>&lt;?php</span>
+<span class=s7e3>$username</span> <span class=sfa0>=</span> <span class=sc1c>&#39;1234&#39;</span>;
+<span class=s7e3>$realm</span>    <span class=sfa0>=</span> <span class=sc1c>&#39;asterisk&#39;</span>;
+<span class=s7e3>$password</span> <span class=sfa0>=</span> <span class=sc1c>&#39;PASSWORD&#39;</span>;
+<span class=s7e3>$uri</span>      <span class=sfa0>=</span> <span class=sc1c>&#39;sip:1.2.3.4&#39;</span>;
+<span class=s7e3>$nonce</span>    <span class=sfa0>=</span> <span class=sc1c>&#39;abcdef01&#39;</span>;
 
-<span class=nv>$str1</span> <span class=o>=</span> <span class=nb>md5</span><span class=p>(</span><span class=s2>&quot;</span><span class=si>$username</span><span class=s2>:</span><span class=si>$realm</span><span class=s2>:</span><span class=si>$password</span><span class=s2>&quot;</span><span class=p>);</span>
-<span class=nv>$str2</span> <span class=o>=</span> <span class=nb>md5</span><span class=p>(</span><span class=s2>&quot;REGISTER:</span><span class=si>$uri</span><span class=s2>&quot;</span><span class=p>);</span>
+<span class=s7e3>$str1</span> <span class=sfa0>=</span> md5(<span class=sc1c>&#34;</span><span class=sc27>$username</span><span class=sc1c>:</span><span class=sc27>$realm</span><span class=sc1c>:</span><span class=sc27>$password</span><span class=sc1c>&#34;</span>);
+<span class=s7e3>$str2</span> <span class=sfa0>=</span> md5(<span class=sc1c>&#34;REGISTER:</span><span class=sc27>$uri</span><span class=sc1c>&#34;</span>);
 
-<span class=k>echo</span> <span class=nb>md5</span><span class=p>(</span><span class=s2>&quot;</span><span class=si>$str1</span><span class=s2>:</span><span class=si>$nonce</span><span class=s2>:</span><span class=si>$str2</span><span class=s2>&quot;</span><span class=p>);</span>
-<span class=cp>?&gt;</span><span class=x>;</span>
-</code></pre></div>
+<span class=s3e8>echo</span> md5(<span class=sc1c>&#34;</span><span class=sc27>$str1</span><span class=sc1c>:</span><span class=sc27>$nonce</span><span class=sc1c>:</span><span class=sc27>$str2</span><span class=sc1c>&#34;</span>);
+<span class=s17d4>?&gt;</span>;</code></pre>
+</div>
 <p>All of those variables can be pulled out of a packet capture of a <a href=http://tools.ietf.org/html/rfc3261#section-10.2>SIP REGISTER</a>, and the results can be useful for validating the password a device is sending, is what it is actually sending.</p>
 </div>
 </article>
