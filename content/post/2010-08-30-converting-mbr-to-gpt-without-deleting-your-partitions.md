@@ -12,6 +12,7 @@ tags:
   - windows
 aliases:
   - /blog/2010/08/30/converting-mbr-to-gpt-without-deleting-your-partitions/
+  - /blog/converting-mbr-to-gpt-without-deleting-your-partitions/
 ---
 Today I tired to convert my Windows 2TB RAID disk from a [master boot record][1] (MBR) layout to a [GUID partition table][2] (GPT) one. The reason I wanted to swap is that GPT supports partitions larger than 2TB. Normally it is easy to convert a MBR disk to a GPT one by [using the Disk Management GUI][3]. However, Microsoft do not allow you to convert you disk if you have any partitions on the disk. 
 
