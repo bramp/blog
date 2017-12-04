@@ -45,7 +45,7 @@ URL &lt;code&gt;https://github.com/sirupsen/logrus.git&lt;/code&gt;. The meta ta
 &lt;p&gt;Incase a user attempted to visit that page directly with their web browser, it is worthwhile
 placing more information about the project on the page, or simply making the page redirect.&lt;/p&gt;
 
-&lt;p&gt;To help make these redirect pages, I wrote a simple go tool, &lt;code&gt;[goredirects](https://github.com/bramp/goredirects)&lt;/code&gt;, that inspects all local repositories under a vanity domain directory in the local &lt;code&gt;$GOPATH/src/&lt;/code&gt; and outputs static HTML pages that can be hosted on that domain.&lt;/p&gt;
+&lt;p&gt;To help make these redirect pages, I wrote a simple go tool, &lt;a href=&#34;https://github.com/bramp/goredirects&#34;&gt;&lt;code&gt;goredirects&lt;/code&gt;&lt;/a&gt;, that inspects all local repositories under a vanity domain directory in the local &lt;code&gt;$GOPATH/src/&lt;/code&gt; and outputs static HTML pages that can be hosted on that domain.&lt;/p&gt;
 
 &lt;p&gt;For example, create your new project on GitHub, but check out the project under &lt;code&gt;$GOPATH/src/example.com/project&lt;/code&gt;. Then run the tool:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ go install bramp.net/goredirects
