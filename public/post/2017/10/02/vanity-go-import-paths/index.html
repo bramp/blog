@@ -125,7 +125,7 @@
 <div class=highlight><pre class=chroma><code class=language-html data-lang=html><span class=p>&lt;</span><span class=nt>meta</span> <span class=na>name</span><span class=o>=</span><span class=s>go-import</span>
   <span class=na>content</span><span class=o>=</span><span class=s>&#34;bramp.net/goredirects git https://github.com/bramp/goredirects.git&#34;</span><span class=p></span><span class=p>&gt;</span></code></pre></div>
 <p>Incase a user attempted to visit that page directly with their web browser, it is worthwhile placing more information about the project on the page, or simply making the page redirect.</p>
-<p>To help make these redirect pages, I wrote a simple go tool, <code>[goredirects](https://github.com/bramp/goredirects)</code>, that inspects all local repositories under a vanity domain directory in the local <code>$GOPATH/src/</code> and outputs static HTML pages that can be hosted on that domain.</p>
+<p>To help make these redirect pages, I wrote a simple go tool, <a href=https://github.com/bramp/goredirects><code>goredirects</code></a>, that inspects all local repositories under a vanity domain directory in the local <code>$GOPATH/src/</code> and outputs static HTML pages that can be hosted on that domain.</p>
 <p>For example, create your new project on GitHub, but check out the project under <code>$GOPATH/src/example.com/project</code>. Then run the tool:</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ go install bramp.net/goredirects
 $ goredirects example.com outputdir</code></pre></div>
