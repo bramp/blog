@@ -23,7 +23,7 @@ go get github.com/kardianos/govendor
 govendor get github.com/spf13/hugo@v0.31.1
 
 # For minifiying/linting
-npm install clean-css@4.1.9 uglify-js@3.2.1 html-minifier@3.5.7
+npm install clean-css-cli@4.1.10 uglify-js@3.2.1 html-minifier@3.5.7
 brew install parallel # or sudo apt-get install parallel
 ```
 
