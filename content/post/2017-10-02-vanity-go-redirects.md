@@ -60,7 +60,7 @@ GitHub is a very convenient place to host source code, but the GitHub URL is gen
 Incase a user attempted to visit that page directly with their web browser, it is worthwhile
 placing more information about the project on the page, or simply making the page redirect.
 
-To help make these redirect pages, I wrote a simple go tool, `[goredirects](https://github.com/bramp/goredirects)`, that inspects all local repositories under a vanity domain directory in the local `$GOPATH/src/` and outputs static HTML pages that can be hosted on that domain.
+To help make these redirect pages, I wrote a simple go tool, [`goredirects`](https://github.com/bramp/goredirects), that inspects all local repositories under a vanity domain directory in the local `$GOPATH/src/` and outputs static HTML pages that can be hosted on that domain.
 
 For example, create your new project on GitHub, but check out the project under `$GOPATH/src/example.com/project`. Then run the tool:
 
