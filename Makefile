@@ -30,6 +30,7 @@ help:
 
 clean:
 	-rm -rf public
+	-rm themes/bramp/static/css/chroma-monokai.css themes/bramp/static/css/chroma-friendly.css
 	-rm .minified
 	-rm -rf $(TMPDIR)/hugo_cache
 
@@ -38,7 +39,7 @@ minified: .minified
 server: public minified
 	cd public && python -m SimpleHTTPServer 1313
 
-watch: clean
+watch: chromacss
 	$(HUGO) server -w -D -F -v --bind="0.0.0.0"
 
 # Below are file based targets
@@ -66,21 +67,21 @@ goredirects:
 .minified: public html-minifier.conf public/css/all.min.css public/js/all.min.js
 	# Find all HTML and in parallel run the minifier
 	find public -type f -iname '*.html' | parallel --no-notice --tag $(HTML_MINIFIER) "{}" -o "{}"
-	touch .minified
+	touch $@
 
 chromacss: themes/bramp/static/css/chroma-monokai.css themes/bramp/static/css/chroma-friendly.css
 
 themes/bramp/static/css/chroma-monokai.css:
-	$(HUGO) gen chromastyles --style=monokai > themes/bramp/static/css/chroma-monokai.css
+	$(HUGO) gen chromastyles --style=monokai > $@
 
 themes/bramp/static/css/chroma-friendly.css:
-	$(HUGO) gen chromastyles --style=friendly > themes/bramp/static/css/chroma-friendly.css
+	$(HUGO) gen chromastyles --style=friendly > $@
 
 public/css/all.min.css: public/css/bootstrap.css public/css/bootstrap-social.css public/css/chroma-friendly.css public/css/bramp.css
-	$(CLEANCSS) -o public/css/all.min.css $^
+	$(CLEANCSS) -o $@ $^
 
 public/js/all.min.js: public/js/jquery-1.10.2.min.js public/js/bootstrap.min.js
-	$(UGLIFYJS) --compress --mangle -o public/js/all.min.js $^
+	$(UGLIFYJS) --compress --mangle -o $@ $^
 
 public/%.css public/%.js: public
 	@# Empty rule, to force public to be built when js/css is needed.
