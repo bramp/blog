@@ -13,24 +13,17 @@ Dependencies
 ------------
 ```bash
 # Install hugo (Mac)
-brew install hugo@v0.26
+brew install hugo@v0.31.1
 
 # Install hugo (Linux)
 sudo apt-get install hugo
 
 # Install hugo (Other)
 go get github.com/kardianos/govendor
-govendor get github.com/spf13/hugo@v0.26
-
-# Pygments for code highlighting
-pip install --user Pygments
-pip install --user bibtex-pygments-lexer
-export PATH="$PATH:$HOME/.local/bin/"
+govendor get github.com/spf13/hugo@v0.31.1
 
 # For minifiying/linting
-npm install clean-css
-npm install uglify-js
-npm install html-minifier
+npm install clean-css@4.1.9 uglify-js@3.2.1 html-minifier@3.5.7
 brew install parallel # or sudo apt-get install parallel
 ```
 
