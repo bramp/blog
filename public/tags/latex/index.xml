@@ -44,7 +44,7 @@ LaTeX Error: File `algorithm.sty&#39; not found. solution: apt-get install texli
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;card-1.png&#34; width=&#34;756&#34; /&gt;
+        &lt;img src=&#34;card-1.png&#34; width=&#34;756&#34; height=&#34;496&#34; /&gt;
     
     
     &lt;figcaption&gt;
@@ -108,8 +108,7 @@ LaTeX Error: File `algorithm.sty&#39; not found. solution: apt-get install texli
     \end{minipage}
     \rule{75mm}{1mm}
     \end{Spacing}
-\end{document}&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</description>
+\end{document}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>

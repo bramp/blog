@@ -16,35 +16,34 @@
       
       <guid>https://blog.bramp.net/post/2010/01/26/redirect-local-traffic-to-a-web-cache-with-iptables/</guid>
       <description>&lt;p&gt;Very occasionally I come across a Linux application that does not respect the http_proxy variable. This stops the application from working while I&amp;#8217;m at university as they forbid traffic on port 80 unless it goes via their webcache. So today I came up with a hack of a solution that involves iptables:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s1770&#34;&gt;# IP address and port number of the webcache
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s7e3&#34;&gt;WEBCACHE&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;194&lt;/span&gt;.80.32.10:8080
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# IP address and port number of the webcache
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;WEBCACHE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;194&lt;/span&gt;.80.32.10:8080
 
-&lt;span class=&#34;s1770&#34;&gt;# Flush any previous rules
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;iptables -t nat --flush
+&lt;span class=&#34;c1&#34;&gt;# Flush any previous rules
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;iptables -t nat --flush
 
-&lt;span class=&#34;s1770&#34;&gt;# Delete and recreate the chain
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;iptables -t nat -X HTTPFORCE
+&lt;span class=&#34;c1&#34;&gt;# Delete and recreate the chain
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;iptables -t nat -X HTTPFORCE
 iptables -t nat -N HTTPFORCE
 
-&lt;span class=&#34;s1770&#34;&gt;# Don&amp;#39;t touch local traffic (localhost and internal network)
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;iptables -t nat -A HTTPFORCE -o lo -j RETURN
-iptables -t nat -A HTTPFORCE --dst &lt;span class=&#34;sc80&#34;&gt;127&lt;/span&gt;.0.0.1/8 -j RETURN
-iptables -t nat -A HTTPFORCE --dst &lt;span class=&#34;sc80&#34;&gt;10&lt;/span&gt;.0.0.0/8 -j RETURN
-&lt;span class=&#34;s1770&#34;&gt;# Add any other local networks here.
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;
-&lt;span class=&#34;s1770&#34;&gt;# Now we have two options. Please uncomment out one of them
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;# 1) Redirect packets on port 80 to the webcache
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;#    This may not work unless the webcache is generous with its input
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;#iptables -t nat -A HTTPFORCE -p tcp --dport 80 -j DNAT --to $WEBCACHE
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;
-&lt;span class=&#34;s1770&#34;&gt;# 2) Redirect packets on port 80 to localhost port 1234
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;#    On port 1234 you need to run a local web proxy, which forwards 
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;#    requests to the real webcache
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;#iptables -t nat -A HTTPFORCE -p tcp --dport 80 -j REDIRECT --to-port 1234
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;
-&lt;span class=&#34;s1770&#34;&gt;# Capture all outgoing TCP syns
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;iptables -t nat -A OUTPUT -p tcp --syn -j HTTPFORCE&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;span class=&#34;c1&#34;&gt;# Don&amp;#39;t touch local traffic (localhost and internal network)
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;iptables -t nat -A HTTPFORCE -o lo -j RETURN
+iptables -t nat -A HTTPFORCE --dst &lt;span class=&#34;m&#34;&gt;127&lt;/span&gt;.0.0.1/8 -j RETURN
+iptables -t nat -A HTTPFORCE --dst &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;.0.0.0/8 -j RETURN
+&lt;span class=&#34;c1&#34;&gt;# Add any other local networks here.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# Now we have two options. Please uncomment out one of them
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# 1) Redirect packets on port 80 to the webcache
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#    This may not work unless the webcache is generous with its input
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#iptables -t nat -A HTTPFORCE -p tcp --dport 80 -j DNAT --to $WEBCACHE
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# 2) Redirect packets on port 80 to localhost port 1234
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#    On port 1234 you need to run a local web proxy, which forwards 
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#    requests to the real webcache
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#iptables -t nat -A HTTPFORCE -p tcp --dport 80 -j REDIRECT --to-port 1234
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# Capture all outgoing TCP syns
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;iptables -t nat -A OUTPUT -p tcp --syn -j HTTPFORCE&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;All outgoing TCP packets on port 80 which are not destined for a local network are captured and changed in one of two ways. The first option just manipulates the IP/TCP header, and the second redirects the traffic to a proxy running on localhost. The reason for the two options was that my university&amp;#8217;s webcache seemed unable to deal with HTTP requests without the full URL in the GET line, even though the request contains a valid Host header. I think this is a misconfiguration of their squid proxy, so instead you can redirect to a local proxy which forwards the request on to the webcache.&lt;/p&gt;
 
 &lt;p&gt;This all seems a hassle but sometimes it is needed when a application does not respect the http_proxy environment. On a good note all libcurl applications should respect it by default.&lt;/p&gt;

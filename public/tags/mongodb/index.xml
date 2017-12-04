@@ -18,49 +18,46 @@
       <description>&lt;p&gt;For a while people have wanted MongoDB to &lt;a href=&#34;https://jira.mongodb.org/browse/SERVER-164&#34;&gt;compress their data&lt;/a&gt;, or at least &lt;a href=&#34;https://jira.mongodb.org/browse/SERVER-863&#34;&gt;compress their field names&lt;/a&gt;. This would be beneficial in not only reducing the amount of disk space required, but also in theory improving performance as we trade disk IO with CPU IO. I thought this be a fun project to investigate, so I started by working out if this would actually be useful. &lt;/p&gt;
 
 &lt;p&gt;Lets start with compressing the data. I&amp;#8217;ve taken a project I&amp;#8217;ve been working on, where most of the records have the similar set of fields. An example record may look like (which across the database had an average size of 547 bytes):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;{
-	&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;_id&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; ObjectId(&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;5134b1c644ae658fc8c050c0&amp;#34;&lt;/span&gt;),
-	&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;version&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; NumberLong(&lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt;),
-	&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;attributes&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; {
-		&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;firstName&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;Andrew&amp;#34;&lt;/span&gt;,
-		&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;lastName&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;Brampton&amp;#34;&lt;/span&gt;,
-		&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;birthday&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;1982-01-01T00:18:00.000-05:00&amp;#34;&lt;/span&gt;,		
-	},
-	&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;tags&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; [&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;25-30 years&amp;#34;&lt;/span&gt;, &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;dc&amp;#34;&lt;/span&gt;, &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;male&amp;#34;&lt;/span&gt; ],
-	&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;contactPoints&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; [{
-		&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;_id&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;+11235551234&amp;#34;&lt;/span&gt;,
-		&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;sms&amp;#34;&lt;/span&gt;,
-		&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;number&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; {
-			&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;E164&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;+11235551234&amp;#34;&lt;/span&gt;
-		},
-		&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;version&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; NumberLong(&lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt;),
-		&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;subscriptions&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; [{
-			&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;version&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; NumberLong(&lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt;),
-			&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;event&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; ObjectId(&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;5134b1c644ae658fc8c050aa&amp;#34;&lt;/span&gt;),
-			&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;status&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;ACTIVE&amp;#34;&lt;/span&gt;
-		}]
-	},{
-		&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;_id&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;a@b.com&amp;#34;&lt;/span&gt;,
-		&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;email&amp;#34;&lt;/span&gt;,
-		&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;email&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;a@b.com&amp;#34;&lt;/span&gt;,
-		&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;version&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; NumberLong(&lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt;),
-		&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;subscriptions&amp;#34;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;:&lt;/span&gt; [ ]
-	}]
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;s2&#34;&gt;&amp;#34;_id&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;ObjectId&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;5134b1c644ae658fc8c050c0&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+	&lt;span class=&#34;s2&#34;&gt;&amp;#34;version&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;NumberLong&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+	&lt;span class=&#34;s2&#34;&gt;&amp;#34;attributes&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;#34;firstName&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Andrew&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;#34;lastName&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Brampton&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;#34;birthday&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;1982-01-01T00:18:00.000-05:00&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;		
+	&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+	&lt;span class=&#34;s2&#34;&gt;&amp;#34;tags&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;25-30 years&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;dc&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;male&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+	&lt;span class=&#34;s2&#34;&gt;&amp;#34;contactPoints&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[{&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;#34;_id&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;+11235551234&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;sms&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;#34;number&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+			&lt;span class=&#34;s2&#34;&gt;&amp;#34;E164&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;+11235551234&amp;#34;&lt;/span&gt;
+		&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;#34;version&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;NumberLong&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;#34;subscriptions&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[{&lt;/span&gt;
+			&lt;span class=&#34;s2&#34;&gt;&amp;#34;version&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;NumberLong&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+			&lt;span class=&#34;s2&#34;&gt;&amp;#34;event&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;ObjectId&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;5134b1c644ae658fc8c050aa&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+			&lt;span class=&#34;s2&#34;&gt;&amp;#34;status&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;ACTIVE&amp;#34;&lt;/span&gt;
+		&lt;span class=&#34;p&#34;&gt;}]&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;},{&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;#34;_id&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;a@b.com&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;#34;type&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;email&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;#34;email&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;a@b.com&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;#34;version&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;NumberLong&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+		&lt;span class=&#34;s2&#34;&gt;&amp;#34;subscriptions&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;}]&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;There are some excellent &lt;a href=&#34;http://www.10gen.com/presentations/mongosv-2011/mongodb-storage-engine-bit-by-bit&#34;&gt;presentations&lt;/a&gt; and &lt;a href=&#34;https://dzone.com/articles/mongodb%E2%80%99s-storage-engine-bit&#34;&gt;articles&lt;/a&gt; on how MongoDB structures the data on the disk. For the sake of this investigation I took a single data file (of size 2 GiB) that was full of just these kinds of records.&lt;/p&gt;
 
 &lt;h2 id=&#34;full-compression&#34;&gt;Full Compression&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ gzip datafile.5&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ gzip datafile.5&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;Original size:&lt;/strong&gt; 2,146,435,072 bytes (2.0 GiB)&lt;br /&gt;
 &lt;strong&gt;Compressed gzip size:&lt;/strong&gt; 453,359,908 bytes (432 MiB) / 21% of the original size&lt;/p&gt;
 
 &lt;p&gt;Simple gzip across the whole file gave a 4.7x saving in file size. This is obviously best case, as it covers the full file. Next lets look at the savings from compressing the field names.&lt;/p&gt;
 
 &lt;h2 id=&#34;field-name-compression&#34;&gt;Field name Compression&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ strings -n3 datafile.5 | sort | uniq -c | sort -n | tail -n20&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ strings -n3 datafile.5 &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sort &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; uniq -c &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sort -n &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; tail -n20&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;That prints out a list of the most popular strings in the data file, sorted by frequency. From those stats we can infer&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Unique fields:&lt;/strong&gt; 14&lt;br /&gt;

@@ -2,77 +2,79 @@
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<link itemprop=url rel=canonical href="https://blog.bramp.net/post/2010/01/10/follow-http-stream-with-decompression/"/>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<link href=https://blog.bramp.net/post/2010/01/10/follow-http-stream-with-decompression/ rel=canonical itemprop=url />
 <title>Follow HTTP Stream (with decompression)</title>
-<meta itemprop=description name=description content="I was using Wireshark to capture an exchange of HTTP packets, however, some of the HTTP responses were using &#8220;content-encoding: gzip&#8221;, which meant I couldn&#8217;t view them decompressed …">
-<meta itemprop=creator name=author content="Andrew Brampton">
-<meta name=generator content=""/>
-<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title="bramp.net"/>
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title="bramp.net"/>
-<link rel="shortcut icon" href=/favicon.ico type="image/x-icon"/>
-<link rel=apple-touch-icon-precomposed href="/images/favicon.png"/>
-<link rel=apple-touch-icon-precomposed sizes=57x57 href="/images/favicon-57x57.png"/>
-<link rel=apple-touch-icon-precomposed sizes=72x72 href="/images/favicon-72x72.png"/>
-<link rel=apple-touch-icon-precomposed sizes=76x76 href="/images/favicon-76x76.png"/>
-<link rel=apple-touch-icon-precomposed sizes=114x114 href="/images/favicon-114x114.png"/>
-<link rel=apple-touch-icon-precomposed sizes=120x120 href="/images/favicon-120x120.png"/>
-<link rel=apple-touch-icon-precomposed sizes=144x144 href="/images/favicon-144x144.png"/>
-<link rel=apple-touch-icon-precomposed sizes=152x152 href="/images/favicon-152x152.png"/>
-<link rel=apple-touch-icon-precomposed sizes=180x180 href="/images/favicon-180x180.png"/>
-<meta name=msapplication-TileColor content=#4582EC>
-<meta name=msapplication-TileImage content=/images/favicon-144x144.png>
-<meta name=theme-color content=#4582EC>
-<link rel=icon sizes=192x192 href="/images/favicon-192x192.png"/>
+<meta content="I was using Wireshark to capture an exchange of HTTP packets, however, some of the HTTP responses were using &#8220;content-encoding: gzip&#8221;, which meant I couldn&#8217;t view them decompressed …" name=description itemprop=description>
+<meta content="Andrew Brampton" name=author itemprop=creator>
+<meta content="" name=generator />
+<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
+<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
+<link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
+<link href=/images/favicon.png rel=apple-touch-icon-precomposed />
+<link href=/images/favicon-57x57.png rel=apple-touch-icon-precomposed sizes=57x57 />
+<link href=/images/favicon-72x72.png rel=apple-touch-icon-precomposed sizes=72x72 />
+<link href=/images/favicon-76x76.png rel=apple-touch-icon-precomposed sizes=76x76 />
+<link href=/images/favicon-114x114.png rel=apple-touch-icon-precomposed sizes=114x114 />
+<link href=/images/favicon-120x120.png rel=apple-touch-icon-precomposed sizes=120x120 />
+<link href=/images/favicon-144x144.png rel=apple-touch-icon-precomposed sizes=144x144 />
+<link href=/images/favicon-152x152.png rel=apple-touch-icon-precomposed sizes=152x152 />
+<link href=/images/favicon-180x180.png rel=apple-touch-icon-precomposed sizes=180x180 />
+<meta content=#4582EC name=msapplication-TileColor>
+<meta content=/images/favicon-144x144.png name=msapplication-TileImage>
+<meta content=#4582EC name=theme-color>
+<link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
 <link href=/css/all.min.css rel=stylesheet>
 <link href=https://fonts.gstatic.com rel=preconnect crossorigin>
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel=stylesheet type=text/css>
 <link href=https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css rel=stylesheet>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css>
-<meta name=twitter:card content="summary"/>
-<meta name=twitter:site content="@TheBramp"/>
-<meta name=twitter:creator content="@TheBramp"/>
-<meta property=og:type content="article"/>
-<meta property=article:author content="https://www.facebook.com/bramp"/>
-<meta property=article:published_time content="2010-01-10T00:00:00&#43;07:00"/>
-<meta property=article:tag content="dpkt"/>
-<meta property=article:tag content="gzip"/>
-<meta property=article:tag content="http"/>
-<meta property=article:tag content="pcap"/>
-<meta property=article:tag content="python"/>
-<meta property=og:url content="https://blog.bramp.net/post/2010/01/10/follow-http-stream-with-decompression/"/>
-<meta property=og:site_name content="bramp.net"/>
-<meta property=og:title content="Follow HTTP Stream (with decompression)"/>
-<meta property=og:description content="I was using Wireshark to capture an exchange of HTTP packets, however, some of the HTTP responses were using &#8220;content-encoding: gzip&#8221;, which meant I couldn&#8217;t view them decompressed …"/>
-<meta property=og:updated_time content="2010-01-10T00:00:00&#43;00:00"/>
-<meta property=og:locale content="en_GB"/>
-<meta name=google-site-verification content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"/>
+<link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
+<meta content=summary name=twitter:card />
+<meta content=@TheBramp name=twitter:site />
+<meta content=@TheBramp name=twitter:creator />
+<meta content=article property=og:type />
+<meta content=https://www.facebook.com/bramp property=article:author />
+<meta content=2010-01-10T00:00:00&#43;07:00 property=article:published_time />
+<meta content=dpkt property=article:tag />
+<meta content=gzip property=article:tag />
+<meta content=http property=article:tag />
+<meta content=pcap property=article:tag />
+<meta content=python property=article:tag />
+<meta content=https://blog.bramp.net/post/2010/01/10/follow-http-stream-with-decompression/ property=og:url />
+<meta content=bramp.net property=og:site_name />
+<meta content="Follow HTTP Stream (with decompression)" property=og:title />
+<meta content="I was using Wireshark to capture an exchange of HTTP packets, however, some of the HTTP responses were using &#8220;content-encoding: gzip&#8221;, which meant I couldn&#8217;t view them decompressed …" property=og:description />
+<meta content=2010-01-10T00:00:00&#43;00:00 property=og:updated_time />
+<meta content=en_GB property=og:locale />
+<meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
 </head>
 <body itemscope itemtype=Blog>
-<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-136478-5', 'auto');
     ga('require', 'linkid', 'linkid.js');
-    ga('send', 'pageview');</script>
+    ga('send', 'pageview');
+</script>
 <div id=wrapper>
 <div class="navbar navbar-default">
 <div class=container>
 <div class=navbar-header>
-<button type=button class=navbar-toggle data-toggle=collapse data-target=.navbar-collapse>
+<button class=navbar-toggle data-target=.navbar-collapse data-toggle=collapse type=button>
 <span class=sr-only>Toggle navigation</span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 </button>
 <div class=navbar-brand aria-label="About Andrew Brampton">
-<a href="/">
-<img src=/images/favicon-64x64.png class=profile-image alt=Home>
+<a href=/ >
+<img alt=Home class=profile-image src=/images/favicon-64x64.png>
 </a>
 <div itemprop=author itemscope itemtype=https://schema.org/Person>
-<a href="/about-me/" itemprop=name>Andrew Brampton</a>
+<a href=/about-me/ itemprop=name>Andrew Brampton</a>
 <div id=social-wrapper>
 <a href=https://twitter.com/TheBramp aria-label=Twitter><i class="fa fa-twitter-square"></i></a>
 <a href=https://www.linkedin.com/in/bramp aria-label=LinkedIn><i class="fa fa-linkedin-square"></i></a>
@@ -83,13 +85,13 @@
 </div>
 </div>
 </div>
-<div class="navbar-collapse collapse">
+<div class="collapse navbar-collapse">
 <ul class="nav navbar-nav" role=navigation>
-<li><a href="/">Articles</a></li>
-<li><a href="/about-me/">About Me</a></li>
-<li><a href="/android-app/">Android Apps</a></li>
-<li><a href="/opensource/">Open Source</a></li>
-<li><a href="/publication/">Publications</a></li>
+<li><a href=/ >Articles</a></li>
+<li><a href=/about-me/ >About Me</a></li>
+<li><a href=/android-app/ >Android Apps</a></li>
+<li><a href=/opensource/ >Open Source</a></li>
+<li><a href=/publication/ >Publications</a></li>
 </ul>
 </div>
 </div>
@@ -99,113 +101,112 @@
 <h1 itemprop=headline>Follow HTTP Stream (with decompression)</h1>
 <p class=meta>
 <i class="fa fa-calendar-o"></i> <time itemprop=datePublished>2010-01-10</time>
-| <a href="https://blog.bramp.net/tags/dpkt/">dpkt</a>
-| <a href="https://blog.bramp.net/tags/gzip/">gzip</a>
-| <a href="https://blog.bramp.net/tags/http/">http</a>
-| <a href="https://blog.bramp.net/tags/pcap/">pcap</a>
-| <a href="https://blog.bramp.net/tags/python/">python</a>
+| <a href=https://blog.bramp.net/tags/dpkt/ >dpkt</a>
+| <a href=https://blog.bramp.net/tags/gzip/ >gzip</a>
+| <a href=https://blog.bramp.net/tags/http/ >http</a>
+| <a href=https://blog.bramp.net/tags/pcap/ >pcap</a>
+| <a href=https://blog.bramp.net/tags/python/ >python</a>
 </p>
 <div class=post itemprop=articleBody>
-<p>I was using <a href="http://www.wireshark.org/">Wireshark</a> to capture an exchange of HTTP packets, however, some of the HTTP responses were using &#8220;content-encoding: gzip&#8221;, which meant I couldn&#8217;t view them decompressed in the &#8220;Follow TCP Stream&#8221;. Wireshark does decompress them in Packet Details view, but it is hard to follow the full stream like this.</p>
-<p>The solution was to write some <a href="http://www.python.org/">Python</a> which made use of the <a href="http://code.google.com/p/dpkt/">dpkt library</a>. My code naively reassembles the TCP flow and then assumes traffic on port 80 is HTTP. Therefore there is much room for improvement, but here is the code anyway.</p>
-<div class=highlight><pre class=chroma><code class=language-python data-lang=python><span class=s1770>#!/usr/bin/env python</span>
-<span class=s1770># Turns a pcap file with http gzip compressed data into plain text, making it</span>
-<span class=s1770># easier to follow.</span>
+<p>I was using <a href=http://www.wireshark.org/ >Wireshark</a> to capture an exchange of HTTP packets, however, some of the HTTP responses were using &#8220;content-encoding: gzip&#8221;, which meant I couldn&#8217;t view them decompressed in the &#8220;Follow TCP Stream&#8221;. Wireshark does decompress them in Packet Details view, but it is hard to follow the full stream like this.</p>
+<p>The solution was to write some <a href=http://www.python.org/ >Python</a> which made use of the <a href=http://code.google.com/p/dpkt/ >dpkt library</a>. My code naively reassembles the TCP flow and then assumes traffic on port 80 is HTTP. Therefore there is much room for improvement, but here is the code anyway.</p>
+<div class=highlight><pre class=chroma><code class=language-python data-lang=python><span class=ch>#!/usr/bin/env python</span>
+<span class=c1># Turns a pcap file with http gzip compressed data into plain text, making it</span>
+<span class=c1># easier to follow.</span>
 
-<span class=s3e8>import</span> <span class=s7dd>dpkt</span>
+<span class=kn>import</span> <span class=nn>dpkt</span>
 
-<span class=s3e8>def</span> <span class=s7d9>tcp_flags</span>(flags):
-    ret <span class=sfa0>=</span> <span class=sc1c></span><span class=sc1c>&#39;&#39;</span>
-    <span class=s3e8>if</span> flags <span class=sfa0>&amp;</span> dpkt<span class=sfa0>.</span>tcp<span class=sfa0>.</span>TH_FIN:
-        ret <span class=sfa0>=</span> ret <span class=sfa0>+</span> <span class=sc1c></span><span class=sc1c>&#39;F&#39;</span>
-    <span class=s3e8>if</span> flags <span class=sfa0>&amp;</span> dpkt<span class=sfa0>.</span>tcp<span class=sfa0>.</span>TH_SYN:
-        ret <span class=sfa0>=</span> ret <span class=sfa0>+</span> <span class=sc1c></span><span class=sc1c>&#39;S&#39;</span>
-    <span class=s3e8>if</span> flags <span class=sfa0>&amp;</span> dpkt<span class=sfa0>.</span>tcp<span class=sfa0>.</span>TH_RST:
-        ret <span class=sfa0>=</span> ret <span class=sfa0>+</span> <span class=sc1c></span><span class=sc1c>&#39;R&#39;</span>
-    <span class=s3e8>if</span> flags <span class=sfa0>&amp;</span> dpkt<span class=sfa0>.</span>tcp<span class=sfa0>.</span>TH_PUSH:
-        ret <span class=sfa0>=</span> ret <span class=sfa0>+</span> <span class=sc1c></span><span class=sc1c>&#39;P&#39;</span>
-    <span class=s3e8>if</span> flags <span class=sfa0>&amp;</span> dpkt<span class=sfa0>.</span>tcp<span class=sfa0>.</span>TH_ACK:
-        ret <span class=sfa0>=</span> ret <span class=sfa0>+</span> <span class=sc1c></span><span class=sc1c>&#39;A&#39;</span>
-    <span class=s3e8>if</span> flags <span class=sfa0>&amp;</span> dpkt<span class=sfa0>.</span>tcp<span class=sfa0>.</span>TH_URG:
-        ret <span class=sfa0>=</span> ret <span class=sfa0>+</span> <span class=sc1c></span><span class=sc1c>&#39;U&#39;</span>
-    <span class=s3e8>if</span> flags <span class=sfa0>&amp;</span> dpkt<span class=sfa0>.</span>tcp<span class=sfa0>.</span>TH_ECE:
-        ret <span class=sfa0>=</span> ret <span class=sfa0>+</span> <span class=sc1c></span><span class=sc1c>&#39;E&#39;</span>
-    <span class=s3e8>if</span> flags <span class=sfa0>&amp;</span> dpkt<span class=sfa0>.</span>tcp<span class=sfa0>.</span>TH_CWR:
-        ret <span class=sfa0>=</span> ret <span class=sfa0>+</span> <span class=sc1c></span><span class=sc1c>&#39;C&#39;</span>
+<span class=k>def</span> <span class=nf>tcp_flags</span><span class=p>(</span><span class=n>flags</span><span class=p>):</span>
+    <span class=n>ret</span> <span class=o>=</span> <span class=sa></span><span class=s1>&#39;&#39;</span>
+    <span class=k>if</span> <span class=n>flags</span> <span class=o>&amp;</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>tcp</span><span class=o>.</span><span class=n>TH_FIN</span><span class=p>:</span>
+        <span class=n>ret</span> <span class=o>=</span> <span class=n>ret</span> <span class=o>+</span> <span class=sa></span><span class=s1>&#39;F&#39;</span>
+    <span class=k>if</span> <span class=n>flags</span> <span class=o>&amp;</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>tcp</span><span class=o>.</span><span class=n>TH_SYN</span><span class=p>:</span>
+        <span class=n>ret</span> <span class=o>=</span> <span class=n>ret</span> <span class=o>+</span> <span class=sa></span><span class=s1>&#39;S&#39;</span>
+    <span class=k>if</span> <span class=n>flags</span> <span class=o>&amp;</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>tcp</span><span class=o>.</span><span class=n>TH_RST</span><span class=p>:</span>
+        <span class=n>ret</span> <span class=o>=</span> <span class=n>ret</span> <span class=o>+</span> <span class=sa></span><span class=s1>&#39;R&#39;</span>
+    <span class=k>if</span> <span class=n>flags</span> <span class=o>&amp;</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>tcp</span><span class=o>.</span><span class=n>TH_PUSH</span><span class=p>:</span>
+        <span class=n>ret</span> <span class=o>=</span> <span class=n>ret</span> <span class=o>+</span> <span class=sa></span><span class=s1>&#39;P&#39;</span>
+    <span class=k>if</span> <span class=n>flags</span> <span class=o>&amp;</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>tcp</span><span class=o>.</span><span class=n>TH_ACK</span><span class=p>:</span>
+        <span class=n>ret</span> <span class=o>=</span> <span class=n>ret</span> <span class=o>+</span> <span class=sa></span><span class=s1>&#39;A&#39;</span>
+    <span class=k>if</span> <span class=n>flags</span> <span class=o>&amp;</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>tcp</span><span class=o>.</span><span class=n>TH_URG</span><span class=p>:</span>
+        <span class=n>ret</span> <span class=o>=</span> <span class=n>ret</span> <span class=o>+</span> <span class=sa></span><span class=s1>&#39;U&#39;</span>
+    <span class=k>if</span> <span class=n>flags</span> <span class=o>&amp;</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>tcp</span><span class=o>.</span><span class=n>TH_ECE</span><span class=p>:</span>
+        <span class=n>ret</span> <span class=o>=</span> <span class=n>ret</span> <span class=o>+</span> <span class=sa></span><span class=s1>&#39;E&#39;</span>
+    <span class=k>if</span> <span class=n>flags</span> <span class=o>&amp;</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>tcp</span><span class=o>.</span><span class=n>TH_CWR</span><span class=p>:</span>
+        <span class=n>ret</span> <span class=o>=</span> <span class=n>ret</span> <span class=o>+</span> <span class=sa></span><span class=s1>&#39;C&#39;</span>
 
-    <span class=s3e8>return</span> ret
+    <span class=k>return</span> <span class=n>ret</span>
 
-<span class=s3e8>def</span> <span class=s7d9>parse_http_stream</span>(stream):
-    <span class=s3e8>while</span> <span class=s7d2>len</span>(stream) <span class=sfa0>&gt;</span> <span class=sc80>0</span>:
-        <span class=s3e8>if</span> stream[:<span class=sc80>4</span>] <span class=sfa0>==</span> <span class=sc1c></span><span class=sc1c>&#39;HTTP&#39;</span>:
-            http <span class=sfa0>=</span> dpkt<span class=sfa0>.</span>http<span class=sfa0>.</span>Response(stream)
-            <span class=s3e8>print</span> http<span class=sfa0>.</span>status
-        <span class=s3e8>else</span>:
-            http <span class=sfa0>=</span> dpkt<span class=sfa0>.</span>http<span class=sfa0>.</span>Request(stream)
-            <span class=s3e8>print</span> http<span class=sfa0>.</span>method, http<span class=sfa0>.</span>uri
-        stream <span class=sfa0>=</span> stream[<span class=s7d2>len</span>(http):]
+<span class=k>def</span> <span class=nf>parse_http_stream</span><span class=p>(</span><span class=n>stream</span><span class=p>):</span>
+    <span class=k>while</span> <span class=nb>len</span><span class=p>(</span><span class=n>stream</span><span class=p>)</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>:</span>
+        <span class=k>if</span> <span class=n>stream</span><span class=p>[:</span><span class=mi>4</span><span class=p>]</span> <span class=o>==</span> <span class=sa></span><span class=s1>&#39;HTTP&#39;</span><span class=p>:</span>
+            <span class=n>http</span> <span class=o>=</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>http</span><span class=o>.</span><span class=n>Response</span><span class=p>(</span><span class=n>stream</span><span class=p>)</span>
+            <span class=k>print</span> <span class=n>http</span><span class=o>.</span><span class=n>status</span>
+        <span class=k>else</span><span class=p>:</span>
+            <span class=n>http</span> <span class=o>=</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>http</span><span class=o>.</span><span class=n>Request</span><span class=p>(</span><span class=n>stream</span><span class=p>)</span>
+            <span class=k>print</span> <span class=n>http</span><span class=o>.</span><span class=n>method</span><span class=p>,</span> <span class=n>http</span><span class=o>.</span><span class=n>uri</span>
+        <span class=n>stream</span> <span class=o>=</span> <span class=n>stream</span><span class=p>[</span><span class=nb>len</span><span class=p>(</span><span class=n>http</span><span class=p>):]</span>
 
-<span class=s3e8>def</span> <span class=s7d9>parse_pcap_file</span>(filename):
-    <span class=s1770># Open the pcap file</span>
-    f <span class=sfa0>=</span> <span class=s7d2>open</span>(<span class=sc1c></span><span class=sc1c>&#39;market.pcap&#39;</span>, <span class=sc1c></span><span class=sc1c>&#39;rb&#39;</span>)
-    pcap <span class=sfa0>=</span> dpkt<span class=sfa0>.</span>pcap<span class=sfa0>.</span>Reader(f)
+<span class=k>def</span> <span class=nf>parse_pcap_file</span><span class=p>(</span><span class=n>filename</span><span class=p>):</span>
+    <span class=c1># Open the pcap file</span>
+    <span class=n>f</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=sa></span><span class=s1>&#39;market.pcap&#39;</span><span class=p>,</span> <span class=sa></span><span class=s1>&#39;rb&#39;</span><span class=p>)</span>
+    <span class=n>pcap</span> <span class=o>=</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>pcap</span><span class=o>.</span><span class=n>Reader</span><span class=p>(</span><span class=n>f</span><span class=p>)</span>
     
-    <span class=s1770># I need to reassmble the TCP flows before decoding the HTTP</span>
-    conn <span class=sfa0>=</span> <span class=s7d2>dict</span>() <span class=s1770># Connections with current buffer</span>
-    <span class=s3e8>for</span> ts, buf <span class=sfa1>in</span> pcap:
-        eth <span class=sfa0>=</span> dpkt<span class=sfa0>.</span>ethernet<span class=sfa0>.</span>Ethernet(buf)
-        <span class=s3e8>if</span> eth<span class=sfa0>.</span><span class=s7d2>type</span> <span class=sfa0>!=</span> dpkt<span class=sfa0>.</span>ethernet<span class=sfa0>.</span>ETH_TYPE_IP:
-            <span class=s3e8>continue</span>
+    <span class=c1># I need to reassmble the TCP flows before decoding the HTTP</span>
+    <span class=n>conn</span> <span class=o>=</span> <span class=nb>dict</span><span class=p>()</span> <span class=c1># Connections with current buffer</span>
+    <span class=k>for</span> <span class=n>ts</span><span class=p>,</span> <span class=n>buf</span> <span class=ow>in</span> <span class=n>pcap</span><span class=p>:</span>
+        <span class=n>eth</span> <span class=o>=</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>ethernet</span><span class=o>.</span><span class=n>Ethernet</span><span class=p>(</span><span class=n>buf</span><span class=p>)</span>
+        <span class=k>if</span> <span class=n>eth</span><span class=o>.</span><span class=nb>type</span> <span class=o>!=</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>ethernet</span><span class=o>.</span><span class=n>ETH_TYPE_IP</span><span class=p>:</span>
+            <span class=k>continue</span>
     
-        ip <span class=sfa0>=</span> eth<span class=sfa0>.</span>data
-        <span class=s3e8>if</span> ip<span class=sfa0>.</span>p <span class=sfa0>!=</span> dpkt<span class=sfa0>.</span>ip<span class=sfa0>.</span>IP_PROTO_TCP:
-            <span class=s3e8>continue</span>
+        <span class=n>ip</span> <span class=o>=</span> <span class=n>eth</span><span class=o>.</span><span class=n>data</span>
+        <span class=k>if</span> <span class=n>ip</span><span class=o>.</span><span class=n>p</span> <span class=o>!=</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>ip</span><span class=o>.</span><span class=n>IP_PROTO_TCP</span><span class=p>:</span>
+            <span class=k>continue</span>
     
-        tcp <span class=sfa0>=</span> ip<span class=sfa0>.</span>data
+        <span class=n>tcp</span> <span class=o>=</span> <span class=n>ip</span><span class=o>.</span><span class=n>data</span>
     
-        tupl <span class=sfa0>=</span> (ip<span class=sfa0>.</span>src, ip<span class=sfa0>.</span>dst, tcp<span class=sfa0>.</span>sport, tcp<span class=sfa0>.</span>dport)
-        <span class=s1770>#print tupl, tcp_flags(tcp.flags)</span>
+        <span class=n>tupl</span> <span class=o>=</span> <span class=p>(</span><span class=n>ip</span><span class=o>.</span><span class=n>src</span><span class=p>,</span> <span class=n>ip</span><span class=o>.</span><span class=n>dst</span><span class=p>,</span> <span class=n>tcp</span><span class=o>.</span><span class=n>sport</span><span class=p>,</span> <span class=n>tcp</span><span class=o>.</span><span class=n>dport</span><span class=p>)</span>
+        <span class=c1>#print tupl, tcp_flags(tcp.flags)</span>
     
-        <span class=s1770># Ensure these are in order! TODO change to a defaultdict</span>
-        <span class=s3e8>if</span> tupl <span class=sfa1>in</span> conn:
-            conn[ tupl ] <span class=sfa0>=</span> conn[ tupl ] <span class=sfa0>+</span> tcp<span class=sfa0>.</span>data
-        <span class=s3e8>else</span>:
-            conn[ tupl ] <span class=sfa0>=</span> tcp<span class=sfa0>.</span>data
+        <span class=c1># Ensure these are in order! TODO change to a defaultdict</span>
+        <span class=k>if</span> <span class=n>tupl</span> <span class=ow>in</span> <span class=n>conn</span><span class=p>:</span>
+            <span class=n>conn</span><span class=p>[</span> <span class=n>tupl</span> <span class=p>]</span> <span class=o>=</span> <span class=n>conn</span><span class=p>[</span> <span class=n>tupl</span> <span class=p>]</span> <span class=o>+</span> <span class=n>tcp</span><span class=o>.</span><span class=n>data</span>
+        <span class=k>else</span><span class=p>:</span>
+            <span class=n>conn</span><span class=p>[</span> <span class=n>tupl</span> <span class=p>]</span> <span class=o>=</span> <span class=n>tcp</span><span class=o>.</span><span class=n>data</span>
     
-        <span class=s1770># TODO Check if it is a FIN, if so end the connection</span>
+        <span class=c1># TODO Check if it is a FIN, if so end the connection</span>
     
-        <span class=s1770># Try and parse what we have</span>
-        <span class=s3e8>try</span>:
-            stream <span class=sfa0>=</span> conn[ tupl ]
-            <span class=s3e8>if</span> stream[:<span class=sc80>4</span>] <span class=sfa0>==</span> <span class=sc1c></span><span class=sc1c>&#39;HTTP&#39;</span>:
-                http <span class=sfa0>=</span> dpkt<span class=sfa0>.</span>http<span class=sfa0>.</span>Response(stream)
-                <span class=s1770>#print http.status</span>
-            <span class=s3e8>else</span>:
-                http <span class=sfa0>=</span> dpkt<span class=sfa0>.</span>http<span class=sfa0>.</span>Request(stream)
-                <span class=s1770>#print http.method, http.uri</span>
+        <span class=c1># Try and parse what we have</span>
+        <span class=k>try</span><span class=p>:</span>
+            <span class=n>stream</span> <span class=o>=</span> <span class=n>conn</span><span class=p>[</span> <span class=n>tupl</span> <span class=p>]</span>
+            <span class=k>if</span> <span class=n>stream</span><span class=p>[:</span><span class=mi>4</span><span class=p>]</span> <span class=o>==</span> <span class=sa></span><span class=s1>&#39;HTTP&#39;</span><span class=p>:</span>
+                <span class=n>http</span> <span class=o>=</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>http</span><span class=o>.</span><span class=n>Response</span><span class=p>(</span><span class=n>stream</span><span class=p>)</span>
+                <span class=c1>#print http.status</span>
+            <span class=k>else</span><span class=p>:</span>
+                <span class=n>http</span> <span class=o>=</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>http</span><span class=o>.</span><span class=n>Request</span><span class=p>(</span><span class=n>stream</span><span class=p>)</span>
+                <span class=c1>#print http.method, http.uri</span>
     
-            <span class=s3e8>print</span> http
-            <span class=s3e8>print</span>
+            <span class=k>print</span> <span class=n>http</span>
+            <span class=k>print</span>
 
-            <span class=s1770># If we reached this part an exception hasn&#39;t been thrown</span>
-            stream <span class=sfa0>=</span> stream[<span class=s7d2>len</span>(http):]
-            <span class=s3e8>if</span> <span class=s7d2>len</span>(stream) <span class=sfa0>==</span> <span class=sc80>0</span>:
-                <span class=s3e8>del</span> conn[ tupl ]
-            <span class=s3e8>else</span>:
-                conn[ tupl ] <span class=sfa0>=</span> stream
-        <span class=s3e8>except</span> dpkt<span class=sfa0>.</span>UnpackError:
-            <span class=s3e8>pass</span>
+            <span class=c1># If we reached this part an exception hasn&#39;t been thrown</span>
+            <span class=n>stream</span> <span class=o>=</span> <span class=n>stream</span><span class=p>[</span><span class=nb>len</span><span class=p>(</span><span class=n>http</span><span class=p>):]</span>
+            <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>stream</span><span class=p>)</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>
+                <span class=k>del</span> <span class=n>conn</span><span class=p>[</span> <span class=n>tupl</span> <span class=p>]</span>
+            <span class=k>else</span><span class=p>:</span>
+                <span class=n>conn</span><span class=p>[</span> <span class=n>tupl</span> <span class=p>]</span> <span class=o>=</span> <span class=n>stream</span>
+        <span class=k>except</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>UnpackError</span><span class=p>:</span>
+            <span class=k>pass</span>
 
-    f<span class=sfa0>.</span>close()
+    <span class=n>f</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
 
-<span class=s3e8>if</span> __name__ <span class=sfa0>==</span> <span class=sc1c></span><span class=sc1c>&#39;__main__&#39;</span>:
-    <span class=s3e8>import</span> <span class=s7dd>sys</span>
-    <span class=s3e8>if</span> <span class=s7d2>len</span>(sys<span class=sfa0>.</span>argv) <span class=sfa0>&lt;=</span> <span class=sc80>1</span>:
-        <span class=s3e8>print</span> <span class=sc1c></span><span class=sc1c>&#34;</span><span class=sc27>%s</span><span class=sc1c> &lt;pcap filename&gt;&#34;</span> <span class=sfa0>%</span> sys<span class=sfa0>.</span>argv[<span class=sc80>0</span>]
-        sys<span class=sfa0>.</span><span class=s7d2>exit</span>(<span class=sc80>2</span>)
+<span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=sa></span><span class=s1>&#39;__main__&#39;</span><span class=p>:</span>
+    <span class=kn>import</span> <span class=nn>sys</span>
+    <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>)</span> <span class=o>&lt;=</span> <span class=mi>1</span><span class=p>:</span>
+        <span class=k>print</span> <span class=sa></span><span class=s2>&#34;</span><span class=si>%s</span><span class=s2> &lt;pcap filename&gt;&#34;</span> <span class=o>%</span> <span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span>
+        <span class=n>sys</span><span class=o>.</span><span class=nb>exit</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span>
 
-    parse_pcap_file(sys<span class=sfa0>.</span>argv[<span class=sc80>1</span>])</code></pre>
-</div>
+    <span class=n>parse_pcap_file</span><span class=p>(</span><span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span></code></pre></div>
 <p><strong>Please note</strong>, I had to make a couple of changes to the dpkt library, which I have submitted <a href=http://groups.google.com/group/dpkt/browse_thread/thread/5315199f9749b91a>back for review</a>. Those changes can be found in the following patches <a href=/patches/dpkt-pcap-snaplen.patch>1</a> <a href=/patches/dpkt-http-len.patch>2</a> <a href=/patches/dpkt-http-gz.patch>3</a>. I will update this code if/when the patches get accepted.</p>
 </div>
 </article>
@@ -216,21 +217,22 @@
 <div class=col-sm-6>
 <div class=btn-toolbar>
 <div class=btn-group>
-<a class="btn btn-sm btn-soundcloud" href=https://feeds.feedburner.com/brampnet aria-label="RSS feed">
+<a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed" class="btn btn-sm btn-soundcloud">
 <i class="fa fa-rss-square"></i> Subscribe via RSS</a>
 </div>
 <div class=btn-group>
-<a class="btn btn-sm btn-twitter" href=https://twitter.com/TheBramp><i class="fa fa-twitter"></i> Follow @TheBramp</a>
+<a href=https://twitter.com/TheBramp class="btn btn-sm btn-twitter"><i class="fa fa-twitter"></i> Follow @TheBramp</a>
 </div>
 </div>
 </div>
 </div>
 <ul class=pager>
-&nbsp;<li class=previous><a href="/post/2009/12/19/updating/-%5C/-/">&larr; Updating…/-\|/-|</a></li>
-&nbsp;<li class=next><a href="/post/2010/01/13/my-rsa-public-key/"> My RSA Public Key &rarr;</a></li>
+&nbsp;<li class=previous><a href=/post/2009/12/19/updating/-%5C/-/ >&larr; Updating…/-\|/-|</a></li>
+&nbsp;<li class=next><a href=/post/2010/01/13/my-rsa-public-key/ >My RSA Public Key &rarr;</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
-<script type=text/javascript>var disqus_shortname = 'bramp';
+<script type=text/javascript>
+var disqus_shortname = 'bramp';
     var disqus_identifier = '1614115435';
     var disqus_title = 'Follow HTTP Stream (with decompression)';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2010\/01\/10\/follow-http-stream-with-decompression\/';
@@ -243,16 +245,17 @@
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
 <a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="text-muted credit">&copy; 2017. All rights reserved. </p>
+<p class="credit text-muted">&copy; 2017. All rights reserved.</p>
 </footer>
 </div>
 </div>
 <script src=/js/all.min.js></script>
-<script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
+<script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async type=text/javascript></script>
 </body>
 </html>

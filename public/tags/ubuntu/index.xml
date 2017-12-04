@@ -24,8 +24,7 @@ This can be caused by:
 * Running the current pre-release version of Ubuntu
 * Unofficial software packages not provided by Ubuntu
 
-If none of this applies, then please report this bug using the command &amp;#39;ubuntu-bug update-manager&amp;#39; in a terminal.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+If none of this applies, then please report this bug using the command &amp;#39;ubuntu-bug update-manager&amp;#39; in a terminal.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The problem was I had some packages installed that had no upgrade path, that is, are not available in Precise. To debug this I looked in the &lt;code&gt;/var/log/dist-upgrade/apt.log&lt;/code&gt; file, and it identifies the packages that were &amp;#8220;broken&amp;#8221;. I just had to &amp;#8220;apt-get remove&amp;#8221; them, do the release upgrade, and afterwards I could reinstall them.&lt;/p&gt;
 
 &lt;p&gt;Problem solved.&lt;/p&gt;

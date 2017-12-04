@@ -2,77 +2,79 @@
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<link itemprop=url rel=canonical href="https://blog.bramp.net/post/2016/08/08/introducing-prob.js/"/>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<link href=https://blog.bramp.net/post/2016/08/08/introducing-prob.js/ rel=canonical itemprop=url />
 <title>Introducing Prob.js</title>
-<meta itemprop=description name=description content="Generate random numbers from different probability distributions There are multiple libraries for generating random numbers from a uniform, and sometimes normal distributions. However, I needed code …">
-<meta itemprop=creator name=author content="Andrew Brampton">
-<meta name=generator content=""/>
-<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title="bramp.net"/>
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title="bramp.net"/>
-<link rel="shortcut icon" href=/favicon.ico type="image/x-icon"/>
-<link rel=apple-touch-icon-precomposed href="/images/favicon.png"/>
-<link rel=apple-touch-icon-precomposed sizes=57x57 href="/images/favicon-57x57.png"/>
-<link rel=apple-touch-icon-precomposed sizes=72x72 href="/images/favicon-72x72.png"/>
-<link rel=apple-touch-icon-precomposed sizes=76x76 href="/images/favicon-76x76.png"/>
-<link rel=apple-touch-icon-precomposed sizes=114x114 href="/images/favicon-114x114.png"/>
-<link rel=apple-touch-icon-precomposed sizes=120x120 href="/images/favicon-120x120.png"/>
-<link rel=apple-touch-icon-precomposed sizes=144x144 href="/images/favicon-144x144.png"/>
-<link rel=apple-touch-icon-precomposed sizes=152x152 href="/images/favicon-152x152.png"/>
-<link rel=apple-touch-icon-precomposed sizes=180x180 href="/images/favicon-180x180.png"/>
-<meta name=msapplication-TileColor content=#4582EC>
-<meta name=msapplication-TileImage content=/images/favicon-144x144.png>
-<meta name=theme-color content=#4582EC>
-<link rel=icon sizes=192x192 href="/images/favicon-192x192.png"/>
+<meta content="Generate random numbers from different probability distributions There are multiple libraries for generating random numbers from a uniform, and sometimes normal distributions. However, I needed code …" name=description itemprop=description>
+<meta content="Andrew Brampton" name=author itemprop=creator>
+<meta content="" name=generator />
+<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
+<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
+<link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
+<link href=/images/favicon.png rel=apple-touch-icon-precomposed />
+<link href=/images/favicon-57x57.png rel=apple-touch-icon-precomposed sizes=57x57 />
+<link href=/images/favicon-72x72.png rel=apple-touch-icon-precomposed sizes=72x72 />
+<link href=/images/favicon-76x76.png rel=apple-touch-icon-precomposed sizes=76x76 />
+<link href=/images/favicon-114x114.png rel=apple-touch-icon-precomposed sizes=114x114 />
+<link href=/images/favicon-120x120.png rel=apple-touch-icon-precomposed sizes=120x120 />
+<link href=/images/favicon-144x144.png rel=apple-touch-icon-precomposed sizes=144x144 />
+<link href=/images/favicon-152x152.png rel=apple-touch-icon-precomposed sizes=152x152 />
+<link href=/images/favicon-180x180.png rel=apple-touch-icon-precomposed sizes=180x180 />
+<meta content=#4582EC name=msapplication-TileColor>
+<meta content=/images/favicon-144x144.png name=msapplication-TileImage>
+<meta content=#4582EC name=theme-color>
+<link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
 <link href=/css/all.min.css rel=stylesheet>
 <link href=https://fonts.gstatic.com rel=preconnect crossorigin>
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel=stylesheet type=text/css>
 <link href=https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css rel=stylesheet>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css>
-<meta name=twitter:card content="summary"/>
-<meta name=twitter:site content="@TheBramp"/>
-<meta name=twitter:creator content="@TheBramp"/>
-<meta property=og:type content="article"/>
-<meta property=article:author content="https://www.facebook.com/bramp"/>
-<meta property=article:published_time content="2016-08-08T21:33:33&#43;07:00"/>
-<meta property=article:tag content="random"/>
-<meta property=article:tag content="probability"/>
-<meta property=article:tag content="distributions"/>
-<meta property=article:tag content="github"/>
-<meta property=article:tag content="opensource"/>
-<meta property=og:url content="https://blog.bramp.net/post/2016/08/08/introducing-prob.js/"/>
-<meta property=og:site_name content="bramp.net"/>
-<meta property=og:title content="Introducing Prob.js"/>
-<meta property=og:description content="Generate random numbers from different probability distributions There are multiple libraries for generating random numbers from a uniform, and sometimes normal distributions. However, I needed code …"/>
-<meta property=og:updated_time content="2016-08-08T21:33:33-07:00"/>
-<meta property=og:locale content="en_GB"/>
-<meta name=google-site-verification content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"/>
+<link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
+<meta content=summary name=twitter:card />
+<meta content=@TheBramp name=twitter:site />
+<meta content=@TheBramp name=twitter:creator />
+<meta content=article property=og:type />
+<meta content=https://www.facebook.com/bramp property=article:author />
+<meta content=2016-08-08T21:33:33&#43;07:00 property=article:published_time />
+<meta content=random property=article:tag />
+<meta content=probability property=article:tag />
+<meta content=distributions property=article:tag />
+<meta content=github property=article:tag />
+<meta content=opensource property=article:tag />
+<meta content=https://blog.bramp.net/post/2016/08/08/introducing-prob.js/ property=og:url />
+<meta content=bramp.net property=og:site_name />
+<meta content="Introducing Prob.js" property=og:title />
+<meta content="Generate random numbers from different probability distributions There are multiple libraries for generating random numbers from a uniform, and sometimes normal distributions. However, I needed code …" property=og:description />
+<meta content=2016-08-08T21:33:33-07:00 property=og:updated_time />
+<meta content=en_GB property=og:locale />
+<meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
 </head>
 <body itemscope itemtype=Blog>
-<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-136478-5', 'auto');
     ga('require', 'linkid', 'linkid.js');
-    ga('send', 'pageview');</script>
+    ga('send', 'pageview');
+</script>
 <div id=wrapper>
 <div class="navbar navbar-default">
 <div class=container>
 <div class=navbar-header>
-<button type=button class=navbar-toggle data-toggle=collapse data-target=.navbar-collapse>
+<button class=navbar-toggle data-target=.navbar-collapse data-toggle=collapse type=button>
 <span class=sr-only>Toggle navigation</span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 </button>
 <div class=navbar-brand aria-label="About Andrew Brampton">
-<a href="/">
-<img src=/images/favicon-64x64.png class=profile-image alt=Home>
+<a href=/ >
+<img src=/images/favicon-64x64.png alt=Home class=profile-image>
 </a>
 <div itemprop=author itemscope itemtype=https://schema.org/Person>
-<a href="/about-me/" itemprop=name>Andrew Brampton</a>
+<a href=/about-me/ itemprop=name>Andrew Brampton</a>
 <div id=social-wrapper>
 <a href=https://twitter.com/TheBramp aria-label=Twitter><i class="fa fa-twitter-square"></i></a>
 <a href=https://www.linkedin.com/in/bramp aria-label=LinkedIn><i class="fa fa-linkedin-square"></i></a>
@@ -83,13 +85,13 @@
 </div>
 </div>
 </div>
-<div class="navbar-collapse collapse">
+<div class="collapse navbar-collapse">
 <ul class="nav navbar-nav" role=navigation>
-<li><a href="/">Articles</a></li>
-<li><a href="/about-me/">About Me</a></li>
-<li><a href="/android-app/">Android Apps</a></li>
-<li><a href="/opensource/">Open Source</a></li>
-<li><a href="/publication/">Publications</a></li>
+<li><a href=/ >Articles</a></li>
+<li><a href=/about-me/ >About Me</a></li>
+<li><a href=/android-app/ >Android Apps</a></li>
+<li><a href=/opensource/ >Open Source</a></li>
+<li><a href=/publication/ >Publications</a></li>
 </ul>
 </div>
 </div>
@@ -99,54 +101,52 @@
 <h1 itemprop=headline>Introducing Prob.js</h1>
 <p class=meta>
 <i class="fa fa-calendar-o"></i> <time itemprop=datePublished>2016-08-08</time>
-| <a href="https://blog.bramp.net/tags/random/">random</a>
-| <a href="https://blog.bramp.net/tags/probability/">probability</a>
-| <a href="https://blog.bramp.net/tags/distributions/">distributions</a>
-| <a href="https://blog.bramp.net/tags/github/">github</a>
-| <a href="https://blog.bramp.net/tags/opensource/">opensource</a>
+| <a href=https://blog.bramp.net/tags/random/ >random</a>
+| <a href=https://blog.bramp.net/tags/probability/ >probability</a>
+| <a href=https://blog.bramp.net/tags/distributions/ >distributions</a>
+| <a href=https://blog.bramp.net/tags/github/ >github</a>
+| <a href=https://blog.bramp.net/tags/opensource/ >opensource</a>
 </p>
 <div class=post itemprop=articleBody>
 <h2 id=generate-random-numbers-from-different-probability-distributions>Generate random numbers from different probability distributions</h2>
 <p>There are multiple libraries for generating random numbers from a uniform, and sometimes normal distributions. However, I needed code to generate them from a expontential or lognormal distribution. I had written code to do this ~10 years ago in Java, but I needed a more modern Javascript solution.</p>
 <p>Introducing <a href=https://github.com/bramp/prob.js>Prob.js</a>, a javascript library to generate random numbers from different probability distributions. Avaiable via both bower and NPM, prob.js can generate random numbers from the following distrubtions:</p>
-<div class=highlight><pre class=chroma><code class=language-javascript data-lang=javascript>Prob.uniform(min, max) <span class=s1770>// Uniform distribution in range [min, max).
-</span><span class=s1770></span>Prob.normal(μ, σ)      <span class=s1770>// Normal distribution with mean and standard deviation.
-</span><span class=s1770></span>Prob.exponential(λ)    <span class=s1770>// Exponential distribution with lambda.
-</span><span class=s1770></span>Prob.lognormal(μ, σ)   <span class=s1770>// Log-normal distribution defined as ln(normal(μ, σ)).
-</span><span class=s1770></span>Prob.poisson(λ)        <span class=s1770>// Poisson distribution returning integers &gt;= 0.
-</span><span class=s1770></span>Prob.zipf(s, N)        <span class=s1770>// Zipf&#39;s distribution returning integers in range [1, N].
-</span><span class=s1770></span>After generating a distribution, the following methods are available<span class=sfa0>:</span></code></pre>
-</div>
+<div class=highlight><pre class=chroma><code class=language-javascript data-lang=javascript><span class=nx>Prob</span><span class=p>.</span><span class=nx>uniform</span><span class=p>(</span><span class=nx>min</span><span class=p>,</span> <span class=nx>max</span><span class=p>)</span> <span class=c1>// Uniform distribution in range [min, max).
+</span><span class=c1></span><span class=nx>Prob</span><span class=p>.</span><span class=nx>normal</span><span class=p>(</span><span class=nx>μ</span><span class=p>,</span> <span class=nx>σ</span><span class=p>)</span>      <span class=c1>// Normal distribution with mean and standard deviation.
+</span><span class=c1></span><span class=nx>Prob</span><span class=p>.</span><span class=nx>exponential</span><span class=p>(</span><span class=nx>λ</span><span class=p>)</span>    <span class=c1>// Exponential distribution with lambda.
+</span><span class=c1></span><span class=nx>Prob</span><span class=p>.</span><span class=nx>lognormal</span><span class=p>(</span><span class=nx>μ</span><span class=p>,</span> <span class=nx>σ</span><span class=p>)</span>   <span class=c1>// Log-normal distribution defined as ln(normal(μ, σ)).
+</span><span class=c1></span><span class=nx>Prob</span><span class=p>.</span><span class=nx>poisson</span><span class=p>(</span><span class=nx>λ</span><span class=p>)</span>        <span class=c1>// Poisson distribution returning integers &gt;= 0.
+</span><span class=c1></span><span class=nx>Prob</span><span class=p>.</span><span class=nx>zipf</span><span class=p>(</span><span class=nx>s</span><span class=p>,</span> <span class=nx>N</span><span class=p>)</span>        <span class=c1>// Zipf&#39;s distribution returning integers in range [1, N].
+</span><span class=c1></span><span class=nx>After</span> <span class=nx>generating</span> <span class=nx>a</span> <span class=nx>distribution</span><span class=p>,</span> <span class=nx>the</span> <span class=nx>following</span> <span class=nx>methods</span> <span class=nx>are</span> <span class=nx>available</span><span class=o>:</span></code></pre></div>
 <p>With a very simple to use API:</p>
-<div class=highlight><pre class=chroma><code class=language-javascript data-lang=javascript><span class=s3e8>var</span> r <span class=sfa0>=</span> Prob.exponential(<span class=sc80>1.0</span>); <span class=s1770>// Create a distribution.
-</span><span class=s1770></span>r()        <span class=s1770>// Generates a number within the distribution.
-</span><span class=s1770></span>r(src)     <span class=s1770>// Generates a number using a `src` of random numbers. (See note below.)
-</span><span class=s1770></span>r.Min      <span class=s1770>// The min random number which could be returned by `r()` (inclusive).
-</span><span class=s1770></span>r.Max      <span class=s1770>// The max random number which could be returned by `r()` (exclusive).
-</span><span class=s1770></span>r.Mean     <span class=s1770>// The expected mean for this distribution.
-</span><span class=s1770></span>r.Variance <span class=ss4>// The expected variance for this distribution.</span></code></pre>
-</div>
-<p>I created a <a href="https://bramp.github.io/prob.js/">quick demo site</a> that generates 1 million random numbers from each distribution in the browser, and plots the PDF as it goes. Same samples:</p>
+<div class=highlight><pre class=chroma><code class=language-javascript data-lang=javascript><span class=kd>var</span> <span class=nx>r</span> <span class=o>=</span> <span class=nx>Prob</span><span class=p>.</span><span class=nx>exponential</span><span class=p>(</span><span class=mf>1.0</span><span class=p>);</span> <span class=c1>// Create a distribution.
+</span><span class=c1></span><span class=nx>r</span><span class=p>()</span>        <span class=c1>// Generates a number within the distribution.
+</span><span class=c1></span><span class=nx>r</span><span class=p>(</span><span class=nx>src</span><span class=p>)</span>     <span class=c1>// Generates a number using a `src` of random numbers. (See note below.)
+</span><span class=c1></span><span class=nx>r</span><span class=p>.</span><span class=nx>Min</span>      <span class=c1>// The min random number which could be returned by `r()` (inclusive).
+</span><span class=c1></span><span class=nx>r</span><span class=p>.</span><span class=nx>Max</span>      <span class=c1>// The max random number which could be returned by `r()` (exclusive).
+</span><span class=c1></span><span class=nx>r</span><span class=p>.</span><span class=nx>Mean</span>     <span class=c1>// The expected mean for this distribution.
+</span><span class=c1></span><span class=nx>r</span><span class=p>.</span><span class=nx>Variance</span> <span class=err>// The expected variance for this distribution.</span></code></pre></div>
+<p>I created a <a href=https://bramp.github.io/prob.js/ >quick demo site</a> that generates 1 million random numbers from each distribution in the browser, and plots the PDF as it goes. Same samples:</p>
 <p>
-<figure>
-<img src="normal.png"/>
+</p><figure>
+<img src=normal.png />
 <figcaption>
 <h4>Normal (μ = 0, σ = 1.0)</h4>
 </figcaption>
 </figure>
 <figure>
-<img src="lognormal.png"/>
+<img src=lognormal.png />
 <figcaption>
 <h4>Log-normal (μ = 0, σ = 1.0)</h4>
 </figcaption>
 </figure>
 <figure>
-<img src="zipf.png"/>
+<img src=zipf.png />
 <figcaption>
 <h4>Zipf (s = 1, N = 100)</h4>
 </figcaption>
 </figure>
-</p>
+<p></p>
 </div>
 </article>
 <div class=row>
@@ -156,21 +156,22 @@
 <div class=col-sm-6>
 <div class=btn-toolbar>
 <div class=btn-group>
-<a class="btn btn-sm btn-soundcloud" href=https://feeds.feedburner.com/brampnet aria-label="RSS feed">
+<a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed" class="btn btn-sm btn-soundcloud">
 <i class="fa fa-rss-square"></i> Subscribe via RSS</a>
 </div>
 <div class=btn-group>
-<a class="btn btn-sm btn-twitter" href=https://twitter.com/TheBramp><i class="fa fa-twitter"></i> Follow @TheBramp</a>
+<a href=https://twitter.com/TheBramp class="btn btn-sm btn-twitter"><i class="fa fa-twitter"></i> Follow @TheBramp</a>
 </div>
 </div>
 </div>
 </div>
 <ul class=pager>
-&nbsp;<li class=previous><a href="/post/2016/06/08/turn-on-github-io-ssl/">&larr; Turn on HTTPS for all GitHub Pages</a></li>
-&nbsp;<li class=next><a href="/post/2016/08/08/peano-curves/"> Peano Curves &rarr;</a></li>
+&nbsp;<li class=previous><a href=/post/2016/06/08/turn-on-github-io-ssl/ >&larr; Turn on HTTPS for all GitHub Pages</a></li>
+&nbsp;<li class=next><a href=/post/2016/08/08/peano-curves/ >Peano Curves &rarr;</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
-<script type=text/javascript>var disqus_shortname = 'bramp';
+<script type=text/javascript>
+var disqus_shortname = 'bramp';
     var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2016\/08\/08\/introducing-prob.js\/';
     var disqus_title = 'Introducing Prob.js';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2016\/08\/08\/introducing-prob.js\/';
@@ -183,16 +184,17 @@
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
 <a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="text-muted credit">&copy; 2017. All rights reserved. </p>
+<p class="credit text-muted">&copy; 2017. All rights reserved.</p>
 </footer>
 </div>
 </div>
 <script src=/js/all.min.js></script>
-<script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
+<script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async type=text/javascript></script>
 </body>
 </html>

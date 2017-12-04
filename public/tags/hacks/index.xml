@@ -30,8 +30,7 @@ or if using Google Chrome (as Chrome now comes with the Flash plugin) open
 C:\Users\Andrew\AppData\Local\Google\Chrome\Application\6.0.408.1\gcswf32.dll
 
 or if using Google Chrome on Windows XP:
-C:\Documents and Settings\Andrew\Local Settings\Application Data\Google\Chrome\Application\6.0.408.1&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+C:\Documents and Settings\Andrew\Local Settings\Application Data\Google\Chrome\Application\6.0.408.1&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;On version 10.1.53.38&lt;br /&gt;
 Jump to offset &lt;strong&gt;0&amp;#215;180227&lt;/strong&gt; and change bytes &lt;strong&gt;74 2A&lt;/strong&gt; to &lt;strong&gt;90 90&lt;/strong&gt;, and voila.&lt;/p&gt;
 
@@ -54,17 +53,15 @@ Jump to offset &lt;strong&gt;0x180AAF&lt;/strong&gt; and change bytes &lt;strong
 &lt;p&gt;&lt;strong&gt;Note this method is unsupported, and will most likely break when Flash gets updated again. It is always a good idea to backup any file first, and make sure you are on the same version as me.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;For the curious this changes some code that looks like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt; (msg &lt;span class=&#34;sfa0&#34;&gt;==&lt;/span&gt; WM_KILLFOCUS)
-  jump to kill_focus
-&lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt; (msg &lt;span class=&#34;sfa0&#34;&gt;==&lt;/span&gt; WM_PAINT)
-  jump to paint&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;msg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;WM_KILLFOCUS&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;jump&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;to&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;kill_focus&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;msg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;WM_PAINT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;jump&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;to&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;paint&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;to&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt; (msg &lt;span class=&#34;sfa0&#34;&gt;==&lt;/span&gt; WM_KILLFOCUS)
-  nop nop
-&lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt; (msg &lt;span class=&#34;sfa0&#34;&gt;==&lt;/span&gt; WM_PAINT)
-  jump to paint&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;msg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;WM_KILLFOCUS&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;nop&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nop&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;msg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;WM_PAINT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;jump&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;to&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;paint&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;and for some context the version 10.1.53.64 surrounding code looked like this:&lt;/p&gt;
 
 &lt;pre&gt;&lt;b&gt;74&lt;/b&gt; 39 83 E8 07 &lt;b&gt;74&lt;/b&gt; 11 83 E8 05 &lt;b&gt;75&lt;/b&gt; 13 8B

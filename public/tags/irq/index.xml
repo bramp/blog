@@ -16,18 +16,15 @@
       
       <guid>https://blog.bramp.net/post/2009/03/16/irq-affinity-on-freebsd/</guid>
       <description>&lt;p&gt;On Linux it is quite simple to set the CPU affinity of a IRQ, by for example issuing the following command:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cat &lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt; &amp;gt; /proc/irq/#/smp_affinity&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cat &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &amp;gt; /proc/irq/#/smp_affinity&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This will ensure that IRQ # will always fire on core 1. It is also possible to specify affinities such as 3, which pins the IRQ to just core 1 and 2.&lt;/p&gt;
 
 &lt;p&gt;This can be very helpful to stop your IRQ interrupts bouncing between all the cores. For example, if you have a single threaded app which is generating all the network traffic then it makes sense to ensure the network card&amp;#8217;s interrupt will fire on the same core, or at least a core which is close (in terms of cache sharing).&lt;/p&gt;
 
 &lt;p&gt;Recently I was looking for a way to pin IRQ on FreeBSD, however, it appears FreeBSD 7.1 still doesn&amp;#8217;t support this feature, but FreeBSD-CURRENT does! I don&amp;#8217;t advise people try FreeBSD-CURRENT yet, but when it turns into FreeBSD 8.0, then you can issue a command such as:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cpuset -l &lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt; -x irq#&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cpuset -l &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; -x irq#&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;which will pin the IRQ to core 0, or&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cpuset -l &lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt;,1 -x irq#&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cpuset -l &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;,1 -x irq#&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;which will pin the IRQ to cores 0 and 1.&lt;/p&gt;
 
 &lt;p&gt;Hopefully this feature will be back ported to FreeBSD 7.X. I&amp;#8217;m a unsure how likely this will be considering there is a chunk of code missing from the 7.X kernel, which I assume will only be in FreeBSD 8.0.&lt;/p&gt;

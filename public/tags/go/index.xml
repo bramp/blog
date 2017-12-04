@@ -18,35 +18,30 @@
       <description>&lt;p&gt;When using third-party packages in Go, they are imported by a path that represents
 how to download that package from the Internet. For example, to use the
 popular structured logging library, &lt;a href=&#34;https://github.com/sirupsen/logrus&#34;&gt;Logrus&lt;/a&gt;, it would imported at the top of the Go program like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;s3e8&#34;&gt;import&lt;/span&gt; (
-  &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;github.com/sirupsen/logrus&amp;#34;&lt;/span&gt;
-)&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+  &lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/sirupsen/logrus&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;When &lt;code&gt;go get&lt;/code&gt; is then executed, it fetches the Logrus source code from GitHub
 and places the code in the &lt;code&gt;$GOPATH/src&lt;/code&gt; directory. Take a look for yourself:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ tree &lt;span class=&#34;s7e3&#34;&gt;$GOPATH&lt;/span&gt;/src
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ tree &lt;span class=&#34;nv&#34;&gt;$GOPATH&lt;/span&gt;/src
 ...
 ├── github.com
 │   ├── Sirupsen
 │   │   └── logrus
-...&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+...&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;An astute reader may wonder, how exactly does &lt;code&gt;go get&lt;/code&gt; know that &lt;code&gt;github.com/sirupsen/logrus&lt;/code&gt; is a Git repository, and that it can be fetched via the git protocol from that URL. The &lt;code&gt;go get&lt;/code&gt; binary could have some smarts in it, that knows about GitHub, and does the right thing. But that seems inflexible, and problematic if new sites want to be supported. Instead the Go developers built a layer of indirection that allows the &lt;code&gt;go get&lt;/code&gt; tool to discover the correct source repo.&lt;/p&gt;
 
 &lt;p&gt;As outlined in the &lt;a href=&#34;https://golang.org/cmd/go/#hdr-Remote_import_paths&#34;&gt;Remote Import Paths&lt;/a&gt; docs,  the &lt;code&gt;go get&lt;/code&gt; binary will make a normal HTTP request to &lt;code&gt;https://github.com/sirupsen/logrus&lt;/code&gt; (falling back to http if needed) and look at the returned HTML for a &lt;code&gt;&amp;lt;meta name=&amp;quot;go-import&amp;quot;&lt;/code&gt; tag. This meta tag, can then redirect the &lt;code&gt;go get&lt;/code&gt; binary to the correct source code repository for the package.&lt;/p&gt;
 
 &lt;p&gt;This meta tag can been seen with &lt;code&gt;curl&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl https://github.com/sirupsen/logrus | grep meta | grep go-import&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span class=&#34;s7e2&#34;&gt;meta&lt;/span&gt; &lt;span class=&#34;s7d1&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;go-import&amp;#34;&lt;/span&gt;
-  &lt;span class=&#34;s7d1&#34;&gt;content&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;github.com/sirupsen/logrus git https://github.com/sirupsen/logrus.git&amp;#34;&lt;/span&gt;&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl https://github.com/sirupsen/logrus &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep meta &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep go-import&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;meta&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;go-import&amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;na&#34;&gt;content&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/sirupsen/logrus git https://github.com/sirupsen/logrus.git&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;That tag says, the package rooted at &lt;code&gt;github.com/sirupsen/logrus&lt;/code&gt; can be fetched with git, at the
 URL &lt;code&gt;https://github.com/sirupsen/logrus.git&lt;/code&gt;. The meta tag can express other source control systems, e.g Mercurial, Bazaar, Subversion.&lt;/p&gt;
 
 &lt;p&gt;GitHub is a very convenient place to host source code, but the GitHub URL is generic. Instead it is possible to use the &lt;code&gt;&amp;lt;meta&amp;gt;&lt;/code&gt; tag to create vanity domains to host projects. For example, the package hosted at &lt;a href=&#34;https://github.com/bramp/goredirects&#34;&gt;github.com/bramp/goredirects&lt;/a&gt; could instead be imported as &lt;code&gt;bramp.net/goredirects&lt;/code&gt;. All that is needed is a static HTML page at &lt;code&gt;bramp.net/goredirects&lt;/code&gt;, containing the following &lt;code&gt;&amp;lt;meta&amp;gt;&lt;/code&gt; tag pointing at GitHub.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span class=&#34;s7e2&#34;&gt;meta&lt;/span&gt; &lt;span class=&#34;s7d1&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;go-import&lt;/span&gt;
-  &lt;span class=&#34;s7d1&#34;&gt;content&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;bramp.net/goredirects git https://github.com/bramp/goredirects.git&amp;#34;&lt;/span&gt;&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;meta&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;go-import&lt;/span&gt;
+  &lt;span class=&#34;na&#34;&gt;content&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;bramp.net/goredirects git https://github.com/bramp/goredirects.git&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Incase a user attempted to visit that page directly with their web browser, it is worthwhile
 placing more information about the project on the page, or simply making the page redirect.&lt;/p&gt;
 
@@ -54,13 +49,11 @@ placing more information about the project on the page, or simply making the pag
 
 &lt;p&gt;For example, create your new project on GitHub, but check out the project under &lt;code&gt;$GOPATH/src/example.com/project&lt;/code&gt;. Then run the tool:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ go install bramp.net/goredirects
-$ goredirects example.com outputdir&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+$ goredirects example.com outputdir&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The directory &lt;code&gt;outputdir&lt;/code&gt; will now contain multiple directories and html files, one for each project under &lt;code&gt;$GOPATH/src/example.com&lt;/code&gt;. These HTML files contain the appropriate goimports meta tag to redirect the download of source code from the vanity name, to GitHub. Just upload these files to your website, voilà you are done. Examples of these vanity redirect files can be found on bramp.net, e.g &lt;a href=&#34;https://bramp.net/goredirects/index.html&#34;&gt;bramp.net/goredirects/index.html&lt;/a&gt;. This tool even works for packages with sub-packages under the main root.&lt;/p&gt;
 
 &lt;p&gt;Finally, it is possible to ensure that if someone finds your project via GitHub, that &lt;code&gt;go get&lt;/code&gt; will always place it under your vanity domain. This be can be achieved with an &lt;a href=&#34;https://golang.org/cmd/go/#hdr-Import_path_checking&#34;&gt;import comment&lt;/a&gt;. Within the source code, ensure that at least one of the files in your page has a comment like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;s3e8&#34;&gt;package&lt;/span&gt; project &lt;span class=&#34;sfa0&#34;&gt;//&lt;/span&gt; &lt;span class=&#34;s3e8&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;example.com/project&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;project&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;//&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;example.com/project&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Then &lt;code&gt;go get&lt;/code&gt; will enforce the correct/vanity URL to use, instead of the true location.&lt;/p&gt;
 
 &lt;p&gt;More helpful links on the topic:&lt;/p&gt;
@@ -99,11 +92,10 @@ $ goredirects example.com outputdir&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;There is no API to tell a browser to use IPv6 over IPv4, however, I use a trick with two domain names. Namely, I have ip4.bramp.net, and ip6.bramp.net. Both resolve to the same web server, but the former only has &lt;a href=&#34;https://tools.ietf.org/html/rfc1035&#34;&gt;DNS A records&lt;/a&gt;, and the latter only &lt;a href=&#34;https://tools.ietf.org/html/rfc3596&#34;&gt;DNS AAAA records&lt;/a&gt;. For example:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ dig ip4.bramp.net
-ip4.bramp.net.		&lt;span class=&#34;sc80&#34;&gt;300&lt;/span&gt;	IN	A	&lt;span class=&#34;sc80&#34;&gt;216&lt;/span&gt;.239.32.21
+ip4.bramp.net.		&lt;span class=&#34;m&#34;&gt;300&lt;/span&gt;	IN	A	&lt;span class=&#34;m&#34;&gt;216&lt;/span&gt;.239.32.21
 
 $ dig AAAA ip6.bramp.net
-ip6.bramp.net.		&lt;span class=&#34;sc80&#34;&gt;291&lt;/span&gt;	IN	AAAA	&lt;span class=&#34;sc80&#34;&gt;2001&lt;/span&gt;:4860:4802:32::15&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+ip6.bramp.net.		&lt;span class=&#34;m&#34;&gt;291&lt;/span&gt;	IN	AAAA	&lt;span class=&#34;m&#34;&gt;2001&lt;/span&gt;:4860:4802:32::15&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This forces the connection to be over either IPv4, or IPv6. If a browser doesn’t support IPv6, then the connection is never made, and an error is returned. Interesting side note, some browsers uses a technique called &lt;a href=&#34;https://en.wikipedia.org/wiki/Happy_Eyeballs&#34;&gt;Happy Eyeballs&lt;/a&gt;, which tries to connect over both concurrently, but abandons the slower or worse behaving of the two connections.&lt;/p&gt;
 
 &lt;h2 id=&#34;how-do-you-make-two-requests-from-one-page&#34;&gt;How do you make two requests from one page?&lt;/h2&gt;
@@ -128,20 +120,18 @@ ip6.bramp.net-&gt;user: {address: 2001:db8::1}
 --&gt;
 
 &lt;p&gt;These AJAX queries return a simple JSON object, containing information about the requesting user. In my application an example response may look like:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
-  &lt;span class=&#34;s7e2&#34;&gt;&amp;#34;RemoteAddrFamily&amp;#34;&lt;/span&gt;: &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;IPv6&amp;#34;&lt;/span&gt;,
-  &lt;span class=&#34;s7e2&#34;&gt;&amp;#34;RemoteAddr&amp;#34;&lt;/span&gt;:       &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;2601:646:c200:b466:b446:ff32:b227:a53c&amp;#34;&lt;/span&gt;
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddrFamily&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;IPv6&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddr&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;       &lt;span class=&#34;s2&#34;&gt;&amp;#34;2601:646:c200:b466:b446:ff32:b227:a53c&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This response can then be used to update the page, to display the appropriate address.&lt;/p&gt;
 
 &lt;p&gt;An experienced reader may be aware of some security issues with making AJAX request to a different domain. In particular, there are subtle ways in which a malicious site could abuse your AJAX endpoints. This is easily fixed by using cross-origin resource sharing (&lt;a href=&#34;https://en.wikipedia.org/wiki/Cross-origin_resource_sharing&#34;&gt;CORS&lt;/a&gt;) headers, in particular ip4.bramp.net, and ip6.bramp.net return the following:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl -v ip4.bramp.net/json
 
-&amp;lt; HTTP/1.1 &lt;span class=&#34;sc80&#34;&gt;200&lt;/span&gt; OK
+&amp;lt; HTTP/1.1 &lt;span class=&#34;m&#34;&gt;200&lt;/span&gt; OK
 &amp;lt; Content-Type: application/json
-&amp;lt; Access-Control-Allow-Origin: http://ip.bramp.net&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&amp;lt; Access-Control-Allow-Origin: http://ip.bramp.net&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The last header, explicitly allows requests from ip.bramp.net only, and thus forbids requests from other sites. Without this header, the AJAX request would be issued, but then rejected by the browser.&lt;/p&gt;
 
 &lt;h2 id=&#34;what-about-the-reverse-dns-and-whois&#34;&gt;What about the reverse DNS and WHOIS?&lt;/h2&gt;
@@ -149,55 +139,51 @@ ip6.bramp.net-&gt;user: {address: 2001:db8::1}
 &lt;p&gt;I noted I wanted to display both the reverse DNS, and WHOIS records. This is something the browser doesn’t support, but the server side could. Thus as part of processing the /json AJAX request, the application makes various additional requests to remote DNS and WHOIS servers.&lt;/p&gt;
 
 &lt;p&gt;To reverse lookup a IP address, you need to issue a &lt;a href=&#34;https://tools.ietf.org/html/rfc1035&#34;&gt;PTR DNS request&lt;/a&gt;. This is a special DNS request which requires the IP address to be formatted as a in-addr.arpa or ip6.arpa name. For example, the IP address 1.2.3.4, would become 4.3.2.1.in-addr.arpa. Then when a request is sent for that in-addr.arpa. name, the reverse DNS is returned.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ dig PTR &lt;span class=&#34;sc80&#34;&gt;4&lt;/span&gt;.3.2.1.in-addr.arpa.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ dig PTR &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;.3.2.1.in-addr.arpa.
 
-&lt;span class=&#34;sc80&#34;&gt;4&lt;/span&gt;.3.2.1.in-addr.arpa.	&lt;span class=&#34;sc80&#34;&gt;74312&lt;/span&gt;	IN	PTR	c-1-2-3-4.example.com.&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;.3.2.1.in-addr.arpa.	&lt;span class=&#34;m&#34;&gt;74312&lt;/span&gt;	IN	PTR	c-1-2-3-4.example.com.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The in-addr.arpa transformation, and lookup is commonly provided by &lt;a href=&#34;https://linux.die.net/man/3/getaddrinfo&#34;&gt;getaddrinfo(3)&lt;/a&gt; function, which makes this easy to do.&lt;/p&gt;
 
 &lt;p&gt;The WHOIS lookup is a little bit more complex. Each domain is represented by a different WHOIS server, that can be determined by the ccTLD or TLD of the domain. However, with IP addresses, you must identify the Regional Internet Registry (&lt;a href=&#34;https://en.wikipedia.org/wiki/Regional_Internet_registry&#34;&gt;RIR&lt;/a&gt;) that owns the IP space. Sadly there is not a trivial mapping, so instead I issue a WHOIS query to the Internet Assigned Numbers Authority (&lt;a href=&#34;https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority&#34;&gt;IANA&lt;/a&gt;), who replies with the RIR which owns the IP address. From there, I can query the correct registry directly, typically one of &lt;a href=&#34;https://en.wikipedia.org/wiki/AFRINIC&#34;&gt;AFRINIC&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/American_Registry_for_Internet_Numbers&#34;&gt;ARIN&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Asia-Pacific_Network_Information_Centre&#34;&gt;APNIC&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Latin_America_and_Caribbean_Network_Information_Centre&#34;&gt;LACNIC&lt;/a&gt;, or &lt;a href=&#34;https://en.wikipedia.org/wiki/R%C3%A9seaux_IP_Europ%C3%A9ens_Network_Coordination_Centre&#34;&gt;RIPE NCC&lt;/a&gt;. Thus a typical WHOIS request looks like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ whois -h whois.iana.org &lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt;.2.3.4
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ whois -h whois.iana.org &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.2.3.4
 
 % IANA WHOIS server
-% &lt;span class=&#34;s3e8&#34;&gt;for&lt;/span&gt; more information on IANA, visit http://www.iana.org
-% This query returned &lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt; object
+% &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; more information on IANA, visit http://www.iana.org
+% This query returned &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; object
 refer:        whois.apnic.net
-inetnum:      &lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt;.0.0.0 - &lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt;.255.255.255
+inetnum:      &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.0.0.0 - &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.255.255.255
 organisation: APNIC
 status:       ALLOCATED
 whois:        whois.apnic.net
-changed:      &lt;span class=&#34;sc80&#34;&gt;2010&lt;/span&gt;-01
-source:       IANA&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ whois -h whois.apnic.net &lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt;.2.3.4
+changed:      &lt;span class=&#34;m&#34;&gt;2010&lt;/span&gt;-01
+source:       IANA&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ whois -h whois.apnic.net &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.2.3.4
 
-% &lt;span class=&#34;sfa0&#34;&gt;[&lt;/span&gt;whois.apnic.net&lt;span class=&#34;sfa0&#34;&gt;]&lt;/span&gt;
+% &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;whois.apnic.net&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
 % Whois data copyright terms    http://www.apnic.net/db/dbcopyright.html
-% Information related to &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;1.2.3.0 - 1.2.3.255&amp;#39;&lt;/span&gt;
-inetnum:        &lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt;.2.3.0 - &lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt;.2.3.255
+% Information related to &lt;span class=&#34;s1&#34;&gt;&amp;#39;1.2.3.0 - 1.2.3.255&amp;#39;&lt;/span&gt;
+inetnum:        &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.2.3.0 - &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.2.3.255
 netname:        Example-prefix
 descr:          APNIC Example Project
 
 ...
 
-% This query was served by the APNIC Whois Service version &lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt;.69.1-APNICv1r0&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+% This query was served by the APNIC Whois Service version &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.69.1-APNICv1r0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Both the reverse DNS and WHOIS response is returned as part of the AJAX JSON response.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;{
-  &lt;span class=&#34;s7e2&#34;&gt;&amp;#34;RemoteAddrFamily&amp;#34;&lt;/span&gt;:  &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;IPv4&amp;#34;&lt;/span&gt;,
-  &lt;span class=&#34;s7e2&#34;&gt;&amp;#34;RemoteAddr&amp;#34;&lt;/span&gt;:        &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;1.2.3.4&amp;#34;&lt;/span&gt;,
-  &lt;span class=&#34;s7e2&#34;&gt;&amp;#34;RemoteAddrReverse&amp;#34;&lt;/span&gt;: &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;c-1-2-3-4.example.com.&amp;#34;&lt;/span&gt;,
-  &lt;span class=&#34;s7e2&#34;&gt;&amp;#34;RemoteAddrWhois&amp;#34;&lt;/span&gt;:   &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;
-&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;    % IANA WHOIS server
-&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;    % for more information on IANA, visit http://www.iana.org
-&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;    % This query returned 1 object
-&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;    refer:        whois.apnic.net
-&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;    inetnum:      1.0.0.0 - 1.255.255.255
-&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;    organisation: APNIC
-&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;    status:       ALLOCATED
-&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;    ...
-&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;  &amp;#34;&lt;/span&gt;
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddrFamily&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;  &lt;span class=&#34;s2&#34;&gt;&amp;#34;IPv4&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddr&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;        &lt;span class=&#34;s2&#34;&gt;&amp;#34;1.2.3.4&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddrReverse&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;c-1-2-3-4.example.com.&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddrWhois&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;   &lt;span class=&#34;s2&#34;&gt;&amp;#34;
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    % IANA WHOIS server
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    % for more information on IANA, visit http://www.iana.org
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    % This query returned 1 object
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    refer:        whois.apnic.net
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    inetnum:      1.0.0.0 - 1.255.255.255
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    organisation: APNIC
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    status:       ALLOCATED
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    ...
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;  &amp;#34;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2 id=&#34;what-about-proxies&#34;&gt;What about proxies?&lt;/h2&gt;
 
 &lt;p&gt;Many users are behind proxies, which connects to the webserver on the user’s behalf. Thus the REMOTE_ADDR is the address of the proxy, not the actual user.  Some proxies have a workaround for this, by placing the user’s real IP address in the &lt;a href=&#34;https://en.wikipedia.org/wiki/X-Forwarded-For&#34;&gt;X-Forwarded-For&lt;/a&gt; (XFF), or newer &lt;a href=&#34;https://tools.ietf.org/html/rfc7239&#34;&gt;Forwarded&lt;/a&gt; HTTP header. However, these headers are easily set by the user, so can not be trusted. Thus for the moment I ignore these headers, and will instead display the proxy’s IP address. It is conceivable to create a whitelist of proxies, that I would trust the XFF header, but for now I didn’t want that headache. Especially since the server side issues requests to external hosts, if I trusted the XFF header, an abusive user could use my site as a proxy, or even use my site as a relay to &lt;a href=&#34;https://en.wikipedia.org/wiki/Denial-of-service_attack&#34;&gt;denial of service&lt;/a&gt; these remote servers.&lt;/p&gt;
@@ -263,18 +249,17 @@ descr:          APNIC Example Project
 &lt;p&gt;This can be very useful for mapping a 1D value, into a 2D space. For example, it is commonly used to &lt;a href=&#34;https://xkcd.com/195/&#34;&gt;map IP addresses into a 2D space&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;I recently created a library for &lt;a href=&#34;https://golang.org/&#34;&gt;Go&lt;/a&gt; that can map to and from a curve. The project is &lt;a href=&#34;http://github.com/google/hilbert&#34;&gt;hosted on Github&lt;/a&gt;, and can be used like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;s3e8&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;github.com/google/hilbert&amp;#34;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/google/hilbert&amp;#34;&lt;/span&gt;
 
-&lt;span class=&#34;s1770&#34;&gt;// Create a Hilbert curve for mapping to and from a 16 by 16 space.
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;s, err &lt;span class=&#34;sfa0&#34;&gt;:=&lt;/span&gt; hilbert.New(&lt;span class=&#34;sc80&#34;&gt;16&lt;/span&gt;)
+&lt;span class=&#34;c1&#34;&gt;// Create a Hilbert curve for mapping to and from a 16 by 16 space.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;hilbert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;New&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
-&lt;span class=&#34;s1770&#34;&gt;// Now map one dimension numbers in the range [0, N*N-1], to an x,y
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;// coordinate on the curve where both x and y are in the range [0, N-1].
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;x, y, err &lt;span class=&#34;sfa0&#34;&gt;:=&lt;/span&gt; s.Map(t)
+&lt;span class=&#34;c1&#34;&gt;// Now map one dimension numbers in the range [0, N*N-1], to an x,y
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// coordinate on the curve where both x and y are in the range [0, N-1].
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
-&lt;span class=&#34;s1770&#34;&gt;// Also map back from (x,y) to t.
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;t, err &lt;span class=&#34;sfa0&#34;&gt;:=&lt;/span&gt; s.MapInverse(x, y)&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;span class=&#34;c1&#34;&gt;// Also map back from (x,y) to t.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;MapInverse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The project contains some demos, such as this cool animations:&lt;/p&gt;
 
 

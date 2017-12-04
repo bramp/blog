@@ -22,25 +22,21 @@
 &lt;p&gt;There were multiple github projects &lt;a href=&#34;https://github.com/baldrick/git-p4/&#34;&gt;1&lt;/a&gt;, &lt;a href=&#34;https://github.com/gkielSfdc/git-p4&#34;&gt;2&lt;/a&gt;, &lt;a href=&#34;https://github.com/jendave/git-p4&#34;&gt;3&lt;/a&gt;, that had forks of the git-p4 script, however, I found the latest mixed in with the official git source code. So download it from &lt;a href=&#34;https://raw.github.com/git/git/master/git-p4.py&#34;&gt;here&lt;/a&gt;. Tip: Don&amp;#8217;t forget to &amp;#8220;chmod +x git-p4.py&amp;#8221; once it&amp;#8217;s downloaded.&lt;/p&gt;
 
 &lt;p&gt;Next, I wanted to be able to type &amp;#8220;git p4&amp;#8243;, so I used an &lt;a href=&#34;https://git.wiki.kernel.org/index.php/Aliases&#34;&gt;alias&lt;/a&gt; to do this. Edit/create the file ~/.gitconfig and add:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span class=&#34;s3e8&#34;&gt;[alias]&lt;/span&gt;
-&lt;span class=&#34;s7d1&#34;&gt;p4&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;!~/bin/git-p4.py&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span class=&#34;k&#34;&gt;[alias]&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;p4&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;!~/bin/git-p4.py&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Once that&amp;#8217;s done you should be able to:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s1770&#34;&gt;# Fetch only the head
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;git p4 clone //depot/path/to/project/ project
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Fetch only the head
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;git p4 clone //depot/path/to/project/ project
 
-&lt;span class=&#34;s1770&#34;&gt;# or Fetch all revisions (takes a little longer)
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;git p4 clone //depot/path/to/project/@all project&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;span class=&#34;c1&#34;&gt;# or Fetch all revisions (takes a little longer)
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;git p4 clone //depot/path/to/project/@all project&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;If that returns an error, such as &amp;#8220;p4 returned an error: Perforce password (P4PASSWD) invalid or unset.&amp;#8221;, then you most likely don&amp;#8217;t have your p4 command line set up. To set mine up, I added the following to my .bashrc&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s7d2&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;P4CLIENT&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;myclient
-&lt;span class=&#34;s7d2&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;P4HOST&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;perforce:1666
-&lt;span class=&#34;s7d2&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;P4USER&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;myuser
-&lt;span class=&#34;s7d2&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;P4EDITOR&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;nano&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;P4CLIENT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;myclient
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;P4HOST&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;perforce:1666
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;P4USER&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;myuser
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;P4EDITOR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;nano&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;and then logged in&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;p4 login&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;p4 login&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;More information on that set up can be found in the &lt;a href=&#34;http://www.perforce.com/perforce/doc.current/manuals/p4guide/02_config.html&#34;&gt; official documentation&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Once cloned, you can change to the project directory and use many of the normal git commands, such as &amp;#8220;git log&amp;#8221;. You may notice that your newly checked out git repo only has one commit. If you want to see a full history use @all on the end of your depot path.&lt;/p&gt;</description>
@@ -62,19 +58,16 @@
 [pid 22682] close(43033)                = -1 EBADF (Bad file descriptor)
 [pid 22682] close(43034)                = -1 EBADF (Bad file descriptor)
 [pid 22682] close(43035)                = -1 EBADF (Bad file descriptor)
-[pid 22682] close(43036)                = -1 EBADF (Bad file descriptor)&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+[pid 22682] close(43036)                = -1 EBADF (Bad file descriptor)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This obviously didn&amp;#8217;t look good! After some tinkering I found the problem went away when I ran trac &lt;a href=&#34;http://trac.edgewall.org/wiki/TracStandalone&#34;&gt;standalone&lt;/a&gt;, instead of using &lt;a href=&#34;http://www.modpython.org/&#34;&gt;mod_python&lt;/a&gt; or &lt;a href=&#34;http://en.wikipedia.org/wiki/FastCGI&#34;&gt;fcgi&lt;/a&gt;. This turned out to be a bit of a red herring because I spent my time trying to figure out what was different between a standalone executable and one being run inside Apache.&lt;/p&gt;
 
 &lt;p&gt;After playing around with environment variables, I gave up and attempted to printf debug the trac git plugin. I found that the actual call to git was taking on the order of seconds, whereas calling it myself from the command took milliseconds. The line of code (in PyGIT.py) looked a bit like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;p &lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt; Popen(self&lt;span class=&#34;sfa0&#34;&gt;.&lt;/span&gt;__build_git_cmd(git_cmd, &lt;span class=&#34;sfa0&#34;&gt;*&lt;/span&gt;cmd_args), stdin&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;None, stdout&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;PIPE,
-			                                        stderr&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;PIPE, close_fds&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;True)&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Popen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;__build_git_cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;git_cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cmd_args&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;stdin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;stdout&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PIPE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+			                                        &lt;span class=&#34;n&#34;&gt;stderr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PIPE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;close_fds&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;True&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Now, when I removed the close_fds argument the problems went away! After some more digging I found this &lt;a href=&#34;http://bugs.python.org/issue8052&#34;&gt;bug report&lt;/a&gt; which describes the behaviour of close_fds. Python will spin in a tight loop calling close for all possible valid fd number just incase it was previously used. WTF! You can see the python &lt;a href=&#34;http://svn.python.org/projects/python/tags/r311/Lib/subprocess.py&#34;&gt;code here&lt;/a&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;s3e8&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;s7d9&#34;&gt;_close_fds&lt;/span&gt;(self, but):
-    os&lt;span class=&#34;sfa0&#34;&gt;.&lt;/span&gt;closerange(&lt;span class=&#34;sc80&#34;&gt;3&lt;/span&gt;, but)
-    os&lt;span class=&#34;sfa0&#34;&gt;.&lt;/span&gt;closerange(but &lt;span class=&#34;sfa0&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt;, MAXFD)&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;_close_fds&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;but&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;closerange&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;but&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;closerange&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;but&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MAXFD&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;So the simple fix to this was to remove the close_fds, so that Python doesn&amp;#8217;t stupidly spin calling close(). I suspect the reason I only noticed this when running inside Apache, is because Apache must have a larger MAXFD. Hopefully in the future Python will change this behaviour and find a more sensible way to close all file descriptors, especially when I read this &lt;a href=&#34;http://bugs.python.org/issue7213&#34;&gt;bug report&lt;/a&gt; which advises changing close_fds default to true.&lt;/p&gt;
 </description>
     </item>
@@ -88,46 +81,36 @@
       <description>&lt;p&gt;Make &lt;a href=&#34;http://git-scm.com&#34;&gt;git&lt;/a&gt; colourful&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;git config --global color.diff auto
 git config --global color.status auto
-git config --global color.branch auto&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+git config --global color.branch auto&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Make &lt;a href=&#34;http://www.nano-editor.org/&#34;&gt;nano&lt;/a&gt; colourful&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cp /usr/local/share/examples/nano/nanorc.sample ~/.nanorc
-&lt;span class=&#34;s1770&#34;&gt;# or
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;zcat /usr/share/doc/nano/examples/nanorc.sample.gz &amp;gt;~/.nanorc
+&lt;span class=&#34;c1&#34;&gt;# or
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;zcat /usr/share/doc/nano/examples/nanorc.sample.gz &amp;gt;~/.nanorc
 
-&lt;span class=&#34;s1770&#34;&gt;# then
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;nano ~/.nanorc&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;span class=&#34;c1&#34;&gt;# then
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;nano ~/.nanorc&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;To trim trailing whitespace from *.cc on Linux (taken from &lt;a href=&#34;http://zebert.blogspot.com/2009/06/clean-up-trailing-whitespaces-in.html&#34;&gt;this blog&lt;/a&gt;):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;find . -name &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;sfa0&#34;&gt;{}&lt;/span&gt; -e &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;s/[ \t]*$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;find . -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;o&#34;&gt;{}&lt;/span&gt; -e &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/[ \t]*$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;and on BSDs:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;find . -name &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; -e &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;s/\ *$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;{}&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;find . -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; -e &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/\ *$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{}&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Linux style &amp;#8216;ls&amp;#8217; colours on FreeBSD (taken from &lt;a href=&#34;http://www.puresimplicity.net/~hemi/freebsd/misc.html&#34;&gt;here&lt;/a&gt;):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s7d2&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;CLICOLOR&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;YES&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;s7d2&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;LSCOLORS&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;ExGxFxdxCxDxDxhbadExEx&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CLICOLOR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;YES&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;LSCOLORS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;ExGxFxdxCxDxDxhbadExEx&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;To ensure the http_proxy environmental variable is passed to sudo. Edit the sudoers file by running visudo. Then add the following.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Defaults &lt;span class=&#34;s7e3&#34;&gt;env_keep&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;ftp_proxy http_proxy https_proxy&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Defaults &lt;span class=&#34;nv&#34;&gt;env_keep&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;ftp_proxy http_proxy https_proxy&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Bash autocompletion on FreeBSD:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s7d2&#34;&gt;cd&lt;/span&gt;  /usr/ports/shells/bash-completion
-sudo make install clean&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt;  /usr/ports/shells/bash-completion
+sudo make install clean&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Edit ~/.bashrc and add&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;[&lt;/span&gt; -f /usr/local/etc/bash_completion &lt;span class=&#34;sfa0&#34;&gt;]&lt;/span&gt;; &lt;span class=&#34;s3e8&#34;&gt;then&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; -f /usr/local/etc/bash_completion &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
     . /usr/local/etc/bash_completion
-&lt;span class=&#34;s3e8&#34;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Make svn output colorful&lt;br /&gt;
 Edit ~/.subversion/config&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span class=&#34;s3e8&#34;&gt;[helpers]&lt;/span&gt;
-&lt;span class=&#34;s7d1&#34;&gt;diff-cmd&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;/usr/bin/colordiff&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span class=&#34;k&#34;&gt;[helpers]&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;diff-cmd&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;/usr/bin/colordiff&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Create diffs with function names and ignoring whitespace&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;svn diff -x -uwp&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;svn diff -x -uwp&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;To be continued&amp;#8230;&lt;/p&gt;
 </description>
     </item>

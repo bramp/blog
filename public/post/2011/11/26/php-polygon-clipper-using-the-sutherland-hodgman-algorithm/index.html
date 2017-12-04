@@ -2,77 +2,79 @@
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<link itemprop=url rel=canonical href="https://blog.bramp.net/post/2011/11/26/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/"/>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<link href=https://blog.bramp.net/post/2011/11/26/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/ rel=canonical itemprop=url />
 <title>PHP Polygon Clipper using the Sutherland-Hodgman algorithm</title>
-<meta itemprop=description name=description content="I wrote a PHP implementation of the polygon clipping algorithm by Sutherland-Hodgman. Available below, or from github.
-&lt;?php /** * Polygon Clipping * @author Andrew Brampton me &lt;at&gt; bramp …">
-<meta itemprop=creator name=author content="Andrew Brampton">
-<meta name=generator content=""/>
-<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title="bramp.net"/>
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title="bramp.net"/>
-<link rel="shortcut icon" href=/favicon.ico type="image/x-icon"/>
-<link rel=apple-touch-icon-precomposed href="/images/favicon.png"/>
-<link rel=apple-touch-icon-precomposed sizes=57x57 href="/images/favicon-57x57.png"/>
-<link rel=apple-touch-icon-precomposed sizes=72x72 href="/images/favicon-72x72.png"/>
-<link rel=apple-touch-icon-precomposed sizes=76x76 href="/images/favicon-76x76.png"/>
-<link rel=apple-touch-icon-precomposed sizes=114x114 href="/images/favicon-114x114.png"/>
-<link rel=apple-touch-icon-precomposed sizes=120x120 href="/images/favicon-120x120.png"/>
-<link rel=apple-touch-icon-precomposed sizes=144x144 href="/images/favicon-144x144.png"/>
-<link rel=apple-touch-icon-precomposed sizes=152x152 href="/images/favicon-152x152.png"/>
-<link rel=apple-touch-icon-precomposed sizes=180x180 href="/images/favicon-180x180.png"/>
-<meta name=msapplication-TileColor content=#4582EC>
-<meta name=msapplication-TileImage content=/images/favicon-144x144.png>
-<meta name=theme-color content=#4582EC>
-<link rel=icon sizes=192x192 href="/images/favicon-192x192.png"/>
+<meta content="I wrote a PHP implementation of the polygon clipping algorithm by Sutherland-Hodgman. Available below, or from github.
+&lt;?php /** * Polygon Clipping * @author Andrew Brampton me &lt;at&gt; bramp …" name=description itemprop=description>
+<meta content="Andrew Brampton" name=author itemprop=creator>
+<meta content="" name=generator />
+<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
+<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
+<link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
+<link href=/images/favicon.png rel=apple-touch-icon-precomposed />
+<link href=/images/favicon-57x57.png rel=apple-touch-icon-precomposed sizes=57x57 />
+<link href=/images/favicon-72x72.png rel=apple-touch-icon-precomposed sizes=72x72 />
+<link href=/images/favicon-76x76.png rel=apple-touch-icon-precomposed sizes=76x76 />
+<link href=/images/favicon-114x114.png rel=apple-touch-icon-precomposed sizes=114x114 />
+<link href=/images/favicon-120x120.png rel=apple-touch-icon-precomposed sizes=120x120 />
+<link href=/images/favicon-144x144.png rel=apple-touch-icon-precomposed sizes=144x144 />
+<link href=/images/favicon-152x152.png rel=apple-touch-icon-precomposed sizes=152x152 />
+<link href=/images/favicon-180x180.png rel=apple-touch-icon-precomposed sizes=180x180 />
+<meta content=#4582EC name=msapplication-TileColor>
+<meta content=/images/favicon-144x144.png name=msapplication-TileImage>
+<meta content=#4582EC name=theme-color>
+<link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
 <link href=/css/all.min.css rel=stylesheet>
 <link href=https://fonts.gstatic.com rel=preconnect crossorigin>
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel=stylesheet type=text/css>
 <link href=https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css rel=stylesheet>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css>
-<meta name=twitter:card content="summary"/>
-<meta name=twitter:site content="@TheBramp"/>
-<meta name=twitter:creator content="@TheBramp"/>
-<meta property=og:type content="article"/>
-<meta property=article:author content="https://www.facebook.com/bramp"/>
-<meta property=article:published_time content="2011-11-26T00:00:00&#43;07:00"/>
-<meta property=article:tag content="algorithm"/>
-<meta property=article:tag content="clip"/>
-<meta property=article:tag content="PHP"/>
-<meta property=og:url content="https://blog.bramp.net/post/2011/11/26/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/"/>
-<meta property=og:site_name content="bramp.net"/>
-<meta property=og:title content="PHP Polygon Clipper using the Sutherland-Hodgman algorithm"/>
-<meta property=og:description content="I wrote a PHP implementation of the polygon clipping algorithm by Sutherland-Hodgman. Available below, or from github.
-&lt;?php /** * Polygon Clipping * @author Andrew Brampton me &lt;at&gt; bramp …"/>
-<meta property=og:updated_time content="2011-11-26T00:00:00&#43;00:00"/>
-<meta property=og:locale content="en_GB"/>
-<meta name=google-site-verification content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"/>
+<link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
+<meta content=summary name=twitter:card />
+<meta content=@TheBramp name=twitter:site />
+<meta content=@TheBramp name=twitter:creator />
+<meta content=article property=og:type />
+<meta content=https://www.facebook.com/bramp property=article:author />
+<meta content=2011-11-26T00:00:00&#43;07:00 property=article:published_time />
+<meta content=algorithm property=article:tag />
+<meta content=clip property=article:tag />
+<meta content=PHP property=article:tag />
+<meta content=https://blog.bramp.net/post/2011/11/26/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/ property=og:url />
+<meta content=bramp.net property=og:site_name />
+<meta content="PHP Polygon Clipper using the Sutherland-Hodgman algorithm" property=og:title />
+<meta content="I wrote a PHP implementation of the polygon clipping algorithm by Sutherland-Hodgman. Available below, or from github.
+&lt;?php /** * Polygon Clipping * @author Andrew Brampton me &lt;at&gt; bramp …" property=og:description />
+<meta content=2011-11-26T00:00:00&#43;00:00 property=og:updated_time />
+<meta content=en_GB property=og:locale />
+<meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
 </head>
 <body itemscope itemtype=Blog>
-<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-136478-5', 'auto');
     ga('require', 'linkid', 'linkid.js');
-    ga('send', 'pageview');</script>
+    ga('send', 'pageview');
+</script>
 <div id=wrapper>
 <div class="navbar navbar-default">
 <div class=container>
 <div class=navbar-header>
-<button type=button class=navbar-toggle data-toggle=collapse data-target=.navbar-collapse>
+<button class=navbar-toggle data-target=.navbar-collapse data-toggle=collapse type=button>
 <span class=sr-only>Toggle navigation</span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 </button>
 <div class=navbar-brand aria-label="About Andrew Brampton">
-<a href="/">
-<img src=/images/favicon-64x64.png class=profile-image alt=Home>
+<a href=/ >
+<img alt=Home class=profile-image src=/images/favicon-64x64.png>
 </a>
 <div itemprop=author itemscope itemtype=https://schema.org/Person>
-<a href="/about-me/" itemprop=name>Andrew Brampton</a>
+<a href=/about-me/ itemprop=name>Andrew Brampton</a>
 <div id=social-wrapper>
 <a href=https://twitter.com/TheBramp aria-label=Twitter><i class="fa fa-twitter-square"></i></a>
 <a href=https://www.linkedin.com/in/bramp aria-label=LinkedIn><i class="fa fa-linkedin-square"></i></a>
@@ -83,13 +85,13 @@
 </div>
 </div>
 </div>
-<div class="navbar-collapse collapse">
+<div class="collapse navbar-collapse">
 <ul class="nav navbar-nav" role=navigation>
-<li><a href="/">Articles</a></li>
-<li><a href="/about-me/">About Me</a></li>
-<li><a href="/android-app/">Android Apps</a></li>
-<li><a href="/opensource/">Open Source</a></li>
-<li><a href="/publication/">Publications</a></li>
+<li><a href=/ >Articles</a></li>
+<li><a href=/about-me/ >About Me</a></li>
+<li><a href=/android-app/ >Android Apps</a></li>
+<li><a href=/opensource/ >Open Source</a></li>
+<li><a href=/publication/ >Publications</a></li>
 </ul>
 </div>
 </div>
@@ -99,230 +101,229 @@
 <h1 itemprop=headline>PHP Polygon Clipper using the Sutherland-Hodgman algorithm</h1>
 <p class=meta>
 <i class="fa fa-calendar-o"></i> <time itemprop=datePublished>2011-11-26</time>
-| <a href="https://blog.bramp.net/tags/algorithm/">algorithm</a>
-| <a href="https://blog.bramp.net/tags/clip/">clip</a>
-| <a href="https://blog.bramp.net/tags/php/">PHP</a>
+| <a href=https://blog.bramp.net/tags/algorithm/ >algorithm</a>
+| <a href=https://blog.bramp.net/tags/clip/ >clip</a>
+| <a href=https://blog.bramp.net/tags/php/ >PHP</a>
 </p>
 <div class=post itemprop=articleBody>
 <p>I wrote a PHP implementation of the polygon clipping algorithm by Sutherland-Hodgman. Available below, or from <a href=https://gist.github.com/bramp/1396058#file-clip-class-php>github</a>.</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=s17d4>&lt;?php</span>
-<span class=sc23>/**
-</span><span class=sc23> * Polygon Clipping
-</span><span class=sc23> * @author Andrew Brampton me &lt;at&gt; bramp &lt;dot&gt; net
-</span><span class=sc23> * @url http://bramp.net/blog/2011/11/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/
-</span><span class=sc23> *
-</span><span class=sc23> * Based on the Sutherland-Hodgman algorithm (1974).
-</span><span class=sc23> * http://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm
-</span><span class=sc23> *
-</span><span class=sc23> * This approache assumes four clip edges (the bounding box).
-</span><span class=sc23> * The original algorithm iterated though each clip edge, and then each point. Instead
-</span><span class=sc23> * we iterate each point, and then clip edge. This reduces the memory usage. TODO Measure if that is useful!
-</span><span class=sc23> *
-</span><span class=sc23> * Usage:
-</span><span class=sc23> *   require(&#39;clip.class.php&#39;);
-</span><span class=sc23> * 
-</span><span class=sc23> *   // Create a cliper with bounds defined by the points (x1, y1)-(x2,y2);
-</span><span class=sc23> *   $clip = new SutherlandHodgman($x1, $y1, $x2, $y2);
-</span><span class=sc23> * 
-</span><span class=sc23> *   // Create array of 2 tuple coordinates
-</span><span class=sc23> *   $points = { {x1, y1}, {x2, y2} ... {xN, yN} }&#39;
-</span><span class=sc23> *
-</span><span class=sc23> *   // Clip! The resulting array will only have points within the bounds
-</span><span class=sc23> *   $points = $clip-&gt;clip($points);
-</span><span class=sc23> *
-</span><span class=sc23> */</span>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=cp>&lt;?php</span>
+<span class=sd>/**
+</span><span class=sd> * Polygon Clipping
+</span><span class=sd> * @author Andrew Brampton me &lt;at&gt; bramp &lt;dot&gt; net
+</span><span class=sd> * @url http://bramp.net/blog/2011/11/php-polygon-clipper-using-the-sutherland-hodgman-algorithm/
+</span><span class=sd> *
+</span><span class=sd> * Based on the Sutherland-Hodgman algorithm (1974).
+</span><span class=sd> * http://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm
+</span><span class=sd> *
+</span><span class=sd> * This approache assumes four clip edges (the bounding box).
+</span><span class=sd> * The original algorithm iterated though each clip edge, and then each point. Instead
+</span><span class=sd> * we iterate each point, and then clip edge. This reduces the memory usage. TODO Measure if that is useful!
+</span><span class=sd> *
+</span><span class=sd> * Usage:
+</span><span class=sd> *   require(&#39;clip.class.php&#39;);
+</span><span class=sd> * 
+</span><span class=sd> *   // Create a cliper with bounds defined by the points (x1, y1)-(x2,y2);
+</span><span class=sd> *   $clip = new SutherlandHodgman($x1, $y1, $x2, $y2);
+</span><span class=sd> * 
+</span><span class=sd> *   // Create array of 2 tuple coordinates
+</span><span class=sd> *   $points = { {x1, y1}, {x2, y2} ... {xN, yN} }&#39;
+</span><span class=sd> *
+</span><span class=sd> *   // Clip! The resulting array will only have points within the bounds
+</span><span class=sd> *   $points = $clip-&gt;clip($points);
+</span><span class=sd> *
+</span><span class=sd> */</span>
 
-<span class=s3e8>abstract</span> <span class=s3e8>class</span> <span class=s7d4>Edge</span> {
+<span class=k>abstract</span> <span class=k>class</span> <span class=nc>Edge</span> <span class=p>{</span>
 
-	<span class=s3e8>var</span> <span class=s7e3>$bound</span>;
+	<span class=k>var</span> <span class=nv>$bound</span><span class=p>;</span>
 
-	<span class=s3e8>function</span> <span class=sfa0></span>__construct(<span class=s7e3>$bound</span>) {
-		<span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span> <span class=sfa0>=</span> <span class=s7e3>$bound</span>;
-	}
+	<span class=k>function</span> <span class=o></span><span class=fm>__construct</span><span class=p>(</span><span class=nv>$bound</span><span class=p>)</span> <span class=p>{</span>
+		<span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span> <span class=o>=</span> <span class=nv>$bound</span><span class=p>;</span>
+	<span class=p>}</span>
 
-	<span class=sc23>/**
-</span><span class=sc23>	 * Is point $p inside the bounds. Techinically is it on the inside
-</span><span class=sc23>	 * of the infinite edge defined by $bound
-</span><span class=sc23>	 *
-</span><span class=sc23>	 * @param point $p
-</span><span class=sc23>	 */</span>
-	<span class=s3e8>abstract</span> <span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>inside</span>(<span class=s7e3>$p</span>);
+	<span class=sd>/**
+</span><span class=sd>	 * Is point $p inside the bounds. Techinically is it on the inside
+</span><span class=sd>	 * of the infinite edge defined by $bound
+</span><span class=sd>	 *
+</span><span class=sd>	 * @param point $p
+</span><span class=sd>	 */</span>
+	<span class=k>abstract</span> <span class=k>function</span> <span class=o></span><span class=nf>inside</span><span class=p>(</span><span class=nv>$p</span><span class=p>);</span>
 
-	<span class=sc23>/**
-</span><span class=sc23>	 * Finds the intersection with the bounds, on the line p1-p2
-</span><span class=sc23>	 *
-</span><span class=sc23>	 * @param point $p1 The point inside the bounds
-</span><span class=sc23>	 * @param point $p2 The point outside the bounds
-</span><span class=sc23>	 */</span>
-	<span class=s3e8>abstract</span> <span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>intersect</span>(<span class=s7e3>$p1</span>, <span class=s7e3>$p2</span>);
-}
+	<span class=sd>/**
+</span><span class=sd>	 * Finds the intersection with the bounds, on the line p1-p2
+</span><span class=sd>	 *
+</span><span class=sd>	 * @param point $p1 The point inside the bounds
+</span><span class=sd>	 * @param point $p2 The point outside the bounds
+</span><span class=sd>	 */</span>
+	<span class=k>abstract</span> <span class=k>function</span> <span class=o></span><span class=nf>intersect</span><span class=p>(</span><span class=nv>$p1</span><span class=p>,</span> <span class=nv>$p2</span><span class=p>);</span>
+<span class=p>}</span>
 
-<span class=s3e8>abstract</span> <span class=s3e8>class</span> <span class=s7d4>HorzEdge</span> <span class=s3e8>extends</span> Edge {
+<span class=k>abstract</span> <span class=k>class</span> <span class=nc>HorzEdge</span> <span class=k>extends</span> <span class=nx>Edge</span> <span class=p>{</span>
 
-	<span class=sc23>/**
-</span><span class=sc23>	 * Returns the point at which the line $p1-$p2 hits the horz boundary
-</span><span class=sc23>	 *
-</span><span class=sc23>	 * @param point $p1
-</span><span class=sc23>	 * @param point $p2
-</span><span class=sc23>	 *
-</span><span class=sc23>	 * @return point
-</span><span class=sc23>	 */</span>
-	<span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>intersect</span>(<span class=s7e3>$p1</span>, <span class=s7e3>$p2</span>) {
-		<span class=s7e3>$dY</span> <span class=sfa0>=</span> <span class=s7e3>$p2</span>[<span class=sc80>1</span>] <span class=sfa0>-</span> <span class=s7e3>$p1</span>[<span class=sc80>1</span>];
+	<span class=sd>/**
+</span><span class=sd>	 * Returns the point at which the line $p1-$p2 hits the horz boundary
+</span><span class=sd>	 *
+</span><span class=sd>	 * @param point $p1
+</span><span class=sd>	 * @param point $p2
+</span><span class=sd>	 *
+</span><span class=sd>	 * @return point
+</span><span class=sd>	 */</span>
+	<span class=k>function</span> <span class=o></span><span class=nf>intersect</span><span class=p>(</span><span class=nv>$p1</span><span class=p>,</span> <span class=nv>$p2</span><span class=p>)</span> <span class=p>{</span>
+		<span class=nv>$dY</span> <span class=o>=</span> <span class=nv>$p2</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>-</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>1</span><span class=p>];</span>
 
-		<span class=s3e8>if</span> (<span class=s7e3>$dY</span> <span class=sfa0>==</span> <span class=sc80>0</span>)
-			<span class=s3e8>return</span> <span class=s3e8>array</span>(<span class=s7e3>$p1</span>[<span class=sc80>0</span>], <span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span>);
+		<span class=k>if</span> <span class=p>(</span><span class=nv>$dY</span> <span class=o>==</span> <span class=mi>0</span><span class=p>)</span>
+			<span class=k>return</span> <span class=k>array</span><span class=p>(</span><span class=nv>$p1</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span><span class=p>);</span>
 
-		<span class=s7e3>$dX</span> <span class=sfa0>=</span> <span class=s7e3>$p2</span>[<span class=sc80>0</span>] <span class=sfa0>-</span> <span class=s7e3>$p1</span>[<span class=sc80>0</span>];
-		<span class=s7e3>$dY2</span> <span class=sfa0>=</span> (<span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span> <span class=sfa0>-</span> <span class=s7e3>$p1</span>[<span class=sc80>1</span>]);
+		<span class=nv>$dX</span> <span class=o>=</span> <span class=nv>$p2</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>-</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>0</span><span class=p>];</span>
+		<span class=nv>$dY2</span> <span class=o>=</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span> <span class=o>-</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>1</span><span class=p>]);</span>
 
-		<span class=s3e8>return</span> <span class=s3e8>array</span>((<span class=s7e3>$dY2</span> <span class=sfa0>/</span> <span class=s7e3>$dY</span>) <span class=sfa0>*</span> <span class=s7e3>$dX</span> <span class=sfa0>+</span> <span class=s7e3>$p1</span>[<span class=sc80>0</span>], <span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span>);
-	}
-}
+		<span class=k>return</span> <span class=k>array</span><span class=p>((</span><span class=nv>$dY2</span> <span class=o>/</span> <span class=nv>$dY</span><span class=p>)</span> <span class=o>*</span> <span class=nv>$dX</span> <span class=o>+</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span><span class=p>);</span>
+	<span class=p>}</span>
+<span class=p>}</span>
 
-<span class=s3e8>abstract</span> <span class=s3e8>class</span> <span class=s7d4>VertEdge</span> <span class=s3e8>extends</span> Edge {
+<span class=k>abstract</span> <span class=k>class</span> <span class=nc>VertEdge</span> <span class=k>extends</span> <span class=nx>Edge</span> <span class=p>{</span>
 
-	<span class=sc23>/**
-</span><span class=sc23>	* Returns the point at which the line $p1-$p2 hits the vertical boundary
-</span><span class=sc23>	*
-</span><span class=sc23>	* @param point $p1
-</span><span class=sc23>	* @param point $p2
-</span><span class=sc23>	*
-</span><span class=sc23>	* @return point
-</span><span class=sc23>	*/</span>
-	<span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>intersect</span>(<span class=s7e3>$p1</span>, <span class=s7e3>$p2</span>) {
-		<span class=s7e3>$dX</span> <span class=sfa0>=</span> <span class=s7e3>$p2</span>[<span class=sc80>0</span>] <span class=sfa0>-</span> <span class=s7e3>$p1</span>[<span class=sc80>0</span>];
+	<span class=sd>/**
+</span><span class=sd>	* Returns the point at which the line $p1-$p2 hits the vertical boundary
+</span><span class=sd>	*
+</span><span class=sd>	* @param point $p1
+</span><span class=sd>	* @param point $p2
+</span><span class=sd>	*
+</span><span class=sd>	* @return point
+</span><span class=sd>	*/</span>
+	<span class=k>function</span> <span class=o></span><span class=nf>intersect</span><span class=p>(</span><span class=nv>$p1</span><span class=p>,</span> <span class=nv>$p2</span><span class=p>)</span> <span class=p>{</span>
+		<span class=nv>$dX</span> <span class=o>=</span> <span class=nv>$p2</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>-</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>0</span><span class=p>];</span>
 
-		<span class=s3e8>if</span> (<span class=s7e3>$dX</span> <span class=sfa0>==</span> <span class=sc80>0</span>)
-			<span class=s3e8>return</span> <span class=s3e8>array</span>(<span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span>, <span class=s7e3>$p1</span>[<span class=sc80>1</span>]);
+		<span class=k>if</span> <span class=p>(</span><span class=nv>$dX</span> <span class=o>==</span> <span class=mi>0</span><span class=p>)</span>
+			<span class=k>return</span> <span class=k>array</span><span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span><span class=p>,</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>1</span><span class=p>]);</span>
 
-		<span class=s7e3>$dY</span> <span class=sfa0>=</span> <span class=s7e3>$p2</span>[<span class=sc80>1</span>] <span class=sfa0>-</span> <span class=s7e3>$p1</span>[<span class=sc80>1</span>];
-		<span class=s7e3>$dX2</span> <span class=sfa0>=</span> (<span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span> <span class=sfa0>-</span> <span class=s7e3>$p1</span>[<span class=sc80>0</span>]);
+		<span class=nv>$dY</span> <span class=o>=</span> <span class=nv>$p2</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>-</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>1</span><span class=p>];</span>
+		<span class=nv>$dX2</span> <span class=o>=</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span> <span class=o>-</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>0</span><span class=p>]);</span>
 
-		<span class=s3e8>return</span> <span class=s3e8>array</span>(<span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span>, (<span class=s7e3>$dX2</span> <span class=sfa0>/</span> <span class=s7e3>$dX</span>) <span class=sfa0>*</span> <span class=s7e3>$dY</span> <span class=sfa0>+</span> <span class=s7e3>$p1</span>[<span class=sc80>1</span>]);
-	}
-}
+		<span class=k>return</span> <span class=k>array</span><span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span><span class=p>,</span> <span class=p>(</span><span class=nv>$dX2</span> <span class=o>/</span> <span class=nv>$dX</span><span class=p>)</span> <span class=o>*</span> <span class=nv>$dY</span> <span class=o>+</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>1</span><span class=p>]);</span>
+	<span class=p>}</span>
+<span class=p>}</span>
 
-<span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>intersect</span>(<span class=s7e3>$p1</span>, <span class=s7e3>$p2</span>) {
-	<span class=s7e3>$dX</span> <span class=sfa0>=</span> <span class=s7e3>$p2</span>[<span class=sc80>0</span>] <span class=sfa0>-</span> <span class=s7e3>$p1</span>[<span class=sc80>0</span>];
-	<span class=s7e3>$dY</span> <span class=sfa0>=</span> <span class=s7e3>$p2</span>[<span class=sc80>1</span>] <span class=sfa0>-</span> <span class=s7e3>$p1</span>[<span class=sc80>1</span>];
-}
+<span class=k>function</span> <span class=o></span><span class=nf>intersect</span><span class=p>(</span><span class=nv>$p1</span><span class=p>,</span> <span class=nv>$p2</span><span class=p>)</span> <span class=p>{</span>
+	<span class=nv>$dX</span> <span class=o>=</span> <span class=nv>$p2</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>-</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>0</span><span class=p>];</span>
+	<span class=nv>$dY</span> <span class=o>=</span> <span class=nv>$p2</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>-</span> <span class=nv>$p1</span><span class=p>[</span><span class=mi>1</span><span class=p>];</span>
+<span class=p>}</span>
 
-<span class=s3e8>class</span> <span class=s7d4>RightEdge</span> <span class=s3e8>extends</span> VertEdge {
-	<span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>inside</span>(<span class=s7e3>$p</span>) {
-		<span class=s3e8>return</span> <span class=s7e3>$p</span>[<span class=sc80>0</span>] <span class=sfa0>&lt;</span> <span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span>; <span class=s1770>//X
-</span><span class=s1770></span>	}
-}
+<span class=k>class</span> <span class=nc>RightEdge</span> <span class=k>extends</span> <span class=nx>VertEdge</span> <span class=p>{</span>
+	<span class=k>function</span> <span class=o></span><span class=nf>inside</span><span class=p>(</span><span class=nv>$p</span><span class=p>)</span> <span class=p>{</span>
+		<span class=k>return</span> <span class=nv>$p</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span><span class=p>;</span> <span class=c1>//X
+</span><span class=c1></span>	<span class=p>}</span>
+<span class=p>}</span>
 
-<span class=s3e8>class</span> <span class=s7d4>LeftEdge</span> <span class=s3e8>extends</span> VertEdge {
-	<span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>inside</span>(<span class=s7e3>$p</span>) {
-		<span class=s3e8>return</span> <span class=s7e3>$p</span>[<span class=sc80>0</span>] <span class=sfa0>&gt;=</span> <span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span>; <span class=s1770>//X
-</span><span class=s1770></span>	}
-}
+<span class=k>class</span> <span class=nc>LeftEdge</span> <span class=k>extends</span> <span class=nx>VertEdge</span> <span class=p>{</span>
+	<span class=k>function</span> <span class=o></span><span class=nf>inside</span><span class=p>(</span><span class=nv>$p</span><span class=p>)</span> <span class=p>{</span>
+		<span class=k>return</span> <span class=nv>$p</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&gt;=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span><span class=p>;</span> <span class=c1>//X
+</span><span class=c1></span>	<span class=p>}</span>
+<span class=p>}</span>
 
-<span class=s3e8>class</span> <span class=s7d4>TopEdge</span> <span class=s3e8>extends</span> HorzEdge {
-	<span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>inside</span>(<span class=s7e3>$p</span>) {
-		<span class=s3e8>return</span> <span class=s7e3>$p</span>[<span class=sc80>1</span>] <span class=sfa0>&gt;=</span> <span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span>; <span class=s1770>//Y
-</span><span class=s1770></span>	}
-}
+<span class=k>class</span> <span class=nc>TopEdge</span> <span class=k>extends</span> <span class=nx>HorzEdge</span> <span class=p>{</span>
+	<span class=k>function</span> <span class=o></span><span class=nf>inside</span><span class=p>(</span><span class=nv>$p</span><span class=p>)</span> <span class=p>{</span>
+		<span class=k>return</span> <span class=nv>$p</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>&gt;=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span><span class=p>;</span> <span class=c1>//Y
+</span><span class=c1></span>	<span class=p>}</span>
+<span class=p>}</span>
 
-<span class=s3e8>class</span> <span class=s7d4>BottomEdge</span> <span class=s3e8>extends</span> HorzEdge {
-	<span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>inside</span>(<span class=s7e3>$p</span>) {
-		<span class=s3e8>return</span> <span class=s7e3>$p</span>[<span class=sc80>1</span>] <span class=sfa0>&lt;</span> <span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>bound</span>; <span class=s1770>//Y
-</span><span class=s1770></span>	}
-}
+<span class=k>class</span> <span class=nc>BottomEdge</span> <span class=k>extends</span> <span class=nx>HorzEdge</span> <span class=p>{</span>
+	<span class=k>function</span> <span class=o></span><span class=nf>inside</span><span class=p>(</span><span class=nv>$p</span><span class=p>)</span> <span class=p>{</span>
+		<span class=k>return</span> <span class=nv>$p</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>&lt;</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bound</span><span class=p>;</span> <span class=c1>//Y
+</span><span class=c1></span>	<span class=p>}</span>
+<span class=p>}</span>
 
-<span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>check_point</span>(<span class=s7e3>$p</span>, <span class=s7e3>$msg</span>) {
-	<span class=s3e8>if</span> (<span class=s7e3>$p</span>[<span class=sc80>0</span>] <span class=sfa0>&lt;</span> <span class=sfa0>-</span><span class=sc80>180</span> <span class=sfa0>||</span> <span class=s7e3>$p</span>[<span class=sc80>0</span>] <span class=sfa0>&gt;</span> <span class=sc80>180</span> <span class=sfa0>||</span> <span class=s7e3>$p</span>[<span class=sc80>1</span>] <span class=sfa0>&lt;</span> <span class=sfa0>-</span><span class=sc80>90</span> <span class=sfa0>||</span> <span class=s7e3>$p</span>[<span class=sc80>1</span>] <span class=sfa0>&gt;</span> <span class=sc80>90</span>) {
-		var_dump(<span class=s7e3>$p</span>);
-		var_dump(debug_backtrace());
-		<span class=s3e8>die</span>(<span class=sc1c>&#34;Something went wrong! </span><span class=sc27>$msg</span><span class=sc1c>&#34;</span>);
-	}
-}
+<span class=k>function</span> <span class=o></span><span class=nf>check_point</span><span class=p>(</span><span class=nv>$p</span><span class=p>,</span> <span class=nv>$msg</span><span class=p>)</span> <span class=p>{</span>
+	<span class=k>if</span> <span class=p>(</span><span class=nv>$p</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&lt;</span> <span class=o>-</span><span class=mi>180</span> <span class=o>||</span> <span class=nv>$p</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>&gt;</span> <span class=mi>180</span> <span class=o>||</span> <span class=nv>$p</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>&lt;</span> <span class=o>-</span><span class=mi>90</span> <span class=o>||</span> <span class=nv>$p</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>&gt;</span> <span class=mi>90</span><span class=p>)</span> <span class=p>{</span>
+		<span class=nx>var_dump</span><span class=p>(</span><span class=nv>$p</span><span class=p>);</span>
+		<span class=nx>var_dump</span><span class=p>(</span><span class=nx>debug_backtrace</span><span class=p>());</span>
+		<span class=k>die</span><span class=p>(</span><span class=s2>&#34;Something went wrong! </span><span class=si>$msg</span><span class=s2>&#34;</span><span class=p>);</span>
+	<span class=p>}</span>
+<span class=p>}</span>
 
-<span class=s3e8>class</span> <span class=s7d4>SutherlandHodgman</span> {
+<span class=k>class</span> <span class=nc>SutherlandHodgman</span> <span class=p>{</span>
 
-	<span class=s3e8>var</span> <span class=s7e3>$edges</span>;
+	<span class=k>var</span> <span class=nv>$edges</span><span class=p>;</span>
 
-	<span class=sc23>/**
-</span><span class=sc23>	 * Construct with the bounds of the clipped area
-</span><span class=sc23>	 *
-</span><span class=sc23>	 * @param unknown_type $x1
-</span><span class=sc23>	 * @param unknown_type $y1
-</span><span class=sc23>	 * @param unknown_type $x2
-</span><span class=sc23>	 * @param unknown_type $y2
-</span><span class=sc23>	 */</span>
-	<span class=s3e8>function</span> <span class=sfa0></span>__construct(<span class=s7e3>$x1</span>, <span class=s7e3>$y1</span>, <span class=s7e3>$x2</span>, <span class=s7e3>$y2</span>) {
-		assert(<span class=s7e3>$x1</span> <span class=sfa0>&lt;</span> <span class=s7e3>$x2</span>);
-		assert(<span class=s7e3>$y1</span> <span class=sfa0>&lt;</span> <span class=s7e3>$y2</span>);
+	<span class=sd>/**
+</span><span class=sd>	 * Construct with the bounds of the clipped area
+</span><span class=sd>	 *
+</span><span class=sd>	 * @param unknown_type $x1
+</span><span class=sd>	 * @param unknown_type $y1
+</span><span class=sd>	 * @param unknown_type $x2
+</span><span class=sd>	 * @param unknown_type $y2
+</span><span class=sd>	 */</span>
+	<span class=k>function</span> <span class=o></span><span class=fm>__construct</span><span class=p>(</span><span class=nv>$x1</span><span class=p>,</span> <span class=nv>$y1</span><span class=p>,</span> <span class=nv>$x2</span><span class=p>,</span> <span class=nv>$y2</span><span class=p>)</span> <span class=p>{</span>
+		<span class=nx>assert</span><span class=p>(</span><span class=nv>$x1</span> <span class=o>&lt;</span> <span class=nv>$x2</span><span class=p>);</span>
+		<span class=nx>assert</span><span class=p>(</span><span class=nv>$y1</span> <span class=o>&lt;</span> <span class=nv>$y2</span><span class=p>);</span>
 
-		<span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>edges</span> <span class=sfa0>=</span> <span class=s3e8>array</span>(
-			<span class=s3e8>new</span> RightEdge(<span class=s7e3>$x2</span>),
-			<span class=s3e8>new</span> TopEdge(<span class=s7e3>$y1</span>),
-			<span class=s3e8>new</span> LeftEdge(<span class=s7e3>$x1</span>),
-			<span class=s3e8>new</span> BottomEdge(<span class=s7e3>$y2</span>)
-		);
-	}
+		<span class=nv>$this</span><span class=o>-&gt;</span><span class=na>edges</span> <span class=o>=</span> <span class=k>array</span><span class=p>(</span>
+			<span class=k>new</span> <span class=nx>RightEdge</span><span class=p>(</span><span class=nv>$x2</span><span class=p>),</span>
+			<span class=k>new</span> <span class=nx>TopEdge</span><span class=p>(</span><span class=nv>$y1</span><span class=p>),</span>
+			<span class=k>new</span> <span class=nx>LeftEdge</span><span class=p>(</span><span class=nv>$x1</span><span class=p>),</span>
+			<span class=k>new</span> <span class=nx>BottomEdge</span><span class=p>(</span><span class=nv>$y2</span><span class=p>)</span>
+		<span class=p>);</span>
+	<span class=p>}</span>
 
-	<span class=sc23>/**
-</span><span class=sc23>	 * Clip the array of (x,y) coords to the bounds
-</span><span class=sc23>	 * specified in the constructor
-</span><span class=sc23>	 *
-</span><span class=sc23>	 * @param array $points
-</span><span class=sc23>	 */</span>
-	<span class=s3e8>function</span> <span class=sfa0></span><span class=s7d9>clip</span>(<span class=s7e3>$points</span>) {
+	<span class=sd>/**
+</span><span class=sd>	 * Clip the array of (x,y) coords to the bounds
+</span><span class=sd>	 * specified in the constructor
+</span><span class=sd>	 *
+</span><span class=sd>	 * @param array $points
+</span><span class=sd>	 */</span>
+	<span class=k>function</span> <span class=o></span><span class=nf>clip</span><span class=p>(</span><span class=nv>$points</span><span class=p>)</span> <span class=p>{</span>
 
-		<span class=s3e8>if</span> (count(<span class=s7e3>$points</span>) <span class=sfa0>&lt;</span> <span class=sc80>3</span>)
-			<span class=s3e8>throw</span> <span class=sc1c>&#34;Clip requires a polygon of three points or more&#34;</span>;
+		<span class=k>if</span> <span class=p>(</span><span class=nx>count</span><span class=p>(</span><span class=nv>$points</span><span class=p>)</span> <span class=o>&lt;</span> <span class=mi>3</span><span class=p>)</span>
+			<span class=k>throw</span> <span class=s2>&#34;Clip requires a polygon of three points or more&#34;</span><span class=p>;</span>
 
-		<span class=s3e8>foreach</span> (<span class=s7e3>$this</span><span class=sfa0>-&gt;</span><span class=s7d1>edges</span> <span class=s3e8>as</span> <span class=s7e3>$edge</span>) {
-			<span class=s7e3>$output</span> <span class=sfa0>=</span> <span class=s3e8>array</span>();
+		<span class=k>foreach</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>edges</span> <span class=k>as</span> <span class=nv>$edge</span><span class=p>)</span> <span class=p>{</span>
+			<span class=nv>$output</span> <span class=o>=</span> <span class=k>array</span><span class=p>();</span>
 
-			<span class=s3e8>if</span> (<span class=s3e8>empty</span>(<span class=s7e3>$points</span>))
-				<span class=s3e8>return</span> <span class=s7e3>$points</span>;
+			<span class=k>if</span> <span class=p>(</span><span class=k>empty</span><span class=p>(</span><span class=nv>$points</span><span class=p>))</span>
+				<span class=k>return</span> <span class=nv>$points</span><span class=p>;</span>
 
-			<span class=s7e3>$previous</span> <span class=sfa0>=</span> <span class=s7e3>$points</span>[<span class=sc80>0</span>];
-			<span class=s7e3>$previousInside</span> <span class=sfa0>=</span> <span class=s7e3>$edge</span><span class=sfa0>-&gt;</span><span class=s7d1>inside</span>(<span class=s7e3>$previous</span>);
+			<span class=nv>$previous</span> <span class=o>=</span> <span class=nv>$points</span><span class=p>[</span><span class=mi>0</span><span class=p>];</span>
+			<span class=nv>$previousInside</span> <span class=o>=</span> <span class=nv>$edge</span><span class=o>-&gt;</span><span class=na>inside</span><span class=p>(</span><span class=nv>$previous</span><span class=p>);</span>
 
-			<span class=s1770>// Add the first onto the end so it eventually gets processed
-</span><span class=s1770></span>			<span class=s7e3>$points_count</span> <span class=sfa0>=</span> count(<span class=s7e3>$points</span>);
-			<span class=s3e8>if</span> (<span class=s7e3>$points</span>[<span class=s7e3>$points_count</span> <span class=sfa0>-</span> <span class=sc80>1</span>] <span class=sfa0>!==</span> <span class=s7e3>$points</span>[<span class=sc80>0</span>]) {
-				<span class=s7e3>$points</span>[] <span class=sfa0>=</span> <span class=s7e3>$points</span>[<span class=sc80>0</span>];
-				<span class=s7e3>$points_count</span><span class=sfa0>++</span>;
-			}
+			<span class=c1>// Add the first onto the end so it eventually gets processed
+</span><span class=c1></span>			<span class=nv>$points_count</span> <span class=o>=</span> <span class=nx>count</span><span class=p>(</span><span class=nv>$points</span><span class=p>);</span>
+			<span class=k>if</span> <span class=p>(</span><span class=nv>$points</span><span class=p>[</span><span class=nv>$points_count</span> <span class=o>-</span> <span class=mi>1</span><span class=p>]</span> <span class=o>!==</span> <span class=nv>$points</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span> <span class=p>{</span>
+				<span class=nv>$points</span><span class=p>[]</span> <span class=o>=</span> <span class=nv>$points</span><span class=p>[</span><span class=mi>0</span><span class=p>];</span>
+				<span class=nv>$points_count</span><span class=o>++</span><span class=p>;</span>
+			<span class=p>}</span>
 
-			<span class=s3e8>for</span> (<span class=s7e3>$i</span> <span class=sfa0>=</span> <span class=sc80>1</span>; <span class=s7e3>$i</span> <span class=sfa0>&lt;</span> <span class=s7e3>$points_count</span>; <span class=s7e3>$i</span><span class=sfa0>++</span>) {
-				<span class=s7e3>$point</span> <span class=sfa0>=</span> <span class=s7e3>$points</span>[<span class=s7e3>$i</span>];
+			<span class=k>for</span> <span class=p>(</span><span class=nv>$i</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span> <span class=nv>$i</span> <span class=o>&lt;</span> <span class=nv>$points_count</span><span class=p>;</span> <span class=nv>$i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+				<span class=nv>$point</span> <span class=o>=</span> <span class=nv>$points</span><span class=p>[</span><span class=nv>$i</span><span class=p>];</span>
 
-				assert(is_array(<span class=s7e3>$point</span>));
-				assert(count(<span class=s7e3>$point</span>) <span class=sfa0>==</span> <span class=sc80>2</span>);
+				<span class=nx>assert</span><span class=p>(</span><span class=nx>is_array</span><span class=p>(</span><span class=nv>$point</span><span class=p>));</span>
+				<span class=nx>assert</span><span class=p>(</span><span class=nx>count</span><span class=p>(</span><span class=nv>$point</span><span class=p>)</span> <span class=o>==</span> <span class=mi>2</span><span class=p>);</span>
 
-				<span class=s7e3>$inside</span> <span class=sfa0>=</span> <span class=s7e3>$edge</span><span class=sfa0>-&gt;</span><span class=s7d1>inside</span>(<span class=s7e3>$point</span>);
+				<span class=nv>$inside</span> <span class=o>=</span> <span class=nv>$edge</span><span class=o>-&gt;</span><span class=na>inside</span><span class=p>(</span><span class=nv>$point</span><span class=p>);</span>
 
-				<span class=s3e8>if</span> (<span class=s7e3>$inside</span>) {
-					<span class=s3e8>if</span> (<span class=sfa0>!</span><span class=s7e3>$previousInside</span>) {
-						assert(<span class=sfa0>!</span><span class=s7e3>$edge</span><span class=sfa0>-&gt;</span><span class=s7d1>inside</span>(<span class=s7e3>$previous</span>));
-						<span class=s7e3>$output</span>[] <span class=sfa0>=</span> <span class=s7e3>$edge</span><span class=sfa0>-&gt;</span><span class=s7d1>intersect</span>(<span class=s7e3>$point</span>, <span class=s7e3>$previous</span>);
-					}
+				<span class=k>if</span> <span class=p>(</span><span class=nv>$inside</span><span class=p>)</span> <span class=p>{</span>
+					<span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nv>$previousInside</span><span class=p>)</span> <span class=p>{</span>
+						<span class=nx>assert</span><span class=p>(</span><span class=o>!</span><span class=nv>$edge</span><span class=o>-&gt;</span><span class=na>inside</span><span class=p>(</span><span class=nv>$previous</span><span class=p>));</span>
+						<span class=nv>$output</span><span class=p>[]</span> <span class=o>=</span> <span class=nv>$edge</span><span class=o>-&gt;</span><span class=na>intersect</span><span class=p>(</span><span class=nv>$point</span><span class=p>,</span> <span class=nv>$previous</span><span class=p>);</span>
+					<span class=p>}</span>
 
-					<span class=s7e3>$output</span>[] <span class=sfa0>=</span> <span class=s7e3>$point</span>;
+					<span class=nv>$output</span><span class=p>[]</span> <span class=o>=</span> <span class=nv>$point</span><span class=p>;</span>
 
-				} <span class=s3e8>else</span> <span class=s3e8>if</span> (<span class=s7e3>$previousInside</span>) {
-					assert(<span class=s7e3>$edge</span><span class=sfa0>-&gt;</span><span class=s7d1>inside</span>(<span class=s7e3>$previous</span>));
-					<span class=s7e3>$output</span>[] <span class=sfa0>=</span> <span class=s7e3>$edge</span><span class=sfa0>-&gt;</span><span class=s7d1>intersect</span>(<span class=s7e3>$previous</span>, <span class=s7e3>$point</span>);
-				}
+				<span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=nv>$previousInside</span><span class=p>)</span> <span class=p>{</span>
+					<span class=nx>assert</span><span class=p>(</span><span class=nv>$edge</span><span class=o>-&gt;</span><span class=na>inside</span><span class=p>(</span><span class=nv>$previous</span><span class=p>));</span>
+					<span class=nv>$output</span><span class=p>[]</span> <span class=o>=</span> <span class=nv>$edge</span><span class=o>-&gt;</span><span class=na>intersect</span><span class=p>(</span><span class=nv>$previous</span><span class=p>,</span> <span class=nv>$point</span><span class=p>);</span>
+				<span class=p>}</span>
 
-				<span class=s7e3>$previous</span> <span class=sfa0>=</span> <span class=s7e3>$point</span>;
-				<span class=s7e3>$previousInside</span> <span class=sfa0>=</span> <span class=s7e3>$inside</span>;
-			}
+				<span class=nv>$previous</span> <span class=o>=</span> <span class=nv>$point</span><span class=p>;</span>
+				<span class=nv>$previousInside</span> <span class=o>=</span> <span class=nv>$inside</span><span class=p>;</span>
+			<span class=p>}</span>
 
-			<span class=s7e3>$points</span> <span class=sfa0>=</span> <span class=s7e3>$output</span>;
-		}
+			<span class=nv>$points</span> <span class=o>=</span> <span class=nv>$output</span><span class=p>;</span>
+		<span class=p>}</span>
 
-		<span class=s3e8>return</span> <span class=s7e3>$output</span>;
-	}
-}</code></pre>
-</div>
+		<span class=k>return</span> <span class=nv>$output</span><span class=p>;</span>
+	<span class=p>}</span>
+<span class=p>}</span></code></pre></div>
 </div>
 </article>
 <div class=row>
@@ -332,21 +333,22 @@
 <div class=col-sm-6>
 <div class=btn-toolbar>
 <div class=btn-group>
-<a class="btn btn-sm btn-soundcloud" href=https://feeds.feedburner.com/brampnet aria-label="RSS feed">
+<a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed" class="btn btn-sm btn-soundcloud">
 <i class="fa fa-rss-square"></i> Subscribe via RSS</a>
 </div>
 <div class=btn-group>
-<a class="btn btn-sm btn-twitter" href=https://twitter.com/TheBramp><i class="fa fa-twitter"></i> Follow @TheBramp</a>
+<a href=https://twitter.com/TheBramp class="btn btn-sm btn-twitter"><i class="fa fa-twitter"></i> Follow @TheBramp</a>
 </div>
 </div>
 </div>
 </div>
 <ul class=pager>
-&nbsp;<li class=previous><a href="/post/2011/11/22/building-phps-debian-package-nightmare/">&larr; Building PHP’s Debian package nightmare</a></li>
-&nbsp;<li class=next><a href="/post/2012/01/14/avoid-bloat-freezer-free/"> Avoid Bloat Freezer Free &rarr;</a></li>
+&nbsp;<li class=previous><a href=/post/2011/11/22/building-phps-debian-package-nightmare/ >&larr; Building PHP’s Debian package nightmare</a></li>
+&nbsp;<li class=next><a href=/post/2012/01/14/avoid-bloat-freezer-free/ >Avoid Bloat Freezer Free &rarr;</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
-<script type=text/javascript>var disqus_shortname = 'bramp';
+<script type=text/javascript>
+var disqus_shortname = 'bramp';
     var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2011\/11\/26\/php-polygon-clipper-using-the-sutherland-hodgman-algorithm\/';
     var disqus_title = 'PHP Polygon Clipper using the Sutherland-Hodgman algorithm';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2011\/11\/26\/php-polygon-clipper-using-the-sutherland-hodgman-algorithm\/';
@@ -359,16 +361,17 @@
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
 <a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="text-muted credit">&copy; 2017. All rights reserved. </p>
+<p class="credit text-muted">&copy; 2017. All rights reserved.</p>
 </footer>
 </div>
 </div>
 <script src=/js/all.min.js></script>
-<script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
+<script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async type=text/javascript></script>
 </body>
 </html>

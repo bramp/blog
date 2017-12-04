@@ -2,74 +2,76 @@
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<link itemprop=url rel=canonical href="https://blog.bramp.net/post/2011/11/02/php-destructor-objects/"/>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<link href=https://blog.bramp.net/post/2011/11/02/php-destructor-objects/ rel=canonical itemprop=url />
 <title>PHP Destructor objects</title>
-<meta itemprop=description name=description content="PHP&#8217;s lack of a finally keyword is apalling, and even though there seems to be some hacks around it, I have come up with own today. I&#8217;m following the C&#43;&#43; concept of allocating objects on …">
-<meta itemprop=creator name=author content="Andrew Brampton">
-<meta name=generator content=""/>
-<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title="bramp.net"/>
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title="bramp.net"/>
-<link rel="shortcut icon" href=/favicon.ico type="image/x-icon"/>
-<link rel=apple-touch-icon-precomposed href="/images/favicon.png"/>
-<link rel=apple-touch-icon-precomposed sizes=57x57 href="/images/favicon-57x57.png"/>
-<link rel=apple-touch-icon-precomposed sizes=72x72 href="/images/favicon-72x72.png"/>
-<link rel=apple-touch-icon-precomposed sizes=76x76 href="/images/favicon-76x76.png"/>
-<link rel=apple-touch-icon-precomposed sizes=114x114 href="/images/favicon-114x114.png"/>
-<link rel=apple-touch-icon-precomposed sizes=120x120 href="/images/favicon-120x120.png"/>
-<link rel=apple-touch-icon-precomposed sizes=144x144 href="/images/favicon-144x144.png"/>
-<link rel=apple-touch-icon-precomposed sizes=152x152 href="/images/favicon-152x152.png"/>
-<link rel=apple-touch-icon-precomposed sizes=180x180 href="/images/favicon-180x180.png"/>
-<meta name=msapplication-TileColor content=#4582EC>
-<meta name=msapplication-TileImage content=/images/favicon-144x144.png>
-<meta name=theme-color content=#4582EC>
-<link rel=icon sizes=192x192 href="/images/favicon-192x192.png"/>
+<meta content="PHP&#8217;s lack of a finally keyword is apalling, and even though there seems to be some hacks around it, I have come up with own today. I&#8217;m following the C&#43;&#43; concept of allocating objects on …" name=description itemprop=description>
+<meta content="Andrew Brampton" name=author itemprop=creator>
+<meta content="" name=generator />
+<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
+<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
+<link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
+<link href=/images/favicon.png rel=apple-touch-icon-precomposed />
+<link href=/images/favicon-57x57.png rel=apple-touch-icon-precomposed sizes=57x57 />
+<link href=/images/favicon-72x72.png rel=apple-touch-icon-precomposed sizes=72x72 />
+<link href=/images/favicon-76x76.png rel=apple-touch-icon-precomposed sizes=76x76 />
+<link href=/images/favicon-114x114.png rel=apple-touch-icon-precomposed sizes=114x114 />
+<link href=/images/favicon-120x120.png rel=apple-touch-icon-precomposed sizes=120x120 />
+<link href=/images/favicon-144x144.png rel=apple-touch-icon-precomposed sizes=144x144 />
+<link href=/images/favicon-152x152.png rel=apple-touch-icon-precomposed sizes=152x152 />
+<link href=/images/favicon-180x180.png rel=apple-touch-icon-precomposed sizes=180x180 />
+<meta content=#4582EC name=msapplication-TileColor>
+<meta content=/images/favicon-144x144.png name=msapplication-TileImage>
+<meta content=#4582EC name=theme-color>
+<link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
 <link href=/css/all.min.css rel=stylesheet>
 <link href=https://fonts.gstatic.com rel=preconnect crossorigin>
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel=stylesheet type=text/css>
 <link href=https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css rel=stylesheet>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css>
-<meta name=twitter:card content="summary"/>
-<meta name=twitter:site content="@TheBramp"/>
-<meta name=twitter:creator content="@TheBramp"/>
-<meta property=og:type content="article"/>
-<meta property=article:author content="https://www.facebook.com/bramp"/>
-<meta property=article:published_time content="2011-11-02T00:00:00&#43;07:00"/>
-<meta property=article:tag content="hack"/>
-<meta property=article:tag content="PHP"/>
-<meta property=og:url content="https://blog.bramp.net/post/2011/11/02/php-destructor-objects/"/>
-<meta property=og:site_name content="bramp.net"/>
-<meta property=og:title content="PHP Destructor objects"/>
-<meta property=og:description content="PHP&#8217;s lack of a finally keyword is apalling, and even though there seems to be some hacks around it, I have come up with own today. I&#8217;m following the C&#43;&#43; concept of allocating objects on …"/>
-<meta property=og:updated_time content="2011-11-02T00:00:00&#43;00:00"/>
-<meta property=og:locale content="en_GB"/>
-<meta name=google-site-verification content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"/>
+<link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
+<meta content=summary name=twitter:card />
+<meta content=@TheBramp name=twitter:site />
+<meta content=@TheBramp name=twitter:creator />
+<meta content=article property=og:type />
+<meta content=https://www.facebook.com/bramp property=article:author />
+<meta content=2011-11-02T00:00:00&#43;07:00 property=article:published_time />
+<meta content=hack property=article:tag />
+<meta content=PHP property=article:tag />
+<meta content=https://blog.bramp.net/post/2011/11/02/php-destructor-objects/ property=og:url />
+<meta content=bramp.net property=og:site_name />
+<meta content="PHP Destructor objects" property=og:title />
+<meta content="PHP&#8217;s lack of a finally keyword is apalling, and even though there seems to be some hacks around it, I have come up with own today. I&#8217;m following the C&#43;&#43; concept of allocating objects on …" property=og:description />
+<meta content=2011-11-02T00:00:00&#43;00:00 property=og:updated_time />
+<meta content=en_GB property=og:locale />
+<meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
 </head>
 <body itemscope itemtype=Blog>
-<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-136478-5', 'auto');
     ga('require', 'linkid', 'linkid.js');
-    ga('send', 'pageview');</script>
+    ga('send', 'pageview');
+</script>
 <div id=wrapper>
 <div class="navbar navbar-default">
 <div class=container>
 <div class=navbar-header>
-<button type=button class=navbar-toggle data-toggle=collapse data-target=.navbar-collapse>
+<button class=navbar-toggle data-target=.navbar-collapse data-toggle=collapse type=button>
 <span class=sr-only>Toggle navigation</span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 </button>
 <div class=navbar-brand aria-label="About Andrew Brampton">
-<a href="/">
-<img src=/images/favicon-64x64.png class=profile-image alt=Home>
+<a href=/ >
+<img alt=Home class=profile-image src=/images/favicon-64x64.png>
 </a>
 <div itemprop=author itemscope itemtype=https://schema.org/Person>
-<a href="/about-me/" itemprop=name>Andrew Brampton</a>
+<a href=/about-me/ itemprop=name>Andrew Brampton</a>
 <div id=social-wrapper>
 <a href=https://twitter.com/TheBramp aria-label=Twitter><i class="fa fa-twitter-square"></i></a>
 <a href=https://www.linkedin.com/in/bramp aria-label=LinkedIn><i class="fa fa-linkedin-square"></i></a>
@@ -80,13 +82,13 @@
 </div>
 </div>
 </div>
-<div class="navbar-collapse collapse">
+<div class="collapse navbar-collapse">
 <ul class="nav navbar-nav" role=navigation>
-<li><a href="/">Articles</a></li>
-<li><a href="/about-me/">About Me</a></li>
-<li><a href="/android-app/">Android Apps</a></li>
-<li><a href="/opensource/">Open Source</a></li>
-<li><a href="/publication/">Publications</a></li>
+<li><a href=/ >Articles</a></li>
+<li><a href=/about-me/ >About Me</a></li>
+<li><a href=/android-app/ >Android Apps</a></li>
+<li><a href=/opensource/ >Open Source</a></li>
+<li><a href=/publication/ >Publications</a></li>
 </ul>
 </div>
 </div>
@@ -96,41 +98,39 @@
 <h1 itemprop=headline>PHP Destructor objects</h1>
 <p class=meta>
 <i class="fa fa-calendar-o"></i> <time itemprop=datePublished>2011-11-02</time>
-| <a href="https://blog.bramp.net/tags/hack/">hack</a>
-| <a href="https://blog.bramp.net/tags/php/">PHP</a>
+| <a href=https://blog.bramp.net/tags/hack/ >hack</a>
+| <a href=https://blog.bramp.net/tags/php/ >PHP</a>
 </p>
 <div class=post itemprop=articleBody>
 <p>PHP&#8217;s lack of a finally keyword is apalling, and even though there seems to be some hacks around it, I have come up with own today. I&#8217;m following the C++ concept of allocating objects on the stack, and letting them cleanup any resources when the stack is rolled back.</p>
 <p>Take an example. I am creating some files that I want to always be deleted after the script has finished. In any sane language (that has Exceptions) I would write:</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php>try {
-  // Create files
-  // Do something with the files
-} finally {
-  // Delete files - This code will run no matter what exceptions or errors occur while creating the files.
-}</code></pre>
-</div>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=x>try {
+</span><span class=x>  // Create files
+</span><span class=x>  // Do something with the files
+</span><span class=x>} finally {
+</span><span class=x>  // Delete files - This code will run no matter what exceptions or errors occur while creating the files.
+</span><span class=x>}</span></code></pre></div>
 <p>However, this is the hack I&#8217;ve managed with PHP:</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php>class UnlinkMe {
-    var $filename;
-
-    function __construct($filename) {
-        $this-&gt;filename = $filename;
-    }
-
-    function __destruct() {
-        unlink($this-&gt;filename);
-    }
-}
-
-// To use:
-function doSomething() {
-  $unlinkme = new UnlinkMe(&#39;/tmp/filename&#39;):
-
-  // Do some work with the files
-
-  return;
-}</code></pre>
-</div>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=x>class UnlinkMe {
+</span><span class=x>    var $filename;
+</span><span class=x>
+</span><span class=x>    function __construct($filename) {
+</span><span class=x>        $this-&gt;filename = $filename;
+</span><span class=x>    }
+</span><span class=x>
+</span><span class=x>    function __destruct() {
+</span><span class=x>        unlink($this-&gt;filename);
+</span><span class=x>    }
+</span><span class=x>}
+</span><span class=x>
+</span><span class=x>// To use:
+</span><span class=x>function doSomething() {
+</span><span class=x>  $unlinkme = new UnlinkMe(&#39;/tmp/filename&#39;):
+</span><span class=x>
+</span><span class=x>  // Do some work with the files
+</span><span class=x>
+</span><span class=x>  return;
+</span><span class=x>}</span></code></pre></div>
 <p>Here we are creating a UnlinkMe object, that has a destructor set up to delete a file. This UnlinkMe object is only used in the doSomething() function. Once that function returns, there are no longer any references to the object. When PHP decides to garbage collect (to free up some memory), it will destroy the UnlinkMe object, and thus call the __destruct method. Voila, we now call unlink and have cleaned up the file, even after the script has finished running.</p>
 <p>There is lots of room for improvement, and this technique has lots of gotchas. For example, PHP has some bizzare rules for when __destruct method will not be called. So please don&#8217;t rely on this technique, but it might be useful, and keep your code cleaner and more organised.</p>
 </div>
@@ -142,21 +142,22 @@ function doSomething() {
 <div class=col-sm-6>
 <div class=btn-toolbar>
 <div class=btn-group>
-<a class="btn btn-sm btn-soundcloud" href=https://feeds.feedburner.com/brampnet aria-label="RSS feed">
+<a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed" class="btn btn-sm btn-soundcloud">
 <i class="fa fa-rss-square"></i> Subscribe via RSS</a>
 </div>
 <div class=btn-group>
-<a class="btn btn-sm btn-twitter" href=https://twitter.com/TheBramp><i class="fa fa-twitter"></i> Follow @TheBramp</a>
+<a href=https://twitter.com/TheBramp class="btn btn-sm btn-twitter"><i class="fa fa-twitter"></i> Follow @TheBramp</a>
 </div>
 </div>
 </div>
 </div>
 <ul class=pager>
-&nbsp;<li class=previous><a href="/post/2011/10/31/2010-census-tiger/line-shapefiles-code-names/">&larr; 2010 Census TIGER/Line® Shapefiles Code Names</a></li>
-&nbsp;<li class=next><a href="/post/2011/11/08/archive-mount/"> Archive Mount &rarr;</a></li>
+&nbsp;<li class=previous><a href=/post/2011/10/31/2010-census-tiger/line-shapefiles-code-names/ >&larr; 2010 Census TIGER/Line® Shapefiles Code Names</a></li>
+&nbsp;<li class=next><a href=/post/2011/11/08/archive-mount/ >Archive Mount &rarr;</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
-<script type=text/javascript>var disqus_shortname = 'bramp';
+<script type=text/javascript>
+var disqus_shortname = 'bramp';
     var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2011\/11\/02\/php-destructor-objects\/';
     var disqus_title = 'PHP Destructor objects';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2011\/11\/02\/php-destructor-objects\/';
@@ -169,16 +170,17 @@ function doSomething() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
 <a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="text-muted credit">&copy; 2017. All rights reserved. </p>
+<p class="credit text-muted">&copy; 2017. All rights reserved.</p>
 </footer>
 </div>
 </div>
 <script src=/js/all.min.js></script>
-<script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
+<script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async type=text/javascript></script>
 </body>
 </html>

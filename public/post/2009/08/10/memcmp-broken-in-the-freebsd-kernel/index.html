@@ -2,75 +2,77 @@
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<link itemprop=url rel=canonical href="https://blog.bramp.net/post/2009/08/10/memcmp-broken-in-the-freebsd-kernel/"/>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<link href=https://blog.bramp.net/post/2009/08/10/memcmp-broken-in-the-freebsd-kernel/ rel=canonical itemprop=url />
 <title>memcmp broken in the FreeBSD kernel</title>
-<meta itemprop=description name=description content="I&#8217;ve spent a day tracking down a bug in a FreeBSD kernel module I&#8217;m developing, and to my surprise the bug was due to memcmp being broken! For those that don&#8217;t know, memcmp is used …">
-<meta itemprop=creator name=author content="Andrew Brampton">
-<meta name=generator content=""/>
-<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title="bramp.net"/>
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title="bramp.net"/>
-<link rel="shortcut icon" href=/favicon.ico type="image/x-icon"/>
-<link rel=apple-touch-icon-precomposed href="/images/favicon.png"/>
-<link rel=apple-touch-icon-precomposed sizes=57x57 href="/images/favicon-57x57.png"/>
-<link rel=apple-touch-icon-precomposed sizes=72x72 href="/images/favicon-72x72.png"/>
-<link rel=apple-touch-icon-precomposed sizes=76x76 href="/images/favicon-76x76.png"/>
-<link rel=apple-touch-icon-precomposed sizes=114x114 href="/images/favicon-114x114.png"/>
-<link rel=apple-touch-icon-precomposed sizes=120x120 href="/images/favicon-120x120.png"/>
-<link rel=apple-touch-icon-precomposed sizes=144x144 href="/images/favicon-144x144.png"/>
-<link rel=apple-touch-icon-precomposed sizes=152x152 href="/images/favicon-152x152.png"/>
-<link rel=apple-touch-icon-precomposed sizes=180x180 href="/images/favicon-180x180.png"/>
-<meta name=msapplication-TileColor content=#4582EC>
-<meta name=msapplication-TileImage content=/images/favicon-144x144.png>
-<meta name=theme-color content=#4582EC>
-<link rel=icon sizes=192x192 href="/images/favicon-192x192.png"/>
+<meta content="I&#8217;ve spent a day tracking down a bug in a FreeBSD kernel module I&#8217;m developing, and to my surprise the bug was due to memcmp being broken! For those that don&#8217;t know, memcmp is used …" name=description itemprop=description>
+<meta content="Andrew Brampton" name=author itemprop=creator>
+<meta content="" name=generator />
+<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
+<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
+<link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
+<link href=/images/favicon.png rel=apple-touch-icon-precomposed />
+<link href=/images/favicon-57x57.png rel=apple-touch-icon-precomposed sizes=57x57 />
+<link href=/images/favicon-72x72.png rel=apple-touch-icon-precomposed sizes=72x72 />
+<link href=/images/favicon-76x76.png rel=apple-touch-icon-precomposed sizes=76x76 />
+<link href=/images/favicon-114x114.png rel=apple-touch-icon-precomposed sizes=114x114 />
+<link href=/images/favicon-120x120.png rel=apple-touch-icon-precomposed sizes=120x120 />
+<link href=/images/favicon-144x144.png rel=apple-touch-icon-precomposed sizes=144x144 />
+<link href=/images/favicon-152x152.png rel=apple-touch-icon-precomposed sizes=152x152 />
+<link href=/images/favicon-180x180.png rel=apple-touch-icon-precomposed sizes=180x180 />
+<meta content=#4582EC name=msapplication-TileColor>
+<meta content=/images/favicon-144x144.png name=msapplication-TileImage>
+<meta content=#4582EC name=theme-color>
+<link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
 <link href=/css/all.min.css rel=stylesheet>
 <link href=https://fonts.gstatic.com rel=preconnect crossorigin>
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel=stylesheet type=text/css>
 <link href=https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css rel=stylesheet>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css>
-<meta name=twitter:card content="summary"/>
-<meta name=twitter:site content="@TheBramp"/>
-<meta name=twitter:creator content="@TheBramp"/>
-<meta property=og:type content="article"/>
-<meta property=article:author content="https://www.facebook.com/bramp"/>
-<meta property=article:published_time content="2009-08-10T00:00:00&#43;07:00"/>
-<meta property=article:tag content="FreeBSD"/>
-<meta property=article:tag content="kernel"/>
-<meta property=article:tag content="memcmp"/>
-<meta property=og:url content="https://blog.bramp.net/post/2009/08/10/memcmp-broken-in-the-freebsd-kernel/"/>
-<meta property=og:site_name content="bramp.net"/>
-<meta property=og:title content="memcmp broken in the FreeBSD kernel"/>
-<meta property=og:description content="I&#8217;ve spent a day tracking down a bug in a FreeBSD kernel module I&#8217;m developing, and to my surprise the bug was due to memcmp being broken! For those that don&#8217;t know, memcmp is used …"/>
-<meta property=og:updated_time content="2009-08-10T00:00:00&#43;00:00"/>
-<meta property=og:locale content="en_GB"/>
-<meta name=google-site-verification content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"/>
+<link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
+<meta content=summary name=twitter:card />
+<meta content=@TheBramp name=twitter:site />
+<meta content=@TheBramp name=twitter:creator />
+<meta content=article property=og:type />
+<meta content=https://www.facebook.com/bramp property=article:author />
+<meta content=2009-08-10T00:00:00&#43;07:00 property=article:published_time />
+<meta content=FreeBSD property=article:tag />
+<meta content=kernel property=article:tag />
+<meta content=memcmp property=article:tag />
+<meta content=https://blog.bramp.net/post/2009/08/10/memcmp-broken-in-the-freebsd-kernel/ property=og:url />
+<meta content=bramp.net property=og:site_name />
+<meta content="memcmp broken in the FreeBSD kernel" property=og:title />
+<meta content="I&#8217;ve spent a day tracking down a bug in a FreeBSD kernel module I&#8217;m developing, and to my surprise the bug was due to memcmp being broken! For those that don&#8217;t know, memcmp is used …" property=og:description />
+<meta content=2009-08-10T00:00:00&#43;00:00 property=og:updated_time />
+<meta content=en_GB property=og:locale />
+<meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
 </head>
 <body itemscope itemtype=Blog>
-<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-136478-5', 'auto');
     ga('require', 'linkid', 'linkid.js');
-    ga('send', 'pageview');</script>
+    ga('send', 'pageview');
+</script>
 <div id=wrapper>
 <div class="navbar navbar-default">
 <div class=container>
 <div class=navbar-header>
-<button type=button class=navbar-toggle data-toggle=collapse data-target=.navbar-collapse>
+<button class=navbar-toggle data-target=.navbar-collapse data-toggle=collapse type=button>
 <span class=sr-only>Toggle navigation</span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 </button>
 <div class=navbar-brand aria-label="About Andrew Brampton">
-<a href="/">
-<img src=/images/favicon-64x64.png class=profile-image alt=Home>
+<a href=/ >
+<img alt=Home class=profile-image src=/images/favicon-64x64.png>
 </a>
 <div itemprop=author itemscope itemtype=https://schema.org/Person>
-<a href="/about-me/" itemprop=name>Andrew Brampton</a>
+<a href=/about-me/ itemprop=name>Andrew Brampton</a>
 <div id=social-wrapper>
 <a href=https://twitter.com/TheBramp aria-label=Twitter><i class="fa fa-twitter-square"></i></a>
 <a href=https://www.linkedin.com/in/bramp aria-label=LinkedIn><i class="fa fa-linkedin-square"></i></a>
@@ -81,13 +83,13 @@
 </div>
 </div>
 </div>
-<div class="navbar-collapse collapse">
+<div class="collapse navbar-collapse">
 <ul class="nav navbar-nav" role=navigation>
-<li><a href="/">Articles</a></li>
-<li><a href="/about-me/">About Me</a></li>
-<li><a href="/android-app/">Android Apps</a></li>
-<li><a href="/opensource/">Open Source</a></li>
-<li><a href="/publication/">Publications</a></li>
+<li><a href=/ >Articles</a></li>
+<li><a href=/about-me/ >About Me</a></li>
+<li><a href=/android-app/ >Android Apps</a></li>
+<li><a href=/opensource/ >Open Source</a></li>
+<li><a href=/publication/ >Publications</a></li>
 </ul>
 </div>
 </div>
@@ -97,33 +99,31 @@
 <h1 itemprop=headline>memcmp broken in the FreeBSD kernel</h1>
 <p class=meta>
 <i class="fa fa-calendar-o"></i> <time itemprop=datePublished>2009-08-10</time>
-| <a href="https://blog.bramp.net/tags/freebsd/">FreeBSD</a>
-| <a href="https://blog.bramp.net/tags/kernel/">kernel</a>
-| <a href="https://blog.bramp.net/tags/memcmp/">memcmp</a>
+| <a href=https://blog.bramp.net/tags/freebsd/ >FreeBSD</a>
+| <a href=https://blog.bramp.net/tags/kernel/ >kernel</a>
+| <a href=https://blog.bramp.net/tags/memcmp/ >memcmp</a>
 </p>
 <div class=post itemprop=articleBody>
 <p>I&#8217;ve spent a day tracking down a bug in a FreeBSD kernel module I&#8217;m developing, and to my surprise the bug was due to memcmp being broken! For those that don&#8217;t know, memcmp is used to compare two byte strings and returns 0 if they are identical, a negative number of the first string is less than the second, and a positive number of the first string is greater than the second.</p>
 <p>However, the implementation of memcmp in the FreeBSD kernel looks like this:</p>
-<div class=highlight><pre class=chroma><code class=language-c data-lang=c><span class=s3e8>static</span> <span class=s3e8>__inline</span> <span class=s3ee>int</span>
-<span class=s7d9>memcmp</span>(<span class=s3e8>const</span> <span class=s3ee>void</span> <span class=sfa0>*</span>b1, <span class=s3e8>const</span> <span class=s3ee>void</span> <span class=sfa0>*</span>b2, size_t len) {
-    <span class=s3e8>return</span> (bcmp(b1, b2, len));
-}</code></pre>
-</div>
+<div class=highlight><pre class=chroma><code class=language-c data-lang=c><span class=k>static</span> <span class=kr>__inline</span> <span class=kt>int</span>
+<span class=nf>memcmp</span><span class=p>(</span><span class=k>const</span> <span class=kt>void</span> <span class=o>*</span><span class=n>b1</span><span class=p>,</span> <span class=k>const</span> <span class=kt>void</span> <span class=o>*</span><span class=n>b2</span><span class=p>,</span> <span class=n>size_t</span> <span class=n>len</span><span class=p>)</span> <span class=p>{</span>
+    <span class=k>return</span> <span class=p>(</span><span class=n>bcmp</span><span class=p>(</span><span class=n>b1</span><span class=p>,</span> <span class=n>b2</span><span class=p>,</span> <span class=n>len</span><span class=p>));</span>
+<span class=p>}</span></code></pre></div>
 <p>The problem with this is that bcmp is defined to return 0 if the strings are identical, otherwise returns a non-zero integer. This is not the same as memcmp, and you would only notice this if you are testing the signedness of the return value. I suspect this has not been noticed because traditionally FreeBSD has favoured bcmp, and in the few cases it does uses memcmp it only compares it with zero.</p>
 <p>There is some good news, obrien@ noticed this problem in September 2008 and commited a patch (svn r183299). However, it looks like this fix won&#8217;t be included until FreeBSD 8.0. In the mean time I&#8217;m implementing a minor hack to fix this.</p>
-<div class=highlight><pre class=chroma><code class=language-c data-lang=c><span class=s3ee>int</span> <span class=s7d9>my_memcmp</span>(<span class=s3e8>const</span> <span class=s3ee>void</span> <span class=sfa0>*</span>s1, <span class=s3e8>const</span> <span class=s3ee>void</span> <span class=sfa0>*</span>s2, size_t n) {
-	<span class=s3e8>if</span> (n <span class=sfa0>!=</span> <span class=sc80>0</span>) {
-		<span class=s3e8>const</span> <span class=s3ee>unsigned</span> <span class=s3ee>char</span> <span class=sfa0>*</span>p1 <span class=sfa0>=</span> s1, <span class=sfa0>*</span>p2 <span class=sfa0>=</span> s2;
+<div class=highlight><pre class=chroma><code class=language-c data-lang=c><span class=kt>int</span> <span class=nf>my_memcmp</span><span class=p>(</span><span class=k>const</span> <span class=kt>void</span> <span class=o>*</span><span class=n>s1</span><span class=p>,</span> <span class=k>const</span> <span class=kt>void</span> <span class=o>*</span><span class=n>s2</span><span class=p>,</span> <span class=n>size_t</span> <span class=n>n</span><span class=p>)</span> <span class=p>{</span>
+	<span class=k>if</span> <span class=p>(</span><span class=n>n</span> <span class=o>!=</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+		<span class=k>const</span> <span class=kt>unsigned</span> <span class=kt>char</span> <span class=o>*</span><span class=n>p1</span> <span class=o>=</span> <span class=n>s1</span><span class=p>,</span> <span class=o>*</span><span class=n>p2</span> <span class=o>=</span> <span class=n>s2</span><span class=p>;</span>
 
-		<span class=s3e8>do</span> {
-			<span class=s3e8>if</span> (<span class=sfa0>*</span>p1<span class=sfa0>++</span> <span class=sfa0>!=</span> <span class=sfa0>*</span>p2<span class=sfa0>++</span>)
-				<span class=s3e8>return</span> (<span class=sfa0>*--</span>p1 <span class=sfa0>-</span> <span class=sfa0>*--</span>p2);
-		} <span class=s3e8>while</span> (<span class=sfa0>--</span>n <span class=sfa0>!=</span> <span class=sc80>0</span>);
-	}
-	<span class=s3e8>return</span> (<span class=sc80>0</span>);
-}
-<span class=s17d4>#define memcmp my_memcmp</span></code></pre>
-</div>
+		<span class=k>do</span> <span class=p>{</span>
+			<span class=k>if</span> <span class=p>(</span><span class=o>*</span><span class=n>p1</span><span class=o>++</span> <span class=o>!=</span> <span class=o>*</span><span class=n>p2</span><span class=o>++</span><span class=p>)</span>
+				<span class=k>return</span> <span class=p>(</span><span class=o>*--</span><span class=n>p1</span> <span class=o>-</span> <span class=o>*--</span><span class=n>p2</span><span class=p>);</span>
+		<span class=p>}</span> <span class=k>while</span> <span class=p>(</span><span class=o>--</span><span class=n>n</span> <span class=o>!=</span> <span class=mi>0</span><span class=p>);</span>
+	<span class=p>}</span>
+	<span class=k>return</span> <span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+<span class=p>}</span>
+<span class=cp>#define memcmp my_memcmp</span></code></pre></div>
 </div>
 </article>
 <div class=row>
@@ -133,21 +133,22 @@
 <div class=col-sm-6>
 <div class=btn-toolbar>
 <div class=btn-group>
-<a class="btn btn-sm btn-soundcloud" href=https://feeds.feedburner.com/brampnet aria-label="RSS feed">
+<a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed" class="btn btn-sm btn-soundcloud">
 <i class="fa fa-rss-square"></i> Subscribe via RSS</a>
 </div>
 <div class=btn-group>
-<a class="btn btn-sm btn-twitter" href=https://twitter.com/TheBramp><i class="fa fa-twitter"></i> Follow @TheBramp</a>
+<a href=https://twitter.com/TheBramp class="btn btn-sm btn-twitter"><i class="fa fa-twitter"></i> Follow @TheBramp</a>
 </div>
 </div>
 </div>
 </div>
 <ul class=pager>
-&nbsp;<li class=previous><a href="/post/2009/07/10/final-version-of-my-thesis-online/">&larr; Final Version of my Thesis Online</a></li>
-&nbsp;<li class=next><a href="/post/2009/08/11/bloodstock-2009-running-order/"> Bloodstock 2009 Running Order &rarr;</a></li>
+&nbsp;<li class=previous><a href=/post/2009/07/10/final-version-of-my-thesis-online/ >&larr; Final Version of my Thesis Online</a></li>
+&nbsp;<li class=next><a href=/post/2009/08/11/bloodstock-2009-running-order/ >Bloodstock 2009 Running Order &rarr;</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
-<script type=text/javascript>var disqus_shortname = 'bramp';
+<script type=text/javascript>
+var disqus_shortname = 'bramp';
     var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/08\/10\/memcmp-broken-in-the-freebsd-kernel\/';
     var disqus_title = 'memcmp broken in the FreeBSD kernel';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2009\/08\/10\/memcmp-broken-in-the-freebsd-kernel\/';
@@ -160,16 +161,17 @@
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
 <a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="text-muted credit">&copy; 2017. All rights reserved. </p>
+<p class="credit text-muted">&copy; 2017. All rights reserved.</p>
 </footer>
 </div>
 </div>
 <script src=/js/all.min.js></script>
-<script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
+<script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async type=text/javascript></script>
 </body>
 </html>

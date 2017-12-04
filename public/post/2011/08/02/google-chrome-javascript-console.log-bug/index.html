@@ -2,77 +2,79 @@
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<link itemprop=url rel=canonical href="https://blog.bramp.net/post/2011/08/02/google-chrome-javascript-console.log-bug/"/>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<link href=https://blog.bramp.net/post/2011/08/02/google-chrome-javascript-console.log-bug/ rel=canonical itemprop=url />
 <title>Google Chrome Javascript console.log bug?</title>
-<meta itemprop=description name=description content="I recently stumbled across this issue while debugging some Javascript. Take the following example code:
-var array = [1,2,3,4,5,6,7,8,9,10]; var i = 0; while(array.length &gt; 0) { console.log(i&#43;&#43;, …">
-<meta itemprop=creator name=author content="Andrew Brampton">
-<meta name=generator content=""/>
-<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title="bramp.net"/>
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title="bramp.net"/>
-<link rel="shortcut icon" href=/favicon.ico type="image/x-icon"/>
-<link rel=apple-touch-icon-precomposed href="/images/favicon.png"/>
-<link rel=apple-touch-icon-precomposed sizes=57x57 href="/images/favicon-57x57.png"/>
-<link rel=apple-touch-icon-precomposed sizes=72x72 href="/images/favicon-72x72.png"/>
-<link rel=apple-touch-icon-precomposed sizes=76x76 href="/images/favicon-76x76.png"/>
-<link rel=apple-touch-icon-precomposed sizes=114x114 href="/images/favicon-114x114.png"/>
-<link rel=apple-touch-icon-precomposed sizes=120x120 href="/images/favicon-120x120.png"/>
-<link rel=apple-touch-icon-precomposed sizes=144x144 href="/images/favicon-144x144.png"/>
-<link rel=apple-touch-icon-precomposed sizes=152x152 href="/images/favicon-152x152.png"/>
-<link rel=apple-touch-icon-precomposed sizes=180x180 href="/images/favicon-180x180.png"/>
-<meta name=msapplication-TileColor content=#4582EC>
-<meta name=msapplication-TileImage content=/images/favicon-144x144.png>
-<meta name=theme-color content=#4582EC>
-<link rel=icon sizes=192x192 href="/images/favicon-192x192.png"/>
+<meta content="I recently stumbled across this issue while debugging some Javascript. Take the following example code:
+var array = [1,2,3,4,5,6,7,8,9,10]; var i = 0; while(array.length &gt; 0) { console.log(i&#43;&#43;, …" name=description itemprop=description>
+<meta content="Andrew Brampton" name=author itemprop=creator>
+<meta content="" name=generator />
+<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
+<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
+<link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
+<link href=/images/favicon.png rel=apple-touch-icon-precomposed />
+<link href=/images/favicon-57x57.png rel=apple-touch-icon-precomposed sizes=57x57 />
+<link href=/images/favicon-72x72.png rel=apple-touch-icon-precomposed sizes=72x72 />
+<link href=/images/favicon-76x76.png rel=apple-touch-icon-precomposed sizes=76x76 />
+<link href=/images/favicon-114x114.png rel=apple-touch-icon-precomposed sizes=114x114 />
+<link href=/images/favicon-120x120.png rel=apple-touch-icon-precomposed sizes=120x120 />
+<link href=/images/favicon-144x144.png rel=apple-touch-icon-precomposed sizes=144x144 />
+<link href=/images/favicon-152x152.png rel=apple-touch-icon-precomposed sizes=152x152 />
+<link href=/images/favicon-180x180.png rel=apple-touch-icon-precomposed sizes=180x180 />
+<meta content=#4582EC name=msapplication-TileColor>
+<meta content=/images/favicon-144x144.png name=msapplication-TileImage>
+<meta content=#4582EC name=theme-color>
+<link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
 <link href=/css/all.min.css rel=stylesheet>
 <link href=https://fonts.gstatic.com rel=preconnect crossorigin>
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel=stylesheet type=text/css>
 <link href=https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css rel=stylesheet>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css>
-<meta name=twitter:card content="summary"/>
-<meta name=twitter:site content="@TheBramp"/>
-<meta name=twitter:creator content="@TheBramp"/>
-<meta property=og:type content="article"/>
-<meta property=article:author content="https://www.facebook.com/bramp"/>
-<meta property=article:published_time content="2011-08-02T00:00:00&#43;07:00"/>
-<meta property=article:tag content="bug"/>
-<meta property=article:tag content="Chrome"/>
-<meta property=article:tag content="Javascript"/>
-<meta property=og:url content="https://blog.bramp.net/post/2011/08/02/google-chrome-javascript-console.log-bug/"/>
-<meta property=og:site_name content="bramp.net"/>
-<meta property=og:title content="Google Chrome Javascript console.log bug?"/>
-<meta property=og:description content="I recently stumbled across this issue while debugging some Javascript. Take the following example code:
-var array = [1,2,3,4,5,6,7,8,9,10]; var i = 0; while(array.length &gt; 0) { console.log(i&#43;&#43;, …"/>
-<meta property=og:updated_time content="2011-08-02T00:00:00&#43;00:00"/>
-<meta property=og:locale content="en_GB"/>
-<meta name=google-site-verification content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"/>
+<link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
+<meta content=summary name=twitter:card />
+<meta content=@TheBramp name=twitter:site />
+<meta content=@TheBramp name=twitter:creator />
+<meta content=article property=og:type />
+<meta content=https://www.facebook.com/bramp property=article:author />
+<meta content=2011-08-02T00:00:00&#43;07:00 property=article:published_time />
+<meta content=bug property=article:tag />
+<meta content=Chrome property=article:tag />
+<meta content=Javascript property=article:tag />
+<meta content=https://blog.bramp.net/post/2011/08/02/google-chrome-javascript-console.log-bug/ property=og:url />
+<meta content=bramp.net property=og:site_name />
+<meta content="Google Chrome Javascript console.log bug?" property=og:title />
+<meta content="I recently stumbled across this issue while debugging some Javascript. Take the following example code:
+var array = [1,2,3,4,5,6,7,8,9,10]; var i = 0; while(array.length &gt; 0) { console.log(i&#43;&#43;, …" property=og:description />
+<meta content=2011-08-02T00:00:00&#43;00:00 property=og:updated_time />
+<meta content=en_GB property=og:locale />
+<meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
 </head>
 <body itemscope itemtype=Blog>
-<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-136478-5', 'auto');
     ga('require', 'linkid', 'linkid.js');
-    ga('send', 'pageview');</script>
+    ga('send', 'pageview');
+</script>
 <div id=wrapper>
 <div class="navbar navbar-default">
 <div class=container>
 <div class=navbar-header>
-<button type=button class=navbar-toggle data-toggle=collapse data-target=.navbar-collapse>
+<button class=navbar-toggle data-target=.navbar-collapse data-toggle=collapse type=button>
 <span class=sr-only>Toggle navigation</span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 </button>
 <div class=navbar-brand aria-label="About Andrew Brampton">
-<a href="/">
-<img src=/images/favicon-64x64.png class=profile-image alt=Home>
+<a href=/ >
+<img alt=Home class=profile-image src=/images/favicon-64x64.png>
 </a>
 <div itemprop=author itemscope itemtype=https://schema.org/Person>
-<a href="/about-me/" itemprop=name>Andrew Brampton</a>
+<a href=/about-me/ itemprop=name>Andrew Brampton</a>
 <div id=social-wrapper>
 <a href=https://twitter.com/TheBramp aria-label=Twitter><i class="fa fa-twitter-square"></i></a>
 <a href=https://www.linkedin.com/in/bramp aria-label=LinkedIn><i class="fa fa-linkedin-square"></i></a>
@@ -83,13 +85,13 @@ var array = [1,2,3,4,5,6,7,8,9,10]; var i = 0; while(array.length &gt; 0) { cons
 </div>
 </div>
 </div>
-<div class="navbar-collapse collapse">
+<div class="collapse navbar-collapse">
 <ul class="nav navbar-nav" role=navigation>
-<li><a href="/">Articles</a></li>
-<li><a href="/about-me/">About Me</a></li>
-<li><a href="/android-app/">Android Apps</a></li>
-<li><a href="/opensource/">Open Source</a></li>
-<li><a href="/publication/">Publications</a></li>
+<li><a href=/ >Articles</a></li>
+<li><a href=/about-me/ >About Me</a></li>
+<li><a href=/android-app/ >Android Apps</a></li>
+<li><a href=/opensource/ >Open Source</a></li>
+<li><a href=/publication/ >Publications</a></li>
 </ul>
 </div>
 </div>
@@ -99,20 +101,19 @@ var array = [1,2,3,4,5,6,7,8,9,10]; var i = 0; while(array.length &gt; 0) { cons
 <h1 itemprop=headline>Google Chrome Javascript console.log bug?</h1>
 <p class=meta>
 <i class="fa fa-calendar-o"></i> <time itemprop=datePublished>2011-08-02</time>
-| <a href="https://blog.bramp.net/tags/bug/">bug</a>
-| <a href="https://blog.bramp.net/tags/chrome/">Chrome</a>
-| <a href="https://blog.bramp.net/tags/javascript/">Javascript</a>
+| <a href=https://blog.bramp.net/tags/bug/ >bug</a>
+| <a href=https://blog.bramp.net/tags/chrome/ >Chrome</a>
+| <a href=https://blog.bramp.net/tags/javascript/ >Javascript</a>
 </p>
 <div class=post itemprop=articleBody>
 <p>I recently stumbled across this issue while debugging some Javascript. Take the following example code:</p>
-<div class=highlight><pre class=chroma><code class=language-javascript data-lang=javascript><span class=s3e8>var</span> array <span class=sfa0>=</span> [<span class=sc80>1</span>,<span class=sc80>2</span>,<span class=sc80>3</span>,<span class=sc80>4</span>,<span class=sc80>5</span>,<span class=sc80>6</span>,<span class=sc80>7</span>,<span class=sc80>8</span>,<span class=sc80>9</span>,<span class=sc80>10</span>];
-<span class=s3e8>var</span> i <span class=sfa0>=</span> <span class=sc80>0</span>;
-<span class=s3e8>while</span>(array.length <span class=sfa0>&gt;</span> <span class=sc80>0</span>) {
-	console.log(i<span class=sfa0>++</span>, array);
-	<span class=s1770>//alert(&#34;pause&#34;);
-</span><span class=s1770></span>	array.pop();
-}</code></pre>
-</div>
+<div class=highlight><pre class=chroma><code class=language-javascript data-lang=javascript><span class=kd>var</span> <span class=nx>array</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span><span class=mi>6</span><span class=p>,</span><span class=mi>7</span><span class=p>,</span><span class=mi>8</span><span class=p>,</span><span class=mi>9</span><span class=p>,</span><span class=mi>10</span><span class=p>];</span>
+<span class=kd>var</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+<span class=k>while</span><span class=p>(</span><span class=nx>array</span><span class=p>.</span><span class=nx>length</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+	<span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>i</span><span class=o>++</span><span class=p>,</span> <span class=nx>array</span><span class=p>);</span>
+	<span class=c1>//alert(&#34;pause&#34;);
+</span><span class=c1></span>	<span class=nx>array</span><span class=p>.</span><span class=nx>pop</span><span class=p>();</span>
+<span class=p>}</span></code></pre></div>
 <p>If you run it in your browser you would expect to see the following printed (in your Javascript console):</p>
 <div class=highlight><pre class=chroma><code class=language-text data-lang=text>0 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 1 [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -123,8 +124,7 @@ var array = [1,2,3,4,5,6,7,8,9,10]; var i = 0; while(array.length &gt; 0) { cons
 6 [1, 2, 3, 4]
 7 [1, 2, 3]
 8 [1, 2]
-9 [1]</code></pre>
-</div>
+9 [1]</code></pre></div>
 <p>However, I instead saw:</p>
 <div class=highlight><pre class=chroma><code class=language-text data-lang=text>1 []
 2 []
@@ -134,8 +134,7 @@ var array = [1,2,3,4,5,6,7,8,9,10]; var i = 0; while(array.length &gt; 0) { cons
 6 []
 7 []
 8 []
-9 []</code></pre>
-</div>
+9 []</code></pre></div>
 <p>The issue seems to be that console.log() does not log straight away. In fact it most likely logs in a background thread for performance reasons. Thus by the time it actually logs the array it has changed. I tested this in Firefox (with Firebug) and it logged everything correctly. I also tried slowing down the loop by adding a alert() call. That fixed the issue at the cost of a popup every iterations.</p>
 <p>What really should happen is either</p>
 <ul>
@@ -145,8 +144,7 @@ var array = [1,2,3,4,5,6,7,8,9,10]; var i = 0; while(array.length &gt; 0) { cons
 </ul>
 <p>I filed this as a <a href="https://code.google.com/p/chromium/issues/detail?id=91303">bug report</a> on the Chromium site, but I suspect I should have filed it over at the Webkit site.</p>
 <p>For the moment I came up with a &#8220;fix&#8221;. I copy the array before I log it, so in this case I do the following:</p>
-<div class=highlight><pre class=chroma><code class=language-javascript data-lang=javascript>console.log(i<span class=sfa0>++</span>, array.slice(<span class=sc80>0</span>));</code></pre>
-</div>
+<div class=highlight><pre class=chroma><code class=language-javascript data-lang=javascript><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>i</span><span class=o>++</span><span class=p>,</span> <span class=nx>array</span><span class=p>.</span><span class=nx>slice</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span></code></pre></div>
 <p><strong>Update:</strong> I previously searched for this bug, but didn&#8217;t find it before writing this article. However, I have just found someone else had <a href="https://code.google.com/p/chromium/issues/detail?id=50316">reported</a> it a few days ago:</p>
 </div>
 </article>
@@ -157,21 +155,22 @@ var array = [1,2,3,4,5,6,7,8,9,10]; var i = 0; while(array.length &gt; 0) { cons
 <div class=col-sm-6>
 <div class=btn-toolbar>
 <div class=btn-group>
-<a class="btn btn-sm btn-soundcloud" href=https://feeds.feedburner.com/brampnet aria-label="RSS feed">
+<a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed" class="btn btn-sm btn-soundcloud">
 <i class="fa fa-rss-square"></i> Subscribe via RSS</a>
 </div>
 <div class=btn-group>
-<a class="btn btn-sm btn-twitter" href=https://twitter.com/TheBramp><i class="fa fa-twitter"></i> Follow @TheBramp</a>
+<a href=https://twitter.com/TheBramp class="btn btn-sm btn-twitter"><i class="fa fa-twitter"></i> Follow @TheBramp</a>
 </div>
 </div>
 </div>
 </div>
 <ul class=pager>
-&nbsp;<li class=previous><a href="/post/2011/07/27/html5-canvas-lunch-wheel/">&larr; HTML5 Canvas: Lunch Wheel</a></li>
-&nbsp;<li class=next><a href="/post/2011/08/07/default-to-curses-interface-for-mtr/"> Default to curses interface for mtr &rarr;</a></li>
+&nbsp;<li class=previous><a href=/post/2011/07/27/html5-canvas-lunch-wheel/ >&larr; HTML5 Canvas: Lunch Wheel</a></li>
+&nbsp;<li class=next><a href=/post/2011/08/07/default-to-curses-interface-for-mtr/ >Default to curses interface for mtr &rarr;</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
-<script type=text/javascript>var disqus_shortname = 'bramp';
+<script type=text/javascript>
+var disqus_shortname = 'bramp';
     var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2011\/08\/02\/google-chrome-javascript-console.log-bug\/';
     var disqus_title = 'Google Chrome Javascript console.log bug?';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2011\/08\/02\/google-chrome-javascript-console.log-bug\/';
@@ -184,16 +183,17 @@ var array = [1,2,3,4,5,6,7,8,9,10]; var i = 0; while(array.length &gt; 0) { cons
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
 <a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="text-muted credit">&copy; 2017. All rights reserved. </p>
+<p class="credit text-muted">&copy; 2017. All rights reserved.</p>
 </footer>
 </div>
 </div>
 <script src=/js/all.min.js></script>
-<script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
+<script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async type=text/javascript></script>
 </body>
 </html>

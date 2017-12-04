@@ -2,77 +2,79 @@
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<link itemprop=url rel=canonical href="https://blog.bramp.net/post/2009/12/04/google-dns-benchmarked/"/>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<link href=https://blog.bramp.net/post/2009/12/04/google-dns-benchmarked/ rel=canonical itemprop=url />
 <title>Google DNS Benchmarked</title>
-<meta itemprop=description name=description content="Today Google announced a public DNS service they are hosting. They claim that their DNS infrastructure is faster and more secure, because their servers do some clever things. I wanted to test their …">
-<meta itemprop=creator name=author content="Andrew Brampton">
-<meta name=generator content=""/>
-<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title="bramp.net"/>
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title="bramp.net"/>
-<link rel="shortcut icon" href=/favicon.ico type="image/x-icon"/>
-<link rel=apple-touch-icon-precomposed href="/images/favicon.png"/>
-<link rel=apple-touch-icon-precomposed sizes=57x57 href="/images/favicon-57x57.png"/>
-<link rel=apple-touch-icon-precomposed sizes=72x72 href="/images/favicon-72x72.png"/>
-<link rel=apple-touch-icon-precomposed sizes=76x76 href="/images/favicon-76x76.png"/>
-<link rel=apple-touch-icon-precomposed sizes=114x114 href="/images/favicon-114x114.png"/>
-<link rel=apple-touch-icon-precomposed sizes=120x120 href="/images/favicon-120x120.png"/>
-<link rel=apple-touch-icon-precomposed sizes=144x144 href="/images/favicon-144x144.png"/>
-<link rel=apple-touch-icon-precomposed sizes=152x152 href="/images/favicon-152x152.png"/>
-<link rel=apple-touch-icon-precomposed sizes=180x180 href="/images/favicon-180x180.png"/>
-<meta name=msapplication-TileColor content=#4582EC>
-<meta name=msapplication-TileImage content=/images/favicon-144x144.png>
-<meta name=theme-color content=#4582EC>
-<link rel=icon sizes=192x192 href="/images/favicon-192x192.png"/>
+<meta content="Today Google announced a public DNS service they are hosting. They claim that their DNS infrastructure is faster and more secure, because their servers do some clever things. I wanted to test their …" name=description itemprop=description>
+<meta content="Andrew Brampton" name=author itemprop=creator>
+<meta content="" name=generator />
+<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
+<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
+<link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
+<link href=/images/favicon.png rel=apple-touch-icon-precomposed />
+<link href=/images/favicon-57x57.png rel=apple-touch-icon-precomposed sizes=57x57 />
+<link href=/images/favicon-72x72.png rel=apple-touch-icon-precomposed sizes=72x72 />
+<link href=/images/favicon-76x76.png rel=apple-touch-icon-precomposed sizes=76x76 />
+<link href=/images/favicon-114x114.png rel=apple-touch-icon-precomposed sizes=114x114 />
+<link href=/images/favicon-120x120.png rel=apple-touch-icon-precomposed sizes=120x120 />
+<link href=/images/favicon-144x144.png rel=apple-touch-icon-precomposed sizes=144x144 />
+<link href=/images/favicon-152x152.png rel=apple-touch-icon-precomposed sizes=152x152 />
+<link href=/images/favicon-180x180.png rel=apple-touch-icon-precomposed sizes=180x180 />
+<meta content=#4582EC name=msapplication-TileColor>
+<meta content=/images/favicon-144x144.png name=msapplication-TileImage>
+<meta content=#4582EC name=theme-color>
+<link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
 <link href=/css/all.min.css rel=stylesheet>
 <link href=https://fonts.gstatic.com rel=preconnect crossorigin>
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel=stylesheet type=text/css>
 <link href=https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css rel=stylesheet>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css>
-<meta name=twitter:card content="summary"/>
-<meta name=twitter:site content="@TheBramp"/>
-<meta name=twitter:creator content="@TheBramp"/>
-<meta property=og:type content="article"/>
-<meta property=article:author content="https://www.facebook.com/bramp"/>
-<meta property=article:published_time content="2009-12-04T00:00:00&#43;07:00"/>
-<meta property=article:tag content="dns"/>
-<meta property=article:tag content="experiment"/>
-<meta property=article:tag content="Google"/>
-<meta property=article:tag content="opendns"/>
-<meta property=article:tag content="PHP"/>
-<meta property=og:url content="https://blog.bramp.net/post/2009/12/04/google-dns-benchmarked/"/>
-<meta property=og:site_name content="bramp.net"/>
-<meta property=og:title content="Google DNS Benchmarked"/>
-<meta property=og:description content="Today Google announced a public DNS service they are hosting. They claim that their DNS infrastructure is faster and more secure, because their servers do some clever things. I wanted to test their …"/>
-<meta property=og:updated_time content="2009-12-04T00:00:00&#43;00:00"/>
-<meta property=og:locale content="en_GB"/>
-<meta name=google-site-verification content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"/>
+<link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
+<meta content=summary name=twitter:card />
+<meta content=@TheBramp name=twitter:site />
+<meta content=@TheBramp name=twitter:creator />
+<meta content=article property=og:type />
+<meta content=https://www.facebook.com/bramp property=article:author />
+<meta content=2009-12-04T00:00:00&#43;07:00 property=article:published_time />
+<meta content=dns property=article:tag />
+<meta content=experiment property=article:tag />
+<meta content=Google property=article:tag />
+<meta content=opendns property=article:tag />
+<meta content=PHP property=article:tag />
+<meta content=https://blog.bramp.net/post/2009/12/04/google-dns-benchmarked/ property=og:url />
+<meta content=bramp.net property=og:site_name />
+<meta content="Google DNS Benchmarked" property=og:title />
+<meta content="Today Google announced a public DNS service they are hosting. They claim that their DNS infrastructure is faster and more secure, because their servers do some clever things. I wanted to test their …" property=og:description />
+<meta content=2009-12-04T00:00:00&#43;00:00 property=og:updated_time />
+<meta content=en_GB property=og:locale />
+<meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
 </head>
 <body itemscope itemtype=Blog>
-<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-136478-5', 'auto');
     ga('require', 'linkid', 'linkid.js');
-    ga('send', 'pageview');</script>
+    ga('send', 'pageview');
+</script>
 <div id=wrapper>
 <div class="navbar navbar-default">
 <div class=container>
 <div class=navbar-header>
-<button type=button class=navbar-toggle data-toggle=collapse data-target=.navbar-collapse>
+<button class=navbar-toggle data-target=.navbar-collapse data-toggle=collapse type=button>
 <span class=sr-only>Toggle navigation</span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 </button>
 <div class=navbar-brand aria-label="About Andrew Brampton">
-<a href="/">
-<img src=/images/favicon-64x64.png class=profile-image alt=Home>
+<a href=/ >
+<img src=/images/favicon-64x64.png alt=Home class=profile-image>
 </a>
 <div itemprop=author itemscope itemtype=https://schema.org/Person>
-<a href="/about-me/" itemprop=name>Andrew Brampton</a>
+<a href=/about-me/ itemprop=name>Andrew Brampton</a>
 <div id=social-wrapper>
 <a href=https://twitter.com/TheBramp aria-label=Twitter><i class="fa fa-twitter-square"></i></a>
 <a href=https://www.linkedin.com/in/bramp aria-label=LinkedIn><i class="fa fa-linkedin-square"></i></a>
@@ -83,13 +85,13 @@
 </div>
 </div>
 </div>
-<div class="navbar-collapse collapse">
+<div class="collapse navbar-collapse">
 <ul class="nav navbar-nav" role=navigation>
-<li><a href="/">Articles</a></li>
-<li><a href="/about-me/">About Me</a></li>
-<li><a href="/android-app/">Android Apps</a></li>
-<li><a href="/opensource/">Open Source</a></li>
-<li><a href="/publication/">Publications</a></li>
+<li><a href=/ >Articles</a></li>
+<li><a href=/about-me/ >About Me</a></li>
+<li><a href=/android-app/ >Android Apps</a></li>
+<li><a href=/opensource/ >Open Source</a></li>
+<li><a href=/publication/ >Publications</a></li>
 </ul>
 </div>
 </div>
@@ -99,22 +101,21 @@
 <h1 itemprop=headline>Google DNS Benchmarked</h1>
 <p class=meta>
 <i class="fa fa-calendar-o"></i> <time itemprop=datePublished>2009-12-04</time>
-| <a href="https://blog.bramp.net/tags/dns/">dns</a>
-| <a href="https://blog.bramp.net/tags/experiment/">experiment</a>
-| <a href="https://blog.bramp.net/tags/google/">Google</a>
-| <a href="https://blog.bramp.net/tags/opendns/">opendns</a>
-| <a href="https://blog.bramp.net/tags/php/">PHP</a>
+| <a href=https://blog.bramp.net/tags/dns/ >dns</a>
+| <a href=https://blog.bramp.net/tags/experiment/ >experiment</a>
+| <a href=https://blog.bramp.net/tags/google/ >Google</a>
+| <a href=https://blog.bramp.net/tags/opendns/ >opendns</a>
+| <a href=https://blog.bramp.net/tags/php/ >PHP</a>
 </p>
 <div class=post itemprop=articleBody>
 <p>Today <a href=http://googleblog.blogspot.com/2009/12/introducing-google-public-dns.html>Google announced</a> a public DNS service they are hosting. They claim that their DNS infrastructure is <a href=http://code.google.com/speed/public-dns/docs/performance.html>faster and more secure</a>, because their servers do some clever things. I wanted to test their performance claims, so I wrote a <a href=dns.php>little script</a> to measure a lookup times for different domains across a number of DNS servers.</p>
 <h3 id=methodology>Methodology</h3>
-<p>Firstly I found a <a href=http://www.quantcast.com/top-sites-1>list of the 1 million most popular sites</a>. I then picked a number of DNS servers to test against. I chose <a href="http://code.google.com/speed/public-dns/">Google</a>&#8216;s, <a href="http://www.opendns.com/">OpenDNS</a>&#8216;s, my ISP (<a href="http://broadband.sky.com/">Sky/Easynet</a>) and my old ISP&#8217;s (<a href="http://www.plus.net/">Plus.net</a>).</p>
+<p>Firstly I found a <a href=http://www.quantcast.com/top-sites-1>list of the 1 million most popular sites</a>. I then picked a number of DNS servers to test against. I chose <a href=http://code.google.com/speed/public-dns/ >Google</a>&#8216;s, <a href=http://www.opendns.com/ >OpenDNS</a>&#8216;s, my ISP (<a href=http://broadband.sky.com/ >Sky/Easynet</a>) and my old ISP&#8217;s (<a href=http://www.plus.net/ >Plus.net</a>).</p>
 <p>I decided I would query an <a href=http://en.wikipedia.org/wiki/List_of_DNS_record_types>A record</a> for each of the domains in the list, one at a time, starting with the most popular. I would query each server three times for the same domain name. The ordering was like this:</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php>foreach (domain)
-   for (i =0; i&lt;3;i++)
-      foreach (server)
-         query(server, domain)</code></pre>
-</div>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=x>foreach (domain)
+</span><span class=x>   for (i =0; i&lt;3;i++)
+</span><span class=x>      foreach (server)
+</span><span class=x>         query(server, domain)</span></code></pre></div>
 <p>I recorded the time it took for each query to be answered, and I also recorded the replies. I was curious to see if some servers replied with different answers, or if some returned more information, i.e. additional records.</p>
 <p>I <a href=dns.php>wrote a script</a> in PHP 5.3, and ran it from the command line on my Windows Server 2008 machine. The script used PEAR&rsquo;s Net_DNS to craft and send the DNS questions. I was not using my operating system&rsquo;s resolver, and I was not using any form of client side caching. I ran the experiments from my home ADSL connection and as far as I know my ISP was not interfering with my DNS requests in any way. I live in the North West of the UK.</p>
 <h3 id=results>Results</h3>
@@ -200,7 +201,7 @@
 <p>From this table of results, we can see that Google&rsquo;s median response time is 41-42ms, however, OpenDNS performs much better with a result of ~31ms. Both my current ISP and my old ISP don&rsquo;t perform as well and each achieved a result between 42ms and 61ms. To get a better feel for the data I plotted an empirical CDF of the lookup times for each server.</p>
 <p><a href=ecdf_overview.pdf>
 <figure>
-<img src=ecdf_overview.png width="700"/>
+<img src=ecdf_overview.png height=700 width=700 />
 <figcaption>
 <h4>Click for a larger PDF version</h4>
 </figcaption>
@@ -212,7 +213,7 @@
 <p>SInce I ran each lookup three times, I wanted to compare the lookup times for each request. This time I plotted the empirical CDF of each iteration of request.</p>
 <p><a href=ecdf_requests.pdf>
 <figure>
-<img src=ecdf_requests.png width="700"/>
+<img src=ecdf_requests.png height=700 width=700 />
 <figcaption>
 <h4>Click for a larger PDF version</h4>
 </figcaption>
@@ -234,21 +235,22 @@
 <div class=col-sm-6>
 <div class=btn-toolbar>
 <div class=btn-group>
-<a class="btn btn-sm btn-soundcloud" href=https://feeds.feedburner.com/brampnet aria-label="RSS feed">
+<a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed" class="btn btn-sm btn-soundcloud">
 <i class="fa fa-rss-square"></i> Subscribe via RSS</a>
 </div>
 <div class=btn-group>
-<a class="btn btn-sm btn-twitter" href=https://twitter.com/TheBramp><i class="fa fa-twitter"></i> Follow @TheBramp</a>
+<a href=https://twitter.com/TheBramp class="btn btn-sm btn-twitter"><i class="fa fa-twitter"></i> Follow @TheBramp</a>
 </div>
 </div>
 </div>
 </div>
 <ul class=pager>
-&nbsp;<li class=previous><a href="/post/2009/11/28/useful-scripts/configurations/">&larr; Useful scripts/configurations</a></li>
-&nbsp;<li class=next><a href="/post/2009/12/06/foursquare-rules/"> Foursquare Rules &rarr;</a></li>
+&nbsp;<li class=previous><a href=/post/2009/11/28/useful-scripts/configurations/ >&larr; Useful scripts/configurations</a></li>
+&nbsp;<li class=next><a href=/post/2009/12/06/foursquare-rules/ >Foursquare Rules &rarr;</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
-<script type=text/javascript>var disqus_shortname = 'bramp';
+<script type=text/javascript>
+var disqus_shortname = 'bramp';
     var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/12\/04\/google-dns-benchmarked\/';
     var disqus_title = 'Google DNS Benchmarked';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2009\/12\/04\/google-dns-benchmarked\/';
@@ -261,16 +263,17 @@
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
 <a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="text-muted credit">&copy; 2017. All rights reserved. </p>
+<p class="credit text-muted">&copy; 2017. All rights reserved.</p>
 </footer>
 </div>
 </div>
 <script src=/js/all.min.js></script>
-<script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
+<script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async type=text/javascript></script>
 </body>
 </html>

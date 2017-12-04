@@ -16,63 +16,62 @@
       
       <guid>https://blog.bramp.net/post/2012/09/30/pt-kill-centos-init.d-script/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://www.percona.com/doc/percona-toolkit/2.1/pt-kill.html&#34;&gt;pt-kill&lt;/a&gt; is a neat little application that can stop long running MySQL queries. It was formally know as &lt;a href=&#34;http://www.maatkit.org/doc/mk-kill.html&#34;&gt;mk-kill&lt;/a&gt; before &lt;a href=&#34;http://www.Percona.com&#34;&gt;Percona&lt;/a&gt; took over the project. Here is the init.d script I use (as one doesn&amp;#8217;t seem provided by the project): &lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;s1770&#34;&gt;#!/bin/sh
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;#
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;# pt-kill   This shell script takes care of starting and stopping
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;#               the pt-kill services.
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;#
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;# chkconfig: - 60 20
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;# description: pt-kill stops long running MySQL queries
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;#
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;# probe: true
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;
-&lt;span class=&#34;s1770&#34;&gt;# Source function library.
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;. /etc/rc.d/init.d/functions
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/sh
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# pt-kill   This shell script takes care of starting and stopping
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#               the pt-kill services.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# chkconfig: - 60 20
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# description: pt-kill stops long running MySQL queries
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# probe: true
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# Source function library.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;. /etc/rc.d/init.d/functions
 
-&lt;span class=&#34;s7e3&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
 
-&lt;span class=&#34;s1770&#34;&gt;# See how we were called.
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s3e8&#34;&gt;case&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;s7e3&#34;&gt;$1&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;&amp;#34;&lt;/span&gt; in
-  start&lt;span class=&#34;sfa0&#34;&gt;)&lt;/span&gt;
-    &lt;span class=&#34;s7d2&#34;&gt;echo&lt;/span&gt; -n &lt;span class=&#34;sc1c&#34;&gt;$&amp;#34;Starting pt-kill: &amp;#34;&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# See how we were called.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;case&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$1&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; in
+  start&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; -n &lt;span class=&#34;s2&#34;&gt;$&amp;#34;Starting pt-kill: &amp;#34;&lt;/span&gt;
  
-    pt-kill &lt;span class=&#34;sc25&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --pid /var/run/pt-kill.pid &lt;span class=&#34;sc25&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --daemonize &lt;span class=&#34;sc25&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --interval &lt;span class=&#34;sc80&#34;&gt;5&lt;/span&gt; &lt;span class=&#34;sc25&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --busy-time &lt;span class=&#34;sc80&#34;&gt;60&lt;/span&gt; &lt;span class=&#34;sc25&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --wait-after-kill &lt;span class=&#34;sc80&#34;&gt;15&lt;/span&gt;  &lt;span class=&#34;sc25&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --ignore-info &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;(?i-smx:^insert|^update|^delete|^load)&amp;#39;&lt;/span&gt; &lt;span class=&#34;sc25&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --match-info &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;(?i-xsm:select)&amp;#39;&lt;/span&gt; &lt;span class=&#34;sc25&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --ignore-user &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;(?i-xsm:root)&amp;#39;&lt;/span&gt; &lt;span class=&#34;sc25&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --log /var/log/mysql-kill.log &lt;span class=&#34;sc25&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --print &lt;span class=&#34;sc25&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --execute-command &lt;span class=&#34;sc1c&#34;&gt;&amp;#39;(echo &amp;#34;Subject: pt-kill query found on `hostname`&amp;#34;; tail -1 /var/log/mysql-kill.log)|/usr/sbin/sendmail -t you@example.com&amp;#39;&lt;/span&gt; &lt;span class=&#34;sc25&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;sc25&#34;&gt;&lt;/span&gt;      --kill-query
+    pt-kill &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --pid /var/run/pt-kill.pid &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --daemonize &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --interval &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --busy-time &lt;span class=&#34;m&#34;&gt;60&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --wait-after-kill &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;  &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --ignore-info &lt;span class=&#34;s1&#34;&gt;&amp;#39;(?i-smx:^insert|^update|^delete|^load)&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --match-info &lt;span class=&#34;s1&#34;&gt;&amp;#39;(?i-xsm:select)&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --ignore-user &lt;span class=&#34;s1&#34;&gt;&amp;#39;(?i-xsm:root)&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --log /var/log/mysql-kill.log &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --print &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --execute-command &lt;span class=&#34;s1&#34;&gt;&amp;#39;(echo &amp;#34;Subject: pt-kill query found on `hostname`&amp;#34;; tail -1 /var/log/mysql-kill.log)|/usr/sbin/sendmail -t you@example.com&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --kill-query
  
-    &lt;span class=&#34;s7e3&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s7e3&#34;&gt;$?&lt;/span&gt;
-    &lt;span class=&#34;s7d2&#34;&gt;echo&lt;/span&gt;
-    &lt;span class=&#34;sfa0&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;$RETVAL&lt;/span&gt; -ne &lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;sfa0&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;s7d2&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;$RETVAL&lt;/span&gt;
+    &lt;span class=&#34;nv&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$?&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$RETVAL&lt;/span&gt; -ne &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$RETVAL&lt;/span&gt;
  
-  ;;
-  stop&lt;span class=&#34;sfa0&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;s1770&#34;&gt;# Stop daemons.
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;s7d2&#34;&gt;echo&lt;/span&gt; -n &lt;span class=&#34;sc1c&#34;&gt;$&amp;#34;Shutting down pt-kill: &amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
+  stop&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;# Stop daemons.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; -n &lt;span class=&#34;s2&#34;&gt;$&amp;#34;Shutting down pt-kill: &amp;#34;&lt;/span&gt;
         killproc pt-kill
-        &lt;span class=&#34;s7d2&#34;&gt;echo&lt;/span&gt;
-    ;;
-  restart&lt;span class=&#34;sfa0&#34;&gt;)&lt;/span&gt;
-    &lt;span class=&#34;s7e3&#34;&gt;$0&lt;/span&gt; stop
-        &lt;span class=&#34;s7e3&#34;&gt;$0&lt;/span&gt; start
-        ;;
-  *&lt;span class=&#34;sfa0&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;s7d2&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;sc1c&#34;&gt;$&amp;#34;Usage: pt-kill {start|stop}&amp;#34;&lt;/span&gt;
-        &lt;span class=&#34;s7e3&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;3&lt;/span&gt;
-        ;;
-&lt;span class=&#34;s3e8&#34;&gt;esac&lt;/span&gt;
+        &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
+  restart&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt; stop
+        &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt; start
+        &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
+  *&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+        &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;$&amp;#34;Usage: pt-kill {start|stop}&amp;#34;&lt;/span&gt;
+        &lt;span class=&#34;nv&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;esac&lt;/span&gt;
  
-&lt;span class=&#34;s7d2&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;$RETVAL&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$RETVAL&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;Usage:&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Create the script as /etc/init.d/pt-kill, and change the pt-kill command in the middle of the script to suit your needs. Then run &amp;#8216;chkconfig &amp;#8211;level 345 pt-kill on&amp;#8217; to ensure this script starts up at boot. Alternatively test the script with &amp;#8216;/etc/init.d/pt-kill start&amp;#8217; or &amp;#8216;/etc/init.d/pt-kill stop&amp;#8217;.&lt;/p&gt;

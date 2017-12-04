@@ -2,78 +2,80 @@
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<link itemprop=url rel=canonical href="https://blog.bramp.net/post/2009/03/06/compiler-defined-symbols/"/>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<link href=https://blog.bramp.net/post/2009/03/06/compiler-defined-symbols/ rel=canonical itemprop=url />
 <title>Compiler defined symbols</title>
-<meta itemprop=description name=description content="I found this neat little command to list all the GCC compiler defined symbols
-gcc -dM -E - &gt; /dev/null  This can help if you aren&rsquo;t quite sure which defines are used on your systems. For …">
-<meta itemprop=creator name=author content="Andrew Brampton">
-<meta name=generator content=""/>
-<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title="bramp.net"/>
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title="bramp.net"/>
-<link rel="shortcut icon" href=/favicon.ico type="image/x-icon"/>
-<link rel=apple-touch-icon-precomposed href="/images/favicon.png"/>
-<link rel=apple-touch-icon-precomposed sizes=57x57 href="/images/favicon-57x57.png"/>
-<link rel=apple-touch-icon-precomposed sizes=72x72 href="/images/favicon-72x72.png"/>
-<link rel=apple-touch-icon-precomposed sizes=76x76 href="/images/favicon-76x76.png"/>
-<link rel=apple-touch-icon-precomposed sizes=114x114 href="/images/favicon-114x114.png"/>
-<link rel=apple-touch-icon-precomposed sizes=120x120 href="/images/favicon-120x120.png"/>
-<link rel=apple-touch-icon-precomposed sizes=144x144 href="/images/favicon-144x144.png"/>
-<link rel=apple-touch-icon-precomposed sizes=152x152 href="/images/favicon-152x152.png"/>
-<link rel=apple-touch-icon-precomposed sizes=180x180 href="/images/favicon-180x180.png"/>
-<meta name=msapplication-TileColor content=#4582EC>
-<meta name=msapplication-TileImage content=/images/favicon-144x144.png>
-<meta name=theme-color content=#4582EC>
-<link rel=icon sizes=192x192 href="/images/favicon-192x192.png"/>
+<meta content="I found this neat little command to list all the GCC compiler defined symbols
+gcc -dM -E - &gt; /dev/null This can help if you aren&rsquo;t quite sure which defines are used on your systems. For …" name=description itemprop=description>
+<meta content="Andrew Brampton" name=author itemprop=creator>
+<meta content="" name=generator />
+<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
+<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
+<link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
+<link href=/images/favicon.png rel=apple-touch-icon-precomposed />
+<link href=/images/favicon-57x57.png rel=apple-touch-icon-precomposed sizes=57x57 />
+<link href=/images/favicon-72x72.png rel=apple-touch-icon-precomposed sizes=72x72 />
+<link href=/images/favicon-76x76.png rel=apple-touch-icon-precomposed sizes=76x76 />
+<link href=/images/favicon-114x114.png rel=apple-touch-icon-precomposed sizes=114x114 />
+<link href=/images/favicon-120x120.png rel=apple-touch-icon-precomposed sizes=120x120 />
+<link href=/images/favicon-144x144.png rel=apple-touch-icon-precomposed sizes=144x144 />
+<link href=/images/favicon-152x152.png rel=apple-touch-icon-precomposed sizes=152x152 />
+<link href=/images/favicon-180x180.png rel=apple-touch-icon-precomposed sizes=180x180 />
+<meta content=#4582EC name=msapplication-TileColor>
+<meta content=/images/favicon-144x144.png name=msapplication-TileImage>
+<meta content=#4582EC name=theme-color>
+<link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
 <link href=/css/all.min.css rel=stylesheet>
 <link href=https://fonts.gstatic.com rel=preconnect crossorigin>
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel=stylesheet type=text/css>
 <link href=https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css rel=stylesheet>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css>
-<meta name=twitter:card content="summary"/>
-<meta name=twitter:site content="@TheBramp"/>
-<meta name=twitter:creator content="@TheBramp"/>
-<meta property=og:type content="article"/>
-<meta property=article:author content="https://www.facebook.com/bramp"/>
-<meta property=article:published_time content="2009-03-06T00:00:00&#43;07:00"/>
-<meta property=article:tag content="defines"/>
-<meta property=article:tag content="FreeBSD"/>
-<meta property=article:tag content="gcc"/>
-<meta property=article:tag content="Linux"/>
-<meta property=og:url content="https://blog.bramp.net/post/2009/03/06/compiler-defined-symbols/"/>
-<meta property=og:site_name content="bramp.net"/>
-<meta property=og:title content="Compiler defined symbols"/>
-<meta property=og:description content="I found this neat little command to list all the GCC compiler defined symbols
-gcc -dM -E - &gt; /dev/null  This can help if you aren&rsquo;t quite sure which defines are used on your systems. For …"/>
-<meta property=og:updated_time content="2009-03-06T00:00:00&#43;00:00"/>
-<meta property=og:locale content="en_GB"/>
-<meta name=google-site-verification content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"/>
+<link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
+<meta content=summary name=twitter:card />
+<meta content=@TheBramp name=twitter:site />
+<meta content=@TheBramp name=twitter:creator />
+<meta content=article property=og:type />
+<meta content=https://www.facebook.com/bramp property=article:author />
+<meta content=2009-03-06T00:00:00&#43;07:00 property=article:published_time />
+<meta content=defines property=article:tag />
+<meta content=FreeBSD property=article:tag />
+<meta content=gcc property=article:tag />
+<meta content=Linux property=article:tag />
+<meta content=https://blog.bramp.net/post/2009/03/06/compiler-defined-symbols/ property=og:url />
+<meta content=bramp.net property=og:site_name />
+<meta content="Compiler defined symbols" property=og:title />
+<meta content="I found this neat little command to list all the GCC compiler defined symbols
+gcc -dM -E - &gt; /dev/null This can help if you aren&rsquo;t quite sure which defines are used on your systems. For …" property=og:description />
+<meta content=2009-03-06T00:00:00&#43;00:00 property=og:updated_time />
+<meta content=en_GB property=og:locale />
+<meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
 </head>
 <body itemscope itemtype=Blog>
-<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-136478-5', 'auto');
     ga('require', 'linkid', 'linkid.js');
-    ga('send', 'pageview');</script>
+    ga('send', 'pageview');
+</script>
 <div id=wrapper>
 <div class="navbar navbar-default">
 <div class=container>
 <div class=navbar-header>
-<button type=button class=navbar-toggle data-toggle=collapse data-target=.navbar-collapse>
+<button class=navbar-toggle data-target=.navbar-collapse data-toggle=collapse type=button>
 <span class=sr-only>Toggle navigation</span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 </button>
 <div class=navbar-brand aria-label="About Andrew Brampton">
-<a href="/">
-<img src=/images/favicon-64x64.png class=profile-image alt=Home>
+<a href=/ >
+<img alt=Home class=profile-image src=/images/favicon-64x64.png>
 </a>
 <div itemprop=author itemscope itemtype=https://schema.org/Person>
-<a href="/about-me/" itemprop=name>Andrew Brampton</a>
+<a href=/about-me/ itemprop=name>Andrew Brampton</a>
 <div id=social-wrapper>
 <a href=https://twitter.com/TheBramp aria-label=Twitter><i class="fa fa-twitter-square"></i></a>
 <a href=https://www.linkedin.com/in/bramp aria-label=LinkedIn><i class="fa fa-linkedin-square"></i></a>
@@ -84,13 +86,13 @@ gcc -dM -E - &gt; /dev/null  This can help if you aren&rsquo;t quite sure which 
 </div>
 </div>
 </div>
-<div class="navbar-collapse collapse">
+<div class="collapse navbar-collapse">
 <ul class="nav navbar-nav" role=navigation>
-<li><a href="/">Articles</a></li>
-<li><a href="/about-me/">About Me</a></li>
-<li><a href="/android-app/">Android Apps</a></li>
-<li><a href="/opensource/">Open Source</a></li>
-<li><a href="/publication/">Publications</a></li>
+<li><a href=/ >Articles</a></li>
+<li><a href=/about-me/ >About Me</a></li>
+<li><a href=/android-app/ >Android Apps</a></li>
+<li><a href=/opensource/ >Open Source</a></li>
+<li><a href=/publication/ >Publications</a></li>
 </ul>
 </div>
 </div>
@@ -100,258 +102,255 @@ gcc -dM -E - &gt; /dev/null  This can help if you aren&rsquo;t quite sure which 
 <h1 itemprop=headline>Compiler defined symbols</h1>
 <p class=meta>
 <i class="fa fa-calendar-o"></i> <time itemprop=datePublished>2009-03-06</time>
-| <a href="https://blog.bramp.net/tags/defines/">defines</a>
-| <a href="https://blog.bramp.net/tags/freebsd/">FreeBSD</a>
-| <a href="https://blog.bramp.net/tags/gcc/">gcc</a>
-| <a href="https://blog.bramp.net/tags/linux/">Linux</a>
+| <a href=https://blog.bramp.net/tags/defines/ >defines</a>
+| <a href=https://blog.bramp.net/tags/freebsd/ >FreeBSD</a>
+| <a href=https://blog.bramp.net/tags/gcc/ >gcc</a>
+| <a href=https://blog.bramp.net/tags/linux/ >Linux</a>
 </p>
 <div class=post itemprop=articleBody>
 <p>I found this neat little command to list all the GCC compiler defined symbols</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>gcc -dM -E - &gt; /dev/null</code></pre>
-</div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>gcc -dM -E - &gt; /dev/null</code></pre></div>
 <p>This can help if you aren&rsquo;t quite sure which defines are used on your systems. For example my FreeBSD 7.1 machine outputs this:</p>
-<div class=highlight><pre class=chroma><code class=language-c data-lang=c><span class=s17d4>#define __DBL_MIN_EXP__ (-1021)
-</span><span class=s17d4>#define __FLT_MIN__ 1.17549435e-38F
-</span><span class=s17d4>#define __DEC64_DEN__ 0.000000000000001E-383DD
-</span><span class=s17d4>#define __CHAR_BIT__ 8
-</span><span class=s17d4>#define __WCHAR_MAX__ 2147483647
-</span><span class=s17d4>#define __DBL_DENORM_MIN__ 4.9406564584124654e-324
-</span><span class=s17d4>#define __FLT_EVAL_METHOD__ 0
-</span><span class=s17d4>#define __DBL_MIN_10_EXP__ (-307)
-</span><span class=s17d4>#define __FINITE_MATH_ONLY__ 0
-</span><span class=s17d4>#define __DEC64_MAX_EXP__ 384
-</span><span class=s17d4>#define __SHRT_MAX__ 32767
-</span><span class=s17d4>#define __LDBL_MAX__ 1.18973149535723176502e+4932L
-</span><span class=s17d4>#define __UINTMAX_TYPE__ long unsigned int
-</span><span class=s17d4>#define __DEC32_EPSILON__ 1E-6DF
-</span><span class=s17d4>#define __unix 1
-</span><span class=s17d4>#define __SCHAR_MAX__ 127
-</span><span class=s17d4>#define __USER_LABEL_PREFIX__
-</span><span class=s17d4>#define __STDC_HOSTED__ 1
-</span><span class=s17d4>#define __DEC64_MIN_EXP__ (-383)
-</span><span class=s17d4>#define __DBL_DIG__ 15
-</span><span class=s17d4>#define __FLT_EPSILON__ 1.19209290e-7F
-</span><span class=s17d4>#define __LDBL_MIN__ 3.36210314311209350626e-4932L
-</span><span class=s17d4>#define __DEC32_MAX__ 9.999999E96DF
-</span><span class=s17d4>#define __unix__ 1
-</span><span class=s17d4>#define __DECIMAL_DIG__ 21
-</span><span class=s17d4>#define __LDBL_HAS_QUIET_NAN__ 1
-</span><span class=s17d4>#define __GNUC__ 4
-</span><span class=s17d4>#define __MMX__ 1
-</span><span class=s17d4>#define __FLT_HAS_DENORM__ 1
-</span><span class=s17d4>#define __FreeBSD_cc_version 700003
-</span><span class=s17d4>#define __DBL_MAX__ 1.7976931348623157e+308
-</span><span class=s17d4>#define __DBL_HAS_INFINITY__ 1
-</span><span class=s17d4>#define __DEC32_MIN_EXP__ (-95)
-</span><span class=s17d4>#define __LDBL_HAS_DENORM__ 1
-</span><span class=s17d4>#define __DEC32_MIN__ 1E-95DF
-</span><span class=s17d4>#define __DBL_MAX_EXP__ 1024
-</span><span class=s17d4>#define __DEC128_EPSILON__ 1E-33DL
-</span><span class=s17d4>#define __SSE2_MATH__ 1
-</span><span class=s17d4>#define __amd64 1
-</span><span class=s17d4>#define __LONG_LONG_MAX__ 9223372036854775807LL
-</span><span class=s17d4>#define __GXX_ABI_VERSION 1002
-</span><span class=s17d4>#define __FLT_MIN_EXP__ (-125)
-</span><span class=s17d4>#define __x86_64 1
-</span><span class=s17d4>#define __DBL_MIN__ 2.2250738585072014e-308
-</span><span class=s17d4>#define __LP64__ 1
-</span><span class=s17d4>#define __DBL_HAS_QUIET_NAN__ 1
-</span><span class=s17d4>#define __DEC128_MIN__ 1E-6143DL
-</span><span class=s17d4>#define __REGISTER_PREFIX__
-</span><span class=s17d4>#define __DBL_HAS_DENORM__ 1
-</span><span class=s17d4>#define __NO_INLINE__ 1
-</span><span class=s17d4>#define __DEC_EVAL_METHOD__ 2
-</span><span class=s17d4>#define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL
-</span><span class=s17d4>#define __FLT_MANT_DIG__ 24
-</span><span class=s17d4>#define __VERSION__ &#34;4.2.1 20070719  [FreeBSD]&#34;
-</span><span class=s17d4>#define __DEC64_EPSILON__ 1E-15DD
-</span><span class=s17d4>#define __DEC128_MIN_EXP__ (-6143)
-</span><span class=s17d4>#define unix 1
-</span><span class=s17d4>#define __SIZE_TYPE__ long unsigned int
-</span><span class=s17d4>#define __DEC32_DEN__ 0.000001E-95DF
-</span><span class=s17d4>#define __ELF__ 1
-</span><span class=s17d4>#define __FLT_RADIX__ 2
-</span><span class=s17d4>#define __LDBL_EPSILON__ 1.08420217248550443401e-19L
-</span><span class=s17d4>#define __FreeBSD__ 7
-</span><span class=s17d4>#define __SSE_MATH__ 1
-</span><span class=s17d4>#define __k8 1
-</span><span class=s17d4>#define __LDBL_DIG__ 18
-</span><span class=s17d4>#define __KPRINTF_ATTRIBUTE__ 1
-</span><span class=s17d4>#define __x86_64__ 1
-</span><span class=s17d4>#define __FLT_HAS_QUIET_NAN__ 1
-</span><span class=s17d4>#define __FLT_MAX_10_EXP__ 38
-</span><span class=s17d4>#define __LONG_MAX__ 9223372036854775807L
-</span><span class=s17d4>#define __FLT_HAS_INFINITY__ 1
-</span><span class=s17d4>#define __DEC64_MAX__ 9.999999999999999E384DD
-</span><span class=s17d4>#define __DEC64_MANT_DIG__ 16
-</span><span class=s17d4>#define __DEC32_MAX_EXP__ 96
-</span><span class=s17d4>#define __DEC128_DEN__ 0.000000000000000000000000000000001E-6143DL
-</span><span class=s17d4>#define __LDBL_MANT_DIG__ 64
-</span><span class=s17d4>#define _LONGLONG 1
-</span><span class=s17d4>#define __DEC32_MANT_DIG__ 7
-</span><span class=s17d4>#define __k8__ 1
-</span><span class=s17d4>#define __WCHAR_TYPE__ int
-</span><span class=s17d4>#define __FLT_DIG__ 6
-</span><span class=s17d4>#define __INT_MAX__ 2147483647
-</span><span class=s17d4>#define __FLT_MAX_EXP__ 128
-</span><span class=s17d4>#define __DBL_MANT_DIG__ 53
-</span><span class=s17d4>#define __DEC64_MIN__ 1E-383DD
-</span><span class=s17d4>#define __WINT_TYPE__ unsigned int
-</span><span class=s17d4>#define __SSE__ 1
-</span><span class=s17d4>#define __LDBL_MIN_EXP__ (-16381)
-</span><span class=s17d4>#define __amd64__ 1
-</span><span class=s17d4>#define __LDBL_MAX_EXP__ 16384
-</span><span class=s17d4>#define __LDBL_MAX_10_EXP__ 4932
-</span><span class=s17d4>#define __DBL_EPSILON__ 2.2204460492503131e-16
-</span><span class=s17d4>#define _LP64 1
-</span><span class=s17d4>#define __GNUC_PATCHLEVEL__ 1
-</span><span class=s17d4>#define __LDBL_HAS_INFINITY__ 1
-</span><span class=s17d4>#define __INTMAX_MAX__ 9223372036854775807L
-</span><span class=s17d4>#define __FLT_DENORM_MIN__ 1.40129846e-45F
-</span><span class=s17d4>#define __FLT_MAX__ 3.40282347e+38F
-</span><span class=s17d4>#define __SSE2__ 1
-</span><span class=s17d4>#define __FLT_MIN_10_EXP__ (-37)
-</span><span class=s17d4>#define __INTMAX_TYPE__ long int
-</span><span class=s17d4>#define __DEC128_MAX_EXP__ 6144
-</span><span class=s17d4>#define __GNUC_MINOR__ 2
-</span><span class=s17d4>#define __DBL_MAX_10_EXP__ 308
-</span><span class=s17d4>#define __LDBL_DENORM_MIN__ 3.64519953188247460253e-4951L
-</span><span class=s17d4>#define __STDC__ 1
-</span><span class=s17d4>#define __PTRDIFF_TYPE__ long int
-</span><span class=s17d4>#define __DEC128_MANT_DIG__ 34
-</span><span class=s17d4>#define __LDBL_MIN_10_EXP__ (-4931)
-</span><span class=s17d4>#define __GNUC_GNU_INLINE__ 1</span></code></pre>
-</div>
+<div class=highlight><pre class=chroma><code class=language-c data-lang=c><span class=cp>#define __DBL_MIN_EXP__ (-1021)
+</span><span class=cp>#define __FLT_MIN__ 1.17549435e-38F
+</span><span class=cp>#define __DEC64_DEN__ 0.000000000000001E-383DD
+</span><span class=cp>#define __CHAR_BIT__ 8
+</span><span class=cp>#define __WCHAR_MAX__ 2147483647
+</span><span class=cp>#define __DBL_DENORM_MIN__ 4.9406564584124654e-324
+</span><span class=cp>#define __FLT_EVAL_METHOD__ 0
+</span><span class=cp>#define __DBL_MIN_10_EXP__ (-307)
+</span><span class=cp>#define __FINITE_MATH_ONLY__ 0
+</span><span class=cp>#define __DEC64_MAX_EXP__ 384
+</span><span class=cp>#define __SHRT_MAX__ 32767
+</span><span class=cp>#define __LDBL_MAX__ 1.18973149535723176502e+4932L
+</span><span class=cp>#define __UINTMAX_TYPE__ long unsigned int
+</span><span class=cp>#define __DEC32_EPSILON__ 1E-6DF
+</span><span class=cp>#define __unix 1
+</span><span class=cp>#define __SCHAR_MAX__ 127
+</span><span class=cp>#define __USER_LABEL_PREFIX__
+</span><span class=cp>#define __STDC_HOSTED__ 1
+</span><span class=cp>#define __DEC64_MIN_EXP__ (-383)
+</span><span class=cp>#define __DBL_DIG__ 15
+</span><span class=cp>#define __FLT_EPSILON__ 1.19209290e-7F
+</span><span class=cp>#define __LDBL_MIN__ 3.36210314311209350626e-4932L
+</span><span class=cp>#define __DEC32_MAX__ 9.999999E96DF
+</span><span class=cp>#define __unix__ 1
+</span><span class=cp>#define __DECIMAL_DIG__ 21
+</span><span class=cp>#define __LDBL_HAS_QUIET_NAN__ 1
+</span><span class=cp>#define __GNUC__ 4
+</span><span class=cp>#define __MMX__ 1
+</span><span class=cp>#define __FLT_HAS_DENORM__ 1
+</span><span class=cp>#define __FreeBSD_cc_version 700003
+</span><span class=cp>#define __DBL_MAX__ 1.7976931348623157e+308
+</span><span class=cp>#define __DBL_HAS_INFINITY__ 1
+</span><span class=cp>#define __DEC32_MIN_EXP__ (-95)
+</span><span class=cp>#define __LDBL_HAS_DENORM__ 1
+</span><span class=cp>#define __DEC32_MIN__ 1E-95DF
+</span><span class=cp>#define __DBL_MAX_EXP__ 1024
+</span><span class=cp>#define __DEC128_EPSILON__ 1E-33DL
+</span><span class=cp>#define __SSE2_MATH__ 1
+</span><span class=cp>#define __amd64 1
+</span><span class=cp>#define __LONG_LONG_MAX__ 9223372036854775807LL
+</span><span class=cp>#define __GXX_ABI_VERSION 1002
+</span><span class=cp>#define __FLT_MIN_EXP__ (-125)
+</span><span class=cp>#define __x86_64 1
+</span><span class=cp>#define __DBL_MIN__ 2.2250738585072014e-308
+</span><span class=cp>#define __LP64__ 1
+</span><span class=cp>#define __DBL_HAS_QUIET_NAN__ 1
+</span><span class=cp>#define __DEC128_MIN__ 1E-6143DL
+</span><span class=cp>#define __REGISTER_PREFIX__
+</span><span class=cp>#define __DBL_HAS_DENORM__ 1
+</span><span class=cp>#define __NO_INLINE__ 1
+</span><span class=cp>#define __DEC_EVAL_METHOD__ 2
+</span><span class=cp>#define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL
+</span><span class=cp>#define __FLT_MANT_DIG__ 24
+</span><span class=cp>#define __VERSION__ &#34;4.2.1 20070719  [FreeBSD]&#34;
+</span><span class=cp>#define __DEC64_EPSILON__ 1E-15DD
+</span><span class=cp>#define __DEC128_MIN_EXP__ (-6143)
+</span><span class=cp>#define unix 1
+</span><span class=cp>#define __SIZE_TYPE__ long unsigned int
+</span><span class=cp>#define __DEC32_DEN__ 0.000001E-95DF
+</span><span class=cp>#define __ELF__ 1
+</span><span class=cp>#define __FLT_RADIX__ 2
+</span><span class=cp>#define __LDBL_EPSILON__ 1.08420217248550443401e-19L
+</span><span class=cp>#define __FreeBSD__ 7
+</span><span class=cp>#define __SSE_MATH__ 1
+</span><span class=cp>#define __k8 1
+</span><span class=cp>#define __LDBL_DIG__ 18
+</span><span class=cp>#define __KPRINTF_ATTRIBUTE__ 1
+</span><span class=cp>#define __x86_64__ 1
+</span><span class=cp>#define __FLT_HAS_QUIET_NAN__ 1
+</span><span class=cp>#define __FLT_MAX_10_EXP__ 38
+</span><span class=cp>#define __LONG_MAX__ 9223372036854775807L
+</span><span class=cp>#define __FLT_HAS_INFINITY__ 1
+</span><span class=cp>#define __DEC64_MAX__ 9.999999999999999E384DD
+</span><span class=cp>#define __DEC64_MANT_DIG__ 16
+</span><span class=cp>#define __DEC32_MAX_EXP__ 96
+</span><span class=cp>#define __DEC128_DEN__ 0.000000000000000000000000000000001E-6143DL
+</span><span class=cp>#define __LDBL_MANT_DIG__ 64
+</span><span class=cp>#define _LONGLONG 1
+</span><span class=cp>#define __DEC32_MANT_DIG__ 7
+</span><span class=cp>#define __k8__ 1
+</span><span class=cp>#define __WCHAR_TYPE__ int
+</span><span class=cp>#define __FLT_DIG__ 6
+</span><span class=cp>#define __INT_MAX__ 2147483647
+</span><span class=cp>#define __FLT_MAX_EXP__ 128
+</span><span class=cp>#define __DBL_MANT_DIG__ 53
+</span><span class=cp>#define __DEC64_MIN__ 1E-383DD
+</span><span class=cp>#define __WINT_TYPE__ unsigned int
+</span><span class=cp>#define __SSE__ 1
+</span><span class=cp>#define __LDBL_MIN_EXP__ (-16381)
+</span><span class=cp>#define __amd64__ 1
+</span><span class=cp>#define __LDBL_MAX_EXP__ 16384
+</span><span class=cp>#define __LDBL_MAX_10_EXP__ 4932
+</span><span class=cp>#define __DBL_EPSILON__ 2.2204460492503131e-16
+</span><span class=cp>#define _LP64 1
+</span><span class=cp>#define __GNUC_PATCHLEVEL__ 1
+</span><span class=cp>#define __LDBL_HAS_INFINITY__ 1
+</span><span class=cp>#define __INTMAX_MAX__ 9223372036854775807L
+</span><span class=cp>#define __FLT_DENORM_MIN__ 1.40129846e-45F
+</span><span class=cp>#define __FLT_MAX__ 3.40282347e+38F
+</span><span class=cp>#define __SSE2__ 1
+</span><span class=cp>#define __FLT_MIN_10_EXP__ (-37)
+</span><span class=cp>#define __INTMAX_TYPE__ long int
+</span><span class=cp>#define __DEC128_MAX_EXP__ 6144
+</span><span class=cp>#define __GNUC_MINOR__ 2
+</span><span class=cp>#define __DBL_MAX_10_EXP__ 308
+</span><span class=cp>#define __LDBL_DENORM_MIN__ 3.64519953188247460253e-4951L
+</span><span class=cp>#define __STDC__ 1
+</span><span class=cp>#define __PTRDIFF_TYPE__ long int
+</span><span class=cp>#define __DEC128_MANT_DIG__ 34
+</span><span class=cp>#define __LDBL_MIN_10_EXP__ (-4931)
+</span><span class=cp>#define __GNUC_GNU_INLINE__ 1</span></code></pre></div>
 <p>and my Debian Linux machine outputs this:</p>
-<div class=highlight><pre class=chroma><code class=language-c data-lang=c><span class=s17d4>#define __DBL_MIN_EXP__ (-1021)
-</span><span class=s17d4>#define __FLT_MIN__ 1.17549435e-38F
-</span><span class=s17d4>#define __DEC64_DEN__ 0.000000000000001E-383DD
-</span><span class=s17d4>#define __CHAR_BIT__ 8
-</span><span class=s17d4>#define __WCHAR_MAX__ 2147483647
-</span><span class=s17d4>#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1 1
-</span><span class=s17d4>#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2 1
-</span><span class=s17d4>#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 1
-</span><span class=s17d4>#define __DBL_DENORM_MIN__ 4.9406564584124654e-324
-</span><span class=s17d4>#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_8 1
-</span><span class=s17d4>#define __FLT_EVAL_METHOD__ 0
-</span><span class=s17d4>#define __unix__ 1
-</span><span class=s17d4>#define __x86_64 1
-</span><span class=s17d4>#define __DBL_MIN_10_EXP__ (-307)
-</span><span class=s17d4>#define __FINITE_MATH_ONLY__ 0
-</span><span class=s17d4>#define __GNUC_PATCHLEVEL__ 3
-</span><span class=s17d4>#define __DEC64_MAX_EXP__ 384
-</span><span class=s17d4>#define __SHRT_MAX__ 32767
-</span><span class=s17d4>#define __LDBL_MAX__ 1.18973149535723176502e+4932L
-</span><span class=s17d4>#define __UINTMAX_TYPE__ long unsigned int
-</span><span class=s17d4>#define __linux 1
-</span><span class=s17d4>#define __DEC32_EPSILON__ 1E-6DF
-</span><span class=s17d4>#define __unix 1
-</span><span class=s17d4>#define __LDBL_MAX_EXP__ 16384
-</span><span class=s17d4>#define __linux__ 1
-</span><span class=s17d4>#define __SCHAR_MAX__ 127
-</span><span class=s17d4>#define __DBL_DIG__ 15
-</span><span class=s17d4>#define __SIZEOF_INT__ 4
-</span><span class=s17d4>#define __SIZEOF_POINTER__ 8
-</span><span class=s17d4>#define __USER_LABEL_PREFIX__
-</span><span class=s17d4>#define __STDC_HOSTED__ 1
-</span><span class=s17d4>#define __LDBL_HAS_INFINITY__ 1
-</span><span class=s17d4>#define __FLT_EPSILON__ 1.19209290e-7F
-</span><span class=s17d4>#define __LDBL_MIN__ 3.36210314311209350626e-4932L
-</span><span class=s17d4>#define __DEC32_MAX__ 9.999999E96DF
-</span><span class=s17d4>#define __SIZEOF_LONG__ 8
-</span><span class=s17d4>#define __DECIMAL_DIG__ 21
-</span><span class=s17d4>#define __gnu_linux__ 1
-</span><span class=s17d4>#define __LDBL_HAS_QUIET_NAN__ 1
-</span><span class=s17d4>#define __GNUC__ 4
-</span><span class=s17d4>#define __MMX__ 1
-</span><span class=s17d4>#define __FLT_HAS_DENORM__ 1
-</span><span class=s17d4>#define __SIZEOF_LONG_DOUBLE__ 16
-</span><span class=s17d4>#define __DBL_MAX__ 1.7976931348623157e+308
-</span><span class=s17d4>#define __DBL_HAS_INFINITY__ 1
-</span><span class=s17d4>#define __DEC32_MIN_EXP__ (-95)
-</span><span class=s17d4>#define __LDBL_HAS_DENORM__ 1
-</span><span class=s17d4>#define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL
-</span><span class=s17d4>#define __DEC32_MIN__ 1E-95DF
-</span><span class=s17d4>#define __DBL_MAX_EXP__ 1024
-</span><span class=s17d4>#define __DEC128_EPSILON__ 1E-33DL
-</span><span class=s17d4>#define __SSE2_MATH__ 1
-</span><span class=s17d4>#define __amd64 1
-</span><span class=s17d4>#define __LONG_LONG_MAX__ 9223372036854775807LL
-</span><span class=s17d4>#define __SIZEOF_SIZE_T__ 8
-</span><span class=s17d4>#define __SIZEOF_WINT_T__ 4
-</span><span class=s17d4>#define __GXX_ABI_VERSION 1002
-</span><span class=s17d4>#define __FLT_MIN_EXP__ (-125)
-</span><span class=s17d4>#define __DBL_MIN__ 2.2250738585072014e-308
-</span><span class=s17d4>#define __LP64__ 1
-</span><span class=s17d4>#define __DECIMAL_BID_FORMAT__ 1
-</span><span class=s17d4>#define __DEC128_MIN__ 1E-6143DL
-</span><span class=s17d4>#define __REGISTER_PREFIX__
-</span><span class=s17d4>#define __DBL_HAS_DENORM__ 1
-</span><span class=s17d4>#define __NO_INLINE__ 1
-</span><span class=s17d4>#define __FLT_MANT_DIG__ 24
-</span><span class=s17d4>#define __VERSION__ &#34;4.3.3&#34;
-</span><span class=s17d4>#define __DEC64_EPSILON__ 1E-15DD
-</span><span class=s17d4>#define __DEC128_MIN_EXP__ (-6143)
-</span><span class=s17d4>#define unix 1
-</span><span class=s17d4>#define __SIZE_TYPE__ long unsigned int
-</span><span class=s17d4>#define __DEC32_DEN__ 0.000001E-95DF
-</span><span class=s17d4>#define __ELF__ 1
-</span><span class=s17d4>#define __FLT_RADIX__ 2
-</span><span class=s17d4>#define __LDBL_EPSILON__ 1.08420217248550443401e-19L
-</span><span class=s17d4>#define __SSE_MATH__ 1
-</span><span class=s17d4>#define __k8 1
-</span><span class=s17d4>#define __SIZEOF_PTRDIFF_T__ 8
-</span><span class=s17d4>#define __x86_64__ 1
-</span><span class=s17d4>#define __FLT_HAS_QUIET_NAN__ 1
-</span><span class=s17d4>#define __FLT_MAX_10_EXP__ 38
-</span><span class=s17d4>#define __LONG_MAX__ 9223372036854775807L
-</span><span class=s17d4>#define __FLT_HAS_INFINITY__ 1
-</span><span class=s17d4>#define __DEC64_MAX__ 9.999999999999999E384DD
-</span><span class=s17d4>#define __DEC64_MANT_DIG__ 16
-</span><span class=s17d4>#define __DEC32_MAX_EXP__ 96
-</span><span class=s17d4>#define linux 1
-</span><span class=s17d4>#define __DEC128_DEN__ 0.000000000000000000000000000000001E-6143DL
-</span><span class=s17d4>#define __SSE2__ 1
-</span><span class=s17d4>#define __LDBL_MANT_DIG__ 64
-</span><span class=s17d4>#define __DBL_HAS_QUIET_NAN__ 1
-</span><span class=s17d4>#define __k8__ 1
-</span><span class=s17d4>#define __WCHAR_TYPE__ int
-</span><span class=s17d4>#define __SIZEOF_FLOAT__ 4
-</span><span class=s17d4>#define __DEC64_MIN_EXP__ (-383)
-</span><span class=s17d4>#define __FLT_DIG__ 6
-</span><span class=s17d4>#define __INT_MAX__ 2147483647
-</span><span class=s17d4>#define __amd64__ 1
-</span><span class=s17d4>#define __FLT_MAX_EXP__ 128
-</span><span class=s17d4>#define __DBL_MANT_DIG__ 53
-</span><span class=s17d4>#define __DEC64_MIN__ 1E-383DD
-</span><span class=s17d4>#define __WINT_TYPE__ unsigned int
-</span><span class=s17d4>#define __SIZEOF_SHORT__ 2
-</span><span class=s17d4>#define __SSE__ 1
-</span><span class=s17d4>#define __LDBL_MIN_EXP__ (-16381)
-</span><span class=s17d4>#define __LDBL_MAX_10_EXP__ 4932
-</span><span class=s17d4>#define __DBL_EPSILON__ 2.2204460492503131e-16
-</span><span class=s17d4>#define _LP64 1
-</span><span class=s17d4>#define __SIZEOF_WCHAR_T__ 4
-</span><span class=s17d4>#define __DEC_EVAL_METHOD__ 2
-</span><span class=s17d4>#define __INTMAX_MAX__ 9223372036854775807L
-</span><span class=s17d4>#define __FLT_DENORM_MIN__ 1.40129846e-45F
-</span><span class=s17d4>#define __FLT_MAX__ 3.40282347e+38F
-</span><span class=s17d4>#define __SIZEOF_DOUBLE__ 8
-</span><span class=s17d4>#define __FLT_MIN_10_EXP__ (-37)
-</span><span class=s17d4>#define __INTMAX_TYPE__ long int
-</span><span class=s17d4>#define __DEC128_MAX_EXP__ 6144
-</span><span class=s17d4>#define __GNUC_MINOR__ 3
-</span><span class=s17d4>#define __DEC32_MANT_DIG__ 7
-</span><span class=s17d4>#define __DBL_MAX_10_EXP__ 308
-</span><span class=s17d4>#define __LDBL_DENORM_MIN__ 3.64519953188247460253e-4951L
-</span><span class=s17d4>#define __STDC__ 1
-</span><span class=s17d4>#define __PTRDIFF_TYPE__ long int
-</span><span class=s17d4>#define __DEC128_MANT_DIG__ 34
-</span><span class=s17d4>#define __LDBL_MIN_10_EXP__ (-4931)
-</span><span class=s17d4>#define __SIZEOF_LONG_LONG__ 8
-</span><span class=s17d4>#define __LDBL_DIG__ 18
-</span><span class=s17d4>#define __GNUC_GNU_INLINE__ 1</span></code></pre>
-</div>
+<div class=highlight><pre class=chroma><code class=language-c data-lang=c><span class=cp>#define __DBL_MIN_EXP__ (-1021)
+</span><span class=cp>#define __FLT_MIN__ 1.17549435e-38F
+</span><span class=cp>#define __DEC64_DEN__ 0.000000000000001E-383DD
+</span><span class=cp>#define __CHAR_BIT__ 8
+</span><span class=cp>#define __WCHAR_MAX__ 2147483647
+</span><span class=cp>#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1 1
+</span><span class=cp>#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2 1
+</span><span class=cp>#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 1
+</span><span class=cp>#define __DBL_DENORM_MIN__ 4.9406564584124654e-324
+</span><span class=cp>#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_8 1
+</span><span class=cp>#define __FLT_EVAL_METHOD__ 0
+</span><span class=cp>#define __unix__ 1
+</span><span class=cp>#define __x86_64 1
+</span><span class=cp>#define __DBL_MIN_10_EXP__ (-307)
+</span><span class=cp>#define __FINITE_MATH_ONLY__ 0
+</span><span class=cp>#define __GNUC_PATCHLEVEL__ 3
+</span><span class=cp>#define __DEC64_MAX_EXP__ 384
+</span><span class=cp>#define __SHRT_MAX__ 32767
+</span><span class=cp>#define __LDBL_MAX__ 1.18973149535723176502e+4932L
+</span><span class=cp>#define __UINTMAX_TYPE__ long unsigned int
+</span><span class=cp>#define __linux 1
+</span><span class=cp>#define __DEC32_EPSILON__ 1E-6DF
+</span><span class=cp>#define __unix 1
+</span><span class=cp>#define __LDBL_MAX_EXP__ 16384
+</span><span class=cp>#define __linux__ 1
+</span><span class=cp>#define __SCHAR_MAX__ 127
+</span><span class=cp>#define __DBL_DIG__ 15
+</span><span class=cp>#define __SIZEOF_INT__ 4
+</span><span class=cp>#define __SIZEOF_POINTER__ 8
+</span><span class=cp>#define __USER_LABEL_PREFIX__
+</span><span class=cp>#define __STDC_HOSTED__ 1
+</span><span class=cp>#define __LDBL_HAS_INFINITY__ 1
+</span><span class=cp>#define __FLT_EPSILON__ 1.19209290e-7F
+</span><span class=cp>#define __LDBL_MIN__ 3.36210314311209350626e-4932L
+</span><span class=cp>#define __DEC32_MAX__ 9.999999E96DF
+</span><span class=cp>#define __SIZEOF_LONG__ 8
+</span><span class=cp>#define __DECIMAL_DIG__ 21
+</span><span class=cp>#define __gnu_linux__ 1
+</span><span class=cp>#define __LDBL_HAS_QUIET_NAN__ 1
+</span><span class=cp>#define __GNUC__ 4
+</span><span class=cp>#define __MMX__ 1
+</span><span class=cp>#define __FLT_HAS_DENORM__ 1
+</span><span class=cp>#define __SIZEOF_LONG_DOUBLE__ 16
+</span><span class=cp>#define __DBL_MAX__ 1.7976931348623157e+308
+</span><span class=cp>#define __DBL_HAS_INFINITY__ 1
+</span><span class=cp>#define __DEC32_MIN_EXP__ (-95)
+</span><span class=cp>#define __LDBL_HAS_DENORM__ 1
+</span><span class=cp>#define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL
+</span><span class=cp>#define __DEC32_MIN__ 1E-95DF
+</span><span class=cp>#define __DBL_MAX_EXP__ 1024
+</span><span class=cp>#define __DEC128_EPSILON__ 1E-33DL
+</span><span class=cp>#define __SSE2_MATH__ 1
+</span><span class=cp>#define __amd64 1
+</span><span class=cp>#define __LONG_LONG_MAX__ 9223372036854775807LL
+</span><span class=cp>#define __SIZEOF_SIZE_T__ 8
+</span><span class=cp>#define __SIZEOF_WINT_T__ 4
+</span><span class=cp>#define __GXX_ABI_VERSION 1002
+</span><span class=cp>#define __FLT_MIN_EXP__ (-125)
+</span><span class=cp>#define __DBL_MIN__ 2.2250738585072014e-308
+</span><span class=cp>#define __LP64__ 1
+</span><span class=cp>#define __DECIMAL_BID_FORMAT__ 1
+</span><span class=cp>#define __DEC128_MIN__ 1E-6143DL
+</span><span class=cp>#define __REGISTER_PREFIX__
+</span><span class=cp>#define __DBL_HAS_DENORM__ 1
+</span><span class=cp>#define __NO_INLINE__ 1
+</span><span class=cp>#define __FLT_MANT_DIG__ 24
+</span><span class=cp>#define __VERSION__ &#34;4.3.3&#34;
+</span><span class=cp>#define __DEC64_EPSILON__ 1E-15DD
+</span><span class=cp>#define __DEC128_MIN_EXP__ (-6143)
+</span><span class=cp>#define unix 1
+</span><span class=cp>#define __SIZE_TYPE__ long unsigned int
+</span><span class=cp>#define __DEC32_DEN__ 0.000001E-95DF
+</span><span class=cp>#define __ELF__ 1
+</span><span class=cp>#define __FLT_RADIX__ 2
+</span><span class=cp>#define __LDBL_EPSILON__ 1.08420217248550443401e-19L
+</span><span class=cp>#define __SSE_MATH__ 1
+</span><span class=cp>#define __k8 1
+</span><span class=cp>#define __SIZEOF_PTRDIFF_T__ 8
+</span><span class=cp>#define __x86_64__ 1
+</span><span class=cp>#define __FLT_HAS_QUIET_NAN__ 1
+</span><span class=cp>#define __FLT_MAX_10_EXP__ 38
+</span><span class=cp>#define __LONG_MAX__ 9223372036854775807L
+</span><span class=cp>#define __FLT_HAS_INFINITY__ 1
+</span><span class=cp>#define __DEC64_MAX__ 9.999999999999999E384DD
+</span><span class=cp>#define __DEC64_MANT_DIG__ 16
+</span><span class=cp>#define __DEC32_MAX_EXP__ 96
+</span><span class=cp>#define linux 1
+</span><span class=cp>#define __DEC128_DEN__ 0.000000000000000000000000000000001E-6143DL
+</span><span class=cp>#define __SSE2__ 1
+</span><span class=cp>#define __LDBL_MANT_DIG__ 64
+</span><span class=cp>#define __DBL_HAS_QUIET_NAN__ 1
+</span><span class=cp>#define __k8__ 1
+</span><span class=cp>#define __WCHAR_TYPE__ int
+</span><span class=cp>#define __SIZEOF_FLOAT__ 4
+</span><span class=cp>#define __DEC64_MIN_EXP__ (-383)
+</span><span class=cp>#define __FLT_DIG__ 6
+</span><span class=cp>#define __INT_MAX__ 2147483647
+</span><span class=cp>#define __amd64__ 1
+</span><span class=cp>#define __FLT_MAX_EXP__ 128
+</span><span class=cp>#define __DBL_MANT_DIG__ 53
+</span><span class=cp>#define __DEC64_MIN__ 1E-383DD
+</span><span class=cp>#define __WINT_TYPE__ unsigned int
+</span><span class=cp>#define __SIZEOF_SHORT__ 2
+</span><span class=cp>#define __SSE__ 1
+</span><span class=cp>#define __LDBL_MIN_EXP__ (-16381)
+</span><span class=cp>#define __LDBL_MAX_10_EXP__ 4932
+</span><span class=cp>#define __DBL_EPSILON__ 2.2204460492503131e-16
+</span><span class=cp>#define _LP64 1
+</span><span class=cp>#define __SIZEOF_WCHAR_T__ 4
+</span><span class=cp>#define __DEC_EVAL_METHOD__ 2
+</span><span class=cp>#define __INTMAX_MAX__ 9223372036854775807L
+</span><span class=cp>#define __FLT_DENORM_MIN__ 1.40129846e-45F
+</span><span class=cp>#define __FLT_MAX__ 3.40282347e+38F
+</span><span class=cp>#define __SIZEOF_DOUBLE__ 8
+</span><span class=cp>#define __FLT_MIN_10_EXP__ (-37)
+</span><span class=cp>#define __INTMAX_TYPE__ long int
+</span><span class=cp>#define __DEC128_MAX_EXP__ 6144
+</span><span class=cp>#define __GNUC_MINOR__ 3
+</span><span class=cp>#define __DEC32_MANT_DIG__ 7
+</span><span class=cp>#define __DBL_MAX_10_EXP__ 308
+</span><span class=cp>#define __LDBL_DENORM_MIN__ 3.64519953188247460253e-4951L
+</span><span class=cp>#define __STDC__ 1
+</span><span class=cp>#define __PTRDIFF_TYPE__ long int
+</span><span class=cp>#define __DEC128_MANT_DIG__ 34
+</span><span class=cp>#define __LDBL_MIN_10_EXP__ (-4931)
+</span><span class=cp>#define __SIZEOF_LONG_LONG__ 8
+</span><span class=cp>#define __LDBL_DIG__ 18
+</span><span class=cp>#define __GNUC_GNU_INLINE__ 1</span></code></pre></div>
 </div>
 </article>
 <div class=row>
@@ -361,21 +360,22 @@ gcc -dM -E - &gt; /dev/null  This can help if you aren&rsquo;t quite sure which 
 <div class=col-sm-6>
 <div class=btn-toolbar>
 <div class=btn-group>
-<a class="btn btn-sm btn-soundcloud" href=https://feeds.feedburner.com/brampnet aria-label="RSS feed">
+<a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed" class="btn btn-sm btn-soundcloud">
 <i class="fa fa-rss-square"></i> Subscribe via RSS</a>
 </div>
 <div class=btn-group>
-<a class="btn btn-sm btn-twitter" href=https://twitter.com/TheBramp><i class="fa fa-twitter"></i> Follow @TheBramp</a>
+<a href=https://twitter.com/TheBramp class="btn btn-sm btn-twitter"><i class="fa fa-twitter"></i> Follow @TheBramp</a>
 </div>
 </div>
 </div>
 </div>
 <ul class=pager>
-&nbsp;<li class=previous><a href="/post/2009/02/15/64bit-tortoisegit/">&larr; 64bit TortoiseGit</a></li>
-&nbsp;<li class=next><a href="/post/2009/03/16/irq-affinity-on-freebsd/"> IRQ Affinity on FreeBSD &rarr;</a></li>
+&nbsp;<li class=previous><a href=/post/2009/02/15/64bit-tortoisegit/ >&larr; 64bit TortoiseGit</a></li>
+&nbsp;<li class=next><a href=/post/2009/03/16/irq-affinity-on-freebsd/ >IRQ Affinity on FreeBSD &rarr;</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
-<script type=text/javascript>var disqus_shortname = 'bramp';
+<script type=text/javascript>
+var disqus_shortname = 'bramp';
     var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/03\/06\/compiler-defined-symbols\/';
     var disqus_title = 'Compiler defined symbols';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2009\/03\/06\/compiler-defined-symbols\/';
@@ -388,16 +388,17 @@ gcc -dM -E - &gt; /dev/null  This can help if you aren&rsquo;t quite sure which 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
 <a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="text-muted credit">&copy; 2017. All rights reserved. </p>
+<p class="credit text-muted">&copy; 2017. All rights reserved.</p>
 </footer>
 </div>
 </div>
 <script src=/js/all.min.js></script>
-<script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
+<script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async type=text/javascript></script>
 </body>
 </html>

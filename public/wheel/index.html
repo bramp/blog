@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv=X-UA-Compatible content="IE=EmulateIE7"/>
+<meta content="IE=EmulateIE7" http-equiv=X-UA-Compatible />
 <title>Lunch Wheel</title>
-<link href=https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css type=text/css rel=stylesheet>
+<link href=https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css rel=stylesheet type=text/css>
 <script type=text/javascript src=https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js></script>
 <script type=text/javascript src=jquery.tinysort.min.js></script>
 <!--[if IE]><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jit/2.0.2/Extras/excanvas.min.js"></script><![endif]-->
-<script type=text/javascript>// Helpers
+<script type=text/javascript>
+// Helpers
 	shuffle = function(o) {
 		for ( var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x)
 			;
@@ -27,8 +28,10 @@
 
 	Number.prototype.mod = function(n) {
 		return ((this%n)+n)%n;
-	}</script>
-<script type=text/javascript>venues = {
+	}
+</script>
+<script type=text/javascript>
+venues = {
 		"116208"  : "Jerry's Subs and Pizza",
 		"66271"   : "Starbucks",
 		"5518"    : "Ireland's Four Courts",
@@ -88,8 +91,10 @@
 		});
 
 		$('#venues ul>li').tsort("input", {attr: "value"});
-	});</script>
-<script type=text/javascript>// WHEEL!
+	});
+</script>
+<script type=text/javascript>
+// WHEEL!
 	var wheel = {
 
 		timerHandle : 0,
@@ -383,12 +388,13 @@
 		setTimeout(function() {
 			window.scrollTo(0, 1);
 		}, 0);
-	}</script>
+	}
+</script>
 </head>
 <body>
 <div id=venues style=float:left><ul/></div>
 <div id=wheel>
-<canvas id=canvas width=1000 height=600></canvas>
+<canvas height=600 id=canvas width=1000></canvas>
 </div>
 <div id=stats>
 <div id=counter></div>
