@@ -2,76 +2,78 @@
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<link itemprop=url rel=canonical href="https://blog.bramp.net/post/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/"/>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<link href=https://blog.bramp.net/post/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/ rel=canonical itemprop=url />
 <title>Obtaining the firmware for Linksys E4200v2</title>
-<meta itemprop=description name=description content="I recently got a Linksys E4200v2 wireless router. It&#8217;s pretty cool, supports IPv6, 2.4Ghz and 5Ghz wifi networks, VPN, etc. The one downside is that the firmware for the router is not available …">
-<meta itemprop=creator name=author content="Andrew Brampton">
-<meta name=generator content=""/>
-<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title="bramp.net"/>
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title="bramp.net"/>
-<link rel="shortcut icon" href=/favicon.ico type="image/x-icon"/>
-<link rel=apple-touch-icon-precomposed href="/images/favicon.png"/>
-<link rel=apple-touch-icon-precomposed sizes=57x57 href="/images/favicon-57x57.png"/>
-<link rel=apple-touch-icon-precomposed sizes=72x72 href="/images/favicon-72x72.png"/>
-<link rel=apple-touch-icon-precomposed sizes=76x76 href="/images/favicon-76x76.png"/>
-<link rel=apple-touch-icon-precomposed sizes=114x114 href="/images/favicon-114x114.png"/>
-<link rel=apple-touch-icon-precomposed sizes=120x120 href="/images/favicon-120x120.png"/>
-<link rel=apple-touch-icon-precomposed sizes=144x144 href="/images/favicon-144x144.png"/>
-<link rel=apple-touch-icon-precomposed sizes=152x152 href="/images/favicon-152x152.png"/>
-<link rel=apple-touch-icon-precomposed sizes=180x180 href="/images/favicon-180x180.png"/>
-<meta name=msapplication-TileColor content=#4582EC>
-<meta name=msapplication-TileImage content=/images/favicon-144x144.png>
-<meta name=theme-color content=#4582EC>
-<link rel=icon sizes=192x192 href="/images/favicon-192x192.png"/>
+<meta content="I recently got a Linksys E4200v2 wireless router. It&#8217;s pretty cool, supports IPv6, 2.4Ghz and 5Ghz wifi networks, VPN, etc. The one downside is that the firmware for the router is not available …" name=description itemprop=description>
+<meta content="Andrew Brampton" name=author itemprop=creator>
+<meta content="" name=generator />
+<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
+<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
+<link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
+<link href=/images/favicon.png rel=apple-touch-icon-precomposed />
+<link href=/images/favicon-57x57.png rel=apple-touch-icon-precomposed sizes=57x57 />
+<link href=/images/favicon-72x72.png rel=apple-touch-icon-precomposed sizes=72x72 />
+<link href=/images/favicon-76x76.png rel=apple-touch-icon-precomposed sizes=76x76 />
+<link href=/images/favicon-114x114.png rel=apple-touch-icon-precomposed sizes=114x114 />
+<link href=/images/favicon-120x120.png rel=apple-touch-icon-precomposed sizes=120x120 />
+<link href=/images/favicon-144x144.png rel=apple-touch-icon-precomposed sizes=144x144 />
+<link href=/images/favicon-152x152.png rel=apple-touch-icon-precomposed sizes=152x152 />
+<link href=/images/favicon-180x180.png rel=apple-touch-icon-precomposed sizes=180x180 />
+<meta content=#4582EC name=msapplication-TileColor>
+<meta content=/images/favicon-144x144.png name=msapplication-TileImage>
+<meta content=#4582EC name=theme-color>
+<link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
 <link href=/css/all.min.css rel=stylesheet>
 <link href=https://fonts.gstatic.com rel=preconnect crossorigin>
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel=stylesheet type=text/css>
 <link href=https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css rel=stylesheet>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css>
-<meta name=twitter:card content="summary"/>
-<meta name=twitter:site content="@TheBramp"/>
-<meta name=twitter:creator content="@TheBramp"/>
-<meta property=og:type content="article"/>
-<meta property=article:author content="https://www.facebook.com/bramp"/>
-<meta property=article:published_time content="2012-01-22T00:00:00&#43;07:00"/>
-<meta property=article:tag content="firmware"/>
-<meta property=article:tag content="linksys"/>
-<meta property=article:tag content="Linux"/>
-<meta property=article:tag content="router"/>
-<meta property=og:url content="https://blog.bramp.net/post/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/"/>
-<meta property=og:site_name content="bramp.net"/>
-<meta property=og:title content="Obtaining the firmware for Linksys E4200v2"/>
-<meta property=og:description content="I recently got a Linksys E4200v2 wireless router. It&#8217;s pretty cool, supports IPv6, 2.4Ghz and 5Ghz wifi networks, VPN, etc. The one downside is that the firmware for the router is not available …"/>
-<meta property=og:updated_time content="2012-01-22T00:00:00&#43;00:00"/>
-<meta property=og:locale content="en_GB"/>
-<meta name=google-site-verification content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"/>
+<link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
+<meta content=summary name=twitter:card />
+<meta content=@TheBramp name=twitter:site />
+<meta content=@TheBramp name=twitter:creator />
+<meta content=article property=og:type />
+<meta content=https://www.facebook.com/bramp property=article:author />
+<meta content=2012-01-22T00:00:00&#43;07:00 property=article:published_time />
+<meta content=firmware property=article:tag />
+<meta content=linksys property=article:tag />
+<meta content=Linux property=article:tag />
+<meta content=router property=article:tag />
+<meta content=https://blog.bramp.net/post/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/ property=og:url />
+<meta content=bramp.net property=og:site_name />
+<meta content="Obtaining the firmware for Linksys E4200v2" property=og:title />
+<meta content="I recently got a Linksys E4200v2 wireless router. It&#8217;s pretty cool, supports IPv6, 2.4Ghz and 5Ghz wifi networks, VPN, etc. The one downside is that the firmware for the router is not available …" property=og:description />
+<meta content=2012-01-22T00:00:00&#43;00:00 property=og:updated_time />
+<meta content=en_GB property=og:locale />
+<meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
 </head>
 <body itemscope itemtype=Blog>
-<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-136478-5', 'auto');
     ga('require', 'linkid', 'linkid.js');
-    ga('send', 'pageview');</script>
+    ga('send', 'pageview');
+</script>
 <div id=wrapper>
 <div class="navbar navbar-default">
 <div class=container>
 <div class=navbar-header>
-<button type=button class=navbar-toggle data-toggle=collapse data-target=.navbar-collapse>
+<button class=navbar-toggle data-target=.navbar-collapse data-toggle=collapse type=button>
 <span class=sr-only>Toggle navigation</span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 </button>
 <div class=navbar-brand aria-label="About Andrew Brampton">
-<a href="/">
-<img src=/images/favicon-64x64.png class=profile-image alt=Home>
+<a href=/ >
+<img alt=Home class=profile-image src=/images/favicon-64x64.png>
 </a>
 <div itemprop=author itemscope itemtype=https://schema.org/Person>
-<a href="/about-me/" itemprop=name>Andrew Brampton</a>
+<a href=/about-me/ itemprop=name>Andrew Brampton</a>
 <div id=social-wrapper>
 <a href=https://twitter.com/TheBramp aria-label=Twitter><i class="fa fa-twitter-square"></i></a>
 <a href=https://www.linkedin.com/in/bramp aria-label=LinkedIn><i class="fa fa-linkedin-square"></i></a>
@@ -82,13 +84,13 @@
 </div>
 </div>
 </div>
-<div class="navbar-collapse collapse">
+<div class="collapse navbar-collapse">
 <ul class="nav navbar-nav" role=navigation>
-<li><a href="/">Articles</a></li>
-<li><a href="/about-me/">About Me</a></li>
-<li><a href="/android-app/">Android Apps</a></li>
-<li><a href="/opensource/">Open Source</a></li>
-<li><a href="/publication/">Publications</a></li>
+<li><a href=/ >Articles</a></li>
+<li><a href=/about-me/ >About Me</a></li>
+<li><a href=/android-app/ >Android Apps</a></li>
+<li><a href=/opensource/ >Open Source</a></li>
+<li><a href=/publication/ >Publications</a></li>
 </ul>
 </div>
 </div>
@@ -98,17 +100,17 @@
 <h1 itemprop=headline>Obtaining the firmware for Linksys E4200v2</h1>
 <p class=meta>
 <i class="fa fa-calendar-o"></i> <time itemprop=datePublished>2012-01-22</time>
-| <a href="https://blog.bramp.net/tags/firmware/">firmware</a>
-| <a href="https://blog.bramp.net/tags/linksys/">linksys</a>
-| <a href="https://blog.bramp.net/tags/linux/">Linux</a>
-| <a href="https://blog.bramp.net/tags/router/">router</a>
+| <a href=https://blog.bramp.net/tags/firmware/ >firmware</a>
+| <a href=https://blog.bramp.net/tags/linksys/ >linksys</a>
+| <a href=https://blog.bramp.net/tags/linux/ >Linux</a>
+| <a href=https://blog.bramp.net/tags/router/ >router</a>
 </p>
 <div class=post itemprop=articleBody>
 <p>I recently got a Linksys E4200v2 wireless router. It&#8217;s pretty cool, supports IPv6, 2.4Ghz and 5Ghz wifi networks, VPN, etc. The one downside is that the firmware for the router is not available from <a href=http://homesupport.cisco.com/en-us/wireless/linksys/E4200>Linksys&#8217;s website</a>, and the <a href=http://homesupport.cisco.com/en-us/gplcodecenter>GPL code</a> has not been made available, yet&#8230; However, the router has been able to pull updates itself from the Internet.</p>
-<p>So I wanted to acquire the firmware to see if I could do something fun with the router. I set about to figure out how the router does this. My plan was to set my laptop up between Internet interface on the router, and the cable modem. Since my laptop doesn&#8217;t have two network cards, I plugged into a switch and used <a href="http://ettercap.sourceforge.net/">Ethercap</a> to ARP poison to redirect traffic via the laptop.</p>
-<p>Then using <a href="http://www.wireshark.org/">Wireshark</a> I could see the traffic coming out of the router. All I needed to do now was to hit the &#8220;check for updates button&#8221;.</p>
+<p>So I wanted to acquire the firmware to see if I could do something fun with the router. I set about to figure out how the router does this. My plan was to set my laptop up between Internet interface on the router, and the cable modem. Since my laptop doesn&#8217;t have two network cards, I plugged into a switch and used <a href=http://ettercap.sourceforge.net/ >Ethercap</a> to ARP poison to redirect traffic via the laptop.</p>
+<p>Then using <a href=http://www.wireshark.org/ >Wireshark</a> I could see the traffic coming out of the router. All I needed to do now was to hit the &#8220;check for updates button&#8221;.</p>
 <p>Firstly I saw two DNS requests, one for the AAAA (IPv6) record for update.linksys.com, then a A request for update.linksys.com. Clearly the updates are coming from there. Secondly I saw a HTTPS connection form to that domain. That makes this a little more complex, as I am unable to see the encrypted traffic, and thus see what is being transferred.</p>
-<p>So, I grabbed a <a href="http://code.activestate.com/recipes/491264-mini-fake-dns-server/">simple DNS server</a>, and set up a simple SSL server following <a href="http://wirewatcher.wordpress.com/2010/07/20/decrypting-ssl-traffic-with-wireshark-and-ways-to-prevent-it/">these instructions</a>.</p>
+<p>So, I grabbed a <a href=http://code.activestate.com/recipes/491264-mini-fake-dns-server/ >simple DNS server</a>, and set up a simple SSL server following <a href=http://wirewatcher.wordpress.com/2010/07/20/decrypting-ssl-traffic-with-wireshark-and-ways-to-prevent-it/ >these instructions</a>.</p>
 <p>Now with DNS spoofing, and a fake SSL server, I could intercept encrypted traffic from the router, as long as it does not validate the SSL certificate. Luckily it didn&#8217;t check the validity, and thus I was able to capture the request: (BTW Not checking the cert completely defeats the point of using SSL&#8230; bad Linksys!).</p>
 <div class=highlight><pre class=chroma><code class=language-http data-lang=http>POST /cds/update HTTP/1.1
 Host: update.linksys.com
@@ -128,8 +130,7 @@ Content-Length: 573
       &lt;ns:CurrentFirmwareVersion&gt;2.0.36.126507&lt;/ns:CurrentFirmwareVersion&gt;
     &lt;/ns:GetFirmwareFromDeviceRequest&gt;
   &lt;/SOAP-ENV:Body&gt;
-&lt;/SOAP-ENV:Envelope&gt;</code></pre>
-</div>
+&lt;/SOAP-ENV:Envelope&gt;</code></pre></div>
 <p>and the response:</p>
 <div class=highlight><pre class=chroma><code class=language-http data-lang=http>HTTP/1.1 200 OK
 Content-Language: en-US
@@ -156,15 +157,12 @@ SOAPAction: &#34;&#34;
       &lt;/ns:FirmwareList&gt;
     &lt;/ns:GetFirmwareFromDeviceResponse&gt;
   &lt;/soapenv:Body&gt;
-&lt;/soapenv:Envelope&gt;</code></pre>
-</div>
+&lt;/soapenv:Envelope&gt;</code></pre></div>
 <p>(I slightly modified portions of the request and response to hide the identify of my router.).</p>
 <p>I might write a script to make fake requests, but until then you can easily create a request with curl:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>curl -d @request.raw https://update.linksys.com/cds/update</code></pre>
-</div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>curl -d @request.raw https://update.linksys.com/cds/update</code></pre></div>
 <p>Then you just extract the DownloadURI and</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA</code></pre>
-</div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA</code></pre></div>
 <p>Voila I now have the firmware. Now I need to figure out what to do with it.</p>
 <p><strong>Update</strong>: As requested I fetched the more recent version of the file:<br/>
 2.0.37.131047 &#8211; <a href=http://download.linksys.com/updates/to0040829450.pdx/FW_E4200_2.0.37.131047.SSA>http://download.linksys.com/updates/to0040829450.pdx/FW_E4200_2.0.37.131047.SSA</a></p>
@@ -177,21 +175,22 @@ SOAPAction: &#34;&#34;
 <div class=col-sm-6>
 <div class=btn-toolbar>
 <div class=btn-group>
-<a class="btn btn-sm btn-soundcloud" href=https://feeds.feedburner.com/brampnet aria-label="RSS feed">
+<a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed" class="btn btn-sm btn-soundcloud">
 <i class="fa fa-rss-square"></i> Subscribe via RSS</a>
 </div>
 <div class=btn-group>
-<a class="btn btn-sm btn-twitter" href=https://twitter.com/TheBramp><i class="fa fa-twitter"></i> Follow @TheBramp</a>
+<a href=https://twitter.com/TheBramp class="btn btn-sm btn-twitter"><i class="fa fa-twitter"></i> Follow @TheBramp</a>
 </div>
 </div>
 </div>
 </div>
 <ul class=pager>
-&nbsp;<li class=previous><a href="/post/2012/01/14/avoid-bloat-freezer-free/">&larr; Avoid Bloat Freezer Free</a></li>
-&nbsp;<li class=next><a href="/post/2012/01/24/hacking-linksys-e4200v2-firmware/"> Hacking Linksys E4200v2 firmware &rarr;</a></li>
+&nbsp;<li class=previous><a href=/post/2012/01/14/avoid-bloat-freezer-free/ >&larr; Avoid Bloat Freezer Free</a></li>
+&nbsp;<li class=next><a href=/post/2012/01/24/hacking-linksys-e4200v2-firmware/ >Hacking Linksys E4200v2 firmware &rarr;</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
-<script type=text/javascript>var disqus_shortname = 'bramp';
+<script type=text/javascript>
+var disqus_shortname = 'bramp';
     var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2012\/01\/22\/obtaining-the-firmware-for-linksys-e4200v2\/';
     var disqus_title = 'Obtaining the firmware for Linksys E4200v2';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2012\/01\/22\/obtaining-the-firmware-for-linksys-e4200v2\/';
@@ -204,16 +203,17 @@ SOAPAction: &#34;&#34;
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
 <a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="text-muted credit">&copy; 2017. All rights reserved. </p>
+<p class="credit text-muted">&copy; 2017. All rights reserved.</p>
 </footer>
 </div>
 </div>
 <script src=/js/all.min.js></script>
-<script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
+<script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async type=text/javascript></script>
 </body>
 </html>

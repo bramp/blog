@@ -2,75 +2,77 @@
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<link itemprop=url rel=canonical href="https://blog.bramp.net/post/2017/04/01/maven-plugins-on-java-8/"/>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<link href=https://blog.bramp.net/post/2017/04/01/maven-plugins-on-java-8/ rel=canonical itemprop=url />
 <title>Maven Plugins on Java 8</title>
-<meta itemprop=description name=description content="As part of my standard Maven configuration, I like to use two plugins backed by Google technologies, the first to help keep my code formatted correctly, and the second to check for compile time …">
-<meta itemprop=creator name=author content="Andrew Brampton">
-<meta name=generator content=""/>
-<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title="bramp.net"/>
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title="bramp.net"/>
-<link rel="shortcut icon" href=/favicon.ico type="image/x-icon"/>
-<link rel=apple-touch-icon-precomposed href="/images/favicon.png"/>
-<link rel=apple-touch-icon-precomposed sizes=57x57 href="/images/favicon-57x57.png"/>
-<link rel=apple-touch-icon-precomposed sizes=72x72 href="/images/favicon-72x72.png"/>
-<link rel=apple-touch-icon-precomposed sizes=76x76 href="/images/favicon-76x76.png"/>
-<link rel=apple-touch-icon-precomposed sizes=114x114 href="/images/favicon-114x114.png"/>
-<link rel=apple-touch-icon-precomposed sizes=120x120 href="/images/favicon-120x120.png"/>
-<link rel=apple-touch-icon-precomposed sizes=144x144 href="/images/favicon-144x144.png"/>
-<link rel=apple-touch-icon-precomposed sizes=152x152 href="/images/favicon-152x152.png"/>
-<link rel=apple-touch-icon-precomposed sizes=180x180 href="/images/favicon-180x180.png"/>
-<meta name=msapplication-TileColor content=#4582EC>
-<meta name=msapplication-TileImage content=/images/favicon-144x144.png>
-<meta name=theme-color content=#4582EC>
-<link rel=icon sizes=192x192 href="/images/favicon-192x192.png"/>
+<meta content="As part of my standard Maven configuration, I like to use two plugins backed by Google technologies, the first to help keep my code formatted correctly, and the second to check for compile time …" name=description itemprop=description>
+<meta content="Andrew Brampton" name=author itemprop=creator>
+<meta content="" name=generator />
+<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
+<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
+<link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
+<link href=/images/favicon.png rel=apple-touch-icon-precomposed />
+<link href=/images/favicon-57x57.png rel=apple-touch-icon-precomposed sizes=57x57 />
+<link href=/images/favicon-72x72.png rel=apple-touch-icon-precomposed sizes=72x72 />
+<link href=/images/favicon-76x76.png rel=apple-touch-icon-precomposed sizes=76x76 />
+<link href=/images/favicon-114x114.png rel=apple-touch-icon-precomposed sizes=114x114 />
+<link href=/images/favicon-120x120.png rel=apple-touch-icon-precomposed sizes=120x120 />
+<link href=/images/favicon-144x144.png rel=apple-touch-icon-precomposed sizes=144x144 />
+<link href=/images/favicon-152x152.png rel=apple-touch-icon-precomposed sizes=152x152 />
+<link href=/images/favicon-180x180.png rel=apple-touch-icon-precomposed sizes=180x180 />
+<meta content=#4582EC name=msapplication-TileColor>
+<meta content=/images/favicon-144x144.png name=msapplication-TileImage>
+<meta content=#4582EC name=theme-color>
+<link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
 <link href=/css/all.min.css rel=stylesheet>
 <link href=https://fonts.gstatic.com rel=preconnect crossorigin>
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel=stylesheet type=text/css>
 <link href=https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css rel=stylesheet>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css>
-<meta name=twitter:card content="summary"/>
-<meta name=twitter:site content="@TheBramp"/>
-<meta name=twitter:creator content="@TheBramp"/>
-<meta property=og:type content="article"/>
-<meta property=article:author content="https://www.facebook.com/bramp"/>
-<meta property=article:published_time content="2017-04-01T15:21:27&#43;07:00"/>
-<meta property=article:tag content="maven"/>
-<meta property=article:tag content="java"/>
-<meta property=article:tag content="google"/>
-<meta property=og:url content="https://blog.bramp.net/post/2017/04/01/maven-plugins-on-java-8/"/>
-<meta property=og:site_name content="bramp.net"/>
-<meta property=og:title content="Maven Plugins on Java 8"/>
-<meta property=og:description content="As part of my standard Maven configuration, I like to use two plugins backed by Google technologies, the first to help keep my code formatted correctly, and the second to check for compile time …"/>
-<meta property=og:updated_time content="2017-04-01T15:21:27-07:00"/>
-<meta property=og:locale content="en_GB"/>
-<meta name=google-site-verification content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"/>
+<link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
+<meta content=summary name=twitter:card />
+<meta content=@TheBramp name=twitter:site />
+<meta content=@TheBramp name=twitter:creator />
+<meta content=article property=og:type />
+<meta content=https://www.facebook.com/bramp property=article:author />
+<meta content=2017-04-01T15:21:27&#43;07:00 property=article:published_time />
+<meta content=maven property=article:tag />
+<meta content=java property=article:tag />
+<meta content=google property=article:tag />
+<meta content=https://blog.bramp.net/post/2017/04/01/maven-plugins-on-java-8/ property=og:url />
+<meta content=bramp.net property=og:site_name />
+<meta content="Maven Plugins on Java 8" property=og:title />
+<meta content="As part of my standard Maven configuration, I like to use two plugins backed by Google technologies, the first to help keep my code formatted correctly, and the second to check for compile time …" property=og:description />
+<meta content=2017-04-01T15:21:27-07:00 property=og:updated_time />
+<meta content=en_GB property=og:locale />
+<meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
 </head>
 <body itemscope itemtype=Blog>
-<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-136478-5', 'auto');
     ga('require', 'linkid', 'linkid.js');
-    ga('send', 'pageview');</script>
+    ga('send', 'pageview');
+</script>
 <div id=wrapper>
 <div class="navbar navbar-default">
 <div class=container>
 <div class=navbar-header>
-<button type=button class=navbar-toggle data-toggle=collapse data-target=.navbar-collapse>
+<button class=navbar-toggle data-target=.navbar-collapse data-toggle=collapse type=button>
 <span class=sr-only>Toggle navigation</span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 </button>
 <div class=navbar-brand aria-label="About Andrew Brampton">
-<a href="/">
-<img src=/images/favicon-64x64.png class=profile-image alt=Home>
+<a href=/ >
+<img alt=Home class=profile-image src=/images/favicon-64x64.png>
 </a>
 <div itemprop=author itemscope itemtype=https://schema.org/Person>
-<a href="/about-me/" itemprop=name>Andrew Brampton</a>
+<a href=/about-me/ itemprop=name>Andrew Brampton</a>
 <div id=social-wrapper>
 <a href=https://twitter.com/TheBramp aria-label=Twitter><i class="fa fa-twitter-square"></i></a>
 <a href=https://www.linkedin.com/in/bramp aria-label=LinkedIn><i class="fa fa-linkedin-square"></i></a>
@@ -81,13 +83,13 @@
 </div>
 </div>
 </div>
-<div class="navbar-collapse collapse">
+<div class="collapse navbar-collapse">
 <ul class="nav navbar-nav" role=navigation>
-<li><a href="/">Articles</a></li>
-<li><a href="/about-me/">About Me</a></li>
-<li><a href="/android-app/">Android Apps</a></li>
-<li><a href="/opensource/">Open Source</a></li>
-<li><a href="/publication/">Publications</a></li>
+<li><a href=/ >Articles</a></li>
+<li><a href=/about-me/ >About Me</a></li>
+<li><a href=/android-app/ >Android Apps</a></li>
+<li><a href=/opensource/ >Open Source</a></li>
+<li><a href=/publication/ >Publications</a></li>
 </ul>
 </div>
 </div>
@@ -97,9 +99,9 @@
 <h1 itemprop=headline>Maven Plugins on Java 8</h1>
 <p class=meta>
 <i class="fa fa-calendar-o"></i> <time itemprop=datePublished>2017-04-01</time>
-| <a href="https://blog.bramp.net/tags/maven/">maven</a>
-| <a href="https://blog.bramp.net/tags/java/">java</a>
-| <a href="https://blog.bramp.net/tags/google/">google</a>
+| <a href=https://blog.bramp.net/tags/maven/ >maven</a>
+| <a href=https://blog.bramp.net/tags/java/ >java</a>
+| <a href=https://blog.bramp.net/tags/google/ >google</a>
 </p>
 <div class=post itemprop=articleBody>
 <p>As part of my standard Maven configuration, I like to use two plugins backed by Google technologies, the first to help keep my code formatted correctly, and the second to check for compile time errors. However, Google recently moved to require JDK 1.8, which broke anyone trying to compile my projects with an older JDK. In this article I&rsquo;ll quickly explain how to configure Maven to work around this problem.</p>
@@ -116,60 +118,59 @@
 <pre><code>An API incompatibility was encountered while executing org.apache.maven.plugins:maven-compiler-plugin:3.5.1:compile: java.lang.UnsupportedClassVersionError: javax/tools/DiagnosticListener : Unsupported major.minor version 52.0
 </code></pre>
 <p>Please update to JDK 1.8, or update your Maven configuration to restrict these plugins to when run on a modern JDK:</p>
-<div class=highlight><pre class=chroma><code class=language-xml data-lang=xml><span class=s7e2>&lt;project&gt;</span>
+<div class=highlight><pre class=chroma><code class=language-xml data-lang=xml><span class=nt>&lt;project&gt;</span>
 ...
-    <span class=s7e2>&lt;profiles&gt;</span>
-        <span class=s7e2>&lt;profile&gt;</span>
-            <span class=s7e2>&lt;id&gt;</span>java18<span class=s7e2>&lt;/id&gt;</span>
-            <span class=s7e2>&lt;activation&gt;</span>
-                <span class=s7e2>&lt;jdk&gt;</span>1.8<span class=s7e2>&lt;/jdk&gt;</span>
-            <span class=s7e2>&lt;/activation&gt;</span>
-            <span class=s7e2>&lt;build&gt;</span>
-                <span class=s7e2>&lt;plugins&gt;</span>
-                    <span class=s7e2>&lt;plugin&gt;</span>
-                        <span class=s7e2>&lt;groupId&gt;</span>com.coveo<span class=s7e2>&lt;/groupId&gt;</span>
-                        <span class=s7e2>&lt;artifactId&gt;</span>fmt-maven-plugin<span class=s7e2>&lt;/artifactId&gt;</span>
-                        <span class=s7e2>&lt;executions&gt;</span>
-                            <span class=s7e2>&lt;execution&gt;</span>
-                                <span class=s7e2>&lt;goals&gt;</span>
-                                    <span class=s7e2>&lt;goal&gt;</span>format<span class=s7e2>&lt;/goal&gt;</span>
-                                <span class=s7e2>&lt;/goals&gt;</span>
-                            <span class=s7e2>&lt;/execution&gt;</span>
-                        <span class=s7e2>&lt;/executions&gt;</span>
-                    <span class=s7e2>&lt;/plugin&gt;</span>
-                    <span class=s7e2>&lt;plugin&gt;</span>
-                        <span class=s7e2>&lt;groupId&gt;</span>org.apache.maven.plugins<span class=s7e2>&lt;/groupId&gt;</span>
-                        <span class=s7e2>&lt;artifactId&gt;</span>maven-compiler-plugin<span class=s7e2>&lt;/artifactId&gt;</span>
-                        <span class=s7e2>&lt;configuration&gt;</span>
-                            <span class=s7e2>&lt;compilerId&gt;</span>javac-with-errorprone<span class=s7e2>&lt;/compilerId&gt;</span>
-                            <span class=s7e2>&lt;forceJavacCompilerUse&gt;</span>true<span class=s7e2>&lt;/forceJavacCompilerUse&gt;</span>
-                            <span class=s7e2>&lt;showWarnings&gt;</span>true<span class=s7e2>&lt;/showWarnings&gt;</span>
-                            <span class=s7e2>&lt;compilerArgs&gt;</span>
-                                <span class=s7e2>&lt;arg&gt;</span>-Xlint:all<span class=s7e2>&lt;/arg&gt;</span>
-                            <span class=s7e2>&lt;/compilerArgs&gt;</span>
-                        <span class=s7e2>&lt;/configuration&gt;</span>
-                        <span class=s7e2>&lt;dependencies&gt;</span>
-                            <span class=s7e2>&lt;dependency&gt;</span>
-                                <span class=s7e2>&lt;groupId&gt;</span>org.codehaus.plexus<span class=s7e2>&lt;/groupId&gt;</span>
-                                <span class=s7e2>&lt;artifactId&gt;</span>plexus-compiler-javac-errorprone<span class=s7e2>&lt;/artifactId&gt;</span>
-                                <span class=s7e2>&lt;version&gt;</span>2.8.1<span class=s7e2>&lt;/version&gt;</span>
-                            <span class=s7e2>&lt;/dependency&gt;</span>
-                            <span class=s1770>&lt;!-- override plexus-compiler-javac-errorprone&#39;s dependency on
-</span><span class=s1770>                                 Error Prone with the latest version --&gt;</span>
-                            <span class=s7e2>&lt;dependency&gt;</span>
-                                <span class=s7e2>&lt;groupId&gt;</span>com.google.errorprone<span class=s7e2>&lt;/groupId&gt;</span>
-                                <span class=s7e2>&lt;artifactId&gt;</span>error_prone_core<span class=s7e2>&lt;/artifactId&gt;</span>
-                                <span class=s7e2>&lt;version&gt;</span>2.0.19<span class=s7e2>&lt;/version&gt;</span>
-                            <span class=s7e2>&lt;/dependency&gt;</span>
-                        <span class=s7e2>&lt;/dependencies&gt;</span>
-                    <span class=s7e2>&lt;/plugin&gt;</span>
-                <span class=s7e2>&lt;/plugins&gt;</span>
-            <span class=s7e2>&lt;/build&gt;</span>
-        <span class=s7e2>&lt;/profile&gt;</span>
-    <span class=s7e2>&lt;/profiles&gt;</span>
+    <span class=nt>&lt;profiles&gt;</span>
+        <span class=nt>&lt;profile&gt;</span>
+            <span class=nt>&lt;id&gt;</span>java18<span class=nt>&lt;/id&gt;</span>
+            <span class=nt>&lt;activation&gt;</span>
+                <span class=nt>&lt;jdk&gt;</span>1.8<span class=nt>&lt;/jdk&gt;</span>
+            <span class=nt>&lt;/activation&gt;</span>
+            <span class=nt>&lt;build&gt;</span>
+                <span class=nt>&lt;plugins&gt;</span>
+                    <span class=nt>&lt;plugin&gt;</span>
+                        <span class=nt>&lt;groupId&gt;</span>com.coveo<span class=nt>&lt;/groupId&gt;</span>
+                        <span class=nt>&lt;artifactId&gt;</span>fmt-maven-plugin<span class=nt>&lt;/artifactId&gt;</span>
+                        <span class=nt>&lt;executions&gt;</span>
+                            <span class=nt>&lt;execution&gt;</span>
+                                <span class=nt>&lt;goals&gt;</span>
+                                    <span class=nt>&lt;goal&gt;</span>format<span class=nt>&lt;/goal&gt;</span>
+                                <span class=nt>&lt;/goals&gt;</span>
+                            <span class=nt>&lt;/execution&gt;</span>
+                        <span class=nt>&lt;/executions&gt;</span>
+                    <span class=nt>&lt;/plugin&gt;</span>
+                    <span class=nt>&lt;plugin&gt;</span>
+                        <span class=nt>&lt;groupId&gt;</span>org.apache.maven.plugins<span class=nt>&lt;/groupId&gt;</span>
+                        <span class=nt>&lt;artifactId&gt;</span>maven-compiler-plugin<span class=nt>&lt;/artifactId&gt;</span>
+                        <span class=nt>&lt;configuration&gt;</span>
+                            <span class=nt>&lt;compilerId&gt;</span>javac-with-errorprone<span class=nt>&lt;/compilerId&gt;</span>
+                            <span class=nt>&lt;forceJavacCompilerUse&gt;</span>true<span class=nt>&lt;/forceJavacCompilerUse&gt;</span>
+                            <span class=nt>&lt;showWarnings&gt;</span>true<span class=nt>&lt;/showWarnings&gt;</span>
+                            <span class=nt>&lt;compilerArgs&gt;</span>
+                                <span class=nt>&lt;arg&gt;</span>-Xlint:all<span class=nt>&lt;/arg&gt;</span>
+                            <span class=nt>&lt;/compilerArgs&gt;</span>
+                        <span class=nt>&lt;/configuration&gt;</span>
+                        <span class=nt>&lt;dependencies&gt;</span>
+                            <span class=nt>&lt;dependency&gt;</span>
+                                <span class=nt>&lt;groupId&gt;</span>org.codehaus.plexus<span class=nt>&lt;/groupId&gt;</span>
+                                <span class=nt>&lt;artifactId&gt;</span>plexus-compiler-javac-errorprone<span class=nt>&lt;/artifactId&gt;</span>
+                                <span class=nt>&lt;version&gt;</span>2.8.1<span class=nt>&lt;/version&gt;</span>
+                            <span class=nt>&lt;/dependency&gt;</span>
+                            <span class=c>&lt;!-- override plexus-compiler-javac-errorprone&#39;s dependency on
+</span><span class=c>                                 Error Prone with the latest version --&gt;</span>
+                            <span class=nt>&lt;dependency&gt;</span>
+                                <span class=nt>&lt;groupId&gt;</span>com.google.errorprone<span class=nt>&lt;/groupId&gt;</span>
+                                <span class=nt>&lt;artifactId&gt;</span>error_prone_core<span class=nt>&lt;/artifactId&gt;</span>
+                                <span class=nt>&lt;version&gt;</span>2.0.19<span class=nt>&lt;/version&gt;</span>
+                            <span class=nt>&lt;/dependency&gt;</span>
+                        <span class=nt>&lt;/dependencies&gt;</span>
+                    <span class=nt>&lt;/plugin&gt;</span>
+                <span class=nt>&lt;/plugins&gt;</span>
+            <span class=nt>&lt;/build&gt;</span>
+        <span class=nt>&lt;/profile&gt;</span>
+    <span class=nt>&lt;/profiles&gt;</span>
 ...
-<span class=s7e2>&lt;/project&gt;</span></code></pre>
-</div>
+<span class=nt>&lt;/project&gt;</span></code></pre></div>
 <p>This defines a new profile, that is only &ldquo;activated&rdquo; under Java 1.8. When activated the <code>&lt;build&gt;</code> section has the two additional plugins added. Ensure that these plugins are no longer mentioned in the regular <code>&lt;build&gt;</code> section, and only in the <code>&lt;profile&gt;&lt;build&gt;</code> section.</p>
 <p>An example of this change can be found in <a href=https://github.com/bramp/ffmpeg-cli-wrapper/commit/4985ba3ab3ef84839bc0f4ca8b63573b77e33c67>recent commit</a>.</p>
 </div>
@@ -181,21 +182,22 @@
 <div class=col-sm-6>
 <div class=btn-toolbar>
 <div class=btn-group>
-<a class="btn btn-sm btn-soundcloud" href=https://feeds.feedburner.com/brampnet aria-label="RSS feed">
+<a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed" class="btn btn-sm btn-soundcloud">
 <i class="fa fa-rss-square"></i> Subscribe via RSS</a>
 </div>
 <div class=btn-group>
-<a class="btn btn-sm btn-twitter" href=https://twitter.com/TheBramp><i class="fa fa-twitter"></i> Follow @TheBramp</a>
+<a href=https://twitter.com/TheBramp class="btn btn-sm btn-twitter"><i class="fa fa-twitter"></i> Follow @TheBramp</a>
 </div>
 </div>
 </div>
 </div>
 <ul class=pager>
-&nbsp;<li class=previous><a href="/post/2017/02/20/building-a-better-whats-my-ip-site/">&larr; Building a better “What&#39;s My IP?” site</a></li>
-&nbsp;<li class=next><a href="/post/2017/07/15/teaching-binary-to-8th-graders/"> Teaching Binary to 8th Graders &rarr;</a></li>
+&nbsp;<li class=previous><a href=/post/2017/02/20/building-a-better-whats-my-ip-site/ >&larr; Building a better “What&#39;s My IP?” site</a></li>
+&nbsp;<li class=next><a href=/post/2017/07/15/teaching-binary-to-8th-graders/ >Teaching Binary to 8th Graders &rarr;</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
-<script type=text/javascript>var disqus_shortname = 'bramp';
+<script type=text/javascript>
+var disqus_shortname = 'bramp';
     var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2017\/04\/01\/maven-plugins-on-java-8\/';
     var disqus_title = 'Maven Plugins on Java 8';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2017\/04\/01\/maven-plugins-on-java-8\/';
@@ -208,16 +210,17 @@
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
 <a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="text-muted credit">&copy; 2017. All rights reserved. </p>
+<p class="credit text-muted">&copy; 2017. All rights reserved.</p>
 </footer>
 </div>
 </div>
 <script src=/js/all.min.js></script>
-<script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
+<script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async type=text/javascript></script>
 </body>
 </html>

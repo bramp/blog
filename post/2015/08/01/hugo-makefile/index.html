@@ -2,74 +2,76 @@
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<link itemprop=url rel=canonical href="https://blog.bramp.net/post/2015/08/01/hugo-makefile/"/>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<link href=https://blog.bramp.net/post/2015/08/01/hugo-makefile/ rel=canonical itemprop=url />
 <title>Hugo Makefile</title>
-<meta itemprop=description name=description content="While developing my blog using Hugo, I created a simple Makefile to help automate some steps. Hopefully someone else will find this useful:">
-<meta itemprop=creator name=author content="Andrew Brampton">
-<meta name=generator content=""/>
-<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title="bramp.net"/>
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title="bramp.net"/>
-<link rel="shortcut icon" href=/favicon.ico type="image/x-icon"/>
-<link rel=apple-touch-icon-precomposed href="/images/favicon.png"/>
-<link rel=apple-touch-icon-precomposed sizes=57x57 href="/images/favicon-57x57.png"/>
-<link rel=apple-touch-icon-precomposed sizes=72x72 href="/images/favicon-72x72.png"/>
-<link rel=apple-touch-icon-precomposed sizes=76x76 href="/images/favicon-76x76.png"/>
-<link rel=apple-touch-icon-precomposed sizes=114x114 href="/images/favicon-114x114.png"/>
-<link rel=apple-touch-icon-precomposed sizes=120x120 href="/images/favicon-120x120.png"/>
-<link rel=apple-touch-icon-precomposed sizes=144x144 href="/images/favicon-144x144.png"/>
-<link rel=apple-touch-icon-precomposed sizes=152x152 href="/images/favicon-152x152.png"/>
-<link rel=apple-touch-icon-precomposed sizes=180x180 href="/images/favicon-180x180.png"/>
-<meta name=msapplication-TileColor content=#4582EC>
-<meta name=msapplication-TileImage content=/images/favicon-144x144.png>
-<meta name=theme-color content=#4582EC>
-<link rel=icon sizes=192x192 href="/images/favicon-192x192.png"/>
+<meta content="While developing my blog using Hugo, I created a simple Makefile to help automate some steps. Hopefully someone else will find this useful:" name=description itemprop=description>
+<meta content="Andrew Brampton" name=author itemprop=creator>
+<meta content="" name=generator />
+<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
+<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
+<link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
+<link href=/images/favicon.png rel=apple-touch-icon-precomposed />
+<link href=/images/favicon-57x57.png rel=apple-touch-icon-precomposed sizes=57x57 />
+<link href=/images/favicon-72x72.png rel=apple-touch-icon-precomposed sizes=72x72 />
+<link href=/images/favicon-76x76.png rel=apple-touch-icon-precomposed sizes=76x76 />
+<link href=/images/favicon-114x114.png rel=apple-touch-icon-precomposed sizes=114x114 />
+<link href=/images/favicon-120x120.png rel=apple-touch-icon-precomposed sizes=120x120 />
+<link href=/images/favicon-144x144.png rel=apple-touch-icon-precomposed sizes=144x144 />
+<link href=/images/favicon-152x152.png rel=apple-touch-icon-precomposed sizes=152x152 />
+<link href=/images/favicon-180x180.png rel=apple-touch-icon-precomposed sizes=180x180 />
+<meta content=#4582EC name=msapplication-TileColor>
+<meta content=/images/favicon-144x144.png name=msapplication-TileImage>
+<meta content=#4582EC name=theme-color>
+<link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
 <link href=/css/all.min.css rel=stylesheet>
 <link href=https://fonts.gstatic.com rel=preconnect crossorigin>
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel=stylesheet type=text/css>
 <link href=https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css rel=stylesheet>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css>
-<meta name=twitter:card content="summary"/>
-<meta name=twitter:site content="@TheBramp"/>
-<meta name=twitter:creator content="@TheBramp"/>
-<meta property=og:type content="article"/>
-<meta property=article:author content="https://www.facebook.com/bramp"/>
-<meta property=article:published_time content="2015-08-01T14:02:29&#43;07:00"/>
-<meta property=article:tag content="hugo"/>
-<meta property=article:tag content="blog"/>
-<meta property=og:url content="https://blog.bramp.net/post/2015/08/01/hugo-makefile/"/>
-<meta property=og:site_name content="bramp.net"/>
-<meta property=og:title content="Hugo Makefile"/>
-<meta property=og:description content="While developing my blog using Hugo, I created a simple Makefile to help automate some steps. Hopefully someone else will find this useful:"/>
-<meta property=og:updated_time content="2015-08-01T14:02:29-07:00"/>
-<meta property=og:locale content="en_GB"/>
-<meta name=google-site-verification content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"/>
+<link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
+<meta content=summary name=twitter:card />
+<meta content=@TheBramp name=twitter:site />
+<meta content=@TheBramp name=twitter:creator />
+<meta content=article property=og:type />
+<meta content=https://www.facebook.com/bramp property=article:author />
+<meta content=2015-08-01T14:02:29&#43;07:00 property=article:published_time />
+<meta content=hugo property=article:tag />
+<meta content=blog property=article:tag />
+<meta content=https://blog.bramp.net/post/2015/08/01/hugo-makefile/ property=og:url />
+<meta content=bramp.net property=og:site_name />
+<meta content="Hugo Makefile" property=og:title />
+<meta content="While developing my blog using Hugo, I created a simple Makefile to help automate some steps. Hopefully someone else will find this useful:" property=og:description />
+<meta content=2015-08-01T14:02:29-07:00 property=og:updated_time />
+<meta content=en_GB property=og:locale />
+<meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
 </head>
 <body itemscope itemtype=Blog>
-<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-136478-5', 'auto');
     ga('require', 'linkid', 'linkid.js');
-    ga('send', 'pageview');</script>
+    ga('send', 'pageview');
+</script>
 <div id=wrapper>
 <div class="navbar navbar-default">
 <div class=container>
 <div class=navbar-header>
-<button type=button class=navbar-toggle data-toggle=collapse data-target=.navbar-collapse>
+<button class=navbar-toggle data-target=.navbar-collapse data-toggle=collapse type=button>
 <span class=sr-only>Toggle navigation</span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 </button>
 <div class=navbar-brand aria-label="About Andrew Brampton">
-<a href="/">
-<img src=/images/favicon-64x64.png class=profile-image alt=Home>
+<a href=/ >
+<img alt=Home class=profile-image src=/images/favicon-64x64.png>
 </a>
 <div itemprop=author itemscope itemtype=https://schema.org/Person>
-<a href="/about-me/" itemprop=name>Andrew Brampton</a>
+<a href=/about-me/ itemprop=name>Andrew Brampton</a>
 <div id=social-wrapper>
 <a href=https://twitter.com/TheBramp aria-label=Twitter><i class="fa fa-twitter-square"></i></a>
 <a href=https://www.linkedin.com/in/bramp aria-label=LinkedIn><i class="fa fa-linkedin-square"></i></a>
@@ -80,13 +82,13 @@
 </div>
 </div>
 </div>
-<div class="navbar-collapse collapse">
+<div class="collapse navbar-collapse">
 <ul class="nav navbar-nav" role=navigation>
-<li><a href="/">Articles</a></li>
-<li><a href="/about-me/">About Me</a></li>
-<li><a href="/android-app/">Android Apps</a></li>
-<li><a href="/opensource/">Open Source</a></li>
-<li><a href="/publication/">Publications</a></li>
+<li><a href=/ >Articles</a></li>
+<li><a href=/about-me/ >About Me</a></li>
+<li><a href=/android-app/ >Android Apps</a></li>
+<li><a href=/opensource/ >Open Source</a></li>
+<li><a href=/publication/ >Publications</a></li>
 </ul>
 </div>
 </div>
@@ -96,67 +98,67 @@
 <h1 itemprop=headline>Hugo Makefile</h1>
 <p class=meta>
 <i class="fa fa-calendar-o"></i> <time itemprop=datePublished>2015-08-01</time>
-| <a href="https://blog.bramp.net/tags/hugo/">hugo</a>
-| <a href="https://blog.bramp.net/tags/blog/">blog</a>
+| <a href=https://blog.bramp.net/tags/hugo/ >hugo</a>
+| <a href=https://blog.bramp.net/tags/blog/ >blog</a>
 </p>
 <div class=post itemprop=articleBody>
-<p>While developing my blog using <a href="https://gohugo.io/">Hugo</a>, I created a simple Makefile to help automate some steps. Hopefully someone else will find this useful:</p>
-<div class=highlight><pre class=chroma><code class=language-make data-lang=make><span class=s7d9>.PHONY</span><span class=sfa0>:</span> all clean minified server watch help
+<p>While developing my blog using <a href=https://gohugo.io/ >Hugo</a>, I created a simple Makefile to help automate some steps. Hopefully someone else will find this useful:</p>
+<div class=highlight><pre class=chroma><code class=language-make data-lang=make><span class=nf>.PHONY</span><span class=o>:</span> <span class=n>all</span> <span class=n>clean</span> <span class=n>minified</span> <span class=n>server</span> <span class=n>watch</span> <span class=n>help</span>
 
-<span class=s7e3>HUGO</span> <span class=sfa0>:=</span> hugo
-<span class=s7e3>HTML_MINIFIER</span> <span class=sfa0>:=</span> html-minifier -c html-minifier.conf
+<span class=nv>HUGO</span> <span class=o>:=</span> hugo
+<span class=nv>HTML_MINIFIER</span> <span class=o>:=</span> html-minifier -c html-minifier.conf
 
-<span class=s1770># All input files
-</span><span class=s1770></span><span class=s7e3>FILES</span><span class=sfa0>=</span><span class=s3e8>$(</span>shell find content layouts static themes -type f<span class=s3e8>)</span>
+<span class=c># All input files
+</span><span class=c></span><span class=nv>FILES</span><span class=o>=</span><span class=k>$(</span>shell find content layouts static themes -type f<span class=k>)</span>
 
-<span class=s1770># Below are PHONY targets
-</span><span class=s1770></span><span class=s7d9>all</span><span class=sfa0>:</span> public minified
+<span class=c># Below are PHONY targets
+</span><span class=c></span><span class=nf>all</span><span class=o>:</span> <span class=n>public</span> <span class=n>minified</span>
 
-<span class=s7d9>help</span><span class=sfa0>:</span>
-	@echo <span class=sc1c>&#34;Usage: make &lt;command&gt;&#34;</span>
-	@echo <span class=sc1c>&#34;  all     Builds the blog and minifies it&#34;</span>
-	@echo <span class=sc1c>&#34;  clean   Cleans all build files&#34;</span>
-	@echo <span class=sc1c>&#34;  server  Runs a webserver on port 1313 to test the final minified result&#34;</span>
-	@echo <span class=sc1c>&#34;  watch   Runs hugo in watch mode, waiting for changes&#34;</span>
-	@echo <span class=sc1c>&#34;&#34;</span>
-	@echo <span class=sc1c>&#34;New article:&#34;</span>
-	@echo <span class=sc1c>&#34;  hugo new post/the_title&#34;</span>
-	@echo <span class=sc1c>&#34;  </span><span class=s7e3>$$</span><span class=sc1c>EDITOR content/post/the_title.md&#34;</span>
-	@echo <span class=sc1c>&#34;  make watch&#34;</span>
-	@echo <span class=sc1c>&#34;  open &#34;</span>
+<span class=nf>help</span><span class=o>:</span>
+	@echo <span class=s2>&#34;Usage: make &lt;command&gt;&#34;</span>
+	@echo <span class=s2>&#34;  all     Builds the blog and minifies it&#34;</span>
+	@echo <span class=s2>&#34;  clean   Cleans all build files&#34;</span>
+	@echo <span class=s2>&#34;  server  Runs a webserver on port 1313 to test the final minified result&#34;</span>
+	@echo <span class=s2>&#34;  watch   Runs hugo in watch mode, waiting for changes&#34;</span>
+	@echo <span class=s2>&#34;&#34;</span>
+	@echo <span class=s2>&#34;New article:&#34;</span>
+	@echo <span class=s2>&#34;  hugo new post/the_title&#34;</span>
+	@echo <span class=s2>&#34;  </span><span class=nv>$$</span><span class=s2>EDITOR content/post/the_title.md&#34;</span>
+	@echo <span class=s2>&#34;  make watch&#34;</span>
+	@echo <span class=s2>&#34;  open &#34;</span>
 
-<span class=s7d9>clean</span><span class=sfa0>:</span>
+<span class=nf>clean</span><span class=o>:</span>
 	-rm -rf public
 	-rm .minified
 
-<span class=s7d9>minified</span><span class=sfa0>:</span> .minified
+<span class=nf>minified</span><span class=o>:</span> .<span class=n>minified</span>
 
-<span class=s7d9>server</span><span class=sfa0>:</span> public
-	<span class=s7d2>cd</span> public <span class=sfa0>&amp;&amp;</span> python -m SimpleHTTPServer <span class=sc80>1313</span>
+<span class=nf>server</span><span class=o>:</span> <span class=n>public</span>
+	<span class=nb>cd</span> public <span class=o>&amp;&amp;</span> python -m SimpleHTTPServer <span class=m>1313</span>
 
-<span class=s7d9>watch</span><span class=sfa0>:</span> clean
-	<span class=s3e8>$(</span>HUGO<span class=s3e8>)</span> server -w
+<span class=nf>watch</span><span class=o>:</span> <span class=n>clean</span>
+	<span class=k>$(</span>HUGO<span class=k>)</span> server -w
 
-<span class=s1770># Below are file based targets
-</span><span class=s1770></span><span class=s7d9>public</span><span class=sfa0>:</span> <span class=s3e8>$(</span><span class=s7e3>FILES</span><span class=s3e8>)</span> config.yaml
-	<span class=s3e8>$(</span>HUGO<span class=s3e8>)</span>
+<span class=c># Below are file based targets
+</span><span class=c></span><span class=nf>public</span><span class=o>:</span> <span class=k>$(</span><span class=nv>FILES</span><span class=k>)</span> <span class=n>config</span>.<span class=n>yaml</span>
+	<span class=k>$(</span>HUGO<span class=k>)</span>
 
-	<span class=s1770># Post process some files (to make the HTML more bootstrap friendly)
-</span><span class=s1770></span>	<span class=s1770># Add a table class to all tables
-</span><span class=s1770></span>	grep -IR --include<span class=sfa0>=</span>*.html --null -l -- <span class=sc1c>&#34;&lt;table&#34;</span> public/ | xargs -0 sed -i <span class=sc1c>&#39;&#39;</span> <span class=sc1c>&#39;s/&lt;table/&lt;table class=&#34;table&#34;/g&#39;</span>
+	<span class=c1># Post process some files (to make the HTML more bootstrap friendly)
+</span><span class=c1></span>	<span class=c1># Add a table class to all tables
+</span><span class=c1></span>	grep -IR --include<span class=o>=</span>*.html --null -l -- <span class=s2>&#34;&lt;table&#34;</span> public/ <span class=p>|</span> xargs -0 sed -i <span class=s1>&#39;&#39;</span> <span class=s1>&#39;s/&lt;table/&lt;table class=&#34;table&#34;/g&#39;</span>
 
-	<span class=s1770># Replace &#34;align=...&#34;&#34; with class=&#34;test-...&#34;
-</span><span class=s1770></span>	grep -IR --include<span class=sfa0>=</span>*.html --null -l -- <span class=sc1c>&#34;&lt;th&#34;</span> public/ | xargs -0 sed -i <span class=sc1c>&#39;&#39;</span> <span class=sc1c>&#39;s/&lt;th align=&#34;/&lt;th class=&#34;text-/g&#39;</span>
-	grep -IR --include<span class=sfa0>=</span>*.html --null -l -- <span class=sc1c>&#34;&lt;td&#34;</span> public/ | xargs -0 sed -i <span class=sc1c>&#39;&#39;</span> <span class=sc1c>&#39;s/&lt;td align=&#34;/&lt;td class=&#34;text-/g&#39;</span>
+	<span class=c1># Replace &#34;align=...&#34;&#34; with class=&#34;test-...&#34;
+</span><span class=c1></span>	grep -IR --include<span class=o>=</span>*.html --null -l -- <span class=s2>&#34;&lt;th&#34;</span> public/ <span class=p>|</span> xargs -0 sed -i <span class=s1>&#39;&#39;</span> <span class=s1>&#39;s/&lt;th align=&#34;/&lt;th class=&#34;text-/g&#39;</span>
+	grep -IR --include<span class=o>=</span>*.html --null -l -- <span class=s2>&#34;&lt;td&#34;</span> public/ <span class=p>|</span> xargs -0 sed -i <span class=s1>&#39;&#39;</span> <span class=s1>&#39;s/&lt;td align=&#34;/&lt;td class=&#34;text-/g&#39;</span>
 
-	<span class=s1770># Ensure the public folder has it&#39;s mtime updated.
-</span><span class=s1770></span>	touch <span class=s7e3>$@</span>
+	<span class=c1># Ensure the public folder has it&#39;s mtime updated.
+</span><span class=c1></span>	touch <span class=nv>$@</span>
 
-<span class=s7d9>.minified</span><span class=sfa0>:</span> public html-minifier.conf
-	<span class=s1770># Find all HTML and in parallel run the minifier
-</span><span class=s1770></span>	find public -type f -iname <span class=sc1c>&#39;*.html&#39;</span> | parallel --tag <span class=s3e8>$(</span>HTML_MINIFIER<span class=s3e8>)</span> <span class=sc1c>&#34;{}&#34;</span> -o <span class=sc1c>&#34;{}&#34;</span>
-	<span class=ss4>touch</span> <span class=ss4>.minified</span></code></pre>
-</div>
+<span class=nf>.minified</span><span class=o>:</span> <span class=n>public</span> <span class=n>html</span>-<span class=n>minifier</span>.<span class=n>conf</span>
+	<span class=c1># Find all HTML and in parallel run the minifier
+</span><span class=c1></span>	find public -type f -iname <span class=s1>&#39;*.html&#39;</span> <span class=p>|</span> parallel --tag <span class=k>$(</span>HTML_MINIFIER<span class=k>)</span> <span class=s2>&#34;{}&#34;</span> -o <span class=s2>&#34;{}&#34;</span>
+	touch .minified
+</code></pre></div>
 <p>The latest version is always checked into github <a href=https://github.com/bramp/blog>with my blog</a>, but the above is easy to copy and paste.</p>
 <ul>
 <li><code>make help</code> reminds me of the commands when I need it.</li>
@@ -174,21 +176,22 @@
 <div class=col-sm-6>
 <div class=btn-toolbar>
 <div class=btn-group>
-<a class="btn btn-sm btn-soundcloud" href=https://feeds.feedburner.com/brampnet aria-label="RSS feed">
+<a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed" class="btn btn-sm btn-soundcloud">
 <i class="fa fa-rss-square"></i> Subscribe via RSS</a>
 </div>
 <div class=btn-group>
-<a class="btn btn-sm btn-twitter" href=https://twitter.com/TheBramp><i class="fa fa-twitter"></i> Follow @TheBramp</a>
+<a href=https://twitter.com/TheBramp class="btn btn-sm btn-twitter"><i class="fa fa-twitter"></i> Follow @TheBramp</a>
 </div>
 </div>
 </div>
 </div>
 <ul class=pager>
-&nbsp;<li class=previous><a href="/post/2015/08/01/decompile-and-recompile-android-apk/">&larr; Decompile and Recompile Android APK</a></li>
-&nbsp;<li class=next><a href="/post/2015/08/07/introducing-hilbert/"> Introducing Hilbert. A Go library to map values onto a Hilbert curve. &rarr;</a></li>
+&nbsp;<li class=previous><a href=/post/2015/08/01/decompile-and-recompile-android-apk/ >&larr; Decompile and Recompile Android APK</a></li>
+&nbsp;<li class=next><a href=/post/2015/08/07/introducing-hilbert/ >Introducing Hilbert. A Go library to map values onto a Hilbert curve. &rarr;</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
-<script type=text/javascript>var disqus_shortname = 'bramp';
+<script type=text/javascript>
+var disqus_shortname = 'bramp';
     var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2015\/08\/01\/hugo-makefile\/';
     var disqus_title = 'Hugo Makefile';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2015\/08\/01\/hugo-makefile\/';
@@ -201,16 +204,17 @@
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
 <a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="text-muted credit">&copy; 2017. All rights reserved. </p>
+<p class="credit text-muted">&copy; 2017. All rights reserved.</p>
 </footer>
 </div>
 </div>
 <script src=/js/all.min.js></script>
-<script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
+<script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async type=text/javascript></script>
 </body>
 </html>

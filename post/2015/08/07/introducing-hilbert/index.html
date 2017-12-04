@@ -2,76 +2,78 @@
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<link itemprop=url rel=canonical href="https://blog.bramp.net/post/2015/08/07/introducing-hilbert/"/>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<link href=https://blog.bramp.net/post/2015/08/07/introducing-hilbert/ rel=canonical itemprop=url />
 <title>Introducing Hilbert. A Go library to map values onto a Hilbert curve.</title>
-<meta itemprop=description name=description content="A Hilbert curve is a space-filling (snakey) curve through a 2D space. This can be very useful for mapping a 1D value, into a 2D space. I recently created a library for Go that can map to and from a …">
-<meta itemprop=creator name=author content="Andrew Brampton">
-<meta name=generator content=""/>
-<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title="bramp.net"/>
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title="bramp.net"/>
-<link rel="shortcut icon" href=/favicon.ico type="image/x-icon"/>
-<link rel=apple-touch-icon-precomposed href="/images/favicon.png"/>
-<link rel=apple-touch-icon-precomposed sizes=57x57 href="/images/favicon-57x57.png"/>
-<link rel=apple-touch-icon-precomposed sizes=72x72 href="/images/favicon-72x72.png"/>
-<link rel=apple-touch-icon-precomposed sizes=76x76 href="/images/favicon-76x76.png"/>
-<link rel=apple-touch-icon-precomposed sizes=114x114 href="/images/favicon-114x114.png"/>
-<link rel=apple-touch-icon-precomposed sizes=120x120 href="/images/favicon-120x120.png"/>
-<link rel=apple-touch-icon-precomposed sizes=144x144 href="/images/favicon-144x144.png"/>
-<link rel=apple-touch-icon-precomposed sizes=152x152 href="/images/favicon-152x152.png"/>
-<link rel=apple-touch-icon-precomposed sizes=180x180 href="/images/favicon-180x180.png"/>
-<meta name=msapplication-TileColor content=#4582EC>
-<meta name=msapplication-TileImage content=/images/favicon-144x144.png>
-<meta name=theme-color content=#4582EC>
-<link rel=icon sizes=192x192 href="/images/favicon-192x192.png"/>
+<meta content="A Hilbert curve is a space-filling (snakey) curve through a 2D space. This can be very useful for mapping a 1D value, into a 2D space. I recently created a library for Go that can map to and from a …" name=description itemprop=description>
+<meta content="Andrew Brampton" name=author itemprop=creator>
+<meta content="" name=generator />
+<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
+<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
+<link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
+<link href=/images/favicon.png rel=apple-touch-icon-precomposed />
+<link href=/images/favicon-57x57.png rel=apple-touch-icon-precomposed sizes=57x57 />
+<link href=/images/favicon-72x72.png rel=apple-touch-icon-precomposed sizes=72x72 />
+<link href=/images/favicon-76x76.png rel=apple-touch-icon-precomposed sizes=76x76 />
+<link href=/images/favicon-114x114.png rel=apple-touch-icon-precomposed sizes=114x114 />
+<link href=/images/favicon-120x120.png rel=apple-touch-icon-precomposed sizes=120x120 />
+<link href=/images/favicon-144x144.png rel=apple-touch-icon-precomposed sizes=144x144 />
+<link href=/images/favicon-152x152.png rel=apple-touch-icon-precomposed sizes=152x152 />
+<link href=/images/favicon-180x180.png rel=apple-touch-icon-precomposed sizes=180x180 />
+<meta content=#4582EC name=msapplication-TileColor>
+<meta content=/images/favicon-144x144.png name=msapplication-TileImage>
+<meta content=#4582EC name=theme-color>
+<link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
 <link href=/css/all.min.css rel=stylesheet>
 <link href=https://fonts.gstatic.com rel=preconnect crossorigin>
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel=stylesheet type=text/css>
 <link href=https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css rel=stylesheet>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css>
-<meta name=twitter:card content="summary_large_image"/>
-<meta name=twitter:site content="@TheBramp"/>
-<meta name=twitter:creator content="@TheBramp"/>
-<meta property=og:type content="article"/>
-<meta property=article:author content="https://www.facebook.com/bramp"/>
-<meta property=article:published_time content="2015-08-07T20:53:41&#43;07:00"/>
-<meta property=article:tag content="hilbert"/>
-<meta property=article:tag content="go"/>
-<meta property=article:tag content="opensource"/>
-<meta property=og:url content="https://blog.bramp.net/post/2015/08/07/introducing-hilbert/"/>
-<meta property=og:site_name content="bramp.net"/>
-<meta property=og:title content="Introducing Hilbert. A Go library to map values onto a Hilbert curve."/>
-<meta property=og:description content="A Hilbert curve is a space-filling (snakey) curve through a 2D space. This can be very useful for mapping a 1D value, into a 2D space. I recently created a library for Go that can map to and from a …"/>
-<meta property=og:updated_time content="2015-08-07T20:53:41-07:00"/>
-<meta property=og:locale content="en_GB"/>
-<meta property=og:image content="https://blog.bramp.net/post/2015/08/07/introducing-hilbert/hilbert.png"/>
-<meta name=google-site-verification content="RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"/>
+<link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
+<meta content=summary_large_image name=twitter:card />
+<meta content=@TheBramp name=twitter:site />
+<meta content=@TheBramp name=twitter:creator />
+<meta content=article property=og:type />
+<meta content=https://www.facebook.com/bramp property=article:author />
+<meta content=2015-08-07T20:53:41&#43;07:00 property=article:published_time />
+<meta content=hilbert property=article:tag />
+<meta content=go property=article:tag />
+<meta content=opensource property=article:tag />
+<meta content=https://blog.bramp.net/post/2015/08/07/introducing-hilbert/ property=og:url />
+<meta content=bramp.net property=og:site_name />
+<meta content="Introducing Hilbert. A Go library to map values onto a Hilbert curve." property=og:title />
+<meta content="A Hilbert curve is a space-filling (snakey) curve through a 2D space. This can be very useful for mapping a 1D value, into a 2D space. I recently created a library for Go that can map to and from a …" property=og:description />
+<meta content=2015-08-07T20:53:41-07:00 property=og:updated_time />
+<meta content=en_GB property=og:locale />
+<meta content=https://blog.bramp.net/post/2015/08/07/introducing-hilbert/hilbert.png property=og:image />
+<meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
 </head>
 <body itemscope itemtype=Blog>
-<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-136478-5', 'auto');
     ga('require', 'linkid', 'linkid.js');
-    ga('send', 'pageview');</script>
+    ga('send', 'pageview');
+</script>
 <div id=wrapper>
 <div class="navbar navbar-default">
 <div class=container>
 <div class=navbar-header>
-<button type=button class=navbar-toggle data-toggle=collapse data-target=.navbar-collapse>
+<button class=navbar-toggle data-target=.navbar-collapse data-toggle=collapse type=button>
 <span class=sr-only>Toggle navigation</span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 <span class=icon-bar></span>
 </button>
 <div class=navbar-brand aria-label="About Andrew Brampton">
-<a href="/">
-<img src=/images/favicon-64x64.png class=profile-image alt=Home>
+<a href=/ >
+<img src=/images/favicon-64x64.png alt=Home class=profile-image>
 </a>
 <div itemprop=author itemscope itemtype=https://schema.org/Person>
-<a href="/about-me/" itemprop=name>Andrew Brampton</a>
+<a href=/about-me/ itemprop=name>Andrew Brampton</a>
 <div id=social-wrapper>
 <a href=https://twitter.com/TheBramp aria-label=Twitter><i class="fa fa-twitter-square"></i></a>
 <a href=https://www.linkedin.com/in/bramp aria-label=LinkedIn><i class="fa fa-linkedin-square"></i></a>
@@ -82,13 +84,13 @@
 </div>
 </div>
 </div>
-<div class="navbar-collapse collapse">
+<div class="collapse navbar-collapse">
 <ul class="nav navbar-nav" role=navigation>
-<li><a href="/">Articles</a></li>
-<li><a href="/about-me/">About Me</a></li>
-<li><a href="/android-app/">Android Apps</a></li>
-<li><a href="/opensource/">Open Source</a></li>
-<li><a href="/publication/">Publications</a></li>
+<li><a href=/ >Articles</a></li>
+<li><a href=/about-me/ >About Me</a></li>
+<li><a href=/android-app/ >Android Apps</a></li>
+<li><a href=/opensource/ >Open Source</a></li>
+<li><a href=/publication/ >Publications</a></li>
 </ul>
 </div>
 </div>
@@ -98,35 +100,34 @@
 <h1 itemprop=headline>Introducing Hilbert. A Go library to map values onto a Hilbert curve.</h1>
 <p class=meta>
 <i class="fa fa-calendar-o"></i> <time itemprop=datePublished>2015-08-07</time>
-| <a href="https://blog.bramp.net/tags/hilbert/">hilbert</a>
-| <a href="https://blog.bramp.net/tags/go/">go</a>
-| <a href="https://blog.bramp.net/tags/opensource/">opensource</a>
+| <a href=https://blog.bramp.net/tags/hilbert/ >hilbert</a>
+| <a href=https://blog.bramp.net/tags/go/ >go</a>
+| <a href=https://blog.bramp.net/tags/opensource/ >opensource</a>
 </p>
 <div class=post itemprop=articleBody>
 <p>A <a href=https://en.wikipedia.org/wiki/Hilbert_curve>Hilbert curve</a> is a space-filling (snakey) curve through a 2D space:</p>
 <figure>
-<img src="hilbert.png"/>
+<img src=hilbert.png />
 <figcaption>
 <h4>Image of 8 by 8 Hilbert curve</h4>
 </figcaption>
 </figure>
-<p>This can be very useful for mapping a 1D value, into a 2D space. For example, it is commonly used to <a href="https://xkcd.com/195/">map IP addresses into a 2D space</a>.</p>
-<p>I recently created a library for <a href="https://golang.org/">Go</a> that can map to and from a curve. The project is <a href=http://github.com/google/hilbert>hosted on Github</a>, and can be used like so:</p>
-<div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=s3e8>import</span> <span class=sc1c>&#34;github.com/google/hilbert&#34;</span>
+<p>This can be very useful for mapping a 1D value, into a 2D space. For example, it is commonly used to <a href=https://xkcd.com/195/ >map IP addresses into a 2D space</a>.</p>
+<p>I recently created a library for <a href=https://golang.org/ >Go</a> that can map to and from a curve. The project is <a href=http://github.com/google/hilbert>hosted on Github</a>, and can be used like so:</p>
+<div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=kn>import</span> <span class=s>&#34;github.com/google/hilbert&#34;</span>
 
-<span class=s1770>// Create a Hilbert curve for mapping to and from a 16 by 16 space.
-</span><span class=s1770></span>s, err <span class=sfa0>:=</span> hilbert.New(<span class=sc80>16</span>)
+<span class=c1>// Create a Hilbert curve for mapping to and from a 16 by 16 space.
+</span><span class=c1></span><span class=nx>s</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>hilbert</span><span class=p>.</span><span class=nx>New</span><span class=p>(</span><span class=mi>16</span><span class=p>)</span>
 
-<span class=s1770>// Now map one dimension numbers in the range [0, N*N-1], to an x,y
-</span><span class=s1770>// coordinate on the curve where both x and y are in the range [0, N-1].
-</span><span class=s1770></span>x, y, err <span class=sfa0>:=</span> s.Map(t)
+<span class=c1>// Now map one dimension numbers in the range [0, N*N-1], to an x,y
+</span><span class=c1>// coordinate on the curve where both x and y are in the range [0, N-1].
+</span><span class=c1></span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>s</span><span class=p>.</span><span class=nx>Map</span><span class=p>(</span><span class=nx>t</span><span class=p>)</span>
 
-<span class=s1770>// Also map back from (x,y) to t.
-</span><span class=s1770></span>t, err <span class=sfa0>:=</span> s.MapInverse(x, y)</code></pre>
-</div>
+<span class=c1>// Also map back from (x,y) to t.
+</span><span class=c1></span><span class=nx>t</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>s</span><span class=p>.</span><span class=nx>MapInverse</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>)</span></code></pre></div>
 <p>The project contains some demos, such as this cool animations:</p>
 <figure>
-<img src="hilbert_animation.gif"/>
+<img src=hilbert_animation.gif />
 <figcaption>
 <h4>Hilbert curve animation</h4>
 </figcaption>
@@ -140,21 +141,22 @@
 <div class=col-sm-6>
 <div class=btn-toolbar>
 <div class=btn-group>
-<a class="btn btn-sm btn-soundcloud" href=https://feeds.feedburner.com/brampnet aria-label="RSS feed">
+<a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed" class="btn btn-sm btn-soundcloud">
 <i class="fa fa-rss-square"></i> Subscribe via RSS</a>
 </div>
 <div class=btn-group>
-<a class="btn btn-sm btn-twitter" href=https://twitter.com/TheBramp><i class="fa fa-twitter"></i> Follow @TheBramp</a>
+<a href=https://twitter.com/TheBramp class="btn btn-sm btn-twitter"><i class="fa fa-twitter"></i> Follow @TheBramp</a>
 </div>
 </div>
 </div>
 </div>
 <ul class=pager>
-&nbsp;<li class=previous><a href="/post/2015/08/01/hugo-makefile/">&larr; Hugo Makefile</a></li>
-&nbsp;<li class=next><a href="/post/2015/08/24/unsafe-part-1-sun.misc.unsafe-helper-classes/"> Unsafe Part 1: sun.misc.Unsafe Helper Classes &rarr;</a></li>
+&nbsp;<li class=previous><a href=/post/2015/08/01/hugo-makefile/ >&larr; Hugo Makefile</a></li>
+&nbsp;<li class=next><a href=/post/2015/08/24/unsafe-part-1-sun.misc.unsafe-helper-classes/ >Unsafe Part 1: sun.misc.Unsafe Helper Classes &rarr;</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
-<script type=text/javascript>var disqus_shortname = 'bramp';
+<script type=text/javascript>
+var disqus_shortname = 'bramp';
     var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2015\/08\/07\/introducing-hilbert\/';
     var disqus_title = 'Introducing Hilbert. A Go library to map values onto a Hilbert curve.';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2015\/08\/07\/introducing-hilbert\/';
@@ -167,16 +169,17 @@
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
 <a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="text-muted credit">&copy; 2017. All rights reserved. </p>
+<p class="credit text-muted">&copy; 2017. All rights reserved.</p>
 </footer>
 </div>
 </div>
 <script src=/js/all.min.js></script>
-<script type=text/javascript src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async></script>
+<script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async type=text/javascript></script>
 </body>
 </html>

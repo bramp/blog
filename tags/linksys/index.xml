@@ -20,52 +20,44 @@
 &lt;p&gt;I start off by simplying using &amp;#8220;file&amp;#8221; on the firmware:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ file FW_E4200_2.0.36.126507.SSA 
 
-FW_E4200_2.0.36.126507.SSA: u-boot legacy uImage, Linux-2.6.35.8, Linux/ARM, OS Kernel Image &lt;span class=&#34;sfa0&#34;&gt;(&lt;/span&gt;Not compressed&lt;span class=&#34;sfa0&#34;&gt;)&lt;/span&gt;, &lt;span class=&#34;sc80&#34;&gt;2677476&lt;/span&gt; bytes, Thu Dec &lt;span class=&#34;sc80&#34;&gt;22&lt;/span&gt; &lt;span class=&#34;sc80&#34;&gt;19&lt;/span&gt;:40:21 &lt;span class=&#34;sc80&#34;&gt;2011&lt;/span&gt;, Load Address: 0x00008000, Entry Point: 0x00008000, Header CRC: 0x6ADD9801, Data CRC: 0xB010442D&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+FW_E4200_2.0.36.126507.SSA: u-boot legacy uImage, Linux-2.6.35.8, Linux/ARM, OS Kernel Image &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Not compressed&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, &lt;span class=&#34;m&#34;&gt;2677476&lt;/span&gt; bytes, Thu Dec &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;19&lt;/span&gt;:40:21 &lt;span class=&#34;m&#34;&gt;2011&lt;/span&gt;, Load Address: 0x00008000, Entry Point: 0x00008000, Header CRC: 0x6ADD9801, Data CRC: 0xB010442D&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Well this is a great start. We know we are dealing with Linux, and that this is a normal uImage. I then move on to use a neat little tool called &lt;a href=&#34;https://github.com/devttys0/binwalk&#34;&gt;binwalk&lt;/a&gt;. By using libmagic, binwalk tries to find interesting sections of the file.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ /usr/local/bin/binwalk FW_E4200_2.0.36.126507.SSA 
 
 DECIMAL   	HEX       	DESCRIPTION
 -------------------------------------------------------------------------------------------------------
-&lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt;         	0x0       	uImage header, header size: &lt;span class=&#34;sc80&#34;&gt;64&lt;/span&gt; bytes, header CRC: 0x6ADD9801, created: Thu Dec &lt;span class=&#34;sc80&#34;&gt;22&lt;/span&gt; &lt;span class=&#34;sc80&#34;&gt;19&lt;/span&gt;:40:21 &lt;span class=&#34;sc80&#34;&gt;2011&lt;/span&gt;, image size: &lt;span class=&#34;sc80&#34;&gt;2677476&lt;/span&gt; bytes, Data Address: 0x8000, Entry Point: 0x8000, data CRC: 0xB010442D, OS: Linux, CPU: ARM, image type: OS Kernel Image, compression type: none, image name: Linux-2.6.35.8
-&lt;span class=&#34;sc80&#34;&gt;1124&lt;/span&gt;      	0x464     	LZMA compressed data, properties: 0x87, dictionary size: &lt;span class=&#34;sc80&#34;&gt;250216448&lt;/span&gt; bytes, uncompressed size: &lt;span class=&#34;sc80&#34;&gt;14786800&lt;/span&gt; bytes
-&lt;span class=&#34;sc80&#34;&gt;16636&lt;/span&gt;     	0x40FC    	gzip compressed data, from Unix, last modified: Thu Dec &lt;span class=&#34;sc80&#34;&gt;22&lt;/span&gt; &lt;span class=&#34;sc80&#34;&gt;19&lt;/span&gt;:40:18 &lt;span class=&#34;sc80&#34;&gt;2011&lt;/span&gt;, max compression
-&lt;span class=&#34;sc80&#34;&gt;2752512&lt;/span&gt;   	0x2A0000  	JFFS2 filesystem data little endian, JFFS node length: &lt;span class=&#34;sc80&#34;&gt;49&lt;/span&gt;
+&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;         	0x0       	uImage header, header size: &lt;span class=&#34;m&#34;&gt;64&lt;/span&gt; bytes, header CRC: 0x6ADD9801, created: Thu Dec &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;19&lt;/span&gt;:40:21 &lt;span class=&#34;m&#34;&gt;2011&lt;/span&gt;, image size: &lt;span class=&#34;m&#34;&gt;2677476&lt;/span&gt; bytes, Data Address: 0x8000, Entry Point: 0x8000, data CRC: 0xB010442D, OS: Linux, CPU: ARM, image type: OS Kernel Image, compression type: none, image name: Linux-2.6.35.8
+&lt;span class=&#34;m&#34;&gt;1124&lt;/span&gt;      	0x464     	LZMA compressed data, properties: 0x87, dictionary size: &lt;span class=&#34;m&#34;&gt;250216448&lt;/span&gt; bytes, uncompressed size: &lt;span class=&#34;m&#34;&gt;14786800&lt;/span&gt; bytes
+&lt;span class=&#34;m&#34;&gt;16636&lt;/span&gt;     	0x40FC    	gzip compressed data, from Unix, last modified: Thu Dec &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;19&lt;/span&gt;:40:18 &lt;span class=&#34;m&#34;&gt;2011&lt;/span&gt;, max compression
+&lt;span class=&#34;m&#34;&gt;2752512&lt;/span&gt;   	0x2A0000  	JFFS2 filesystem data little endian, JFFS node length: &lt;span class=&#34;m&#34;&gt;49&lt;/span&gt;
 ..A whole lot of JFFS2 sections..
-&lt;span class=&#34;sc80&#34;&gt;20974612&lt;/span&gt;  	0x1400C14 	JFFS2 filesystem data little endian, JFFS node length: &lt;span class=&#34;sc80&#34;&gt;51&lt;/span&gt;
-&lt;span class=&#34;sc80&#34;&gt;20974664&lt;/span&gt;  	0x1400C48 	JFFS2 filesystem data little endian, JFFS node length: &lt;span class=&#34;sc80&#34;&gt;193&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;span class=&#34;m&#34;&gt;20974612&lt;/span&gt;  	0x1400C14 	JFFS2 filesystem data little endian, JFFS node length: &lt;span class=&#34;m&#34;&gt;51&lt;/span&gt;
+&lt;span class=&#34;m&#34;&gt;20974664&lt;/span&gt;  	0x1400C48 	JFFS2 filesystem data little endian, JFFS node length: &lt;span class=&#34;m&#34;&gt;193&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;We find a small LZMA section, and large gzip section, and lots of JFFS2 sections. JFFS2 is a popular embedded file system, so we can guess the bulk of the file system is here. Next we can extract each section using dd:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;dd &lt;span class=&#34;s7e3&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;skip&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;1124&lt;/span&gt;  &lt;span class=&#34;s7e3&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;15512&lt;/span&gt;   &lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;FW_E4200_2.0.36.126507.SSA &lt;span class=&#34;s7e3&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;image-1.lzma
-dd &lt;span class=&#34;s7e3&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;skip&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;16636&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;2735876&lt;/span&gt; &lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;FW_E4200_2.0.36.126507.SSA &lt;span class=&#34;s7e3&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;image-2.gz
-dd &lt;span class=&#34;s7e3&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;skip&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;2752512&lt;/span&gt; &lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;FW_E4200_2.0.36.126507.SSA &lt;span class=&#34;s7e3&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;image-3.jffs2&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;dd &lt;span class=&#34;nv&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;skip&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1124&lt;/span&gt;  &lt;span class=&#34;nv&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;15512&lt;/span&gt;   &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;FW_E4200_2.0.36.126507.SSA &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-1.lzma
+dd &lt;span class=&#34;nv&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;skip&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;16636&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2735876&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;FW_E4200_2.0.36.126507.SSA &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-2.gz
+dd &lt;span class=&#34;nv&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;skip&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2752512&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;FW_E4200_2.0.36.126507.SSA &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-3.jffs2&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Notice we are using a block size of 1 (so we can count in bytes), and we skip the offset into the file. Then we manually work out the sizes for the lzma and gzip sections. They can be no larger than their start until the next section. If they don&amp;#8217;t fill that full space, then not to worry as these tools will normally ignore trailing data.&lt;/p&gt;
 
 &lt;p&gt;As I&amp;#8217;m interested to see what&amp;#8217;s in the JFFS filesystem, we should mount it. You can&amp;#8217;t mount JFFS like a normal loopback device, you have to create a fake flash device. The following set of command can solve that:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo modprobe mtdram &lt;span class=&#34;s7e3&#34;&gt;total_size&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;32768&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;erase_size&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;256&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo modprobe mtdram &lt;span class=&#34;nv&#34;&gt;total_size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;32768&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;erase_size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;256&lt;/span&gt;
 sudo modprobe mtdblock
 sudo modprobe mtdchar
-&lt;span class=&#34;s1770&#34;&gt;# sudo mknod /dev/mtdblock0 b 31 0
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;dd &lt;span class=&#34;s3e8&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;image-3.jffs2 &lt;span class=&#34;s7e3&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;/dev/mtdblock0
-mount -t jffs2 /dev/mtdblock0 /mnt/disk&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;span class=&#34;c1&#34;&gt;# sudo mknod /dev/mtdblock0 b 31 0
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;dd &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-3.jffs2 &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/dev/mtdblock0
+mount -t jffs2 /dev/mtdblock0 /mnt/disk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The mknod line is only needed if you don&amp;#8217;t already have a /dev/mtdblock0. Also a /mnt/disk needs to be created ahead of time so the mounting works. Anyway once that was done, I cd /mnt/disk and found that it does appear to contain most of the file system. There are all the HTML pages, and binaries (for example busybox).&lt;/p&gt;
 
 &lt;p&gt;Now we should go back to image-1.lzma and image-2.gz. Well straight away trying to decompress image-1&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ lzma -dc image-1.lzma &amp;gt; image-1
-lzma: Decoder error&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+lzma: Decoder error&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;results in a error. So we can assume that was a incorrectly detected by binwalk. Lets now try and decompress image-2.gz:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ gzip -dc image-2.gz &amp;gt; image-2
-gzip: image-2.gz: decompression OK, trailing garbage ignored&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+gzip: image-2.gz: decompression OK, trailing garbage ignored&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;So that does indeed produce a large image-2 file, so we can ignore the trailing garbage warning. A quick &amp;#8220;file&amp;#8221; on image-2 doesn&amp;#8217;t reveal anything useful, so I run binwalk on it. This turns up a set of false positives. So I take a different approach. I run:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ strings image-2&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ strings image-2&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This produces a whole host of valid looking strings. From the contents of the strings it makes me think it&amp;#8217;s the actual kernel. A line like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;Linux version 2.6.35.8 (root@ubuntu) (gcc version 4.2.0 20070413 (prerelease) (CodeSourcery Sourcery G++ Lite 2007q1-21)) #1 Thu Dec 22 16:40:10 PST 2011&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;Linux version 2.6.35.8 (root@ubuntu) (gcc version 4.2.0 20070413 (prerelease) (CodeSourcery Sourcery G++ Lite 2007q1-21)) #1 Thu Dec 22 16:40:10 PST 2011&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;helps me come to that conclusion.&lt;/p&gt;
 
 &lt;p&gt;I haven&amp;#8217;t finished poking around image-2.gz, but I suspect the interesting parts are mostly in the JFFS2 filesystem. Hopefully this will lead to me getting ssh access to the router, and eventually being able to customise the firmware.&lt;/p&gt;
@@ -107,8 +99,7 @@ Content-Length: 573
       &amp;lt;ns:CurrentFirmwareVersion&amp;gt;2.0.36.126507&amp;lt;/ns:CurrentFirmwareVersion&amp;gt;
     &amp;lt;/ns:GetFirmwareFromDeviceRequest&amp;gt;
   &amp;lt;/SOAP-ENV:Body&amp;gt;
-&amp;lt;/SOAP-ENV:Envelope&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&amp;lt;/SOAP-ENV:Envelope&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;and the response:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;HTTP/1.1 200 OK
 Content-Language: en-US
@@ -135,16 +126,13 @@ SOAPAction: &amp;#34;&amp;#34;
       &amp;lt;/ns:FirmwareList&amp;gt;
     &amp;lt;/ns:GetFirmwareFromDeviceResponse&amp;gt;
   &amp;lt;/soapenv:Body&amp;gt;
-&amp;lt;/soapenv:Envelope&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&amp;lt;/soapenv:Envelope&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;(I slightly modified portions of the request and response to hide the identify of my router.).&lt;/p&gt;
 
 &lt;p&gt;I might write a script to make fake requests, but until then you can easily create a request with curl:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl -d @request.raw https://update.linksys.com/cds/update&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl -d @request.raw https://update.linksys.com/cds/update&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Then you just extract the DownloadURI and&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Voila I now have the firmware. Now I need to figure out what to do with it.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;: As requested I fetched the more recent version of the file:&lt;br /&gt;

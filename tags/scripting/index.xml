@@ -16,11 +16,9 @@
       
       <guid>https://blog.bramp.net/post/2010/08/31/persec-python-script/</guid>
       <description>&lt;p&gt;A while ago I wrote a python script that does a similar job to GNU&amp;#8217;s &lt;a href=&#34;http://linux.die.net/man/1/watch&#34;&gt;watch&lt;/a&gt; command. You use it like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;./persec.py &lt;span class=&#34;sfa0&#34;&gt;[&lt;/span&gt;--interval&lt;span class=&#34;sfa0&#34;&gt;=&lt;/span&gt;&amp;lt;n&amp;gt;&lt;span class=&#34;sfa0&#34;&gt;]&lt;/span&gt; &amp;lt;command&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;./persec.py &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;--interval&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&amp;lt;n&amp;gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &amp;lt;command&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;so for example&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;./persec.py ifconfig&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;./persec.py ifconfig&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Now in a similar way to watch, it executes the command every second, and highlights the differences between each execution. However, in addition to this it finds any numbers that have changed and works out the rate at which they are changing. So for example, ifconfig would typically output this:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;usb0      Link encap:Ethernet  HWaddr 02:04:4b:00:d3:cf
           inet addr:10.0.0.2  Bcast:10.0.0.255  Mask:255.255.255.0
@@ -28,8 +26,7 @@
           RX packets:1017422291 errors:0 dropped:0 overruns:0 frame:0
           TX packets:549382406 errors:0 dropped:0 overruns:0 carrier:0
           collisions:0 txqueuelen:1000
-          RX bytes:1910704266 (1.9 GB)  TX bytes:1834667124 (1.8 GB)&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+          RX bytes:1910704266 (1.9 GB)  TX bytes:1834667124 (1.8 GB)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;but now outputs something like:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;usb0      Link encap:Ethernet  HWaddr 02:04:4b:00:d3:cf
           inet addr:10.0.0.2  Bcast:10.0.0.255  Mask:255.255.255.0
@@ -37,13 +34,11 @@
           RX packets:&amp;lt;b&amp;gt;2001/s&amp;lt;/b&amp;gt; errors:0 dropped:0 overruns:0 frame:0
           TX packets:&amp;lt;b&amp;gt;2002/s&amp;lt;/b&amp;gt; errors:0 dropped:0 overruns:0 carrier:0
           collisions:0 txqueuelen:1000
-          RX bytes:&amp;lt;b&amp;gt;168120/s&amp;lt;/b&amp;gt; (1.9 GB)  TX bytes:&amp;lt;b&amp;gt;217144/s&amp;lt;/b&amp;gt; (1.8 GB)&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+          RX bytes:&amp;lt;b&amp;gt;168120/s&amp;lt;/b&amp;gt; (1.9 GB)  TX bytes:&amp;lt;b&amp;gt;217144/s&amp;lt;/b&amp;gt; (1.8 GB)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Notice the per second (/s) values for RX/TX packets and RX/TX bytes. I have found this quite useful many times in the past, on commands such as:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;./persec.py cat /proc/interrupts
 ./persec.py df
-./persec.py ls -l somefile&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+./persec.py ls -l somefile&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;a href=&#34;https://raw.githubusercontent.com/bramp/handy-tools/master/persec.py&#34;&gt;Download version 1.1&lt;/a&gt; or &lt;a href=&#34;https://github.com/bramp/handy-tools/blob/master/persec.py&#34;&gt;View on Github&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>

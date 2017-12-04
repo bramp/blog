@@ -1,40 +1,47 @@
-<!DOCTYPE html><!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]--><!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]--><!--[if IE 8]><html class="no-js lt-ie9"><![endif]--><!--[if gt IE 8]><!--> <html class=no-js> <!--<![endif]-->
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--><html class=no-js><!--<![endif]-->
 <head>
 <meta charset=utf-8>
-<meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1">
+<meta content="IE=edge,chrome=1" http-equiv=X-UA-Compatible>
 <title></title>
-<meta name=description content="">
-<meta name=viewport content="width=device-width">
-<link rel=stylesheet href=css/bootstrap.min.css>
-<link rel=stylesheet href=css/main.css>
-<link rel=stylesheet href=css/codemirror.css>
-<style>.ng-cloak{display:none!important}body{padding-top:60px;padding-bottom:40px}.modal{width:800px}.modal-inplace{position:relative;top:auto;left:auto;right:auto;margin:0 auto 20px;z-index:1;max-width:100%}.sms-modal{min-width:500px}.CodeMirror{border:0;height:auto;margin:15px;font-family:inherit;font-size:inherit;color:inherit;line-height:inherit}.CodeMirror-scroll{overflow-y:hidden;overflow-x:auto}.cm-tab{display:inherit}.alert-small{padding:2px 10px;margin-bottom:inherit}.sms-error{color:red;text-decoration:underline}</style><link rel=stylesheet href=css/bootstrap-responsive.min.css>
+<meta content="" name=description>
+<meta content="width=device-width" name=viewport>
+<link href=css/bootstrap.min.css rel=stylesheet>
+<link href=css/main.css rel=stylesheet>
+<link href=css/codemirror.css rel=stylesheet>
+<style>.ng-cloak{display:none!important}body{padding-top:60px;padding-bottom:40px}.modal{width:800px}.modal-inplace{position:relative;top:auto;left:auto;right:auto;margin:0 auto 20px;z-index:1;max-width:100%}.sms-modal{min-width:500px}.CodeMirror{border:0;height:auto;margin:15px;font-family:inherit;font-size:inherit;color:inherit;line-height:inherit}.CodeMirror-scroll{overflow-y:hidden;overflow-x:auto}.cm-tab{display:inherit}.alert-small{padding:2px 10px;margin-bottom:inherit}.sms-error{color:red;text-decoration:underline}</style>
+<link href=css/bootstrap-responsive.min.css rel=stylesheet>
 <script src=js/vendor/modernizr-2.6.2.min.js></script>
 </head>
 <body ng-app=sms ng-controller=SMSController>
-<!--[if lt IE 7]><p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p><![endif]-->
-<div class="navbar navbar-inverse navbar-fixed-top">
+<!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+<div class="navbar navbar-fixed-top navbar-inverse">
 <div class=navbar-inner>
 <div class=container>
-<a class=brand href=#><strong>SMS Character Count</strong> by bramp</a>
+<a href=# class=brand><strong>SMS Character Count</strong> by bramp</a>
 </div>
 </div>
 </div>
 <div class=container>
 <div class="modal modal-inplace sms-modal">
-<textarea ui-codemirror=editorOptions class="modal-body ng-cloak" ng-model=message ng-trim=false>Your message here...</textarea>
+<textarea class="modal-body ng-cloak" ng-model=message ng-trim=false ui-codemirror=editorOptions>Your message here...</textarea>
 <div class=modal-footer>
 <div class=pull-left>
-<button ng-repeat="(key, value) in encodings" btn-radio=key class="btn btn-small" type=button ng-model=$parent.encoding ng-bind=value.name></button>
+<button btn-radio=key class="btn btn-small" ng-bind=value.name ng-model=$parent.encoding ng-repeat="(key, value) in encodings" type=button></button>
 </div>
-<div class=pull-right><strong sms-count sms-encoding={{encoding}} ng-model=message></strong></div>
+<div class=pull-right><strong ng-model=message sms-count sms-encoding={{encoding}}></strong></div>
 </div>
 </div>
 <footer>
 <hr>
 <p>&copy; <a href=http://bramp.net>bramp.net</a> 2013</p>
 </footer>
-</div> 
+</div>
 <script src=js/vendor/bootstrap-without-jquery.min.js></script>
 <script src=//ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js></script>
 <script src=js/vendor/ui-bootstrap-0.5.0.min.js></script>
@@ -43,9 +50,11 @@
 <script src=//cdnjs.cloudflare.com/ajax/libs/lodash.js/1.3.1/lodash.min.js></script>
 <script src=js/smscount.js charset=UTF-8></script>
 <script src=js/main.js></script>
-<script>var _gaq=[['_setAccount','UA-136478-5'],['_trackPageview']];
+<script>
+var _gaq=[['_setAccount','UA-136478-5'],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
             g.src='//www.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g,s)}(document,'script'));</script>
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
 </body>
 </html>

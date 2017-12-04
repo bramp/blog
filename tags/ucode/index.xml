@@ -21,20 +21,19 @@
 
 &lt;p&gt;and example of using it is:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ./ucode.py /lib/firmware/*.ucode
-iwlwifi-1000-3.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;128&lt;/span&gt;.50.3.1
-iwlwifi-3945-1.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;15&lt;/span&gt;.28.1.6
-iwlwifi-3945-2.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;15&lt;/span&gt;.32.2.9
-iwlwifi-4965-1.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;228&lt;/span&gt;.57.1.21
-iwlwifi-4965-2.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;228&lt;/span&gt;.61.2.24
-iwlwifi-5000-1.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;5&lt;/span&gt;.4.1.16
-iwlwifi-5000-2.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;8&lt;/span&gt;.24.2.12
-iwlwifi-5150-2.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;8&lt;/span&gt;.24.2.2
-iwlwifi-6000-4.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;9&lt;/span&gt;.221.4.1
-iwlwifi-6000g2a-5.ucode : ver &lt;span class=&#34;sc80&#34;&gt;17&lt;/span&gt;.168.5.1 &lt;span class=&#34;sfa0&#34;&gt;(&lt;/span&gt;6000g2a fw v17.168.5.1 build &lt;span class=&#34;sc80&#34;&gt;33993&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;)&lt;/span&gt;
-iwlwifi-6000g2b-5.ucode : ver &lt;span class=&#34;sc80&#34;&gt;17&lt;/span&gt;.168.5.1 &lt;span class=&#34;sfa0&#34;&gt;(&lt;/span&gt;6000g2b fw v17.168.5.1 build &lt;span class=&#34;sc80&#34;&gt;33993&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;)&lt;/span&gt;
-iwlwifi-6050-4.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;9&lt;/span&gt;.201.4.1
-iwlwifi-6050-5.ucode    : ver &lt;span class=&#34;sc80&#34;&gt;41&lt;/span&gt;.28.5.1 &lt;span class=&#34;sfa0&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sc80&#34;&gt;6050&lt;/span&gt; fw v41.28.5.1 build &lt;span class=&#34;sc80&#34;&gt;33926&lt;/span&gt;&lt;span class=&#34;sfa0&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</description>
+iwlwifi-1000-3.ucode    : ver &lt;span class=&#34;m&#34;&gt;128&lt;/span&gt;.50.3.1
+iwlwifi-3945-1.ucode    : ver &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;.28.1.6
+iwlwifi-3945-2.ucode    : ver &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;.32.2.9
+iwlwifi-4965-1.ucode    : ver &lt;span class=&#34;m&#34;&gt;228&lt;/span&gt;.57.1.21
+iwlwifi-4965-2.ucode    : ver &lt;span class=&#34;m&#34;&gt;228&lt;/span&gt;.61.2.24
+iwlwifi-5000-1.ucode    : ver &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;.4.1.16
+iwlwifi-5000-2.ucode    : ver &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt;.24.2.12
+iwlwifi-5150-2.ucode    : ver &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt;.24.2.2
+iwlwifi-6000-4.ucode    : ver &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt;.221.4.1
+iwlwifi-6000g2a-5.ucode : ver &lt;span class=&#34;m&#34;&gt;17&lt;/span&gt;.168.5.1 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;6000g2a fw v17.168.5.1 build &lt;span class=&#34;m&#34;&gt;33993&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+iwlwifi-6000g2b-5.ucode : ver &lt;span class=&#34;m&#34;&gt;17&lt;/span&gt;.168.5.1 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;6000g2b fw v17.168.5.1 build &lt;span class=&#34;m&#34;&gt;33993&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+iwlwifi-6050-4.ucode    : ver &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt;.201.4.1
+iwlwifi-6050-5.ucode    : ver &lt;span class=&#34;m&#34;&gt;41&lt;/span&gt;.28.5.1 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;6050&lt;/span&gt; fw v41.28.5.1 build &lt;span class=&#34;m&#34;&gt;33926&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
   </channel>

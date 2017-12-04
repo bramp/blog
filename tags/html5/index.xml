@@ -50,31 +50,27 @@ DICOM/185723/00000002: DICOM medical imaging data
 DICOM/185723/00100000: DICOM medical imaging data
 DICOM/185723/00100001: DICOM medical imaging data
 DICOM/185723/00100002: DICOM medical imaging data
-...&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+...&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;To create videos the first thing I did was to convert the images from DICOM to PNG&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo apt-get install medcon
 mkdir png
-&lt;span class=&#34;s3e8&#34;&gt;for&lt;/span&gt; i in DICOM/185723/*; &lt;span class=&#34;s3e8&#34;&gt;do&lt;/span&gt; medcon -f &lt;span class=&#34;s7e3&#34;&gt;$i&lt;/span&gt; -c png -o png/&lt;span class=&#34;sc1c&#34;&gt;`&lt;/span&gt;basename &lt;span class=&#34;s7e3&#34;&gt;$i&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;`&lt;/span&gt;.png ; &lt;span class=&#34;s3e8&#34;&gt;done&lt;/span&gt;;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in DICOM/185723/*&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; medcon -f &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt; -c png -o png/&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;basename &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;.png &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Now to batch the images I started by creating animated gifs.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo apt-get install imagemagick
 
-&lt;span class=&#34;s1770&#34;&gt;# Create animated gifs
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s3e8&#34;&gt;for&lt;/span&gt; i in &lt;span class=&#34;sc1c&#34;&gt;`&lt;/span&gt;seq -w &lt;span class=&#34;sc80&#34;&gt;000&lt;/span&gt; &lt;span class=&#34;sc80&#34;&gt;011&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;`&lt;/span&gt;; &lt;span class=&#34;s3e8&#34;&gt;do&lt;/span&gt; convert -delay &lt;span class=&#34;sc80&#34;&gt;20&lt;/span&gt; -loop &lt;span class=&#34;sc80&#34;&gt;0&lt;/span&gt; png/&lt;span class=&#34;s7e3&#34;&gt;$i&lt;/span&gt;*.png &lt;span class=&#34;s7e3&#34;&gt;$i&lt;/span&gt;.gif; &lt;span class=&#34;s3e8&#34;&gt;done&lt;/span&gt;;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;span class=&#34;c1&#34;&gt;# Create animated gifs
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in &lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;seq -w &lt;span class=&#34;m&#34;&gt;000&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;011&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; convert -delay &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt; -loop &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; png/&lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;*.png &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;.gif&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;However, those gifs were huge, up to 20mb. So next I created a set of videos (that were a order of magnitude smaller than the gifs):&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo apt-get install ffmpeg
 
-&lt;span class=&#34;s1770&#34;&gt;# Create MP4
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s3e8&#34;&gt;for&lt;/span&gt; i in &lt;span class=&#34;sc1c&#34;&gt;`&lt;/span&gt;seq -w &lt;span class=&#34;sc80&#34;&gt;000&lt;/span&gt; &lt;span class=&#34;sc80&#34;&gt;011&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;`&lt;/span&gt;; &lt;span class=&#34;s3e8&#34;&gt;do&lt;/span&gt; avconv -r &lt;span class=&#34;sc80&#34;&gt;5&lt;/span&gt; -i png/&lt;span class=&#34;s7e3&#34;&gt;$i&lt;/span&gt;%05d.png -r &lt;span class=&#34;sc80&#34;&gt;24&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;$i&lt;/span&gt;.mp4; &lt;span class=&#34;s3e8&#34;&gt;done&lt;/span&gt;;
+&lt;span class=&#34;c1&#34;&gt;# Create MP4
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in &lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;seq -w &lt;span class=&#34;m&#34;&gt;000&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;011&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; avconv -r &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; -i png/&lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;%05d.png -r &lt;span class=&#34;m&#34;&gt;24&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;.mp4&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 
-&lt;span class=&#34;s1770&#34;&gt;# Create webm
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s3e8&#34;&gt;for&lt;/span&gt; i in &lt;span class=&#34;sc1c&#34;&gt;`&lt;/span&gt;seq -w &lt;span class=&#34;sc80&#34;&gt;000&lt;/span&gt; &lt;span class=&#34;sc80&#34;&gt;011&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;`&lt;/span&gt;; &lt;span class=&#34;s3e8&#34;&gt;do&lt;/span&gt; avconv -r &lt;span class=&#34;sc80&#34;&gt;5&lt;/span&gt; -i png/&lt;span class=&#34;s7e3&#34;&gt;$i&lt;/span&gt;%05d.png -r &lt;span class=&#34;sc80&#34;&gt;24&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;$i&lt;/span&gt;.webm; &lt;span class=&#34;s3e8&#34;&gt;done&lt;/span&gt;;
+&lt;span class=&#34;c1&#34;&gt;# Create webm
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in &lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;seq -w &lt;span class=&#34;m&#34;&gt;000&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;011&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; avconv -r &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; -i png/&lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;%05d.png -r &lt;span class=&#34;m&#34;&gt;24&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;.webm&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 
-&lt;span class=&#34;s1770&#34;&gt;# Create ogg video
-&lt;/span&gt;&lt;span class=&#34;s1770&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s3e8&#34;&gt;for&lt;/span&gt; i in &lt;span class=&#34;sc1c&#34;&gt;`&lt;/span&gt;seq -w &lt;span class=&#34;sc80&#34;&gt;000&lt;/span&gt; &lt;span class=&#34;sc80&#34;&gt;011&lt;/span&gt;&lt;span class=&#34;sc1c&#34;&gt;`&lt;/span&gt;; &lt;span class=&#34;s3e8&#34;&gt;do&lt;/span&gt; avconv -r &lt;span class=&#34;sc80&#34;&gt;5&lt;/span&gt; -i png/&lt;span class=&#34;s7e3&#34;&gt;$i&lt;/span&gt;%05d.png -r &lt;span class=&#34;sc80&#34;&gt;24&lt;/span&gt; &lt;span class=&#34;s7e3&#34;&gt;$i&lt;/span&gt;.ogg; &lt;span class=&#34;s3e8&#34;&gt;done&lt;/span&gt;;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;span class=&#34;c1&#34;&gt;# Create ogg video
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in &lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;seq -w &lt;span class=&#34;m&#34;&gt;000&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;011&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; avconv -r &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; -i png/&lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;%05d.png -r &lt;span class=&#34;m&#34;&gt;24&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;.ogg&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;easy!&lt;/p&gt;
 </description>
     </item>

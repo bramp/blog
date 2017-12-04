@@ -1,0 +1,65 @@
+digraph "401k" {
+  rankdir=LR;
+  label = "
+  ¹ Max $18,500 across all 401(k) accounts\n² Max $3,450 to HSA as long as inrolled in a high deducatable medical plan\n
+  Assumptions - 2018 - Age < 50 - Single - Income > $135k - 50% company match of 401(k)";
+
+  node[style=filled, fontname="Helvetica", colorscheme="paired10"];
+
+/*
+  subgraph cluster_legend {
+        graph[style=dotted, label="Legend"];
+
+        c1[color=1, label="Pre-tax account\n(Tax has not been paid)"];
+
+        c2[color=5, label="After-tax account\n(Tax has been paid)"];
+
+        c3_a[color=1, label=""];
+        c3_b[color=5, label=""];
+        c3_a->c3_b [label="Pay taxes", color="#ea9999"];
+        
+        c4_a[color=5, label=""];
+        c4_b[color=1, label=""];
+        c4_a->c4_b [label="Deduct taxes", color="#a4c2f4"];
+
+        { rank=source; c1 c2 }
+  }
+*/
+//I'd separate "Traditional IRA" into "deductible Traditional IRA" and "non-deductible Traditional IRA", and move the Pre-tax 401(k) rollover to point to the "deductible Traditional IRA" (which can have a Roth Conversion (Pay Taxes) arrow from it to Roth IRA) and the Bank Account (After-tax) to point ot the "non-deductible Traditional IRA" (which can keep the Roth Conversion (Backdoor) arrow to Roth IRA). 
+
+  "Pay Cheque\n(Pre-tax)"    [ color=1 ]
+  "HSA"                      [ color=1 ]
+  "Pre-tax 401(k)"           [ color=1 ]
+
+  "Pay Cheque\n(After-tax)"  [ color=5 ]
+  "Bank Account"             [ color=5 ]
+  "After-tax 401(k)"         [ color=5 ]
+  "Traditional IRA"          [ color=5 ]
+  "Roth IRA"                 [ color=5 ]
+  "Roth 401(k)"              [ color=5 ]
+
+  "Pay Cheque\n(Pre-tax)" -> "Pre-tax 401(k)"     [ label = "Contribution\n(Max $18.5k¹)", color="#a4c2f4" ];
+
+  "Pay Cheque\n(After-tax)" -> "Roth 401(k)"      [ label = "Contribution\n(Max $18.5k¹)", color="#ea9999" ];
+  "Pay Cheque\n(After-tax)" -> "After-tax 401(k)" [ label = "Contribution\n(Max $27.25k)", color="#ea9999" ];
+
+  "Pay Cheque\n(After-tax)" -> "Bank Account"     [ color="#ea9999" ];
+
+  "Bank Account" -> "Traditional IRA"   [ label = "Contribution\n(Max $5.5k)", color="#ea9999" ];
+
+  "Pay Cheque\n(Pre-tax)" -> "HSA"      [ label = "Contribution\n(Max $3.45k²)", color="#a4c2f4" ];
+  "Bank Account" -> "HSA"               [ label = "Contribution\n(Max $3.45k²)", color="#a4c2f4", constraint="false" ];
+
+
+  "Pre-tax 401(k)" -> "Roth IRA"        [ label = "Roth conversion\n(when changing employeers)", color="#ea9999" ];
+  "Pre-tax 401(k)" -> "Traditional IRA" [ label = "Rollover", color="#ea9999" ];
+  
+  "Traditional IRA" -> "Roth IRA"       [ label = "Roth conversion\n(Backdoor)", color="#ea9999" ];
+
+  "After-tax 401(k)" -> "Roth 401(k)"   [ label = "Rollover\n(Mega Backdoor)", color="#ea9999" ];
+  "After-tax 401(k)" -> "Roth IRA"      [ label = "Rollover\n(Mega Backdoor)", color="#ea9999" ];
+
+  "Roth 401(k)" -> "Roth IRA"           [ label = "Rollover", color="#ea9999" ];
+
+
+}
