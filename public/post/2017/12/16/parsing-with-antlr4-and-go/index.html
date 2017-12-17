@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang=en>
+<head itemscope itemtype=http://schema.org/WebSite>
+<meta charset=utf-8>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<link href=https://blog.bramp.net/post/2017/12/16/parsing-with-antlr4-and-go/ rel=canonical itemprop=url />
+<title>Parsing with Antlr4 and Go</title>
+<meta content="Originally published as part of the Go Advent 2017 series
+What is ANTLR? ANTLR (ANother Tool for Language Recognition), is an ALL(*) parser generator. In layman&rsquo;s terms, Antlr, creates parsers …" name=description itemprop=description>
+<meta content="Andrew Brampton" name=author itemprop=creator>
+<meta content="" name=generator />
+<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
+<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
+<link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
+<link href=/images/favicon.png rel=apple-touch-icon-precomposed />
+<link href=/images/favicon-57x57.png rel=apple-touch-icon-precomposed sizes=57x57 />
+<link href=/images/favicon-72x72.png rel=apple-touch-icon-precomposed sizes=72x72 />
+<link href=/images/favicon-76x76.png rel=apple-touch-icon-precomposed sizes=76x76 />
+<link href=/images/favicon-114x114.png rel=apple-touch-icon-precomposed sizes=114x114 />
+<link href=/images/favicon-120x120.png rel=apple-touch-icon-precomposed sizes=120x120 />
+<link href=/images/favicon-144x144.png rel=apple-touch-icon-precomposed sizes=144x144 />
+<link href=/images/favicon-152x152.png rel=apple-touch-icon-precomposed sizes=152x152 />
+<link href=/images/favicon-180x180.png rel=apple-touch-icon-precomposed sizes=180x180 />
+<meta content=#4582EC name=msapplication-TileColor>
+<meta content=/images/favicon-144x144.png name=msapplication-TileImage>
+<meta content=#4582EC name=theme-color>
+<link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
+<link href=/css/all.min.css rel=stylesheet>
+<link href=https://fonts.gstatic.com rel=preconnect crossorigin>
+<link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel=stylesheet type=text/css>
+<link href=https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css rel=stylesheet>
+<link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
+<meta content=summary name=twitter:card />
+<meta content=@TheBramp name=twitter:site />
+<meta content=@TheBramp name=twitter:creator />
+<meta content=article property=og:type />
+<meta content=https://www.facebook.com/bramp property=article:author />
+<meta content=2017-12-16T12:50:31&#43;07:00 property=article:published_time />
+<meta content=Go property=article:tag />
+<meta content=antlr4 property=article:tag />
+<meta content=opensource property=article:tag />
+<meta content=https://blog.bramp.net/post/2017/12/16/parsing-with-antlr4-and-go/ property=og:url />
+<meta content=bramp.net property=og:site_name />
+<meta content="Parsing with Antlr4 and Go" property=og:title />
+<meta content="Originally published as part of the Go Advent 2017 series
+What is ANTLR? ANTLR (ANother Tool for Language Recognition), is an ALL(*) parser generator. In layman&rsquo;s terms, Antlr, creates parsers …" property=og:description />
+<meta content=2017-12-16T12:50:31-08:00 property=og:updated_time />
+<meta content=en_GB property=og:locale />
+<meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
+</head>
+<body itemscope itemtype=Blog>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-136478-5', 'auto');
+    ga('require', 'linkid', 'linkid.js');
+    ga('send', 'pageview');
+</script>
+<div id=wrapper>
+<div class="navbar navbar-default">
+<div class=container>
+<div class=navbar-header>
+<button class=navbar-toggle data-target=.navbar-collapse data-toggle=collapse type=button>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<div class=navbar-brand aria-label="About Andrew Brampton">
+<a href=/ >
+<img src=/images/favicon-64x64.png alt=Home class=profile-image>
+</a>
+<div itemprop=author itemscope itemtype=https://schema.org/Person>
+<a href=/about-me/ itemprop=name>Andrew Brampton</a>
+<div id=social-wrapper>
+<a href=https://twitter.com/TheBramp aria-label=Twitter><i class="fa fa-twitter-square"></i></a>
+<a href=https://www.linkedin.com/in/bramp aria-label=LinkedIn><i class="fa fa-linkedin-square"></i></a>
+<a href=https://www.facebook.com/bramp aria-label=Facebook><i class="fa fa-facebook-square"></i></a>
+<a href=https://github.com/bramp aria-label=GitHub><i class="fa fa-github-square"></i></a>
+<a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed"><i class="fa fa-rss-square"></i></a>
+</div>
+</div>
+</div>
+</div>
+<div class="collapse navbar-collapse">
+<ul class="nav navbar-nav" role=navigation>
+<li><a href=/ >Articles</a></li>
+<li><a href=/about-me/ >About Me</a></li>
+<li><a href=/android-app/ >Android Apps</a></li>
+<li><a href=/opensource/ >Open Source</a></li>
+<li><a href=/publication/ >Publications</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="container main">
+<article id=article itemProp=blogPost itemscope itemtype=http://schema.org/BlogPosting>
+<h1 itemprop=headline>Parsing with Antlr4 and Go</h1>
+<p class=meta>
+<i class="fa fa-calendar-o"></i> <time itemprop=datePublished>2017-12-16</time>
+| <a href=https://blog.bramp.net/tags/go/ >Go</a>
+| <a href=https://blog.bramp.net/tags/antlr4/ >antlr4</a>
+| <a href=https://blog.bramp.net/tags/opensource/ >opensource</a>
+</p>
+<div class=post itemprop=articleBody>
+<p><em>Originally <a href=https://blog.gopheracademy.com/advent-2017/parsing-with-antlr4-and-go/ >published</a> as part of the Go Advent 2017 series</em></p>
+<h2 id=what-is-antlr>What is ANTLR?</h2>
+<p><a href=http://www.antlr.org>ANTLR</a> (ANother Tool for Language Recognition), is an <a href=http://www.antlr.org/papers/allstar-techreport.pdf>ALL(*)</a>
+<a href=https://en.wikipedia.org/wiki/Parser_generator>parser generator</a>. In layman&rsquo;s terms, Antlr, creates parsers in a number of languages (Go, Java, C, C#, Javascript), that can process text or binary input. The generated parser provides a callback interface to parse the input in an event-driven manner, which can be used as-is, or used to build parse trees (a data structure representing the input).</p>
+<p>ANTLR is used by a number of popular projects, e.g Hive and Pig use it to parse Hadoop queries, Oracle and NetBeans uses it for their IDEs, and Twitter even uses it to understand search queries. Support was recently added so that ANTLR 4 can be used to generate parsers in pure Go. This article will explain some of the benefits of ANTLR, and walk us through a simple example.</p>
+<h2 id=why-use-it>Why use it?</h2>
+<p>It is possible to <a href=https://blog.gopheracademy.com/advent-2014/parsers-lexers/ >hand write a parser</a>, but this process can be complex, error prone, and hard to change. Instead there are many <a href="https://en.wikipedia.org/wiki/Compari
+son_of_parser_generators">parser generators</a> that take a grammar expressed in an domain- specific way, and generates code to parse that language. Popular parser generates include <a href=https://www.gnu.org/software/bison/ >bison</a> and
+<a href=http://dinosaur.compilertools.net/yacc/ >yacc</a>. In fact, there is a version of yacc, goyacc, which is written in Go and was part of the main go repo until it was moved to
+<a href=https://godoc.org/golang.org/x/tools/cmd/goyacc>golang.org/x/tools</a>
+last year.</p>
+<h3 id=so-why-use-antlr-over-these>So why use ANTLR over these?</h3>
+<ul>
+<li><p>ANTLR has a <a href=http://www.antlr.org/tools.html>suite of tools</a>, and
+<a href=http://tunnelvisionlabs.com/products/demo/antlrworks>GUIs</a>, that makes writing and debugging grammars easy.</p></li>
+<li><p>It uses a simple <a href=https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form>EBNF</a>
+syntax to define the grammar, instead of a bespoke configuration language.</p></li>
+<li><p>ANTLR is an <a href=http://www.antlr.org/papers/allstar-techreport.pdf>Adaptive</a>
+<a href=https://en.wikipedia.org/wiki/LL_parser>LL(*) parser</a>, ALL(*) for short, whereas most other parser generators (e.g Bison and Yacc) are
+<a href=https://en.wikipedia.org/wiki/LALR_parser>LALR</a>. The difference between LL(*) and LALR is out of scope for this article, but simply LALR works bottom-up, and LL(*) works top-down. This has a bearing on how the grammar is written, making some languages easier or harder to express.</p></li>
+<li><p>The generated code for a LL(*) parser is more understandable than a LALR parser. This is because LALR parsers are commonly table driven, whereas LL(*) parsers encode the logic in its control flow, making it more comprehensible.</p></li>
+<li><p>Finally ANTLR is agnostic to the target language. A single grammar can be used to generate parsers in Java, Go, C, etc. Unlike Bison/Yacc which typically embeds target language code into the grammar, making it harder to port.</p></li>
+</ul>
+<h2 id=installing-antlr-v4>Installing ANTLR v4</h2>
+<p>ANTLR is a Java 1.7 application, that generates the Go code needed to parse your language. During development Java is needed, but once the parser is built only Go and the <a href=https://godoc.org/github.com/antlr/antlr4/runtime/Go/antlr>ANTLR runtime library</a> is required. The ANTLR site has
+<a href="https://github.com/antlr/antlr4/blob/master/doc/getting-
+started.md">documentation</a> on how to install this on multiple platforms, but in brief, you can do the following:</p>
+<div class=highlight><pre class=chroma><code class=language-shell data-lang=shell>$ wget http://www.antlr.org/download/antlr-4.7-complete.jar
+$ <span class=nb>alias</span> <span class=nv>antlr</span><span class=o>=</span><span class=s1>&#39;java -jar $PWD/antlr-4.7-complete.jar&#39;</span></code></pre></div>
+<p>The <code>antlr</code> command is now available in your shell. If you prefer, the .jar file can be placed into a <code>~/bin</code> directory, and the alias can be stored in your <code>~/.bash_profile</code>.</p>
+<h2 id=classic-calculator-example>Classic calculator example</h2>
+<p>Let&rsquo;s start with the “hello world” for parsers, the calculator example. We want to build a parser that handles simple mathematical expressions such as <code>1 + 2 * 3</code>. The focus of this article is on how to use Go with ANTLR, so the syntax of the ANTLR language won’t be explained in detail, but the ANTLR site has <a href="https://githu
+b.com/antlr/antlr4/blob/master/doc/grammars.md">compressive documentation</a>.</p>
+<p>As we go along, the <a href=https://github.com/bramp/goadvent-antlr>source is available to all examples</a>.</p>
+<pre><code>// Calc.g4
+grammar Calc;
+
+// Tokens
+MUL: '*';
+DIV: '/';
+ADD: '+';
+SUB: '-';
+NUMBER: [0-9]+;
+WHITESPACE: [ \r\n\t]+ -&gt; skip;
+
+// Rules
+start : expression EOF;
+
+expression
+   : expression op=('*'|'/') expression # MulDiv
+   | expression op=('+'|'-') expression # AddSub
+   | NUMBER                             # Number
+   ;
+</code></pre>
+<p>The above is a simple grammar split into two sections, <em>tokens</em>, and
+<em>rules</em>. The tokens are terminal symbols in the grammar, that is, they are made up of nothing but literal characters. Whereas rules are non- terminal states made up of tokens and/or other rules.</p>
+<p>By convention this grammar must be saved with a filename that matches the name of the grammar, in this case “Calc.g4” . To process this file, and generate the Go parser, we run the <code>antlr</code> command like so:</p>
+<div class=highlight><pre class=chroma><code class=language-shell data-lang=shell>$ antlr -Dlanguage<span class=o>=</span>Go -o parser Calc.g4 </code></pre></div>
+<p>This will generate a set of Go files in the “parser” package and subdirectory. It is possible to place the generated code in a different package by using the <code>-package &lt;name&gt;</code> argument. This is useful if your project has multiple parsers, or you just want a more descriptive package name for the parser. The generated files will look like the following:</p>
+<div class=highlight><pre class=chroma><code class=language-shell data-lang=shell>$ tree
+├── Calc.g4
+└── parser
+    ├── calc_lexer.go
+    ├── calc_parser.go
+    ├── calc_base_listener.go
+    └── calc_listener.go</code></pre></div>
+<p>The generated files consist of three main components, the Lexer, Parser, and Listener.</p>
+<p>The Lexer takes arbitrary input and returns a stream of tokens. For input such as <code>1 + 2 * 3</code>, the Lexer would return the following tokens:
+<code>NUMBER (1), ADD (+), NUMBER (2), MUL (*), NUMBER (3), EOF</code>.</p>
+<p>The Parser uses the Lexer’s output and applies the Grammar’s rules. Building higher level constructs, such as expressions that can be used to calculate the result.</p>
+<p>The Listener then allows us to make use of the the parsed input. As mentioned earlier, yacc requires language specific code to be embedded with the grammar. However, ANTLR separates this concern, allowing the grammar to be agnostic to the target programming language. It does this through use of listeners, which effectively allows hooks to be placed before and after every rule is encountered in the parsed input.</p>
+<h2 id=using-the-lexer>Using the Lexer</h2>
+<p>Let&rsquo;s move onto an example of using this generated code, starting with the Lexer.</p>
+<div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=c1>// example1.go
+</span><span class=c1></span><span class=kn>package</span> <span class=nx>main</span>
+
+<span class=kn>import</span> <span class=p>(</span>
+	<span class=s>&#34;fmt&#34;</span>
+	<span class=s>&#34;github.com/antlr/antlr4/runtime/Go/antlr&#34;</span>
+
+	<span class=s>&#34;./parser&#34;</span>
+<span class=p>)</span>
+
+<span class=kd>func</span> <span class=nx>main</span><span class=p>()</span> <span class=p>{</span>
+	<span class=c1>// Setup the input
+</span><span class=c1></span>	<span class=nx>is</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>NewInputStream</span><span class=p>(</span><span class=s>&#34;1 + 2 * 3&#34;</span><span class=p>)</span>
+
+	<span class=c1>// Create the Lexer
+</span><span class=c1></span>	<span class=nx>lexer</span> <span class=o>:=</span> <span class=nx>parser</span><span class=p>.</span><span class=nx>NewCalcLexer</span><span class=p>(</span><span class=nx>is</span><span class=p>)</span>
+
+	<span class=c1>// Read all tokens
+</span><span class=c1></span>	<span class=k>for</span> <span class=p>{</span>
+		<span class=nx>t</span> <span class=o>:=</span> <span class=nx>lexer</span><span class=p>.</span><span class=nx>NextToken</span><span class=p>()</span>
+		<span class=k>if</span> <span class=nx>t</span><span class=p>.</span><span class=nx>GetTokenType</span><span class=p>()</span> <span class=o>==</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>TokenEOF</span> <span class=p>{</span>
+			<span class=k>break</span>
+		<span class=p>}</span>
+		<span class=nx>fmt</span><span class=p>.</span><span class=nx>Printf</span><span class=p>(</span><span class=s>&#34;%s (%q)\n&#34;</span><span class=p>,</span>
+			<span class=nx>lexer</span><span class=p>.</span><span class=nx>SymbolicNames</span><span class=p>[</span><span class=nx>t</span><span class=p>.</span><span class=nx>GetTokenType</span><span class=p>()],</span> <span class=nx>t</span><span class=p>.</span><span class=nx>GetText</span><span class=p>())</span>
+	<span class=p>}</span>
+<span class=p>}</span></code></pre></div>
+<p>To begin with, the generated parser is imported from the local subdirectory <code>import &quot;./parser&quot;</code>. Next the Lexer is created with some input:</p>
+<div class=highlight><pre class=chroma><code class=language-go data-lang=go>	<span class=c1>// Setup the input
+</span><span class=c1></span>	<span class=nx>is</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>NewInputStream</span><span class=p>(</span><span class=s>&#34;1 + 2 * 3&#34;</span><span class=p>)</span>
+
+	<span class=c1>// Create the Lexer
+</span><span class=c1></span>	<span class=nx>lexer</span> <span class=o>:=</span> <span class=nx>parser</span><span class=p>.</span><span class=nx>NewCalcLexer</span><span class=p>(</span><span class=nx>is</span><span class=p>)</span></code></pre></div>
+<p>In this example the input is a simple string, <code>&quot;1 + 2 * 3&quot;</code> but there are other <a href="https://godoc.org/github.com/antlr/antlr
+4/runtime/Go/antlr#InputStream"><code>antlr.InputStream</code></a>s, for example, the <a href=https://godoc.org/github.com/antlr/antlr4/runtime/Go/antlr#FileStream><code>antlr.FileStream</code></a>
+type can read directly from a file. The <code>InputStream</code> is then passed to a newly created Lexer. Note the name of the Lexer is <code>CalcLexer</code> which matches the grammar’s name defined in the Calc.g4.</p>
+<p>The lexer is then used to consume all the tokens from the input, printing them one by one. This wouldn’t normally be necessary but we do this for demonstrative purposes.</p>
+<div class=highlight><pre class=chroma><code class=language-go data-lang=go> 	<span class=k>for</span> <span class=p>{</span>
+		<span class=nx>t</span> <span class=o>:=</span> <span class=nx>lexer</span><span class=p>.</span><span class=nx>NextToken</span><span class=p>()</span>
+		<span class=k>if</span> <span class=nx>t</span><span class=p>.</span><span class=nx>GetTokenType</span><span class=p>()</span> <span class=o>==</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>TokenEOF</span> <span class=p>{</span>
+			<span class=k>break</span>
+		<span class=p>}</span>
+		<span class=nx>fmt</span><span class=p>.</span><span class=nx>Printf</span><span class=p>(</span><span class=s>&#34;%s (%q)\n&#34;</span><span class=p>,</span>
+			<span class=nx>lexer</span><span class=p>.</span><span class=nx>SymbolicNames</span><span class=p>[</span><span class=nx>t</span><span class=p>.</span><span class=nx>GetTokenType</span><span class=p>()],</span> <span class=nx>t</span><span class=p>.</span><span class=nx>GetText</span><span class=p>())</span>
+	<span class=p>}</span></code></pre></div>
+<p>Each token has two main components, the TokenType, and the Text. The TokenType is a simple integer representing the type of token, while the Text is literally the text that made up this token. All the TokenTypes are defined at the end of calc_lexer.go, with their string names stored in the SymbolicNames slice:</p>
+<div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=c1>// calc_lexer.go
+</span><span class=c1></span><span class=kd>const</span> <span class=p>(</span>
+	<span class=nx>CalcLexerMUL</span>        <span class=p>=</span> <span class=mi>1</span>
+	<span class=nx>CalcLexerDIV</span>        <span class=p>=</span> <span class=mi>2</span>
+	<span class=nx>CalcLexerADD</span>        <span class=p>=</span> <span class=mi>3</span>
+	<span class=nx>CalcLexerSUB</span>        <span class=p>=</span> <span class=mi>4</span>
+	<span class=nx>CalcLexerNUMBER</span>     <span class=p>=</span> <span class=mi>5</span>
+	<span class=nx>CalcLexerWHITESPACE</span> <span class=p>=</span> <span class=mi>6</span>
+<span class=p>)</span></code></pre></div>
+<p>You may also note, that the Whitespace token is not printed, even though the input clearly had whitespace. This is because the grammar was designed to skip (i.e. discard) the whitespace <code>WHITESPACE: [ \r\n\t]+ -&gt; skip;</code>.</p>
+<h2 id=using-the-parser>Using the Parser</h2>
+<p>The Lexer on its own is not very useful, so the example can be modified to also use the Parser and Listener:</p>
+<div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=c1>// example2.go
+</span><span class=c1></span><span class=kn>package</span> <span class=nx>main</span>
+
+<span class=kn>import</span> <span class=p>(</span>
+	<span class=s>&#34;./parser&#34;</span>
+	<span class=s>&#34;github.com/antlr/antlr4/runtime/Go/antlr&#34;</span>
+<span class=p>)</span>
+
+<span class=kd>type</span> <span class=nx>calcListener</span> <span class=kd>struct</span> <span class=p>{</span>
+	<span class=o>*</span><span class=nx>parser</span><span class=p>.</span><span class=nx>BaseCalcListener</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=nx>main</span><span class=p>()</span> <span class=p>{</span>
+	<span class=c1>// Setup the input
+</span><span class=c1></span>	<span class=nx>is</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>NewInputStream</span><span class=p>(</span><span class=s>&#34;1 + 2 * 3&#34;</span><span class=p>)</span>
+
+	<span class=c1>// Create the Lexer
+</span><span class=c1></span>	<span class=nx>lexer</span> <span class=o>:=</span> <span class=nx>parser</span><span class=p>.</span><span class=nx>NewCalcLexer</span><span class=p>(</span><span class=nx>is</span><span class=p>)</span>
+	<span class=nx>stream</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>NewCommonTokenStream</span><span class=p>(</span><span class=nx>lexer</span><span class=p>,</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>TokenDefaultChannel</span><span class=p>)</span>
+
+	<span class=c1>// Create the Parser
+</span><span class=c1></span>	<span class=nx>p</span> <span class=o>:=</span> <span class=nx>parser</span><span class=p>.</span><span class=nx>NewCalcParser</span><span class=p>(</span><span class=nx>stream</span><span class=p>)</span>
+
+	<span class=c1>// Finally parse the expression
+</span><span class=c1></span>	<span class=nx>antlr</span><span class=p>.</span><span class=nx>ParseTreeWalkerDefault</span><span class=p>.</span><span class=nx>Walk</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>calcListener</span><span class=p>{},</span> <span class=nx>p</span><span class=p>.</span><span class=nx>Start</span><span class=p>())</span>
+<span class=p>}</span></code></pre></div>
+<p>This is very similar to before, but instead of manually iterating over the tokens, the lexer is used to create a <a href="https://
+godoc.org/github.com/antlr/antlr4/runtime/Go/antlr#CommonTokenStream"><code>CommonTokenStream</code></a>, which in turn is used to create a new <code>CalcParser</code>. This <code>CalcParser</code> is then “walked”, which is ANTLR&rsquo;s event-driven API for receiving the results of parsing the rules.</p>
+<p>Note, the <a href="https://godoc.org/github.com/antlr/antlr4/runtime/Go/
+antlr#ParseTreeWalker.Walk"><code>Walk</code></a> function does not return anything. Some may have expected a parsed form of the expression to be returned, such as some kind of <a href=https://en.wikipedia.org/wiki/Abstract_syntax_tree>AST</a>
+(abstract syntax tree), but instead the Listener receives event as the parsing occurs. This is similar in concept to
+<a href=https://en.wikipedia.org/wiki/Simple_API_for_XML>SAX</a> style parsers for XML. Event-based parsing can sometimes be harder to use, but it has many advantages. For example, the parser can be very memory efficient as previously parsed rules can be discarded once they are no longer needed. The parser can also be aborted early if the programmer wishes to.</p>
+<p>But so far, this example doesn’t do anything beyond ensuring the input can be parsed without error. To add logic, we must extend the
+<code>calcListener</code> type. The <code>calcListener</code> has an embedded
+<code>BaseCalcListener</code>, which is a helper type, that provides empty methods for all those defined in in the <code>CalcListener</code> interface. That interface looks like:</p>
+<div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=c1>// parser/calc_listener.go
+</span><span class=c1>// CalcListener is a complete listener for a parse tree produced by CalcParser.
+</span><span class=c1></span><span class=kd>type</span> <span class=nx>CalcListener</span> <span class=kd>interface</span> <span class=p>{</span>
+	<span class=nx>antlr</span><span class=p>.</span><span class=nx>ParseTreeListener</span>
+
+	<span class=c1>// EnterStart is called when entering the start production.
+</span><span class=c1></span>	<span class=nx>EnterStart</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>StartContext</span><span class=p>)</span>
+
+	<span class=c1>// EnterNumber is called when entering the Number production.
+</span><span class=c1></span>	<span class=nx>EnterNumber</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>NumberContext</span><span class=p>)</span>
+
+	<span class=c1>// EnterMulDiv is called when entering the MulDiv production.
+</span><span class=c1></span>	<span class=nx>EnterMulDiv</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>MulDivContext</span><span class=p>)</span>
+
+	<span class=c1>// EnterAddSub is called when entering the AddSub production.
+</span><span class=c1></span>	<span class=nx>EnterAddSub</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>AddSubContext</span><span class=p>)</span>
+
+	<span class=c1>// ExitStart is called when exiting the start production.
+</span><span class=c1></span>	<span class=nx>ExitStart</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>StartContext</span><span class=p>)</span>
+
+	<span class=c1>// ExitNumber is called when exiting the Number production.
+</span><span class=c1></span>	<span class=nx>ExitNumber</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>NumberContext</span><span class=p>)</span>
+
+	<span class=c1>// ExitMulDiv is called when exiting the MulDiv production.
+</span><span class=c1></span>	<span class=nx>ExitMulDiv</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>MulDivContext</span><span class=p>)</span>
+
+	<span class=c1>// ExitAddSub is called when exiting the AddSub production.
+</span><span class=c1></span>	<span class=nx>ExitAddSub</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>AddSubContext</span><span class=p>)</span>
+<span class=p>}</span></code></pre></div>
+<p>There is an Enter and Exit function for each rule found in the grammar. As the input is walked, the Parser calls the appropriate function on the listener, to indicate when the rule starts and finishes being evaluated.</p>
+<h2 id=adding-the-logic>Adding the logic</h2>
+<p>A simple calculator can be constructed from this event driven parser by using a stack of values. Every time a number is found, it is added to a stack. Everytime an expression (add/multiple/etc) is found, the last two numbers on the stack are popped, and the appropriate operation is carried out. The result is then placed back on the stack.</p>
+<p>Take the expression <code>1 + 2 * 3</code>, the result could be either <code>(1 + 2) * 3 = 9</code>, or <code>1 + (2 * 3) = 7</code>. Those that recall the <a href=https://en.wikipedia.org/wiki/Order_of_operations>order of operations</a>, will know that multiplication should always be carried out before addition, thus the correct result is 7. However, without the parentheses there could be some ambiguity on how this should be parsed. Luckily the ambiguity is resolved by the grammar. The precedence of multiplication over addition was subtly implied within Calc.g4, by placing the <code>MulDiv</code>
+expressed before the <code>AddSub</code> expression.</p>
+<div class=text-center>
+<img src=parse-tree.svg>
+</div>
+<p>The code for a listener that implements this stack of value implementation is relatively simple:</p>
+<div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=kd>type</span> <span class=nx>calcListener</span> <span class=kd>struct</span> <span class=p>{</span>
+	<span class=o>*</span><span class=nx>parser</span><span class=p>.</span><span class=nx>BaseCalcListener</span>
+
+	<span class=nx>stack</span> <span class=p>[]</span><span class=kt>int</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=p>(</span><span class=nx>l</span> <span class=o>*</span><span class=nx>calcListener</span><span class=p>)</span> <span class=nx>push</span><span class=p>(</span><span class=nx>i</span> <span class=kt>int</span><span class=p>)</span> <span class=p>{</span>
+	<span class=nx>l</span><span class=p>.</span><span class=nx>stack</span> <span class=p>=</span> <span class=nb>append</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>stack</span><span class=p>,</span> <span class=nx>i</span><span class=p>)</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=p>(</span><span class=nx>l</span> <span class=o>*</span><span class=nx>calcListener</span><span class=p>)</span> <span class=nx>pop</span><span class=p>()</span> <span class=kt>int</span> <span class=p>{</span>
+	<span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>stack</span><span class=p>)</span> <span class=p>&lt;</span> <span class=mi>1</span> <span class=p>{</span>
+		<span class=nb>panic</span><span class=p>(</span><span class=s>&#34;stack is empty unable to pop&#34;</span><span class=p>)</span>
+	<span class=p>}</span>
+
+	<span class=c1>// Get the last value from the stack.
+</span><span class=c1></span>	<span class=nx>result</span> <span class=o>:=</span> <span class=nx>l</span><span class=p>.</span><span class=nx>stack</span><span class=p>[</span><span class=nb>len</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>stack</span><span class=p>)</span><span class=o>-</span><span class=mi>1</span><span class=p>]</span>
+
+	<span class=c1>// Remove the last element from the stack.
+</span><span class=c1></span>	<span class=nx>l</span><span class=p>.</span><span class=nx>stack</span> <span class=p>=</span> <span class=nx>l</span><span class=p>.</span><span class=nx>stack</span><span class=p>[:</span><span class=nb>len</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>stack</span><span class=p>)</span><span class=o>-</span><span class=mi>1</span><span class=p>]</span>
+
+	<span class=k>return</span> <span class=nx>result</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=p>(</span><span class=nx>l</span> <span class=o>*</span><span class=nx>calcListener</span><span class=p>)</span> <span class=nx>ExitMulDiv</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>parser</span><span class=p>.</span><span class=nx>MulDivContext</span><span class=p>)</span> <span class=p>{</span>
+	<span class=nx>right</span><span class=p>,</span> <span class=nx>left</span> <span class=o>:=</span> <span class=nx>l</span><span class=p>.</span><span class=nx>pop</span><span class=p>(),</span> <span class=nx>l</span><span class=p>.</span><span class=nx>pop</span><span class=p>()</span>
+
+	<span class=k>switch</span> <span class=nx>c</span><span class=p>.</span><span class=nx>GetOp</span><span class=p>().</span><span class=nx>GetTokenType</span><span class=p>()</span> <span class=p>{</span>
+	<span class=k>case</span> <span class=nx>parser</span><span class=p>.</span><span class=nx>CalcParserMUL</span><span class=p>:</span>
+		<span class=nx>l</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>left</span> <span class=o>*</span> <span class=nx>right</span><span class=p>)</span>
+	<span class=k>case</span> <span class=nx>parser</span><span class=p>.</span><span class=nx>CalcParserDIV</span><span class=p>:</span>
+		<span class=nx>l</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>left</span> <span class=o>/</span> <span class=nx>right</span><span class=p>)</span>
+	<span class=k>default</span><span class=p>:</span>
+		<span class=nb>panic</span><span class=p>(</span><span class=nx>fmt</span><span class=p>.</span><span class=nx>Sprintf</span><span class=p>(</span><span class=s>&#34;unexpected op: %s&#34;</span><span class=p>,</span> <span class=nx>c</span><span class=p>.</span><span class=nx>GetOp</span><span class=p>().</span><span class=nx>GetText</span><span class=p>()))</span>
+	<span class=p>}</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=p>(</span><span class=nx>l</span> <span class=o>*</span><span class=nx>calcListener</span><span class=p>)</span> <span class=nx>ExitAddSub</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>parser</span><span class=p>.</span><span class=nx>AddSubContext</span><span class=p>)</span> <span class=p>{</span>
+	<span class=nx>right</span><span class=p>,</span> <span class=nx>left</span> <span class=o>:=</span> <span class=nx>l</span><span class=p>.</span><span class=nx>pop</span><span class=p>(),</span> <span class=nx>l</span><span class=p>.</span><span class=nx>pop</span><span class=p>()</span>
+
+	<span class=k>switch</span> <span class=nx>c</span><span class=p>.</span><span class=nx>GetOp</span><span class=p>().</span><span class=nx>GetTokenType</span><span class=p>()</span> <span class=p>{</span>
+	<span class=k>case</span> <span class=nx>parser</span><span class=p>.</span><span class=nx>CalcParserADD</span><span class=p>:</span>
+		<span class=nx>l</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>left</span> <span class=o>+</span> <span class=nx>right</span><span class=p>)</span>
+	<span class=k>case</span> <span class=nx>parser</span><span class=p>.</span><span class=nx>CalcParserSUB</span><span class=p>:</span>
+		<span class=nx>l</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>left</span> <span class=o>-</span> <span class=nx>right</span><span class=p>)</span>
+	<span class=k>default</span><span class=p>:</span>
+		<span class=nb>panic</span><span class=p>(</span><span class=nx>fmt</span><span class=p>.</span><span class=nx>Sprintf</span><span class=p>(</span><span class=s>&#34;unexpected op: %s&#34;</span><span class=p>,</span> <span class=nx>c</span><span class=p>.</span><span class=nx>GetOp</span><span class=p>().</span><span class=nx>GetText</span><span class=p>()))</span>
+	<span class=p>}</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=p>(</span><span class=nx>l</span> <span class=o>*</span><span class=nx>calcListener</span><span class=p>)</span> <span class=nx>ExitNumber</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>parser</span><span class=p>.</span><span class=nx>NumberContext</span><span class=p>)</span> <span class=p>{</span>
+	<span class=nx>i</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>strconv</span><span class=p>.</span><span class=nx>Atoi</span><span class=p>(</span><span class=nx>c</span><span class=p>.</span><span class=nx>GetText</span><span class=p>())</span>
+	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+		<span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>.</span><span class=nx>Error</span><span class=p>())</span>
+	<span class=p>}</span>
+
+	<span class=nx>l</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span>
+<span class=p>}</span></code></pre></div>
+<p>Finally this listener would be used like so:</p>
+<div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=c1>// calc takes a string expression and returns the evaluated result.
+</span><span class=c1></span><span class=kd>func</span> <span class=nx>calc</span><span class=p>(</span><span class=nx>input</span> <span class=kt>string</span><span class=p>)</span> <span class=kt>int</span> <span class=p>{</span>
+	<span class=c1>// Setup the input
+</span><span class=c1></span>	<span class=nx>is</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>NewInputStream</span><span class=p>(</span><span class=nx>input</span><span class=p>)</span>
+
+	<span class=c1>// Create the Lexer
+</span><span class=c1></span>	<span class=nx>lexer</span> <span class=o>:=</span> <span class=nx>parser</span><span class=p>.</span><span class=nx>NewCalcLexer</span><span class=p>(</span><span class=nx>is</span><span class=p>)</span>
+	<span class=nx>stream</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>NewCommonTokenStream</span><span class=p>(</span><span class=nx>lexer</span><span class=p>,</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>TokenDefaultChannel</span><span class=p>)</span>
+
+	<span class=c1>// Create the Parser
+</span><span class=c1></span>	<span class=nx>p</span> <span class=o>:=</span> <span class=nx>parser</span><span class=p>.</span><span class=nx>NewCalcParser</span><span class=p>(</span><span class=nx>stream</span><span class=p>)</span>
+
+	<span class=c1>// Finally parse the expression (by walking the tree)
+</span><span class=c1></span>	<span class=kd>var</span> <span class=nx>listener</span> <span class=nx>calcListener</span>
+	<span class=nx>antlr</span><span class=p>.</span><span class=nx>ParseTreeWalkerDefault</span><span class=p>.</span><span class=nx>Walk</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>listener</span><span class=p>,</span> <span class=nx>p</span><span class=p>.</span><span class=nx>Start</span><span class=p>())</span>
+
+	<span class=k>return</span> <span class=nx>listener</span><span class=p>.</span><span class=nx>pop</span><span class=p>()</span>
+<span class=p>}</span></code></pre></div>
+<p>Following the algorithm, the parsing of <code>1 + 2 * 3</code> would work like so.</p>
+<ol>
+<li>The numbers 2 and 3 would be visited first (and placed on the stack),</li>
+<li>Then the MulDiv expression would be visited, taking the values 2 and 3, multiplying them, and placing the result, 6, back on the stack.</li>
+<li>Then the number 1 would visited and pushed onto the stack.</li>
+<li>Finally AddSub would be visited, popping the 1 and the 6 from the stack, placing the result 7 back.</li>
+</ol>
+<p>The order the rules are visited is completely driven by the Parser, and thus the grammar.</p>
+<h2 id=more-grammars>More grammars</h2>
+<p>Learning how to write a grammar may be daunting, but there are many resources for help. The author of ANTLR, <a href=http://parrt.cs.usfca.edu/ >Terence Parr</a>, has <a href=https://pragprog.com/book/tpantlr2/the-definitive-antlr-4-reference>published a book</a>, with some of the content freely available on <a href=http://antlr.org>antlr.org</a>.</p>
+<p>If you don’t want to write your own grammar, there are many <a href=https://github.com/antlr/grammars-v4>pre-written grammars available</a>. Including grammars for CSS, HTML, SQL, etc, as well many popular programming languages. To make it easier, I have <a href=https://github.com/bramp/antlr4-grammars>generated parsers</a> for all those available grammars, making them as easy to use just by importing.</p>
+<p>A quick example of using one of the pre-generated grammars:</p>
+<div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=kn>import</span> <span class=p>(</span>
+	<span class=s>&#34;bramp.net/antlr4/json&#34;</span> <span class=c1>// The parser
+</span><span class=c1></span>
+	<span class=s>&#34;github.com/antlr/antlr4/runtime/Go/antlr&#34;</span>
+<span class=p>)</span>
+
+<span class=kd>type</span> <span class=nx>exampleListener</span> <span class=kd>struct</span> <span class=p>{</span>
+	<span class=c1>// https://godoc.org/bramp.net/antlr4/json#BaseJSONListener
+</span><span class=c1></span>	<span class=o>*</span><span class=nx>json</span><span class=p>.</span><span class=nx>BaseJSONListener</span>
+<span class=p>}</span>
+
+<span class=kd>func</span> <span class=nx>main</span><span class=p>()</span> <span class=p>{</span>
+	<span class=c1>// Setup the input
+</span><span class=c1></span>	<span class=nx>is</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>NewInputStream</span><span class=p>(</span><span class=s>`
+</span><span class=s>		{
+</span><span class=s>			&#34;example&#34;: &#34;json&#34;,
+</span><span class=s>			&#34;with&#34;: [&#34;an&#34;, &#34;array&#34;]
+</span><span class=s>		}`</span><span class=p>)</span>
+
+
+	<span class=c1>// Create the JSON Lexer
+</span><span class=c1></span>	<span class=nx>lexer</span> <span class=o>:=</span> <span class=nx>json</span><span class=p>.</span><span class=nx>NewJSONLexer</span><span class=p>(</span><span class=nx>is</span><span class=p>)</span>
+	<span class=nx>stream</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>NewCommonTokenStream</span><span class=p>(</span><span class=nx>lexer</span><span class=p>,</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>TokenDefaultChannel</span><span class=p>)</span>
+
+	<span class=c1>// Create the JSON Parser
+</span><span class=c1></span>	<span class=nx>p</span> <span class=o>:=</span> <span class=nx>json</span><span class=p>.</span><span class=nx>NewJSONParser</span><span class=p>(</span><span class=nx>stream</span><span class=p>)</span>
+
+	<span class=c1>// Finally walk the tree
+</span><span class=c1></span>	<span class=nx>antlr</span><span class=p>.</span><span class=nx>ParseTreeWalkerDefault</span><span class=p>.</span><span class=nx>Walk</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>exampleListener</span><span class=p>{},</span> <span class=nx>p</span><span class=p>.</span><span class=nx>Json</span><span class=p>())</span>
+<span class=p>}</span></code></pre></div>
+<h2 id=conclusion>Conclusion</h2>
+<p>Hopefully this article has given you a taste of how to use ANTLR with Go. The examples for this article are <a href=https://github.com/bramp/goadvent-antlr>found here</a>, and the <a href=https://godoc.org/github.com/antlr/antlr4/runtime/Go/antlr>godoc for the ANTLR library is here</a>
+which explains the various InputStream, Lexer, Parser, etc interfaces.</p>
+</div>
+</article>
+<div class=row>
+<div class=col-sm-6>
+<div class=addthis_sharing_toolbox></div>
+</div>
+<div class=col-sm-6>
+<div class=btn-toolbar>
+<div class=btn-group>
+<a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed" class="btn btn-sm btn-soundcloud">
+<i class="fa fa-rss-square"></i> Subscribe via RSS</a>
+</div>
+<div class=btn-group>
+<a href=https://twitter.com/TheBramp class="btn btn-sm btn-twitter"><i class="fa fa-twitter"></i> Follow @TheBramp</a>
+</div>
+</div>
+</div>
+</div>
+<ul class=pager>
+&nbsp;<li class=previous><a href=/post/2017/10/02/vanity-go-import-paths/ >&larr; Vanity Go Import Paths</a></li>
+</ul>
+<div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
+<script type=text/javascript>
+var disqus_shortname = 'bramp';
+    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2017\/12\/16\/parsing-with-antlr4-and-go\/';
+    var disqus_title = 'Parsing with Antlr4 and Go';
+    var disqus_url = 'https:\/\/blog.bramp.net\/post\/2017\/12\/16\/parsing-with-antlr4-and-go\/';
+    (function() {
+	    
+	    
+	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	        return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=http://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+<br/>
+<footer>
+<p class="credit text-muted">&copy; 2017. All rights reserved.</p>
+</footer>
+</div>
+</div>
+<script src=/js/all.min.js></script>
+<script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async type=text/javascript></script>
+</body>
+</html>
