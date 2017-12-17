@@ -6,8 +6,505 @@
     <description>Recent content on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Mon, 02 Oct 2017 07:48:23 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 16 Dec 2017 12:50:31 -0800</lastBuildDate>
     <atom:link href="https://blog.bramp.net/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Parsing with Antlr4 and Go</title>
+      <link>https://blog.bramp.net/post/2017/12/16/parsing-with-antlr4-and-go/</link>
+      <pubDate>Sat, 16 Dec 2017 12:50:31 -0800</pubDate>
+      
+      <guid>https://blog.bramp.net/post/2017/12/16/parsing-with-antlr4-and-go/</guid>
+      <description>
+
+&lt;p&gt;&lt;em&gt;Originally &lt;a href=&#34;https://blog.gopheracademy.com/advent-2017/parsing-with-antlr4-and-go/&#34;&gt;published&lt;/a&gt; as part of the Go Advent 2017 series&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;what-is-antlr&#34;&gt;What is ANTLR?&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.antlr.org&#34;&gt;ANTLR&lt;/a&gt; (ANother Tool for Language Recognition),
+is an &lt;a href=&#34;http://www.antlr.org/papers/allstar-techreport.pdf&#34;&gt;ALL(*)&lt;/a&gt;
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Parser_generator&#34;&gt;parser generator&lt;/a&gt;. In
+layman&amp;rsquo;s terms, Antlr, creates parsers in a number of languages (Go,
+Java, C, C#, Javascript), that can process text or binary input. The
+generated parser provides a callback interface to parse the input in an
+event-driven manner, which can be used as-is, or used to build parse
+trees (a data structure representing the input).&lt;/p&gt;
+
+&lt;p&gt;ANTLR is used by a number of popular projects, e.g Hive and Pig use it
+to parse Hadoop queries, Oracle and NetBeans uses it for their IDEs, and
+Twitter even uses it to understand search queries. Support was recently
+added so that ANTLR 4 can be used to generate parsers in pure Go. This
+article will explain some of the benefits of ANTLR, and walk us through
+a simple example.&lt;/p&gt;
+
+&lt;h2 id=&#34;why-use-it&#34;&gt;Why use it?&lt;/h2&gt;
+
+&lt;p&gt;It is possible to &lt;a href=&#34;https://blog.gopheracademy.com/advent-2014/parsers-lexers/&#34;&gt;hand write a
+parser&lt;/a&gt;, but
+this process can be complex, error prone, and hard to change. Instead
+there are many &lt;a href=&#34;https://en.wikipedia.org/wiki/Compari
+son_of_parser_generators&#34;&gt;parser generators&lt;/a&gt; that take a grammar expressed in an domain-
+specific way, and generates code to parse that language. Popular parser
+generates include &lt;a href=&#34;https://www.gnu.org/software/bison/&#34;&gt;bison&lt;/a&gt; and
+&lt;a href=&#34;http://dinosaur.compilertools.net/yacc/&#34;&gt;yacc&lt;/a&gt;. In fact, there is a
+version of yacc, goyacc, which is written in Go and was part of the main
+go repo until it was moved to
+&lt;a href=&#34;https://godoc.org/golang.org/x/tools/cmd/goyacc&#34;&gt;golang.org/x/tools&lt;/a&gt;
+last year.&lt;/p&gt;
+
+&lt;h3 id=&#34;so-why-use-antlr-over-these&#34;&gt;So why use ANTLR over these?&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;ANTLR has a &lt;a href=&#34;http://www.antlr.org/tools.html&#34;&gt;suite of tools&lt;/a&gt;, and
+&lt;a href=&#34;http://tunnelvisionlabs.com/products/demo/antlrworks&#34;&gt;GUIs&lt;/a&gt;, that
+makes writing and debugging grammars easy.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;It uses a simple &lt;a href=&#34;https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form&#34;&gt;EBNF&lt;/a&gt;
+syntax to define the grammar, instead of a bespoke configuration
+language.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;ANTLR is an &lt;a href=&#34;http://www.antlr.org/papers/allstar-techreport.pdf&#34;&gt;Adaptive&lt;/a&gt;
+&lt;a href=&#34;https://en.wikipedia.org/wiki/LL_parser&#34;&gt;LL(*) parser&lt;/a&gt;, ALL(*) for short,
+whereas most other parser generators (e.g Bison and Yacc) are
+&lt;a href=&#34;https://en.wikipedia.org/wiki/LALR_parser&#34;&gt;LALR&lt;/a&gt;. The difference
+between LL(*) and LALR is out of scope for this article, but
+simply LALR works bottom-up, and LL(*) works top-down. This
+has a bearing on how the grammar is written, making some languages
+easier or harder to express.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The generated code for a LL(*) parser is more understandable than a
+LALR parser. This is because LALR parsers are commonly table driven,
+whereas LL(*) parsers encode the logic in its control flow, making
+it more comprehensible.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Finally ANTLR is agnostic to the target language. A single grammar
+can be used to generate parsers in Java, Go, C, etc. Unlike
+Bison/Yacc which typically embeds target language code into the
+grammar, making it harder to port.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;installing-antlr-v4&#34;&gt;Installing ANTLR v4&lt;/h2&gt;
+
+&lt;p&gt;ANTLR is a Java 1.7 application, that generates the Go code needed to
+parse your language. During development Java is needed, but once the
+parser is built only Go and the &lt;a href=&#34;https://godoc.org/github.com/antlr/antlr4/runtime/Go/antlr&#34;&gt;ANTLR runtime
+library&lt;/a&gt; is
+required. The ANTLR site has
+&lt;a href=&#34;https://github.com/antlr/antlr4/blob/master/doc/getting-
+started.md&#34;&gt;documentation&lt;/a&gt; on how to install this on multiple platforms, but in brief,
+you can do the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ wget http://www.antlr.org/download/antlr-4.7-complete.jar
+$ &lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;java -jar $PWD/antlr-4.7-complete.jar&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The &lt;code&gt;antlr&lt;/code&gt; command is now available in your shell. If you prefer, the
+.jar file can be placed into a &lt;code&gt;~/bin&lt;/code&gt; directory, and the alias can be
+stored in your &lt;code&gt;~/.bash_profile&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;classic-calculator-example&#34;&gt;Classic calculator example&lt;/h2&gt;
+
+&lt;p&gt;Let&amp;rsquo;s start with the “hello world” for parsers, the calculator example.
+We want to build a parser that handles simple mathematical expressions
+such as &lt;code&gt;1 + 2 * 3&lt;/code&gt;. The focus of this article is on how to use Go with
+ANTLR, so the syntax of the ANTLR language won’t be explained in
+detail, but the ANTLR site has &lt;a href=&#34;https://githu
+b.com/antlr/antlr4/blob/master/doc/grammars.md&#34;&gt;compressive documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;As we go along, the &lt;a href=&#34;https://github.com/bramp/goadvent-antlr&#34;&gt;source is available to all
+examples&lt;/a&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Calc.g4
+grammar Calc;
+
+// Tokens
+MUL: &#39;*&#39;;
+DIV: &#39;/&#39;;
+ADD: &#39;+&#39;;
+SUB: &#39;-&#39;;
+NUMBER: [0-9]+;
+WHITESPACE: [ \r\n\t]+ -&amp;gt; skip;
+
+// Rules
+start : expression EOF;
+
+expression
+   : expression op=(&#39;*&#39;|&#39;/&#39;) expression # MulDiv
+   | expression op=(&#39;+&#39;|&#39;-&#39;) expression # AddSub
+   | NUMBER                             # Number
+   ;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above is a simple grammar split into two sections, &lt;em&gt;tokens&lt;/em&gt;, and
+&lt;em&gt;rules&lt;/em&gt;. The tokens are terminal symbols in the grammar, that is, they
+are made up of nothing but literal characters. Whereas rules are non-
+terminal states made up of tokens and/or other rules.&lt;/p&gt;
+
+&lt;p&gt;By convention this grammar must be saved with a filename that matches
+the name of the grammar, in this case “Calc.g4” . To process this file,
+and generate the Go parser, we run the &lt;code&gt;antlr&lt;/code&gt; command like so:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ antlr -Dlanguage&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Go -o parser Calc.g4 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This will generate a set of Go files in the “parser” package and
+subdirectory. It is possible to place the generated code in a different
+package by using the &lt;code&gt;-package &amp;lt;name&amp;gt;&lt;/code&gt; argument. This is useful if your
+project has multiple parsers, or you just want a more descriptive
+package name for the parser. The generated files will look like the
+following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ tree
+├── Calc.g4
+└── parser
+    ├── calc_lexer.go
+    ├── calc_parser.go
+    ├── calc_base_listener.go
+    └── calc_listener.go&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The generated files consist of three main components, the Lexer, Parser,
+and Listener.&lt;/p&gt;
+
+&lt;p&gt;The Lexer takes arbitrary input and returns a stream of tokens. For
+input such as &lt;code&gt;1 + 2 * 3&lt;/code&gt;, the Lexer would return the following tokens:
+&lt;code&gt;NUMBER (1), ADD (+), NUMBER (2), MUL (*), NUMBER (3), EOF&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The Parser uses the Lexer’s output and applies the Grammar’s rules.
+Building higher level constructs, such as expressions that can be used
+to calculate the result.&lt;/p&gt;
+
+&lt;p&gt;The Listener then allows us to make use of the the parsed input. As
+mentioned earlier, yacc requires language specific code to be embedded
+with the grammar. However, ANTLR separates this concern, allowing the
+grammar to be agnostic to the target programming language. It does this
+through use of listeners, which effectively allows hooks to be placed
+before and after every rule is encountered in the parsed input.&lt;/p&gt;
+
+&lt;h2 id=&#34;using-the-lexer&#34;&gt;Using the Lexer&lt;/h2&gt;
+
+&lt;p&gt;Let&amp;rsquo;s move onto an example of using this generated code, starting with
+the Lexer.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// example1.go
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;main&lt;/span&gt;
+
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/antlr/antlr4/runtime/Go/antlr&amp;#34;&lt;/span&gt;
+
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;./parser&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;c1&#34;&gt;// Setup the input
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NewInputStream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;1 + 2 * 3&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// Create the Lexer
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NewCalcLexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// Read all tokens
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NextToken&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;GetTokenType&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;TokenEOF&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+			&lt;span class=&#34;k&#34;&gt;break&lt;/span&gt;
+		&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Printf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;%s (%q)\n&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+			&lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SymbolicNames&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;GetTokenType&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()],&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;GetText&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;To begin with, the generated parser is imported from the local
+subdirectory &lt;code&gt;import &amp;quot;./parser&amp;quot;&lt;/code&gt;. Next the Lexer is created with some
+input:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;	&lt;span class=&#34;c1&#34;&gt;// Setup the input
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NewInputStream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;1 + 2 * 3&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// Create the Lexer
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NewCalcLexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;In this example the input is a simple string, &lt;code&gt;&amp;quot;1 + 2 * 3&amp;quot;&lt;/code&gt; but there
+are other &lt;a href=&#34;https://godoc.org/github.com/antlr/antlr
+4/runtime/Go/antlr#InputStream&#34;&gt;&lt;code&gt;antlr.InputStream&lt;/code&gt;&lt;/a&gt;s, for example, the &lt;a href=&#34;https://godoc.org/github.com/antlr/antlr4/runtime/Go/antlr#FileStream&#34;&gt;&lt;code&gt;antlr.FileStream&lt;/code&gt;&lt;/a&gt;
+type can read directly from a file. The &lt;code&gt;InputStream&lt;/code&gt; is then passed to
+a newly created Lexer. Note the name of the Lexer is &lt;code&gt;CalcLexer&lt;/code&gt; which
+matches the grammar’s name defined in the Calc.g4.&lt;/p&gt;
+
+&lt;p&gt;The lexer is then used to consume all the tokens from the input,
+printing them one by one. This wouldn’t normally be necessary but we do
+this for demonstrative purposes.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt; 	&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NextToken&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;GetTokenType&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;TokenEOF&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+			&lt;span class=&#34;k&#34;&gt;break&lt;/span&gt;
+		&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Printf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;%s (%q)\n&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+			&lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SymbolicNames&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;GetTokenType&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()],&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;GetText&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Each token has two main components, the TokenType, and the Text. The
+TokenType is a simple integer representing the type of token, while the
+Text is literally the text that made up this token. All the TokenTypes
+are defined at the end of calc_lexer.go, with their string names stored
+in the SymbolicNames slice:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// calc_lexer.go
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;CalcLexerMUL&lt;/span&gt;        &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;CalcLexerDIV&lt;/span&gt;        &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;CalcLexerADD&lt;/span&gt;        &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;CalcLexerSUB&lt;/span&gt;        &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;CalcLexerNUMBER&lt;/span&gt;     &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;CalcLexerWHITESPACE&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You may also note, that the Whitespace token is not printed, even though
+the input clearly had whitespace. This is because the grammar was
+designed to skip (i.e. discard) the whitespace &lt;code&gt;WHITESPACE: [ \r\n\t]+
+-&amp;gt; skip;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;using-the-parser&#34;&gt;Using the Parser&lt;/h2&gt;
+
+&lt;p&gt;The Lexer on its own is not very useful, so the example can be modified
+to also use the Parser and Listener:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// example2.go
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;main&lt;/span&gt;
+
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;./parser&amp;#34;&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/antlr/antlr4/runtime/Go/antlr&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;calcListener&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;BaseCalcListener&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;c1&#34;&gt;// Setup the input
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NewInputStream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;1 + 2 * 3&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// Create the Lexer
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NewCalcLexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;stream&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NewCommonTokenStream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;TokenDefaultChannel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// Create the Parser
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NewCalcParser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;stream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// Finally parse the expression
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ParseTreeWalkerDefault&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Walk&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;calcListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Start&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This is very similar to before, but instead of manually iterating over
+the tokens, the lexer is used to create a &lt;a href=&#34;https://
+godoc.org/github.com/antlr/antlr4/runtime/Go/antlr#CommonTokenStream&#34;&gt;&lt;code&gt;CommonTokenStream&lt;/code&gt;&lt;/a&gt;,
+which in turn is used to create a new &lt;code&gt;CalcParser&lt;/code&gt;. This &lt;code&gt;CalcParser&lt;/code&gt; is
+then “walked”, which is ANTLR&amp;rsquo;s event-driven API for receiving the
+results of parsing the rules.&lt;/p&gt;
+
+&lt;p&gt;Note, the &lt;a href=&#34;https://godoc.org/github.com/antlr/antlr4/runtime/Go/
+antlr#ParseTreeWalker.Walk&#34;&gt;&lt;code&gt;Walk&lt;/code&gt;&lt;/a&gt; function does not return anything. Some may
+have expected a parsed form of the expression to be returned, such as
+some kind of &lt;a href=&#34;https://en.wikipedia.org/wiki/Abstract_syntax_tree&#34;&gt;AST&lt;/a&gt;
+(abstract syntax tree), but instead the Listener receives event as the
+parsing occurs. This is similar in concept to
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Simple_API_for_XML&#34;&gt;SAX&lt;/a&gt; style parsers
+for XML. Event-based parsing can sometimes be harder to use, but it has
+many advantages. For example, the parser can be very memory efficient as
+previously parsed rules can be discarded once they are no longer needed.
+The parser can also be aborted early if the programmer wishes to.&lt;/p&gt;
+
+&lt;p&gt;But so far, this example doesn’t do anything beyond ensuring the input
+can be parsed without error. To add logic, we must extend the
+&lt;code&gt;calcListener&lt;/code&gt; type. The &lt;code&gt;calcListener&lt;/code&gt; has an embedded
+&lt;code&gt;BaseCalcListener&lt;/code&gt;, which is a helper type, that provides empty methods
+for all those defined in in the &lt;code&gt;CalcListener&lt;/code&gt; interface. That interface
+looks like:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// parser/calc_listener.go
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// CalcListener is a complete listener for a parse tree produced by CalcParser.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;CalcListener&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ParseTreeListener&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// EnterStart is called when entering the start production.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;EnterStart&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;StartContext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// EnterNumber is called when entering the Number production.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;EnterNumber&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NumberContext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// EnterMulDiv is called when entering the MulDiv production.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;EnterMulDiv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;MulDivContext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// EnterAddSub is called when entering the AddSub production.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;EnterAddSub&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;AddSubContext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// ExitStart is called when exiting the start production.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;ExitStart&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;StartContext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// ExitNumber is called when exiting the Number production.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;ExitNumber&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NumberContext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// ExitMulDiv is called when exiting the MulDiv production.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;ExitMulDiv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;MulDivContext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// ExitAddSub is called when exiting the AddSub production.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;ExitAddSub&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;AddSubContext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;There is an Enter and Exit function for each rule found in the grammar.
+As the input is walked, the Parser calls the appropriate function on the
+listener, to indicate when the rule starts and finishes being evaluated.&lt;/p&gt;
+
+&lt;h2 id=&#34;adding-the-logic&#34;&gt;Adding the logic&lt;/h2&gt;
+
+&lt;p&gt;A simple calculator can be constructed from this event driven parser by
+using a stack of values. Every time a number is found, it is added to a
+stack. Everytime an expression (add/multiple/etc) is found, the last two
+numbers on the stack are popped, and the appropriate operation is
+carried out. The result is then placed back on the stack.&lt;/p&gt;
+
+&lt;p&gt;Take the expression &lt;code&gt;1 + 2 * 3&lt;/code&gt;,  the result could be either &lt;code&gt;(1 + 2) *
+3 = 9&lt;/code&gt;, or &lt;code&gt;1 + (2 * 3) = 7&lt;/code&gt;. Those that recall the &lt;a href=&#34;https://en.wikipedia.org/wiki/Order_of_operations&#34;&gt;order of
+operations&lt;/a&gt;, will
+know that multiplication should always be carried out before addition,
+thus the correct result is 7. However, without the parentheses there
+could be some ambiguity on how this should be parsed. Luckily the
+ambiguity is resolved by the grammar. The precedence of multiplication
+over addition was subtly implied within Calc.g4, by placing the &lt;code&gt;MulDiv&lt;/code&gt;
+expressed before the &lt;code&gt;AddSub&lt;/code&gt; expression.&lt;/p&gt;
+
+&lt;div class=&#34;text-center&#34;&gt;
+    &lt;img src=&#34;parse-tree.svg&#34;&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The code for a listener that implements this stack of value
+implementation is relatively simple:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;calcListener&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;BaseCalcListener&lt;/span&gt;
+
+	&lt;span class=&#34;nx&#34;&gt;stack&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;calcListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;push&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;stack&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;stack&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;calcListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;pop&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;stack&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;nb&#34;&gt;panic&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;stack is empty unable to pop&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// Get the last value from the stack.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;result&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;stack&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;stack&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// Remove the last element from the stack.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;stack&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;stack&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[:&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;stack&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+
+	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;result&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;calcListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;ExitMulDiv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;MulDivContext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;left&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;pop&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(),&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;pop&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+
+	&lt;span class=&#34;k&#34;&gt;switch&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;GetOp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;GetTokenType&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;case&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;CalcParserMUL&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;push&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;left&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;case&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;CalcParserDIV&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;push&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;left&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;default&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+		&lt;span class=&#34;nb&#34;&gt;panic&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Sprintf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;unexpected op: %s&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;GetOp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;GetText&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()))&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;calcListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;ExitAddSub&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;AddSubContext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;left&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;pop&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(),&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;pop&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+
+	&lt;span class=&#34;k&#34;&gt;switch&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;GetOp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;GetTokenType&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;case&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;CalcParserADD&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;push&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;left&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;case&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;CalcParserSUB&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;push&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;left&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;default&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+		&lt;span class=&#34;nb&#34;&gt;panic&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Sprintf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;unexpected op: %s&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;GetOp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;GetText&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()))&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;calcListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;ExitNumber&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NumberContext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;strconv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Atoi&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;GetText&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;nil&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;nb&#34;&gt;panic&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+	&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;push&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Finally this listener would be used like so:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// calc takes a string expression and returns the evaluated result.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;calc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;c1&#34;&gt;// Setup the input
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NewInputStream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;input&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// Create the Lexer
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NewCalcLexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;stream&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NewCommonTokenStream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;TokenDefaultChannel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// Create the Parser
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NewCalcParser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;stream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// Finally parse the expression (by walking the tree)
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;listener&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;calcListener&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ParseTreeWalkerDefault&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Walk&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;listener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Start&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+
+	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;listener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;pop&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Following the algorithm, the parsing of &lt;code&gt;1 + 2 * 3&lt;/code&gt; would work like so.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The numbers 2 and 3 would be visited first (and placed on the stack),&lt;/li&gt;
+&lt;li&gt;Then the MulDiv expression would be visited, taking the values 2 and
+3, multiplying them, and placing the result, 6, back on the stack.&lt;/li&gt;
+&lt;li&gt;Then the number 1 would visited and pushed onto the stack.&lt;/li&gt;
+&lt;li&gt;Finally AddSub would be visited, popping the 1 and the 6 from the
+stack, placing the result 7 back.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The order the rules are visited is completely driven by the Parser, and
+thus the grammar.&lt;/p&gt;
+
+&lt;h2 id=&#34;more-grammars&#34;&gt;More grammars&lt;/h2&gt;
+
+&lt;p&gt;Learning how to write a grammar may be daunting, but there are many
+resources for help. The author of ANTLR, &lt;a href=&#34;http://parrt.cs.usfca.edu/&#34;&gt;Terence
+Parr&lt;/a&gt;, has &lt;a href=&#34;https://pragprog.com/book/tpantlr2/the-definitive-antlr-4-reference&#34;&gt;published a
+book&lt;/a&gt;,
+with some of the content freely available on &lt;a href=&#34;http://antlr.org&#34;&gt;antlr.org&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you don’t want to write your own grammar, there are many &lt;a href=&#34;https://github.com/antlr/grammars-v4&#34;&gt;pre-written
+grammars available&lt;/a&gt;. Including
+grammars for CSS, HTML, SQL, etc, as well many popular programming
+languages. To make it easier, I have &lt;a href=&#34;https://github.com/bramp/antlr4-grammars&#34;&gt;generated
+parsers&lt;/a&gt; for all those
+available grammars, making them as easy to use just by importing.&lt;/p&gt;
+
+&lt;p&gt;A quick example of using one of the pre-generated grammars:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;bramp.net/antlr4/json&amp;#34;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// The parser
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
+	&lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/antlr/antlr4/runtime/Go/antlr&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;exampleListener&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;c1&#34;&gt;// https://godoc.org/bramp.net/antlr4/json#BaseJSONListener
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;json&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;BaseJSONListener&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;c1&#34;&gt;// Setup the input
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NewInputStream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;`
+&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;		{
+&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;			&amp;#34;example&amp;#34;: &amp;#34;json&amp;#34;,
+&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;			&amp;#34;with&amp;#34;: [&amp;#34;an&amp;#34;, &amp;#34;array&amp;#34;]
+&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;		}`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+
+	&lt;span class=&#34;c1&#34;&gt;// Create the JSON Lexer
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;json&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NewJSONLexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+	&lt;span class=&#34;nx&#34;&gt;stream&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NewCommonTokenStream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;TokenDefaultChannel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// Create the JSON Parser
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;json&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;NewJSONParser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;stream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+	&lt;span class=&#34;c1&#34;&gt;// Finally walk the tree
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ParseTreeWalkerDefault&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Walk&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;exampleListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Json&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Hopefully this article has given you a taste of how to use ANTLR with Go.
+The examples for this article are &lt;a href=&#34;https://github.com/bramp/goadvent-antlr&#34;&gt;found here&lt;/a&gt;,
+and the &lt;a href=&#34;https://godoc.org/github.com/antlr/antlr4/runtime/Go/antlr&#34;&gt;godoc for the ANTLR library is here&lt;/a&gt;
+which explains the various InputStream, Lexer, Parser, etc interfaces.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Vanity Go Import Paths</title>
@@ -1354,66 +1851,6 @@ js-sequence-diagrams https://github.com/bramp/js-sequence-diagrams/settings
 &lt;li&gt;&lt;code&gt;make server&lt;/code&gt; starts a web server serving a static copy of the minified result.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;make watch&lt;/code&gt; also starts a web server, but directly from hugo that will live reload as you make changes. The main difference is this output isn&amp;rsquo;t minified.&lt;/li&gt;
 &lt;/ul&gt;</description>
-    </item>
-    
-    <item>
-      <title>Decompile and Recompile Android APK</title>
-      <link>https://blog.bramp.net/post/2015/08/01/decompile-and-recompile-android-apk/</link>
-      <pubDate>Sat, 01 Aug 2015 12:24:59 -0700</pubDate>
-      
-      <guid>https://blog.bramp.net/post/2015/08/01/decompile-and-recompile-android-apk/</guid>
-      <description>
-
-&lt;p&gt;I had the need to take an existing &lt;a href=&#34;https://en.wikipedia.org/wiki/Android_application_package&#34;&gt;Android APK&lt;/a&gt;, tweak it, and rebuild. This is not too difficult, but I did have to download the tools from a few different sites, and find a full list of instructions. Thus to make this easier, here is a quick recap of what&amp;rsquo;s needed.&lt;/p&gt;
-
-&lt;p&gt;Download the following:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://ibotpeaches.github.io/Apktool/&#34;&gt;apktool&lt;/a&gt; - tool for reverse engineering Android apk files. In this case can extract and rebuild.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.oracle.com/javase/8/docs/technotes/tools/unix/keytool.html&#34;&gt;keytool&lt;/a&gt; - Java tool for creating keys/certs. Comes with the JDK.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jarsigner.html&#34;&gt;jarsigner&lt;/a&gt; Java tool for signing JAR/APK files. Comes with the JDK.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://developer.android.com/tools/help/zipalign.html&#34;&gt;zipalign&lt;/a&gt; - archive alignment tool, that comes with the Android SDK.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Some extras:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://jd.benow.ca/&#34;&gt;JD-GUI&lt;/a&gt; - Java Decompiler&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/pxb1988/dex2jar&#34;&gt;dex2jar&lt;/a&gt; - Converts Android dex files to class/jar files.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;instructions&#34;&gt;Instructions:&lt;/h2&gt;
-
-&lt;p&gt;We assume you are on a Linux or Mac, but this will work (with some tweaking) on Windows. Install a recent Java JDK, then the &lt;a href=&#34;https://developer.android.com/sdk/installing/index.html?pkg=tools&#34;&gt;Stand-alone Android SDK&lt;/a&gt;, and finally &lt;a href=&#34;http://ibotpeaches.github.io/Apktool/&#34;&gt;apktool&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Optionally setup some alias:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;apktool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;java -jar ~/bin/apktool_2.0.1.jar&amp;#39;&lt;/span&gt;
-&lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;dex2jar&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;~/bin/dex2jar-2.0/d2j-dex2jar.sh&amp;#39;&lt;/span&gt;
-&lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; jd-gui&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;java -jar ~/bin/jd-gui-1.3.0.jar&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;First, unpack the application.apk file. This will create a &amp;ldquo;application&amp;rdquo; directory with assets, resources, compiled code, etc.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apktool d -r -s application.apk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Now poke around, and edit any of the files in the application directory. If you wish to decompile any java you can do the following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Convert the Dex files into standard class files
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;dex2jar application/classes.dex
-
-&lt;span class=&#34;c1&#34;&gt;# Now use the JD (Java Decompiler) to inspect the source
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;jd-gui classes-dex2jar.jar&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Once you have made your changes, you need to repack the APK. This will create a &lt;code&gt;my_application.apk&lt;/code&gt; file:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apktool b -f -d application
-mv application/dist/application.apk my_application.apk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The APK must be signed before it will run on a device. Create a key if you don&amp;rsquo;t have an existing one. If prompted for a password, enter anything (but remember it).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;keytool -genkey -v -keystore my-release-key.keystore -alias alias_name &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;                   -keyalg RSA -keysize &lt;span class=&#34;m&#34;&gt;2048&lt;/span&gt; -validity &lt;span class=&#34;m&#34;&gt;10000&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Now sign the APK with the key:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Sign the apk
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore my_application.apk alias_name
-
-&lt;span class=&#34;c1&#34;&gt;# Verify apk
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;jarsigner -verify -verbose -certs my_application.apk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Finally, the apk must be aligned for optimal loading:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;zipalign -v &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; my_application.apk my_application-aligned.apk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Voila, now you have a &lt;code&gt;my_application-aligned.apk&lt;/code&gt; file, which you can side load onto your device.&lt;/p&gt;
-</description>
     </item>
     
   </channel>
