@@ -8,6 +8,11 @@
   </url>
   
   <url>
+    <loc>https://blog.bramp.net/post/2018/01/13/running-java-in-production/</loc>
+    <lastmod>2018-01-13T12:50:31-08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.bramp.net/post/2017/12/16/parsing-with-antlr4-and-go/</loc>
     <lastmod>2017-12-16T12:50:31-08:00</lastmod>
   </url>
@@ -794,7 +799,7 @@
   
   <url>
     <loc>https://blog.bramp.net/categories/blog/</loc>
-    <lastmod>2017-12-16T12:50:31-08:00</lastmod>
+    <lastmod>2018-01-13T12:50:31-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -872,7 +877,7 @@
   
   <url>
     <loc>https://blog.bramp.net/categories/</loc>
-    <lastmod>2017-12-16T12:50:31-08:00</lastmod>
+    <lastmod>2018-01-13T12:50:31-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1298,7 +1303,7 @@
   
   <url>
     <loc>https://blog.bramp.net/tags/java/</loc>
-    <lastmod>2017-04-01T15:21:27-07:00</lastmod>
+    <lastmod>2018-01-13T12:50:31-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1317,6 +1322,12 @@
   <url>
     <loc>https://blog.bramp.net/tags/jshint/</loc>
     <lastmod>2012-11-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/jvm/</loc>
+    <lastmod>2018-01-13T12:50:31-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1646,7 +1657,7 @@
   
   <url>
     <loc>https://blog.bramp.net/post/</loc>
-    <lastmod>2017-12-16T12:50:31-08:00</lastmod>
+    <lastmod>2018-01-13T12:50:31-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1664,6 +1675,12 @@
   <url>
     <loc>https://blog.bramp.net/tags/probability/</loc>
     <lastmod>2016-08-08T21:33:33-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/production/</loc>
+    <lastmod>2018-01-13T12:50:31-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1802,6 +1819,12 @@
   <url>
     <loc>https://blog.bramp.net/tags/spam/</loc>
     <lastmod>2012-06-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/sre/</loc>
+    <lastmod>2018-01-13T12:50:31-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -2089,7 +2112,7 @@
   
   <url>
     <loc>https://blog.bramp.net/</loc>
-    <lastmod>2017-12-16T12:50:31-08:00</lastmod>
+    <lastmod>2018-01-13T12:50:31-08:00</lastmod>
     <priority>0</priority>
   </url>
   

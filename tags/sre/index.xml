@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sre on bramp.net</title>
+    <link>https://blog.bramp.net</link>
+    <description>Recent content in Sre on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en_GB</language>
+    <lastBuildDate>Sat, 13 Jan 2018 12:50:31 -0800</lastBuildDate>
+    <atom:link href="https://blog.bramp.net/tags/sre/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Running Java in Production: A SRE’s Perspective</title>
+      <link>https://blog.bramp.net/post/2018/01/13/running-java-in-production/</link>
+      <pubDate>Sat, 13 Jan 2018 12:50:31 -0800</pubDate>
+      
+      <guid>https://blog.bramp.net/post/2018/01/13/running-java-in-production/</guid>
+      <description>
+
+&lt;p&gt;&lt;em&gt;Originally &lt;a href=&#34;https://www.javaadvent.com/2017/12/running-java-in-production.html&#34;&gt;published&lt;/a&gt; as part of the Java Advent 2017 series&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;As a &lt;a href=&#34;https://landing.google.com/sre/&#34;&gt;Site Reliability Engineer&lt;/a&gt; (SRE) I make sure our production services are efficient, scalable, and reliable. A typical SRE is a master of production, and has to have a good understanding of the wider architecture, and be well versed in many of the finer details.&lt;/p&gt;
+
+&lt;p&gt;It is common that SREs are polyglot programmer, expected to understand multiple different languages. For example, C++ may be hard to write, test and get right, but has high performance, perfect for backend systems such as databases. Whereas Python is easy to write, and great for quick scripting, useful for automation. Java is somewhere in the middle, and even though it is a compiled language, it provides type safety, performance, and many other advantages that make it a good choice for writing web infrastructure.&lt;/p&gt;
+
+&lt;p&gt;Even though many of the &lt;a href=&#34;https://landing.google.com/sre/book.html&#34;&gt;best practices that SREs adopt&lt;/a&gt; can be generalised to any language, there are some unique challenges with Java Web applications. This article highlight some of these challenges and talks about what we can do to address them.&lt;/p&gt;
+
+&lt;h1 id=&#34;deployment&#34;&gt;Deployment&lt;/h1&gt;
+
+&lt;p&gt;A typical java application consists of 100s of class files, either written by your team, or from common libraries that the application depends on. To keep the number of class files under control, and to provide better versioning, and compartmentalisation, they are typically bundled up into &lt;a href=&#34;https://en.wikipedia.org/wiki/JAR_(file_format)&#34;&gt;JAR&lt;/a&gt; or &lt;a href=&#34;https://en.wikipedia.org/wiki/WAR_(file_format)&#34;&gt;WAR&lt;/a&gt; files.&lt;/p&gt;
+
+&lt;p&gt;There are many ways to host a java application, one popular method is using a &lt;a href=&#34;https://en.wikipedia.org/wiki/Web_container&#34;&gt;Java Servlet Container&lt;/a&gt; such as &lt;a href=&#34;https://tomcat.apache.org/&#34;&gt;Tomcat&lt;/a&gt;, or &lt;a href=&#34;https://www.jboss.org/&#34;&gt;JBoss&lt;/a&gt;. These provide some common web infrastructure, and libraries to make it, in theory, easier to deploy and manage the java application. Take Tomcat, a java program that provides the actual webserver and loads the application (bundled as a WAR file) on your behalf. This may work well in some situations, but actually adds additional complexity. For example, you now need to keep track of the version of the JRE, the version of Tomcat, and the version of your application. Testing for incompatibility, and ensuring everyone is using the same versions of the full stack can be problematic, and lead to subtle problems. Tomcat also brings along its own bespoke configuration, which is yet another thing to learn.&lt;/p&gt;
+
+&lt;p&gt;A good tenant to follow is to “&lt;a href=&#34;https://landing.google.com/sre/book/chapters/simplicity.html&#34;&gt;keep it simple&lt;/a&gt;”, but in the Servlet Container approach, you have to keep track of a few dozen Tomcat files, plus one or more WAR files that make up the application, plus all the Tomcat configuration that goes along with it.&lt;/p&gt;
+
+&lt;p&gt;Thus there are some frameworks that attempt to reduce this overhead by instead of being hosted within a full application server, they embed their own web server. There is still a JVM but it invokes a single JAR file that contains everything needed to run the application. Popular frameworks that enable these standalone apps are &lt;a href=&#34;http://www.dropwizard.io/&#34;&gt;Dropwizard&lt;/a&gt; and &lt;a href=&#34;https://projects.spring.io/spring-boot/&#34;&gt;Spring Boot&lt;/a&gt;. To deploy a new version of the application, only a single file needs to be changed, and the JVM restarted. This is also useful when developing and testing the application, because everyone is using the same version of the stack. It is also especially useful for rollbacks (one of SRE’s core tools), as only a single file has to be changed (which can be as quick as a symlink change).&lt;/p&gt;
+
+&lt;p&gt;One thing to note with a Tomcat style WAR file, the file would contain the application class files, as well as all the libraries the application depends on as JAR files. In the standalone approach, all the dependencies are merged into a single, &lt;a href=&#34;https://stackoverflow.com/questions/19150811/what-is-a-fat-jar&#34;&gt;Fat JAR&lt;/a&gt;. A single JAR file that contains the class files for the entire application. These Fat or Uber JARs, not only are easier to version and copy around (because it is a single immutable file), but can actually be smaller than an equivalent WAR file due to pruning of unused classes in the dependencies.&lt;/p&gt;
+
+&lt;p&gt;This can even be taken further, by not requiring separate JVM and JAR files. Tools like &lt;a href=&#34;http://www.capsule.io/&#34;&gt;capsule.io&lt;/a&gt;, can actually bundle up the JAR file, JVM, and all configuration into a single executable file. Now we can really ensure the full stack is using the same versions, and the deployment is agnostic to what may already be installed on the server.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Keep it simple, and make the application as quick and easy to version, using a single Fat JAR, or executable where possible.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&#34;startup&#34;&gt;Startup&lt;/h1&gt;
+
+&lt;p&gt;Even though Java is a compiled language, it is not compiled to machine code, it is instead compiled to bytecode. At runtime the Java Virtual Machine (JVM) interprets the bytecode, and executes it in the most efficient way. For example, &lt;a href=&#34;https://en.wikipedia.org/wiki/Just-in-time_compilation&#34;&gt;just-in-time&lt;/a&gt; (JIT) compilation allows the JVM to watch how the application is used, and on the fly compile the bytecode into optimal machine code. Over the long run this may be advantageous for the application, but during startup can make the application perform suboptimally for tens of minutes, or longer. This is something to be aware of, as it has implications on load balancing, monitoring, capacity planning, etc.&lt;/p&gt;
+
+&lt;p&gt;In a multi-server deployment, it is best practice to slowly ramp up traffic to a newly started task, giving it time to warm up, and to not harm the overall performance of the service. You may be tempted to warm up new tasks by sending it artificial traffic, before it is placed into the user-serving path. Artificial traffic can be problematic if it does not approximate normal user traffic. In fact, this fake traffic may trigger the JIT to optimise for cases that don’t normally occur, thus leaving the application in a sub-optimal or worse state than not being JIT’d.&lt;/p&gt;
+
+&lt;p&gt;Slow starts should also be considered when capacity planning. Don’t expect cold tasks to handle the same load as warm tasks. This is important when rolling out a new version of the application, as the capacity of the system will drop until the tasks warms up. If this is not taken into account, too many tasks may be reloaded concurrently, causing a capacity based cascading outage.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Expect cold starts, and try to warm the application up with real traffic.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&#34;monitoring&#34;&gt;Monitoring&lt;/h1&gt;
+
+&lt;p&gt;This advice is generic &lt;a href=&#34;https://landing.google.com/sre/book/chapters/monitoring-distributed-systems.html&#34;&gt;monitoring advice&lt;/a&gt;, but it is worth repeating for Java. Make sure the most important and useful metrics are exported from the Java application, are collected and easily graphed. There are many tools and frameworks for exporting metrics, and even more for collecting, aggregating, and displaying.&lt;/p&gt;
+
+&lt;p&gt;When something breaks, &lt;a href=&#34;https://landing.google.com/sre/book/chapters/effective-troubleshooting.html&#34;&gt;troubleshooting&lt;/a&gt; the issue should be possible from only the metrics being collected. You should not be to depending on log files, or looking at code, to deal with an outage.&lt;/p&gt;
+
+&lt;p&gt;Most outages are caused by change. That is, a new version of the application, a config change, new source of traffic, a hardware failure, or a backend dependencies behaving differently. The metrics exported by the application, should include ways to identify the version of Java, application, and configuration in use. It should break down sources of traffic, mix, error counts, etc. It should also track the health, latency, error rates, etc of backend dependencies. Most of the time, this is enough to diagnose a outage quickly.&lt;/p&gt;
+
+&lt;p&gt;Specific to Java, there are metrics that can be helpful to understand the health, and performance of the application. Guiding future decisions on how to scale and optimise the application. Garbage collection time, heap size, thread count, JIT time are all important and Java specific.&lt;/p&gt;
+
+&lt;p&gt;Finally, a note about measuring response times, or latency. That is, the time it takes the application to handle a request. Many make the mistake of looking at average latency, in part because it can be easily calculated. &lt;a href=&#34;https://www.elastic.co/blog/averages-can-dangerous-use-percentile&#34;&gt;Averages can be misleading&lt;/a&gt;, because it doesn’t show the &lt;a href=&#34;https://en.wikipedia.org/wiki/Percentile_rank&#34;&gt;shape of the distribution&lt;/a&gt;. The majority of requests may be handled quickly, but there may be a long tail of requests that are rare but take a while. This is especially troubling for JVM application, because during garbage collection there is a &lt;a href=&#34;https://www.cubrid.org/blog/understanding-java-garbage-collection&#34;&gt;stop the world&lt;/a&gt; (STW) phase, where the application must pause, to allow the garbage collection to finish. In this pause, no requests will be responded to, and users may wait multiple seconds.&lt;/p&gt;
+
+&lt;p&gt;It is better to collect either the max, or 99 (or higher) percentile latency. For percentile, that say for every every 100 requests, 99 are served quicker than this number. Looking at the worst case latency is more meaningful, and more reflective of the user perceived performance.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Measure metrics that matter, and you can later depend on.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&#34;memory-management&#34;&gt;Memory Management&lt;/h1&gt;
+
+&lt;p&gt;A good investment of your time is to learn about the various &lt;a href=&#34;https://plumbr.io/handbook/garbage-collection-algorithms-implementations&#34;&gt;JVM garbage collection algorithms&lt;/a&gt;. The current state of the art are the concurrent collectors, either &lt;a href=&#34;https://www.redhat.com/en/blog/part-1-introduction-g1-garbage-collector&#34;&gt;G1&lt;/a&gt;, or &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/cms.html&#34;&gt;CMS&lt;/a&gt;. You can decide on what may be best for your application, but for now G1 is the likely winner. There are many great articles that explain how they work, but I’ll cover some key topics.&lt;/p&gt;
+
+&lt;p&gt;When starting up, the Java Virtual Machine (JVM) reserves a large chunk of OS memory and splits it into heap and non-heap. The non-heap contains areas such as &lt;a href=&#34;https://blogs.oracle.com/poonam/about-g1-garbage-collector,-permanent-generation-and-metaspace&#34;&gt;Metaspace&lt;/a&gt; (&lt;a href=&#34;https://dzone.com/articles/java-8-permgen-metaspace&#34;&gt;formally called Permgen&lt;/a&gt;), and stack space. Metaspace is for class definitions, and stack space is for each thread&amp;rsquo;s stacks. The heap is used for the objects that are created, which normally takes up the majority of the memory usage. Unlike a typical executable, the JVM has the &lt;a href=&#34;https://alvinalexander.com/blog/post/java/java-xmx-xms-memory-heap-size-control&#34;&gt;&lt;code&gt;-Xms&lt;/code&gt; and &lt;code&gt;-Xmx&lt;/code&gt; flags&lt;/a&gt; that control the minimum and maximum size of the heap. These limits constrain the maximum amount of RAM the JVM will use, which can make the memory demands on your servers predictable. It is common to set both these flags to the same value, provisioning them to fill up the available RAM on your server. There are also best practices around this when &lt;a href=&#34;https://developers.redhat.com/blog/2017/03/14/java-inside-docker/&#34;&gt;sizing Docker containers&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Garbage collection (GC) is the process of managing this heap, by finding java objects that are no longer in use (i.e no longer referred to), and can be reclaimed. In most cases the JVM scans the full graph of objects, marking which it finds. At the end, any that weren’t visited, are deleted. To ensure there aren’t race conditions, the GC typically has to stop the world (STW), which pauses the application for a short while, while it finishes up.&lt;/p&gt;
+
+&lt;p&gt;The GC is a source of (perhaps unwarranted) resentment because it is blamed for many performance problems. Typically this boils down to not understanding how the GC works. For example, if the heap is sized too small, the JVM can aggressive garbage collect, trying to futilely free up space. The application can then get stuck in this “&lt;a href=&#34;http://javaagile.blogspot.com/2013/07/the-thrashing-of-garbage-collector.html&#34;&gt;GC thrashing&lt;/a&gt;” cycle, that makes very little progress freeing up space, and spending a larger and larger proportion of time in GC, instead of running the application code.&lt;/p&gt;
+
+&lt;p&gt;Two common cases where this can happen, are &lt;a href=&#34;https://plumbr.io/blog/memory-leaks/what-is-a-memory-leak&#34;&gt;memory leaks&lt;/a&gt;, or &lt;a href=&#34;http://www.oracle.com/technetwork/articles/java/trywithresources-401775.html&#34;&gt;resource exhaustion&lt;/a&gt;. Garbage collected languages shouldn’t allow what is conventionally called memory leaks, however, they can occur. Take for example, maintaining a cache of objects that never expire. This cache will grow forever, and even though the objects in the cache may never be used again, they are still referenced, thus ineligible to be garbage collected.&lt;/p&gt;
+
+&lt;p&gt;Another common cases is &lt;a href=&#34;https://blog.bramp.net/post/2015/12/17/the-importance-of-tuning-your-thread-pools/&#34;&gt;unbounded queues&lt;/a&gt;. If your application places incoming requests on a unbounded queue, this queue could grow forever. If there is a spike of request, objects retained on the queue could increase the heap usage, causing the application to spend more and more time in GC. Thus the application will have less time to process requests from the queue, causing the backlog to grow. This spirals out of control as the GC struggles to find any objects to free, until the application can make no forward progress.&lt;/p&gt;
+
+&lt;p&gt;The garbage collector algorithms has many optimisations to try and reduce total GC time. One important observation, the &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/generations.html&#34;&gt;weak generational hypothesis&lt;/a&gt;, is that objects either exist for a short time (for example, related to the handling a request), or last a long time (such as global objects that manage long lived resources).&lt;/p&gt;
+
+&lt;p&gt;Because of this, the heap is further divided into young and old space. The GC algorithm that runs across the young space assume the object will be freed, and if not, the GC promotes the object into old space. The algorithm for old space, makes the opposite assumption, the the object won’t be freed. The size of the &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/sizing.html&#34;&gt;young/old may thus also be tuned&lt;/a&gt;, and depending on G1 or CMS the approach will be different. But, if the young space is too small, objects that should only exist for short time end up getting promoted to old space. Breaking some of the assumptions the old GC algorithms make, causing GC to run less efficiently, and causing secondary issues such as memory fragmentation.&lt;/p&gt;
+
+&lt;p&gt;As mentioned earlier, GC is a source of &lt;a href=&#34;https://www.weave.works/blog/the-long-tail-tools-to-investigate-high-long-tail-latency/&#34;&gt;long tail latency&lt;/a&gt;, so should be monitored closely. The time taken for each phase of the GC should be recorded, as well as the fullness of heap space (broken down by young/old/etc) before and after GC runs. This provides all the hints needed to either tune, or improve the application to get GC under control.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Make GC your friend. Careful attention should be paid to the heap, and garbage collector, and it should be tuned (even coarsely) to ensure there is enough heap space even in the fully loaded/worst case.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&#34;other-tips&#34;&gt;Other tips&lt;/h1&gt;
+
+&lt;h2 id=&#34;debugging&#34;&gt;Debugging&lt;/h2&gt;
+
+&lt;p&gt;Java has many rich tools for debugging during development and in production. For example, it is possible to capture live stack traces, and heap dumps from the running application. This can be useful to understand memory leaks, or deadlocks. However, you must ensure the application is started to allow these features, and that the typical tools, &lt;a href=&#34;https://docs.oracle.com/javase/6/docs/technotes/tools/share/jmap.html&#34;&gt;jmap&lt;/a&gt;, &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/technotes/guides/troubleshoot/tooldescr006.html&#34;&gt;jcmd&lt;/a&gt;, etc are actually available on the server. Running the application inside a &lt;a href=&#34;http://trustmeiamadeveloper.com/2016/03/18/where-is-my-memory-java/&#34;&gt;Docker container&lt;/a&gt;, or non-standard environment, may make this more difficult, so test and write a playbook on how to do this now.&lt;/p&gt;
+
+&lt;p&gt;Many frameworks, also expose much of this information via webservices, for easier debugging, for example the Dropwizard /threads resource, or the &lt;a href=&#34;https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html&#34;&gt;Spring Boot production endpoints&lt;/a&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Don’t wait until you have a production issue, test now how to grab heap dumps and stack traces.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;fewer-but-larger-tasks&#34;&gt;Fewer but larger tasks&lt;/h2&gt;
+
+&lt;p&gt;There are many features of the JVM that have a fixed cost per running JVM, such as JIT and garbage collection. Your application may also have fixed overheads, such as resource polling (backend database connections), etc. If you run fewer, but larger (in terms of CPU and RAM) instances, you can reduce this fixed cost, getting an economy of scale. I’ve seen doubling the amount of CPU and RAM a Java application had, allowed it to handle 4x the requests per second (with no impact to latency). This however makes some assumption about the application’s ability to scale in a multi-threaded way, but generally scaling vertically is easier than horizontally.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Make your JVM as large as possible.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;32-bit-vs-64-bit-java&#34;&gt;32-bit vs. 64-bit Java&lt;/h2&gt;
+
+&lt;p&gt;It used to be common practice to run a 32-bit JVM if your application didn’t use more than 4GiB of RAM. This was because 32-bit pointers are half the size of 64-bit, which reduced the overhead of each java object. However, as modern CPUs are 64-bit, typically with 64-bit specific performance improvements, and that the cost of RAM being cheap this make 64-bit JVMs the clear winner.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Use 64-bit JVMs.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;load-shedding&#34;&gt;Load Shedding&lt;/h2&gt;
+
+&lt;p&gt;Again general advice, but important for java. To &lt;a href=&#34;https://landing.google.com/sre/book/chapters/handling-overload.html&#34;&gt;avoid overload&lt;/a&gt; caused by GC thrashing, or cold tasks, the application should aggressively load shed. That is, beyond some threshold, the application should reject new requests. It may seem bad to reject some requests early, but it is better than allowing the application to become unrecoverably unhealthy and fail all requests. There are many ways to avoid overload, but common approaches are to ensure queues are bounded, and that &lt;a href=&#34;https://blog.bramp.net/post/2015/12/17/the-importance-of-tuning-your-thread-pools/&#34;&gt;thread pools are sized correctly&lt;/a&gt;. Additionally, outbound request should have &lt;a href=&#34;https://www.datawire.io/guide/traffic/deadlines-distributed-timeouts-microservices/&#34;&gt;appropriate deadlines&lt;/a&gt;, to ensure a slow backend doesn’t cause problems for your application.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Handle as many requests as you can, and no more.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;Hopefully this article has made you think about your java production environment. While not be prescriptive, we highlight some areas to focus. The links throughout should guide you in the right direction.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
