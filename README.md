@@ -42,6 +42,14 @@ nano content/post/2017-07-15-the-title.md
 make watch
 ```
 
+Optimise Images
+---------------
+```bash
+find content static -name '*.png' | parallel --no-notice --tag zopflipng -y "{}" "{}"
+find content static -name '*.gif' | parallel --no-notice --tag gifsicle -O -o "{}" "{}"
+```
+
+
 Checks
 ------
 ```bash
