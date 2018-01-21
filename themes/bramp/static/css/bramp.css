@@ -2,6 +2,22 @@ body {
 	font-family: Raleway, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+.lnum, body {
+         font-variant-numeric: lining-nums;
+-webkit-font-feature-settings: "lnum" on;
+   -moz-font-feature-settings: "lnum" on;
+    -ms-font-feature-settings: "lnum" on;
+        font-feature-settings: "lnum" on;
+}
+
+.onum, time {
+         font-variant-numeric: oldstyle-nums;
+-webkit-font-feature-settings: "onum" on;
+   -moz-font-feature-settings: "onum" on;
+    -ms-font-feature-settings: "onum" on;
+        font-feature-settings: "onum" on;
+}
+
 blockquote {
 	font-size: 1em;
 }
