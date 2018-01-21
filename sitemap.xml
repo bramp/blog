@@ -8,6 +8,11 @@
   </url>
   
   <url>
+    <loc>https://blog.bramp.net/post/2018/01/16/measuring-percentile-latency/</loc>
+    <lastmod>2018-01-16T08:07:00-08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.bramp.net/post/2018/01/13/running-java-in-production/</loc>
     <lastmod>2018-01-13T12:50:31-08:00</lastmod>
   </url>
@@ -799,7 +804,7 @@
   
   <url>
     <loc>https://blog.bramp.net/categories/blog/</loc>
-    <lastmod>2018-01-13T12:50:31-08:00</lastmod>
+    <lastmod>2018-01-16T08:07:00-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -877,7 +882,7 @@
   
   <url>
     <loc>https://blog.bramp.net/categories/</loc>
-    <lastmod>2018-01-13T12:50:31-08:00</lastmod>
+    <lastmod>2018-01-16T08:07:00-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1482,6 +1487,12 @@
   </url>
   
   <url>
+    <loc>https://blog.bramp.net/tags/monitoring/</loc>
+    <lastmod>2018-01-16T08:07:00-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.bramp.net/tags/mri/</loc>
     <lastmod>2012-05-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -1602,8 +1613,20 @@
   </url>
   
   <url>
+    <loc>https://blog.bramp.net/tags/percentile/</loc>
+    <lastmod>2018-01-16T08:07:00-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.bramp.net/tags/perforce/</loc>
     <lastmod>2012-09-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/performance/</loc>
+    <lastmod>2018-01-16T08:07:00-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1657,7 +1680,7 @@
   
   <url>
     <loc>https://blog.bramp.net/post/</loc>
-    <lastmod>2018-01-13T12:50:31-08:00</lastmod>
+    <lastmod>2018-01-16T08:07:00-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -2112,7 +2135,7 @@
   
   <url>
     <loc>https://blog.bramp.net/</loc>
-    <lastmod>2018-01-13T12:50:31-08:00</lastmod>
+    <lastmod>2018-01-16T08:07:00-08:00</lastmod>
     <priority>0</priority>
   </url>
   
