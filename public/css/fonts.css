@@ -1,0 +1,57 @@
+/* Self hosted Google Fonts, so we can add our own features to the fonts */
+/*
+  <link href='https://fonts.gstatic.com' rel='preconnect' crossorigin>
+  <link href='https://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
+*/
+
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway-regular.subset-webfont.eot'); /* IE9 Compat Modes */
+  src: local('Raleway'), local('Raleway-Regular'),
+       url('../fonts/raleway-regular.subset-webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/raleway-regular.subset-webfont.woff2') format('woff2'),    /* Super Modern Browsers */
+       url('../fonts/raleway-regular.subset-webfont.woff') format('woff'),     /* Pretty Modern Browsers */
+       url('../fonts/raleway-regular.subset-webfont.ttf') format('truetype'),    /* Safari, Android, iOS */
+       url('../fonts/raleway-regular.subset-webfont.svg#ralewayregular') format('svg');    /* Legacy iOS */
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway-bold.subset-webfont.eot');
+  src: local('Raleway Bold'), local('Raleway-Bold'),
+       url('../fonts/raleway-bold.subset-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/raleway-bold.subset-webfont.woff2') format('woff2'),
+       url('../fonts/raleway-bold.subset-webfont.woff') format('woff'),
+       url('../fonts/raleway-bold.subset-webfont.ttf') format('truetype'),
+       url('../fonts/raleway-bold.subset-webfont.svg#ralewaybold') format('svg');
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway-italic.subset-webfont.eot');
+  src: local('Raleway Italic'), local('Raleway-Italic'),
+       url('../fonts/raleway-italic.subset-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/raleway-italic.subset-webfont.woff2') format('woff2'),
+       url('../fonts/raleway-italic.subset-webfont.woff') format('woff'),
+       url('../fonts/raleway-italic.subset-webfont.ttf') format('truetype'),
+       url('../fonts/raleway-italic.subset-webfont.svg#ralewayitalic') format('svg');
+  font-style: italic;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway-bolditalic.subset-webfont.eot');
+  src: local('Raleway Bold Italic'), local('Raleway-BoldItalic'),
+       url('../fonts/raleway-bolditalic.subset-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/raleway-bolditalic.subset-webfont.woff2') format('woff2'),
+       url('../fonts/raleway-bolditalic.subset-webfont.woff') format('woff'),
+       url('../fonts/raleway-bolditalic.subset-webfont.ttf') format('truetype'),
+       url('../fonts/raleway-bolditalic.subset-webfont.svg#ralewaybold_italic') format('svg');
+  font-style: italic;
+  font-weight: 700;
+}
