@@ -4,7 +4,7 @@
 <article id="article" itemProp="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
 	<h1 itemprop="headline">{{ .Title }}</h1>
 	<p class="meta">
-		<i class="fa fa-calendar-o"></i> <time itemprop="datePublished">{{ .Date.Format  "2006-01-02" }}</time>
+		<svg class="icon icon-calendar"><use xlink:href="/images/icons.svg#icon-calendar"></use></svg> <time itemprop="datePublished">{{ .Date.Format  "2006-01-02" }}</time>
 		{{ range .Params.tags }}
 		| <a href="{{ $baseurl }}/tags/{{ . | urlize }}/">{{ . }}</a>
 		{{ end }}
@@ -27,13 +27,12 @@
 		<div class="btn-toolbar">
 			{{ with .Site.Params.FeedBurner }}
 			<div class="btn-group">
-				<a class="btn btn-sm btn-soundcloud" href='https://feeds.feedburner.com/{{ . }}' aria-label="RSS feed">
-				<i class="fa fa-rss-square"></i> Subscribe via RSS</a>
+				<a class="btn btn-sm btn-soundcloud" href='https://feeds.feedburner.com/{{ . }}' aria-label="RSS feed"><svg class="icon icon-rss"><use xlink:href="/images/icons.svg#icon-rss"></use></svg> Subscribe via RSS</a>
 			</div>
 			{{end}}
 			{{ with .Site.Params.twitter }}
 			<div class="btn-group">
-				<a class="btn btn-sm btn-twitter" href="https://twitter.com/{{ . }}"><i class="fa fa-twitter"></i> Follow @TheBramp</a>
+				<a class="btn btn-sm btn-twitter" href="https://twitter.com/{{ . }}"><svg class="icon icon-twitter"><use xlink:href="/images/icons.svg#icon-twitter"></use></svg> Follow @TheBramp</a>
 			</div>
 			{{end}}
 		</div>

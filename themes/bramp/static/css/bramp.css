@@ -60,19 +60,19 @@ figcaption h4 {
 }
 
 .jumbotron {
-	padding: 10px 20px 20px 20px;
+	padding: 10px 20px 15px 20px;
 }
 
 @media screen and (min-width: 768px){.container .jumbotron {
-    padding: 10px 20px 20px 20px;
+    padding: 10px 20px 15px 20px;
 }}
 
 #article .post {
 	text-align: justify;
 }
 
-#social-wrapper .fa {
-	font-size: 28px;
+#social-wrapper {
+	font-size: 1.5em;
 }
 
 table.opensource td {
@@ -106,4 +106,14 @@ img.profile-image {
 	-webkit-background-clip: padding-box;
 	float: left;
 	margin-right: 10px;
+}
+
+.btn .icon {
+	float: left;
+	font-size: 1.5em;
+	margin-right: 8px;
+}
+
+.btn-group {
+	margin-bottom: 5px;
 }

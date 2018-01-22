@@ -49,13 +49,17 @@ find content static -name '*.png' | parallel --no-notice --tag zopflipng -y "{}"
 find content static -name '*.gif' | parallel --no-notice --tag gifsicle -O -o "{}" "{}"
 ```
 
-
 Checks
 ------
 ```bash
 linkchecker http://localhost:1313/ > log.internal
 linkchecker --check-extern http://localhost:1313/ > log.external
 ```
+
+Font Awesome
+------------
+Font Awesome contains some awesome icons, but sadly is huge! So I used icomoon to make a svg sprite of the icons I want, and use slightly different options to display them on the screen.
+Info: https://usolved.net/blog/post/switch-from-icon-fonts-to-svg-icons
 
 TODO
 ----
