@@ -65,6 +65,7 @@ TODO
 - [x] Test 404
 - [x] Center all tables
 - [x] Ensure no broken links
+- [ ] Use uncss to remove css styles we don't actually use.
 
 TODO (nice to have)
 - [ ] Amazon code
