@@ -60,17 +60,21 @@
      at some point. http://discuss.gohugo.io/t/implementing-breadcrumb-navigation-in-hugo/1048/5
      and https://github.com/spf13/cast/issues/13 -->
 {{ if in (printf "%s" .Site.BaseURL) "localhost" }}
-  <link href="/css/bootstrap.css" rel="stylesheet">
-  <link href="/css/bootstrap-social.css" rel="stylesheet">
-  <link href="/css/chroma-friendly.css" rel="stylesheet">
-  <link href="/css/fonts.css" rel="stylesheet">
-  <link href="/css/bramp.css" rel="stylesheet">
-  <link href="/css/icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/bootstrap-social.css">
+  <link rel="stylesheet" href="/css/chroma-friendly.css">
+  <link rel="stylesheet" href="/css/fonts.css">
+  <link rel="stylesheet" href="/css/bramp.css">
+  <link rel="stylesheet" href="/css/icons.css">
 {{ else }}
-  <link href="/css/all.min.css" rel="stylesheet">
+  <!-- TODO Turn this into a hugo template -->
+  {{ if (fileExists "public/css/all.min.css") }}
+  <link rel="stylesheet" href="/css/all.{{ readFile "public/css/all.min.css" | md5}}.min.css">
+  {{ else }}
+  <link rel="stylesheet" href="/css/all.min.css">
+  {{ end }}
 {{ end }}
 
-  <script src="/js/svgxuse.js" defer></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css">
 
   <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->

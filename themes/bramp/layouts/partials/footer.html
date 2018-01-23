@@ -10,8 +10,13 @@
 {{ if in (printf "%s" .Site.BaseURL) "localhost" }}
     <script src="/js/jquery-1.10.2.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/svgxuse.min.js" defer></script>
 {{ else }}
-    <script src="/js/all.min.js"></script>
+  {{ if (fileExists "public/js/all.min.js") }}
+    <script src="/js/all.{{ readFile "public/js/all.min.js" | md5}}.min.js"></script>
+  {{ else }}
+    <script src="/js/all.min.js" defer></script>
+  {{ end }}
 {{ end }}
 <!-- Disabled because a Single Page Webapp doesn't play nice with Disque or Addthis -->
 <!--

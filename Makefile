@@ -7,6 +7,7 @@ UGLIFYJS := $(NODE_MODULES)/uglifyjs
 CLEANCSS := $(NODE_MODULES)/cleancss
 PURIFYCSS := $(NODE_MODULES)/purifycss
 GOREDIRECTS := goredirects
+MD5LN := ./md5ln.sh
 
 # All input files
 FILES=$(shell find content static themes -type f)
@@ -66,6 +67,11 @@ goredirects:
 	$(GOREDIRECTS) bramp.net public
 
 .minified: public html-minifier.conf public/css/all.min.css public/js/all.min.js
+	# HACK: After public/css/all.min.css public/js/all.min.js is calculated, we have to
+	# make public again. That's because public needs the CSS to work out its hash, where
+	# the css needs public to find which classes are unused.
+	make public
+
 	# Find all HTML and in parallel run the minifier
 	$(HTML_MINIFIER) --input-dir public --file-ext html --output-dir public
 	touch $@
@@ -78,14 +84,19 @@ themes/bramp/static/css/chroma-monokai.css:
 themes/bramp/static/css/chroma-friendly.css:
 	$(HUGO) gen chromastyles --style=friendly > $@
 
+themes/bramp/static/js/svgxuse.min.js: themes/bramp/static/js/svgxuse.js
+	$(UGLIFYJS) --compress --mangle -o $@ $^
+
 public/css/bootstrap-purify.css: themes/bramp/static/css/bootstrap.css public/index.html
 	cd public && ../$(PURIFYCSS) -i ../$< $$(find . -type f -iname '*.html') -o ../$@
 
 public/css/all.min.css: public/css/bootstrap-purify.css public/css/bootstrap-social.css public/css/chroma-friendly.css public/css/fonts.css public/css/bramp.css public/css/icons.css
 	$(CLEANCSS) -o $@ $^
+	$(MD5LN) $@
 
-public/js/all.min.js: public/js/jquery-1.10.2.min.js public/js/bootstrap.min.js
+public/js/all.min.js: public/js/jquery-1.10.2.min.js public/js/bootstrap.min.js public/js/svgxuse.min.js
 	$(UGLIFYJS) --compress --mangle -o $@ $^
+	$(MD5LN) $@
 
 public/%.css public/%.js: public
 	@# Empty rule, to force public to be built when js/css is needed.
