@@ -12,17 +12,17 @@ title: Measuring Percentile Latency
 slug: measuring-percentile-latency
 ---
 
-In many applications it is common to measure the time it takes to handle some event. Web applications pay close attention to this, to ensure each user’s request is replied to in a timely manner. Many would just measure the mean response time, which is easily calculated by summing up the total time to handle all requests, divided by the number of request. This would return the average latency, however, this metric can be very [misleading](https://www.elastic.co/blog/averages-can-dangerous-use-percentile) as it doesn’t show the worst case behaviour. For example, the majority of users may see requests handled quickly, but a few users may experience a long delay. Thus to capture the worst behaviour it is better to look at percentile latency.
+In many applications it is common to measure the time it takes to handle some event. Web applications pay close attention to this, to ensure each user’s request is replied to in a timely manner. To view in aggregate, many would just measure the mean response time. Which is easily calculated by summing up the total time to handle all requests, divided by the number of request. This average latency metric, however can be very [misleading](https://www.elastic.co/blog/averages-can-dangerous-use-percentile) as it does not show the worst case behaviour. For example, the majority of users may see requests handled quickly, but a few users may experience long delays. Thus to capture the worst behaviour it is better to look at percentile latency.
 
-This article will discuss how to calculate percentiles, collect and aggregate in an efficient distributed way, and even how to efficiently store them for time series data.
+This article will discuss how to calculate percentiles, collect and aggregate in an distributed way, and even how to efficiently store them as time series data.
 
 # Percentiles
 
-Let's start with some basics, the 99 percentile, is defined as the value that 99 out of 100 samples fall below. Thus 99 users out of 100 observe a latency less than this value, and 1 in every 100 observe a latency equal to or greater. We choose the 99%tile, because it represents the [tail of the latency distribution](https://en.wikipedia.org/wiki/Long_tail) (that is the worst cases).
+Let's start with some basics, the 99 percentile, is defined as the value that 99 out of 100 samples fall below. Thus 99 users out of 100, observe a latency less than this value, and 1 in every 100 observe a latency equal to or greater. We choose the 99%tile, because it represents the [tail of the latency distribution](https://en.wikipedia.org/wiki/Long_tail) (that is the worst cases).
 
-The simplest way to calculate the 99 percentile, is to sort all the values, and take the 99/100<sup>th</sup> value. For example, if you had 1,000 latency values, place them into an array, sort them, then take the value at 990th index. That’ll be the 99%tile, which represents the latency value that 99% of the values are less than. Easy.
+The simplest way to calculate the 99 percentile, is to sort all the values, and take the 99/100<sup>th</sup> value. For example, if you had 1,000 latency values, place them into an array, sort them, then take the value at the 990th index. That’ll be the 99%tile, which represents the latency value that 99% of the values are less than. Easy.
 
-Throughout this article I’ll use a dataset of [10,000 randomly generated values](https://docs.google.com/spreadsheets/d/1s7-DbMeHTyzEZdeBaM5rrKp5o0V9O11VFX9Y47or150/edit#gid=884072054) from a [log-normal distribution](https://en.wikipedia.org/wiki/Log-normal_distribution) with parameters (μ = 0, σ = 1.0). Most of the values will be small (<2s), but there will be a long tail, which will simulate worst case latencies returned by a server.
+Throughout this article I’ll use a dataset of [10,000 randomly generated values](https://docs.google.com/spreadsheets/d/1s7-DbMeHTyzEZdeBaM5rrKp5o0V9O11VFX9Y47or150/edit#gid=884072054) from a [log-normal distribution](https://en.wikipedia.org/wiki/Log-normal_distribution) with parameters (μ = 0, σ = 1). Most of the values will be small (<2s), but there will be a long tail, which will simulate worst case latencies returned by a server.
 
 <div class="text-center">
   <object data="1st.svg" type="image/svg+xml" width=720 height=360 alt="eCDF of example dataset">
@@ -125,7 +125,7 @@ The bins can accurately determine the percentiles at the edges, so for example, 
   <img src="linear-approx-2.png" width=720 height=65 alt="Linear Approximation Example"></img>
 </div>
 
-Thus we can determines the 99%tile is 13.192 seconds. If we compare this to non-approximate value from earlier, 10.970s, we seem to be off by ~20%. To make this approximation more precise, we can increase the number of bins. Instead of doubling the bin boundaries, we can increase each boundary by a factor of sqrt(2). This would double the number of bins (from 18 to 36), but increase the precision greatly. If we use these new bins, the linear approximation gets us a value of 11.042s (at the 99%tile) which is only off by 0.66%. This seems a good trade-off of space and accuracy.
+Thus we can determines the 99%tile is 13.192 seconds. If we compare this to non-approximate value from earlier, 10.970s, we seem to be off by ~20%. To make this approximation more precise, we can increase the number of bins. Instead of doubling the bin boundaries, we can increase each boundary by a factor of √2 (square root of 2). This would double the number of bins (from 18 to 36), but increase the precision greatly. If we use these new bins, the linear approximation gets us a value of 11.042s (at the 99%tile) which is only off by 0.66%. This seems a good trade-off of space and accuracy.
 
 <div class="text-center">
   <object data="2nd.svg" type="image/svg+xml" width=720 height=360 alt="eCDF of example dataset with linear approximation">
@@ -133,11 +133,11 @@ Thus we can determines the 99%tile is 13.192 seconds. If we compare this to non-
   </object>
 </div>
 
-Just to double-check, calculating the 99.9%tile (one additional 9) exactly is 23.105s, and the sqrt(2) bins estimates is 23.170s. This is only off by 0.28%, so again seems reasonable. Obviously, the shape of the distribution, and the actual values will affect the error. Empirically sqrt(2) bins works well enough, but your experience may vary.
+Just to double-check, calculating the 99.9%tile (one additional 9) exactly is 23.105s, and the √2 bins estimates is 23.170s. This is only off by 0.28%, so again seems reasonable. Obviously, the shape of the distribution, and the actual values will affect the error. Empirically √2 bins works well enough, but your experience may vary.
 
 # Aggregation
 
-Now we can calculate the percentiles, how would we extend this so we can aggregate the percentiles from multiple servers. A naive approach may be to ask each server to calculate its own 99%tile, and for us calculate a mean of these. A average of percentiles doesn’t seem ideal, especially if one server is particularly bad, a average may just hide the outliers again. A better approach, is to collect the histogram (set of bins) from each server, and simply add them together. This works easily if every server is using the same bin ranges.
+Now we can calculate the percentiles, how would we extend this so we can aggregate the percentiles from multiple servers. A naive approach may be to ask each server to calculate its own 99%tile, and for us to calculate a mean of these. A average of percentiles doesn’t seem ideal, especially if one server is particularly bad, a average may just hide the outliers again. A better approach, is to collect the histogram (set of bins) from each server, and simply add them together. This works easily if every server is using the same bin ranges.
 
 <!--
 | Bin Range (ms) | Server A<br/>Count | Server B<br />Count | Total<br />Count |
@@ -199,15 +199,15 @@ Now we can calculate the percentiles, how would we extend this so we can aggrega
 </tbody>
 </table>
 
-So in this example, Server A and Server B have 2,842 and 2,811 samples respectively between 1.024s and 2.048s. Meaning across both these servers, there were 5,653 requests that took between 1 and 2 seconds. Using the same techniques on this combined histogram allows us to calculate the aggregated percentiles.
+So in this example, Server A and Server B have 2,842 and 2,811 samples respectively between 1.024s and 2.048s. Meaning across both these servers, there were 5,653 requests that took between 1 and 2 seconds. Using the same linear approximation techniques on this combined histogram allows us to calculate the aggregated percentiles.
 
-This kind of aggregation works well, and is lightweight enough to collect across even a large fleet of servers. Then in a centralised location (perhaps the machine doing the monitoring) the aggregate percentiles can be calculate the, and per server percentiles can be drilled down to if needed. A lot simpler than maintaining the full set (10,000) values from each server.
+This kind of aggregation works well, and is lightweight enough to collect across even a large fleet of servers. Then in a centralised location (perhaps the machine doing the monitoring) the aggregate percentiles can be calculated. If needed per server percentiles can be drilled down, as that data is retained. A lot simpler than maintaining the full set (10,000) values from each server.
 
 # Time
 
-Typically, these percentiles want to be measured over time. For example, we want to know the 99%tile aggregated across all the servers for every minute, or hour of the day. To achieve this we need to store the histogram at fixed intervals, say every minute. There is a naive approach, where every minute we reset the histogram counts to zero. Allowing each server to only be counting the values in the last minute. Conceptuation this is easy to reason about, but introduces subtle synchronisation issues. What happens if each server has a slightly different definition of when a minute starts? or that collection is delayed and histograms are not aggregated (before being reset)?
+Typically, these percentiles want to be measured over time. For example, we want to know the 99%tile aggregated across all the servers for every minute, or hour of the day. To achieve this we need to store the histogram at fixed intervals, say every minute. There is again a naive approach, where every minute we reset the histogram counts to zero. Allowing each server to only be counting the values in the last minute. Conceptuation this is easy to reason about, but introduces subtle synchronisation issues. What happens if each server has a slightly different definition of when a minute starts? or that collection is delayed and histograms are not aggregated (before being reset)?
 
-A more robust way is to never reset the histogram, but to always keep increasing counts. Then to calculate the value for a particular interval (say the last minute), you subtract the most recent histogram from the previous minute’s histogram. This is a little bit more work, but a lot more robust.
+A more robust way is to never reset the histogram, but to always keep increasing counts. Then to calculate the value for a particular interval (say the last minute), you subtract the most recent histogram from the previous minute’s histogram. This is a little bit more work, but a lot more flexible.
 
 To explore this concept, lets begin with a simpler (non-histogram) example, say calculating requests per second. If we store a running counter of requests, then if you recall your calculus, the rate per second, is the differential. That is, the delta between two values.
 
@@ -227,13 +227,13 @@ To explore this concept, lets begin with a simpler (non-histogram) example, say 
 
 Taking the example above, we can say the average requests per seconds between time 120s, and 180s is 1.75. Because at time 180s there were 310 total requests, and at time 120s there were only 205. Thus a delta of 105 requests per minutes, or 1.75 requests per second.
 
-This has the nice property, that we can easily calculate the rate over any arbitrary interval. For example, subtracting the value at time 600s, with the value at time 0s, calculates the average rate over the last 10 minutes.  This is a lot simpler than keeping track of the per second rate every minute, and calculating the average of them. This property is especially useful when plotting on a graph where each pixel may represent a wide interval (such as a hour). Having a quick way to calculate the rate in that hour is a real performance win.
+This has the nice property, that we can easily calculate the rate over any arbitrary interval. For example, subtracting the value at time 600s, with the value at time 0s, calculates the average rate over the last 10 minutes.  This is a lot simpler than keeping track of the per second rate every minute, and calculating the average of them. This property is especially useful when plotting on a graph where each pixel may represent a wide interval (such as a full hour). Having a quick way to calculate the rate in that hour is a real performance win.
 Even though this example was a simple rate per second, this works exactly the same for the histograms. Thus, storing the running total, across all servers, at periodic intervals, we can easily calculate an approximate percentile over any arbitrary interval.
 
 # Conclusion
 
 To truly understand latency, the distribution of it must be examined. This can be achieved by looking at various percentiles. These percentiles can be scalably and efficiently calculated by using histograms with fixed bins, which keep track of a running count of latency values.
 
-A quick word of warning, all monitoring lies to you in subtle ways, and it is your responsibility to understand it. If you have fewer than 100 values, does a 99%tile metric make sense? Perhaps expand the interval over when the values are collected, or use a 90%tile.  A single percentile also doesn’t show the full picture, it may always be worth while exporting the 50%, 90%, 99%tile, etc. Or perhaps, a percentile doesn’t capture your monitoring requirements, and instead simply taking the max value would be better better. 
+A quick word of warning, all monitoring lies to you in subtle ways, and it is your responsibility to understand it. If you have fewer than 100 values, does a 99%tile metric make sense? Perhaps extend the collection interval over a longer time period, or instead use the 90%tile.  A single percentile also doesn’t show the full picture, it may always be worth exporting the 50%, 90%, 99%tile, etc. Or perhaps, a percentile doesn’t capture your monitoring requirements, and instead simply taking the max value would be better. 
 
 Finally, you may not wish to calculate all this yourself, and instead use a off the shelf library, such as [HdrHistogram](http://hdrhistogram.github.io/HdrHistogram/), or a monitoring solution such as [Prometheus](https://prometheus.io).
