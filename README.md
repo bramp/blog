@@ -23,7 +23,7 @@ go get github.com/kardianos/govendor
 govendor get github.com/spf13/hugo@v0.31.1
 
 # For minifiying/linting
-npm install clean-css-cli@4.1.10 uglify-js@3.2.1 html-minifier@3.5.7
+npm install clean-css-cli@4.1.10 uglify-js@3.2.1 html-minifier@3.5.7 purify-css@1.2.5
 brew install parallel # or sudo apt-get install parallel
 ```
 
@@ -69,7 +69,6 @@ TODO
 - [x] Test 404
 - [x] Center all tables
 - [x] Ensure no broken links
-- [ ] Use uncss to remove css styles we don't actually use.
 
 TODO (nice to have)
 - [ ] Amazon code

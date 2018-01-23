@@ -5,6 +5,7 @@ NODE_MODULES := node_modules/.bin
 HTML_MINIFIER := $(NODE_MODULES)/html-minifier -c html-minifier.conf
 UGLIFYJS := $(NODE_MODULES)/uglifyjs
 CLEANCSS := $(NODE_MODULES)/cleancss
+PURIFYCSS := $(NODE_MODULES)/purifycss
 GOREDIRECTS := goredirects
 
 # All input files
@@ -77,7 +78,10 @@ themes/bramp/static/css/chroma-monokai.css:
 themes/bramp/static/css/chroma-friendly.css:
 	$(HUGO) gen chromastyles --style=friendly > $@
 
-public/css/all.min.css: public/css/bootstrap.css public/css/bootstrap-social.css public/css/chroma-friendly.css public/css/fonts.css public/css/bramp.css public/css/icons.css
+public/css/bootstrap-purify.css: themes/bramp/static/css/bootstrap.css public/index.html
+	cd public && ../$(PURIFYCSS) -i ../$< $$(find . -type f -iname '*.html') -o ../$@
+
+public/css/all.min.css: public/css/bootstrap-purify.css public/css/bootstrap-social.css public/css/chroma-friendly.css public/css/fonts.css public/css/bramp.css public/css/icons.css
 	$(CLEANCSS) -o $@ $^
 
 public/js/all.min.js: public/js/jquery-1.10.2.min.js public/js/bootstrap.min.js
