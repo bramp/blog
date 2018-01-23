@@ -6,8 +6,161 @@
     <description>Recent content in Posts on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Tue, 16 Jan 2018 08:07:00 -0800</lastBuildDate>
+    <lastBuildDate>Sun, 21 Jan 2018 16:03:36 -0800</lastBuildDate>
     <atom:link href="https://blog.bramp.net/post/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Google Font Features</title>
+      <link>https://blog.bramp.net/post/2018/01/21/google-font-features/</link>
+      <pubDate>Sun, 21 Jan 2018 16:03:36 -0800</pubDate>
+      
+      <guid>https://blog.bramp.net/post/2018/01/21/google-font-features/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;tl;dr Google Fonts doesn&amp;rsquo;t supply fonts with OpenType features (such as old-style figures, or small-caps), but you can build and host the fonts yourself to support everything you need.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;I recently posted a &lt;a href=&#34;https://blog.bramp.net/post/2018/01/16/measuring-percentile-latency/&#34;&gt;article which contained lots of numbers&lt;/a&gt;. While I was proofreading the article, I didn’t quite liked how the numbers looked, sometime the digits were below the baseline, for example:&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;oldstyle.png&#34; width=&#34;760&#34; height=&#34;157&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;Oldstyle figures&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;Where I would have expected the top and bottom of each digit to be aligned:&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;lining.png&#34; width=&#34;760&#34; height=&#34;152&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;Lining figures&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;This made me flashback to all the typography I learnt when &lt;a href=&#34;https://github.com/bramp/publication&#34;&gt;working with LaTeX&lt;/a&gt;. These two styles of figures are called old-style, and lining (or sometimes lowercase and uppercase numbers). The theory is that old-style numbers flow better when mixed with text. Recall, letters like q, j and p, all drop below the baseline, which makes the text nicer to read:&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;quickbrownfox.png&#34; width=&#34;760&#34; height=&#34;100&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;Example with characters below the baseline&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;However, my article had many numbers on the page, sometimes within tables, where old-style just made the numbers look odd. I looked for a way to force the lining style throughout. I quickly found the CSS styling:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span class=&#34;nt&#34;&gt;body&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+           &lt;span class=&#34;k&#34;&gt;font-variant-numeric&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lining-nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; 
+  &lt;span class=&#34;kp&#34;&gt;-webkit-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;font-feature-settings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;lnum&amp;#34;&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+     &lt;span class=&#34;kp&#34;&gt;-moz-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;font-feature-settings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;lnum&amp;#34;&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+      &lt;span class=&#34;kp&#34;&gt;-ms-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;font-feature-settings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;lnum&amp;#34;&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+          &lt;span class=&#34;k&#34;&gt;font-feature-settings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;lnum&amp;#34;&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Sadly when I applied this to my site, it did nothing. I wondered if perhaps the font did not support lining figures. A quick search led me to &lt;a href=&#34;https://stackoverflow.com/questions/28098992/google-fonts-lining-numbers&#34;&gt;Stack Overflow&lt;/a&gt; that implied both the font I was using, &lt;a href=&#34;https://fonts.google.com/specimen/Raleway&#34;&gt;Raleway&lt;/a&gt;, and Google Fonts (which hosted the font) did in fact support lining.&lt;/p&gt;
+
+&lt;p&gt;So I went deeper down the rabbit hole to figure out what was going wrong. I wanted to confirm for myself that the font supported lining figures. I searched for a while for a simple CLI that would inspect the &lt;a href=&#34;https://en.wikipedia.org/wiki/Web_Open_Font_Format&#34;&gt;WOFF&lt;/a&gt;/&lt;a href=&#34;https://en.wikipedia.org/wiki/TrueType&#34;&gt;TTF&lt;/a&gt; files and tell me what they contained. Sadly, the best I could find was &lt;a href=&#34;https://fontforge.github.io/&#34;&gt;FontForge&lt;/a&gt;, a GUI. That worked, and confirmed the fonts being served by Google did not contain the lining feature, or in fact any feature other than basic ligatures.&lt;/p&gt;
+
+&lt;p&gt;Later I found this &lt;a href=&#34;https://github.com/google/fonts/issues/1335&#34;&gt;GitHub issue&lt;/a&gt; which confirmed all features were stripped from the font. So I sought out a way to rebuild the Google font to keep the lining figures.&lt;/p&gt;
+
+&lt;p&gt;Before that, I started to &lt;a href=&#34;http://sethgodin.typepad.com/seths_blog/2005/03/dont_shave_that.html&#34;&gt;shave another yak&lt;/a&gt;, and decided to create a CLI tool that would easily display the font features. I came across a Go library, &lt;a href=&#34;https://github.com/ConradIrwin/font&#34;&gt;SFNT&lt;/a&gt; that can parse OpenType fonts. Sadly it didn’t implement the parsing of the features. A few hours later, I read the &lt;a href=&#34;http://www.adobe.com/devnet/opentype/afdko/topic_feature_file_syntax.html&#34;&gt;OpenType spec&lt;/a&gt; and sent them a &lt;a href=&#34;https://github.com/ConradIrwin/font/pull/3&#34;&gt;pull request&lt;/a&gt; to add this functionality. Now I can easily confirm from the command line what features are supported.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ font features raleway-v12-latin-ext_latin-regular.woff
+Glyph Substitution Table &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;GSUB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
+	Script &lt;span class=&#34;s2&#34;&gt;&amp;#34;latn&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Latin&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
+		Default Language:
+			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;liga&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Standard Ligatures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;I decided to play around with &lt;a href=&#34;https://developers.google.com/fonts/docs/developer_api&#34;&gt;Google Font API&lt;/a&gt;, and then eventually the unoffical (but awesome) &lt;a href=&#34;https://google-webfonts-helper.herokuapp.com/fonts/raleway&#34;&gt;google-webfonts-helper&lt;/a&gt; (a hassle-free way to self-host Google Fonts). However, no combination of options would make the font contain the lining figures.&lt;/p&gt;
+
+&lt;p&gt;Since the Google Fonts are open source, I downloaded the &lt;a href=&#34;https://github.com/google/fonts/tree/master/ofl/raleway&#34;&gt;source TTF of the font&lt;/a&gt;, and double-checked it did indeed contain the feature:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ font features Raleway-Regular.ttf 
+Glyph Substitution Table &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;GSUB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
+  Script &lt;span class=&#34;s2&#34;&gt;&amp;#34;latn&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Latin&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
+    Default Language:
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;aalt&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Access All Alternates&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;dlig&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Discretionary Ligatures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;liga&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Standard Ligatures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;lnum&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Lining Figures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;onum&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Oldstyle Figures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;salt&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Alternates&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;smcp&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Small Capitals&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;ss01&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Set &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;ss02&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Set &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So my next idea was to take the original Raleway-Regular.ttf and convert it to &lt;a href=&#34;https://en.wikipedia.org/wiki/Web_Open_Font_Format&#34;&gt;WOFF&lt;/a&gt; and &lt;a href=&#34;https://www.w3.org/TR/WOFF2/&#34;&gt;WOFF2&lt;/a&gt;, and strip out the bits I don’t need. Just how Google Fonts does, to ensure the resulting files are lean and performant.&lt;/p&gt;
+
+&lt;p&gt;I couldn’t find the pipeline Google Fonts uses to process the files, so I instead took it upon myself to figure this out. I started by using &lt;code&gt;pyftsubset&lt;/code&gt; (part of &lt;a href=&#34;https://github.com/fonttools/fonttools&#34;&gt;FontTools&lt;/a&gt;) to remove unneeded character sets, features, and other parts from the original TTF file.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ pip install fonttools
+$ pyftsubset Raleway-Regular.ttf --layout-features&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;*&amp;#39;&lt;/span&gt; --unicodes&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;U+0000-00FF, U+0100-024F, U+0131, U+0152-0153, U+02DA, U+02DC, U+02BB-02BC, U+02C6, U+0259, U+0370-03FF, U+1E00-1EFF, U+2000-206F, U+2070-209F, U+2074, U+20A0-20CF, U+2122, U+2150-218F, U+2200-22FF, U+2C60-2C7F, U+A720-A7FF&amp;#34;&lt;/span&gt; --output-file&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Raleway-Regular.subset.ttf&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now I had a TTF file with all the features, but only the subset of characters I use on my site. Next I needed to convert this this file to all the &lt;a href=&#34;https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization&#34;&gt;recommended font formats&lt;/a&gt;, so my site would look nice in IE, Chrome, Android and iOS. The resulting CSS would look like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span class=&#34;p&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;font-face&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;font-family&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Raleway&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;raleway-regular.subset.eot&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;/* IE9 Compat Modes */&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Raleway&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Raleway-Regular&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt;
+       &lt;span class=&#34;nt&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;raleway-regular.subset.eot?#iefix&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;format&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;embedded-opentype&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;/* IE6-IE8 */&lt;/span&gt;
+       &lt;span class=&#34;nt&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;raleway-regular.subset.woff2&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;format&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;woff2&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt;    &lt;span class=&#34;c&#34;&gt;/* Super Modern Browsers */&lt;/span&gt;
+       &lt;span class=&#34;nt&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;raleway-regular.subset.woff&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;format&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;woff&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt;     &lt;span class=&#34;c&#34;&gt;/* Pretty Modern Browsers */&lt;/span&gt;
+       &lt;span class=&#34;nt&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;raleway-regular.subset.ttf&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;format&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;truetype&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt;    &lt;span class=&#34;c&#34;&gt;/* Safari, Android, iOS */&lt;/span&gt;
+       &lt;span class=&#34;nt&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;raleway-regular.subset.svg#ralewayregular&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;format&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;svg&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;    &lt;span class=&#34;c&#34;&gt;/* Legacy iOS */&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;font-style&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;normal&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;font-weight&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;400&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;I again tried to use &lt;code&gt;pyftsubset&lt;/code&gt; to save the files in the required formats. This worked well for TTF, WOFF, and WOFF2. But didn’t support &lt;a href=&#34;https://en.wikipedia.org/wiki/Embedded_OpenType&#34;&gt;EOT&lt;/a&gt; or &lt;a href=&#34;http://caniuse.com/svg-fonts&#34;&gt;SVG&lt;/a&gt; fonts:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ pip install zopfli
+$ pip install brotli
+$ pyftsubset ... --flavor&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;woff --with-zopfli --output-file&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Raleway-Regular.subset.woff
+$ pyftsubset ... --flavor&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;woff2 --output-file&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Raleway-Regular.subset.woff2&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So instead I searched for a all-in-one solution to converting fonts. I found numerous websites that offered to do it, the one I settled on was &lt;a href=&#34;https://www.fontsquirrel.com/tools/webfont-generator&#34;&gt;fontsquirrel.com&lt;/a&gt;. Here I used the expert feature, to control exactly what was in the font, and to produce compressed versions in all file formats. I originally tried to use the subsetting feature on fontsquirrel, but I couldn’t get it to maintain all the features I needed, so I used &lt;code&gt;pyftsubset&lt;/code&gt; locally instead.&lt;/p&gt;
+
+&lt;p&gt;After fontsquirrel.com produced the fonts, I checked it contained the features, and compared the resulting file sizes:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ls -ltr
+
+&lt;span class=&#34;c1&#34;&gt;# Google Fonts
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;-rw-r--r--@ &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; bramp  eng    96K &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; Jan &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;:29 raleway-v12-latin-ext_latin-regular.ttf
+-rw-r--r--@ &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; bramp  eng    40K &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; Jan &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;:29 raleway-v12-latin-ext_latin-regular.woff
+-rw-r--r--@ &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; bramp  eng    31K &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; Jan &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;:29 raleway-v12-latin-ext_latin-regular.woff2
+
+&lt;span class=&#34;c1&#34;&gt;# My versions
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;-rw-r--r--@ &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; bramp  eng   140K &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; Jan &lt;span class=&#34;m&#34;&gt;18&lt;/span&gt;:35 raleway-regular.subset-webfont.ttf
+-rw-r--r--@ &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; bramp  eng    61K &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; Jan &lt;span class=&#34;m&#34;&gt;18&lt;/span&gt;:35 raleway-regular.subset-webfont.woff
+-rw-r--r--@ &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; bramp  eng    46K &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; Jan &lt;span class=&#34;m&#34;&gt;18&lt;/span&gt;:35 raleway-regular.subset-webfont.woff2
+
+$ font features raleway-regular.subset-webfont.woff
+Glyph Substitution Table &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;GSUB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
+	Script &lt;span class=&#34;s2&#34;&gt;&amp;#34;latn&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Latin&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
+		Default Language:
+			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;aalt&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Access All Alternates&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;dlig&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Discretionary Ligatures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;liga&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Standard Ligatures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;lnum&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Lining Figures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;onum&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Oldstyle Figures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;salt&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Alternates&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;smcp&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Small Capitals&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;ss01&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Set &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;ss02&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Set &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The file size didn&amp;rsquo;t vary too much, and thus it was a simple matter of &lt;a href=&#34;https://blog.bramp.net/fonts/raleway-regular.subset-webfont.woff2&#34;&gt;uploading the fonts&lt;/a&gt; to my blog, and updating the CSS.&lt;/p&gt;
+
+&lt;p class=&#34;text-center&#34;&gt;
+&lt;span class=&#34;onum&#34; style=&#34;text-decoration: red underline overline; font-size: 3.9em&#34;&gt;1234567890&lt;/span&gt; &amp;nbsp;vs&amp;nbsp; &lt;span class=&#34;lnum&#34; style=&#34;text-decoration: red underline overline; font-size: 3.9em&#34;&gt;1234567890&lt;/span&gt;
+&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Measuring Percentile Latency</title>
@@ -2078,81 +2231,6 @@ js-sequence-diagrams https://github.com/bramp/js-sequence-diagrams/settings
 &lt;/ul&gt;
 
 &lt;p&gt;In the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/27/unsafe-part-3-benchmarking-a-java-unsafearraylist/&#34;&gt;next article&lt;/a&gt;, we&amp;rsquo;ll benchmark this UnsafeArrayList, and investigate the performance impact of the cache locality, and other overheads.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Unsafe Part 1: sun.misc.Unsafe Helper Classes</title>
-      <link>https://blog.bramp.net/post/2015/08/24/unsafe-part-1-sun.misc.unsafe-helper-classes/</link>
-      <pubDate>Mon, 24 Aug 2015 20:13:58 -0700</pubDate>
-      
-      <guid>https://blog.bramp.net/post/2015/08/24/unsafe-part-1-sun.misc.unsafe-helper-classes/</guid>
-      <description>&lt;p&gt;I recently came across the &lt;a href=&#34;http://www.docjar.com/docs/api/sun/misc/Unsafe.html&#34;&gt;sun.misc.Unsafe class&lt;/a&gt;, a poorly documented, internal API that gives your java program direct access to the JVM’s memory. Of course accessing the JVM’s memory can be considered unsafe, but allows for some exciting opportunities.&lt;/p&gt;
-
-&lt;p&gt;You can use Unsafe to inspect and manipulate the layout of your objects in RAM, allocate memory off the heap, do interesting things with threads, or even &lt;a href=&#34;http://mishadoff.com/blog/java-magic-part-4-sun-dot-misc-dot-unsafe/&#34;&gt;hack in multiple inheritance&lt;/a&gt;. Multiple people have &lt;a href=&#34;https://dzone.com/articles/understanding-sunmiscunsafe&#34;&gt;written about Unsafe&lt;/a&gt; before, and there are some really &lt;a href=&#34;http://mydailyjava.blogspot.com/2013/12/sunmiscunsafe.html&#34;&gt;good articles&lt;/a&gt;, so we won’t cover it here.&lt;/p&gt;
-
-&lt;p&gt;Using unsafe is not too difficult, but I found the need for a few helper methods, thus I created a collection of classes wrapping the Unsafe code, starting with &lt;a href=&#34;https://bramp.github.io/unsafe/index.html?net/bramp/unsafe/UnsafeHelper.html&#34;&gt;UnsafeHelper&lt;/a&gt;. The main methods of interest are &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#getUnsafe--&#34;&gt;getUnsafe()&lt;/a&gt;, &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#sizeOf-java.lang.Object-&#34;&gt;sizeOf()&lt;/a&gt;, &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#firstFieldOffset-java.lang.Class-&#34;&gt;firstFieldOffset()&lt;/a&gt;, &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#toByteArray-java.lang.Object-&#34;&gt;toByteArray()&lt;/a&gt; and &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#hexDump-java.io.PrintStream-java.lang.Object-&#34;&gt;hexDump()&lt;/a&gt;. The &lt;a href=&#34;https://bramp.github.io/unsafe/&#34;&gt;javadoc&lt;/a&gt; is the best place to look for documentation, however I’ll quickly explain their use.&lt;/p&gt;
-
-&lt;p&gt;To get an sun.misc.Unsafe instance, you have to extract it from a private static field within sun.misc.Unsafe class. For ease, the &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#getUnsafe--&#34;&gt;UnsafeHelper.getUnsafe()&lt;/a&gt; method does that.&lt;/p&gt;
-
-&lt;p&gt;When accessing an object, you typically need to know the size of the object (in bytes), and be able to find the offset to individual fields. If you &lt;a href=&#34;http://www.codeinstructions.com/2008/12/java-objects-memory-structure.html&#34;&gt;understand the memory layout&lt;/a&gt; the JVM uses, you’ll know there is a header in front of the Object’s fields. Typically it looks like this, but varies based on CPU architecture, platform, etc:&lt;/p&gt;
-
-&lt;p&gt;&lt;table class=&#34;table table-bordered&#34; style=&#34;margin-bottom: 0px&#34;&gt;
-  &lt;tr&gt;
-    &lt;th class=&#34;text-center&#34;&gt;0&lt;/th&gt;
-    &lt;th class=&#34;text-center&#34;&gt;1&lt;/th&gt;
-    &lt;th class=&#34;text-center&#34;&gt;2&lt;/th&gt;
-    &lt;th class=&#34;text-center&#34;&gt;3&lt;/th&gt;
-    &lt;th class=&#34;text-center&#34;&gt;4&lt;/th&gt;
-    &lt;th class=&#34;text-center&#34;&gt;5&lt;/th&gt;
-    &lt;th class=&#34;text-center&#34;&gt;6&lt;/th&gt;
-    &lt;th class=&#34;text-center&#34;&gt;7&lt;/th&gt;
-    &lt;th class=&#34;text-center&#34;&gt;8&lt;/th&gt;
-    &lt;th class=&#34;text-center&#34;&gt;9&lt;/th&gt;
-    &lt;th class=&#34;text-center&#34;&gt;10&lt;/th&gt;
-    &lt;th class=&#34;text-center&#34;&gt;11&lt;/th&gt;
-    &lt;th class=&#34;text-center&#34;&gt;12&lt;/th&gt;
-    &lt;th class=&#34;text-center&#34;&gt;13&lt;/th&gt;
-    &lt;th class=&#34;text-center&#34;&gt;14&lt;/th&gt;
-    &lt;th class=&#34;text-center&#34;&gt;15&lt;/th&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&#34;text-center&#34; colspan=&#34;8&#34;&gt;mark word(8)&lt;/td&gt;
-    &lt;td class=&#34;text-center&#34; colspan=&#34;4&#34;&gt;klass pointer(4)&lt;/td&gt;
-    &lt;td class=&#34;text-center&#34; colspan=&#34;4&#34;&gt;padding&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-&lt;div class=&#34;text-right&#34;&gt;More information &lt;a href=&#34;http://www.codeinstructions.com/2008/12/java-objects-memory-structure.html&#34;&gt;here&lt;/a&gt; and &lt;a href=&#34;http://stackoverflow.com/a/17348396/88646&#34;&gt;here&lt;/a&gt;.&lt;/div&gt;&lt;/p&gt;
-
-&lt;p&gt;To hide some of the details, &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#headerSize-java.lang.Object-&#34;&gt;headerSize()&lt;/a&gt; returns the size of the header, and &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#sizeOf-java.lang.Object-&#34;&gt;sizeOf()&lt;/a&gt; return the total size an object including the header in bytes. &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#firstFieldOffset-java.lang.Class-&#34;&gt;firstFieldOffset()&lt;/a&gt; is then useful as it provides the the offset to the first field. Note that &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#headerSize-java.lang.Object-&#34;&gt;headerSize()&lt;/a&gt; and &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#firstFieldOffset-java.lang.Class-&#34;&gt;firstFieldOffset()&lt;/a&gt; do not always return identical results, as padding (not part of the header) may be used to correctly align the first field.&lt;/p&gt;
-
-&lt;p&gt;Next &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#toByteArray-java.lang.Object-&#34;&gt;toByteArray()&lt;/a&gt; will take an object, and copy it (and its header) into a byte array. Useful for easily inspecting, and serialising the object. Finally, &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#hexDump-java.io.PrintStream-java.lang.Object-&#34;&gt;hexDump()&lt;/a&gt; uses the &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#toByteArray-java.lang.Object-&#34;&gt;toByteArray()&lt;/a&gt; to grab an object, and print out a hex representation of the memory, for example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;cm&#34;&gt;/**
-&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * hexDump(new Class4()) prints:
-&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * 0x00000000: 01 00 00 00 00 00 00 00  8A BF 62 DF 67 45 23 01
-&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; */&lt;/span&gt;
-&lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Class4&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0x01234567&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;cm&#34;&gt;/**
-&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * Longs are always 8 byte aligned, so 4 bytes of padding
-&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * hexDump(new Class8()) prints:
-&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * 0x00000000: 01 00 00 00 00 00 00 00  9B 81 61 DF 00 00 00 00
-&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * 0x00000010: EF CD AB 89 67 45 23 01
-&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; */&lt;/span&gt;
-&lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Class8&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0x0123456789ABCDEFL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;In the first example, Class4, a simple class with a single int field, takes up 16 bytes of memory, with the first 8 used by the JVM, the 2nd 4 bytes being a class pointer (basically how the object knows what kind of class it is), and the last four actually being the value of the field. The second example shows a similar header, but with bytes 12-16 being used as padding, so that the long field value is 8 byte aligned.&lt;/p&gt;
-
-&lt;p&gt;These helper methods are available in &lt;a href=&#34;https://github.com/bramp/unsafe&#34;&gt;new project on Github&lt;/a&gt;, and downloadable via Maven. Just &lt;a href=&#34;https://oss.sonatype.org/service/local/repositories/releases/content/net/bramp/unsafe/unsafe-helper/1.0/unsafe-helper-1.0.jar&#34;&gt;download the jar file&lt;/a&gt;, or include a maven dependency, and &lt;code&gt;import net.bramp.unsafe.UnsafeHelper&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;net.bramp.unsafe&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;unsafe-helper&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;1.0&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;Next article&lt;/a&gt;, we&amp;rsquo;ll make use of this new UnsafeHelper to build a special List which copies objects, instead of storing references.&lt;/p&gt;
 </description>
     </item>
     

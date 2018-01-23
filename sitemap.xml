@@ -8,6 +8,11 @@
   </url>
   
   <url>
+    <loc>https://blog.bramp.net/post/2018/01/21/google-font-features/</loc>
+    <lastmod>2018-01-21T16:03:36-08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.bramp.net/post/2018/01/16/measuring-percentile-latency/</loc>
     <lastmod>2018-01-16T08:07:00-08:00</lastmod>
   </url>
@@ -804,7 +809,7 @@
   
   <url>
     <loc>https://blog.bramp.net/categories/blog/</loc>
-    <lastmod>2018-01-16T08:07:00-08:00</lastmod>
+    <lastmod>2018-01-21T16:03:36-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -882,7 +887,7 @@
   
   <url>
     <loc>https://blog.bramp.net/categories/</loc>
-    <lastmod>2018-01-16T08:07:00-08:00</lastmod>
+    <lastmod>2018-01-21T16:03:36-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1061,6 +1066,12 @@
   </url>
   
   <url>
+    <loc>https://blog.bramp.net/tags/fonts/</loc>
+    <lastmod>2018-01-21T16:03:36-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.bramp.net/tags/fork/</loc>
     <lastmod>2009-11-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -1146,13 +1157,13 @@
   
   <url>
     <loc>https://blog.bramp.net/tags/go/</loc>
-    <lastmod>2017-12-16T12:50:31-08:00</lastmod>
+    <lastmod>2018-01-21T16:03:36-08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.bramp.net/tags/google/</loc>
-    <lastmod>2017-07-15T12:23:18-07:00</lastmod>
+    <lastmod>2018-01-21T16:03:36-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1680,7 +1691,7 @@
   
   <url>
     <loc>https://blog.bramp.net/post/</loc>
-    <lastmod>2018-01-16T08:07:00-08:00</lastmod>
+    <lastmod>2018-01-21T16:03:36-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -2128,6 +2139,12 @@
   </url>
   
   <url>
+    <loc>https://blog.bramp.net/tags/yakshaving/</loc>
+    <lastmod>2018-01-21T16:03:36-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.bramp.net/tags/zip/</loc>
     <lastmod>2011-11-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -2135,7 +2152,7 @@
   
   <url>
     <loc>https://blog.bramp.net/</loc>
-    <lastmod>2018-01-16T08:07:00-08:00</lastmod>
+    <lastmod>2018-01-21T16:03:36-08:00</lastmod>
     <priority>0</priority>
   </url>
   
