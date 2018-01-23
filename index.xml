@@ -281,7 +281,7 @@ Glyph Substitution Table &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;GSUB&lt;spa
 
 &lt;div class=&#34;text-center&#34;&gt;
   &lt;!-- 8,192 + (16,384 - 8,192) \frac{99\% - 97.95\%}{99.67\% - 97.95\%} \approx 13,192 ms --&gt;
-  &lt;img src=&#34;linear-approx-2.png&#34; width=720 height=65 alt=&#34;Linear Approximation Example&#34;&gt;&lt;/img&gt;
+  &lt;img src=&#34;linear-approx-2.png&#34; width=720 height=66 alt=&#34;Linear Approximation Example&#34;&gt;&lt;/img&gt;
 &lt;/div&gt;
 
 &lt;p&gt;Thus we can determines the 99%tile is 13.192 seconds. If we compare this to non-approximate value from earlier, 10.970s, we seem to be off by ~20%. To make this approximation more precise, we can increase the number of bins. Instead of doubling the bin boundaries, we can increase each boundary by a factor of √2 (square root of 2). This would double the number of bins (from 18 to 36), but increase the precision greatly. If we use these new bins, the linear approximation gets us a value of 11.042s (at the 99%tile) which is only off by 0.66%. This seems a good trade-off of space and accuracy.&lt;/p&gt;
