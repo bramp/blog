@@ -67,7 +67,7 @@ goredirects:
 
 .minified: public html-minifier.conf public/css/all.min.css public/js/all.min.js
 	# Find all HTML and in parallel run the minifier
-	find public -type f -iname '*.html' | parallel --no-notice --tag $(HTML_MINIFIER) "{}" -o "{}"
+	$(HTML_MINIFIER) --input-dir public --file-ext html --output-dir public
 	touch $@
 
 chromacss: themes/bramp/static/css/chroma-monokai.css themes/bramp/static/css/chroma-friendly.css
