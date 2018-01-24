@@ -87,8 +87,8 @@ themes/bramp/static/css/chroma-friendly.css:
 themes/bramp/static/js/svgxuse.min.js: themes/bramp/static/js/svgxuse.js
 	$(UGLIFYJS) --compress --mangle -o $@ $^
 
-public/css/bootstrap-purify.css: themes/bramp/static/css/bootstrap.css public/index.html
-	cd public && ../$(PURIFYCSS) -i ../$< $$(find . -type f -iname '*.html') -o ../$@
+public/css/bootstrap-purify.css: themes/bramp/static/css/bootstrap.css public/js/bootstrap.min.js
+	cd public && ../$(PURIFYCSS) -w collapsing -i ../$< $$(find . -type f -iname '*.html') -o ../$@
 
 public/css/all.min.css: public/css/bootstrap-purify.css public/css/bootstrap-social.css public/css/chroma-friendly.css public/css/fonts.css public/css/bramp.css public/css/icons.css
 	$(CLEANCSS) -o $@ $^
