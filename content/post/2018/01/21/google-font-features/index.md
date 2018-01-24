@@ -145,5 +145,5 @@ Glyph Substitution Table (GSUB):
 The file size didn't vary too much, and thus it was a simple matter of [uploading the fonts](https://blog.bramp.net/fonts/raleway-regular.subset-webfont.woff2) to my blog, and updating the CSS.
 
 <p class="text-center">
-<span class="onum" style="text-decoration: red underline overline; font-size: 3.9em">1234567890</span> &nbsp;vs&nbsp; <span class="lnum" style="text-decoration: red underline overline; font-size: 3.9em">1234567890</span>
+<span class="onum" style="text-decoration: red underline overline; font-size: 3.5em">1234567890</span> &nbsp;vs&nbsp; <span class="lnum" style="text-decoration: red underline overline; font-size: 3.5em">1234567890</span>
 </p>
