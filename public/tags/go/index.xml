@@ -157,7 +157,7 @@ Glyph Substitution Table &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;GSUB&lt;spa
 &lt;p&gt;The file size didn&amp;rsquo;t vary too much, and thus it was a simple matter of &lt;a href=&#34;https://blog.bramp.net/fonts/raleway-regular.subset-webfont.woff2&#34;&gt;uploading the fonts&lt;/a&gt; to my blog, and updating the CSS.&lt;/p&gt;
 
 &lt;p class=&#34;text-center&#34;&gt;
-&lt;span class=&#34;onum&#34; style=&#34;text-decoration: red underline overline; font-size: 3.9em&#34;&gt;1234567890&lt;/span&gt; &amp;nbsp;vs&amp;nbsp; &lt;span class=&#34;lnum&#34; style=&#34;text-decoration: red underline overline; font-size: 3.9em&#34;&gt;1234567890&lt;/span&gt;
+&lt;span class=&#34;onum&#34; style=&#34;text-decoration: red underline overline; font-size: 3.5em&#34;&gt;1234567890&lt;/span&gt; &amp;nbsp;vs&amp;nbsp; &lt;span class=&#34;lnum&#34; style=&#34;text-decoration: red underline overline; font-size: 3.5em&#34;&gt;1234567890&lt;/span&gt;
 &lt;/p&gt;
 </description>
     </item>

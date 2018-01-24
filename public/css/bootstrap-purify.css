@@ -1780,6 +1780,15 @@ tbody.collapse.in {
   display: table-row-group;
 }
 
+.collapsing {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  -webkit-transition: height 0.35s ease;
+  -o-transition: height 0.35s ease;
+  transition: height 0.35s ease;
+}
+
 .open > a {
   outline: 0;
 }
