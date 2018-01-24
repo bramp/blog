@@ -89,7 +89,7 @@ Now I had a TTF file with all the features, but only the subset of characters I 
 ```css
 @font-face {
   font-family: 'Raleway';
-  src: url('raleway-regular.subset.eot'); /* IE9 Compat Modes */
+  src: url('raleway-regular.subset.eot');                           /* IE9 Compat Modes */
   src: local('Raleway'), local('Raleway-Regular'),
        url('raleway-regular.subset.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
        url('raleway-regular.subset.woff2') format('woff2'),    /* Super Modern Browsers */
@@ -118,28 +118,28 @@ After fontsquirrel.com produced the fonts, I checked it contained the features, 
 $ ls -ltr
 
 # Google Fonts
--rw-r--r--@ 1 bramp  eng    96K 21 Jan 10:29 raleway-v12-latin-ext_latin-regular.ttf
--rw-r--r--@ 1 bramp  eng    40K 21 Jan 10:29 raleway-v12-latin-ext_latin-regular.woff
--rw-r--r--@ 1 bramp  eng    31K 21 Jan 10:29 raleway-v12-latin-ext_latin-regular.woff2
+ 96K  raleway-v12-latin-ext_latin-regular.ttf
+ 40K  raleway-v12-latin-ext_latin-regular.woff
+ 31K  raleway-v12-latin-ext_latin-regular.woff2
 
 # My versions
--rw-r--r--@ 1 bramp  eng   140K 21 Jan 18:35 raleway-regular.subset-webfont.ttf
--rw-r--r--@ 1 bramp  eng    61K 21 Jan 18:35 raleway-regular.subset-webfont.woff
--rw-r--r--@ 1 bramp  eng    46K 21 Jan 18:35 raleway-regular.subset-webfont.woff2
+140K raleway-regular.subset-webfont.ttf
+ 61K raleway-regular.subset-webfont.woff
+ 46K raleway-regular.subset-webfont.woff2
 
 $ font features raleway-regular.subset-webfont.woff
 Glyph Substitution Table (GSUB):
-	Script "latn" (Latin):
-		Default Language:
-			Feature "aalt" (Access All Alternates)
-			Feature "dlig" (Discretionary Ligatures)
-			Feature "liga" (Standard Ligatures)
-			Feature "lnum" (Lining Figures)
-			Feature "onum" (Oldstyle Figures)
-			Feature "salt" (Stylistic Alternates)
-			Feature "smcp" (Small Capitals)
-			Feature "ss01" (Stylistic Set 1)
-			Feature "ss02" (Stylistic Set 2)
+  Script "latn" (Latin):
+    Default Language:
+      Feature "aalt" (Access All Alternates)
+      Feature "dlig" (Discretionary Ligatures)
+      Feature "liga" (Standard Ligatures)
+      Feature "lnum" (Lining Figures)
+      Feature "onum" (Oldstyle Figures)
+      Feature "salt" (Stylistic Alternates)
+      Feature "smcp" (Small Capitals)
+      Feature "ss01" (Stylistic Set 1)
+      Feature "ss02" (Stylistic Set 2)
 ```
 
 The file size didn't vary too much, and thus it was a simple matter of [uploading the fonts](https://blog.bramp.net/fonts/raleway-regular.subset-webfont.woff2) to my blog, and updating the CSS.
