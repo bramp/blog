@@ -166,7 +166,7 @@ $ pyftsubset Raleway-Regular.ttf --layout-features<span class=o>=</span><span cl
 <p>Now I had a TTF file with all the features, but only the subset of characters I use on my site. Next I needed to convert this this file to all the <a href=https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization>recommended font formats</a>, so my site would look nice in IE, Chrome, Android and iOS. The resulting CSS would look like this:</p>
 <div class=highlight><pre class=chroma><code class=language-css data-lang=css><span class=p>@</span><span class=k>font-face</span> <span class=p>{</span>
   <span class=nt>font-family</span><span class=o>:</span> <span class=s1>&#39;Raleway&#39;</span><span class=o>;</span>
-  <span class=nt>src</span><span class=o>:</span> <span class=nt>url</span><span class=o>(</span><span class=s1>&#39;raleway-regular.subset.eot&#39;</span><span class=o>);</span> <span class=c>/* IE9 Compat Modes */</span>
+  <span class=nt>src</span><span class=o>:</span> <span class=nt>url</span><span class=o>(</span><span class=s1>&#39;raleway-regular.subset.eot&#39;</span><span class=o>);</span>                           <span class=c>/* IE9 Compat Modes */</span>
   <span class=nt>src</span><span class=o>:</span> <span class=nt>local</span><span class=o>(</span><span class=s1>&#39;Raleway&#39;</span><span class=o>),</span> <span class=nt>local</span><span class=o>(</span><span class=s1>&#39;Raleway-Regular&#39;</span><span class=o>),</span>
        <span class=nt>url</span><span class=o>(</span><span class=s1>&#39;raleway-regular.subset.eot?#iefix&#39;</span><span class=o>)</span> <span class=nt>format</span><span class=o>(</span><span class=s1>&#39;embedded-opentype&#39;</span><span class=o>),</span> <span class=c>/* IE6-IE8 */</span>
        <span class=nt>url</span><span class=o>(</span><span class=s1>&#39;raleway-regular.subset.woff2&#39;</span><span class=o>)</span> <span class=nt>format</span><span class=o>(</span><span class=s1>&#39;woff2&#39;</span><span class=o>),</span>    <span class=c>/* Super Modern Browsers */</span>
@@ -186,28 +186,28 @@ $ pyftsubset ... --flavor<span class=o>=</span>woff2 --output-file<span class=o>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ ls -ltr
 
 <span class=c1># Google Fonts
-</span><span class=c1></span>-rw-r--r--@ <span class=m>1</span> bramp  eng    96K <span class=m>21</span> Jan <span class=m>10</span>:29 raleway-v12-latin-ext_latin-regular.ttf
--rw-r--r--@ <span class=m>1</span> bramp  eng    40K <span class=m>21</span> Jan <span class=m>10</span>:29 raleway-v12-latin-ext_latin-regular.woff
--rw-r--r--@ <span class=m>1</span> bramp  eng    31K <span class=m>21</span> Jan <span class=m>10</span>:29 raleway-v12-latin-ext_latin-regular.woff2
+</span><span class=c1></span> 96K  raleway-v12-latin-ext_latin-regular.ttf
+ 40K  raleway-v12-latin-ext_latin-regular.woff
+ 31K  raleway-v12-latin-ext_latin-regular.woff2
 
 <span class=c1># My versions
-</span><span class=c1></span>-rw-r--r--@ <span class=m>1</span> bramp  eng   140K <span class=m>21</span> Jan <span class=m>18</span>:35 raleway-regular.subset-webfont.ttf
--rw-r--r--@ <span class=m>1</span> bramp  eng    61K <span class=m>21</span> Jan <span class=m>18</span>:35 raleway-regular.subset-webfont.woff
--rw-r--r--@ <span class=m>1</span> bramp  eng    46K <span class=m>21</span> Jan <span class=m>18</span>:35 raleway-regular.subset-webfont.woff2
+</span><span class=c1></span>140K raleway-regular.subset-webfont.ttf
+ 61K raleway-regular.subset-webfont.woff
+ 46K raleway-regular.subset-webfont.woff2
 
 $ font features raleway-regular.subset-webfont.woff
 Glyph Substitution Table <span class=o>(</span>GSUB<span class=o>)</span>:
-	Script <span class=s2>&#34;latn&#34;</span> <span class=o>(</span>Latin<span class=o>)</span>:
-		Default Language:
-			Feature <span class=s2>&#34;aalt&#34;</span> <span class=o>(</span>Access All Alternates<span class=o>)</span>
-			Feature <span class=s2>&#34;dlig&#34;</span> <span class=o>(</span>Discretionary Ligatures<span class=o>)</span>
-			Feature <span class=s2>&#34;liga&#34;</span> <span class=o>(</span>Standard Ligatures<span class=o>)</span>
-			Feature <span class=s2>&#34;lnum&#34;</span> <span class=o>(</span>Lining Figures<span class=o>)</span>
-			Feature <span class=s2>&#34;onum&#34;</span> <span class=o>(</span>Oldstyle Figures<span class=o>)</span>
-			Feature <span class=s2>&#34;salt&#34;</span> <span class=o>(</span>Stylistic Alternates<span class=o>)</span>
-			Feature <span class=s2>&#34;smcp&#34;</span> <span class=o>(</span>Small Capitals<span class=o>)</span>
-			Feature <span class=s2>&#34;ss01&#34;</span> <span class=o>(</span>Stylistic Set <span class=m>1</span><span class=o>)</span>
-			Feature <span class=s2>&#34;ss02&#34;</span> <span class=o>(</span>Stylistic Set <span class=m>2</span><span class=o>)</span></code></pre></div>
+  Script <span class=s2>&#34;latn&#34;</span> <span class=o>(</span>Latin<span class=o>)</span>:
+    Default Language:
+      Feature <span class=s2>&#34;aalt&#34;</span> <span class=o>(</span>Access All Alternates<span class=o>)</span>
+      Feature <span class=s2>&#34;dlig&#34;</span> <span class=o>(</span>Discretionary Ligatures<span class=o>)</span>
+      Feature <span class=s2>&#34;liga&#34;</span> <span class=o>(</span>Standard Ligatures<span class=o>)</span>
+      Feature <span class=s2>&#34;lnum&#34;</span> <span class=o>(</span>Lining Figures<span class=o>)</span>
+      Feature <span class=s2>&#34;onum&#34;</span> <span class=o>(</span>Oldstyle Figures<span class=o>)</span>
+      Feature <span class=s2>&#34;salt&#34;</span> <span class=o>(</span>Stylistic Alternates<span class=o>)</span>
+      Feature <span class=s2>&#34;smcp&#34;</span> <span class=o>(</span>Small Capitals<span class=o>)</span>
+      Feature <span class=s2>&#34;ss01&#34;</span> <span class=o>(</span>Stylistic Set <span class=m>1</span><span class=o>)</span>
+      Feature <span class=s2>&#34;ss02&#34;</span> <span class=o>(</span>Stylistic Set <span class=m>2</span><span class=o>)</span></code></pre></div>
 <p>The file size didn&rsquo;t vary too much, and thus it was a simple matter of <a href=https://blog.bramp.net/fonts/raleway-regular.subset-webfont.woff2>uploading the fonts</a> to my blog, and updating the CSS.</p>
 <p class=text-center>
 <span class=onum style="text-decoration:red underline overline;font-size:3.5em">1234567890</span> &nbsp;vs&nbsp; <span class=lnum style="text-decoration:red underline overline;font-size:3.5em">1234567890</span>

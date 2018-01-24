@@ -111,7 +111,7 @@ $ pyftsubset Raleway-Regular.ttf --layout-features&lt;span class=&#34;o&#34;&gt;
 &lt;p&gt;Now I had a TTF file with all the features, but only the subset of characters I use on my site. Next I needed to convert this this file to all the &lt;a href=&#34;https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization&#34;&gt;recommended font formats&lt;/a&gt;, so my site would look nice in IE, Chrome, Android and iOS. The resulting CSS would look like this:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span class=&#34;p&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;font-face&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;font-family&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Raleway&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;raleway-regular.subset.eot&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;/* IE9 Compat Modes */&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;raleway-regular.subset.eot&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;                           &lt;span class=&#34;c&#34;&gt;/* IE9 Compat Modes */&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Raleway&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Raleway-Regular&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt;
        &lt;span class=&#34;nt&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;raleway-regular.subset.eot?#iefix&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;format&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;embedded-opentype&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;/* IE6-IE8 */&lt;/span&gt;
        &lt;span class=&#34;nt&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;raleway-regular.subset.woff2&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;format&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;woff2&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt;    &lt;span class=&#34;c&#34;&gt;/* Super Modern Browsers */&lt;/span&gt;
@@ -132,28 +132,28 @@ $ pyftsubset ... --flavor&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;woff2 --out
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ls -ltr
 
 &lt;span class=&#34;c1&#34;&gt;# Google Fonts
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;-rw-r--r--@ &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; bramp  eng    96K &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; Jan &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;:29 raleway-v12-latin-ext_latin-regular.ttf
--rw-r--r--@ &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; bramp  eng    40K &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; Jan &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;:29 raleway-v12-latin-ext_latin-regular.woff
--rw-r--r--@ &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; bramp  eng    31K &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; Jan &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;:29 raleway-v12-latin-ext_latin-regular.woff2
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt; 96K  raleway-v12-latin-ext_latin-regular.ttf
+ 40K  raleway-v12-latin-ext_latin-regular.woff
+ 31K  raleway-v12-latin-ext_latin-regular.woff2
 
 &lt;span class=&#34;c1&#34;&gt;# My versions
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;-rw-r--r--@ &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; bramp  eng   140K &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; Jan &lt;span class=&#34;m&#34;&gt;18&lt;/span&gt;:35 raleway-regular.subset-webfont.ttf
--rw-r--r--@ &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; bramp  eng    61K &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; Jan &lt;span class=&#34;m&#34;&gt;18&lt;/span&gt;:35 raleway-regular.subset-webfont.woff
--rw-r--r--@ &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; bramp  eng    46K &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; Jan &lt;span class=&#34;m&#34;&gt;18&lt;/span&gt;:35 raleway-regular.subset-webfont.woff2
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;140K raleway-regular.subset-webfont.ttf
+ 61K raleway-regular.subset-webfont.woff
+ 46K raleway-regular.subset-webfont.woff2
 
 $ font features raleway-regular.subset-webfont.woff
 Glyph Substitution Table &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;GSUB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
-	Script &lt;span class=&#34;s2&#34;&gt;&amp;#34;latn&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Latin&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
-		Default Language:
-			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;aalt&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Access All Alternates&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;dlig&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Discretionary Ligatures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;liga&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Standard Ligatures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;lnum&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Lining Figures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;onum&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Oldstyle Figures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;salt&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Alternates&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;smcp&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Small Capitals&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;ss01&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Set &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;ss02&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Set &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  Script &lt;span class=&#34;s2&#34;&gt;&amp;#34;latn&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Latin&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
+    Default Language:
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;aalt&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Access All Alternates&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;dlig&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Discretionary Ligatures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;liga&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Standard Ligatures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;lnum&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Lining Figures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;onum&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Oldstyle Figures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;salt&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Alternates&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;smcp&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Small Capitals&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;ss01&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Set &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;ss02&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Set &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The file size didn&amp;rsquo;t vary too much, and thus it was a simple matter of &lt;a href=&#34;https://blog.bramp.net/fonts/raleway-regular.subset-webfont.woff2&#34;&gt;uploading the fonts&lt;/a&gt; to my blog, and updating the CSS.&lt;/p&gt;
 
 &lt;p class=&#34;text-center&#34;&gt;
