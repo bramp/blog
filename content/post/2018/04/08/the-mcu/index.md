@@ -10,7 +10,6 @@ tags:
   - netflix
   - svg
   - d3.js
-draft: true
 slug: the-mcu
 ---
 
