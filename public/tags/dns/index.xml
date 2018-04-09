@@ -27,7 +27,8 @@
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;x&#34;&gt;foreach (domain)
 &lt;/span&gt;&lt;span class=&#34;x&#34;&gt;   for (i =0; i&amp;lt;3;i++)
 &lt;/span&gt;&lt;span class=&#34;x&#34;&gt;      foreach (server)
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;         query(server, domain)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;         query(server, domain)
+&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;I recorded the time it took for each query to be answered, and I also recorded the replies. I was curious to see if some servers replied with different answers, or if some returned more information, i.e. additional records.&lt;/p&gt;
 
 &lt;p&gt;I &lt;a href=&#34;dns.php&#34;&gt;wrote a script&lt;/a&gt; in PHP 5.3, and ran it from the command line on my Windows Server 2008 machine. The script used PEAR&amp;rsquo;s Net_DNS to craft and send the DNS questions. I was not using my operating system&amp;rsquo;s resolver, and I was not using any form of client side caching. I ran the experiments from my home ADSL connection and as far as I know my ISP was not interfering with my DNS requests in any way. I live in the North West of the UK.&lt;/p&gt;
@@ -126,7 +127,7 @@
 &lt;p&gt;From this table of results, we can see that Google&amp;rsquo;s median response time is 41-42ms, however, OpenDNS performs much better with a result of ~31ms. Both my current ISP and my old ISP don&amp;rsquo;t perform as well and each achieved a result between 42ms and 61ms. To get a better feel for the data I plotted an empirical CDF of the lookup times for each server.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;ecdf_overview.pdf&#34;&gt;
-&lt;figure &gt;
+&lt;figure&gt;
     
         &lt;img src=&#34;ecdf_overview.png&#34; width=&#34;700&#34; height=&#34;700&#34; /&gt;
     
@@ -148,7 +149,7 @@
 &lt;p&gt;SInce I ran each lookup three times, I wanted to compare the lookup times for each request. This time I plotted the empirical CDF of each iteration of request.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;ecdf_requests.pdf&#34;&gt;
-&lt;figure &gt;
+&lt;figure&gt;
     
         &lt;img src=&#34;ecdf_requests.png&#34; width=&#34;700&#34; height=&#34;700&#34; /&gt;
     

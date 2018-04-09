@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad66c2d7afdfe58edb78287aa0497652.min.css rel=stylesheet>
+<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -128,7 +128,8 @@ dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed</code></pre></div>
 </span><span class=gd></span><span class=gi>+mysqladmin=&#34;mysqladmin --no-defaults -u root -P $port -h localhost --socket=$socket&#34;
 </span><span class=gi></span> mysqld=&#34;/usr/sbin/mysqld --no-defaults --bind-address=localhost --port=$port --socket=$socket --datadir=$datadir&#34;
  
-<span class=err> # Main code #</span></code></pre></div>
+ # Main code #
+</code></pre></div>
 <p>The next problem I encountered is that all the automated PHP unit tests were failing, and they would eventually get stuck and use all my RAM and swap space (at least 16GiB of it) :( I&#8217;m not sure what made the machine run out of RAM, but the tests were failing because the version of PHP that was running the tests was incorrectly loading extensions from my system. The quick fix for this was to disable any extensions I had installed to my system. I just</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>sudo mv /etc/php5/conf.d /etc/php5/conf.d.tmp</code></pre></div>
 <p>to do that.</p>

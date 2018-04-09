@@ -25,7 +25,7 @@ PHP Fatal error: Uncaught exception &#39;PDOException&#39; with message &#39;SQL
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad66c2d7afdfe58edb78287aa0497652.min.css rel=stylesheet>
+<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -110,9 +110,11 @@ Stack trace:
 </span><span class=x>$sql = &#39;SELECT TRIGGER_NAME, TRIGGER_GROUP, JOB_NAME FROM QRTZ_TRIGGERS&#39;;
 </span><span class=x>$sth = $dbh-&gt;prepare($sql) or die(&#39;Failed to prepare SELECT TRIGGER query&#39;);
 </span><span class=x>while ($row = $sth-&gt;fetch(PDO::FETCH_ASSOC)) {
-</span><span class=x>...</span></code></pre></div>
+</span><span class=x>...
+</span><span class=x></span></code></pre></div>
 <p>I am missing a</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=x>$sth-&gt;execute();</span></code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=x>$sth-&gt;execute();
+</span><span class=x></span></code></pre></div>
 <p>in between the prepare and the fetch. Easy fix. For reference I&#8217;m using a old version of PHP 5.1.6, and MySQL client 5.0.45.</p>
 </div>
 </article>

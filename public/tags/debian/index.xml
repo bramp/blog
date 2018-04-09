@@ -65,7 +65,8 @@ dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed&lt;/code&gt;&lt;/pre&gt;&lt;/
 &lt;/span&gt;&lt;span class=&#34;gd&#34;&gt;&lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;+mysqladmin=&amp;#34;mysqladmin --no-defaults -u root -P $port -h localhost --socket=$socket&amp;#34;
 &lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;&lt;/span&gt; mysqld=&amp;#34;/usr/sbin/mysqld --no-defaults --bind-address=localhost --port=$port --socket=$socket --datadir=$datadir&amp;#34;
  
-&lt;span class=&#34;err&#34;&gt; # Main code #&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ # Main code #
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The next problem I encountered is that all the automated PHP unit tests were failing, and they would eventually get stuck and use all my RAM and swap space (at least 16GiB of it) :( I&amp;#8217;m not sure what made the machine run out of RAM, but the tests were failing because the version of PHP that was running the tests was incorrectly loading extensions from my system. The quick fix for this was to disable any extensions I had installed to my system. I just&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo mv /etc/php5/conf.d /etc/php5/conf.d.tmp&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;to do that.&lt;/p&gt;
