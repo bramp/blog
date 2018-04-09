@@ -5,8 +5,7 @@
 <meta content="width=device-width,initial-scale=1" name=viewport>
 <link href=https://blog.bramp.net/post/2008/06/04/ordnance-survey-easting/northing-to-lat/long/ rel=canonical itemprop=url />
 <title>Ordnance Survey Easting/Northing to Lat/Long</title>
-<meta content="Recently I had the need to convert Ordnance Survey East/North coordinates to Latitude and Longitude. By using the resources available on the OS site I wrote the following piece of PHP code:
-&lt;?php …" name=description itemprop=description>
+<meta content="Recently I had the need to convert Ordnance Survey East/North coordinates to Latitude and Longitude. By using the resources available on the OS site I wrote the following piece of PHP code: …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -25,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad66c2d7afdfe58edb78287aa0497652.min.css rel=stylesheet>
+<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -49,8 +48,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=https://blog.bramp.net/post/2008/06/04/ordnance-survey-easting/northing-to-lat/long/ property=og:url />
 <meta content=bramp.net property=og:site_name />
 <meta content="Ordnance Survey Easting/Northing to Lat/Long" property=og:title />
-<meta content="Recently I had the need to convert Ordnance Survey East/North coordinates to Latitude and Longitude. By using the resources available on the OS site I wrote the following piece of PHP code:
-&lt;?php …" property=og:description />
+<meta content="Recently I had the need to convert Ordnance Survey East/North coordinates to Latitude and Longitude. By using the resources available on the OS site I wrote the following piece of PHP code: …" property=og:description />
 <meta content=2008-06-04T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -106,120 +104,122 @@ window.dataLayer = window.dataLayer || [];
 </p>
 <div class=post itemprop=articleBody>
 <p>Recently I had the need to convert Ordnance Survey East/North coordinates to Latitude and Longitude. By using the resources available on the OS site I wrote the following piece of PHP code:</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=cp>&lt;?php</span>
-<span class=c1>// Converts OS Easting/Northing to Lat/Long
-</span><span class=c1>// by bramp
-</span><span class=c1></span>    
-<span class=k>function</span> <span class=o></span><span class=nf>Marc</span><span class=p>(</span><span class=nv>$bf0</span><span class=p>,</span> <span class=nv>$n</span><span class=p>,</span> <span class=nv>$PHI0</span><span class=p>,</span> <span class=nv>$PHI</span><span class=p>)</span> <span class=p>{</span>
-    <span class=cm>/*
-</span><span class=cm>    Compute meridional arc.
-</span><span class=cm>    Input: - 
-</span><span class=cm>     ellipsoid semi major axis multiplied by central meridian scale factor (bf0) in meters; 
-</span><span class=cm>     n (computed from a, b and f0); 
-</span><span class=cm>     lat of false origin (PHI0) 
-</span><span class=cm>     initial or final latitude of point (PHI) IN RADIANS.
-</span><span class=cm>    */</span>
-
-    <span class=nv>$n2</span> <span class=o>=</span> <span class=nx>pow</span><span class=p>(</span><span class=nv>$n</span><span class=p>,</span> <span class=mi>2</span><span class=p>);</span>
-    <span class=nv>$n3</span> <span class=o>=</span> <span class=nx>pow</span><span class=p>(</span><span class=nv>$n</span><span class=p>,</span> <span class=mi>3</span><span class=p>);</span>
-
-    <span class=nv>$ans</span>  <span class=o>=</span> <span class=p>((</span><span class=mi>1</span> <span class=o>+</span> <span class=nv>$n</span> <span class=o>+</span> <span class=p>((</span><span class=mi>5</span> <span class=o>/</span> <span class=mi>4</span><span class=p>)</span> <span class=o>*</span> <span class=p>(</span><span class=nv>$n2</span><span class=p>))</span> <span class=o>+</span> <span class=p>((</span><span class=mi>5</span> <span class=o>/</span> <span class=mi>4</span><span class=p>)</span> <span class=o>*</span> <span class=nv>$n3</span><span class=p>))</span> <span class=o>*</span> <span class=p>(</span><span class=nv>$PHI</span> <span class=o>-</span> <span class=nv>$PHI0</span><span class=p>));</span>
-    <span class=nv>$ans</span> <span class=o>-=</span> <span class=p>(((</span><span class=mi>3</span> <span class=o>*</span> <span class=nv>$n</span><span class=p>)</span> <span class=o>+</span> <span class=p>(</span><span class=mi>3</span> <span class=o>*</span> <span class=nv>$n2</span><span class=p>)</span> <span class=o>+</span> <span class=p>((</span><span class=mi>21</span> <span class=o>/</span> <span class=mi>8</span> <span class=p>)</span> <span class=o>*</span> <span class=nv>$n3</span><span class=p>))</span> <span class=o>*</span> <span class=p>(</span><span class=nx>sin</span><span class=p>(</span><span class=nv>$PHI</span> <span class=o>-</span> <span class=nv>$PHI0</span><span class=p>))</span> <span class=o>*</span> <span class=p>(</span><span class=nx>cos</span><span class=p>(</span><span class=nv>$PHI</span> <span class=o>+</span> <span class=nv>$PHI0</span><span class=p>)));</span>
-    <span class=nv>$ans</span> <span class=o>+=</span> <span class=p>((((</span><span class=mi>15</span> <span class=o>/</span> <span class=mi>8</span> <span class=p>)</span> <span class=o>*</span> <span class=nv>$n2</span><span class=p>)</span> <span class=o>+</span> <span class=p>((</span><span class=mi>15</span> <span class=o>/</span> <span class=mi>8</span> <span class=p>)</span> <span class=o>*</span> <span class=nv>$n3</span><span class=p>))</span> <span class=o>*</span> <span class=p>(</span><span class=nx>sin</span><span class=p>(</span><span class=mi>2</span> <span class=o>*</span> <span class=p>(</span><span class=nv>$PHI</span> <span class=o>-</span> <span class=nv>$PHI0</span><span class=p>)))</span> <span class=o>*</span> <span class=p>(</span><span class=nx>cos</span><span class=p>(</span><span class=mi>2</span> <span class=o>*</span> <span class=p>(</span><span class=nv>$PHI</span> <span class=o>+</span> <span class=nv>$PHI0</span><span class=p>))));</span>
-    <span class=nv>$ans</span> <span class=o>-=</span> <span class=p>(((</span><span class=mi>35</span> <span class=o>/</span> <span class=mi>24</span><span class=p>)</span> <span class=o>*</span> <span class=nv>$n3</span><span class=p>)</span> <span class=o>*</span> <span class=p>(</span><span class=nx>sin</span><span class=p>(</span><span class=mi>3</span> <span class=o>*</span> <span class=p>(</span><span class=nv>$PHI</span> <span class=o>-</span> <span class=nv>$PHI0</span><span class=p>)))</span> <span class=o>*</span> <span class=p>(</span><span class=nx>cos</span><span class=p>(</span><span class=mi>3</span> <span class=o>*</span> <span class=p>(</span><span class=nv>$PHI</span> <span class=o>+</span> <span class=nv>$PHI0</span><span class=p>))));</span>
-
-    <span class=k>return</span> <span class=nv>$bf0</span> <span class=o>*</span> <span class=nv>$ans</span><span class=p>;</span>
-<span class=p>}</span>
-    
-<span class=k>function</span> <span class=o></span><span class=nf>initialLat</span><span class=p>(</span><span class=nv>$North</span><span class=p>,</span> <span class=nv>$n0</span><span class=p>,</span> <span class=nv>$afo</span><span class=p>,</span> <span class=nv>$PHI0</span><span class=p>,</span> <span class=nv>$n</span><span class=p>,</span> <span class=nv>$bfo</span><span class=p>)</span> <span class=p>{</span>
-    <span class=cm>/*
-</span><span class=cm>    Compute initial value for Latitude (PHI) IN RADIANS.
-</span><span class=cm>    Input: - _
-</span><span class=cm>    northing of point (North) and northing of false origin (n0) in meters; 
-</span><span class=cm>    semi major axis multiplied by central meridian scale factor (af0) in meters; 
-</span><span class=cm>    latitude of false origin (PHI0) IN RADIANS;
-</span><span class=cm>    n (computed from a, b and f0) 
-</span><span class=cm>    ellipsoid semi major axis multiplied by central meridian scale factor (bf0) in meters.
-</span><span class=cm>    */</span>
-    
-    <span class=c1>//First PHI value (PHI1)
-</span><span class=c1></span>    <span class=nv>$PHI1</span> <span class=o>=</span> <span class=p>((</span><span class=nv>$North</span> <span class=o>-</span> <span class=nv>$n0</span><span class=p>)</span> <span class=o>/</span> <span class=nv>$afo</span><span class=p>)</span> <span class=o>+</span> <span class=nv>$PHI0</span><span class=p>;</span>
-
-    <span class=c1>//Calculate M
-</span><span class=c1></span>    <span class=nv>$M</span> <span class=o>=</span> <span class=nx>Marc</span><span class=p>(</span><span class=nv>$bfo</span><span class=p>,</span> <span class=nv>$n</span><span class=p>,</span> <span class=nv>$PHI0</span><span class=p>,</span> <span class=nv>$PHI1</span><span class=p>);</span>
-
-    <span class=c1>//Calculate new PHI value (PHI2)
-</span><span class=c1></span>    <span class=nv>$PHI2</span> <span class=o>=</span> <span class=p>((</span><span class=nv>$North</span> <span class=o>-</span> <span class=nv>$n0</span> <span class=o>-</span> <span class=nv>$M</span><span class=p>)</span> <span class=o>/</span> <span class=nv>$afo</span><span class=p>)</span> <span class=o>+</span> <span class=nv>$PHI1</span><span class=p>;</span>
-    
-    <span class=c1>//Iterate to get final value for InitialLat
-</span><span class=c1></span>    <span class=k>while</span> <span class=p>(</span> <span class=nx>abs</span><span class=p>(</span><span class=nv>$North</span> <span class=o>-</span> <span class=nv>$n0</span> <span class=o>-</span> <span class=nv>$M</span><span class=p>)</span> <span class=o>&gt;</span> <span class=mf>0.00001</span> <span class=p>)</span> <span class=p>{</span>
-        <span class=nv>$PHI2</span> <span class=o>=</span> <span class=p>((</span><span class=nv>$North</span> <span class=o>-</span> <span class=nv>$n0</span> <span class=o>-</span> <span class=nv>$M</span><span class=p>)</span> <span class=o>/</span> <span class=nv>$afo</span><span class=p>)</span> <span class=o>+</span> <span class=nv>$PHI1</span><span class=p>;</span>
-        <span class=nv>$M</span> <span class=o>=</span> <span class=nx>Marc</span><span class=p>(</span><span class=nv>$bfo</span><span class=p>,</span> <span class=nv>$n</span><span class=p>,</span> <span class=nv>$PHI0</span><span class=p>,</span> <span class=nv>$PHI2</span><span class=p>);</span>
-        <span class=nv>$PHI1</span> <span class=o>=</span> <span class=nv>$PHI2</span><span class=p>;</span>
-    <span class=p>}</span>
-    
-    <span class=k>return</span> <span class=nv>$PHI2</span><span class=p>;</span>
-<span class=p>}</span>
-
-<span class=k>function</span> <span class=o></span><span class=nf>E_N_to_Lat_Long</span><span class=p>(</span><span class=nv>$East</span><span class=p>,</span> <span class=nv>$North</span><span class=p>)</span> <span class=p>{</span>
-    
-    <span class=nv>$a</span>  <span class=o>=</span> <span class=mf>6377563.396</span><span class=p>;</span> <span class=c1>// Semi-major axis, a
-</span><span class=c1></span>    <span class=nv>$b</span>  <span class=o>=</span> <span class=mf>6356256.910</span><span class=p>;</span> <span class=c1>//Semi-minor axis, b
-</span><span class=c1></span>    <span class=nv>$e0</span> <span class=o>=</span> <span class=mf>400000.000</span><span class=p>;</span> <span class=c1>//True origin Easting, E0 
-</span><span class=c1></span>    <span class=nv>$n0</span> <span class=o>=</span> <span class=o>-</span><span class=mf>100000.000</span><span class=p>;</span> <span class=c1>//True origin Northing, N0   
-</span><span class=c1></span>    <span class=nv>$f0</span> <span class=o>=</span> <span class=mf>0.999601271700</span><span class=p>;</span> <span class=c1>//Central Meridan Scale, F0
-</span><span class=c1></span>    
-    <span class=nv>$PHI0</span> <span class=o>=</span> <span class=mf>49.0</span><span class=p>;</span> <span class=c1>// True origin latitude, j0
-</span><span class=c1></span>    <span class=nv>$LAM0</span> <span class=o>=</span> <span class=o>-</span><span class=mf>2.0</span><span class=p>;</span> <span class=c1>// True origin longitude, l0
-</span><span class=c1></span>    
-    <span class=c1>//Convert angle measures to radians
-</span><span class=c1></span>    <span class=nv>$RadPHI0</span> <span class=o>=</span> <span class=nv>$PHI0</span> <span class=o>*</span> <span class=p>(</span><span class=nx>M_PI</span> <span class=o>/</span> <span class=mi>180</span><span class=p>);</span>
-    <span class=nv>$RadLAM0</span> <span class=o>=</span> <span class=nv>$LAM0</span> <span class=o>*</span> <span class=p>(</span><span class=nx>M_PI</span> <span class=o>/</span> <span class=mi>180</span><span class=p>);</span>
-
-    <span class=c1>//Compute af0, bf0, e squared (e2), n and Et
-</span><span class=c1></span>    <span class=nv>$af0</span> <span class=o>=</span> <span class=nv>$a</span> <span class=o>*</span> <span class=nv>$f0</span><span class=p>;</span>
-    <span class=nv>$bf0</span> <span class=o>=</span> <span class=nv>$b</span> <span class=o>*</span> <span class=nv>$f0</span><span class=p>;</span>
-    <span class=nv>$e2</span> <span class=o>=</span> <span class=p>(</span><span class=nv>$af0</span><span class=o>*</span><span class=nv>$af0</span> <span class=o>-</span> <span class=nv>$bf0</span><span class=o>*</span><span class=nv>$bf0</span> <span class=p>)</span> <span class=o>/</span> <span class=p>(</span><span class=nv>$af0</span><span class=o>*</span><span class=nv>$af0</span><span class=p>);</span>
-    <span class=nv>$n</span> <span class=o>=</span> <span class=p>(</span><span class=nv>$af0</span> <span class=o>-</span> <span class=nv>$bf0</span><span class=p>)</span> <span class=o>/</span> <span class=p>(</span><span class=nv>$af0</span> <span class=o>+</span> <span class=nv>$bf0</span><span class=p>);</span>
-    <span class=nv>$Et</span> <span class=o>=</span> <span class=nv>$East</span> <span class=o>-</span> <span class=nv>$e0</span><span class=p>;</span>
-
-    <span class=c1>//Compute initial value for latitude (PHI) in radians
-</span><span class=c1></span>    <span class=nv>$PHId</span> <span class=o>=</span> <span class=nx>InitialLat</span><span class=p>(</span><span class=nv>$North</span><span class=p>,</span> <span class=nv>$n0</span><span class=p>,</span> <span class=nv>$af0</span><span class=p>,</span> <span class=nv>$RadPHI0</span><span class=p>,</span> <span class=nv>$n</span><span class=p>,</span> <span class=nv>$bf0</span><span class=p>);</span>
-
-    <span class=nv>$sinPHId2</span> <span class=o>=</span> <span class=nx>pow</span><span class=p>(</span><span class=nx>sin</span><span class=p>(</span><span class=nv>$PHId</span><span class=p>),</span>  <span class=mi>2</span><span class=p>);</span>
-    <span class=nv>$cosPHId</span>  <span class=o>=</span> <span class=nx>pow</span><span class=p>(</span><span class=nx>cos</span><span class=p>(</span><span class=nv>$PHId</span><span class=p>),</span> <span class=o>-</span><span class=mi>1</span><span class=p>);</span>
-    
-    <span class=nv>$tanPHId</span>  <span class=o>=</span> <span class=nx>tan</span><span class=p>(</span><span class=nv>$PHId</span><span class=p>);</span>
-    <span class=nv>$tanPHId2</span> <span class=o>=</span> <span class=nx>pow</span><span class=p>(</span><span class=nv>$tanPHId</span><span class=p>,</span> <span class=mi>2</span><span class=p>);</span>
-    <span class=nv>$tanPHId4</span> <span class=o>=</span> <span class=nx>pow</span><span class=p>(</span><span class=nv>$tanPHId</span><span class=p>,</span> <span class=mi>4</span><span class=p>);</span>
-    <span class=nv>$tanPHId6</span> <span class=o>=</span> <span class=nx>pow</span><span class=p>(</span><span class=nv>$tanPHId</span><span class=p>,</span> <span class=mi>6</span><span class=p>);</span>
-
-    <span class=c1>//Compute nu, rho and eta2 using value for PHId
-</span><span class=c1></span>    <span class=nv>$nu</span> <span class=o>=</span> <span class=nv>$af0</span> <span class=o>/</span> <span class=p>(</span><span class=nx>sqrt</span><span class=p>(</span><span class=mi>1</span> <span class=o>-</span> <span class=p>(</span><span class=nv>$e2</span> <span class=o>*</span> <span class=nv>$sinPHId2</span><span class=p>)));</span>
-    <span class=nv>$rho</span> <span class=o>=</span> <span class=p>(</span><span class=nv>$nu</span> <span class=o>*</span> <span class=p>(</span><span class=mi>1</span> <span class=o>-</span> <span class=nv>$e2</span><span class=p>))</span> <span class=o>/</span> <span class=p>(</span><span class=mi>1</span> <span class=o>-</span> <span class=nv>$e2</span> <span class=o>*</span> <span class=nv>$sinPHId2</span><span class=p>);</span>
-    <span class=nv>$eta2</span> <span class=o>=</span> <span class=p>(</span><span class=nv>$nu</span> <span class=o>/</span> <span class=nv>$rho</span><span class=p>)</span> <span class=o>-</span> <span class=mi>1</span><span class=p>;</span>
-    
-    <span class=c1>//Compute Longitude
-</span><span class=c1></span>    <span class=nv>$X</span>    <span class=o>=</span> <span class=nv>$cosPHId</span> <span class=o>/</span> <span class=nv>$nu</span><span class=p>;</span>
-    <span class=nv>$XI</span>   <span class=o>=</span> <span class=nv>$cosPHId</span> <span class=o>/</span> <span class=p>(</span>   <span class=mi>6</span> <span class=o>*</span> <span class=nx>pow</span><span class=p>(</span><span class=nv>$nu</span><span class=p>,</span> <span class=mi>3</span><span class=p>))</span> <span class=o>*</span> <span class=p>((</span><span class=nv>$nu</span> <span class=o>/</span> <span class=nv>$rho</span><span class=p>)</span>         <span class=o>+</span>  <span class=mi>2</span> <span class=o>*</span> <span class=nv>$tanPHId2</span><span class=p>);</span>
-    <span class=nv>$XII</span>  <span class=o>=</span> <span class=nv>$cosPHId</span> <span class=o>/</span> <span class=p>(</span> <span class=mi>120</span> <span class=o>*</span> <span class=nx>pow</span><span class=p>(</span><span class=nv>$nu</span><span class=p>,</span> <span class=mi>5</span><span class=p>))</span> <span class=o>*</span> <span class=p>(</span><span class=mi>5</span>  <span class=o>+</span> <span class=mi>28</span> <span class=o>*</span> <span class=nv>$tanPHId2</span>  <span class=o>+</span> <span class=mi>24</span> <span class=o>*</span> <span class=nv>$tanPHId4</span><span class=p>);</span>
-    <span class=nv>$XIIA</span> <span class=o>=</span> <span class=nv>$cosPHId</span> <span class=o>/</span> <span class=p>(</span><span class=mi>5040</span> <span class=o>*</span> <span class=nx>pow</span><span class=p>(</span><span class=nv>$nu</span><span class=p>,</span> <span class=mi>7</span><span class=p>))</span> <span class=o>*</span> <span class=p>(</span><span class=mi>61</span> <span class=o>+</span> <span class=mi>662</span> <span class=o>*</span> <span class=nv>$tanPHId2</span> <span class=o>+</span> <span class=mi>1320</span> <span class=o>*</span> <span class=nv>$tanPHId4</span> <span class=o>+</span> <span class=mi>720</span> <span class=o>*</span> <span class=nv>$tanPHId6</span><span class=p>);</span>
-
-    <span class=nv>$VII</span>  <span class=o>=</span> <span class=nv>$tanPHId</span> <span class=o>/</span> <span class=p>(</span>  <span class=mi>2</span> <span class=o>*</span> <span class=nv>$rho</span> <span class=o>*</span> <span class=nv>$nu</span><span class=p>);</span>
-    <span class=nv>$VIII</span> <span class=o>=</span> <span class=nv>$tanPHId</span> <span class=o>/</span> <span class=p>(</span> <span class=mi>24</span> <span class=o>*</span> <span class=nv>$rho</span> <span class=o>*</span> <span class=nx>pow</span><span class=p>(</span><span class=nv>$nu</span><span class=p>,</span> <span class=mi>3</span><span class=p>))</span> <span class=o>*</span> <span class=p>(</span> <span class=mi>5</span> <span class=o>+</span>  <span class=mi>3</span> <span class=o>*</span> <span class=nv>$tanPHId2</span> <span class=o>+</span> <span class=nv>$eta2</span> <span class=o>-</span> <span class=mi>9</span> <span class=o>*</span> <span class=nv>$eta2</span> <span class=o>*</span> <span class=nv>$tanPHId2</span> <span class=p>);</span>
-    <span class=nv>$IX</span>   <span class=o>=</span> <span class=nv>$tanPHId</span> <span class=o>/</span> <span class=p>(</span><span class=mi>720</span> <span class=o>*</span> <span class=nv>$rho</span> <span class=o>*</span> <span class=nx>pow</span><span class=p>(</span><span class=nv>$nu</span><span class=p>,</span> <span class=mi>5</span><span class=p>))</span> <span class=o>*</span> <span class=p>(</span><span class=mi>61</span> <span class=o>+</span> <span class=mi>90</span> <span class=o>*</span> <span class=nv>$tanPHId2</span> <span class=o>+</span> <span class=mi>45</span> <span class=o>*</span> <span class=nv>$tanPHId4</span> <span class=p>);</span>
-
-    <span class=nv>$long</span> <span class=o>=</span> <span class=p>(</span><span class=mi>180</span> <span class=o>/</span> <span class=nx>M_PI</span><span class=p>)</span> <span class=o>*</span> <span class=p>(</span><span class=nv>$RadLAM0</span> <span class=o>+</span> <span class=p>(</span><span class=nv>$Et</span> <span class=o>*</span> <span class=nv>$X</span><span class=p>)</span> <span class=o>-</span> <span class=nx>pow</span><span class=p>(</span><span class=nv>$Et</span><span class=p>,</span><span class=mi>3</span><span class=p>)</span> <span class=o>*</span> <span class=nv>$XI</span> <span class=o>+</span> <span class=nx>pow</span><span class=p>(</span><span class=nv>$Et</span><span class=p>,</span><span class=mi>5</span><span class=p>)</span> <span class=o>*</span> <span class=nv>$XII</span> <span class=o>-</span> <span class=nx>pow</span><span class=p>(</span><span class=nv>$Et</span><span class=p>,</span><span class=mi>7</span><span class=p>)</span> <span class=o>*</span> <span class=nv>$XIIA</span><span class=p>);</span>
-    <span class=nv>$lat</span>  <span class=o>=</span> <span class=p>(</span><span class=mi>180</span> <span class=o>/</span> <span class=nx>M_PI</span><span class=p>)</span> <span class=o>*</span> <span class=p>(</span><span class=nv>$PHId</span> <span class=o>-</span> <span class=p>(</span><span class=nx>pow</span><span class=p>(</span><span class=nv>$Et</span><span class=p>,</span><span class=mi>2</span><span class=p>)</span> <span class=o>*</span> <span class=nv>$VII</span><span class=p>)</span> <span class=o>+</span> <span class=p>(</span><span class=nx>pow</span><span class=p>(</span><span class=nv>$Et</span><span class=p>,</span> <span class=mi>4</span><span class=p>)</span> <span class=o>*</span> <span class=nv>$VIII</span><span class=p>)</span> <span class=o>-</span> <span class=p>(</span><span class=nx>pow</span><span class=p>(</span><span class=nv>$Et</span><span class=p>,</span> <span class=mi>6</span><span class=p>)</span> <span class=o>*</span> <span class=nv>$IX</span><span class=p>));</span>
-    
-    <span class=k>return</span> <span class=k>array</span><span class=p>(</span><span class=nv>$lat</span><span class=p>,</span> <span class=nv>$long</span><span class=p>);</span>
-<span class=p>}</span>
-<span class=cp>?&gt;</span><span class=x>;</span></code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=x>&amp;lt;?php
+</span><span class=x>// Converts OS Easting/Northing to Lat/Long
+</span><span class=x>// by bramp
+</span><span class=x>    
+</span><span class=x>function Marc($bf0, $n, $PHI0, $PHI) {
+</span><span class=x>    /*
+</span><span class=x>    Compute meridional arc.
+</span><span class=x>    Input: - 
+</span><span class=x>     ellipsoid semi major axis multiplied by central meridian scale factor (bf0) in meters; 
+</span><span class=x>     n (computed from a, b and f0); 
+</span><span class=x>     lat of false origin (PHI0) 
+</span><span class=x>     initial or final latitude of point (PHI) IN RADIANS.
+</span><span class=x>    */
+</span><span class=x>
+</span><span class=x>    $n2 = pow($n, 2);
+</span><span class=x>    $n3 = pow($n, 3);
+</span><span class=x>
+</span><span class=x>    $ans  = ((1 + $n + ((5 / 4) * ($n2)) + ((5 / 4) * $n3)) * ($PHI - $PHI0));
+</span><span class=x>    $ans -= (((3 * $n) + (3 * $n2) + ((21 / 8 ) * $n3)) * (sin($PHI - $PHI0)) * (cos($PHI + $PHI0)));
+</span><span class=x>    $ans += ((((15 / 8 ) * $n2) + ((15 / 8 ) * $n3)) * (sin(2 * ($PHI - $PHI0))) * (cos(2 * ($PHI + $PHI0))));
+</span><span class=x>    $ans -= (((35 / 24) * $n3) * (sin(3 * ($PHI - $PHI0))) * (cos(3 * ($PHI + $PHI0))));
+</span><span class=x>
+</span><span class=x>    return $bf0 * $ans;
+</span><span class=x>}
+</span><span class=x>    
+</span><span class=x>function initialLat($North, $n0, $afo, $PHI0, $n, $bfo) {
+</span><span class=x>    /*
+</span><span class=x>    Compute initial value for Latitude (PHI) IN RADIANS.
+</span><span class=x>    Input: - _
+</span><span class=x>    northing of point (North) and northing of false origin (n0) in meters; 
+</span><span class=x>    semi major axis multiplied by central meridian scale factor (af0) in meters; 
+</span><span class=x>    latitude of false origin (PHI0) IN RADIANS;
+</span><span class=x>    n (computed from a, b and f0) 
+</span><span class=x>    ellipsoid semi major axis multiplied by central meridian scale factor (bf0) in meters.
+</span><span class=x>    */
+</span><span class=x>    
+</span><span class=x>    //First PHI value (PHI1)
+</span><span class=x>    $PHI1 = (($North - $n0) / $afo) + $PHI0;
+</span><span class=x>
+</span><span class=x>    //Calculate M
+</span><span class=x>    $M = Marc($bfo, $n, $PHI0, $PHI1);
+</span><span class=x>
+</span><span class=x>    //Calculate new PHI value (PHI2)
+</span><span class=x>    $PHI2 = (($North - $n0 - $M) / $afo) + $PHI1;
+</span><span class=x>    
+</span><span class=x>    //Iterate to get final value for InitialLat
+</span><span class=x>    while ( abs($North - $n0 - $M) &amp;gt; 0.00001 ) {
+</span><span class=x>        $PHI2 = (($North - $n0 - $M) / $afo) + $PHI1;
+</span><span class=x>        $M = Marc($bfo, $n, $PHI0, $PHI2);
+</span><span class=x>        $PHI1 = $PHI2;
+</span><span class=x>    }
+</span><span class=x>    
+</span><span class=x>    return $PHI2;
+</span><span class=x>}
+</span><span class=x>
+</span><span class=x>function E_N_to_Lat_Long($East, $North) {
+</span><span class=x>    
+</span><span class=x>    $a  = 6377563.396; // Semi-major axis, a
+</span><span class=x>    $b  = 6356256.910; //Semi-minor axis, b
+</span><span class=x>    $e0 = 400000.000; //True origin Easting, E0 
+</span><span class=x>    $n0 = -100000.000; //True origin Northing, N0   
+</span><span class=x>    $f0 = 0.999601271700; //Central Meridan Scale, F0
+</span><span class=x>    
+</span><span class=x>    $PHI0 = 49.0; // True origin latitude, j0
+</span><span class=x>    $LAM0 = -2.0; // True origin longitude, l0
+</span><span class=x>    
+</span><span class=x>    //Convert angle measures to radians
+</span><span class=x>    $RadPHI0 = $PHI0 * (M_PI / 180);
+</span><span class=x>    $RadLAM0 = $LAM0 * (M_PI / 180);
+</span><span class=x>
+</span><span class=x>    //Compute af0, bf0, e squared (e2), n and Et
+</span><span class=x>    $af0 = $a * $f0;
+</span><span class=x>    $bf0 = $b * $f0;
+</span><span class=x>    $e2 = ($af0*$af0 - $bf0*$bf0 ) / ($af0*$af0);
+</span><span class=x>    $n = ($af0 - $bf0) / ($af0 + $bf0);
+</span><span class=x>    $Et = $East - $e0;
+</span><span class=x>
+</span><span class=x>    //Compute initial value for latitude (PHI) in radians
+</span><span class=x>    $PHId = InitialLat($North, $n0, $af0, $RadPHI0, $n, $bf0);
+</span><span class=x>
+</span><span class=x>    $sinPHId2 = pow(sin($PHId),  2);
+</span><span class=x>    $cosPHId  = pow(cos($PHId), -1);
+</span><span class=x>    
+</span><span class=x>    $tanPHId  = tan($PHId);
+</span><span class=x>    $tanPHId2 = pow($tanPHId, 2);
+</span><span class=x>    $tanPHId4 = pow($tanPHId, 4);
+</span><span class=x>    $tanPHId6 = pow($tanPHId, 6);
+</span><span class=x>
+</span><span class=x>    //Compute nu, rho and eta2 using value for PHId
+</span><span class=x>    $nu = $af0 / (sqrt(1 - ($e2 * $sinPHId2)));
+</span><span class=x>    $rho = ($nu * (1 - $e2)) / (1 - $e2 * $sinPHId2);
+</span><span class=x>    $eta2 = ($nu / $rho) - 1;
+</span><span class=x>    
+</span><span class=x>    //Compute Longitude
+</span><span class=x>    $X    = $cosPHId / $nu;
+</span><span class=x>    $XI   = $cosPHId / (   6 * pow($nu, 3)) * (($nu / $rho)         +  2 * $tanPHId2);
+</span><span class=x>    $XII  = $cosPHId / ( 120 * pow($nu, 5)) * (5  + 28 * $tanPHId2  + 24 * $tanPHId4);
+</span><span class=x>    $XIIA = $cosPHId / (5040 * pow($nu, 7)) * (61 + 662 * $tanPHId2 + 1320 * $tanPHId4 + 720 * $tanPHId6);
+</span><span class=x>
+</span><span class=x>    $VII  = $tanPHId / (  2 * $rho * $nu);
+</span><span class=x>    $VIII = $tanPHId / ( 24 * $rho * pow($nu, 3)) * ( 5 +  3 * $tanPHId2 + $eta2 - 9 * $eta2 * $tanPHId2 );
+</span><span class=x>    $IX   = $tanPHId / (720 * $rho * pow($nu, 5)) * (61 + 90 * $tanPHId2 + 45 * $tanPHId4 );
+</span><span class=x>
+</span><span class=x>    $long = (180 / M_PI) * ($RadLAM0 + ($Et * $X) - pow($Et,3) * $XI + pow($Et,5) * $XII - pow($Et,7) * $XIIA);
+</span><span class=x>    $lat  = (180 / M_PI) * ($PHId - (pow($Et,2) * $VII) + (pow($Et, 4) * $VIII) - (pow($Et, 6) * $IX));
+</span><span class=x>    
+</span><span class=x>    return array($lat, $long);
+</span><span class=x>}
+</span><span class=x>?&amp;gt;;
+</span><span class=x></span></code></pre></div>
 <p>it is used in the following way:</p>
 <div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=x>$e = 349000;
 </span><span class=x>$n = 461000;
 </span><span class=x>
-</span><span class=x>print_r( E_N_to_Lat_Long( $e, $n) );</span></code></pre></div>
+</span><span class=x>print_r( E_N_to_Lat_Long( $e, $n) );
+</span><span class=x></span></code></pre></div>
 <p>If you find a need to use this please place a link back to my site. thanks</p>
 </div>
 </article>

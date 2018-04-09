@@ -6,8 +6,7 @@
 <link href=https://blog.bramp.net/post/2010/08/31/persec-python-script/ rel=canonical itemprop=url />
 <title>Persec python script</title>
 <meta content="A while ago I wrote a python script that does a similar job to GNU&#8217;s watch command. You use it like so:
-./persec.py [--interval=&lt;n&gt;] &lt;command&gt; so for example
-./persec.py ifconfig Now …" name=description itemprop=description>
+./persec.py [--interval=&amp;lt;n&amp;gt;] &amp;lt;command&amp;gt; so for example …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -26,7 +25,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad66c2d7afdfe58edb78287aa0497652.min.css rel=stylesheet>
+<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -49,8 +48,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=bramp.net property=og:site_name />
 <meta content="Persec python script" property=og:title />
 <meta content="A while ago I wrote a python script that does a similar job to GNU&#8217;s watch command. You use it like so:
-./persec.py [--interval=&lt;n&gt;] &lt;command&gt; so for example
-./persec.py ifconfig Now …" property=og:description />
+./persec.py [--interval=&amp;lt;n&amp;gt;] &amp;lt;command&amp;gt; so for example …" property=og:description />
 <meta content=2010-08-31T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -104,7 +102,7 @@ window.dataLayer = window.dataLayer || [];
 </p>
 <div class=post itemprop=articleBody>
 <p>A while ago I wrote a python script that does a similar job to GNU&#8217;s <a href=http://linux.die.net/man/1/watch>watch</a> command. You use it like so:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>./persec.py <span class=o>[</span>--interval<span class=o>=</span>&lt;n&gt;<span class=o>]</span> &lt;command&gt;</code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>./persec.py <span class=o>[</span>--interval<span class=o>=</span><span class=p>&amp;</span>lt<span class=p>;</span>n<span class=p>&amp;</span>gt<span class=p>;</span><span class=o>]</span> <span class=p>&amp;</span>lt<span class=p>;</span>command<span class=p>&amp;</span>gt<span class=p>;</span></code></pre></div>
 <p>so for example</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>./persec.py ifconfig</code></pre></div>
 <p>Now in a similar way to watch, it executes the command every second, and highlights the differences between each execution. However, in addition to this it finds any numbers that have changed and works out the rate at which they are changing. So for example, ifconfig would typically output this:</p>

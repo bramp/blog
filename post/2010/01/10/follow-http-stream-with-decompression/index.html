@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad66c2d7afdfe58edb78287aa0497652.min.css rel=stylesheet>
+<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -133,7 +133,7 @@ window.dataLayer = window.dataLayer || [];
     <span class=k>return</span> <span class=n>ret</span>
 
 <span class=k>def</span> <span class=nf>parse_http_stream</span><span class=p>(</span><span class=n>stream</span><span class=p>):</span>
-    <span class=k>while</span> <span class=nb>len</span><span class=p>(</span><span class=n>stream</span><span class=p>)</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>:</span>
+    <span class=k>while</span> <span class=nb>len</span><span class=p>(</span><span class=n>stream</span><span class=p>)</span> <span class=o>&amp;</span><span class=n>gt</span><span class=p>;</span> <span class=mi>0</span><span class=p>:</span>
         <span class=k>if</span> <span class=n>stream</span><span class=p>[:</span><span class=mi>4</span><span class=p>]</span> <span class=o>==</span> <span class=sa></span><span class=s1>&#39;HTTP&#39;</span><span class=p>:</span>
             <span class=n>http</span> <span class=o>=</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>http</span><span class=o>.</span><span class=n>Response</span><span class=p>(</span><span class=n>stream</span><span class=p>)</span>
             <span class=k>print</span> <span class=n>http</span><span class=o>.</span><span class=n>status</span>
@@ -197,8 +197,8 @@ window.dataLayer = window.dataLayer || [];
 
 <span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=sa></span><span class=s1>&#39;__main__&#39;</span><span class=p>:</span>
     <span class=kn>import</span> <span class=nn>sys</span>
-    <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>)</span> <span class=o>&lt;=</span> <span class=mi>1</span><span class=p>:</span>
-        <span class=k>print</span> <span class=sa></span><span class=s2>&#34;</span><span class=si>%s</span><span class=s2> &lt;pcap filename&gt;&#34;</span> <span class=o>%</span> <span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span>
+    <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>)</span> <span class=o>&amp;</span><span class=n>lt</span><span class=p>;</span><span class=o>=</span> <span class=mi>1</span><span class=p>:</span>
+        <span class=k>print</span> <span class=sa></span><span class=s2>&#34;</span><span class=si>%s</span><span class=s2> &amp;lt;pcap filename&amp;gt;&#34;</span> <span class=o>%</span> <span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span>
         <span class=n>sys</span><span class=o>.</span><span class=nb>exit</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span>
 
     <span class=n>parse_pcap_file</span><span class=p>(</span><span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span></code></pre></div>

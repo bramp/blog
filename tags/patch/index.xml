@@ -29,14 +29,15 @@
 &lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;&lt;/span&gt;&lt;span class=&#34;gu&#34;&gt;@@ -1180,6 +1180,10 @@
 &lt;/span&gt;&lt;span class=&#34;gu&#34;&gt;&lt;/span&gt; 		/* Next get a buffer. */
  
- 		skb = skb_peek(&amp;amp;sk-&amp;gt;sk_receive_queue);
+ 		skb = skb_peek(&amp;amp;sk-&amp;amp;gt;sk_receive_queue);
 &lt;span class=&#34;gi&#34;&gt;+		
 &lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;+		if (skb)
 &lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;+			sock_recv_timestamp(msg, sk, skb); /* HACK */
 &lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;+			
 &lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;&lt;/span&gt; 		do {
  			if (!skb)
-&lt;span class=&#34;err&#34;&gt; 				break;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+ 				break;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
   </channel>

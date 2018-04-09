@@ -25,7 +25,7 @@ var array = [1,2,3,4,5,6,7,8,9,10]; var i = 0; while(array.length &gt; 0) { cons
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad66c2d7afdfe58edb78287aa0497652.min.css rel=stylesheet>
+<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -108,7 +108,8 @@ var array = [1,2,3,4,5,6,7,8,9,10]; var i = 0; while(array.length &gt; 0) { cons
 	<span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>i</span><span class=o>++</span><span class=p>,</span> <span class=nx>array</span><span class=p>);</span>
 	<span class=c1>//alert(&#34;pause&#34;);
 </span><span class=c1></span>	<span class=nx>array</span><span class=p>.</span><span class=nx>pop</span><span class=p>();</span>
-<span class=p>}</span></code></pre></div>
+<span class=p>}</span>
+</code></pre></div>
 <p>If you run it in your browser you would expect to see the following printed (in your Javascript console):</p>
 <div class=highlight><pre class=chroma><code class=language-text data-lang=text>0 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 1 [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -139,7 +140,8 @@ var array = [1,2,3,4,5,6,7,8,9,10]; var i = 0; while(array.length &gt; 0) { cons
 </ul>
 <p>I filed this as a <a href="https://code.google.com/p/chromium/issues/detail?id=91303">bug report</a> on the Chromium site, but I suspect I should have filed it over at the Webkit site.</p>
 <p>For the moment I came up with a &#8220;fix&#8221;. I copy the array before I log it, so in this case I do the following:</p>
-<div class=highlight><pre class=chroma><code class=language-javascript data-lang=javascript><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>i</span><span class=o>++</span><span class=p>,</span> <span class=nx>array</span><span class=p>.</span><span class=nx>slice</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span></code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-javascript data-lang=javascript><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>i</span><span class=o>++</span><span class=p>,</span> <span class=nx>array</span><span class=p>.</span><span class=nx>slice</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
+</code></pre></div>
 <p><strong>Update:</strong> I previously searched for this bug, but didn&#8217;t find it before writing this article. However, I have just found someone else had <a href="https://code.google.com/p/chromium/issues/detail?id=50316">reported</a> it a few days ago:</p>
 </div>
 </article>

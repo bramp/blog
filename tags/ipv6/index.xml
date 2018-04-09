@@ -18,7 +18,7 @@
       <description>&lt;p&gt;I&amp;#8217;m more excited than I should be, but today I noticed that Comcast has enabled IPv6 on my home internet connection. All my devices in the home have picked up one or more Internet routable IPv6 addresses. Here are a few screen shots: &lt;/p&gt;
 
 &lt;p&gt;
-&lt;figure &gt;
+&lt;figure&gt;
     
         &lt;img src=&#34;ifconfig-v6.png&#34; /&gt;
     
@@ -31,7 +31,7 @@
 &lt;/figure&gt;
 
 
-&lt;figure &gt;
+&lt;figure&gt;
     
         &lt;img src=&#34;google-v6.png&#34; /&gt;
     
@@ -44,7 +44,7 @@
 &lt;/figure&gt;
 
 
-&lt;figure &gt;
+&lt;figure&gt;
     
         &lt;img src=&#34;facebook-v6.png&#34; /&gt;
     
@@ -57,7 +57,7 @@
 &lt;/figure&gt;
 
 
-&lt;figure &gt;
+&lt;figure&gt;
     
         &lt;img src=&#34;bramp-v6.png&#34; /&gt;
     
@@ -70,7 +70,7 @@
 &lt;/figure&gt;
 
 
-&lt;figure &gt;
+&lt;figure&gt;
     
         &lt;img src=&#34;android-v6.png&#34; /&gt;
     
