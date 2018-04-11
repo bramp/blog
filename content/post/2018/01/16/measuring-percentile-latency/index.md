@@ -116,14 +116,17 @@ The bins can accurately determine the percentiles at the edges, so for example, 
 
 <!-- https://www.mathcha.io/editor -->
 <div class="text-center">
-  <!-- x_{0} + (x_{1} - x_{0}) \frac{y - y_{0}}{y_{0} - y_{1}} = x -->
-  <img src="linear-approx-1.png" width=720 height=78 alt="Linear Approximation Equation"></img>
+  <!-- x_{0} + (x_{1} - x_{0}) \frac{y - y_{0}}{y_{1} - y_{0}} = x -->
+  <img src="linear-approx-1.png" width=660 alt="Linear Approximation Equation"></img>
+  <br/>
 </div>
+<br/>
 
 <div class="text-center">
   <!-- 8,192 + (16,384 - 8,192) \frac{99\% - 97.95\%}{99.67\% - 97.95\%} \approx 13,192 ms -->
-  <img src="linear-approx-2.png" width=720 height=66 alt="Linear Approximation Example"></img>
+  <img src="linear-approx-2.png" width=660 alt="Linear Approximation Example"></img>
 </div>
+<br/>
 
 Thus we can determines the 99%tile is 13.192 seconds. If we compare this to non-approximate value from earlier, 10.970s, we seem to be off by ~20%. To make this approximation more precise, we can increase the number of bins. Instead of doubling the bin boundaries, we can increase each boundary by a factor of √2 (square root of 2). This would double the number of bins (from 18 to 36), but increase the precision greatly. If we use these new bins, the linear approximation gets us a value of 11.042s (at the 99%tile) which is only off by 0.66%. This seems a good trade-off of space and accuracy.
 
