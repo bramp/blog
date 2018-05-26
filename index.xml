@@ -6,8 +6,40 @@
     <description>Recent content on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Sun, 08 Apr 2018 21:46:21 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 26 May 2018 11:28:44 -0700</lastBuildDate>
     <atom:link href="https://blog.bramp.net/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Certbot: Unexpected Error</title>
+      <link>https://blog.bramp.net/post/2018/05/26/certbot-unexpected-error/</link>
+      <pubDate>Sat, 26 May 2018 11:28:44 -0700</pubDate>
+      
+      <guid>https://blog.bramp.net/post/2018/05/26/certbot-unexpected-error/</guid>
+      <description>&lt;p&gt;I got a &lt;a href=&#34;https://letsencrypt.org/docs/expiration-emails/&#34;&gt;nice warning email&lt;/a&gt; from &lt;a href=&#34;https://letsencrypt.org/&#34;&gt;Let&amp;rsquo;s Encrypt&lt;/a&gt; that my cert was going to expire soon, and hadn&amp;rsquo;t been renewed. I found in  &lt;code&gt;/var/log/letsencrypt/letsencrypt.log&lt;/code&gt; the following error:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Renewal configuration file /etc/letsencrypt/renewal/mydomain.bramp.net.conf (cert: mydomain.bramp.net) produced an unexpected error: &#39;Namespace&#39; object has no attribute &#39;dns_cloudflare_credentials&#39;. Skipping.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I manually ran certbot in dry-run mode and it worked fine:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo certbot renew --dry-run&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So this error only occurs when certbot is running as a cron job. Looking at &lt;code&gt;/etc/cron.d/certbot&lt;/code&gt; I see the user runs as root, so I tried the &lt;code&gt;certbot renew --dry-run&lt;/code&gt; again, but this time as the root user:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo su
+root@:~$ sudo certbot renew --dry-run&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;and bam, the same error. This error somehow related to the &lt;a href=&#34;https://certbot-dns-cloudflare.readthedocs.io/en/latest/&#34;&gt;certbot-dns-cloudflare plugin&lt;/a&gt;, which proves the ownership of the domain with a &lt;a href=&#34;https://acme-python.readthedocs.io/en/latest/api/challenges.html#acme.challenges.DNS01&#34;&gt;DNS01 challenge&lt;/a&gt; via Cloudflare&amp;rsquo;s DNS. I use this form of challenge, because the domain in question is internal and not available on the Internet.&lt;/p&gt;
+
+&lt;p&gt;I had forgotten how I installed the plugin, but searching Google, it seems to be via &lt;code&gt;pip3&lt;/code&gt;. Clearly something was different between my root and normal user w/ sudo environments. So I did the following&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo pip3 list &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep certbot
+certbot &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;.23.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+certbot-apache &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;.23.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+certbot-dns-cloudflare &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;.24.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+
+$ sudo su
+root@:~$ pip3 list &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep certbot
+certbot &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;.23.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+certbot-apache &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;.23.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Aha, no certbot-dns-cloudflare when running as root. Clearly I hadn&amp;rsquo;t installed this correctly. Running &lt;code&gt;pip3 install certbot-dns-cloudflare&lt;/code&gt; as root fixed the problem, and voila, certbot correctly fetches new certs via a regular cron.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Marvel Cinematic Universe Timeline</title>
@@ -2074,106 +2106,6 @@ js-sequence-diagrams https://github.com/bramp/js-sequence-diagrams/settings
  &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:unrolled&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Unsafe Part 3: Benchmarking a java UnsafeArrayList</title>
-      <link>https://blog.bramp.net/post/2015/08/27/unsafe-part-3-benchmarking-a-java-unsafearraylist/</link>
-      <pubDate>Thu, 27 Aug 2015 20:39:04 -0700</pubDate>
-      
-      <guid>https://blog.bramp.net/post/2015/08/27/unsafe-part-3-benchmarking-a-java-unsafearraylist/</guid>
-      <description>
-
-&lt;p&gt;Previously we introduced a &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;UnsafeArrayList&lt;/a&gt;, an ArrayList style collection that instead of storing references to the objects, it would use &lt;a href=&#34;http://www.docjar.com/docs/api/sun/misc/Unsafe.html&#34;&gt;sun.misc.Unsafe&lt;/a&gt; and &lt;a href=&#34;https://blog.bramp.net/post/2015/08/24/unsafe-part-1-sun.misc.unsafe-helper-classes/&#34;&gt;UnsafeHelper&lt;/a&gt; to copy the objects into heap allocated memory. This has the unique property of keeping all objects contiguous in memory, and avoids a pointer indirection, at the cost of needing to copy values in and out. This article aims to benchmark this list, and understand its unique characteristics.&lt;/p&gt;
-
-&lt;h2 id=&#34;methodology&#34;&gt;Methodology&lt;/h2&gt;
-
-&lt;p&gt;To test the performance of this new style of list, a series of benchmarks were devised. The new &lt;a href=&#34;http://openjdk.java.net/projects/code-tools/jmh/&#34;&gt;JMH benchmark framework&lt;/a&gt; was used, and final benchmark code is &lt;a href=&#34;https://github.com/bramp/unsafe/tree/master/unsafe-benchmark&#34;&gt;available here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Multiple iterations were run, and unless stated results were calculated with a 99% confidence interval. A couple of warmup iteration were always run and discarded. All tests were run on a Ubuntu Linux 3.19.0-22 desktop, with a 64bit Intel® Core™ i3-2125 CPU @ 3.30GHz, and 16 GiB of 1333 MHz DDR3 RAM. The JVM was OpenJDK (version 1.8.0_45-internal).&lt;/p&gt;
-
-&lt;p&gt;For each benchmark new ArrayLists and UnsafeArrayLists were constructed, and populated with newly created objects. The size of the lists were varied, up to a maximum that could be held in memory without disk swapping. Two artificial workloads were created,&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Reading items from the lists start to finish, and&lt;/li&gt;
-&lt;li&gt;Processing the elements in a random order.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;The first was reproduced by simply reading the first field of every element of the list in order, and the second by sorting the list based on the object’s fields (with a simple quicksort).&lt;/p&gt;
-
-&lt;p&gt;Three test classes of different sizes were created to be stored within the ArrayLists, one class had two long fields, one had four long fields, and finally one with eight long fields . Named TwoLongs, FourLongs and EightLongs requiring 16, 32, and 64 bytes for the fields respectively. Each iteration these classes were created with random values in the fields.&lt;/p&gt;
-
-&lt;h2 id=&#34;the-results&#34;&gt;The Results&lt;/h2&gt;
-
-&lt;table class=&#34;table table-hover table-striped table-condensed&#34;&gt;
-    &lt;thead&gt;
-        &lt;tr&gt;&lt;th&gt;Benchmark&lt;/th&gt;&lt;th&gt;List&lt;/th&gt;&lt;th&gt;Type&lt;/th&gt;&lt;th&gt;Size&lt;/th&gt;&lt;th class=&#34;text-center&#34;&gt;Mean Time (s)&lt;/th&gt;&lt;/tr&gt;
-    &lt;/thead&gt;
-    &lt;tbody&gt;
-        &lt;tr&gt;&lt;td&gt;Iterate&lt;/td&gt;&lt;td&gt;ArrayList&lt;/td&gt;&lt;td&gt;TwoLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;2.266 ± 0.229&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Iterate&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;TwoLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;1.79 ± 0.03&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;IterateInPlace&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;TwoLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;0.442 ± 0.023&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Iterate&lt;/td&gt;&lt;td&gt;ArrayList&lt;/td&gt;&lt;td&gt;FourLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;2.277 ± 0.211&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Iterate&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;FourLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;2.126 ± 0.019&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;IterateInPlace&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;FourLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;0.648 ± 0.019&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Iterate&lt;/td&gt;&lt;td&gt;ArrayList&lt;/td&gt;&lt;td&gt;EightLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;2.792 ± 0.072&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Iterate&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;EightLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;2.672 ± 0.322&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;IterateInPlace&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;EightLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;0.941 ± 0.032&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Sort&lt;/td&gt;&lt;td&gt;ArrayList&lt;/td&gt;&lt;td&gt;TwoLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;70.31 ± 3.939&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Sort&lt;/td&gt;&lt;td&gt;ArrayList&lt;/td&gt;&lt;td&gt;FourLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;79.673 ± 6.119&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Sort&lt;/td&gt;&lt;td&gt;ArrayList&lt;/td&gt;&lt;td&gt;EightLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;97.687 ± 4.86&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Sort&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;TwoLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;18.69 ± 3.158&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Sort&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;FourLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;24.822 ± 0.79&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Sort&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;EightLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;40.697 ± 0.743&lt;/td&gt;&lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&#34;iterate&#34;&gt;Iterate&lt;/h3&gt;
-
-&lt;p&gt;Starting with the smallest test object, TwoLongs, to read the first field of all 80 million  elements within an ArrayList took on average 2.266 ± 0.229 seconds. To do the same with the UnsafeArrayList (which doesn’t store objects, and instead copies elements in/out) took on average 1.79 ±0.03 seconds (an 24% improvement).&lt;/p&gt;
-
-&lt;p&gt;Remember in the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;previous article&lt;/a&gt;, UnsafeArrayList has two methods for retrieving an element &lt;code&gt;T get(int index)&lt;/code&gt; and a &lt;code&gt;T get(T dest, int index)&lt;/code&gt;. The former creates a new object and copies the fields. The latter copies the fields in place of a given destination object, allowing the reuse of a single temp object, and avoiding creations of new objects, thus is labelled &amp;ldquo;InPlace&amp;rdquo; in the above results.&lt;/p&gt;
-
-&lt;p&gt;It is therefore surprising that the UnsafeArrayList can iterate 24% faster than an ArrayList, when it has the additional overhead of creating an object, and copying fields into it. Compared to an ArrayList which is just reading existing objects.&lt;/p&gt;
-
-&lt;p&gt;Some theory is needed to understand what might be happening here. A modern CISC CPU can execute an instruction in a few clock cycles, let&amp;rsquo;s say ~0.5 nanoseconds, however, reading from RAM takes ~10 nanoseconds. While the CPU is waiting for the response from RAM it is effectively blocked. To compensate the CPU deploys a few tricks, two of which could be helping here. Firstly, the CPU tries to predicting and prefetch the next memory request. Secondly, the CPU will execute instructions out of order, thus not waiting for the memory if a later instruction does not depend on the read.&lt;/p&gt;
-
-&lt;p&gt;In the ArrayList case, the array of reference is stored in contiguous memory. However, the actual objects (that the references point to) could be anywhere in RAM. As the program loops through it is making reads from effectively random locations in memory, that can’t be predicted, and thus stalls the CPU.&lt;/p&gt;
-
-&lt;p&gt;There is no doubt in the UnsafeArrayList the CPU is prefetching the next elements before it is needed. Additionally the cost of creating these short lived objects is most likely very small because they live and die in eden space and are thus simple to create and garbage collect. I also would not be surprised if the CPU or the JIT compiler was able to do &lt;a href=&#34;https://en.wikipedia.org/wiki/Automatic_vectorization&#34;&gt;some kind of vectorising&lt;/a&gt; on the input. That is, concurrently operating on multiple entries at the same time.&lt;/p&gt;
-
-&lt;p&gt;If we then test the &lt;code&gt;T get(T dest, int index)&lt;/code&gt; method (labelled IterateInPlace), it can iterate through the array in an impressive 0.442 ±0.023 seconds. That’s 5 times faster than the ArrayList, and 4 times faster than the &lt;code&gt;T get(int index)&lt;/code&gt;. This is certainly because the objects are not created for each get.&lt;/p&gt;
-
-&lt;p&gt;It was not measured here, but it is possible to confirm what the CPU is doing, by using &lt;a href=&#34;https://en.wikipedia.org/wiki/Hardware_performance_counter&#34;&gt;hardware based performance counters&lt;/a&gt;. These are special registers within the CPU that can be configured to measure cache hit/miss rates, prefetches, instructions per cycle, and many other metrics. These can be invaluable to understand what’s truly going on, as in most cases humans are bad at understanding performance bottlenecks through intuition alone. Tools such as &lt;a href=&#34;http://oprofile.sourceforge.net/&#34;&gt;oprofile&lt;/a&gt;, &lt;a href=&#34;https://perf.wiki.kernel.org/index.php/Main_Page&#34;&gt;perf&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/DTrace&#34;&gt;dtrace&lt;/a&gt; and &lt;a href=&#34;https://sourceware.org/systemtap/&#34;&gt;systemtap&lt;/a&gt; can be used for this.&lt;/p&gt;
-
-&lt;p&gt;To do a quick sanity check, in the ArrayList case it takes an average of 28.325 nanoseconds per element. &lt;a href=&#34;https://en.wikipedia.org/wiki/CAS_latency&#34;&gt;According to wikipedia&lt;/a&gt; it takes between 9.00-18.75 nanoseconds to read from DDR3 memory at 1333 Mhz. Thus this number doesn’t seem unexpected, as the ArrayList has to issue two memory reads, firstly reading sequentially from an array of references, and then reading from the object (which is at an unpredictable address).&lt;/p&gt;
-
-&lt;p&gt;With the UnsafeArrayList in-place test, it takes an average of 5.53 nanoseconds per element. As the fields are stored contiguously in memory, the CPU can efficiency pipeline the requests, amortizing the 9-18 ns memory read cost. Here the speed is most likely limited by either the memory’s bandwidth, or the CPU’s clock cycles.  To read 80 million memory addresses in 0.442 seconds, requires 180 Megatransfers per second, and assuming each object is two longs, or 16 bytes requires ~2.68 GiB/s of throughput. Neither of those values approach the upper limit of what DDR3 is capable of, thus I suspect the time is a combination of this and CPU instructions.&lt;/p&gt;
-
-&lt;h3 id=&#34;sorting&#34;&gt;Sorting&lt;/h3&gt;
-
-&lt;p&gt;The second benchmark measured the speed at which the lists could be read and written to somewhat randomly, and in particular sorted. This should cause a less predictable reads from memory.  To sort 80 million elements in the ArrayList took 70.31 ±3.939 seconds, and only 18.69 ±3.158 seconds for the UnsafeArrayList using the in-place get. The relative times is not as impressive as the previous test, but still the UnsafeArrayList is ~3.7 times as quick.  I’m unsure exactly why the UnsafeArrayList would be faster, but I suspect it is related to the fewer memory indirections, and prefetching effect the copying of fields has.&lt;/p&gt;
-
-&lt;p&gt;It’s also worth noting, the increase performance becomes less profound as the size of the stored class increases. For the FourLong the difference between ArrayList and UnsafeArrayList is 3.2x, and for EightLong the difference is 2.4x. This can easily be explained by the increasing cost of copying the fields in and out of the list. Even so, I would argue that the copy cost is in part hidden, as it is effectively prefetching the object’s fields into the CPU cache. Saving a memory load when the field is actually used (most likely shortly after it is pulled from the list).&lt;/p&gt;
-
-&lt;h3 id=&#34;other-observations&#34;&gt;Other observations&lt;/h3&gt;
-
-&lt;p&gt;Overlooked is the smaller memory requirements for the UnsafeArrayList. A TwoLong instance is 16 bytes of data, plus 16 bytes of JVM object header. Thus an ArrayList of 40 million instances take 2.4 GiB of RAM (32 bytes x 80M), plus an additional 305MiB for an array of 80 million references (assuming &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/technotes/guides/vm/performance-enhancements-7.html#compressedOop&#34;&gt;compressed object pointers&lt;/a&gt; takes 4 bytes each). Totalling 2.68 GiB, whereas the UnsafeArray takes 16 bytes per entry, totaling only 1.2GiB (roughly half the size!).&lt;/p&gt;
-
-&lt;p&gt;Of course if the array is holding larger classes (such as the EightLong), the per object overhead is smaller, in these cases 6.25GiB vs 4.76GiB, roughly 75% the size.&lt;/p&gt;
-
-&lt;p&gt;One last observation of interest is the confidence intervals for the results. A larger error implies more variability in the test runs. For example, if the garbage collector ran during some of the runs, and slowed down the test, it would increase this error. In all the tests using the UnsafeArrayList in-place methods, the confidence interval is smaller, implying more constancy and predictability. This can be important in certain situations, such as real-time systems.&lt;/p&gt;
-
-&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;We benchmarked the &lt;a href=&#34;https://bramp.github.io/unsafe/index.html?net/bramp/unsafe/UnsafeHelper.html&#34;&gt;UnsafeArrayList&lt;/a&gt;, against a normal ArrayList in two artificial workloads. We found that in both the start-to-finish iteration, and in the sorting case, that the UnsafeArrayList was 4-5x faster than its counterpart. This result itself is interesting when designing high performance data structures, however, the use of &lt;a href=&#34;http://www.docjar.com/docs/api/sun/misc/Unsafe.html&#34;&gt;sun.misc.Unsafe&lt;/a&gt; is considered dangerous, and thus the performance comes with many caveats and risks. In fact, it was recently announced that the &lt;a href=&#34;http://blog.dripstat.com/removal-of-sun-misc-unsafe-a-disaster-in-the-making/&#34;&gt;Unsafe class is being deprecated and hidden in java 9&lt;/a&gt;. So instead, this was just an insightful journey into how the CPU can optomise particular workloads, and how Java can be pushed to extreme speeds.&lt;/p&gt;
-
-&lt;p&gt;Your results may vary, and as always you should benchmark your exact workload instead of a hypothetical one, but this was still an interesting experiment.&lt;/p&gt;
 </description>
     </item>
     
