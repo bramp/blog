@@ -3,9 +3,10 @@
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
 <meta content="width=device-width,initial-scale=1" name=viewport>
-<link href=https://blog.bramp.net/post/ rel=canonical itemprop=url />
-<title>Posts</title>
-<meta content="Andrew Brampton&#39;s Tech blog" name=description itemprop=description>
+<link href=https://blog.bramp.net/post/2018/05/26/certbot-unexpected-error/ rel=canonical itemprop=url />
+<title>Certbot: Unexpected Error</title>
+<meta content="I got a nice warning email from Let&rsquo;s Encrypt that my cert was going to expire soon, and hadn&rsquo;t been renewed. I found in /var/log/letsencrypt/letsencrypt.log the following error:
+Renewal …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -37,11 +38,17 @@ window.dataLayer = window.dataLayer || [];
 <meta content=summary name=twitter:card />
 <meta content=@TheBramp name=twitter:site />
 <meta content=@TheBramp name=twitter:creator />
-<meta content=website property=og:type />
-<meta content=https://blog.bramp.net/post/ property=og:url />
+<meta content=article property=og:type />
+<meta content=https://www.facebook.com/bramp property=article:author />
+<meta content=2018-05-26T11:28:44&#43;07:00 property=article:published_time />
+<meta content=certbot property=article:tag />
+<meta content=linux property=article:tag />
+<meta content=letsencrypt property=article:tag />
+<meta content=https://blog.bramp.net/post/2018/05/26/certbot-unexpected-error/ property=og:url />
 <meta content=bramp.net property=og:site_name />
-<meta content=Posts property=og:title />
-<meta content="Andrew Brampton&#39;s Tech blog" property=og:description />
+<meta content="Certbot: Unexpected Error" property=og:title />
+<meta content="I got a nice warning email from Let&rsquo;s Encrypt that my cert was going to expire soon, and hadn&rsquo;t been renewed. I found in /var/log/letsencrypt/letsencrypt.log the following error:
+Renewal …" property=og:description />
 <meta content=2018-05-26T11:28:44-07:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -86,11 +93,34 @@ window.dataLayer = window.dataLayer || [];
 </div>
 <div class="container main">
 <article id=article itemProp=blogPost itemscope itemtype=http://schema.org/BlogPosting>
-<h1 itemprop=headline>Posts</h1>
+<h1 itemprop=headline>Certbot: Unexpected Error</h1>
 <p class=meta>
 <svg class="icon icon-calendar"><use xlink:href=/images/icons.svg#icon-calendar></use></svg> <time itemprop=datePublished>2018-05-26</time>
+| <a href=https://blog.bramp.net/tags/certbot/ >certbot</a>
+| <a href=https://blog.bramp.net/tags/linux/ >linux</a>
+| <a href=https://blog.bramp.net/tags/letsencrypt/ >letsencrypt</a>
 </p>
 <div class=post itemprop=articleBody>
+<p>I got a <a href=https://letsencrypt.org/docs/expiration-emails/ >nice warning email</a> from <a href=https://letsencrypt.org/ >Let&rsquo;s Encrypt</a> that my cert was going to expire soon, and hadn&rsquo;t been renewed. I found in <code>/var/log/letsencrypt/letsencrypt.log</code> the following error:</p>
+<pre><code>Renewal configuration file /etc/letsencrypt/renewal/mydomain.bramp.net.conf (cert: mydomain.bramp.net) produced an unexpected error: 'Namespace' object has no attribute 'dns_cloudflare_credentials'. Skipping.
+</code></pre>
+<p>I manually ran certbot in dry-run mode and it worked fine:</p>
+<div class=highlight><pre class=chroma><code class=language-shell data-lang=shell>$ sudo certbot renew --dry-run</code></pre></div>
+<p>So this error only occurs when certbot is running as a cron job. Looking at <code>/etc/cron.d/certbot</code> I see the user runs as root, so I tried the <code>certbot renew --dry-run</code> again, but this time as the root user:</p>
+<div class=highlight><pre class=chroma><code class=language-shell data-lang=shell>$ sudo su
+root@:~$ sudo certbot renew --dry-run</code></pre></div>
+<p>and bam, the same error. This error somehow related to the <a href=https://certbot-dns-cloudflare.readthedocs.io/en/latest/ >certbot-dns-cloudflare plugin</a>, which proves the ownership of the domain with a <a href=https://acme-python.readthedocs.io/en/latest/api/challenges.html#acme.challenges.DNS01>DNS01 challenge</a> via Cloudflare&rsquo;s DNS. I use this form of challenge, because the domain in question is internal and not available on the Internet.</p>
+<p>I had forgotten how I installed the plugin, but searching Google, it seems to be via <code>pip3</code>. Clearly something was different between my root and normal user w/ sudo environments. So I did the following</p>
+<div class=highlight><pre class=chroma><code class=language-shell data-lang=shell>$ sudo pip3 list <span class=p>|</span> grep certbot
+certbot <span class=o>(</span><span class=m>0</span>.23.0<span class=o>)</span>
+certbot-apache <span class=o>(</span><span class=m>0</span>.23.0<span class=o>)</span>
+certbot-dns-cloudflare <span class=o>(</span><span class=m>0</span>.24.0<span class=o>)</span>
+
+$ sudo su
+root@:~$ pip3 list <span class=p>|</span> grep certbot
+certbot <span class=o>(</span><span class=m>0</span>.23.0<span class=o>)</span>
+certbot-apache <span class=o>(</span><span class=m>0</span>.23.0<span class=o>)</span></code></pre></div>
+<p>Aha, no certbot-dns-cloudflare when running as root. Clearly I hadn&rsquo;t installed this correctly. Running <code>pip3 install certbot-dns-cloudflare</code> as root fixed the problem, and voila, certbot correctly fetches new certs via a regular cron.</p>
 </div>
 </article>
 <div class=row>
@@ -109,13 +139,14 @@ window.dataLayer = window.dataLayer || [];
 </div>
 </div>
 <ul class=pager>
+&nbsp;<li class=previous><a href=/post/2018/04/08/the-mcu/ >&larr; Marvel Cinematic Universe Timeline</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
 var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/';
-    var disqus_title = 'Posts';
-    var disqus_url = 'https:\/\/blog.bramp.net\/post\/';
+    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2018\/05\/26\/certbot-unexpected-error\/';
+    var disqus_title = 'Certbot: Unexpected Error';
+    var disqus_url = 'https:\/\/blog.bramp.net\/post\/2018\/05\/26\/certbot-unexpected-error\/';
     (function() {
 	    
 	    

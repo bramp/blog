@@ -6,8 +6,40 @@
     <description>Recent content in Linux on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Sun, 30 Sep 2012 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 26 May 2018 11:28:44 -0700</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/linux/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Certbot: Unexpected Error</title>
+      <link>https://blog.bramp.net/post/2018/05/26/certbot-unexpected-error/</link>
+      <pubDate>Sat, 26 May 2018 11:28:44 -0700</pubDate>
+      
+      <guid>https://blog.bramp.net/post/2018/05/26/certbot-unexpected-error/</guid>
+      <description>&lt;p&gt;I got a &lt;a href=&#34;https://letsencrypt.org/docs/expiration-emails/&#34;&gt;nice warning email&lt;/a&gt; from &lt;a href=&#34;https://letsencrypt.org/&#34;&gt;Let&amp;rsquo;s Encrypt&lt;/a&gt; that my cert was going to expire soon, and hadn&amp;rsquo;t been renewed. I found in  &lt;code&gt;/var/log/letsencrypt/letsencrypt.log&lt;/code&gt; the following error:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Renewal configuration file /etc/letsencrypt/renewal/mydomain.bramp.net.conf (cert: mydomain.bramp.net) produced an unexpected error: &#39;Namespace&#39; object has no attribute &#39;dns_cloudflare_credentials&#39;. Skipping.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I manually ran certbot in dry-run mode and it worked fine:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo certbot renew --dry-run&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So this error only occurs when certbot is running as a cron job. Looking at &lt;code&gt;/etc/cron.d/certbot&lt;/code&gt; I see the user runs as root, so I tried the &lt;code&gt;certbot renew --dry-run&lt;/code&gt; again, but this time as the root user:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo su
+root@:~$ sudo certbot renew --dry-run&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;and bam, the same error. This error somehow related to the &lt;a href=&#34;https://certbot-dns-cloudflare.readthedocs.io/en/latest/&#34;&gt;certbot-dns-cloudflare plugin&lt;/a&gt;, which proves the ownership of the domain with a &lt;a href=&#34;https://acme-python.readthedocs.io/en/latest/api/challenges.html#acme.challenges.DNS01&#34;&gt;DNS01 challenge&lt;/a&gt; via Cloudflare&amp;rsquo;s DNS. I use this form of challenge, because the domain in question is internal and not available on the Internet.&lt;/p&gt;
+
+&lt;p&gt;I had forgotten how I installed the plugin, but searching Google, it seems to be via &lt;code&gt;pip3&lt;/code&gt;. Clearly something was different between my root and normal user w/ sudo environments. So I did the following&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo pip3 list &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep certbot
+certbot &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;.23.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+certbot-apache &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;.23.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+certbot-dns-cloudflare &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;.24.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+
+$ sudo su
+root@:~$ pip3 list &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep certbot
+certbot &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;.23.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+certbot-apache &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;.23.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Aha, no certbot-dns-cloudflare when running as root. Clearly I hadn&amp;rsquo;t installed this correctly. Running &lt;code&gt;pip3 install certbot-dns-cloudflare&lt;/code&gt; as root fixed the problem, and voila, certbot correctly fetches new certs via a regular cron.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>pt-kill CentOS init.d script</title>
@@ -488,49 +520,6 @@ apt-get upgrade&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;portsnap fetch update
 portmanager -u&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;I think the Debian process is easier (and clearly the fastest) but it obviously has to do less work because I&amp;#8217;m downloading precompiled code. Portmanager is just as easy but seems to randomly ask me questions through the process whereas apt-get seems to get them out of the way early on. Either way I find this all very easy and relaxing&amp;#8230; until I have to reboot the machines and find something is broken :/&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Useful scripts/configurations</title>
-      <link>https://blog.bramp.net/post/2009/11/28/useful-scripts/configurations/</link>
-      <pubDate>Sat, 28 Nov 2009 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.bramp.net/post/2009/11/28/useful-scripts/configurations/</guid>
-      <description>&lt;p&gt;Make &lt;a href=&#34;http://git-scm.com&#34;&gt;git&lt;/a&gt; colourful&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;git config --global color.diff auto
-git config --global color.status auto
-git config --global color.branch auto&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Make &lt;a href=&#34;http://www.nano-editor.org/&#34;&gt;nano&lt;/a&gt; colourful&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cp /usr/local/share/examples/nano/nanorc.sample ~/.nanorc
-&lt;span class=&#34;c1&#34;&gt;# or
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;zcat /usr/share/doc/nano/examples/nanorc.sample.gz &amp;gt;~/.nanorc
-
-&lt;span class=&#34;c1&#34;&gt;# then
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;nano ~/.nanorc&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;To trim trailing whitespace from *.cc on Linux (taken from &lt;a href=&#34;http://zebert.blogspot.com/2009/06/clean-up-trailing-whitespaces-in.html&#34;&gt;this blog&lt;/a&gt;):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;find . -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;o&#34;&gt;{}&lt;/span&gt; -e &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/[ \t]*$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;and on BSDs:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;find . -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; -e &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/\ *$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{}&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Linux style &amp;#8216;ls&amp;#8217; colours on FreeBSD (taken from &lt;a href=&#34;http://www.puresimplicity.net/~hemi/freebsd/misc.html&#34;&gt;here&lt;/a&gt;):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CLICOLOR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;YES&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;LSCOLORS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;ExGxFxdxCxDxDxhbadExEx&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;To ensure the http_proxy environmental variable is passed to sudo. Edit the sudoers file by running visudo. Then add the following.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Defaults &lt;span class=&#34;nv&#34;&gt;env_keep&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;ftp_proxy http_proxy https_proxy&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Bash autocompletion on FreeBSD:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt;  /usr/ports/shells/bash-completion
-sudo make install clean&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Edit ~/.bashrc and add&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; -f /usr/local/etc/bash_completion &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
-    . /usr/local/etc/bash_completion
-&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Make svn output colorful&lt;br /&gt;
-Edit ~/.subversion/config&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span class=&#34;k&#34;&gt;[helpers]&lt;/span&gt;
-&lt;span class=&#34;na&#34;&gt;diff-cmd&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;/usr/bin/colordiff&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Create diffs with function names and ignoring whitespace&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;svn diff -x -uwp&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;To be continued&amp;#8230;&lt;/p&gt;
 </description>
     </item>
     
