@@ -1,4 +1,4 @@
-{{ template "theme/partials/header.html" . }}
+{{ template "partials/header.html" . }}
 {{ $baseurl := .Site.BaseURL }}
 
 <article id="article" itemProp="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
@@ -39,5 +39,5 @@
      {{with .NextInSection}} &nbsp;<li class="next"><a href="{{.RelPermalink}}"> {{.Title}} &rarr;</a></li>{{end}}
 </ul>
 
-{{ template "theme/partials/disqus.html" . }}
-{{ template "theme/partials/footer.html" . }}
+{{ template "partials/disqus.html" . }}
+{{ template "partials/footer.html" . }}
