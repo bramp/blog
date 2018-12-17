@@ -43,8 +43,8 @@ dd &lt;span class=&#34;nv&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo modprobe mtdram &lt;span class=&#34;nv&#34;&gt;total_size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;32768&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;erase_size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;256&lt;/span&gt;
 sudo modprobe mtdblock
 sudo modprobe mtdchar
-&lt;span class=&#34;c1&#34;&gt;# sudo mknod /dev/mtdblock0 b 31 0
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;dd &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-3.jffs2 &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/dev/mtdblock0
+&lt;span class=&#34;c1&#34;&gt;# sudo mknod /dev/mtdblock0 b 31 0&lt;/span&gt;
+dd &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-3.jffs2 &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/dev/mtdblock0
 mount -t jffs2 /dev/mtdblock0 /mnt/disk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The mknod line is only needed if you don&amp;#8217;t already have a /dev/mtdblock0. Also a /mnt/disk needs to be created ahead of time so the mounting works. Anyway once that was done, I cd /mnt/disk and found that it does appear to contain most of the file system. There are all the HTML pages, and binaries (for example busybox).&lt;/p&gt;
 
@@ -87,46 +87,46 @@ gzip: image-2.gz: decompression OK, trailing garbage ignored&lt;/code&gt;&lt;/pr
 &lt;span class=&#34;n&#34;&gt;Content-Type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;text/xml&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;Content-Length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;573&lt;/span&gt;
 
-&amp;amp;lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&amp;#34;http://schemas.xmlsoap.org/soap/envelope/&amp;#34;&amp;amp;gt;
-  &amp;amp;lt;SOAP-ENV:Header/&amp;amp;gt;
-  &amp;amp;lt;SOAP-ENV:Body&amp;amp;gt;
-    &amp;amp;lt;ns:GetFirmwareFromDeviceRequest xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&amp;amp;gt;
-      &amp;amp;lt;ns:LanguageCode&amp;amp;gt;en&amp;amp;lt;/ns:LanguageCode&amp;amp;gt;
-      &amp;amp;lt;ns:CountryCode&amp;amp;gt;us&amp;amp;lt;/ns:CountryCode&amp;amp;gt;
-      &amp;amp;lt;ns:MacAddress&amp;amp;gt;12:34:56:78:90:ab&amp;amp;lt;/ns:MacAddress&amp;amp;gt;
-      &amp;amp;lt;ns:ModelNo&amp;amp;gt;E4200&amp;amp;lt;/ns:ModelNo&amp;amp;gt;
-      &amp;amp;lt;ns:HardwareVersion&amp;amp;gt;2&amp;amp;lt;/ns:HardwareVersion&amp;amp;gt;
-      &amp;amp;lt;ns:CurrentFirmwareVersion&amp;amp;gt;2.0.36.126507&amp;amp;lt;/ns:CurrentFirmwareVersion&amp;amp;gt;
-    &amp;amp;lt;/ns:GetFirmwareFromDeviceRequest&amp;amp;gt;
-  &amp;amp;lt;/SOAP-ENV:Body&amp;amp;gt;
-&amp;amp;lt;/SOAP-ENV:Envelope&amp;amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&amp;#34;http://schemas.xmlsoap.org/soap/envelope/&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;SOAP-ENV:Header/&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;SOAP-ENV:Body&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:GetFirmwareFromDeviceRequest xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:LanguageCode&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;en&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:LanguageCode&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:CountryCode&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;us&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:CountryCode&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:MacAddress&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;12:34:56:78:90:ab&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:MacAddress&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:ModelNo&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;E4200&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:ModelNo&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:HardwareVersion&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;2&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:HardwareVersion&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:CurrentFirmwareVersion&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;2.0.36.126507&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:CurrentFirmwareVersion&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:GetFirmwareFromDeviceRequest&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/SOAP-ENV:Body&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/SOAP-ENV:Envelope&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;and the response:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span class=&#34;kr&#34;&gt;HTTP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1.1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;200&lt;/span&gt; &lt;span class=&#34;ne&#34;&gt;OK&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;Content-Language&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;en-US&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;Content-Type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;text/xml&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;SOAPAction&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
 
-&amp;amp;lt;soapenv:Envelope
+&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;soapenv:Envelope
  xmlns:soapenv=&amp;#34;http://schemas.xmlsoap.org/soap/envelope/&amp;#34;
  xmlns:soapenc=&amp;#34;http://schemas.xmlsoap.org/soap/encoding/&amp;#34;
  xmlns:xsd=&amp;#34;http://www.w3.org/2001/XMLSchema&amp;#34;
- xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;&amp;amp;gt;
-  &amp;amp;lt;soapenv:Header/&amp;amp;gt;
-  &amp;amp;lt;soapenv:Body&amp;amp;gt;
-    &amp;amp;lt;ns:GetFirmwareFromDeviceResponse xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&amp;amp;gt;
-      &amp;amp;lt;ns:FirmwareList xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&amp;amp;gt;
-        &amp;amp;lt;ns:Firmware xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&amp;amp;gt;
-          &amp;amp;lt;ns:Version xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&amp;amp;gt;2.0.36.126507&amp;amp;lt;/ns:Version&amp;amp;gt;
-          &amp;amp;lt;ns:Revision xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&amp;amp;gt;D&amp;amp;lt;/ns:Revision&amp;amp;gt;
-          &amp;amp;lt;ns:ReleaseDate xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&amp;amp;gt;2012-01-06T16:48:08Z&amp;amp;lt;/ns:ReleaseDate&amp;amp;gt;
-          &amp;amp;lt;ns:DownloadURI xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&amp;amp;gt;http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA&amp;amp;lt;/ns:DownloadURI&amp;amp;gt;
-          &amp;amp;lt;ns:DateFormat xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&amp;amp;gt;yyyy-MM-dd&amp;#39;;T&amp;#39;;HH:mm:ss&amp;#39;;Z&amp;#39;;&amp;amp;lt;/ns:DateFormat&amp;amp;gt;
-          &amp;amp;lt;ns:Checksum xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&amp;amp;gt;1958710861&amp;amp;lt;/ns:Checksum&amp;amp;gt;
-        &amp;amp;lt;/ns:Firmware&amp;amp;gt;
-      &amp;amp;lt;/ns:FirmwareList&amp;amp;gt;
-    &amp;amp;lt;/ns:GetFirmwareFromDeviceResponse&amp;amp;gt;
-  &amp;amp;lt;/soapenv:Body&amp;amp;gt;
-&amp;amp;lt;/soapenv:Envelope&amp;amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+ xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;soapenv:Header/&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;soapenv:Body&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:GetFirmwareFromDeviceResponse xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:FirmwareList xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:Firmware xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+          &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:Version xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;2.0.36.126507&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:Version&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+          &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:Revision xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;D&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:Revision&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+          &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:ReleaseDate xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;2012-01-06T16:48:08Z&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:ReleaseDate&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+          &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:DownloadURI xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:DownloadURI&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+          &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:DateFormat xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;yyyy-MM-dd&amp;#39;;T&amp;#39;;HH:mm:ss&amp;#39;;Z&amp;#39;;&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:DateFormat&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+          &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:Checksum xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;1958710861&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:Checksum&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:Firmware&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:FirmwareList&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:GetFirmwareFromDeviceResponse&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/soapenv:Body&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/soapenv:Envelope&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;(I slightly modified portions of the request and response to hide the identify of my router.).&lt;/p&gt;
 
 &lt;p&gt;I might write a script to make fake requests, but until then you can easily create a request with curl:&lt;/p&gt;

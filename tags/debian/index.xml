@@ -46,8 +46,8 @@ apt-get &lt;span class=&#34;nb&#34;&gt;source&lt;/span&gt; php5
 &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; php5-*
 debuild -us -uc -j4&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;While testing, the debian/setup_mysql.sh script is called, to create a temporary MySQL database. This however failed to execute correctly because I had some custom options in my &lt;a href=&#34;http://dev.mysql.com/doc/refman/5.1/en/option-files.html&#34;&gt;~/.my.cnf&lt;/a&gt;. Thus it failed like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# start our own mysql server for the tests
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;/bin/sh debian/setup-mysql.sh &lt;span class=&#34;m&#34;&gt;1029&lt;/span&gt; /home/bramp/vendor/php/php5-5.3.8.0/mysql_db
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# start our own mysql server for the tests&lt;/span&gt;
+/bin/sh debian/setup-mysql.sh &lt;span class=&#34;m&#34;&gt;1029&lt;/span&gt; /home/bramp/vendor/php/php5-5.3.8.0/mysql_db
 mysqladmin: connect to server at &lt;span class=&#34;s1&#34;&gt;&amp;#39;localhost&amp;#39;&lt;/span&gt; failed
 error: &lt;span class=&#34;s1&#34;&gt;&amp;#39;Access denied for user &amp;#39;&lt;/span&gt;root&lt;span class=&#34;s1&#34;&gt;&amp;#39;@&amp;#39;&lt;/span&gt;localhost&lt;span class=&#34;s1&#34;&gt;&amp;#39; (using password: YES)&amp;#39;&lt;/span&gt;
 make: *** &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;test-results.txt&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; Error &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;

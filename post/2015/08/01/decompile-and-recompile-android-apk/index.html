@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
+<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -119,11 +119,11 @@ window.dataLayer = window.dataLayer || [];
 <p>First, unpack the application.apk file. This will create a &ldquo;application&rdquo; directory with assets, resources, compiled code, etc.</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>apktool d -r -s application.apk</code></pre></div>
 <p>Now poke around, and edit any of the files in the application directory. If you wish to decompile any java you can do the following:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=c1># Convert the Dex files into standard class files
-</span><span class=c1></span>dex2jar application/classes.dex
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=c1># Convert the Dex files into standard class files</span>
+dex2jar application/classes.dex
 
-<span class=c1># Now use the JD (Java Decompiler) to inspect the source
-</span><span class=c1></span>jd-gui classes-dex2jar.jar</code></pre></div>
+<span class=c1># Now use the JD (Java Decompiler) to inspect the source</span>
+jd-gui classes-dex2jar.jar</code></pre></div>
 <p>Once you have made your changes, you need to repack the APK. This will create a <code>my_application.apk</code> file:</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>apktool b -f -d application
 mv application/dist/application.apk my_application.apk</code></pre></div>
@@ -131,11 +131,11 @@ mv application/dist/application.apk my_application.apk</code></pre></div>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>keytool -genkey -v -keystore my-release-key.keystore -alias alias_name <span class=se>\
 </span><span class=se></span>                   -keyalg RSA -keysize <span class=m>2048</span> -validity <span class=m>10000</span></code></pre></div>
 <p>Now sign the APK with the key:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=c1># Sign the apk
-</span><span class=c1></span>jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore my_application.apk alias_name
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=c1># Sign the apk</span>
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore my_application.apk alias_name
 
-<span class=c1># Verify apk
-</span><span class=c1></span>jarsigner -verify -verbose -certs my_application.apk</code></pre></div>
+<span class=c1># Verify apk</span>
+jarsigner -verify -verbose -certs my_application.apk</code></pre></div>
 <p>Finally, the apk must be aligned for optimal loading:</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>zipalign -v <span class=m>4</span> my_application.apk my_application-aligned.apk</code></pre></div>
 <p>Voila, now you have a <code>my_application-aligned.apk</code> file, which you can side load onto your device.</p>

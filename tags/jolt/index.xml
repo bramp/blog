@@ -19,30 +19,16 @@
 
 &lt;!-- TODO link to the non-thumbnail version --&gt;
 
-&lt;p&gt;
-&lt;figure&gt;
-    
-        &lt;img src=&#34;DSCF1334_thumb.JPG&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;The 5 flavours of Jolt Cola&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
+&lt;p&gt;&lt;figure&gt;
+    &lt;img src=&#34;DSCF1334_thumb.JPG&#34;/&gt; &lt;figcaption&gt;
+            &lt;h4&gt;The 5 flavours of Jolt Cola&lt;/h4&gt;
+        &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-
 &lt;figure&gt;
-    
-        &lt;img src=&#34;DSCF1335_thumb.JPG&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;A can of jolt compared to a real battery&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
+    &lt;img src=&#34;DSCF1335_thumb.JPG&#34;/&gt; &lt;figcaption&gt;
+            &lt;h4&gt;A can of jolt compared to a real battery&lt;/h4&gt;
+        &lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;/p&gt;
 

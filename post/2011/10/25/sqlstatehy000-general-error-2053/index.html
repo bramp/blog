@@ -25,7 +25,7 @@ PHP Fatal error: Uncaught exception &#39;PDOException&#39; with message &#39;SQL
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
+<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -106,15 +106,13 @@ PHP Fatal error: Uncaught exception &#39;PDOException&#39; with message &#39;SQL
 Stack trace:
 #0 /home/bramp/my.php(29): PDOStatement-&gt;fetch(2)</code></pre></div>
 <p>Searching on Google didn&#8217;t reveal much help, but I eventually figure out the root cause. Spot the mistake:</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=x>...
-</span><span class=x>$sql = &#39;SELECT TRIGGER_NAME, TRIGGER_GROUP, JOB_NAME FROM QRTZ_TRIGGERS&#39;;
-</span><span class=x>$sth = $dbh-&gt;prepare($sql) or die(&#39;Failed to prepare SELECT TRIGGER query&#39;);
-</span><span class=x>while ($row = $sth-&gt;fetch(PDO::FETCH_ASSOC)) {
-</span><span class=x>...
-</span><span class=x></span></code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php>...
+$sql = &#39;SELECT TRIGGER_NAME, TRIGGER_GROUP, JOB_NAME FROM QRTZ_TRIGGERS&#39;;
+$sth = $dbh-&gt;prepare($sql) or die(&#39;Failed to prepare SELECT TRIGGER query&#39;);
+while ($row = $sth-&gt;fetch(PDO::FETCH_ASSOC)) {
+...</code></pre></div>
 <p>I am missing a</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=x>$sth-&gt;execute();
-</span><span class=x></span></code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php>$sth-&gt;execute();</code></pre></div>
 <p>in between the prepare and the fetch. Easy fix. For reference I&#8217;m using a old version of PHP 5.1.6, and MySQL client 5.0.45.</p>
 </div>
 </article>
@@ -135,7 +133,7 @@ Stack trace:
 </div>
 <ul class=pager>
 &nbsp;<li class=previous><a href=/post/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/ >&larr; My experiences with developing multi-threaded nodejs addon</a></li>
-&nbsp;<li class=next><a href=/post/2011/10/31/2010-census-tiger/line-shapefiles-code-names/ >2010 Census TIGER/Line® Shapefiles Code Names &rarr;</a></li>
+&nbsp;<li class=next><a href=/post/2011/10/31/2010-census-tiger-line-shapefiles-code-names/ >2010 Census TIGER/Line® Shapefiles Code Names &rarr;</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>

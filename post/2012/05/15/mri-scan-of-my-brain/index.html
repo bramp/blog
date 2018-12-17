@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
+<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -140,19 +140,19 @@ mkdir png
 <p>Now to batch the images I started by creating animated gifs.</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>sudo apt-get install imagemagick
 
-<span class=c1># Create animated gifs
-</span><span class=c1></span><span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> <span class=m>011</span><span class=sb>`</span><span class=p>;</span> <span class=k>do</span> convert -delay <span class=m>20</span> -loop <span class=m>0</span> png/<span class=nv>$i</span>*.png <span class=nv>$i</span>.gif<span class=p>;</span> <span class=k>done</span><span class=p>;</span></code></pre></div>
+<span class=c1># Create animated gifs</span>
+<span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> <span class=m>011</span><span class=sb>`</span><span class=p>;</span> <span class=k>do</span> convert -delay <span class=m>20</span> -loop <span class=m>0</span> png/<span class=nv>$i</span>*.png <span class=nv>$i</span>.gif<span class=p>;</span> <span class=k>done</span><span class=p>;</span></code></pre></div>
 <p>However, those gifs were huge, up to 20mb. So next I created a set of videos (that were a order of magnitude smaller than the gifs):</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>sudo apt-get install ffmpeg
 
-<span class=c1># Create MP4
-</span><span class=c1></span><span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> <span class=m>011</span><span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.mp4<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
+<span class=c1># Create MP4</span>
+<span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> <span class=m>011</span><span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.mp4<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
 
-<span class=c1># Create webm
-</span><span class=c1></span><span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> <span class=m>011</span><span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.webm<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
+<span class=c1># Create webm</span>
+<span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> <span class=m>011</span><span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.webm<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
 
-<span class=c1># Create ogg video
-</span><span class=c1></span><span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> <span class=m>011</span><span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.ogg<span class=p>;</span> <span class=k>done</span><span class=p>;</span></code></pre></div>
+<span class=c1># Create ogg video</span>
+<span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> <span class=m>011</span><span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.ogg<span class=p>;</span> <span class=k>done</span><span class=p>;</span></code></pre></div>
 <p>easy!</p>
 </div>
 </article>
@@ -173,7 +173,7 @@ mkdir png
 </div>
 <ul class=pager>
 &nbsp;<li class=previous><a href=/post/2012/04/29/failed-ubuntu-update/ >&larr; Failed Ubuntu update</a></li>
-&nbsp;<li class=next><a href=/post/2012/06/24/abusing-googles-im-feeling-lucky-to-work-like-bit.ly--brampa2d/ >Abusing Google’s “I’m Feeling Lucky” to work like bit.ly – brampA2D &rarr;</a></li>
+&nbsp;<li class=next><a href=/post/2012/06/24/abusing-googles-im-feeling-lucky-to-work-like-bit.ly-brampa2d/ >Abusing Google’s “I’m Feeling Lucky” to work like bit.ly – brampA2D &rarr;</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>

@@ -3,9 +3,9 @@
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
 <meta content="width=device-width,initial-scale=1" name=viewport>
-<link href=https://blog.bramp.net/post/2009/01/21/read/write-permissions-for-php-scripts-at-lancs.ac.uk/ rel=canonical itemprop=url />
-<title>Read/Write permissions for PHP scripts at lancs.ac.uk</title>
-<meta content="My girlfriend wanted to create a blog, and she attempted to use her university provided web space. However, the blog software seemed unable to write to her webspace. Typically you would fix this by …" name=description itemprop=description>
+<link href=https://blog.bramp.net/post/2009/01/04/ndsfs-a-fuse-application-to-mount-nintendo-ds-roms/ rel=canonical itemprop=url />
+<title>ndsfs – A FUSE application to mount Nintendo DS roms</title>
+<meta content="I brought my dad Professor Layton for the Nintendo DS this Christmas, and being a curious fellow I decided to see if I could reverse engineer the game to extract all the questions/answers. It turns …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
+<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -39,16 +39,16 @@ window.dataLayer = window.dataLayer || [];
 <meta content=@TheBramp name=twitter:creator />
 <meta content=article property=og:type />
 <meta content=https://www.facebook.com/bramp property=article:author />
-<meta content=2009-01-21T00:00:00&#43;07:00 property=article:published_time />
-<meta content=acl property=article:tag />
-<meta content=lancs property=article:tag />
-<meta content=SunOS property=article:tag />
-<meta content=www property=article:tag />
-<meta content=https://blog.bramp.net/post/2009/01/21/read/write-permissions-for-php-scripts-at-lancs.ac.uk/ property=og:url />
+<meta content=2009-01-04T00:00:00&#43;07:00 property=article:published_time />
+<meta content=fuse property=article:tag />
+<meta content=ndsfs property=article:tag />
+<meta content="nintendo ds" property=article:tag />
+<meta content=rom property=article:tag />
+<meta content=https://blog.bramp.net/post/2009/01/04/ndsfs-a-fuse-application-to-mount-nintendo-ds-roms/ property=og:url />
 <meta content=bramp.net property=og:site_name />
-<meta content="Read/Write permissions for PHP scripts at lancs.ac.uk" property=og:title />
-<meta content="My girlfriend wanted to create a blog, and she attempted to use her university provided web space. However, the blog software seemed unable to write to her webspace. Typically you would fix this by …" property=og:description />
-<meta content=2009-01-21T00:00:00&#43;00:00 property=og:updated_time />
+<meta content="ndsfs – A FUSE application to mount Nintendo DS roms" property=og:title />
+<meta content="I brought my dad Professor Layton for the Nintendo DS this Christmas, and being a curious fellow I decided to see if I could reverse engineer the game to extract all the questions/answers. It turns …" property=og:description />
+<meta content=2009-01-04T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
 </head>
@@ -92,31 +92,22 @@ window.dataLayer = window.dataLayer || [];
 </div>
 <div class="container main">
 <article id=article itemProp=blogPost itemscope itemtype=http://schema.org/BlogPosting>
-<h1 itemprop=headline>Read/Write permissions for PHP scripts at lancs.ac.uk</h1>
+<h1 itemprop=headline>ndsfs – A FUSE application to mount Nintendo DS roms</h1>
 <p class=meta>
-<svg class="icon icon-calendar"><use xlink:href=/images/icons.svg#icon-calendar></use></svg> <time itemprop=datePublished>2009-01-21</time>
-| <a href=https://blog.bramp.net/tags/acl/ >acl</a>
-| <a href=https://blog.bramp.net/tags/lancs/ >lancs</a>
-| <a href=https://blog.bramp.net/tags/sunos/ >SunOS</a>
-| <a href=https://blog.bramp.net/tags/www/ >www</a>
+<svg class="icon icon-calendar"><use xlink:href=/images/icons.svg#icon-calendar></use></svg> <time itemprop=datePublished>2009-01-04</time>
+| <a href=https://blog.bramp.net/tags/fuse/ >fuse</a>
+| <a href=https://blog.bramp.net/tags/ndsfs/ >ndsfs</a>
+| <a href=https://blog.bramp.net/tags/nintendo-ds/ >nintendo ds</a>
+| <a href=https://blog.bramp.net/tags/rom/ >rom</a>
 </p>
 <div class=post itemprop=articleBody>
-<p>My girlfriend wanted to create a blog, and she attempted to use her <a href=http://www.lancs.ac.uk/ug/cranen>university provided web space</a>. However, the blog software seemed unable to write to her webspace. Typically you would fix this by changing the write permissions on the file/directory like so:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>chmod g+w filename</code></pre></div>
-<p>or</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>chmod o+w filename</code></pre></div>
-<p>However this did not seem to work. I noticed that the files which hosted the website were on a SunOS 5.8 machine, and this seemed to support access control lists (ACLs). So I looked at a few of the ACLs for the files and they looked like this:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ getfacl filename
-user::rwx
-group::rwx              <span class=c1>#effective:rwx
-</span><span class=c1></span>group:httpadmin:rwx     <span class=c1>#effective:rwx
-</span><span class=c1></span>mask:rwx
-other:r--</code></pre></div>
-<p>Since there is the group:httpadmin line, ISS are clearly using these ACLs. So I figured I would add the user the webserver is running under to the ACL. A quick look at a phpinfo() page showed me that the web server is running under user www in group www. So I first tried the following:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>setfacl -m user:www:rw- filename</code></pre></div>
-<p>But that oddly didn&#8217;t work, but then I noted that the webserver was a linux machine, not SunOS, and that the UID of www was 48. A quick look at the UID of www on SunOS and it shows it is a completely different number. So for what ever reason ISS were unable to make the UIDs match between computers, so the correct command to type is:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>setfacl -m user:48:rw- filename</code></pre></div>
-<p>Bottom line, if you wish to make your files or directories writable by scripts running on the webserver you must log into cent1 (via ssh), change to your www directory &#8220;/home/cent1/NN/username/www/public_html&#8221; and then issue the above command to the appropriate files.</p>
+<p>I brought my dad Professor Layton for the Nintendo DS this Christmas, and being a curious fellow I decided to see if I could reverse engineer the game to extract all the questions/answers. It turns out it wasn&#8217;t that hard. On my journey however I had to work out how to browse the file system stored on the rom.</p>
+<p>To do this I found a tool call <a href=http://darkfader.net/ds/ >ndstool</a>, which can browse and extract the file system in the rom image. However, being a nerd I decided to write a FUSE file system application to do the same task.</p>
+<p>The <a href=https://github.com/bramp/ndsfs>source code</a> is available on GitHub, you can compile it yourself:</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>make</code></pre></div>
+<p>and then run it like so:</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>ndsfs <span class=p>&amp;</span>lt<span class=p>;</span>rom file<span class=p>&amp;</span>gt<span class=p>;</span> <span class=p>&amp;</span>lt<span class=p>;</span>mount point<span class=p>&amp;</span>gt<span class=p>;</span></code></pre></div>
+<p>I&#8217;m not sure it will work on all roms, but it is worth a try.</p>
 </div>
 </article>
 <div class=row>
@@ -135,15 +126,15 @@ other:r--</code></pre></div>
 </div>
 </div>
 <ul class=pager>
-&nbsp;<li class=previous><a href=/post/2009/01/11/autoload-symbols-for-freebsd-kernel-module/ >&larr; Autoload symbols for FreeBSD kernel module</a></li>
-&nbsp;<li class=next><a href=/post/2009/01/27/what-happens-when-you-mix/ >What happens when you mix… &rarr;</a></li>
+&nbsp;<li class=previous><a href=/post/2008/12/25/philips-wac7500/ >&larr; Philips WAC7500</a></li>
+&nbsp;<li class=next><a href=/post/2009/01/11/linuxoffsets-for-freebsd/ >linuxoffsets for FreeBSD &rarr;</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
 var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/01\/21\/read\/write-permissions-for-php-scripts-at-lancs.ac.uk\/';
-    var disqus_title = 'Read\/Write permissions for PHP scripts at lancs.ac.uk';
-    var disqus_url = 'https:\/\/blog.bramp.net\/post\/2009\/01\/21\/read\/write-permissions-for-php-scripts-at-lancs.ac.uk\/';
+    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/01\/04\/ndsfs-a-fuse-application-to-mount-nintendo-ds-roms\/';
+    var disqus_title = 'ndsfs – A FUSE application to mount Nintendo DS roms';
+    var disqus_url = 'https:\/\/blog.bramp.net\/post\/2009\/01\/04\/ndsfs-a-fuse-application-to-mount-nintendo-ds-roms\/';
     (function() {
 	    
 	    

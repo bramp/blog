@@ -15,7 +15,7 @@
       <pubDate>Tue, 04 Sep 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2012/09/04/setting-up-git-p4/</guid>
-      <description>&lt;p&gt;I couldn&amp;#8217;t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I&amp;#8217;d quickly write this up. &lt;/p&gt;
+      <description>&lt;p&gt;I couldn&amp;#8217;t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I&amp;#8217;d quickly write this up.&lt;/p&gt;
 
 &lt;p&gt;Git-p4 is a tool for using git on top of a perforce server. This is great if your team wants to work with a DVCS, but your company requires a centralised VCS.&lt;/p&gt;
 
@@ -25,11 +25,11 @@
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span class=&#34;k&#34;&gt;[alias]&lt;/span&gt;
 &lt;span class=&#34;na&#34;&gt;p4&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;!~/bin/git-p4.py&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Once that&amp;#8217;s done you should be able to:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Fetch only the head
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;git p4 clone //depot/path/to/project/ project
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Fetch only the head&lt;/span&gt;
+git p4 clone //depot/path/to/project/ project
 
-&lt;span class=&#34;c1&#34;&gt;# or Fetch all revisions (takes a little longer)
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;git p4 clone //depot/path/to/project/@all project&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&#34;c1&#34;&gt;# or Fetch all revisions (takes a little longer)&lt;/span&gt;
+git p4 clone //depot/path/to/project/@all project&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;If that returns an error, such as &amp;#8220;p4 returned an error: Perforce password (P4PASSWD) invalid or unset.&amp;#8221;, then you most likely don&amp;#8217;t have your p4 command line set up. To set mine up, I added the following to my .bashrc&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;P4CLIENT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;myclient
 &lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;P4HOST&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;perforce:1666
@@ -74,21 +74,21 @@
     
     <item>
       <title>Useful scripts/configurations</title>
-      <link>https://blog.bramp.net/post/2009/11/28/useful-scripts/configurations/</link>
+      <link>https://blog.bramp.net/post/2009/11/28/useful-scripts-configurations/</link>
       <pubDate>Sat, 28 Nov 2009 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.bramp.net/post/2009/11/28/useful-scripts/configurations/</guid>
+      <guid>https://blog.bramp.net/post/2009/11/28/useful-scripts-configurations/</guid>
       <description>&lt;p&gt;Make &lt;a href=&#34;http://git-scm.com&#34;&gt;git&lt;/a&gt; colourful&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;git config --global color.diff auto
 git config --global color.status auto
 git config --global color.branch auto&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Make &lt;a href=&#34;http://www.nano-editor.org/&#34;&gt;nano&lt;/a&gt; colourful&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cp /usr/local/share/examples/nano/nanorc.sample ~/.nanorc
-&lt;span class=&#34;c1&#34;&gt;# or
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;zcat /usr/share/doc/nano/examples/nanorc.sample.gz &amp;gt;~/.nanorc
+&lt;span class=&#34;c1&#34;&gt;# or&lt;/span&gt;
+zcat /usr/share/doc/nano/examples/nanorc.sample.gz &amp;gt;~/.nanorc
 
-&lt;span class=&#34;c1&#34;&gt;# then
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;nano ~/.nanorc&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&#34;c1&#34;&gt;# then&lt;/span&gt;
+nano ~/.nanorc&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;To trim trailing whitespace from *.cc on Linux (taken from &lt;a href=&#34;http://zebert.blogspot.com/2009/06/clean-up-trailing-whitespaces-in.html&#34;&gt;this blog&lt;/a&gt;):&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;find . -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;o&#34;&gt;{}&lt;/span&gt; -e &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/[ \t]*$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;and on BSDs:&lt;/p&gt;

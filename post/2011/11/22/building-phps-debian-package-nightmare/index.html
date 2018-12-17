@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
+<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -109,8 +109,8 @@ apt-get <span class=nb>source</span> php5
 <span class=nb>cd</span> php5-*
 debuild -us -uc -j4</code></pre></div>
 <p>While testing, the debian/setup_mysql.sh script is called, to create a temporary MySQL database. This however failed to execute correctly because I had some custom options in my <a href=http://dev.mysql.com/doc/refman/5.1/en/option-files.html>~/.my.cnf</a>. Thus it failed like so:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=c1># start our own mysql server for the tests
-</span><span class=c1></span>/bin/sh debian/setup-mysql.sh <span class=m>1029</span> /home/bramp/vendor/php/php5-5.3.8.0/mysql_db
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=c1># start our own mysql server for the tests</span>
+/bin/sh debian/setup-mysql.sh <span class=m>1029</span> /home/bramp/vendor/php/php5-5.3.8.0/mysql_db
 mysqladmin: connect to server at <span class=s1>&#39;localhost&#39;</span> failed
 error: <span class=s1>&#39;Access denied for user &#39;</span>root<span class=s1>&#39;@&#39;</span>localhost<span class=s1>&#39; (using password: YES)&#39;</span>
 make: *** <span class=o>[</span>test-results.txt<span class=o>]</span> Error <span class=m>1</span>

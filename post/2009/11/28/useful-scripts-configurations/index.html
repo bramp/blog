@@ -3,10 +3,11 @@
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
 <meta content="width=device-width,initial-scale=1" name=viewport>
-<link href=https://blog.bramp.net/post/2009/12/19/updating/-%5C/-/ rel=canonical itemprop=url />
-<title>Updating…/-\|/-|</title>
-<meta content="Do people other than me find updating their servers to be relaxing? At every opportunity I run &#8220;apt-get update&#8221;. Today I&#8217;m updating 7 different machines simultaneously.
-My Debian …" name=description itemprop=description>
+<link href=https://blog.bramp.net/post/2009/11/28/useful-scripts-configurations/ rel=canonical itemprop=url />
+<title>Useful scripts/configurations</title>
+<meta content="Make git colourful
+git config --global color.diff auto git config --global color.status auto git config --global color.branch auto Make nano colourful
+cp /usr/local/share/examples/nano/nanorc.sample …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -25,7 +26,7 @@ My Debian …" name=description itemprop=description>
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
+<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -40,19 +41,21 @@ window.dataLayer = window.dataLayer || [];
 <meta content=@TheBramp name=twitter:creator />
 <meta content=article property=og:type />
 <meta content=https://www.facebook.com/bramp property=article:author />
-<meta content=2009-12-19T00:00:00&#43;07:00 property=article:published_time />
-<meta content=apt-get property=article:tag />
+<meta content=2009-11-28T00:00:00&#43;07:00 property=article:published_time />
+<meta content=configuration property=article:tag />
 <meta content=FreeBSD property=article:tag />
+<meta content=Git property=article:tag />
 <meta content=Linux property=article:tag />
-<meta content=portmanager property=article:tag />
-<meta content=portsnap property=article:tag />
-<meta content=updating property=article:tag />
-<meta content=https://blog.bramp.net/post/2009/12/19/updating/-%5C/-/ property=og:url />
+<meta content=nano property=article:tag />
+<meta content=scripts property=article:tag />
+<meta content=whitespace property=article:tag />
+<meta content=https://blog.bramp.net/post/2009/11/28/useful-scripts-configurations/ property=og:url />
 <meta content=bramp.net property=og:site_name />
-<meta content=Updating…/-\|/-| property=og:title />
-<meta content="Do people other than me find updating their servers to be relaxing? At every opportunity I run &#8220;apt-get update&#8221;. Today I&#8217;m updating 7 different machines simultaneously.
-My Debian …" property=og:description />
-<meta content=2009-12-19T00:00:00&#43;00:00 property=og:updated_time />
+<meta content="Useful scripts/configurations" property=og:title />
+<meta content="Make git colourful
+git config --global color.diff auto git config --global color.status auto git config --global color.branch auto Make nano colourful
+cp /usr/local/share/examples/nano/nanorc.sample …" property=og:description />
+<meta content=2009-11-28T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
 </head>
@@ -96,25 +99,52 @@ My Debian …" property=og:description />
 </div>
 <div class="container main">
 <article id=article itemProp=blogPost itemscope itemtype=http://schema.org/BlogPosting>
-<h1 itemprop=headline>Updating…/-\|/-|</h1>
+<h1 itemprop=headline>Useful scripts/configurations</h1>
 <p class=meta>
-<svg class="icon icon-calendar"><use xlink:href=/images/icons.svg#icon-calendar></use></svg> <time itemprop=datePublished>2009-12-19</time>
-| <a href=https://blog.bramp.net/tags/apt-get/ >apt-get</a>
+<svg class="icon icon-calendar"><use xlink:href=/images/icons.svg#icon-calendar></use></svg> <time itemprop=datePublished>2009-11-28</time>
+| <a href=https://blog.bramp.net/tags/configuration/ >configuration</a>
 | <a href=https://blog.bramp.net/tags/freebsd/ >FreeBSD</a>
+| <a href=https://blog.bramp.net/tags/git/ >Git</a>
 | <a href=https://blog.bramp.net/tags/linux/ >Linux</a>
-| <a href=https://blog.bramp.net/tags/portmanager/ >portmanager</a>
-| <a href=https://blog.bramp.net/tags/portsnap/ >portsnap</a>
-| <a href=https://blog.bramp.net/tags/updating/ >updating</a>
+| <a href=https://blog.bramp.net/tags/nano/ >nano</a>
+| <a href=https://blog.bramp.net/tags/scripts/ >scripts</a>
+| <a href=https://blog.bramp.net/tags/whitespace/ >whitespace</a>
 </p>
 <div class=post itemprop=articleBody>
-<p>Do people other than me find updating their servers to be relaxing? At every opportunity I run &#8220;apt-get update&#8221;. Today I&#8217;m updating 7 different machines simultaneously.</p>
-<p>My Debian machines I simply issue the following commands:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>apt-get update
-apt-get upgrade</code></pre></div>
-<p>My FreeBSD machines:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>portsnap fetch update
-portmanager -u</code></pre></div>
-<p>I think the Debian process is easier (and clearly the fastest) but it obviously has to do less work because I&#8217;m downloading precompiled code. Portmanager is just as easy but seems to randomly ask me questions through the process whereas apt-get seems to get them out of the way early on. Either way I find this all very easy and relaxing&#8230; until I have to reboot the machines and find something is broken :/</p>
+<p>Make <a href=http://git-scm.com>git</a> colourful</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>git config --global color.diff auto
+git config --global color.status auto
+git config --global color.branch auto</code></pre></div>
+<p>Make <a href=http://www.nano-editor.org/ >nano</a> colourful</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>cp /usr/local/share/examples/nano/nanorc.sample ~/.nanorc
+<span class=c1># or</span>
+zcat /usr/share/doc/nano/examples/nanorc.sample.gz &gt;~/.nanorc
+
+<span class=c1># then</span>
+nano ~/.nanorc</code></pre></div>
+<p>To trim trailing whitespace from *.cc on Linux (taken from <a href=http://zebert.blogspot.com/2009/06/clean-up-trailing-whitespaces-in.html>this blog</a>):</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>find . -name <span class=s1>&#39;*.cc&#39;</span> -exec sed -i <span class=o>{}</span> -e <span class=s1>&#39;s/[ \t]*$//&#39;</span> <span class=s1>&#39;;&#39;</span></code></pre></div>
+<p>and on BSDs:</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>find . -name <span class=s1>&#39;*.cc&#39;</span> -exec sed -i <span class=s1>&#39;&#39;</span> -e <span class=s1>&#39;s/\ *$//&#39;</span> <span class=o>{}</span> <span class=s1>&#39;;&#39;</span></code></pre></div>
+<p>Linux style &#8216;ls&#8217; colours on FreeBSD (taken from <a href=http://www.puresimplicity.net/~hemi/freebsd/misc.html>here</a>):</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=nb>export</span> <span class=nv>CLICOLOR</span><span class=o>=</span><span class=s2>&#34;YES&#34;</span>
+<span class=nb>export</span> <span class=nv>LSCOLORS</span><span class=o>=</span><span class=s2>&#34;ExGxFxdxCxDxDxhbadExEx&#34;</span></code></pre></div>
+<p>To ensure the http_proxy environmental variable is passed to sudo. Edit the sudoers file by running visudo. Then add the following.</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>Defaults <span class=nv>env_keep</span> <span class=o>+=</span> <span class=s2>&#34;ftp_proxy http_proxy https_proxy&#34;</span></code></pre></div>
+<p>Bash autocompletion on FreeBSD:</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=nb>cd</span>  /usr/ports/shells/bash-completion
+sudo make install clean</code></pre></div>
+<p>Edit ~/.bashrc and add</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=k>if</span> <span class=o>[</span> -f /usr/local/etc/bash_completion <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+    . /usr/local/etc/bash_completion
+<span class=k>fi</span></code></pre></div>
+<p>Make svn output colorful<br/>
+Edit ~/.subversion/config</p>
+<div class=highlight><pre class=chroma><code class=language-ini data-lang=ini><span class=k>[helpers]</span>
+<span class=na>diff-cmd</span> <span class=o>=</span> <span class=s>/usr/bin/colordiff</span></code></pre></div>
+<p>Create diffs with function names and ignoring whitespace</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>svn diff -x -uwp</code></pre></div>
+<p>To be continued&#8230;</p>
 </div>
 </article>
 <div class=row>
@@ -133,15 +163,15 @@ portmanager -u</code></pre></div>
 </div>
 </div>
 <ul class=pager>
-&nbsp;<li class=previous><a href=/post/2009/12/06/foursquare-rules/ >&larr; Foursquare Rules</a></li>
-&nbsp;<li class=next><a href=/post/2010/01/10/follow-http-stream-with-decompression/ >Follow HTTP Stream (with decompression) &rarr;</a></li>
+&nbsp;<li class=previous><a href=/post/2009/11/27/the-7-month-fork-bomb/ >&larr; The 7 month fork bomb</a></li>
+&nbsp;<li class=next><a href=/post/2009/12/04/google-dns-benchmarked/ >Google DNS Benchmarked &rarr;</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
 var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/12\/19\/updating\/-%5C\/-\/';
-    var disqus_title = 'Updating…\/-\\|\/-|';
-    var disqus_url = 'https:\/\/blog.bramp.net\/post\/2009\/12\/19\/updating\/-%5C\/-\/';
+    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/11\/28\/useful-scripts-configurations\/';
+    var disqus_title = 'Useful scripts\/configurations';
+    var disqus_url = 'https:\/\/blog.bramp.net\/post\/2009\/11\/28\/useful-scripts-configurations\/';
     (function() {
 	    
 	    

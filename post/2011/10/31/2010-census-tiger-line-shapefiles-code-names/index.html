@@ -3,10 +3,9 @@
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
 <meta content="width=device-width,initial-scale=1" name=viewport>
-<link href=https://blog.bramp.net/post/2006/06/25/flvtool---a-command-line-flash-video-file-flv-editor/ rel=canonical itemprop=url />
-<title>flvtool&#43;&#43; A command line Flash Video file (FLV) editor</title>
-<meta content="Download from GitHub
-This is a c&#43;&#43; re-write of a similar closed source tool FLVMDI and a open source Ruby app named flvtool2. I originally wrote flvtool&#43;&#43; due to the lack of large file support in the …" name=description itemprop=description>
+<link href=https://blog.bramp.net/post/2011/10/31/2010-census-tiger-line-shapefiles-code-names/ rel=canonical itemprop=url />
+<title>2010 Census TIGER/Line® Shapefiles Code Names</title>
+<meta content="I&#8217;ve been playing with the Tiger shapefiles to generate some interesting plots. While doing this I kept wondering what all the different geographies were. I couldn&#8217;t find a single concise …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -25,7 +24,7 @@ This is a c&#43;&#43; re-write of a similar closed source tool FLVMDI and a open
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
+<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -40,14 +39,15 @@ window.dataLayer = window.dataLayer || [];
 <meta content=@TheBramp name=twitter:creator />
 <meta content=article property=og:type />
 <meta content=https://www.facebook.com/bramp property=article:author />
-<meta content=2006-06-25T00:00:00&#43;07:00 property=article:published_time />
-<meta content=flvtool&#43;&#43; property=article:tag />
-<meta content=https://blog.bramp.net/post/2006/06/25/flvtool---a-command-line-flash-video-file-flv-editor/ property=og:url />
+<meta content=2011-10-31T00:00:00&#43;07:00 property=article:published_time />
+<meta content=census property=article:tag />
+<meta content=maps property=article:tag />
+<meta content=tiger property=article:tag />
+<meta content=https://blog.bramp.net/post/2011/10/31/2010-census-tiger-line-shapefiles-code-names/ property=og:url />
 <meta content=bramp.net property=og:site_name />
-<meta content="flvtool&#43;&#43; A command line Flash Video file (FLV) editor" property=og:title />
-<meta content="Download from GitHub
-This is a c&#43;&#43; re-write of a similar closed source tool FLVMDI and a open source Ruby app named flvtool2. I originally wrote flvtool&#43;&#43; due to the lack of large file support in the …" property=og:description />
-<meta content=2006-06-25T00:00:00&#43;00:00 property=og:updated_time />
+<meta content="2010 Census TIGER/Line® Shapefiles Code Names" property=og:title />
+<meta content="I&#8217;ve been playing with the Tiger shapefiles to generate some interesting plots. While doing this I kept wondering what all the different geographies were. I couldn&#8217;t find a single concise …" property=og:description />
+<meta content=2011-10-31T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
 </head>
@@ -91,46 +91,90 @@ This is a c&#43;&#43; re-write of a similar closed source tool FLVMDI and a open
 </div>
 <div class="container main">
 <article id=article itemProp=blogPost itemscope itemtype=http://schema.org/BlogPosting>
-<h1 itemprop=headline>flvtool&#43;&#43; A command line Flash Video file (FLV) editor</h1>
+<h1 itemprop=headline>2010 Census TIGER/Line® Shapefiles Code Names</h1>
 <p class=meta>
-<svg class="icon icon-calendar"><use xlink:href=/images/icons.svg#icon-calendar></use></svg> <time itemprop=datePublished>2006-06-25</time>
-| <a href=https://blog.bramp.net/tags/flvtool&#43;&#43;/ >flvtool&#43;&#43;</a>
+<svg class="icon icon-calendar"><use xlink:href=/images/icons.svg#icon-calendar></use></svg> <time itemprop=datePublished>2011-10-31</time>
+| <a href=https://blog.bramp.net/tags/census/ >census</a>
+| <a href=https://blog.bramp.net/tags/maps/ >maps</a>
+| <a href=https://blog.bramp.net/tags/tiger/ >tiger</a>
 </p>
 <div class=post itemprop=articleBody>
-<p><a href=https://github.com/bramp/flvtool-plus-plus>Download from GitHub</a></p>
-<p>This is a c++ re-write of a similar closed source tool <a href=http://www.buraks.com/flvmdi/ >FLVMDI</a> and a open source Ruby app named <a href=http://rubyforge.org/projects/flvtool2/ >flvtool2</a>. I originally wrote flvtool++ due to the lack of large file support in the two previous tools. Well those tools do support large files, however it seems they require at least as much RAM as the size of the file, and when I was working with &gt;1GB files this became a problem. Additionally this tool compiles cleanly on different OSes so I was not limited to just windows.</p>
-<p>This tool has the following features:</p>
-<ul>
-<li>Large file support while using minimum memory</li>
-<li>Add &ldquo;indexing&rdquo; metadata, useful for <a href=http://www.flashcomguru.com/index.cfm/2005/11/2/Streaming-flv-video-via-PHP-take-two>streaming applications</a></li>
-<li>Add other metadata such as the video&rsquo;s duration, or frames per second, etc</li>
-<li>Displays all the metadata within a FLV file</li>
-<li>Displays all the tags within a FLV file</li>
-<li>Displays interesting statistics about the FLV file</li>
-<li>Can chop the FLV file at arbitrary timecodes</li>
-<li>Very fast processing time, the main bottleneck is the disk speed</li>
-<li>Supports <a href=http://www.microsoft.com/windows/ >Windows</a>, <a href=http://www.linux.org/ >Linux</a> and <a href=http://www.freebsd.org/ >FreeBSD</a></li>
-<li>Source is provided under the <a href=http://www.opensource.org/licenses/bsd-license.php>BSD licence</a></li>
-<li>Has been programmed in a way allowing other apps to easily use my FLV decode/encoding classes</li>
-</ul>
-<p>I will add soon:</p>
-<ul>
-<li>Ability to add arbitrary metadata</li>
-<li>Demux the FLV into different video and audio files</li>
-<li>And whatever <a href=https://github.com/bramp/flvtool-plus-plus/issues>you request</a>&#8230;</li>
-</ul>
-<h4 id=usage>Usage</h4>
-<p>flvtool++ is used from the command line, so far it has a few simple parameters</p>
-<p>Takes the input file, indexes it and writes it out to the output file. The start and end times may optionally specify timecodes in seconds that are used to chop the FLV file.</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>flvtool++ &lt;input file&gt; &lt;output file&gt; <span class=o>(</span>&lt;start time&gt; &lt;end time&gt;<span class=o>)</span></code></pre></div>
-<p>Displays all the metadata and tag information about the input file.</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>flvtool++ -i &lt;input file&gt;</code></pre></div>
-<h4 id=compiling>Compiling</h4>
-<p><strong>Windows:</strong></p>
-<p>Download the source package and locate the flvtool++.sln file. This is a Visual Studio 2003 solution and should build cleanly without modification. I have not tested this under Visual Studio 2005 or later, but I believe it should compile fine.</p>
-<p>It should also be possible to compile this with other compilers under windows (such as GCC) however this is a exercise I leave to the reader</p>
-<p><strong>Linux/FreeBSD:</strong></p>
-<p>flvtool++ compiles cleanly under GCC, a makefile is provided such that you only need to extract the source package, and then type <code>make</code>.</p>
+<p>I&#8217;ve been playing with the Tiger shapefiles to generate some interesting plots. While doing this I kept wondering what all the <a href=ftp://ftp2.census.gov/geo/tiger/TIGER2010/ >different geographies</a> were. I couldn&#8217;t find a single concise list, so I made my own (but not yet complete) list from various source of information:</p>
+<table class=table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>cbsa</strong></td>
+<td>Metropolitan/Micropolitan Statistical Area</td>
+</tr>
+<tr>
+<td><strong>bg</strong></td>
+<td>Block Group</td>
+</tr>
+<tr>
+<td><strong>csa</strong></td>
+<td>Combined Statistical Area</td>
+</tr>
+<tr>
+<td><strong>cd</strong></td>
+<td>Congress Districts</td>
+</tr>
+<tr>
+<td><strong>state</strong></td>
+<td>State</td>
+</tr>
+<tr>
+<td><strong>county</strong></td>
+<td>County</td>
+</tr>
+<tr>
+<td><strong>cnecta</strong></td>
+<td>Combined New England City and Town Area</td>
+</tr>
+<tr>
+<td><strong>necta</strong></td>
+<td>New England City and Town Area</td>
+</tr>
+<tr>
+<td><strong>elsd</strong></td>
+<td>Elementary School District</td>
+</tr>
+<tr>
+<td><strong>scsd</strong></td>
+<td>Secondary School District</td>
+</tr>
+<tr>
+<td><strong>unsd</strong></td>
+<td>Unified School District</td>
+</tr>
+<tr>
+<td><strong>sldl</strong></td>
+<td>State Legislative District Lower Chamber</td>
+</tr>
+<tr>
+<td><strong>sldu</strong></td>
+<td>State Legislative District Upper Chamber</td>
+</tr>
+<tr>
+<td><strong>submcd</strong></td>
+<td>Subminor Civil Division</td>
+</tr>
+<tr>
+<td><strong>vtd</strong></td>
+<td>Voting Districting</td>
+</tr>
+<tr>
+<td><strong>zcta5</strong></td>
+<td>ZIP Code Tabulation Areas</td>
+</tr>
+</tbody>
+</table>
+<p>More to be added later, as well as some tools for processing Tiger 2010.</p>
 </div>
 </article>
 <div class=row>
@@ -149,14 +193,15 @@ This is a c&#43;&#43; re-write of a similar closed source tool FLVMDI and a open
 </div>
 </div>
 <ul class=pager>
-&nbsp;<li class=next><a href=/post/2006/07/02/how-to-build-wings/ >How to Build Wings &rarr;</a></li>
+&nbsp;<li class=previous><a href=/post/2011/10/25/sqlstatehy000-general-error-2053/ >&larr; SQLSTATE[HY000]: General error: 2053</a></li>
+&nbsp;<li class=next><a href=/post/2011/11/02/php-destructor-objects/ >PHP Destructor objects &rarr;</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
 var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2006\/06\/25\/flvtool---a-command-line-flash-video-file-flv-editor\/';
-    var disqus_title = 'flvtool\x2b\x2b A command line Flash Video file (FLV) editor';
-    var disqus_url = 'https:\/\/blog.bramp.net\/post\/2006\/06\/25\/flvtool---a-command-line-flash-video-file-flv-editor\/';
+    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2011\/10\/31\/2010-census-tiger-line-shapefiles-code-names\/';
+    var disqus_title = '2010 Census TIGER\/Line® Shapefiles Code Names';
+    var disqus_url = 'https:\/\/blog.bramp.net\/post\/2011\/10\/31\/2010-census-tiger-line-shapefiles-code-names\/';
     (function() {
 	    
 	    

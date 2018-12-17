@@ -15,25 +15,21 @@
       <pubDate>Mon, 03 Sep 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2012/09/03/rfc-1123-dates-in-php/</guid>
-      <description>&lt;p&gt;While playing with &lt;a href=&#34;http://redbot.org/&#34;&gt;REDbot&lt;/a&gt; I realised my last-modified headers (being sent by PHP) were not RFC 1123 complaint. A complaint date looks like &lt;code&gt;Sun, 06 Nov 1994 08:49:37 GMT&lt;/code&gt;. There are two ways to generate such a date in PHP; &lt;/p&gt;
+      <description>&lt;p&gt;While playing with &lt;a href=&#34;http://redbot.org/&#34;&gt;REDbot&lt;/a&gt; I realised my last-modified headers (being sent by PHP) were not RFC 1123 complaint. A complaint date looks like &lt;code&gt;Sun, 06 Nov 1994 08:49:37 GMT&lt;/code&gt;. There are two ways to generate such a date in PHP;&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;p&gt;if you have pecl_http &amp;gt;= 0.1.0, then&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;x&#34;&gt;http_date($timestamp)
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;http_date($timestamp)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;or if you don&amp;#8217;t want to use pecl&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;x&#34;&gt;gmdate(&amp;#39;D, d M Y H:i:s&amp;#39;, $timestamp).&amp;#39; GMT&amp;#39;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;gmdate(&amp;#39;D, d M Y H:i:s&amp;#39;, $timestamp).&amp;#39; GMT&amp;#39;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;or if you have PHP &amp;gt;5.2 you can use the DateTime constant&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;x&#34;&gt;gmdate(DATE_RFC2822, $timestamp)
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;gmdate(DATE_RFC2822, $timestamp)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;an example of it&amp;#8217;s use:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;x&#34;&gt;header(&amp;#39;Last-Modified: &amp;#39; . gmdate(&amp;#39;D, d M Y H:i:s&amp;#39;, $lastModified).&amp;#39; GMT&amp;#39;);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;header(&amp;#39;Last-Modified: &amp;#39; . gmdate(&amp;#39;D, d M Y H:i:s&amp;#39;, $lastModified).&amp;#39; GMT&amp;#39;);&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -74,7 +70,7 @@
 
 	&lt;span class=&#34;k&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$bound&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 
-	&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;__construct&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$bound&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;fm&#34;&gt;__construct&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$bound&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 		&lt;span class=&#34;nv&#34;&gt;$this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;bound&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$bound&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
@@ -84,7 +80,7 @@
 &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;	 *
 &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;	 * @param point $p
 &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;	 */&lt;/span&gt;
-	&lt;span class=&#34;k&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;inside&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;inside&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 
 	&lt;span class=&#34;sd&#34;&gt;/**
 &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;	 * Finds the intersection with the bounds, on the line p1-p2
@@ -92,7 +88,7 @@
 &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;	 * @param point $p1 The point inside the bounds
 &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;	 * @param point $p2 The point outside the bounds
 &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;	 */&lt;/span&gt;
-	&lt;span class=&#34;k&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;intersect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;intersect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
 &lt;span class=&#34;k&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;HorzEdge&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;extends&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Edge&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -105,7 +101,7 @@
 &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;	 *
 &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;	 * @return point
 &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;	 */&lt;/span&gt;
-	&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;intersect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;intersect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 		&lt;span class=&#34;nv&#34;&gt;$dY&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
 
 		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$dY&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -128,7 +124,7 @@
 &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;	*
 &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;	* @return point
 &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;	*/&lt;/span&gt;
-	&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;intersect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;intersect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 		&lt;span class=&#34;nv&#34;&gt;$dX&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
 
 		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$dX&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -141,36 +137,36 @@
 	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
-&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;intersect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;intersect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;nv&#34;&gt;$dX&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
 	&lt;span class=&#34;nv&#34;&gt;$dY&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
 &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;RightEdge&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;extends&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;VertEdge&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-	&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;inside&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;inside&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 		&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;bound&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//X
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
 &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;LeftEdge&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;extends&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;VertEdge&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-	&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;inside&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;inside&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 		&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;bound&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//X
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
 &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;TopEdge&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;extends&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;HorzEdge&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-	&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;inside&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;inside&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 		&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;bound&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//Y
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
 &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;BottomEdge&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;extends&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;HorzEdge&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-	&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;inside&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;inside&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 		&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;bound&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//Y
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
-&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;check_point&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$msg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;check_point&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$msg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;180&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;180&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;90&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;90&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 		&lt;span class=&#34;nx&#34;&gt;var_dump&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 		&lt;span class=&#34;nx&#34;&gt;var_dump&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;debug_backtrace&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;
@@ -190,7 +186,7 @@
 &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;	 * @param unknown_type $x2
 &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;	 * @param unknown_type $y2
 &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;	 */&lt;/span&gt;
-	&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;__construct&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$x1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$y1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$x2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$y2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;fm&#34;&gt;__construct&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$x1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$y1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$x2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$y2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 		&lt;span class=&#34;nx&#34;&gt;assert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$x1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$x2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 		&lt;span class=&#34;nx&#34;&gt;assert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$y1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$y2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 
@@ -208,7 +204,7 @@
 &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;	 *
 &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;	 * @param array $points
 &lt;/span&gt;&lt;span class=&#34;sd&#34;&gt;	 */&lt;/span&gt;
-	&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;clip&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$points&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;clip&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$points&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 
 		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$points&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 			&lt;span class=&#34;k&#34;&gt;throw&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Clip requires a polygon of three points or more&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
@@ -278,8 +274,8 @@ apt-get &lt;span class=&#34;nb&#34;&gt;source&lt;/span&gt; php5
 &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; php5-*
 debuild -us -uc -j4&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;While testing, the debian/setup_mysql.sh script is called, to create a temporary MySQL database. This however failed to execute correctly because I had some custom options in my &lt;a href=&#34;http://dev.mysql.com/doc/refman/5.1/en/option-files.html&#34;&gt;~/.my.cnf&lt;/a&gt;. Thus it failed like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# start our own mysql server for the tests
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;/bin/sh debian/setup-mysql.sh &lt;span class=&#34;m&#34;&gt;1029&lt;/span&gt; /home/bramp/vendor/php/php5-5.3.8.0/mysql_db
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# start our own mysql server for the tests&lt;/span&gt;
+/bin/sh debian/setup-mysql.sh &lt;span class=&#34;m&#34;&gt;1029&lt;/span&gt; /home/bramp/vendor/php/php5-5.3.8.0/mysql_db
 mysqladmin: connect to server at &lt;span class=&#34;s1&#34;&gt;&amp;#39;localhost&amp;#39;&lt;/span&gt; failed
 error: &lt;span class=&#34;s1&#34;&gt;&amp;#39;Access denied for user &amp;#39;&lt;/span&gt;root&lt;span class=&#34;s1&#34;&gt;&amp;#39;@&amp;#39;&lt;/span&gt;localhost&lt;span class=&#34;s1&#34;&gt;&amp;#39; (using password: YES)&amp;#39;&lt;/span&gt;
 make: *** &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;test-results.txt&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; Error &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
@@ -318,35 +314,33 @@ dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed&lt;/code&gt;&lt;/pre&gt;&lt;/
       <description>&lt;p&gt;PHP&amp;#8217;s lack of a finally keyword is apalling, and even though there seems to be some hacks around it, I have come up with own today. I&amp;#8217;m following the C++ concept of allocating objects on the stack, and letting them cleanup any resources when the stack is rolled back.&lt;/p&gt;
 
 &lt;p&gt;Take an example. I am creating some files that I want to always be deleted after the script has finished. In any sane language (that has Exceptions) I would write:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;x&#34;&gt;try {
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;  // Create files
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;  // Do something with the files
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;} finally {
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;  // Delete files - This code will run no matter what exceptions or errors occur while creating the files.
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;}
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;try {
+  // Create files
+  // Do something with the files
+} finally {
+  // Delete files - This code will run no matter what exceptions or errors occur while creating the files.
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;However, this is the hack I&amp;#8217;ve managed with PHP:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;x&#34;&gt;class UnlinkMe {
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    var $filename;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    function __construct($filename) {
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;        $this-&amp;amp;gt;filename = $filename;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    }
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    function __destruct() {
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;        unlink($this-&amp;amp;gt;filename);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    }
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;}
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;// To use:
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;function doSomething() {
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;  $unlinkme = new UnlinkMe(&amp;#39;/tmp/filename&amp;#39;):
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;  // Do some work with the files
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;  return;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;}
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;class UnlinkMe {
+    var $filename;
+
+    function __construct($filename) {
+        $this-&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;filename = $filename;
+    }
+
+    function __destruct() {
+        unlink($this-&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;filename);
+    }
+}
+
+// To use:
+function doSomething() {
+  $unlinkme = new UnlinkMe(&amp;#39;/tmp/filename&amp;#39;):
+
+  // Do some work with the files
+
+  return;
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Here we are creating a UnlinkMe object, that has a destructor set up to delete a file. This UnlinkMe object is only used in the doSomething() function. Once that function returns, there are no longer any references to the object. When PHP decides to garbage collect (to free up some memory), it will destroy the UnlinkMe object, and thus call the __destruct method. Voila, we now call unlink and have cleaned up the file, even after the script has finished running.&lt;/p&gt;
 
 &lt;p&gt;There is lots of room for improvement, and this technique has lots of gotchas. For example, PHP has some bizzare rules for when __destruct method will not be called. So please don&amp;#8217;t rely on this technique, but it might be useful, and keep your code cleaner and more organised.&lt;/p&gt;
@@ -364,15 +358,13 @@ dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed&lt;/code&gt;&lt;/pre&gt;&lt;/
 Stack trace:
 #0 /home/bramp/my.php(29): PDOStatement-&amp;gt;fetch(2)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Searching on Google didn&amp;#8217;t reveal much help, but I eventually figure out the root cause. Spot the mistake:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;x&#34;&gt;...
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;$sql = &amp;#39;SELECT TRIGGER_NAME, TRIGGER_GROUP, JOB_NAME FROM QRTZ_TRIGGERS&amp;#39;;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;$sth = $dbh-&amp;gt;prepare($sql) or die(&amp;#39;Failed to prepare SELECT TRIGGER query&amp;#39;);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;while ($row = $sth-&amp;gt;fetch(PDO::FETCH_ASSOC)) {
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;...
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;...
+$sql = &amp;#39;SELECT TRIGGER_NAME, TRIGGER_GROUP, JOB_NAME FROM QRTZ_TRIGGERS&amp;#39;;
+$sth = $dbh-&amp;gt;prepare($sql) or die(&amp;#39;Failed to prepare SELECT TRIGGER query&amp;#39;);
+while ($row = $sth-&amp;gt;fetch(PDO::FETCH_ASSOC)) {
+...&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;I am missing a&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;x&#34;&gt;$sth-&amp;gt;execute();
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;$sth-&amp;gt;execute();&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;in between the prepare and the fetch. Easy fix. For reference I&amp;#8217;m using a old version of PHP 5.1.6, and MySQL client 5.0.45.&lt;/p&gt;
 </description>
     </item>
@@ -395,8 +387,8 @@ Stack trace:
 &lt;span class=&#34;nv&#34;&gt;$str2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;md5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;REGISTER:&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;$uri&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 
 &lt;span class=&#34;k&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;md5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;$str1&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;$nonce&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;$str2&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&#34;cp&#34;&gt;?&amp;gt;&lt;/span&gt;;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;All of those variables can be pulled out of a packet capture of a &lt;a href=&#34;http://tools.ietf.org/html/rfc3261#section-10.2&#34;&gt;SIP REGISTER&lt;/a&gt;, and the results can be useful for validating the password a device is sending, is what it is actually sending.&lt;/p&gt;
 </description>
     </item>
@@ -416,11 +408,10 @@ Stack trace:
 &lt;p&gt;Firstly I found a &lt;a href=&#34;http://www.quantcast.com/top-sites-1&#34;&gt;list of the 1 million most popular sites&lt;/a&gt;. I then picked a number of DNS servers to test against. I chose &lt;a href=&#34;http://code.google.com/speed/public-dns/&#34;&gt;Google&lt;/a&gt;&amp;#8216;s, &lt;a href=&#34;http://www.opendns.com/&#34;&gt;OpenDNS&lt;/a&gt;&amp;#8216;s, my ISP (&lt;a href=&#34;http://broadband.sky.com/&#34;&gt;Sky/Easynet&lt;/a&gt;) and my old ISP&amp;#8217;s (&lt;a href=&#34;http://www.plus.net/&#34;&gt;Plus.net&lt;/a&gt;).&lt;/p&gt;
 
 &lt;p&gt;I decided I would query an &lt;a href=&#34;http://en.wikipedia.org/wiki/List_of_DNS_record_types&#34;&gt;A record&lt;/a&gt; for each of the domains in the list, one at a time, starting with the most popular. I would query each server three times for the same domain name. The ordering was like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;x&#34;&gt;foreach (domain)
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;   for (i =0; i&amp;lt;3;i++)
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;      foreach (server)
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;         query(server, domain)
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;foreach (domain)
+   for (i =0; i&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;++)&lt;/span&gt;
+      &lt;span class=&#34;na&#34;&gt;foreach&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;server&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;)&lt;/span&gt;
+         &lt;span class=&#34;na&#34;&gt;query&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;server&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;domain&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;I recorded the time it took for each query to be answered, and I also recorded the replies. I was curious to see if some servers replied with different answers, or if some returned more information, i.e. additional records.&lt;/p&gt;
 
 &lt;p&gt;I &lt;a href=&#34;dns.php&#34;&gt;wrote a script&lt;/a&gt; in PHP 5.3, and ran it from the command line on my Windows Server 2008 machine. The script used PEAR&amp;rsquo;s Net_DNS to craft and send the DNS questions. I was not using my operating system&amp;rsquo;s resolver, and I was not using any form of client side caching. I ran the experiments from my home ADSL connection and as far as I know my ISP was not interfering with my DNS requests in any way. I live in the North West of the UK.&lt;/p&gt;
@@ -518,17 +509,10 @@ Stack trace:
 
 &lt;p&gt;From this table of results, we can see that Google&amp;rsquo;s median response time is 41-42ms, however, OpenDNS performs much better with a result of ~31ms. Both my current ISP and my old ISP don&amp;rsquo;t perform as well and each achieved a result between 42ms and 61ms. To get a better feel for the data I plotted an empirical CDF of the lookup times for each server.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;ecdf_overview.pdf&#34;&gt;
-&lt;figure&gt;
-    
-        &lt;img src=&#34;ecdf_overview.png&#34; width=&#34;700&#34; height=&#34;700&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;Click for a larger PDF version&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
+&lt;p&gt;&lt;a href=&#34;ecdf_overview.pdf&#34;&gt;&lt;figure&gt;
+    &lt;img src=&#34;ecdf_overview.png&#34; width=&#34;700&#34; height=&#34;700&#34;/&gt; &lt;figcaption&gt;
+            &lt;h4&gt;Click for a larger PDF version&lt;/h4&gt;
+        &lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;/a&gt;&lt;/p&gt;
 
@@ -540,17 +524,10 @@ Stack trace:
 
 &lt;p&gt;SInce I ran each lookup three times, I wanted to compare the lookup times for each request. This time I plotted the empirical CDF of each iteration of request.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;ecdf_requests.pdf&#34;&gt;
-&lt;figure&gt;
-    
-        &lt;img src=&#34;ecdf_requests.png&#34; width=&#34;700&#34; height=&#34;700&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;Click for a larger PDF version&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
+&lt;p&gt;&lt;a href=&#34;ecdf_requests.pdf&#34;&gt;&lt;figure&gt;
+    &lt;img src=&#34;ecdf_requests.png&#34; width=&#34;700&#34; height=&#34;700&#34;/&gt; &lt;figcaption&gt;
+            &lt;h4&gt;Click for a larger PDF version&lt;/h4&gt;
+        &lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;/a&gt;&lt;/p&gt;
 
@@ -572,127 +549,125 @@ Stack trace:
     
     <item>
       <title>Ordnance Survey Easting/Northing to Lat/Long</title>
-      <link>https://blog.bramp.net/post/2008/06/04/ordnance-survey-easting/northing-to-lat/long/</link>
+      <link>https://blog.bramp.net/post/2008/06/04/ordnance-survey-easting-northing-to-lat-long/</link>
       <pubDate>Wed, 04 Jun 2008 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.bramp.net/post/2008/06/04/ordnance-survey-easting/northing-to-lat/long/</guid>
+      <guid>https://blog.bramp.net/post/2008/06/04/ordnance-survey-easting-northing-to-lat-long/</guid>
       <description>&lt;p&gt;Recently I had the need to convert Ordnance Survey East/North coordinates to Latitude and Longitude. By using the resources available on the OS site I wrote the following piece of PHP code:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;x&#34;&gt;&amp;amp;lt;?php
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;// Converts OS Easting/Northing to Lat/Long
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;// by bramp
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;function Marc($bf0, $n, $PHI0, $PHI) {
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    /*
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    Compute meridional arc.
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    Input: - 
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;     ellipsoid semi major axis multiplied by central meridian scale factor (bf0) in meters; 
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;     n (computed from a, b and f0); 
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;     lat of false origin (PHI0) 
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;     initial or final latitude of point (PHI) IN RADIANS.
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    */
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $n2 = pow($n, 2);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $n3 = pow($n, 3);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $ans  = ((1 + $n + ((5 / 4) * ($n2)) + ((5 / 4) * $n3)) * ($PHI - $PHI0));
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $ans -= (((3 * $n) + (3 * $n2) + ((21 / 8 ) * $n3)) * (sin($PHI - $PHI0)) * (cos($PHI + $PHI0)));
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $ans += ((((15 / 8 ) * $n2) + ((15 / 8 ) * $n3)) * (sin(2 * ($PHI - $PHI0))) * (cos(2 * ($PHI + $PHI0))));
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $ans -= (((35 / 24) * $n3) * (sin(3 * ($PHI - $PHI0))) * (cos(3 * ($PHI + $PHI0))));
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    return $bf0 * $ans;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;}
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;function initialLat($North, $n0, $afo, $PHI0, $n, $bfo) {
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    /*
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    Compute initial value for Latitude (PHI) IN RADIANS.
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    Input: - _
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    northing of point (North) and northing of false origin (n0) in meters; 
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    semi major axis multiplied by central meridian scale factor (af0) in meters; 
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    latitude of false origin (PHI0) IN RADIANS;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    n (computed from a, b and f0) 
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    ellipsoid semi major axis multiplied by central meridian scale factor (bf0) in meters.
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    */
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    //First PHI value (PHI1)
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $PHI1 = (($North - $n0) / $afo) + $PHI0;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    //Calculate M
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $M = Marc($bfo, $n, $PHI0, $PHI1);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    //Calculate new PHI value (PHI2)
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $PHI2 = (($North - $n0 - $M) / $afo) + $PHI1;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    //Iterate to get final value for InitialLat
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    while ( abs($North - $n0 - $M) &amp;amp;gt; 0.00001 ) {
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;        $PHI2 = (($North - $n0 - $M) / $afo) + $PHI1;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;        $M = Marc($bfo, $n, $PHI0, $PHI2);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;        $PHI1 = $PHI2;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    }
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    return $PHI2;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;}
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;function E_N_to_Lat_Long($East, $North) {
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $a  = 6377563.396; // Semi-major axis, a
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $b  = 6356256.910; //Semi-minor axis, b
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $e0 = 400000.000; //True origin Easting, E0 
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $n0 = -100000.000; //True origin Northing, N0   
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $f0 = 0.999601271700; //Central Meridan Scale, F0
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $PHI0 = 49.0; // True origin latitude, j0
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $LAM0 = -2.0; // True origin longitude, l0
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    //Convert angle measures to radians
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $RadPHI0 = $PHI0 * (M_PI / 180);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $RadLAM0 = $LAM0 * (M_PI / 180);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    //Compute af0, bf0, e squared (e2), n and Et
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $af0 = $a * $f0;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $bf0 = $b * $f0;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $e2 = ($af0*$af0 - $bf0*$bf0 ) / ($af0*$af0);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $n = ($af0 - $bf0) / ($af0 + $bf0);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $Et = $East - $e0;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    //Compute initial value for latitude (PHI) in radians
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $PHId = InitialLat($North, $n0, $af0, $RadPHI0, $n, $bf0);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $sinPHId2 = pow(sin($PHId),  2);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $cosPHId  = pow(cos($PHId), -1);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $tanPHId  = tan($PHId);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $tanPHId2 = pow($tanPHId, 2);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $tanPHId4 = pow($tanPHId, 4);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $tanPHId6 = pow($tanPHId, 6);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    //Compute nu, rho and eta2 using value for PHId
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $nu = $af0 / (sqrt(1 - ($e2 * $sinPHId2)));
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $rho = ($nu * (1 - $e2)) / (1 - $e2 * $sinPHId2);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $eta2 = ($nu / $rho) - 1;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    //Compute Longitude
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $X    = $cosPHId / $nu;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $XI   = $cosPHId / (   6 * pow($nu, 3)) * (($nu / $rho)         +  2 * $tanPHId2);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $XII  = $cosPHId / ( 120 * pow($nu, 5)) * (5  + 28 * $tanPHId2  + 24 * $tanPHId4);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $XIIA = $cosPHId / (5040 * pow($nu, 7)) * (61 + 662 * $tanPHId2 + 1320 * $tanPHId4 + 720 * $tanPHId6);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $VII  = $tanPHId / (  2 * $rho * $nu);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $VIII = $tanPHId / ( 24 * $rho * pow($nu, 3)) * ( 5 +  3 * $tanPHId2 + $eta2 - 9 * $eta2 * $tanPHId2 );
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $IX   = $tanPHId / (720 * $rho * pow($nu, 5)) * (61 + 90 * $tanPHId2 + 45 * $tanPHId4 );
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $long = (180 / M_PI) * ($RadLAM0 + ($Et * $X) - pow($Et,3) * $XI + pow($Et,5) * $XII - pow($Et,7) * $XIIA);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    $lat  = (180 / M_PI) * ($PHId - (pow($Et,2) * $VII) + (pow($Et, 4) * $VIII) - (pow($Et, 6) * $IX));
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    return array($lat, $long);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;}
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;?&amp;amp;gt;;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;?php
+// Converts OS Easting/Northing to Lat/Long
+// by bramp
+    
+function Marc($bf0, $n, $PHI0, $PHI) {
+    /*
+    Compute meridional arc.
+    Input: - 
+     ellipsoid semi major axis multiplied by central meridian scale factor (bf0) in meters; 
+     n (computed from a, b and f0); 
+     lat of false origin (PHI0) 
+     initial or final latitude of point (PHI) IN RADIANS.
+    */
+
+    $n2 = pow($n, 2);
+    $n3 = pow($n, 3);
+
+    $ans  = ((1 + $n + ((5 / 4) * ($n2)) + ((5 / 4) * $n3)) * ($PHI - $PHI0));
+    $ans -= (((3 * $n) + (3 * $n2) + ((21 / 8 ) * $n3)) * (sin($PHI - $PHI0)) * (cos($PHI + $PHI0)));
+    $ans += ((((15 / 8 ) * $n2) + ((15 / 8 ) * $n3)) * (sin(2 * ($PHI - $PHI0))) * (cos(2 * ($PHI + $PHI0))));
+    $ans -= (((35 / 24) * $n3) * (sin(3 * ($PHI - $PHI0))) * (cos(3 * ($PHI + $PHI0))));
+
+    return $bf0 * $ans;
+}
+    
+function initialLat($North, $n0, $afo, $PHI0, $n, $bfo) {
+    /*
+    Compute initial value for Latitude (PHI) IN RADIANS.
+    Input: - _
+    northing of point (North) and northing of false origin (n0) in meters; 
+    semi major axis multiplied by central meridian scale factor (af0) in meters; 
+    latitude of false origin (PHI0) IN RADIANS;
+    n (computed from a, b and f0) 
+    ellipsoid semi major axis multiplied by central meridian scale factor (bf0) in meters.
+    */
+    
+    //First PHI value (PHI1)
+    $PHI1 = (($North - $n0) / $afo) + $PHI0;
+
+    //Calculate M
+    $M = Marc($bfo, $n, $PHI0, $PHI1);
+
+    //Calculate new PHI value (PHI2)
+    $PHI2 = (($North - $n0 - $M) / $afo) + $PHI1;
+    
+    //Iterate to get final value for InitialLat
+    while ( abs($North - $n0 - $M) &lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt; 0.00001 ) {
+        $PHI2 = (($North - $n0 - $M) / $afo) + $PHI1;
+        $M = Marc($bfo, $n, $PHI0, $PHI2);
+        $PHI1 = $PHI2;
+    }
+    
+    return $PHI2;
+}
+
+function E_N_to_Lat_Long($East, $North) {
+    
+    $a  = 6377563.396; // Semi-major axis, a
+    $b  = 6356256.910; //Semi-minor axis, b
+    $e0 = 400000.000; //True origin Easting, E0 
+    $n0 = -100000.000; //True origin Northing, N0   
+    $f0 = 0.999601271700; //Central Meridan Scale, F0
+    
+    $PHI0 = 49.0; // True origin latitude, j0
+    $LAM0 = -2.0; // True origin longitude, l0
+    
+    //Convert angle measures to radians
+    $RadPHI0 = $PHI0 * (M_PI / 180);
+    $RadLAM0 = $LAM0 * (M_PI / 180);
+
+    //Compute af0, bf0, e squared (e2), n and Et
+    $af0 = $a * $f0;
+    $bf0 = $b * $f0;
+    $e2 = ($af0*$af0 - $bf0*$bf0 ) / ($af0*$af0);
+    $n = ($af0 - $bf0) / ($af0 + $bf0);
+    $Et = $East - $e0;
+
+    //Compute initial value for latitude (PHI) in radians
+    $PHId = InitialLat($North, $n0, $af0, $RadPHI0, $n, $bf0);
+
+    $sinPHId2 = pow(sin($PHId),  2);
+    $cosPHId  = pow(cos($PHId), -1);
+    
+    $tanPHId  = tan($PHId);
+    $tanPHId2 = pow($tanPHId, 2);
+    $tanPHId4 = pow($tanPHId, 4);
+    $tanPHId6 = pow($tanPHId, 6);
+
+    //Compute nu, rho and eta2 using value for PHId
+    $nu = $af0 / (sqrt(1 - ($e2 * $sinPHId2)));
+    $rho = ($nu * (1 - $e2)) / (1 - $e2 * $sinPHId2);
+    $eta2 = ($nu / $rho) - 1;
+    
+    //Compute Longitude
+    $X    = $cosPHId / $nu;
+    $XI   = $cosPHId / (   6 * pow($nu, 3)) * (($nu / $rho)         +  2 * $tanPHId2);
+    $XII  = $cosPHId / ( 120 * pow($nu, 5)) * (5  + 28 * $tanPHId2  + 24 * $tanPHId4);
+    $XIIA = $cosPHId / (5040 * pow($nu, 7)) * (61 + 662 * $tanPHId2 + 1320 * $tanPHId4 + 720 * $tanPHId6);
+
+    $VII  = $tanPHId / (  2 * $rho * $nu);
+    $VIII = $tanPHId / ( 24 * $rho * pow($nu, 3)) * ( 5 +  3 * $tanPHId2 + $eta2 - 9 * $eta2 * $tanPHId2 );
+    $IX   = $tanPHId / (720 * $rho * pow($nu, 5)) * (61 + 90 * $tanPHId2 + 45 * $tanPHId4 );
+
+    $long = (180 / M_PI) * ($RadLAM0 + ($Et * $X) - pow($Et,3) * $XI + pow($Et,5) * $XII - pow($Et,7) * $XIIA);
+    $lat  = (180 / M_PI) * ($PHId - (pow($Et,2) * $VII) + (pow($Et, 4) * $VIII) - (pow($Et, 6) * $IX));
+    
+    return array($lat, $long);
+}
+?&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;it is used in the following way:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;x&#34;&gt;$e = 349000;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;$n = 461000;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;print_r( E_N_to_Lat_Long( $e, $n) );
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;$e = 349000;
+$n = 461000;
+
+print_r( E_N_to_Lat_Long( $e, $n) );&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;If you find a need to use this please place a link back to my site. thanks&lt;/p&gt;
 </description>
     </item>

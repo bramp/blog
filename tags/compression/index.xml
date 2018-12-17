@@ -15,7 +15,7 @@
       <pubDate>Sun, 17 Mar 2013 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2013/03/17/mongodb-compression/</guid>
-      <description>&lt;p&gt;For a while people have wanted MongoDB to &lt;a href=&#34;https://jira.mongodb.org/browse/SERVER-164&#34;&gt;compress their data&lt;/a&gt;, or at least &lt;a href=&#34;https://jira.mongodb.org/browse/SERVER-863&#34;&gt;compress their field names&lt;/a&gt;. This would be beneficial in not only reducing the amount of disk space required, but also in theory improving performance as we trade disk IO with CPU IO. I thought this be a fun project to investigate, so I started by working out if this would actually be useful. &lt;/p&gt;
+      <description>&lt;p&gt;For a while people have wanted MongoDB to &lt;a href=&#34;https://jira.mongodb.org/browse/SERVER-164&#34;&gt;compress their data&lt;/a&gt;, or at least &lt;a href=&#34;https://jira.mongodb.org/browse/SERVER-863&#34;&gt;compress their field names&lt;/a&gt;. This would be beneficial in not only reducing the amount of disk space required, but also in theory improving performance as we trade disk IO with CPU IO. I thought this be a fun project to investigate, so I started by working out if this would actually be useful.&lt;/p&gt;
 
 &lt;p&gt;Lets start with compressing the data. I&amp;#8217;ve taken a project I&amp;#8217;ve been working on, where most of the records have the similar set of fields. An example record may look like (which across the database had an average size of 547 bytes):&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;

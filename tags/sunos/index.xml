@@ -11,10 +11,10 @@
     
     <item>
       <title>Read/Write permissions for PHP scripts at lancs.ac.uk</title>
-      <link>https://blog.bramp.net/post/2009/01/21/read/write-permissions-for-php-scripts-at-lancs.ac.uk/</link>
+      <link>https://blog.bramp.net/post/2009/01/21/read-write-permissions-for-php-scripts-at-lancs.ac.uk/</link>
       <pubDate>Wed, 21 Jan 2009 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.bramp.net/post/2009/01/21/read/write-permissions-for-php-scripts-at-lancs.ac.uk/</guid>
+      <guid>https://blog.bramp.net/post/2009/01/21/read-write-permissions-for-php-scripts-at-lancs.ac.uk/</guid>
       <description>&lt;p&gt;My girlfriend wanted to create a blog, and she attempted to use her &lt;a href=&#34;http://www.lancs.ac.uk/ug/cranen&#34;&gt;university provided web space&lt;/a&gt;. However, the blog software seemed unable to write to her webspace. Typically you would fix this by changing the write permissions on the file/directory like so:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;chmod g+w filename&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;or&lt;/p&gt;
@@ -22,9 +22,9 @@
 &lt;p&gt;However this did not seem to work. I noticed that the files which hosted the website were on a SunOS 5.8 machine, and this seemed to support access control lists (ACLs). So I looked at a few of the ACLs for the files and they looked like this:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ getfacl filename
 user::rwx
-group::rwx              &lt;span class=&#34;c1&#34;&gt;#effective:rwx
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;group:httpadmin:rwx     &lt;span class=&#34;c1&#34;&gt;#effective:rwx
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;mask:rwx
+group::rwx              &lt;span class=&#34;c1&#34;&gt;#effective:rwx&lt;/span&gt;
+group:httpadmin:rwx     &lt;span class=&#34;c1&#34;&gt;#effective:rwx&lt;/span&gt;
+mask:rwx
 other:r--&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Since there is the group:httpadmin line, ISS are clearly using these ACLs. So I figured I would add the user the webserver is running under to the ACL. A quick look at a phpinfo() page showed me that the web server is running under user www in group www. So I first tried the following:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;setfacl -m user:www:rw- filename&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;

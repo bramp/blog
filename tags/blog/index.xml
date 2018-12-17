@@ -15,8 +15,7 @@
       <pubDate>Sat, 01 Aug 2015 14:02:29 -0700</pubDate>
       
       <guid>https://blog.bramp.net/post/2015/08/01/hugo-makefile/</guid>
-      <description>&lt;p&gt;While developing my blog using &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt;, I created a simple Makefile to help automate some steps. Hopefully someone else will find this useful:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-make&#34; data-lang=&#34;make&#34;&gt;&lt;span class=&#34;nf&#34;&gt;.PHONY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;all&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;clean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minified&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;server&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;watch&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;help&lt;/span&gt;
+      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-make&#34; data-lang=&#34;make&#34;&gt;&lt;span class=&#34;nf&#34;&gt;.PHONY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;all&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;clean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minified&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;server&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;watch&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;help&lt;/span&gt;
 
 &lt;span class=&#34;nv&#34;&gt;HUGO&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; hugo
 &lt;span class=&#34;nv&#34;&gt;HTML_MINIFIER&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; html-minifier -c html-minifier.conf
@@ -56,20 +55,20 @@
 &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;FILES&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;.&lt;span class=&#34;n&#34;&gt;yaml&lt;/span&gt;
 	&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;HUGO&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
 
-	&lt;span class=&#34;c1&#34;&gt;# Post process some files (to make the HTML more bootstrap friendly)
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;c1&#34;&gt;# Add a table class to all tables
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	grep -IR --include&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;*.html --null -l -- &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;lt;table&amp;#34;&lt;/span&gt; public/ &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; xargs -0 sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/&amp;lt;table/&amp;lt;table class=&amp;#34;table&amp;#34;/g&amp;#39;&lt;/span&gt;
+	&lt;span class=&#34;c1&#34;&gt;# Post process some files (to make the HTML more bootstrap friendly)&lt;/span&gt;
+	&lt;span class=&#34;c1&#34;&gt;# Add a table class to all tables&lt;/span&gt;
+	grep -IR --include&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;*.html --null -l -- &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;lt;table&amp;#34;&lt;/span&gt; public/ &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; xargs -0 sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/&amp;lt;table/&amp;lt;table class=&amp;#34;table&amp;#34;/g&amp;#39;&lt;/span&gt;
 
-	&lt;span class=&#34;c1&#34;&gt;# Replace &amp;#34;align=...&amp;#34;&amp;#34; with class=&amp;#34;test-...&amp;#34;
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	grep -IR --include&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;*.html --null -l -- &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;lt;th&amp;#34;&lt;/span&gt; public/ &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; xargs -0 sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/&amp;lt;th align=&amp;#34;/&amp;lt;th class=&amp;#34;text-/g&amp;#39;&lt;/span&gt;
+	&lt;span class=&#34;c1&#34;&gt;# Replace &amp;#34;align=...&amp;#34;&amp;#34; with class=&amp;#34;test-...&amp;#34;&lt;/span&gt;
+	grep -IR --include&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;*.html --null -l -- &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;lt;th&amp;#34;&lt;/span&gt; public/ &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; xargs -0 sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/&amp;lt;th align=&amp;#34;/&amp;lt;th class=&amp;#34;text-/g&amp;#39;&lt;/span&gt;
 	grep -IR --include&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;*.html --null -l -- &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;lt;td&amp;#34;&lt;/span&gt; public/ &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; xargs -0 sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/&amp;lt;td align=&amp;#34;/&amp;lt;td class=&amp;#34;text-/g&amp;#39;&lt;/span&gt;
 
-	&lt;span class=&#34;c1&#34;&gt;# Ensure the public folder has it&amp;#39;s mtime updated.
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	touch &lt;span class=&#34;nv&#34;&gt;$@&lt;/span&gt;
+	&lt;span class=&#34;c1&#34;&gt;# Ensure the public folder has it&amp;#39;s mtime updated.&lt;/span&gt;
+	touch &lt;span class=&#34;nv&#34;&gt;$@&lt;/span&gt;
 
 &lt;span class=&#34;nf&#34;&gt;.minified&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;html&lt;/span&gt;-&lt;span class=&#34;n&#34;&gt;minifier&lt;/span&gt;.&lt;span class=&#34;n&#34;&gt;conf&lt;/span&gt;
-	&lt;span class=&#34;c1&#34;&gt;# Find all HTML and in parallel run the minifier
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	find public -type f -iname &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.html&amp;#39;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; parallel --tag &lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;HTML_MINIFIER&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;{}&amp;#34;&lt;/span&gt; -o &lt;span class=&#34;s2&#34;&gt;&amp;#34;{}&amp;#34;&lt;/span&gt;
+	&lt;span class=&#34;c1&#34;&gt;# Find all HTML and in parallel run the minifier&lt;/span&gt;
+	find public -type f -iname &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.html&amp;#39;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; parallel --tag &lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;HTML_MINIFIER&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;{}&amp;#34;&lt;/span&gt; -o &lt;span class=&#34;s2&#34;&gt;&amp;#34;{}&amp;#34;&lt;/span&gt;
 	touch .minified
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The latest version is always checked into github &lt;a href=&#34;https://github.com/bramp/blog&#34;&gt;with my blog&lt;/a&gt;, but the above is easy to copy and paste.&lt;/p&gt;
