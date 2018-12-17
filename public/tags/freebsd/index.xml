@@ -29,10 +29,10 @@
     
     <item>
       <title>Updating…/-\|/-|</title>
-      <link>https://blog.bramp.net/post/2009/12/19/updating/-%5C/-/</link>
+      <link>https://blog.bramp.net/post/2009/12/19/updating-%5C/</link>
       <pubDate>Sat, 19 Dec 2009 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.bramp.net/post/2009/12/19/updating/-%5C/-/</guid>
+      <guid>https://blog.bramp.net/post/2009/12/19/updating-%5C/</guid>
       <description>&lt;p&gt;Do people other than me find updating their servers to be relaxing? At every opportunity I run &amp;#8220;apt-get update&amp;#8221;. Today I&amp;#8217;m updating 7 different machines simultaneously.&lt;/p&gt;
 
 &lt;p&gt;My Debian machines I simply issue the following commands:&lt;/p&gt;
@@ -47,21 +47,21 @@ portmanager -u&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
     
     <item>
       <title>Useful scripts/configurations</title>
-      <link>https://blog.bramp.net/post/2009/11/28/useful-scripts/configurations/</link>
+      <link>https://blog.bramp.net/post/2009/11/28/useful-scripts-configurations/</link>
       <pubDate>Sat, 28 Nov 2009 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.bramp.net/post/2009/11/28/useful-scripts/configurations/</guid>
+      <guid>https://blog.bramp.net/post/2009/11/28/useful-scripts-configurations/</guid>
       <description>&lt;p&gt;Make &lt;a href=&#34;http://git-scm.com&#34;&gt;git&lt;/a&gt; colourful&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;git config --global color.diff auto
 git config --global color.status auto
 git config --global color.branch auto&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Make &lt;a href=&#34;http://www.nano-editor.org/&#34;&gt;nano&lt;/a&gt; colourful&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cp /usr/local/share/examples/nano/nanorc.sample ~/.nanorc
-&lt;span class=&#34;c1&#34;&gt;# or
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;zcat /usr/share/doc/nano/examples/nanorc.sample.gz &amp;gt;~/.nanorc
+&lt;span class=&#34;c1&#34;&gt;# or&lt;/span&gt;
+zcat /usr/share/doc/nano/examples/nanorc.sample.gz &amp;gt;~/.nanorc
 
-&lt;span class=&#34;c1&#34;&gt;# then
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;nano ~/.nanorc&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&#34;c1&#34;&gt;# then&lt;/span&gt;
+nano ~/.nanorc&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;To trim trailing whitespace from *.cc on Linux (taken from &lt;a href=&#34;http://zebert.blogspot.com/2009/06/clean-up-trailing-whitespaces-in.html&#34;&gt;this blog&lt;/a&gt;):&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;find . -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;o&#34;&gt;{}&lt;/span&gt; -e &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/[ \t]*$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;and on BSDs:&lt;/p&gt;
@@ -506,22 +506,22 @@ please contact us.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
 &lt;p&gt;So here is the script:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;gdb&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;FreeBSD_ReloadModuleSymbols&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gdb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Command&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
-	&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;Reloads the symbol files for all loaded kernel modules&amp;#34;&lt;/span&gt;
+	&lt;span class=&#34;s2&#34;&gt;&amp;#34;Reloads the symbol files for all loaded kernel modules&amp;#34;&lt;/span&gt;
 
 	&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;fm&#34;&gt;__init__&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
-		&lt;span class=&#34;nb&#34;&gt;super&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FreeBSD_ReloadModuleSymbols&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;__init__&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;reload-freebsd-module-symbols&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+		&lt;span class=&#34;nb&#34;&gt;super&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FreeBSD_ReloadModuleSymbols&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;__init__&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;reload-freebsd-module-symbols&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
 			&lt;span class=&#34;n&#34;&gt;gdb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;COMMAND_FILES&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
 			&lt;span class=&#34;n&#34;&gt;gdb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;COMPLETE_NONE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
 	&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;invoke&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;arg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;from_tty&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
-		&lt;span class=&#34;n&#34;&gt;link&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gdb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;parse_and_eval&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;linker_files-&amp;amp;gt;tqh_first&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+		&lt;span class=&#34;n&#34;&gt;link&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gdb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;parse_and_eval&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;linker_files-&amp;amp;gt;tqh_first&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 		&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;link&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-			&lt;span class=&#34;k&#34;&gt;print&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;link&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;filename&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-			&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;link&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;filename&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;kernel&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-				&lt;span class=&#34;n&#34;&gt;gdb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;execute&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;add-symbol-file &amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; 
-					&lt;span class=&#34;n&#34;&gt;link&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;pathname&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;  
-					&lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;link&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;address&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;address&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-			&lt;span class=&#34;n&#34;&gt;link&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;link&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;link&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;][&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;tqe_next&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+			&lt;span class=&#34;k&#34;&gt;print&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;link&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;filename&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+			&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;link&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;filename&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;kernel&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+				&lt;span class=&#34;n&#34;&gt;gdb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;execute&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;add-symbol-file &amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; 
+					&lt;span class=&#34;n&#34;&gt;link&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;pathname&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;  
+					&lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;link&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;address&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;address&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+			&lt;span class=&#34;n&#34;&gt;link&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;link&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;link&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;][&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;tqe_next&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
 
 &lt;span class=&#34;n&#34;&gt;FreeBSD_ReloadModuleSymbols&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;You load this by running the following command in GDB:&lt;/p&gt;

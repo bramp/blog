@@ -19,17 +19,10 @@
 
 &lt;!-- TODO link to card-1.pdf --&gt;
 
-
 &lt;figure&gt;
-    
-        &lt;img src=&#34;card-1.png&#34; width=&#34;756&#34; height=&#34;496&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;My QR Business Card&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
+    &lt;img src=&#34;card-1.png&#34; width=&#34;756&#34; height=&#34;496&#34;/&gt; &lt;figcaption&gt;
+            &lt;h4&gt;My QR Business Card&lt;/h4&gt;
+        &lt;/figcaption&gt;
 &lt;/figure&gt;
 
 

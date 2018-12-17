@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
+<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -107,11 +107,10 @@ window.dataLayer = window.dataLayer || [];
 <h3 id=methodology>Methodology</h3>
 <p>Firstly I found a <a href=http://www.quantcast.com/top-sites-1>list of the 1 million most popular sites</a>. I then picked a number of DNS servers to test against. I chose <a href=http://code.google.com/speed/public-dns/ >Google</a>&#8216;s, <a href=http://www.opendns.com/ >OpenDNS</a>&#8216;s, my ISP (<a href=http://broadband.sky.com/ >Sky/Easynet</a>) and my old ISP&#8217;s (<a href=http://www.plus.net/ >Plus.net</a>).</p>
 <p>I decided I would query an <a href=http://en.wikipedia.org/wiki/List_of_DNS_record_types>A record</a> for each of the domains in the list, one at a time, starting with the most popular. I would query each server three times for the same domain name. The ordering was like this:</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=x>foreach (domain)
-</span><span class=x>   for (i =0; i&lt;3;i++)
-</span><span class=x>      foreach (server)
-</span><span class=x>         query(server, domain)
-</span><span class=x></span></code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php>foreach (domain)
+   for (i =0; i<span class=p>&lt;</span><span class=nt>3</span><span class=err>;</span><span class=na>i</span><span class=err>++)</span>
+      <span class=na>foreach</span> <span class=err>(</span><span class=na>server</span><span class=err>)</span>
+         <span class=na>query</span><span class=err>(</span><span class=na>server</span><span class=err>,</span> <span class=na>domain</span><span class=err>)</span></code></pre></div>
 <p>I recorded the time it took for each query to be answered, and I also recorded the replies. I was curious to see if some servers replied with different answers, or if some returned more information, i.e. additional records.</p>
 <p>I <a href=dns.php>wrote a script</a> in PHP 5.3, and ran it from the command line on my Windows Server 2008 machine. The script used PEAR&rsquo;s Net_DNS to craft and send the DNS questions. I was not using my operating system&rsquo;s resolver, and I was not using any form of client side caching. I ran the experiments from my home ADSL connection and as far as I know my ISP was not interfering with my DNS requests in any way. I live in the North West of the UK.</p>
 <h3 id=results>Results</h3>
@@ -195,10 +194,8 @@ window.dataLayer = window.dataLayer || [];
 </tbody>
 </table>
 <p>From this table of results, we can see that Google&rsquo;s median response time is 41-42ms, however, OpenDNS performs much better with a result of ~31ms. Both my current ISP and my old ISP don&rsquo;t perform as well and each achieved a result between 42ms and 61ms. To get a better feel for the data I plotted an empirical CDF of the lookup times for each server.</p>
-<p><a href=ecdf_overview.pdf>
-<figure>
-<img height=700 src=ecdf_overview.png width=700 />
-<figcaption>
+<p><a href=ecdf_overview.pdf><figure>
+<img height=700 src=ecdf_overview.png width=700 /><figcaption>
 <h4>Click for a larger PDF version</h4>
 </figcaption>
 </figure>
@@ -207,10 +204,8 @@ window.dataLayer = window.dataLayer || [];
 <p>The minimum lookup time for each pair of DNS servers seems to be the same, most likely caused by the network latency between me and the servers. Even so, if we normalise all the data by taking the servers&rsquo; minimum value away from each sample, we still find that OpenDNS performs better than Google, and Google performs slightly better than Plus.net and quite a bit better than my current ISP, Easynet.</p>
 <p>Rather worryingly is that the latency to OpenDNS is smaller than the latency to my own ISP&rsquo;s DNS servers. This makes me wonder where the hell my ISP hosts their DNS servers. Also, the ~38ms minimum time with Google indicates that at least some of their DNS servers are hosted in Europe, and possibly the UK.</p>
 <p>SInce I ran each lookup three times, I wanted to compare the lookup times for each request. This time I plotted the empirical CDF of each iteration of request.</p>
-<p><a href=ecdf_requests.pdf>
-<figure>
-<img height=700 src=ecdf_requests.png width=700 />
-<figcaption>
+<p><a href=ecdf_requests.pdf><figure>
+<img height=700 src=ecdf_requests.png width=700 /><figcaption>
 <h4>Click for a larger PDF version</h4>
 </figcaption>
 </figure>
@@ -240,7 +235,7 @@ window.dataLayer = window.dataLayer || [];
 </div>
 </div>
 <ul class=pager>
-&nbsp;<li class=previous><a href=/post/2009/11/28/useful-scripts/configurations/ >&larr; Useful scripts/configurations</a></li>
+&nbsp;<li class=previous><a href=/post/2009/11/28/useful-scripts-configurations/ >&larr; Useful scripts/configurations</a></li>
 &nbsp;<li class=next><a href=/post/2009/12/06/foursquare-rules/ >Foursquare Rules &rarr;</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>

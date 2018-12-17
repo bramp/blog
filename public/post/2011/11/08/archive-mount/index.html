@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
+<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -102,7 +102,6 @@ window.dataLayer = window.dataLayer || [];
 </p>
 <div class=post itemprop=articleBody>
 <p><a href=http://en.wikipedia.org/wiki/Archivemount>Archive Mount</a> is a <a href=http://en.wikipedia.org/wiki/Filesystem_in_Userspace>FUSE application</a> that allows you to mount any zip/gz/bz2/tar file (in fact anything that <a href=http://code.google.com/p/libarchive/ >libarchive</a> supports). This is very useful if you want to get at the files inside a archive without extracting them all.</p>
-<p></p>
 <p>In my use case I&#8217;m using Archive Mount with a zip file containing 10,000 files. This seemed to be very problematic as Archive Mount would take ~20 seconds to actually mount the zip file, and just as long to run a &#8220;ls&#8221; in the mounted directory.</p>
 <p>So I downloaded the source, and started to make some tweaks to improve the performance. All my changes can be found on <a href=https://github.com/bramp/archivemount>github</a>, and so far I&#8217;ve done the following:</p>
 <ol>

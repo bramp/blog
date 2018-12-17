@@ -3,7 +3,7 @@
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
 <meta content="width=device-width,initial-scale=1" name=viewport>
-<link href=https://blog.bramp.net/post/2008/06/04/ordnance-survey-easting/northing-to-lat/long/ rel=canonical itemprop=url />
+<link href=https://blog.bramp.net/post/2008/06/04/ordnance-survey-easting-northing-to-lat-long/ rel=canonical itemprop=url />
 <title>Ordnance Survey Easting/Northing to Lat/Long</title>
 <meta content="Recently I had the need to convert Ordnance Survey East/North coordinates to Latitude and Longitude. By using the resources available on the OS site I wrote the following piece of PHP code: …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
+<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -45,7 +45,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=longitude property=article:tag />
 <meta content="ordnance survey" property=article:tag />
 <meta content=PHP property=article:tag />
-<meta content=https://blog.bramp.net/post/2008/06/04/ordnance-survey-easting/northing-to-lat/long/ property=og:url />
+<meta content=https://blog.bramp.net/post/2008/06/04/ordnance-survey-easting-northing-to-lat-long/ property=og:url />
 <meta content=bramp.net property=og:site_name />
 <meta content="Ordnance Survey Easting/Northing to Lat/Long" property=og:title />
 <meta content="Recently I had the need to convert Ordnance Survey East/North coordinates to Latitude and Longitude. By using the resources available on the OS site I wrote the following piece of PHP code: …" property=og:description />
@@ -104,122 +104,120 @@ window.dataLayer = window.dataLayer || [];
 </p>
 <div class=post itemprop=articleBody>
 <p>Recently I had the need to convert Ordnance Survey East/North coordinates to Latitude and Longitude. By using the resources available on the OS site I wrote the following piece of PHP code:</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=x>&amp;lt;?php
-</span><span class=x>// Converts OS Easting/Northing to Lat/Long
-</span><span class=x>// by bramp
-</span><span class=x>    
-</span><span class=x>function Marc($bf0, $n, $PHI0, $PHI) {
-</span><span class=x>    /*
-</span><span class=x>    Compute meridional arc.
-</span><span class=x>    Input: - 
-</span><span class=x>     ellipsoid semi major axis multiplied by central meridian scale factor (bf0) in meters; 
-</span><span class=x>     n (computed from a, b and f0); 
-</span><span class=x>     lat of false origin (PHI0) 
-</span><span class=x>     initial or final latitude of point (PHI) IN RADIANS.
-</span><span class=x>    */
-</span><span class=x>
-</span><span class=x>    $n2 = pow($n, 2);
-</span><span class=x>    $n3 = pow($n, 3);
-</span><span class=x>
-</span><span class=x>    $ans  = ((1 + $n + ((5 / 4) * ($n2)) + ((5 / 4) * $n3)) * ($PHI - $PHI0));
-</span><span class=x>    $ans -= (((3 * $n) + (3 * $n2) + ((21 / 8 ) * $n3)) * (sin($PHI - $PHI0)) * (cos($PHI + $PHI0)));
-</span><span class=x>    $ans += ((((15 / 8 ) * $n2) + ((15 / 8 ) * $n3)) * (sin(2 * ($PHI - $PHI0))) * (cos(2 * ($PHI + $PHI0))));
-</span><span class=x>    $ans -= (((35 / 24) * $n3) * (sin(3 * ($PHI - $PHI0))) * (cos(3 * ($PHI + $PHI0))));
-</span><span class=x>
-</span><span class=x>    return $bf0 * $ans;
-</span><span class=x>}
-</span><span class=x>    
-</span><span class=x>function initialLat($North, $n0, $afo, $PHI0, $n, $bfo) {
-</span><span class=x>    /*
-</span><span class=x>    Compute initial value for Latitude (PHI) IN RADIANS.
-</span><span class=x>    Input: - _
-</span><span class=x>    northing of point (North) and northing of false origin (n0) in meters; 
-</span><span class=x>    semi major axis multiplied by central meridian scale factor (af0) in meters; 
-</span><span class=x>    latitude of false origin (PHI0) IN RADIANS;
-</span><span class=x>    n (computed from a, b and f0) 
-</span><span class=x>    ellipsoid semi major axis multiplied by central meridian scale factor (bf0) in meters.
-</span><span class=x>    */
-</span><span class=x>    
-</span><span class=x>    //First PHI value (PHI1)
-</span><span class=x>    $PHI1 = (($North - $n0) / $afo) + $PHI0;
-</span><span class=x>
-</span><span class=x>    //Calculate M
-</span><span class=x>    $M = Marc($bfo, $n, $PHI0, $PHI1);
-</span><span class=x>
-</span><span class=x>    //Calculate new PHI value (PHI2)
-</span><span class=x>    $PHI2 = (($North - $n0 - $M) / $afo) + $PHI1;
-</span><span class=x>    
-</span><span class=x>    //Iterate to get final value for InitialLat
-</span><span class=x>    while ( abs($North - $n0 - $M) &amp;gt; 0.00001 ) {
-</span><span class=x>        $PHI2 = (($North - $n0 - $M) / $afo) + $PHI1;
-</span><span class=x>        $M = Marc($bfo, $n, $PHI0, $PHI2);
-</span><span class=x>        $PHI1 = $PHI2;
-</span><span class=x>    }
-</span><span class=x>    
-</span><span class=x>    return $PHI2;
-</span><span class=x>}
-</span><span class=x>
-</span><span class=x>function E_N_to_Lat_Long($East, $North) {
-</span><span class=x>    
-</span><span class=x>    $a  = 6377563.396; // Semi-major axis, a
-</span><span class=x>    $b  = 6356256.910; //Semi-minor axis, b
-</span><span class=x>    $e0 = 400000.000; //True origin Easting, E0 
-</span><span class=x>    $n0 = -100000.000; //True origin Northing, N0   
-</span><span class=x>    $f0 = 0.999601271700; //Central Meridan Scale, F0
-</span><span class=x>    
-</span><span class=x>    $PHI0 = 49.0; // True origin latitude, j0
-</span><span class=x>    $LAM0 = -2.0; // True origin longitude, l0
-</span><span class=x>    
-</span><span class=x>    //Convert angle measures to radians
-</span><span class=x>    $RadPHI0 = $PHI0 * (M_PI / 180);
-</span><span class=x>    $RadLAM0 = $LAM0 * (M_PI / 180);
-</span><span class=x>
-</span><span class=x>    //Compute af0, bf0, e squared (e2), n and Et
-</span><span class=x>    $af0 = $a * $f0;
-</span><span class=x>    $bf0 = $b * $f0;
-</span><span class=x>    $e2 = ($af0*$af0 - $bf0*$bf0 ) / ($af0*$af0);
-</span><span class=x>    $n = ($af0 - $bf0) / ($af0 + $bf0);
-</span><span class=x>    $Et = $East - $e0;
-</span><span class=x>
-</span><span class=x>    //Compute initial value for latitude (PHI) in radians
-</span><span class=x>    $PHId = InitialLat($North, $n0, $af0, $RadPHI0, $n, $bf0);
-</span><span class=x>
-</span><span class=x>    $sinPHId2 = pow(sin($PHId),  2);
-</span><span class=x>    $cosPHId  = pow(cos($PHId), -1);
-</span><span class=x>    
-</span><span class=x>    $tanPHId  = tan($PHId);
-</span><span class=x>    $tanPHId2 = pow($tanPHId, 2);
-</span><span class=x>    $tanPHId4 = pow($tanPHId, 4);
-</span><span class=x>    $tanPHId6 = pow($tanPHId, 6);
-</span><span class=x>
-</span><span class=x>    //Compute nu, rho and eta2 using value for PHId
-</span><span class=x>    $nu = $af0 / (sqrt(1 - ($e2 * $sinPHId2)));
-</span><span class=x>    $rho = ($nu * (1 - $e2)) / (1 - $e2 * $sinPHId2);
-</span><span class=x>    $eta2 = ($nu / $rho) - 1;
-</span><span class=x>    
-</span><span class=x>    //Compute Longitude
-</span><span class=x>    $X    = $cosPHId / $nu;
-</span><span class=x>    $XI   = $cosPHId / (   6 * pow($nu, 3)) * (($nu / $rho)         +  2 * $tanPHId2);
-</span><span class=x>    $XII  = $cosPHId / ( 120 * pow($nu, 5)) * (5  + 28 * $tanPHId2  + 24 * $tanPHId4);
-</span><span class=x>    $XIIA = $cosPHId / (5040 * pow($nu, 7)) * (61 + 662 * $tanPHId2 + 1320 * $tanPHId4 + 720 * $tanPHId6);
-</span><span class=x>
-</span><span class=x>    $VII  = $tanPHId / (  2 * $rho * $nu);
-</span><span class=x>    $VIII = $tanPHId / ( 24 * $rho * pow($nu, 3)) * ( 5 +  3 * $tanPHId2 + $eta2 - 9 * $eta2 * $tanPHId2 );
-</span><span class=x>    $IX   = $tanPHId / (720 * $rho * pow($nu, 5)) * (61 + 90 * $tanPHId2 + 45 * $tanPHId4 );
-</span><span class=x>
-</span><span class=x>    $long = (180 / M_PI) * ($RadLAM0 + ($Et * $X) - pow($Et,3) * $XI + pow($Et,5) * $XII - pow($Et,7) * $XIIA);
-</span><span class=x>    $lat  = (180 / M_PI) * ($PHId - (pow($Et,2) * $VII) + (pow($Et, 4) * $VIII) - (pow($Et, 6) * $IX));
-</span><span class=x>    
-</span><span class=x>    return array($lat, $long);
-</span><span class=x>}
-</span><span class=x>?&amp;gt;;
-</span><span class=x></span></code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=ni>&amp;lt;</span>?php
+// Converts OS Easting/Northing to Lat/Long
+// by bramp
+    
+function Marc($bf0, $n, $PHI0, $PHI) {
+    /*
+    Compute meridional arc.
+    Input: - 
+     ellipsoid semi major axis multiplied by central meridian scale factor (bf0) in meters; 
+     n (computed from a, b and f0); 
+     lat of false origin (PHI0) 
+     initial or final latitude of point (PHI) IN RADIANS.
+    */
+
+    $n2 = pow($n, 2);
+    $n3 = pow($n, 3);
+
+    $ans  = ((1 + $n + ((5 / 4) * ($n2)) + ((5 / 4) * $n3)) * ($PHI - $PHI0));
+    $ans -= (((3 * $n) + (3 * $n2) + ((21 / 8 ) * $n3)) * (sin($PHI - $PHI0)) * (cos($PHI + $PHI0)));
+    $ans += ((((15 / 8 ) * $n2) + ((15 / 8 ) * $n3)) * (sin(2 * ($PHI - $PHI0))) * (cos(2 * ($PHI + $PHI0))));
+    $ans -= (((35 / 24) * $n3) * (sin(3 * ($PHI - $PHI0))) * (cos(3 * ($PHI + $PHI0))));
+
+    return $bf0 * $ans;
+}
+    
+function initialLat($North, $n0, $afo, $PHI0, $n, $bfo) {
+    /*
+    Compute initial value for Latitude (PHI) IN RADIANS.
+    Input: - _
+    northing of point (North) and northing of false origin (n0) in meters; 
+    semi major axis multiplied by central meridian scale factor (af0) in meters; 
+    latitude of false origin (PHI0) IN RADIANS;
+    n (computed from a, b and f0) 
+    ellipsoid semi major axis multiplied by central meridian scale factor (bf0) in meters.
+    */
+    
+    //First PHI value (PHI1)
+    $PHI1 = (($North - $n0) / $afo) + $PHI0;
+
+    //Calculate M
+    $M = Marc($bfo, $n, $PHI0, $PHI1);
+
+    //Calculate new PHI value (PHI2)
+    $PHI2 = (($North - $n0 - $M) / $afo) + $PHI1;
+    
+    //Iterate to get final value for InitialLat
+    while ( abs($North - $n0 - $M) <span class=ni>&amp;gt;</span> 0.00001 ) {
+        $PHI2 = (($North - $n0 - $M) / $afo) + $PHI1;
+        $M = Marc($bfo, $n, $PHI0, $PHI2);
+        $PHI1 = $PHI2;
+    }
+    
+    return $PHI2;
+}
+
+function E_N_to_Lat_Long($East, $North) {
+    
+    $a  = 6377563.396; // Semi-major axis, a
+    $b  = 6356256.910; //Semi-minor axis, b
+    $e0 = 400000.000; //True origin Easting, E0 
+    $n0 = -100000.000; //True origin Northing, N0   
+    $f0 = 0.999601271700; //Central Meridan Scale, F0
+    
+    $PHI0 = 49.0; // True origin latitude, j0
+    $LAM0 = -2.0; // True origin longitude, l0
+    
+    //Convert angle measures to radians
+    $RadPHI0 = $PHI0 * (M_PI / 180);
+    $RadLAM0 = $LAM0 * (M_PI / 180);
+
+    //Compute af0, bf0, e squared (e2), n and Et
+    $af0 = $a * $f0;
+    $bf0 = $b * $f0;
+    $e2 = ($af0*$af0 - $bf0*$bf0 ) / ($af0*$af0);
+    $n = ($af0 - $bf0) / ($af0 + $bf0);
+    $Et = $East - $e0;
+
+    //Compute initial value for latitude (PHI) in radians
+    $PHId = InitialLat($North, $n0, $af0, $RadPHI0, $n, $bf0);
+
+    $sinPHId2 = pow(sin($PHId),  2);
+    $cosPHId  = pow(cos($PHId), -1);
+    
+    $tanPHId  = tan($PHId);
+    $tanPHId2 = pow($tanPHId, 2);
+    $tanPHId4 = pow($tanPHId, 4);
+    $tanPHId6 = pow($tanPHId, 6);
+
+    //Compute nu, rho and eta2 using value for PHId
+    $nu = $af0 / (sqrt(1 - ($e2 * $sinPHId2)));
+    $rho = ($nu * (1 - $e2)) / (1 - $e2 * $sinPHId2);
+    $eta2 = ($nu / $rho) - 1;
+    
+    //Compute Longitude
+    $X    = $cosPHId / $nu;
+    $XI   = $cosPHId / (   6 * pow($nu, 3)) * (($nu / $rho)         +  2 * $tanPHId2);
+    $XII  = $cosPHId / ( 120 * pow($nu, 5)) * (5  + 28 * $tanPHId2  + 24 * $tanPHId4);
+    $XIIA = $cosPHId / (5040 * pow($nu, 7)) * (61 + 662 * $tanPHId2 + 1320 * $tanPHId4 + 720 * $tanPHId6);
+
+    $VII  = $tanPHId / (  2 * $rho * $nu);
+    $VIII = $tanPHId / ( 24 * $rho * pow($nu, 3)) * ( 5 +  3 * $tanPHId2 + $eta2 - 9 * $eta2 * $tanPHId2 );
+    $IX   = $tanPHId / (720 * $rho * pow($nu, 5)) * (61 + 90 * $tanPHId2 + 45 * $tanPHId4 );
+
+    $long = (180 / M_PI) * ($RadLAM0 + ($Et * $X) - pow($Et,3) * $XI + pow($Et,5) * $XII - pow($Et,7) * $XIIA);
+    $lat  = (180 / M_PI) * ($PHId - (pow($Et,2) * $VII) + (pow($Et, 4) * $VIII) - (pow($Et, 6) * $IX));
+    
+    return array($lat, $long);
+}
+?<span class=ni>&amp;gt;</span>;</code></pre></div>
 <p>it is used in the following way:</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=x>$e = 349000;
-</span><span class=x>$n = 461000;
-</span><span class=x>
-</span><span class=x>print_r( E_N_to_Lat_Long( $e, $n) );
-</span><span class=x></span></code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php>$e = 349000;
+$n = 461000;
+
+print_r( E_N_to_Lat_Long( $e, $n) );</code></pre></div>
 <p>If you find a need to use this please place a link back to my site. thanks</p>
 </div>
 </article>
@@ -245,9 +243,9 @@ window.dataLayer = window.dataLayer || [];
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
 var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2008\/06\/04\/ordnance-survey-easting\/northing-to-lat\/long\/';
+    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2008\/06\/04\/ordnance-survey-easting-northing-to-lat-long\/';
     var disqus_title = 'Ordnance Survey Easting\/Northing to Lat\/Long';
-    var disqus_url = 'https:\/\/blog.bramp.net\/post\/2008\/06\/04\/ordnance-survey-easting\/northing-to-lat\/long\/';
+    var disqus_url = 'https:\/\/blog.bramp.net\/post\/2008\/06\/04\/ordnance-survey-easting-northing-to-lat-long\/';
     (function() {
 	    
 	    

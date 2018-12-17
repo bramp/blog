@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
+<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -109,11 +109,11 @@ Enter <span class=s1>&#39;help&#39;</span> <span class=k>for</span> a list of bu
 
 / # </code></pre></div>
 <p>This is very clearly running Linux, with BusyBox. For those interested here are some interesting bits of information:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>/ <span class=c1># cat /proc/version 
-</span><span class=c1></span>Linux version <span class=m>2</span>.6.16.14 #1 SMP Sat Nov <span class=m>28</span> <span class=m>00</span>:38:50 PST <span class=m>2009</span></code></pre></div>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>/ <span class=c1># cat /proc/version</span> 
+Linux version <span class=m>2</span>.6.16.14 <span class=c1>#1 SMP Sat Nov 28 00:38:50 PST 2009</span></code></pre></div>
 <p>A four year old kernel. Well what do you expect from this kind of device :)</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>/ <span class=c1># cat /proc/cpuinfo 
-</span><span class=c1></span>system <span class=nb>type</span>     : MC524WR
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>/ <span class=c1># cat /proc/cpuinfo</span> 
+system <span class=nb>type</span>     : MC524WR
 processor       : <span class=m>0</span>
 cpu model       : Cavium Networks Octeon CN50XX V0.1
 BogoMIPS        : <span class=m>1000</span>.48
@@ -137,8 +137,8 @@ ASEs implemented    :
 VCED exceptions     : not available
 VCEI exceptions     : not available</code></pre></div>
 <p>w00t, a <a href=http://www.caviumnetworks.com/OCTEON-Plus_CN50XX.html>Dual Cores 64bit MIPS chip</a></p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>/ <span class=c1># cat /proc/meminfo 
-</span><span class=c1></span>MemTotal:        <span class=m>53200</span> kB
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>/ <span class=c1># cat /proc/meminfo</span> 
+MemTotal:        <span class=m>53200</span> kB
 MemFree:         <span class=m>11588</span> kB
 Buffers:          <span class=m>9252</span> kB
 Cached:           <span class=m>9228</span> kB

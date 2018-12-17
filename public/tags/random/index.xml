@@ -43,43 +43,22 @@ in Java, but I needed a more modern Javascript solution.&lt;/p&gt;
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;I created a &lt;a href=&#34;https://bramp.github.io/prob.js/&#34;&gt;quick demo site&lt;/a&gt; that generates 1 million random numbers from each distribution in the browser, and plots the PDF as it goes. Same samples:&lt;/p&gt;
 
-&lt;p&gt;
-&lt;figure&gt;
-    
-        &lt;img src=&#34;normal.png&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;Normal (μ = 0, σ = 1.0)&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
+&lt;p&gt;&lt;figure&gt;
+    &lt;img src=&#34;normal.png&#34;/&gt; &lt;figcaption&gt;
+            &lt;h4&gt;Normal (μ = 0, σ = 1.0)&lt;/h4&gt;
+        &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-
 &lt;figure&gt;
-    
-        &lt;img src=&#34;lognormal.png&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;Log-normal (μ = 0, σ = 1.0)&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
+    &lt;img src=&#34;lognormal.png&#34;/&gt; &lt;figcaption&gt;
+            &lt;h4&gt;Log-normal (μ = 0, σ = 1.0)&lt;/h4&gt;
+        &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-
 &lt;figure&gt;
-    
-        &lt;img src=&#34;zipf.png&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;Zipf (s = 1, N = 100)&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
+    &lt;img src=&#34;zipf.png&#34;/&gt; &lt;figcaption&gt;
+            &lt;h4&gt;Zipf (s = 1, N = 100)&lt;/h4&gt;
+        &lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;/p&gt;
 </description>

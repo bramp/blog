@@ -25,7 +25,7 @@ What is ANTLR? ANTLR (ANother Tool for Language Recognition), is an ALL(*) parse
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
+<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -184,40 +184,40 @@ expression
 	<span class=s>&#34;./parser&#34;</span>
 <span class=p>)</span>
 
-<span class=kd>func</span> <span class=nx>main</span><span class=p>()</span> <span class=p>{</span>
+<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
 	<span class=c1>// Setup the input
-</span><span class=c1></span>	<span class=nx>is</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>NewInputStream</span><span class=p>(</span><span class=s>&#34;1 + 2 * 3&#34;</span><span class=p>)</span>
+</span><span class=c1></span>	<span class=nx>is</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nf>NewInputStream</span><span class=p>(</span><span class=s>&#34;1 + 2 * 3&#34;</span><span class=p>)</span>
 
 	<span class=c1>// Create the Lexer
-</span><span class=c1></span>	<span class=nx>lexer</span> <span class=o>:=</span> <span class=nx>parser</span><span class=p>.</span><span class=nx>NewCalcLexer</span><span class=p>(</span><span class=nx>is</span><span class=p>)</span>
+</span><span class=c1></span>	<span class=nx>lexer</span> <span class=o>:=</span> <span class=nx>parser</span><span class=p>.</span><span class=nf>NewCalcLexer</span><span class=p>(</span><span class=nx>is</span><span class=p>)</span>
 
 	<span class=c1>// Read all tokens
 </span><span class=c1></span>	<span class=k>for</span> <span class=p>{</span>
-		<span class=nx>t</span> <span class=o>:=</span> <span class=nx>lexer</span><span class=p>.</span><span class=nx>NextToken</span><span class=p>()</span>
-		<span class=k>if</span> <span class=nx>t</span><span class=p>.</span><span class=nx>GetTokenType</span><span class=p>()</span> <span class=o>==</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>TokenEOF</span> <span class=p>{</span>
+		<span class=nx>t</span> <span class=o>:=</span> <span class=nx>lexer</span><span class=p>.</span><span class=nf>NextToken</span><span class=p>()</span>
+		<span class=k>if</span> <span class=nx>t</span><span class=p>.</span><span class=nf>GetTokenType</span><span class=p>()</span> <span class=o>==</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>TokenEOF</span> <span class=p>{</span>
 			<span class=k>break</span>
 		<span class=p>}</span>
-		<span class=nx>fmt</span><span class=p>.</span><span class=nx>Printf</span><span class=p>(</span><span class=s>&#34;%s (%q)\n&#34;</span><span class=p>,</span>
-			<span class=nx>lexer</span><span class=p>.</span><span class=nx>SymbolicNames</span><span class=p>[</span><span class=nx>t</span><span class=p>.</span><span class=nx>GetTokenType</span><span class=p>()],</span> <span class=nx>t</span><span class=p>.</span><span class=nx>GetText</span><span class=p>())</span>
+		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;%s (%q)\n&#34;</span><span class=p>,</span>
+			<span class=nx>lexer</span><span class=p>.</span><span class=nx>SymbolicNames</span><span class=p>[</span><span class=nx>t</span><span class=p>.</span><span class=nf>GetTokenType</span><span class=p>()],</span> <span class=nx>t</span><span class=p>.</span><span class=nf>GetText</span><span class=p>())</span>
 	<span class=p>}</span>
 <span class=p>}</span></code></pre></div>
 <p>To begin with, the generated parser is imported from the local subdirectory <code>import &quot;./parser&quot;</code>. Next the Lexer is created with some input:</p>
 <div class=highlight><pre class=chroma><code class=language-go data-lang=go>	<span class=c1>// Setup the input
-</span><span class=c1></span>	<span class=nx>is</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>NewInputStream</span><span class=p>(</span><span class=s>&#34;1 + 2 * 3&#34;</span><span class=p>)</span>
+</span><span class=c1></span>	<span class=nx>is</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nf>NewInputStream</span><span class=p>(</span><span class=s>&#34;1 + 2 * 3&#34;</span><span class=p>)</span>
 
 	<span class=c1>// Create the Lexer
-</span><span class=c1></span>	<span class=nx>lexer</span> <span class=o>:=</span> <span class=nx>parser</span><span class=p>.</span><span class=nx>NewCalcLexer</span><span class=p>(</span><span class=nx>is</span><span class=p>)</span></code></pre></div>
+</span><span class=c1></span>	<span class=nx>lexer</span> <span class=o>:=</span> <span class=nx>parser</span><span class=p>.</span><span class=nf>NewCalcLexer</span><span class=p>(</span><span class=nx>is</span><span class=p>)</span></code></pre></div>
 <p>In this example the input is a simple string, <code>&quot;1 + 2 * 3&quot;</code> but there are other <a href="https://godoc.org/github.com/antlr/antlr
 4/runtime/Go/antlr#InputStream"><code>antlr.InputStream</code></a>s, for example, the <a href=https://godoc.org/github.com/antlr/antlr4/runtime/Go/antlr#FileStream><code>antlr.FileStream</code></a>
 type can read directly from a file. The <code>InputStream</code> is then passed to a newly created Lexer. Note the name of the Lexer is <code>CalcLexer</code> which matches the grammar’s name defined in the Calc.g4.</p>
 <p>The lexer is then used to consume all the tokens from the input, printing them one by one. This wouldn’t normally be necessary but we do this for demonstrative purposes.</p>
 <div class=highlight><pre class=chroma><code class=language-go data-lang=go> 	<span class=k>for</span> <span class=p>{</span>
-		<span class=nx>t</span> <span class=o>:=</span> <span class=nx>lexer</span><span class=p>.</span><span class=nx>NextToken</span><span class=p>()</span>
-		<span class=k>if</span> <span class=nx>t</span><span class=p>.</span><span class=nx>GetTokenType</span><span class=p>()</span> <span class=o>==</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>TokenEOF</span> <span class=p>{</span>
+		<span class=nx>t</span> <span class=o>:=</span> <span class=nx>lexer</span><span class=p>.</span><span class=nf>NextToken</span><span class=p>()</span>
+		<span class=k>if</span> <span class=nx>t</span><span class=p>.</span><span class=nf>GetTokenType</span><span class=p>()</span> <span class=o>==</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>TokenEOF</span> <span class=p>{</span>
 			<span class=k>break</span>
 		<span class=p>}</span>
-		<span class=nx>fmt</span><span class=p>.</span><span class=nx>Printf</span><span class=p>(</span><span class=s>&#34;%s (%q)\n&#34;</span><span class=p>,</span>
-			<span class=nx>lexer</span><span class=p>.</span><span class=nx>SymbolicNames</span><span class=p>[</span><span class=nx>t</span><span class=p>.</span><span class=nx>GetTokenType</span><span class=p>()],</span> <span class=nx>t</span><span class=p>.</span><span class=nx>GetText</span><span class=p>())</span>
+		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;%s (%q)\n&#34;</span><span class=p>,</span>
+			<span class=nx>lexer</span><span class=p>.</span><span class=nx>SymbolicNames</span><span class=p>[</span><span class=nx>t</span><span class=p>.</span><span class=nf>GetTokenType</span><span class=p>()],</span> <span class=nx>t</span><span class=p>.</span><span class=nf>GetText</span><span class=p>())</span>
 	<span class=p>}</span></code></pre></div>
 <p>Each token has two main components, the TokenType, and the Text. The TokenType is a simple integer representing the type of token, while the Text is literally the text that made up this token. All the TokenTypes are defined at the end of calc_lexer.go, with their string names stored in the SymbolicNames slice:</p>
 <div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=c1>// calc_lexer.go
@@ -244,19 +244,19 @@ type can read directly from a file. The <code>InputStream</code> is then passed 
 	<span class=o>*</span><span class=nx>parser</span><span class=p>.</span><span class=nx>BaseCalcListener</span>
 <span class=p>}</span>
 
-<span class=kd>func</span> <span class=nx>main</span><span class=p>()</span> <span class=p>{</span>
+<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
 	<span class=c1>// Setup the input
-</span><span class=c1></span>	<span class=nx>is</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>NewInputStream</span><span class=p>(</span><span class=s>&#34;1 + 2 * 3&#34;</span><span class=p>)</span>
+</span><span class=c1></span>	<span class=nx>is</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nf>NewInputStream</span><span class=p>(</span><span class=s>&#34;1 + 2 * 3&#34;</span><span class=p>)</span>
 
 	<span class=c1>// Create the Lexer
-</span><span class=c1></span>	<span class=nx>lexer</span> <span class=o>:=</span> <span class=nx>parser</span><span class=p>.</span><span class=nx>NewCalcLexer</span><span class=p>(</span><span class=nx>is</span><span class=p>)</span>
-	<span class=nx>stream</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>NewCommonTokenStream</span><span class=p>(</span><span class=nx>lexer</span><span class=p>,</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>TokenDefaultChannel</span><span class=p>)</span>
+</span><span class=c1></span>	<span class=nx>lexer</span> <span class=o>:=</span> <span class=nx>parser</span><span class=p>.</span><span class=nf>NewCalcLexer</span><span class=p>(</span><span class=nx>is</span><span class=p>)</span>
+	<span class=nx>stream</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nf>NewCommonTokenStream</span><span class=p>(</span><span class=nx>lexer</span><span class=p>,</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>TokenDefaultChannel</span><span class=p>)</span>
 
 	<span class=c1>// Create the Parser
-</span><span class=c1></span>	<span class=nx>p</span> <span class=o>:=</span> <span class=nx>parser</span><span class=p>.</span><span class=nx>NewCalcParser</span><span class=p>(</span><span class=nx>stream</span><span class=p>)</span>
+</span><span class=c1></span>	<span class=nx>p</span> <span class=o>:=</span> <span class=nx>parser</span><span class=p>.</span><span class=nf>NewCalcParser</span><span class=p>(</span><span class=nx>stream</span><span class=p>)</span>
 
 	<span class=c1>// Finally parse the expression
-</span><span class=c1></span>	<span class=nx>antlr</span><span class=p>.</span><span class=nx>ParseTreeWalkerDefault</span><span class=p>.</span><span class=nx>Walk</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>calcListener</span><span class=p>{},</span> <span class=nx>p</span><span class=p>.</span><span class=nx>Start</span><span class=p>())</span>
+</span><span class=c1></span>	<span class=nx>antlr</span><span class=p>.</span><span class=nx>ParseTreeWalkerDefault</span><span class=p>.</span><span class=nf>Walk</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>calcListener</span><span class=p>{},</span> <span class=nx>p</span><span class=p>.</span><span class=nf>Start</span><span class=p>())</span>
 <span class=p>}</span></code></pre></div>
 <p>This is very similar to before, but instead of manually iterating over the tokens, the lexer is used to create a <a href="https://
 godoc.org/github.com/antlr/antlr4/runtime/Go/antlr#CommonTokenStream"><code>CommonTokenStream</code></a>, which in turn is used to create a new <code>CalcParser</code>. This <code>CalcParser</code> is then “walked”, which is ANTLR&rsquo;s event-driven API for receiving the results of parsing the rules.</p>
@@ -273,28 +273,28 @@ antlr#ParseTreeWalker.Walk"><code>Walk</code></a> function does not return anyth
 	<span class=nx>antlr</span><span class=p>.</span><span class=nx>ParseTreeListener</span>
 
 	<span class=c1>// EnterStart is called when entering the start production.
-</span><span class=c1></span>	<span class=nx>EnterStart</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>StartContext</span><span class=p>)</span>
+</span><span class=c1></span>	<span class=nf>EnterStart</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>StartContext</span><span class=p>)</span>
 
 	<span class=c1>// EnterNumber is called when entering the Number production.
-</span><span class=c1></span>	<span class=nx>EnterNumber</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>NumberContext</span><span class=p>)</span>
+</span><span class=c1></span>	<span class=nf>EnterNumber</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>NumberContext</span><span class=p>)</span>
 
 	<span class=c1>// EnterMulDiv is called when entering the MulDiv production.
-</span><span class=c1></span>	<span class=nx>EnterMulDiv</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>MulDivContext</span><span class=p>)</span>
+</span><span class=c1></span>	<span class=nf>EnterMulDiv</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>MulDivContext</span><span class=p>)</span>
 
 	<span class=c1>// EnterAddSub is called when entering the AddSub production.
-</span><span class=c1></span>	<span class=nx>EnterAddSub</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>AddSubContext</span><span class=p>)</span>
+</span><span class=c1></span>	<span class=nf>EnterAddSub</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>AddSubContext</span><span class=p>)</span>
 
 	<span class=c1>// ExitStart is called when exiting the start production.
-</span><span class=c1></span>	<span class=nx>ExitStart</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>StartContext</span><span class=p>)</span>
+</span><span class=c1></span>	<span class=nf>ExitStart</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>StartContext</span><span class=p>)</span>
 
 	<span class=c1>// ExitNumber is called when exiting the Number production.
-</span><span class=c1></span>	<span class=nx>ExitNumber</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>NumberContext</span><span class=p>)</span>
+</span><span class=c1></span>	<span class=nf>ExitNumber</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>NumberContext</span><span class=p>)</span>
 
 	<span class=c1>// ExitMulDiv is called when exiting the MulDiv production.
-</span><span class=c1></span>	<span class=nx>ExitMulDiv</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>MulDivContext</span><span class=p>)</span>
+</span><span class=c1></span>	<span class=nf>ExitMulDiv</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>MulDivContext</span><span class=p>)</span>
 
 	<span class=c1>// ExitAddSub is called when exiting the AddSub production.
-</span><span class=c1></span>	<span class=nx>ExitAddSub</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>AddSubContext</span><span class=p>)</span>
+</span><span class=c1></span>	<span class=nf>ExitAddSub</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>AddSubContext</span><span class=p>)</span>
 <span class=p>}</span></code></pre></div>
 <p>There is an Enter and Exit function for each rule found in the grammar. As the input is walked, the Parser calls the appropriate function on the listener, to indicate when the rule starts and finishes being evaluated.</p>
 <h2 id=adding-the-logic>Adding the logic</h2>
@@ -311,11 +311,11 @@ expressed before the <code>AddSub</code> expression.</p>
 	<span class=nx>stack</span> <span class=p>[]</span><span class=kt>int</span>
 <span class=p>}</span>
 
-<span class=kd>func</span> <span class=p>(</span><span class=nx>l</span> <span class=o>*</span><span class=nx>calcListener</span><span class=p>)</span> <span class=nx>push</span><span class=p>(</span><span class=nx>i</span> <span class=kt>int</span><span class=p>)</span> <span class=p>{</span>
+<span class=kd>func</span> <span class=p>(</span><span class=nx>l</span> <span class=o>*</span><span class=nx>calcListener</span><span class=p>)</span> <span class=nf>push</span><span class=p>(</span><span class=nx>i</span> <span class=kt>int</span><span class=p>)</span> <span class=p>{</span>
 	<span class=nx>l</span><span class=p>.</span><span class=nx>stack</span> <span class=p>=</span> <span class=nb>append</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>stack</span><span class=p>,</span> <span class=nx>i</span><span class=p>)</span>
 <span class=p>}</span>
 
-<span class=kd>func</span> <span class=p>(</span><span class=nx>l</span> <span class=o>*</span><span class=nx>calcListener</span><span class=p>)</span> <span class=nx>pop</span><span class=p>()</span> <span class=kt>int</span> <span class=p>{</span>
+<span class=kd>func</span> <span class=p>(</span><span class=nx>l</span> <span class=o>*</span><span class=nx>calcListener</span><span class=p>)</span> <span class=nf>pop</span><span class=p>()</span> <span class=kt>int</span> <span class=p>{</span>
 	<span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=nx>l</span><span class=p>.</span><span class=nx>stack</span><span class=p>)</span> <span class=p>&lt;</span> <span class=mi>1</span> <span class=p>{</span>
 		<span class=nb>panic</span><span class=p>(</span><span class=s>&#34;stack is empty unable to pop&#34;</span><span class=p>)</span>
 	<span class=p>}</span>
@@ -329,58 +329,58 @@ expressed before the <code>AddSub</code> expression.</p>
 	<span class=k>return</span> <span class=nx>result</span>
 <span class=p>}</span>
 
-<span class=kd>func</span> <span class=p>(</span><span class=nx>l</span> <span class=o>*</span><span class=nx>calcListener</span><span class=p>)</span> <span class=nx>ExitMulDiv</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>parser</span><span class=p>.</span><span class=nx>MulDivContext</span><span class=p>)</span> <span class=p>{</span>
-	<span class=nx>right</span><span class=p>,</span> <span class=nx>left</span> <span class=o>:=</span> <span class=nx>l</span><span class=p>.</span><span class=nx>pop</span><span class=p>(),</span> <span class=nx>l</span><span class=p>.</span><span class=nx>pop</span><span class=p>()</span>
+<span class=kd>func</span> <span class=p>(</span><span class=nx>l</span> <span class=o>*</span><span class=nx>calcListener</span><span class=p>)</span> <span class=nf>ExitMulDiv</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>parser</span><span class=p>.</span><span class=nx>MulDivContext</span><span class=p>)</span> <span class=p>{</span>
+	<span class=nx>right</span><span class=p>,</span> <span class=nx>left</span> <span class=o>:=</span> <span class=nx>l</span><span class=p>.</span><span class=nf>pop</span><span class=p>(),</span> <span class=nx>l</span><span class=p>.</span><span class=nf>pop</span><span class=p>()</span>
 
-	<span class=k>switch</span> <span class=nx>c</span><span class=p>.</span><span class=nx>GetOp</span><span class=p>().</span><span class=nx>GetTokenType</span><span class=p>()</span> <span class=p>{</span>
+	<span class=k>switch</span> <span class=nx>c</span><span class=p>.</span><span class=nf>GetOp</span><span class=p>().</span><span class=nf>GetTokenType</span><span class=p>()</span> <span class=p>{</span>
 	<span class=k>case</span> <span class=nx>parser</span><span class=p>.</span><span class=nx>CalcParserMUL</span><span class=p>:</span>
-		<span class=nx>l</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>left</span> <span class=o>*</span> <span class=nx>right</span><span class=p>)</span>
+		<span class=nx>l</span><span class=p>.</span><span class=nf>push</span><span class=p>(</span><span class=nx>left</span> <span class=o>*</span> <span class=nx>right</span><span class=p>)</span>
 	<span class=k>case</span> <span class=nx>parser</span><span class=p>.</span><span class=nx>CalcParserDIV</span><span class=p>:</span>
-		<span class=nx>l</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>left</span> <span class=o>/</span> <span class=nx>right</span><span class=p>)</span>
+		<span class=nx>l</span><span class=p>.</span><span class=nf>push</span><span class=p>(</span><span class=nx>left</span> <span class=o>/</span> <span class=nx>right</span><span class=p>)</span>
 	<span class=k>default</span><span class=p>:</span>
-		<span class=nb>panic</span><span class=p>(</span><span class=nx>fmt</span><span class=p>.</span><span class=nx>Sprintf</span><span class=p>(</span><span class=s>&#34;unexpected op: %s&#34;</span><span class=p>,</span> <span class=nx>c</span><span class=p>.</span><span class=nx>GetOp</span><span class=p>().</span><span class=nx>GetText</span><span class=p>()))</span>
+		<span class=nb>panic</span><span class=p>(</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Sprintf</span><span class=p>(</span><span class=s>&#34;unexpected op: %s&#34;</span><span class=p>,</span> <span class=nx>c</span><span class=p>.</span><span class=nf>GetOp</span><span class=p>().</span><span class=nf>GetText</span><span class=p>()))</span>
 	<span class=p>}</span>
 <span class=p>}</span>
 
-<span class=kd>func</span> <span class=p>(</span><span class=nx>l</span> <span class=o>*</span><span class=nx>calcListener</span><span class=p>)</span> <span class=nx>ExitAddSub</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>parser</span><span class=p>.</span><span class=nx>AddSubContext</span><span class=p>)</span> <span class=p>{</span>
-	<span class=nx>right</span><span class=p>,</span> <span class=nx>left</span> <span class=o>:=</span> <span class=nx>l</span><span class=p>.</span><span class=nx>pop</span><span class=p>(),</span> <span class=nx>l</span><span class=p>.</span><span class=nx>pop</span><span class=p>()</span>
+<span class=kd>func</span> <span class=p>(</span><span class=nx>l</span> <span class=o>*</span><span class=nx>calcListener</span><span class=p>)</span> <span class=nf>ExitAddSub</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>parser</span><span class=p>.</span><span class=nx>AddSubContext</span><span class=p>)</span> <span class=p>{</span>
+	<span class=nx>right</span><span class=p>,</span> <span class=nx>left</span> <span class=o>:=</span> <span class=nx>l</span><span class=p>.</span><span class=nf>pop</span><span class=p>(),</span> <span class=nx>l</span><span class=p>.</span><span class=nf>pop</span><span class=p>()</span>
 
-	<span class=k>switch</span> <span class=nx>c</span><span class=p>.</span><span class=nx>GetOp</span><span class=p>().</span><span class=nx>GetTokenType</span><span class=p>()</span> <span class=p>{</span>
+	<span class=k>switch</span> <span class=nx>c</span><span class=p>.</span><span class=nf>GetOp</span><span class=p>().</span><span class=nf>GetTokenType</span><span class=p>()</span> <span class=p>{</span>
 	<span class=k>case</span> <span class=nx>parser</span><span class=p>.</span><span class=nx>CalcParserADD</span><span class=p>:</span>
-		<span class=nx>l</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>left</span> <span class=o>+</span> <span class=nx>right</span><span class=p>)</span>
+		<span class=nx>l</span><span class=p>.</span><span class=nf>push</span><span class=p>(</span><span class=nx>left</span> <span class=o>+</span> <span class=nx>right</span><span class=p>)</span>
 	<span class=k>case</span> <span class=nx>parser</span><span class=p>.</span><span class=nx>CalcParserSUB</span><span class=p>:</span>
-		<span class=nx>l</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>left</span> <span class=o>-</span> <span class=nx>right</span><span class=p>)</span>
+		<span class=nx>l</span><span class=p>.</span><span class=nf>push</span><span class=p>(</span><span class=nx>left</span> <span class=o>-</span> <span class=nx>right</span><span class=p>)</span>
 	<span class=k>default</span><span class=p>:</span>
-		<span class=nb>panic</span><span class=p>(</span><span class=nx>fmt</span><span class=p>.</span><span class=nx>Sprintf</span><span class=p>(</span><span class=s>&#34;unexpected op: %s&#34;</span><span class=p>,</span> <span class=nx>c</span><span class=p>.</span><span class=nx>GetOp</span><span class=p>().</span><span class=nx>GetText</span><span class=p>()))</span>
+		<span class=nb>panic</span><span class=p>(</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Sprintf</span><span class=p>(</span><span class=s>&#34;unexpected op: %s&#34;</span><span class=p>,</span> <span class=nx>c</span><span class=p>.</span><span class=nf>GetOp</span><span class=p>().</span><span class=nf>GetText</span><span class=p>()))</span>
 	<span class=p>}</span>
 <span class=p>}</span>
 
-<span class=kd>func</span> <span class=p>(</span><span class=nx>l</span> <span class=o>*</span><span class=nx>calcListener</span><span class=p>)</span> <span class=nx>ExitNumber</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>parser</span><span class=p>.</span><span class=nx>NumberContext</span><span class=p>)</span> <span class=p>{</span>
-	<span class=nx>i</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>strconv</span><span class=p>.</span><span class=nx>Atoi</span><span class=p>(</span><span class=nx>c</span><span class=p>.</span><span class=nx>GetText</span><span class=p>())</span>
+<span class=kd>func</span> <span class=p>(</span><span class=nx>l</span> <span class=o>*</span><span class=nx>calcListener</span><span class=p>)</span> <span class=nf>ExitNumber</span><span class=p>(</span><span class=nx>c</span> <span class=o>*</span><span class=nx>parser</span><span class=p>.</span><span class=nx>NumberContext</span><span class=p>)</span> <span class=p>{</span>
+	<span class=nx>i</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>strconv</span><span class=p>.</span><span class=nf>Atoi</span><span class=p>(</span><span class=nx>c</span><span class=p>.</span><span class=nf>GetText</span><span class=p>())</span>
 	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
-		<span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>.</span><span class=nx>Error</span><span class=p>())</span>
+		<span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>.</span><span class=nf>Error</span><span class=p>())</span>
 	<span class=p>}</span>
 
-	<span class=nx>l</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span>
+	<span class=nx>l</span><span class=p>.</span><span class=nf>push</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span>
 <span class=p>}</span></code></pre></div>
 <p>Finally this listener would be used like so:</p>
 <div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=c1>// calc takes a string expression and returns the evaluated result.
-</span><span class=c1></span><span class=kd>func</span> <span class=nx>calc</span><span class=p>(</span><span class=nx>input</span> <span class=kt>string</span><span class=p>)</span> <span class=kt>int</span> <span class=p>{</span>
+</span><span class=c1></span><span class=kd>func</span> <span class=nf>calc</span><span class=p>(</span><span class=nx>input</span> <span class=kt>string</span><span class=p>)</span> <span class=kt>int</span> <span class=p>{</span>
 	<span class=c1>// Setup the input
-</span><span class=c1></span>	<span class=nx>is</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>NewInputStream</span><span class=p>(</span><span class=nx>input</span><span class=p>)</span>
+</span><span class=c1></span>	<span class=nx>is</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nf>NewInputStream</span><span class=p>(</span><span class=nx>input</span><span class=p>)</span>
 
 	<span class=c1>// Create the Lexer
-</span><span class=c1></span>	<span class=nx>lexer</span> <span class=o>:=</span> <span class=nx>parser</span><span class=p>.</span><span class=nx>NewCalcLexer</span><span class=p>(</span><span class=nx>is</span><span class=p>)</span>
-	<span class=nx>stream</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>NewCommonTokenStream</span><span class=p>(</span><span class=nx>lexer</span><span class=p>,</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>TokenDefaultChannel</span><span class=p>)</span>
+</span><span class=c1></span>	<span class=nx>lexer</span> <span class=o>:=</span> <span class=nx>parser</span><span class=p>.</span><span class=nf>NewCalcLexer</span><span class=p>(</span><span class=nx>is</span><span class=p>)</span>
+	<span class=nx>stream</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nf>NewCommonTokenStream</span><span class=p>(</span><span class=nx>lexer</span><span class=p>,</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>TokenDefaultChannel</span><span class=p>)</span>
 
 	<span class=c1>// Create the Parser
-</span><span class=c1></span>	<span class=nx>p</span> <span class=o>:=</span> <span class=nx>parser</span><span class=p>.</span><span class=nx>NewCalcParser</span><span class=p>(</span><span class=nx>stream</span><span class=p>)</span>
+</span><span class=c1></span>	<span class=nx>p</span> <span class=o>:=</span> <span class=nx>parser</span><span class=p>.</span><span class=nf>NewCalcParser</span><span class=p>(</span><span class=nx>stream</span><span class=p>)</span>
 
 	<span class=c1>// Finally parse the expression (by walking the tree)
 </span><span class=c1></span>	<span class=kd>var</span> <span class=nx>listener</span> <span class=nx>calcListener</span>
-	<span class=nx>antlr</span><span class=p>.</span><span class=nx>ParseTreeWalkerDefault</span><span class=p>.</span><span class=nx>Walk</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>listener</span><span class=p>,</span> <span class=nx>p</span><span class=p>.</span><span class=nx>Start</span><span class=p>())</span>
+	<span class=nx>antlr</span><span class=p>.</span><span class=nx>ParseTreeWalkerDefault</span><span class=p>.</span><span class=nf>Walk</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>listener</span><span class=p>,</span> <span class=nx>p</span><span class=p>.</span><span class=nf>Start</span><span class=p>())</span>
 
-	<span class=k>return</span> <span class=nx>listener</span><span class=p>.</span><span class=nx>pop</span><span class=p>()</span>
+	<span class=k>return</span> <span class=nx>listener</span><span class=p>.</span><span class=nf>pop</span><span class=p>()</span>
 <span class=p>}</span></code></pre></div>
 <p>Following the algorithm, the parsing of <code>1 + 2 * 3</code> would work like so.</p>
 <ol>
@@ -405,9 +405,9 @@ expressed before the <code>AddSub</code> expression.</p>
 </span><span class=c1></span>	<span class=o>*</span><span class=nx>json</span><span class=p>.</span><span class=nx>BaseJSONListener</span>
 <span class=p>}</span>
 
-<span class=kd>func</span> <span class=nx>main</span><span class=p>()</span> <span class=p>{</span>
+<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
 	<span class=c1>// Setup the input
-</span><span class=c1></span>	<span class=nx>is</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>NewInputStream</span><span class=p>(</span><span class=s>`
+</span><span class=c1></span>	<span class=nx>is</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nf>NewInputStream</span><span class=p>(</span><span class=s>`
 </span><span class=s>		{
 </span><span class=s>			&#34;example&#34;: &#34;json&#34;,
 </span><span class=s>			&#34;with&#34;: [&#34;an&#34;, &#34;array&#34;]
@@ -415,14 +415,14 @@ expressed before the <code>AddSub</code> expression.</p>
 
 
 	<span class=c1>// Create the JSON Lexer
-</span><span class=c1></span>	<span class=nx>lexer</span> <span class=o>:=</span> <span class=nx>json</span><span class=p>.</span><span class=nx>NewJSONLexer</span><span class=p>(</span><span class=nx>is</span><span class=p>)</span>
-	<span class=nx>stream</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>NewCommonTokenStream</span><span class=p>(</span><span class=nx>lexer</span><span class=p>,</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>TokenDefaultChannel</span><span class=p>)</span>
+</span><span class=c1></span>	<span class=nx>lexer</span> <span class=o>:=</span> <span class=nx>json</span><span class=p>.</span><span class=nf>NewJSONLexer</span><span class=p>(</span><span class=nx>is</span><span class=p>)</span>
+	<span class=nx>stream</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nf>NewCommonTokenStream</span><span class=p>(</span><span class=nx>lexer</span><span class=p>,</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>TokenDefaultChannel</span><span class=p>)</span>
 
 	<span class=c1>// Create the JSON Parser
-</span><span class=c1></span>	<span class=nx>p</span> <span class=o>:=</span> <span class=nx>json</span><span class=p>.</span><span class=nx>NewJSONParser</span><span class=p>(</span><span class=nx>stream</span><span class=p>)</span>
+</span><span class=c1></span>	<span class=nx>p</span> <span class=o>:=</span> <span class=nx>json</span><span class=p>.</span><span class=nf>NewJSONParser</span><span class=p>(</span><span class=nx>stream</span><span class=p>)</span>
 
 	<span class=c1>// Finally walk the tree
-</span><span class=c1></span>	<span class=nx>antlr</span><span class=p>.</span><span class=nx>ParseTreeWalkerDefault</span><span class=p>.</span><span class=nx>Walk</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>exampleListener</span><span class=p>{},</span> <span class=nx>p</span><span class=p>.</span><span class=nx>Json</span><span class=p>())</span>
+</span><span class=c1></span>	<span class=nx>antlr</span><span class=p>.</span><span class=nx>ParseTreeWalkerDefault</span><span class=p>.</span><span class=nf>Walk</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>exampleListener</span><span class=p>{},</span> <span class=nx>p</span><span class=p>.</span><span class=nf>Json</span><span class=p>())</span>
 <span class=p>}</span></code></pre></div>
 <h2 id=conclusion>Conclusion</h2>
 <p>Hopefully this article has given you a taste of how to use ANTLR with Go. The examples for this article are <a href=https://github.com/bramp/goadvent-antlr>found here</a>, and the <a href=https://godoc.org/github.com/antlr/antlr4/runtime/Go/antlr>godoc for the ANTLR library is here</a>

@@ -19,17 +19,10 @@
 
 &lt;p&gt;I&amp;#8217;ll try not to spoil the film if you haven&amp;#8217;t already seen it, but this discussion might give away too much. The general idea in the film was the main character Hector was chased into a time machine and was made to travel back a few hours in time. The film did a good job of explaining this to the viewer with the aid of a diagram and naming of the Hectors. I have reproduced their diagram and will use it for my discussion.&lt;/p&gt;
 
-
 &lt;figure&gt;
-    
-        &lt;img src=&#34;timetravel-diagram.png&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;Diagram of Hector time travelling&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
+    &lt;img src=&#34;timetravel-diagram.png&#34;/&gt; &lt;figcaption&gt;
+            &lt;h4&gt;Diagram of Hector time travelling&lt;/h4&gt;
+        &lt;/figcaption&gt;
 &lt;/figure&gt;
 
 
@@ -41,17 +34,10 @@
 
 &lt;p&gt;The thing I find interesting here is how the chain of events happened in the first place, and this is where I have a theory. In mathematics many equations can be solved iteratively, and there are typically two outcomes. The equation converges to a solution, or the iterative process does not converge and quickly goes off to infinity. A fractal is a perfect example of this, as the colours of a fractal represent how many iterations it takes to solve the equation, or if it does not solve it is coloured black. This can be seen with the simple &lt;a href=&#34;http://en.wikipedia.org/wiki/Mandelbrot_set&#34;&gt;Mandelbrot set&lt;/a&gt; fractal with equation Z&lt;sub&gt;n&lt;/sub&gt; = Z&lt;sub&gt;n-1&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt; + c.&lt;/p&gt;
 
-
 &lt;figure&gt;
-    
-        &lt;img src=&#34;800px-Mandel_zoom_00_mandelbrot_set.jpg&#34; width=&#34;720&#34; height=&#34;540&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;Taken from &amp;lt;a href=&amp;#39;http://en.wikipedia.org/wiki/File:Mandel_zoom_00_mandelbrot_set.jpg&amp;#39;&amp;gt;Wikipedia&amp;lt;/a&amp;gt; under the Creative Commons Attribution-Share Alike Licence.&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
+    &lt;img src=&#34;800px-Mandel_zoom_00_mandelbrot_set.jpg&#34; width=&#34;720&#34; height=&#34;540&#34;/&gt; &lt;figcaption&gt;
+            &lt;h4&gt;Taken from &amp;lt;a href=&amp;#39;http://en.wikipedia.org/wiki/File:Mandel_zoom_00_mandelbrot_set.jpg&amp;#39;&amp;gt;Wikipedia&amp;lt;/a&amp;gt; under the Creative Commons Attribution-Share Alike Licence.&lt;/h4&gt;
+        &lt;/figcaption&gt;
 &lt;/figure&gt;
 
 

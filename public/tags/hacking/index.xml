@@ -25,11 +25,11 @@ Enter &lt;span class=&#34;s1&#34;&gt;&amp;#39;help&amp;#39;&lt;/span&gt; &lt;spa
 
 / # &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This is very clearly running Linux, with BusyBox. For those interested here are some interesting bits of information:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/ &lt;span class=&#34;c1&#34;&gt;# cat /proc/version 
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;Linux version &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;.6.16.14 #1 SMP Sat Nov &lt;span class=&#34;m&#34;&gt;28&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;:38:50 PST &lt;span class=&#34;m&#34;&gt;2009&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/ &lt;span class=&#34;c1&#34;&gt;# cat /proc/version&lt;/span&gt; 
+Linux version &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;.6.16.14 &lt;span class=&#34;c1&#34;&gt;#1 SMP Sat Nov 28 00:38:50 PST 2009&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;A four year old kernel. Well what do you expect from this kind of device :)&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/ &lt;span class=&#34;c1&#34;&gt;# cat /proc/cpuinfo 
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;system &lt;span class=&#34;nb&#34;&gt;type&lt;/span&gt;     : MC524WR
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/ &lt;span class=&#34;c1&#34;&gt;# cat /proc/cpuinfo&lt;/span&gt; 
+system &lt;span class=&#34;nb&#34;&gt;type&lt;/span&gt;     : MC524WR
 processor       : &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
 cpu model       : Cavium Networks Octeon CN50XX V0.1
 BogoMIPS        : &lt;span class=&#34;m&#34;&gt;1000&lt;/span&gt;.48
@@ -53,8 +53,8 @@ ASEs implemented    :
 VCED exceptions     : not available
 VCEI exceptions     : not available&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;w00t, a &lt;a href=&#34;http://www.caviumnetworks.com/OCTEON-Plus_CN50XX.html&#34;&gt;Dual Cores 64bit MIPS chip&lt;/a&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/ &lt;span class=&#34;c1&#34;&gt;# cat /proc/meminfo 
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;MemTotal:        &lt;span class=&#34;m&#34;&gt;53200&lt;/span&gt; kB
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/ &lt;span class=&#34;c1&#34;&gt;# cat /proc/meminfo&lt;/span&gt; 
+MemTotal:        &lt;span class=&#34;m&#34;&gt;53200&lt;/span&gt; kB
 MemFree:         &lt;span class=&#34;m&#34;&gt;11588&lt;/span&gt; kB
 Buffers:          &lt;span class=&#34;m&#34;&gt;9252&lt;/span&gt; kB
 Cached:           &lt;span class=&#34;m&#34;&gt;9228&lt;/span&gt; kB

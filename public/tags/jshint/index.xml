@@ -20,8 +20,6 @@
      85,5:&amp;#39;grammar&amp;#39; is not defined.
 Warning:
      85,1: &amp;#39;grammar&amp;#39; is an implied global variable.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;/p&gt;
-
 &lt;p&gt;This is saying that I&amp;#8217;m using some variable that I&amp;#8217;ve not declared in my javascript file. In most cases that would be a mistake, but in my case I was expecting it to be in the global scope included from another javascript file.&lt;/p&gt;
 
 &lt;p&gt;To make JSHint stop complaining about this, you can simply place the following at the top of your javascript document:&lt;/p&gt;

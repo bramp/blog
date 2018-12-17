@@ -43,8 +43,8 @@ dd &lt;span class=&#34;nv&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo modprobe mtdram &lt;span class=&#34;nv&#34;&gt;total_size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;32768&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;erase_size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;256&lt;/span&gt;
 sudo modprobe mtdblock
 sudo modprobe mtdchar
-&lt;span class=&#34;c1&#34;&gt;# sudo mknod /dev/mtdblock0 b 31 0
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;dd &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-3.jffs2 &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/dev/mtdblock0
+&lt;span class=&#34;c1&#34;&gt;# sudo mknod /dev/mtdblock0 b 31 0&lt;/span&gt;
+dd &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-3.jffs2 &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/dev/mtdblock0
 mount -t jffs2 /dev/mtdblock0 /mnt/disk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The mknod line is only needed if you don&amp;#8217;t already have a /dev/mtdblock0. Also a /mnt/disk needs to be created ahead of time so the mounting works. Anyway once that was done, I cd /mnt/disk and found that it does appear to contain most of the file system. There are all the HTML pages, and binaries (for example busybox).&lt;/p&gt;
 

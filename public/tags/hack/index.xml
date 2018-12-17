@@ -15,7 +15,7 @@
       <pubDate>Tue, 27 Nov 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2012/11/27/invalid-ip-range-checking-defeated-by-dns/</guid>
-      <description>&lt;p&gt;I&amp;#8217;ve seen a particular kind of vulnerability in a few different applications but I&amp;#8217;m not sure of an appropriate name for it. So I thought I&amp;#8217;d write about it, and informally call it the &amp;#8220;DNS defeated IP address check&amp;#8221;. Basically, if you have an application that can be used as a proxy, or can be instructed to make web request, you don&amp;#8217;t want it fetching files from internal services. &lt;/p&gt;
+      <description>&lt;p&gt;I&amp;#8217;ve seen a particular kind of vulnerability in a few different applications but I&amp;#8217;m not sure of an appropriate name for it. So I thought I&amp;#8217;d write about it, and informally call it the &amp;#8220;DNS defeated IP address check&amp;#8221;. Basically, if you have an application that can be used as a proxy, or can be instructed to make web request, you don&amp;#8217;t want it fetching files from internal services.&lt;/p&gt;
 
 &lt;p&gt;For example, there is a simple proxy called &lt;a href=&#34;https://github.com/atmos/camo&#34;&gt;Camo&lt;/a&gt;, which is used to fetch third party images when you need to display them on a SSL secure site. (Read more about Camo on the &lt;a href=&#34;https://github.com/blog/743-sidejack-prevention-phase-3-ssl-proxied-assets&#34;&gt;GitHub blog&lt;/a&gt;).&lt;/p&gt;
 
@@ -59,35 +59,33 @@
       <description>&lt;p&gt;PHP&amp;#8217;s lack of a finally keyword is apalling, and even though there seems to be some hacks around it, I have come up with own today. I&amp;#8217;m following the C++ concept of allocating objects on the stack, and letting them cleanup any resources when the stack is rolled back.&lt;/p&gt;
 
 &lt;p&gt;Take an example. I am creating some files that I want to always be deleted after the script has finished. In any sane language (that has Exceptions) I would write:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;x&#34;&gt;try {
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;  // Create files
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;  // Do something with the files
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;} finally {
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;  // Delete files - This code will run no matter what exceptions or errors occur while creating the files.
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;}
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;try {
+  // Create files
+  // Do something with the files
+} finally {
+  // Delete files - This code will run no matter what exceptions or errors occur while creating the files.
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;However, this is the hack I&amp;#8217;ve managed with PHP:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;x&#34;&gt;class UnlinkMe {
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    var $filename;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    function __construct($filename) {
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;        $this-&amp;amp;gt;filename = $filename;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    }
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    function __destruct() {
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;        unlink($this-&amp;amp;gt;filename);
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;    }
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;}
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;// To use:
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;function doSomething() {
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;  $unlinkme = new UnlinkMe(&amp;#39;/tmp/filename&amp;#39;):
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;  // Do some work with the files
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;  return;
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;}
-&lt;/span&gt;&lt;span class=&#34;x&#34;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;class UnlinkMe {
+    var $filename;
+
+    function __construct($filename) {
+        $this-&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;filename = $filename;
+    }
+
+    function __destruct() {
+        unlink($this-&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;filename);
+    }
+}
+
+// To use:
+function doSomething() {
+  $unlinkme = new UnlinkMe(&amp;#39;/tmp/filename&amp;#39;):
+
+  // Do some work with the files
+
+  return;
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Here we are creating a UnlinkMe object, that has a destructor set up to delete a file. This UnlinkMe object is only used in the doSomething() function. Once that function returns, there are no longer any references to the object. When PHP decides to garbage collect (to free up some memory), it will destroy the UnlinkMe object, and thus call the __destruct method. Voila, we now call unlink and have cleaned up the file, even after the script has finished running.&lt;/p&gt;
 
 &lt;p&gt;There is lots of room for improvement, and this technique has lots of gotchas. For example, PHP has some bizzare rules for when __destruct method will not be called. So please don&amp;#8217;t rely on this technique, but it might be useful, and keep your code cleaner and more organised.&lt;/p&gt;

@@ -46,11 +46,11 @@
 &lt;p&gt;First, unpack the application.apk file. This will create a &amp;ldquo;application&amp;rdquo; directory with assets, resources, compiled code, etc.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apktool d -r -s application.apk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Now poke around, and edit any of the files in the application directory. If you wish to decompile any java you can do the following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Convert the Dex files into standard class files
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;dex2jar application/classes.dex
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Convert the Dex files into standard class files&lt;/span&gt;
+dex2jar application/classes.dex
 
-&lt;span class=&#34;c1&#34;&gt;# Now use the JD (Java Decompiler) to inspect the source
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;jd-gui classes-dex2jar.jar&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&#34;c1&#34;&gt;# Now use the JD (Java Decompiler) to inspect the source&lt;/span&gt;
+jd-gui classes-dex2jar.jar&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Once you have made your changes, you need to repack the APK. This will create a &lt;code&gt;my_application.apk&lt;/code&gt; file:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apktool b -f -d application
 mv application/dist/application.apk my_application.apk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -58,11 +58,11 @@ mv application/dist/application.apk my_application.apk&lt;/code&gt;&lt;/pre&gt;&
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;keytool -genkey -v -keystore my-release-key.keystore -alias alias_name &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;                   -keyalg RSA -keysize &lt;span class=&#34;m&#34;&gt;2048&lt;/span&gt; -validity &lt;span class=&#34;m&#34;&gt;10000&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Now sign the APK with the key:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Sign the apk
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore my_application.apk alias_name
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Sign the apk&lt;/span&gt;
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore my_application.apk alias_name
 
-&lt;span class=&#34;c1&#34;&gt;# Verify apk
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;jarsigner -verify -verbose -certs my_application.apk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&#34;c1&#34;&gt;# Verify apk&lt;/span&gt;
+jarsigner -verify -verbose -certs my_application.apk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Finally, the apk must be aligned for optimal loading:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;zipalign -v &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; my_application.apk my_application-aligned.apk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Voila, now you have a &lt;code&gt;my_application-aligned.apk&lt;/code&gt; file, which you can side load onto your device.&lt;/p&gt;
@@ -75,71 +75,36 @@ mv application/dist/application.apk my_application.apk&lt;/code&gt;&lt;/pre&gt;&
       <pubDate>Tue, 26 Jun 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2012/06/26/i-have-native-ipv6/</guid>
-      <description>&lt;p&gt;I&amp;#8217;m more excited than I should be, but today I noticed that Comcast has enabled IPv6 on my home internet connection. All my devices in the home have picked up one or more Internet routable IPv6 addresses. Here are a few screen shots: &lt;/p&gt;
+      <description>&lt;p&gt;I&amp;#8217;m more excited than I should be, but today I noticed that Comcast has enabled IPv6 on my home internet connection. All my devices in the home have picked up one or more Internet routable IPv6 addresses. Here are a few screen shots:&lt;/p&gt;
 
-&lt;p&gt;
-&lt;figure&gt;
-    
-        &lt;img src=&#34;ifconfig-v6.png&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;IPv6 ifconfig&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
+&lt;p&gt;&lt;figure&gt;
+    &lt;img src=&#34;ifconfig-v6.png&#34;/&gt; &lt;figcaption&gt;
+            &lt;h4&gt;IPv6 ifconfig&lt;/h4&gt;
+        &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-
 &lt;figure&gt;
-    
-        &lt;img src=&#34;google-v6.png&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;IPv6 Google!&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
+    &lt;img src=&#34;google-v6.png&#34;/&gt; &lt;figcaption&gt;
+            &lt;h4&gt;IPv6 Google!&lt;/h4&gt;
+        &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-
 &lt;figure&gt;
-    
-        &lt;img src=&#34;facebook-v6.png&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;IPv6 Facebook&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
+    &lt;img src=&#34;facebook-v6.png&#34;/&gt; &lt;figcaption&gt;
+            &lt;h4&gt;IPv6 Facebook&lt;/h4&gt;
+        &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-
 &lt;figure&gt;
-    
-        &lt;img src=&#34;bramp-v6.png&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;IPv6 my website (thanks to Amazon AWS)&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
+    &lt;img src=&#34;bramp-v6.png&#34;/&gt; &lt;figcaption&gt;
+            &lt;h4&gt;IPv6 my website (thanks to Amazon AWS)&lt;/h4&gt;
+        &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-
 &lt;figure&gt;
-    
-        &lt;img src=&#34;android-v6.png&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;even my Android phone has IPv6!&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
+    &lt;img src=&#34;android-v6.png&#34;/&gt; &lt;figcaption&gt;
+            &lt;h4&gt;even my Android phone has IPv6!&lt;/h4&gt;
+        &lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;/p&gt;
 

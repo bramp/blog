@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
+<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -101,22 +101,22 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p><a href=http://www.percona.com/doc/percona-toolkit/2.1/pt-kill.html>pt-kill</a> is a neat little application that can stop long running MySQL queries. It was formally know as <a href=http://www.maatkit.org/doc/mk-kill.html>mk-kill</a> before <a href=http://www.Percona.com>Percona</a> took over the project. Here is the init.d script I use (as one doesn&#8217;t seem provided by the project):</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=cp>#!/bin/sh
-</span><span class=cp></span><span class=c1>#
-</span><span class=c1># pt-kill   This shell script takes care of starting and stopping
-</span><span class=c1>#               the pt-kill services.
-</span><span class=c1>#
-</span><span class=c1># chkconfig: - 60 20
-</span><span class=c1># description: pt-kill stops long running MySQL queries
-</span><span class=c1>#
-</span><span class=c1># probe: true
-</span><span class=c1></span>
-<span class=c1># Source function library.
-</span><span class=c1></span>. /etc/rc.d/init.d/functions
+</span><span class=cp></span>#
+<span class=c1># pt-kill   This shell script takes care of starting and stopping</span>
+<span class=c1>#               the pt-kill services.</span>
+#
+<span class=c1># chkconfig: - 60 20</span>
+<span class=c1># description: pt-kill stops long running MySQL queries</span>
+#
+<span class=c1># probe: true</span>
+
+<span class=c1># Source function library.</span>
+. /etc/rc.d/init.d/functions
 
 <span class=nv>RETVAL</span><span class=o>=</span><span class=m>0</span>
 
-<span class=c1># See how we were called.
-</span><span class=c1></span><span class=k>case</span> <span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span> in
+<span class=c1># See how we were called.</span>
+<span class=k>case</span> <span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span> in
   start<span class=o>)</span>
     <span class=nb>echo</span> -n <span class=s2>$&#34;Starting pt-kill: &#34;</span>
  
@@ -136,12 +136,12 @@ window.dataLayer = window.dataLayer || [];
  
     <span class=nv>RETVAL</span><span class=o>=</span><span class=nv>$?</span>
     <span class=nb>echo</span>
-    <span class=o>[</span> <span class=nv>$RETVAL</span> -ne <span class=m>0</span> <span class=o>]</span> <span class=p>&amp;</span><span class=c1>#038;&amp;#038; exit $RETVAL
-</span><span class=c1></span> 
+    <span class=o>[</span> <span class=nv>$RETVAL</span> -ne <span class=m>0</span> <span class=o>]</span> <span class=p>&amp;</span><span class=c1>#038;&amp;#038; exit $RETVAL</span>
+ 
   <span class=p>;;</span>
   stop<span class=o>)</span>
-        <span class=c1># Stop daemons.
-</span><span class=c1></span>        <span class=nb>echo</span> -n <span class=s2>$&#34;Shutting down pt-kill: &#34;</span>
+        <span class=c1># Stop daemons.</span>
+        <span class=nb>echo</span> -n <span class=s2>$&#34;Shutting down pt-kill: &#34;</span>
         killproc pt-kill
         <span class=nb>echo</span>
     <span class=p>;;</span>

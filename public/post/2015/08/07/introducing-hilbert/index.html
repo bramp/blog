@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
+<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -102,8 +102,7 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p>A <a href=https://en.wikipedia.org/wiki/Hilbert_curve>Hilbert curve</a> is a space-filling (snakey) curve through a 2D space:</p>
 <figure>
-<img src=hilbert.png />
-<figcaption>
+<img src=hilbert.png /><figcaption>
 <h4>Image of 8 by 8 Hilbert curve</h4>
 </figcaption>
 </figure>
@@ -112,18 +111,17 @@ window.dataLayer = window.dataLayer || [];
 <div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=kn>import</span> <span class=s>&#34;github.com/google/hilbert&#34;</span>
 
 <span class=c1>// Create a Hilbert curve for mapping to and from a 16 by 16 space.
-</span><span class=c1></span><span class=nx>s</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>hilbert</span><span class=p>.</span><span class=nx>New</span><span class=p>(</span><span class=mi>16</span><span class=p>)</span>
+</span><span class=c1></span><span class=nx>s</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>hilbert</span><span class=p>.</span><span class=nf>New</span><span class=p>(</span><span class=mi>16</span><span class=p>)</span>
 
 <span class=c1>// Now map one dimension numbers in the range [0, N*N-1], to an x,y
 </span><span class=c1>// coordinate on the curve where both x and y are in the range [0, N-1].
-</span><span class=c1></span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>s</span><span class=p>.</span><span class=nx>Map</span><span class=p>(</span><span class=nx>t</span><span class=p>)</span>
+</span><span class=c1></span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>s</span><span class=p>.</span><span class=nf>Map</span><span class=p>(</span><span class=nx>t</span><span class=p>)</span>
 
 <span class=c1>// Also map back from (x,y) to t.
-</span><span class=c1></span><span class=nx>t</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>s</span><span class=p>.</span><span class=nx>MapInverse</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>)</span></code></pre></div>
+</span><span class=c1></span><span class=nx>t</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>s</span><span class=p>.</span><span class=nf>MapInverse</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>)</span></code></pre></div>
 <p>The project contains some demos, such as this cool animations:</p>
 <figure>
-<img src=hilbert_animation.gif />
-<figcaption>
+<img src=hilbert_animation.gif /><figcaption>
 <h4>Hilbert curve animation</h4>
 </figcaption>
 </figure>

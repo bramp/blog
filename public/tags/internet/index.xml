@@ -15,71 +15,36 @@
       <pubDate>Tue, 26 Jun 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2012/06/26/i-have-native-ipv6/</guid>
-      <description>&lt;p&gt;I&amp;#8217;m more excited than I should be, but today I noticed that Comcast has enabled IPv6 on my home internet connection. All my devices in the home have picked up one or more Internet routable IPv6 addresses. Here are a few screen shots: &lt;/p&gt;
+      <description>&lt;p&gt;I&amp;#8217;m more excited than I should be, but today I noticed that Comcast has enabled IPv6 on my home internet connection. All my devices in the home have picked up one or more Internet routable IPv6 addresses. Here are a few screen shots:&lt;/p&gt;
 
-&lt;p&gt;
-&lt;figure&gt;
-    
-        &lt;img src=&#34;ifconfig-v6.png&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;IPv6 ifconfig&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
+&lt;p&gt;&lt;figure&gt;
+    &lt;img src=&#34;ifconfig-v6.png&#34;/&gt; &lt;figcaption&gt;
+            &lt;h4&gt;IPv6 ifconfig&lt;/h4&gt;
+        &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-
 &lt;figure&gt;
-    
-        &lt;img src=&#34;google-v6.png&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;IPv6 Google!&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
+    &lt;img src=&#34;google-v6.png&#34;/&gt; &lt;figcaption&gt;
+            &lt;h4&gt;IPv6 Google!&lt;/h4&gt;
+        &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-
 &lt;figure&gt;
-    
-        &lt;img src=&#34;facebook-v6.png&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;IPv6 Facebook&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
+    &lt;img src=&#34;facebook-v6.png&#34;/&gt; &lt;figcaption&gt;
+            &lt;h4&gt;IPv6 Facebook&lt;/h4&gt;
+        &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-
 &lt;figure&gt;
-    
-        &lt;img src=&#34;bramp-v6.png&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;IPv6 my website (thanks to Amazon AWS)&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
+    &lt;img src=&#34;bramp-v6.png&#34;/&gt; &lt;figcaption&gt;
+            &lt;h4&gt;IPv6 my website (thanks to Amazon AWS)&lt;/h4&gt;
+        &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-
 &lt;figure&gt;
-    
-        &lt;img src=&#34;android-v6.png&#34; /&gt;
-    
-    
-    &lt;figcaption&gt;
-        &lt;h4&gt;even my Android phone has IPv6!&lt;/h4&gt;
-        
-    &lt;/figcaption&gt;
-    
+    &lt;img src=&#34;android-v6.png&#34;/&gt; &lt;figcaption&gt;
+            &lt;h4&gt;even my Android phone has IPv6!&lt;/h4&gt;
+        &lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;/p&gt;
 

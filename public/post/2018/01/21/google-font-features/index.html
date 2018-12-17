@@ -25,7 +25,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
+<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -108,22 +108,19 @@ window.dataLayer = window.dataLayer || [];
 </blockquote>
 <p>I recently posted a <a href=https://blog.bramp.net/post/2018/01/16/measuring-percentile-latency/ >article which contained lots of numbers</a>. While I was proofreading the article, I didn’t quite liked how the numbers looked, sometime the digits were below the baseline, for example:</p>
 <figure>
-<img height=157 src=oldstyle.png width=760 />
-<figcaption>
+<img height=157 src=oldstyle.png width=760 /><figcaption>
 <h4>Oldstyle figures</h4>
 </figcaption>
 </figure>
 <p>Where I would have expected the top and bottom of each digit to be aligned:</p>
 <figure>
-<img height=152 src=lining.png width=760 />
-<figcaption>
+<img height=152 src=lining.png width=760 /><figcaption>
 <h4>Lining figures</h4>
 </figcaption>
 </figure>
 <p>This made me flashback to all the typography I learnt when <a href=https://github.com/bramp/publication>working with LaTeX</a>. These two styles of figures are called old-style, and lining (or sometimes lowercase and uppercase numbers). The theory is that old-style numbers flow better when mixed with text. Recall, letters like q, j and p, all drop below the baseline, which makes the text nicer to read:</p>
 <figure>
-<img height=100 src=quickbrownfox.png width=760 />
-<figcaption>
+<img height=100 src=quickbrownfox.png width=760 /><figcaption>
 <h4>Example with characters below the baseline</h4>
 </figcaption>
 </figure>
@@ -185,13 +182,13 @@ $ pyftsubset ... --flavor<span class=o>=</span>woff2 --output-file<span class=o>
 <p>After fontsquirrel.com produced the fonts, I checked it contained the features, and compared the resulting file sizes:</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ ls -ltr
 
-<span class=c1># Google Fonts
-</span><span class=c1></span> 96K  raleway-v12-latin-ext_latin-regular.ttf
+<span class=c1># Google Fonts</span>
+ 96K  raleway-v12-latin-ext_latin-regular.ttf
  40K  raleway-v12-latin-ext_latin-regular.woff
  31K  raleway-v12-latin-ext_latin-regular.woff2
 
-<span class=c1># My versions
-</span><span class=c1></span>140K raleway-regular.subset-webfont.ttf
+<span class=c1># My versions</span>
+140K raleway-regular.subset-webfont.ttf
  61K raleway-regular.subset-webfont.woff
  46K raleway-regular.subset-webfont.woff2
 

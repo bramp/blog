@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.6f41bb5946c3abc6345585edd741fd02.min.css rel=stylesheet>
+<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -114,11 +114,11 @@ window.dataLayer = window.dataLayer || [];
 <p>As outlined in the <a href=https://golang.org/cmd/go/#hdr-Remote_import_paths>Remote Import Paths</a> docs, the <code>go get</code> binary will make a normal HTTP request to <code>https://github.com/sirupsen/logrus</code> (falling back to http if needed) and look at the returned HTML for a <code>&lt;meta name=&quot;go-import&quot;</code> tag. This meta tag, can then redirect the <code>go get</code> binary to the correct source code repository for the package.</p>
 <p>This meta tag can been seen with <code>curl</code>:</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ curl https://github.com/sirupsen/logrus <span class=p>|</span> grep meta <span class=p>|</span> grep go-import</code></pre></div><div class=highlight><pre class=chroma><code class=language-html data-lang=html><span class=p>&lt;</span><span class=nt>meta</span> <span class=na>name</span><span class=o>=</span><span class=s>&#34;go-import&#34;</span>
-  <span class=na>content</span><span class=o>=</span><span class=s>&#34;github.com/sirupsen/logrus git https://github.com/sirupsen/logrus.git&#34;</span><span class=p></span><span class=p>&gt;</span></code></pre></div>
+  <span class=na>content</span><span class=o>=</span><span class=s>&#34;github.com/sirupsen/logrus git https://github.com/sirupsen/logrus.git&#34;</span><span class=p>&gt;</span></code></pre></div>
 <p>That tag says, the package rooted at <code>github.com/sirupsen/logrus</code> can be fetched with git, at the URL <code>https://github.com/sirupsen/logrus.git</code>. The meta tag can express other source control systems, e.g Mercurial, Bazaar, Subversion.</p>
 <p>GitHub is a very convenient place to host source code, but the GitHub URL is generic. Instead it is possible to use the <code>&lt;meta&gt;</code> tag to create vanity domains to host projects. For example, the package hosted at <a href=https://github.com/bramp/goredirects>github.com/bramp/goredirects</a> could instead be imported as <code>bramp.net/goredirects</code>. All that is needed is a static HTML page at <code>bramp.net/goredirects</code>, containing the following <code>&lt;meta&gt;</code> tag pointing at GitHub.</p>
 <div class=highlight><pre class=chroma><code class=language-html data-lang=html><span class=p>&lt;</span><span class=nt>meta</span> <span class=na>name</span><span class=o>=</span><span class=s>go-import</span>
-  <span class=na>content</span><span class=o>=</span><span class=s>&#34;bramp.net/goredirects git https://github.com/bramp/goredirects.git&#34;</span><span class=p></span><span class=p>&gt;</span></code></pre></div>
+  <span class=na>content</span><span class=o>=</span><span class=s>&#34;bramp.net/goredirects git https://github.com/bramp/goredirects.git&#34;</span><span class=p>&gt;</span></code></pre></div>
 <p>Incase a user attempted to visit that page directly with their web browser, it is worthwhile placing more information about the project on the page, or simply making the page redirect.</p>
 <p>To help make these redirect pages, I wrote a simple go tool, <a href=https://github.com/bramp/goredirects><code>goredirects</code></a>, that inspects all local repositories under a vanity domain directory in the local <code>$GOPATH/src/</code> and outputs static HTML pages that can be hosted on that domain.</p>
 <p>For example, create your new project on GitHub, but check out the project under <code>$GOPATH/src/example.com/project</code>. Then run the tool:</p>
