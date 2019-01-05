@@ -1,4 +1,4 @@
-.PHONY: all clean minified server watch help goredirects chromacss
+.PHONY: all clean deploy minified server watch help goredirects chromacss
 
 HUGO := ./hugo.sh
 NODE_MODULES := node_modules/.bin
@@ -35,6 +35,9 @@ clean:
 	-rm themes/bramp/static/css/chroma-monokai.css themes/bramp/static/css/chroma-friendly.css
 	-rm .minified
 	-rm -rf $(TMPDIR)/hugo_cache
+
+deploy:
+	./deploy.sh
 
 minified: .minified
 
