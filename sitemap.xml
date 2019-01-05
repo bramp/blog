@@ -8,6 +8,11 @@
   </url>
   
   <url>
+    <loc>https://blog.bramp.net/post/2019/01/05/apache-beam-and-google-dataflow-in-go/</loc>
+    <lastmod>2019-01-05T07:59:08-08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.bramp.net/post/2018/05/26/certbot-unexpected-error/</loc>
     <lastmod>2018-05-26T11:28:44-07:00</lastmod>
   </url>
@@ -758,6 +763,12 @@
   </url>
   
   <url>
+    <loc>https://blog.bramp.net/tags/apache-beam/</loc>
+    <lastmod>2019-01-05T07:59:08-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.bramp.net/tags/app-engine/</loc>
     <lastmod>2017-02-20T12:50:31-08:00</lastmod>
     <priority>0</priority>
@@ -819,7 +830,7 @@
   
   <url>
     <loc>https://blog.bramp.net/categories/blog/</loc>
-    <lastmod>2018-05-26T11:28:44-07:00</lastmod>
+    <lastmod>2019-01-05T07:59:08-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -897,7 +908,7 @@
   
   <url>
     <loc>https://blog.bramp.net/categories/</loc>
-    <lastmod>2018-05-26T11:28:44-07:00</lastmod>
+    <lastmod>2019-01-05T07:59:08-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -976,6 +987,12 @@
   <url>
     <loc>https://blog.bramp.net/tags/d3.js/</loc>
     <lastmod>2018-04-08T21:46:21-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/dataflow/</loc>
+    <lastmod>2019-01-05T07:59:08-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1179,7 +1196,7 @@
   
   <url>
     <loc>https://blog.bramp.net/tags/go/</loc>
-    <lastmod>2018-01-21T16:03:36-08:00</lastmod>
+    <lastmod>2019-01-05T07:59:08-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1731,7 +1748,7 @@
   
   <url>
     <loc>https://blog.bramp.net/post/</loc>
-    <lastmod>2018-05-26T11:28:44-07:00</lastmod>
+    <lastmod>2019-01-05T07:59:08-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -2192,7 +2209,7 @@
   
   <url>
     <loc>https://blog.bramp.net/</loc>
-    <lastmod>2018-05-26T11:28:44-07:00</lastmod>
+    <lastmod>2019-01-05T07:59:08-08:00</lastmod>
     <priority>0</priority>
   </url>
   
