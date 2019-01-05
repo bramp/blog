@@ -42,6 +42,16 @@ nano content/post/2017-07-15-the-title.md
 make watch
 ```
 
+Resize Images
+---------------
+```bash
+# Ensure the images are at a resonable size
+convert orig.png -resize 200x resize.png
+
+# Consider retina displays
+convert orig.png -resize 400x resize@2x.png
+```
+
 Optimise Images
 ---------------
 ```bash
