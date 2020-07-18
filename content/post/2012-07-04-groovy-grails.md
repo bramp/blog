@@ -1,5 +1,6 @@
 ---
 title: Groovy / Grails
+slug: groovy-grails
 author: bramp
 layout: post
 date: 2012-07-04

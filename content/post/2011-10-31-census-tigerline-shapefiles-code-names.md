@@ -1,5 +1,6 @@
 ---
 title: '2010 Census TIGER/Line® Shapefiles Code Names'
+slug: 2010-census-tiger-line-shapefiles-code-names
 author: bramp
 layout: post
 date: 2011-10-31

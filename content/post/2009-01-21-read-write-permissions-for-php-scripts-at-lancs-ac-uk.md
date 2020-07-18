@@ -1,5 +1,6 @@
 ---
 title: Read/Write permissions for PHP scripts at lancs.ac.uk
+slug: read-write-permissions-for-php-scripts-at-lancs.ac.uk
 author: bramp
 layout: post
 date: 2009-01-21

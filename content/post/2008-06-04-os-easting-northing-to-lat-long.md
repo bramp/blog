@@ -1,5 +1,6 @@
 ---
 title: Ordnance Survey Easting/Northing to Lat/Long
+slug: ordnance-survey-easting-northing-to-lat-long
 author: bramp
 layout: post
 date: 2008-06-04

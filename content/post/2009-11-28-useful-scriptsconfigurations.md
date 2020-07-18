@@ -1,5 +1,6 @@
 ---
 title: Useful scripts/configurations
+slug: useful-scripts-configurations
 author: bramp
 layout: post
 date: 2009-11-28
