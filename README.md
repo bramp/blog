@@ -92,3 +92,6 @@ TODO (nice to have)
 - [ ] Report bug in hugo with tags with dots in the name. For example "last.fm" is handled incorrectly.
 - [ ] Sitemap.xml does not contain all pages (such as /opensource-project/*)
 - [ ] The Summary/Descriptions are wrong on pages using the <!--more--> syntax
+- [ ] Hugo v0.58.0 Adds support for image manulation, plus extracting metadata. (e.g {{ ($myimg | fingerprint ).Width }}	or {{ $image.Resize "600x jpg #b31280" }}
+- [ ] Hugo v0.62.1 Demonstrates truly portable Markdown links and images, whether browsed on GitHub or deployed as a Hugo site.
+- [ ] Hugo v0.68.0 Native minifier, perhaps use it?
