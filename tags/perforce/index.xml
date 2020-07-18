@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Perforce on bramp.net</title>
+    <title>perforce on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Perforce on bramp.net</description>
+    <description>Recent content in perforce on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Tue, 04 Sep 2012 00:00:00 +0000</lastBuildDate>
@@ -15,31 +14,27 @@
       <pubDate>Tue, 04 Sep 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2012/09/04/setting-up-git-p4/</guid>
-      <description>&lt;p&gt;I couldn&amp;#8217;t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I&amp;#8217;d quickly write this up.&lt;/p&gt;
-
+      <description>&lt;p&gt;I couldn’t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I’d quickly write this up.&lt;/p&gt;
 &lt;p&gt;Git-p4 is a tool for using git on top of a perforce server. This is great if your team wants to work with a DVCS, but your company requires a centralised VCS.&lt;/p&gt;
-
-&lt;p&gt;There were multiple github projects &lt;a href=&#34;https://github.com/baldrick/git-p4/&#34;&gt;1&lt;/a&gt;, &lt;a href=&#34;https://github.com/gkielSfdc/git-p4&#34;&gt;2&lt;/a&gt;, &lt;a href=&#34;https://github.com/jendave/git-p4&#34;&gt;3&lt;/a&gt;, that had forks of the git-p4 script, however, I found the latest mixed in with the official git source code. So download it from &lt;a href=&#34;https://raw.github.com/git/git/master/git-p4.py&#34;&gt;here&lt;/a&gt;. Tip: Don&amp;#8217;t forget to &amp;#8220;chmod +x git-p4.py&amp;#8221; once it&amp;#8217;s downloaded.&lt;/p&gt;
-
-&lt;p&gt;Next, I wanted to be able to type &amp;#8220;git p4&amp;#8243;, so I used an &lt;a href=&#34;https://git.wiki.kernel.org/index.php/Aliases&#34;&gt;alias&lt;/a&gt; to do this. Edit/create the file ~/.gitconfig and add:&lt;/p&gt;
+&lt;p&gt;There were multiple github projects &lt;a href=&#34;https://github.com/baldrick/git-p4/&#34;&gt;1&lt;/a&gt;, &lt;a href=&#34;https://github.com/gkielSfdc/git-p4&#34;&gt;2&lt;/a&gt;, &lt;a href=&#34;https://github.com/jendave/git-p4&#34;&gt;3&lt;/a&gt;, that had forks of the git-p4 script, however, I found the latest mixed in with the official git source code. So download it from &lt;a href=&#34;https://raw.github.com/git/git/master/git-p4.py&#34;&gt;here&lt;/a&gt;. Tip: Don’t forget to “chmod +x git-p4.py” once it’s downloaded.&lt;/p&gt;
+&lt;p&gt;Next, I wanted to be able to type “git p4″, so I used an &lt;a href=&#34;https://git.wiki.kernel.org/index.php/Aliases&#34;&gt;alias&lt;/a&gt; to do this. Edit/create the file ~/.gitconfig and add:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span class=&#34;k&#34;&gt;[alias]&lt;/span&gt;
-&lt;span class=&#34;na&#34;&gt;p4&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;!~/bin/git-p4.py&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Once that&amp;#8217;s done you should be able to:&lt;/p&gt;
+&lt;span class=&#34;na&#34;&gt;p4&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;!~/bin/git-p4.py&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Once that’s done you should be able to:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Fetch only the head&lt;/span&gt;
 git p4 clone //depot/path/to/project/ project
 
 &lt;span class=&#34;c1&#34;&gt;# or Fetch all revisions (takes a little longer)&lt;/span&gt;
-git p4 clone //depot/path/to/project/@all project&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;If that returns an error, such as &amp;#8220;p4 returned an error: Perforce password (P4PASSWD) invalid or unset.&amp;#8221;, then you most likely don&amp;#8217;t have your p4 command line set up. To set mine up, I added the following to my .bashrc&lt;/p&gt;
+git p4 clone //depot/path/to/project/@all project
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If that returns an error, such as “p4 returned an error: Perforce password (P4PASSWD) invalid or unset.”, then you most likely don’t have your p4 command line set up. To set mine up, I added the following to my .bashrc&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;P4CLIENT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;myclient
 &lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;P4HOST&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;perforce:1666
 &lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;P4USER&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;myuser
-&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;P4EDITOR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;nano&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;and then logged in&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;p4 login&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;More information on that set up can be found in the &lt;a href=&#34;http://www.perforce.com/perforce/doc.current/manuals/p4guide/02_config.html&#34;&gt; official documentation&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Once cloned, you can change to the project directory and use many of the normal git commands, such as &amp;#8220;git log&amp;#8221;. You may notice that your newly checked out git repo only has one commit. If you want to see a full history use @all on the end of your depot path.&lt;/p&gt;</description>
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;P4EDITOR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;nano
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and then logged in&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;p4 login
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;More information on that set up can be found in the &lt;a href=&#34;http://www.perforce.com/perforce/doc.current/manuals/p4guide/02_config.html&#34;&gt; official documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Once cloned, you can change to the project directory and use many of the normal git commands, such as “git log”. You may notice that your newly checked out git repo only has one commit. If you want to see a full history use @all on the end of your depot path.&lt;/p&gt;</description>
     </item>
     
   </channel>

@@ -5,7 +5,7 @@
 <meta content="width=device-width,initial-scale=1" name=viewport>
 <link href=https://blog.bramp.net/post/2015/08/01/hugo-makefile/ rel=canonical itemprop=url />
 <title>Hugo Makefile</title>
-<meta content=".PHONY: all clean minified server watch help HUGO := hugo HTML_MINIFIER := html-minifier -c html-minifier.conf # All input files FILES=$(shell find content layouts static themes -type f) # Below are …" name=description itemprop=description>
+<meta content="While developing my blog using Hugo, I created a simple Makefile to help automate some steps. Hopefully someone else will find this useful" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -45,7 +45,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=https://blog.bramp.net/post/2015/08/01/hugo-makefile/ property=og:url />
 <meta content=bramp.net property=og:site_name />
 <meta content="Hugo Makefile" property=og:title />
-<meta content=".PHONY: all clean minified server watch help HUGO := hugo HTML_MINIFIER := html-minifier -c html-minifier.conf # All input files FILES=$(shell find content layouts static themes -type f) # Below are …" property=og:description />
+<meta content="While developing my blog using Hugo, I created a simple Makefile to help automate some steps. Hopefully someone else will find this useful" property=og:description />
 <meta content=2015-08-01T14:02:29-07:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -97,6 +97,8 @@ window.dataLayer = window.dataLayer || [];
 | <a href=https://blog.bramp.net/tags/blog/ >blog</a>
 </p>
 <div class=post itemprop=articleBody>
+<p>While developing my blog using <a href=https://gohugo.io/ >Hugo</a>, I created a simple Makefile to help automate some steps. Hopefully someone else will find this useful</p>
+<p>:</p>
 <div class=highlight><pre class=chroma><code class=language-make data-lang=make><span class=nf>.PHONY</span><span class=o>:</span> <span class=n>all</span> <span class=n>clean</span> <span class=n>minified</span> <span class=n>server</span> <span class=n>watch</span> <span class=n>help</span>
 
 <span class=nv>HUGO</span> <span class=o>:=</span> hugo
@@ -152,8 +154,7 @@ window.dataLayer = window.dataLayer || [];
 	<span class=c1># Find all HTML and in parallel run the minifier</span>
 	find public -type f -iname <span class=s1>&#39;*.html&#39;</span> <span class=p>|</span> parallel --tag <span class=k>$(</span>HTML_MINIFIER<span class=k>)</span> <span class=s2>&#34;{}&#34;</span> -o <span class=s2>&#34;{}&#34;</span>
 	touch .minified
-</code></pre></div>
-<p>The latest version is always checked into github <a href=https://github.com/bramp/blog>with my blog</a>, but the above is easy to copy and paste.</p>
+</code></pre></div><p>The latest version is always checked into github <a href=https://github.com/bramp/blog>with my blog</a>, but the above is easy to copy and paste.</p>
 <ul>
 <li><code>make help</code> reminds me of the commands when I need it.</li>
 <li><code>make all</code> executes hugo to build the site, then I run the generated HTML through a <a href=https://www.npmjs.com/package/html-minifier>minifier</a>, and do some other minor tweaks.</li>
@@ -184,18 +185,19 @@ window.dataLayer = window.dataLayer || [];
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2015\/08\/01\/hugo-makefile\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2015\/08\/01\/hugo-makefile\/';
     var disqus_title = 'Hugo Makefile';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2015\/08\/01\/hugo-makefile\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -203,7 +205,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

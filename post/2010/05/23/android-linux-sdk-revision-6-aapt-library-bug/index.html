@@ -5,8 +5,8 @@
 <meta content="width=device-width,initial-scale=1" name=viewport>
 <link href=https://blog.bramp.net/post/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/ rel=canonical itemprop=url />
 <title>Android Linux SDK revision 6 aapt library bug</title>
-<meta content="UPDATE &#8211; I reported this bug and it was promptly fixed the next day. Read the bug report for solution on how to fix.
-Android 2.2 just came out and along with it came a updated set of SDK tools. …" name=description itemprop=description>
+<meta content="UPDATE – I reported this bug and it was promptly fixed the next day. Read the bug report for solution on how to fix.
+Android 2.2 just came out and along with it came a updated set of SDK tools. I’ve …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -25,7 +25,7 @@ Android 2.2 just came out and along with it came a updated set of SDK tools. …
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -48,8 +48,8 @@ window.dataLayer = window.dataLayer || [];
 <meta content=https://blog.bramp.net/post/2010/05/23/android-linux-sdk-revision-6-aapt-library-bug/ property=og:url />
 <meta content=bramp.net property=og:site_name />
 <meta content="Android Linux SDK revision 6 aapt library bug" property=og:title />
-<meta content="UPDATE &#8211; I reported this bug and it was promptly fixed the next day. Read the bug report for solution on how to fix.
-Android 2.2 just came out and along with it came a updated set of SDK tools. …" property=og:description />
+<meta content="UPDATE – I reported this bug and it was promptly fixed the next day. Read the bug report for solution on how to fix.
+Android 2.2 just came out and along with it came a updated set of SDK tools. I’ve …" property=og:description />
 <meta content=2010-05-23T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -103,22 +103,22 @@ Android 2.2 just came out and along with it came a updated set of SDK tools. …
 | <a href=https://blog.bramp.net/tags/sdk/ >sdk</a>
 </p>
 <div class=post itemprop=articleBody>
-<p><strong>UPDATE &#8211; I <a href="http://code.google.com/p/android/issues/detail?id=8498">reported this bug</a> and it was promptly fixed the next day. Read the <a href="http://code.google.com/p/android/issues/detail?id=8498">bug report</a> for solution on how to fix.</strong></p>
-<p><a href=http://android-developers.blogspot.com/2010/05/android-22-and-developers-goodies.html>Android 2.2</a> just came out and along with it came a updated set of <a href=http://developer.android.com/sdk/tools-notes.html>SDK tools</a>. I&#8217;ve been using these tools on Windows, but today I took my Linux laptop out and I&#8217;ve been sat in a <a href=http://www.juicafe.co.uk/ >coffee shop</a> hyped up on caffeine but completely unproductive because I&#8217;m going round in circles with what I think is a bug.</p>
-<p>So, I&#8217;m trying the <a href=http://developer.android.com/guide/developing/other-ide.html#libraryProject>new library feature</a>, where you can have a Android library project, which is referenced by one or more Android projects. This allows multiple projects to easily share the same code. The problem is when I set-up my Android project to use a library project I get the following error printed in my eclipse console:</p>
+<p><strong>UPDATE – I <a href="http://code.google.com/p/android/issues/detail?id=8498">reported this bug</a> and it was promptly fixed the next day. Read the <a href="http://code.google.com/p/android/issues/detail?id=8498">bug report</a> for solution on how to fix.</strong></p>
+<p><a href=http://android-developers.blogspot.com/2010/05/android-22-and-developers-goodies.html>Android 2.2</a> just came out and along with it came a updated set of <a href=http://developer.android.com/sdk/tools-notes.html>SDK tools</a>. I’ve been using these tools on Windows, but today I took my Linux laptop out and I’ve been sat in a <a href=http://www.juicafe.co.uk/ >coffee shop</a> hyped up on caffeine but completely unproductive because I’m going round in circles with what I think is a bug.</p>
+<p>So, I’m trying the <a href=http://developer.android.com/guide/developing/other-ide.html#libraryProject>new library feature</a>, where you can have a Android library project, which is referenced by one or more Android projects. This allows multiple projects to easily share the same code. The problem is when I set-up my Android project to use a library project I get the following error printed in my eclipse console:</p>
 <div class=highlight><pre class=chroma><code class=language-text data-lang=text>ERROR: Unknown option &#39;--auto-add-overlay&#39;
-Android Asset Packaging Tool</code></pre></div>
-<p>and the code fails to compile. If I remove the reference to the library project this error goes away.</p>
+Android Asset Packaging Tool
+</code></pre></div><p>and the code fails to compile. If I remove the reference to the library project this error goes away.</p>
 <p>The error is coming from the aapt command, which seems to be installed multiple times, once for each SDK version:</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ locate -r <span class=s2>&#34;aapt</span>$<span class=s2>&#34;</span>
 /home/bramp/android-sdk-linux_86/platforms/android-3/tools/aapt
 /home/bramp/android-sdk-linux_86/platforms/android-4/tools/aapt
 /home/bramp/android-sdk-linux_86/platforms/android-7/tools/aapt
-/home/bramp/android-sdk-linux_86/platforms/android-8/tools/aapt</code></pre></div>
-<p>Checking each command I see that only versions 7 and 8 have the <em>&#8211;auto-add-overlay</em> option. Both my library and main projects are targeted at Android 1.6 (i.e. android-4). I tried re-targeting my main project to Android 2.2 (i.e. android-8) and the problem seems to go away.</p>
+/home/bramp/android-sdk-linux_86/platforms/android-8/tools/aapt
+</code></pre></div><p>Checking each command I see that only versions 7 and 8 have the <em>–auto-add-overlay</em> option. Both my library and main projects are targeted at Android 1.6 (i.e. android-4). I tried re-targeting my main project to Android 2.2 (i.e. android-8) and the problem seems to go away.</p>
 <p>So for the moment this seems an annoyance, but I can live with it by setting my target to 2.2. Hopefully Google will release a fix so I can still use the older targets with the new library feature.</p>
-<p><strong>Just a quick update:</strong><br/>
-I noticed that on Windows all versions of the aapt tool support the &#8216;&#8211;auto-add-overlay&#8217; option. So what I suspect has happened is that someone forgot to update the aapt binary for the old platforms.</p>
+<p><strong>Just a quick update:</strong><br>
+I noticed that on Windows all versions of the aapt tool support the ‘–auto-add-overlay’ option. So what I suspect has happened is that someone forgot to update the aapt binary for the old platforms.</p>
 </div>
 </article>
 <div class=row>
@@ -142,18 +142,19 @@ I noticed that on Windows all versions of the aapt tool support the &#8216;&#821
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2010\/05\/23\/android-linux-sdk-revision-6-aapt-library-bug\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2010\/05\/23\/android-linux-sdk-revision-6-aapt-library-bug\/';
     var disqus_title = 'Android Linux SDK revision 6 aapt library bug';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2010\/05\/23\/android-linux-sdk-revision-6-aapt-library-bug\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -161,7 +162,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

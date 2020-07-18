@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Peano on bramp.net</title>
+    <title>peano on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Peano on bramp.net</description>
+    <description>Recent content in peano on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Mon, 08 Aug 2016 21:35:35 -0700</lastBuildDate>
@@ -16,7 +15,6 @@
       
       <guid>https://blog.bramp.net/post/2016/08/08/peano-curves/</guid>
       <description>&lt;p&gt;My latest addition to the &lt;a href=&#34;https://github.com/google/hilbert&#34;&gt;hilbert go library&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Peano_curve&#34;&gt;Peano Curves&lt;/a&gt;. The original space-filing curve, similar to the Hilbert curve, but a little more complex.&lt;/p&gt;
-
 &lt;figure&gt;
     &lt;img src=&#34;peano_animation.gif&#34;/&gt; &lt;figcaption&gt;
             &lt;h4&gt;Animation of Peano curve with N in the range 1..5&lt;/h4&gt;

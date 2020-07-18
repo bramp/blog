@@ -5,7 +5,7 @@
 <meta content="width=device-width,initial-scale=1" name=viewport>
 <link href=https://blog.bramp.net/post/2011/06/19/linux-64bit-flash-glibc-memcpy-bug/ rel=canonical itemprop=url />
 <title>Linux 64bit Flash glibc memcpy bug</title>
-<meta content="Does your Linux 64bit version of Flash now make anonying beeping/distortion noises while playing videos? Well it turns out a recent &#8220;improvement&#8221; to glibc has caused some programs to now …" name=description itemprop=description>
+<meta content="Does your Linux 64bit version of Flash now make anonying beeping/distortion noises while playing videos? Well it turns out a recent “improvement” to glibc has caused some programs to now crash or do …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -47,7 +47,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=https://blog.bramp.net/post/2011/06/19/linux-64bit-flash-glibc-memcpy-bug/ property=og:url />
 <meta content=bramp.net property=og:site_name />
 <meta content="Linux 64bit Flash glibc memcpy bug" property=og:title />
-<meta content="Does your Linux 64bit version of Flash now make anonying beeping/distortion noises while playing videos? Well it turns out a recent &#8220;improvement&#8221; to glibc has caused some programs to now …" property=og:description />
+<meta content="Does your Linux 64bit version of Flash now make anonying beeping/distortion noises while playing videos? Well it turns out a recent “improvement” to glibc has caused some programs to now crash or do …" property=og:description />
 <meta content=2011-06-19T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -101,20 +101,21 @@ window.dataLayer = window.dataLayer || [];
 | <a href=https://blog.bramp.net/tags/memcpy/ >memcpy</a>
 </p>
 <div class=post itemprop=articleBody>
-<p>Does your Linux 64bit version of Flash now make anonying beeping/distortion noises while playing videos? Well it turns out a recent &#8220;<a href=http://lwn.net/Articles/414467/ >improvement</a>&#8221; to glibc has caused some programs to now crash or do weird things. This is to do with an improvement of <a href=http://linux.die.net/man/3/memcpy>memcpy</a>, which makes its use more strict, causing those applications that incorrectly used it to now crash.</p>
+<p>Does your Linux 64bit version of Flash now make anonying beeping/distortion noises while playing videos? Well it turns out a recent “<a href=http://lwn.net/Articles/414467/ >improvement</a>” to glibc has caused some programs to now crash or do weird things. This is to do with an improvement of <a href=http://linux.die.net/man/3/memcpy>memcpy</a>, which makes its use more strict, causing those applications that incorrectly used it to now crash.</p>
 <p>On Debian, there is a simple a fix that allows you to use the original memcpy. You can load the application using an additional .so file:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=nv>LD_PRELOAD</span><span class=o>=</span>/usr/lib/libc/memcpy-preload.so /path/to/your/program</code></pre></div>
-<p>As I use Google Chrome when using Flash I had to do the following:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=nv>LD_PRELOAD</span><span class=o>=</span>/usr/lib/libc/memcpy-preload.so /usr/bin/google-chrome</code></pre></div>
-<p>but if you want to fix chrome on a system level, you can edit the Chrome Wrapper used to launch it.</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>sudo nano /opt/google/chrome/google-chrome</code></pre></div>
-<p>add the following line</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=nb>export</span> <span class=nv>LD_PRELOAD</span><span class=o>=</span><span class=s2>&#34;/usr/lib/libc/memcpy-preload.so&#34;</span></code></pre></div>
-<p>for example</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=nv>LD_PRELOAD</span><span class=o>=</span>/usr/lib/libc/memcpy-preload.so /path/to/your/program
+</code></pre></div><p>As I use Google Chrome when using Flash I had to do the following:</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=nv>LD_PRELOAD</span><span class=o>=</span>/usr/lib/libc/memcpy-preload.so /usr/bin/google-chrome
+</code></pre></div><p>but if you want to fix chrome on a system level, you can edit the Chrome Wrapper used to launch it.</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>sudo nano /opt/google/chrome/google-chrome
+</code></pre></div><p>add the following line</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=nb>export</span> <span class=nv>LD_PRELOAD</span><span class=o>=</span><span class=s2>&#34;/usr/lib/libc/memcpy-preload.so&#34;</span>
+</code></pre></div><p>for example</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=nb>export</span> LD_LIBRARY_PATH
 <span class=nb>export</span> <span class=nv>LD_PRELOAD</span><span class=o>=</span><span class=s2>&#34;/usr/lib/libc/memcpy-preload.so&#34;</span>
 
-<span class=nb>export</span> <span class=nv>CHROME_VERSION_EXTRA</span><span class=o>=</span><span class=s2>&#34;beta&#34;</span></code></pre></div>
+<span class=nb>export</span> <span class=nv>CHROME_VERSION_EXTRA</span><span class=o>=</span><span class=s2>&#34;beta&#34;</span>
+</code></pre></div>
 </div>
 </article>
 <div class=row>
@@ -138,18 +139,19 @@ window.dataLayer = window.dataLayer || [];
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2011\/06\/19\/linux-64bit-flash-glibc-memcpy-bug\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2011\/06\/19\/linux-64bit-flash-glibc-memcpy-bug\/';
     var disqus_title = 'Linux 64bit Flash glibc memcpy bug';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2011\/06\/19\/linux-64bit-flash-glibc-memcpy-bug\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -157,7 +159,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

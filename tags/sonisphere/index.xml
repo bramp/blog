@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sonisphere on bramp.net</title>
@@ -15,16 +14,13 @@
       <pubDate>Tue, 27 Jul 2010 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2010/07/27/sonisphere-2010-running-order/</guid>
-      <description>&lt;p&gt;I spent some time today writing a PHP script to generate a running order for a festival. Here is this year&amp;#8217;s &lt;a href=&#34;http://uk.sonispherefestivals.com/&#34;&gt;Sonisphere&lt;/a&gt;&amp;#8216;s running order in a nice Gantt chart.&lt;/p&gt;
-
+      <description>&lt;p&gt;I spent some time today writing a PHP script to generate a running order for a festival. Here is this year’s &lt;a href=&#34;http://uk.sonispherefestivals.com/&#34;&gt;Sonisphere&lt;/a&gt;‘s running order in a nice Gantt chart.&lt;/p&gt;
 &lt;!-- TODO link to sonisphere-2010.pdf --&gt;
-
 &lt;figure&gt;
     &lt;img src=&#34;sonisphere-2010.png&#34; width=&#34;438&#34; height=&#34;338&#34;/&gt; &lt;figcaption&gt;
             &lt;h4&gt;Sonisphere 2010 Running Order&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
-
 
 &lt;p&gt;Download &lt;a href=&#34;sonisphere-2010.pdf&#34;&gt;pdf (33,186 bytes)&lt;/a&gt; or &lt;a href=&#34;sonisphere-2010.htm&#34;&gt;html (75,532 bytes)&lt;/a&gt;&lt;/p&gt;
 </description>

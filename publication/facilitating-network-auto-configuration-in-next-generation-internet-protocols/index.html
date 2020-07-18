@@ -6,9 +6,9 @@
 <link href=https://blog.bramp.net/publication/facilitating-network-auto-configuration-in-next-generation-internet-protocols/ rel=canonical itemprop=url />
 <title>Facilitating Network Auto Configuration In Next Generation Internet Protocols</title>
 <meta content="Matthew Jakeman, Andrew Brampton, Stephen Pink
-In proceedings FutureNet II &#8211; Second international workshop on the network of the future in conjunction with IEEE Globecom
+In proceedings FutureNet II – Second international workshop on the network of the future in conjunction with IEEE Globecom
  Abstract
-The …" name=description itemprop=description>
+The infrastructure …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -27,7 +27,7 @@ The …" name=description itemprop=description>
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -48,9 +48,9 @@ window.dataLayer = window.dataLayer || [];
 <meta content=bramp.net property=og:site_name />
 <meta content="Facilitating Network Auto Configuration In Next Generation Internet Protocols" property=og:title />
 <meta content="Matthew Jakeman, Andrew Brampton, Stephen Pink
-In proceedings FutureNet II &#8211; Second international workshop on the network of the future in conjunction with IEEE Globecom
+In proceedings FutureNet II – Second international workshop on the network of the future in conjunction with IEEE Globecom
  Abstract
-The …" property=og:description />
+The infrastructure …" property=og:description />
 <meta content=2010-02-09T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -102,13 +102,13 @@ The …" property=og:description />
 </p>
 <div class=post itemprop=articleBody>
 <p>Matthew Jakeman, Andrew Brampton, Stephen Pink</p>
-<p>In proceedings FutureNet II &#8211; Second international workshop on the network of the future in conjunction with IEEE Globecom</p>
+<p>In proceedings FutureNet II – Second international workshop on the network of the future in conjunction with IEEE Globecom</p>
 <blockquote>
 <p><strong>Abstract</strong></p>
-<p>The infrastructure of the modern Internet has become a complex mesh of varying network types. A single network<br/>
-protocol cannot optimally support every underlying technology and the diverse nature of these networks places increasing strain on the concept of running IP over everything and everything over IP. The introduction of new protocols and services also forces network administrators to employ techniques such as tunneling to ensure end-to-end IP connectivity. Unfortunately these techniques inherently require some form of efficiency trade-off and are not<br/>
+<p>The infrastructure of the modern Internet has become a complex mesh of varying network types. A single network<br>
+protocol cannot optimally support every underlying technology and the diverse nature of these networks places increasing strain on the concept of running IP over everything and everything over IP. The introduction of new protocols and services also forces network administrators to employ techniques such as tunneling to ensure end-to-end IP connectivity. Unfortunately these techniques inherently require some form of efficiency trade-off and are not<br>
 an ideal long term solution.</p>
-<p>To address these issues, this paper proposes a new network layer protocol, NP++, which uses a level of indirection between the logical and physical specifications of the protocol. NP++ also enables the protocol to automatically configure which physical mapping is used over a link with no direct input from the user.<br/>
+<p>To address these issues, this paper proposes a new network layer protocol, NP++, which uses a level of indirection between the logical and physical specifications of the protocol. NP++ also enables the protocol to automatically configure which physical mapping is used over a link with no direct input from the user.<br>
 This allows the protocol to change its transmission characteristics depending on the type of underlying network while presenting a unified view to the upper layers. This ensures a higher level of flexibility along with the potential to increase efficiency. The implementation of the NP++ prototype is also demonstrated with a view to encouraging its use when researching next generation Internet technologies.</p>
 </blockquote>
 <p><a href=https://github.com/bramp/publication/raw/master/network-auto-config/GLOBECOM09/facilitating_network_auto_configuration_in_next_generation_internet_protocols.pdf>PDF Download</a></p>
@@ -134,18 +134,19 @@ This allows the protocol to change its transmission characteristics depending on
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/publication\/facilitating-network-auto-configuration-in-next-generation-internet-protocols\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/publication\/facilitating-network-auto-configuration-in-next-generation-internet-protocols\/';
     var disqus_title = 'Facilitating Network Auto Configuration In Next Generation Internet Protocols';
     var disqus_url = 'https:\/\/blog.bramp.net\/publication\/facilitating-network-auto-configuration-in-next-generation-internet-protocols\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -153,7 +154,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

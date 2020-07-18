@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Updating on bramp.net</title>
+    <title>updating on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Updating on bramp.net</description>
+    <description>Recent content in updating on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Sat, 19 Dec 2009 00:00:00 +0000</lastBuildDate>
@@ -15,15 +14,14 @@
       <pubDate>Sat, 19 Dec 2009 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2009/12/19/updating-%5C/</guid>
-      <description>&lt;p&gt;Do people other than me find updating their servers to be relaxing? At every opportunity I run &amp;#8220;apt-get update&amp;#8221;. Today I&amp;#8217;m updating 7 different machines simultaneously.&lt;/p&gt;
-
+      <description>&lt;p&gt;Do people other than me find updating their servers to be relaxing? At every opportunity I run “apt-get update”. Today I’m updating 7 different machines simultaneously.&lt;/p&gt;
 &lt;p&gt;My Debian machines I simply issue the following commands:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apt-get update
-apt-get upgrade&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;My FreeBSD machines:&lt;/p&gt;
+apt-get upgrade
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;My FreeBSD machines:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;portsnap fetch update
-portmanager -u&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;I think the Debian process is easier (and clearly the fastest) but it obviously has to do less work because I&amp;#8217;m downloading precompiled code. Portmanager is just as easy but seems to randomly ask me questions through the process whereas apt-get seems to get them out of the way early on. Either way I find this all very easy and relaxing&amp;#8230; until I have to reboot the machines and find something is broken :/&lt;/p&gt;
+portmanager -u
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I think the Debian process is easier (and clearly the fastest) but it obviously has to do less work because I’m downloading precompiled code. Portmanager is just as easy but seems to randomly ask me questions through the process whereas apt-get seems to get them out of the way early on. Either way I find this all very easy and relaxing… until I have to reboot the machines and find something is broken :/&lt;/p&gt;
 </description>
     </item>
     

@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Mri on bramp.net</title>
+    <title>mri on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Mri on bramp.net</description>
+    <description>Recent content in mri on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Tue, 15 May 2012 00:00:00 +0000</lastBuildDate>
@@ -16,33 +15,29 @@
       
       <guid>https://blog.bramp.net/post/2012/05/15/mri-scan-of-my-brain/</guid>
       <description>&lt;p&gt;I had a &lt;a href=&#34;http://en.wikipedia.org/wiki/Magnetic_resonance_imaging&#34;&gt;MRI&lt;/a&gt; today, and afterwards I was given a CD of my scan. The data on the CD was stored in &lt;a href=&#34;http://en.wikipedia.org/wiki/DICOM&#34;&gt;DICOM&lt;/a&gt; format, and after some searching I was able to find some open source software to view the data. I especially liked &lt;a href=&#34;http://aeskulap.nongnu.org/&#34;&gt;Aeskulap&lt;/a&gt; which allowed interactive viewing of the data in multiple dimensions.&lt;/p&gt;
-
 &lt;p&gt;I wanted to put my scans online, so I found another set of tools, &lt;a href=&#34;http://xmedcon.sourceforge.net/&#34;&gt;medcon&lt;/a&gt;, that allowed me to convert the DICOM images into png/gif format, and then I used &lt;a href=&#34;http://ffmpeg.org/&#34;&gt;ffmpeg&lt;/a&gt; to create the following videos:&lt;/p&gt;
-
 &lt;div class=&#34;row&#34;&gt;
   &lt;div class=&#34;col-md-6 text-center&#34;&gt;
-    &lt;video width=&#34;288&#34; height=&#34;288&#34; controls=&#34;controls&#34;&gt;&lt;source src=&#34;004.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;004.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+  	&lt;video width=&#34;288&#34; height=&#34;288&#34; controls=&#34;controls&#34;&gt;&lt;source src=&#34;004.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;004.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
   &lt;/div&gt;
   &lt;div class=&#34;col-md-6 text-center&#34;&gt;
-    &lt;video width=&#34;288&#34; height=&#34;288&#34; controls=&#34;controls&#34;&gt;&lt;source src=&#34;000.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;000.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+  	&lt;video width=&#34;288&#34; height=&#34;288&#34; controls=&#34;controls&#34;&gt;&lt;source src=&#34;000.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;000.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&#34;row&#34;&gt;
   &lt;div class=&#34;col-md-6 text-center&#34;&gt;
-    &lt;video width=&#34;256&#34; height=&#34;256&#34; controls=&#34;controls&#34;&gt;&lt;source src=&#34;001.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;001.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+  	&lt;video width=&#34;256&#34; height=&#34;256&#34; controls=&#34;controls&#34;&gt;&lt;source src=&#34;001.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;001.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
   &lt;/div&gt;
   &lt;div class=&#34;col-md-6 text-center&#34;&gt;
-     &lt;video width=&#34;256&#34; height=&#34;256&#34; controls=&#34;controls&#34;&gt;&lt;source src=&#34;003.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;003.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+ 	 &lt;video width=&#34;256&#34; height=&#34;256&#34; controls=&#34;controls&#34;&gt;&lt;source src=&#34;003.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;003.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-
 &lt;div class=&#34;row&#34;&gt;
   &lt;div class=&#34;col-md-12 text-center&#34;&gt;
-    &lt;video width=&#34;256&#34; height=&#34;256&#34; controls=&#34;controls&#34;&gt;&lt;source src=&#34;008.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;008.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
+  	&lt;video width=&#34;256&#34; height=&#34;256&#34; controls=&#34;controls&#34;&gt;&lt;source src=&#34;008.mp4&#34; type=&#34;video/mp4&#34; /&gt;&lt;source src=&#34;008.webm&#34; type=&#34;video/webm&#34; /&gt;Your browser does not support the video tag.&lt;/video&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-
-&lt;p&gt;I don&amp;#8217;t know the exact layout, but on the CD I seemed to have 12 different scans, each with a series of images. The name of the files were all 8 digits numbers, with the first three being the scan number (0 to 11), and the following five digits being (0 to whatever). For example:&lt;/p&gt;
+&lt;p&gt;I don’t know the exact layout, but on the CD I seemed to have 12 different scans, each with a series of images. The name of the files were all 8 digits numbers, with the first three being the scan number (0 to 11), and the following five digits being (0 to whatever). For example:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;DICOM/185723/00000000: DICOM medical imaging data
 DICOM/185723/00000001: DICOM medical imaging data
 DICOM/185723/00000002: DICOM medical imaging data
@@ -50,28 +45,28 @@ DICOM/185723/00000002: DICOM medical imaging data
 DICOM/185723/00100000: DICOM medical imaging data
 DICOM/185723/00100001: DICOM medical imaging data
 DICOM/185723/00100002: DICOM medical imaging data
-...&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;To create videos the first thing I did was to convert the images from DICOM to PNG&lt;/p&gt;
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To create videos the first thing I did was to convert the images from DICOM to PNG&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo apt-get install medcon
 mkdir png
-&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in DICOM/185723/*&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; medcon -f &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt; -c png -o png/&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;basename &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;.png &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Now to batch the images I started by creating animated gifs.&lt;/p&gt;
+&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in DICOM/185723/*&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; medcon -f &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt; -c png -o png/&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;basename &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;.png &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now to batch the images I started by creating animated gifs.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo apt-get install imagemagick
 
 &lt;span class=&#34;c1&#34;&gt;# Create animated gifs&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in &lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;seq -w &lt;span class=&#34;m&#34;&gt;000&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;011&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; convert -delay &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt; -loop &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; png/&lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;*.png &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;.gif&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;However, those gifs were huge, up to 20mb. So next I created a set of videos (that were a order of magnitude smaller than the gifs):&lt;/p&gt;
+&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in &lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;seq -w &lt;span class=&#34;m&#34;&gt;000&lt;/span&gt; 011&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; convert -delay &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt; -loop &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; png/&lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;*.png &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;.gif&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;However, those gifs were huge, up to 20mb. So next I created a set of videos (that were a order of magnitude smaller than the gifs):&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo apt-get install ffmpeg
 
 &lt;span class=&#34;c1&#34;&gt;# Create MP4&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in &lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;seq -w &lt;span class=&#34;m&#34;&gt;000&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;011&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; avconv -r &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; -i png/&lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;%05d.png -r &lt;span class=&#34;m&#34;&gt;24&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;.mp4&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in &lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;seq -w &lt;span class=&#34;m&#34;&gt;000&lt;/span&gt; 011&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; avconv -r &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; -i png/&lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;%05d.png -r &lt;span class=&#34;m&#34;&gt;24&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;.mp4&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 
 &lt;span class=&#34;c1&#34;&gt;# Create webm&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in &lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;seq -w &lt;span class=&#34;m&#34;&gt;000&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;011&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; avconv -r &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; -i png/&lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;%05d.png -r &lt;span class=&#34;m&#34;&gt;24&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;.webm&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in &lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;seq -w &lt;span class=&#34;m&#34;&gt;000&lt;/span&gt; 011&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; avconv -r &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; -i png/&lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;%05d.png -r &lt;span class=&#34;m&#34;&gt;24&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;.webm&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 
 &lt;span class=&#34;c1&#34;&gt;# Create ogg video&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in &lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;seq -w &lt;span class=&#34;m&#34;&gt;000&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;011&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; avconv -r &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; -i png/&lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;%05d.png -r &lt;span class=&#34;m&#34;&gt;24&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;.ogg&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;easy!&lt;/p&gt;
+&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; i in &lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;seq -w &lt;span class=&#34;m&#34;&gt;000&lt;/span&gt; 011&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; avconv -r &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; -i png/&lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;%05d.png -r &lt;span class=&#34;m&#34;&gt;24&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$i&lt;/span&gt;.ogg&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;easy!&lt;/p&gt;
 </description>
     </item>
     

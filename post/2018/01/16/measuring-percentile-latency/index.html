@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -103,7 +103,7 @@ window.dataLayer = window.dataLayer || [];
 <p>This article will discuss how to calculate percentiles, collect and aggregate in an distributed way, and even how to efficiently store them as time series data.</p>
 <h1 id=percentiles>Percentiles</h1>
 <p>Let&rsquo;s start with some basics, the 99 percentile, is defined as the value that 99 out of 100 samples fall below. Thus 99 users out of 100, observe a latency less than this value, and 1 in every 100 observe a latency equal to or greater. We choose the 99%tile, because it represents the <a href=https://en.wikipedia.org/wiki/Long_tail>tail of the latency distribution</a> (that is the worst cases).</p>
-<p>The simplest way to calculate the 99 percentile, is to sort all the values, and take the <sup>99</sup>&frasl;<sub>100</sub><sup>th</sup> value. For example, if you had 1,000 latency values, place them into an array, sort them, then take the value at the 990th index. That’ll be the 99%tile, which represents the latency value that 99% of the values are less than. Easy.</p>
+<p>The simplest way to calculate the 99 percentile, is to sort all the values, and take the 99/100<sup>th</sup> value. For example, if you had 1,000 latency values, place them into an array, sort them, then take the value at the 990th index. That’ll be the 99%tile, which represents the latency value that 99% of the values are less than. Easy.</p>
 <p>Throughout this article I’ll use a dataset of <a href="https://docs.google.com/spreadsheets/d/1s7-DbMeHTyzEZdeBaM5rrKp5o0V9O11VFX9Y47or150/edit#gid=884072054">10,000 randomly generated values</a> from a <a href=https://en.wikipedia.org/wiki/Log-normal_distribution>log-normal distribution</a> with parameters (μ = 0, σ = 1). Most of the values will be small (&lt;2s), but there will be a long tail, which will simulate worst case latencies returned by a server.</p>
 <div class=text-center>
 <object alt="eCDF of example dataset" data=1st.svg height=360 type=image/svg+xml width=720>
@@ -177,7 +177,7 @@ window.dataLayer = window.dataLayer || [];
 <img src=linear-approx-2.png width=660 alt="Linear Approximation Example">
 </div>
 <br/>
-Thus we can determines the 99%tile is 13.192 seconds. If we compare this to non-approximate value from earlier, 10.970s, we seem to be off by ~20%. To make this approximation more precise, we can increase the number of bins. Instead of doubling the bin boundaries, we can increase each boundary by a factor of √2 (square root of 2). This would double the number of bins (from 18 to 36), but increase the precision greatly. If we use these new bins, the linear approximation gets us a value of 11.042s (at the 99%tile) which is only off by 0.66%. This seems a good trade-off of space and accuracy.
+<p>Thus we can determines the 99%tile is 13.192 seconds. If we compare this to non-approximate value from earlier, 10.970s, we seem to be off by ~20%. To make this approximation more precise, we can increase the number of bins. Instead of doubling the bin boundaries, we can increase each boundary by a factor of √2 (square root of 2). This would double the number of bins (from 18 to 36), but increase the precision greatly. If we use these new bins, the linear approximation gets us a value of 11.042s (at the 99%tile) which is only off by 0.66%. This seems a good trade-off of space and accuracy.</p>
 <div class=text-center>
 <object alt="eCDF of example dataset with linear approximation" data=2nd.svg height=360 type=image/svg+xml width=720>
 <img src=2nd.png width=720 height=360/ >
@@ -330,18 +330,19 @@ Thus we can determines the 99%tile is 13.192 seconds. If we compare this to non-
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2018\/01\/16\/measuring-percentile-latency\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2018\/01\/16\/measuring-percentile-latency\/';
     var disqus_title = 'Measuring Percentile Latency';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2018\/01\/16\/measuring-percentile-latency\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -349,7 +350,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

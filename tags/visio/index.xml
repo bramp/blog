@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Visio on bramp.net</title>
@@ -16,19 +15,14 @@
       
       <guid>https://blog.bramp.net/post/2008/09/24/please-notify-the-author-of-the-software-that-produced-this-file/</guid>
       <description>&lt;p&gt;While compiling my LaTeX document I received a message which made me chuckle:&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;**** This file had errors that were repaired or ignored.
 **** The file was produced by: 
 **** &amp;gt;&amp;gt;&amp;gt;&amp;gt; Microsoft® Office Visio® 2007 &amp;amp;lt;&amp;amp;lt;&amp;amp;lt;&amp;amp;lt;
 **** Please notify the author of the software that produced this
 **** file that it does not conform to Adobe&#39;s published PDF
 **** specification.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is printed because Visio is not embedding fonts which LaTeX needs.&lt;/p&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This is printed because Visio is not embedding fonts which LaTeX needs.&lt;/p&gt;
 &lt;p&gt;So Microsoft, I hereby inform you that your software does not produce PDFs which conform to Adobe&amp;rsquo;s specifications.&lt;/p&gt;
-
 &lt;p&gt;Until you fix your products I have to open and save the PDFs with Adobe Acrobat. This actually reduces the file size in most cases, so I might have done this anyway.&lt;/p&gt;
 </description>
     </item>

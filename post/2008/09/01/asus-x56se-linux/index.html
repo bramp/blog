@@ -6,7 +6,7 @@
 <link href=https://blog.bramp.net/post/2008/09/01/asus-x56se-linux/ rel=canonical itemprop=url />
 <title>ASUS X56Se Linux</title>
 <meta content="My girlfriend just purchased a ASUS X56Se from eBuyer and I wanted to install Linux on it.
-If you google for this laptop you won&#8217;t find many pages about it, in fact I could find no information …" name=description itemprop=description>
+If you google for this laptop you won’t find many pages about it, in fact I could find no information about …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -25,7 +25,7 @@ If you google for this laptop you won&#8217;t find many pages about it, in fact 
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -48,7 +48,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=bramp.net property=og:site_name />
 <meta content="ASUS X56Se Linux" property=og:title />
 <meta content="My girlfriend just purchased a ASUS X56Se from eBuyer and I wanted to install Linux on it.
-If you google for this laptop you won&#8217;t find many pages about it, in fact I could find no information …" property=og:description />
+If you google for this laptop you won’t find many pages about it, in fact I could find no information about …" property=og:description />
 <meta content=2008-09-01T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -102,7 +102,7 @@ If you google for this laptop you won&#8217;t find many pages about it, in fact 
 </p>
 <div class=post itemprop=articleBody>
 <p>My girlfriend just purchased a <a href=http://www.ebuyer.com/product/147001>ASUS X56Se from eBuyer</a> and I wanted to install Linux on it.</p>
-<p>If you google for this laptop you won&#8217;t find many pages about it, in fact I could find no information about the laptop on all of ASUS&#8217;s website. However, there is the <a href="http://www.asus.com/products.aspx?l1=5&amp;l2=74&amp;l3=604&amp;l4=0&amp;model=2109&amp;modelmenu=1">ASUS M51Se</a> which looks very similar in the photographs. I&#8217;ve even <a href="http://vip.asus.com/forum/view.aspx?board_id=3&amp;model=X53Se&amp;id=20080831051338546&amp;page=1&amp;SLanguage=en-us">asked on the ASUS forums</a> if anyone know more information.</p>
+<p>If you google for this laptop you won’t find many pages about it, in fact I could find no information about the laptop on all of ASUS’s website. However, there is the <a href="http://www.asus.com/products.aspx?l1=5&amp;l2=74&amp;l3=604&amp;l4=0&amp;model=2109&amp;modelmenu=1">ASUS M51Se</a> which looks very similar in the photographs. I’ve even <a href="http://vip.asus.com/forum/view.aspx?board_id=3&amp;model=X53Se&amp;id=20080831051338546&amp;page=1&amp;SLanguage=en-us">asked on the ASUS forums</a> if anyone know more information.</p>
 <p>Using Vista (which was pre-installed) I was able to get this list of hardware, which should help me with the installation process:</p>
 <pre><code>Atheros L1 Gigabit Ethernet
 Intel Wireless 3945ABG
@@ -115,11 +115,10 @@ Realtek HD Audio
 Intel(R) GM965 Express Chipset
 Intel 82GM965 Memory Controller
 Intel(R) 965GM Graphics And Memory Controller Hub(GMCH)
-</code></pre>
-<p>Regardless of knowing if Linux would install or not, I went ahead and tried <a href=http://www.debian.org/devel/debian-installer/ >Debian lenny beta 2</a>. However, as it was booting it would crash and fill the screen with &#8220;pretty&#8221; colours. I then tried a old Debian disc I had lying around, then a new and old Ubuntu disk, and all these failed to load. So then I tried different kernel options, and eventually I found this command worked:</p>
+</code></pre><p>Regardless of knowing if Linux would install or not, I went ahead and tried <a href=http://www.debian.org/devel/debian-installer/ >Debian lenny beta 2</a>. However, as it was booting it would crash and fill the screen with “pretty” colours. I then tried a old Debian disc I had lying around, then a new and old Ubuntu disk, and all these failed to load. So then I tried different kernel options, and eventually I found this command worked:</p>
 <p><code>acpi=off</code></p>
-<p>To make it clear, at the Debian boot menu for the installer, you select &#8220;Install&#8221;, but then press tab instead of enter. Then select the 2nd line, press e, and then type the command on the very end. After this press enter, then b to boot the installer.</p>
-<p>This command disables most power management controls, but at least allows Linux to be installed and boot. Here comes the next problem, X won&#8217;t start. When X attempts to start it again dies either with pretty colours, or with just a full black screen. I haven&#8217;t finished debugging this, but I&#8217;ve tried the Radeon driver, the Radeonhd driver, and the official ATI fglrx.</p>
+<p>To make it clear, at the Debian boot menu for the installer, you select “Install”, but then press tab instead of enter. Then select the 2nd line, press e, and then type the command on the very end. After this press enter, then b to boot the installer.</p>
+<p>This command disables most power management controls, but at least allows Linux to be installed and boot. Here comes the next problem, X won’t start. When X attempts to start it again dies either with pretty colours, or with just a full black screen. I haven’t finished debugging this, but I’ve tried the Radeon driver, the Radeonhd driver, and the official ATI fglrx.</p>
 </div>
 </article>
 <div class=row>
@@ -143,18 +142,19 @@ Intel(R) 965GM Graphics And Memory Controller Hub(GMCH)
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2008\/09\/01\/asus-x56se-linux\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2008\/09\/01\/asus-x56se-linux\/';
     var disqus_title = 'ASUS X56Se Linux';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2008\/09\/01\/asus-x56se-linux\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -162,7 +162,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

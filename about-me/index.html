@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -96,10 +96,10 @@ window.dataLayer = window.dataLayer || [];
 <p>Andrew Brampton Ph.D lives in the Bay Area, previously lived in Washington DC, but is originally from the United Kingdom. Enjoys playing with new technologies, loves working on large scale, high performance applications. Currently works at Google on the Android/Play SRE teams.</p>
 <p>Spends his weekends working on fun and novel projects, most of which he <a href=/opensource/ >open sources</a>. He can occasionally be found at tech <a href=http://www.meetup.com/ >Meetups</a>, and sometimes he even speaks.</p>
 <p>Previously he was a researcher within the computer science department at <a href=http://www.lancs.ac.uk/ >Lancaster University</a>, where he obtained his Ph.D at age 26. His <a href=/publication/ >areas of research</a> revolve around distributed systems, in particular peer-to-peer, distributed hash tables (DHTs), and content distribution networks (CDNs).</p>
-<h2 id=my-curricula-vitae-résumé>My Curricula Vitae / Résumé</h2>
-<p>This may be a little out of date since I only it when needed. If you require a more up to date copy then please contact me &#8211; <a href="https://github.com/bramp/curriculum-vitae/blob/master/cv.pdf?raw=true">PDF</a> &#8211; <a href=https://github.com/bramp/curriculum-vitae/ >LaTeX source</a></p>
+<h2 id=my-curricula-vitae--résumé>My Curricula Vitae / Résumé</h2>
+<p>This may be a little out of date since I only it when needed. If you require a more up to date copy then please contact me – <a href="https://github.com/bramp/curriculum-vitae/blob/master/cv.pdf?raw=true">PDF</a> – <a href=https://github.com/bramp/curriculum-vitae/ >LaTeX source</a></p>
 <h2 id=contact-me>Contact Me</h2>
-<p>I can be reached at <a href="mailto:me AT bramp.net">me <img alt="" src=a.png /> bramp.net</a></p>
+<p>I can be reached at <a href="mailto:me AT bramp.net">me <img alt="" src=a.png> bramp.net</a></p>
 </div>
 </article>
 <div class=row>
@@ -118,21 +118,23 @@ window.dataLayer = window.dataLayer || [];
 </div>
 </div>
 <ul class=pager>
+&nbsp;<li class=next><a href=/opensource/ >Open Source Projects &rarr;</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/about-me\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/about-me\/';
     var disqus_title = 'About Me';
     var disqus_url = 'https:\/\/blog.bramp.net\/about-me\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -140,7 +142,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Publications on bramp.net</title>
@@ -16,20 +15,15 @@
       
       <guid>https://blog.bramp.net/publication/facilitating-network-auto-configuration-in-next-generation-internet-protocols/</guid>
       <description>&lt;p&gt;Matthew Jakeman, Andrew Brampton, Stephen Pink&lt;/p&gt;
-
-&lt;p&gt;In proceedings FutureNet II &amp;#8211; Second international workshop on the network of the future in conjunction with IEEE Globecom&lt;/p&gt;
-
+&lt;p&gt;In proceedings FutureNet II – Second international workshop on the network of the future in conjunction with IEEE Globecom&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The infrastructure of the modern Internet has become a complex mesh of varying network types. A single network&lt;br /&gt;
-protocol cannot optimally support every underlying technology and the diverse nature of these networks places increasing strain on the concept of running IP over everything and everything over IP. The introduction of new protocols and services also forces network administrators to employ techniques such as tunneling to ensure end-to-end IP connectivity. Unfortunately these techniques inherently require some form of efficiency trade-off and are not&lt;br /&gt;
+&lt;p&gt;The infrastructure of the modern Internet has become a complex mesh of varying network types. A single network&lt;br&gt;
+protocol cannot optimally support every underlying technology and the diverse nature of these networks places increasing strain on the concept of running IP over everything and everything over IP. The introduction of new protocols and services also forces network administrators to employ techniques such as tunneling to ensure end-to-end IP connectivity. Unfortunately these techniques inherently require some form of efficiency trade-off and are not&lt;br&gt;
 an ideal long term solution.&lt;/p&gt;
-
-&lt;p&gt;To address these issues, this paper proposes a new network layer protocol, NP++, which uses a level of indirection between the logical and physical specifications of the protocol. NP++ also enables the protocol to automatically configure which physical mapping is used over a link with no direct input from the user.&lt;br /&gt;
+&lt;p&gt;To address these issues, this paper proposes a new network layer protocol, NP++, which uses a level of indirection between the logical and physical specifications of the protocol. NP++ also enables the protocol to automatically configure which physical mapping is used over a link with no direct input from the user.&lt;br&gt;
 This allows the protocol to change its transmission characteristics depending on the type of underlying network while presenting a unified view to the upper layers. This ensures a higher level of flexibility along with the potential to increase efficiency. The implementation of the NP++ prototype is also demonstrated with a view to encouraging its use when researching next generation Internet technologies.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/network-auto-config/GLOBECOM09/facilitating_network_auto_configuration_in_next_generation_internet_protocols.pdf&#34;&gt;PDF Download&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
@@ -41,17 +35,12 @@ This allows the protocol to change its transmission characteristics depending on
       
       <guid>https://blog.bramp.net/publication/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/</guid>
       <description>&lt;p&gt;Matthew Faulkner and Andrew Brampton and Stephen Pink&lt;/p&gt;
-
 &lt;p&gt;In proceedings of the International Conference on Advanced Information Networking and Applications (AINA)&lt;/p&gt;
-
 &lt;p&gt;&lt;strong&gt;This paper won the IEEE Best Paper award&lt;/strong&gt;&lt;/p&gt;
-
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
-
 &lt;p&gt;Improvements at the physical network layer have enabled technologies such as 10 Gigabit Ethernet. Single core end-systems are unable to fully utilise these networks, due to limited clock cycles. Using a Multi-core architecture is one method which increases the number of available cycles, and thus allow networks to be fully utilised. However, using these systems creates a new set of challenges for network protocol processing, for example, deciding how best to utilise many cores for high network performance. This paper examines different ways the cores of a multi-core system can be utilised, and, by experimentation, we show that in an eight core system deciding which cores to use is important. In one test, there was a 40% discrepancy in CPU utilisation depending on which cores were used. This discrepancy results from the resources each core shares, an example being the multi-hierarchy CPU caches, and to which bus the processors are connected.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/multi-core-networking/AINA-09/aina-09.pdf&#34;&gt;PDF Download&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
@@ -63,19 +52,13 @@ This allows the protocol to change its transmission characteristics depending on
       
       <guid>https://blog.bramp.net/publication/the-impact-of-highly-interactive-workloads-on-video-on-demand-systems/</guid>
       <description>&lt;p&gt;Andrew Brampton.&lt;/p&gt;
-
 &lt;p&gt;Thesis submitted for the degree of Doctor of Philosophy&lt;/p&gt;
-
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
-
 &lt;p&gt;The traditional start-to-finish playback model is not suitable for all modern interactive video streams. Users expect support for higher levels of interactivity such as fast forward and rewind or the ability to arbitrary seek within their media quickly and efficiently. By conducting user studies we have observed start-to-finish is not applicable to many genres of video, and that different playback models fit better. We discuss how existing delivery techniques are impacted by these new observations.&lt;/p&gt;
-
-&lt;p&gt;Novel interactive controls such as bookmarks have also highly impacted user behaviour. This has lead to the segments within the media being accessed in a uneven fashion, causing hotspots of interest to form; areas with orders of magnitudes more viewers than others. These hotspots typically began at the beginning of a bookmark, however not always, which lead us to design a dynamic bookmark positioning algorithm. As well as their position, determining the hotspot&amp;#8217;s length can be beneficial. This aids in autonomic techniques such as replication and pre-fetching as well as allowing the users to find what they want quicker.&lt;/p&gt;
-
+&lt;p&gt;Novel interactive controls such as bookmarks have also highly impacted user behaviour. This has lead to the segments within the media being accessed in a uneven fashion, causing hotspots of interest to form; areas with orders of magnitudes more viewers than others. These hotspots typically began at the beginning of a bookmark, however not always, which lead us to design a dynamic bookmark positioning algorithm. As well as their position, determining the hotspot’s length can be beneficial. This aids in autonomic techniques such as replication and pre-fetching as well as allowing the users to find what they want quicker.&lt;/p&gt;
 &lt;p&gt;Under high level of interactivity, delivery techniques are less efficient due to the unpredictability of the users. We however developed techniques which restore some of this predictability, allowing clients or servers to predict future actions based on past user actions. These technique proves exceeding useful for pre-fetching which reduces seek latencies for client and can reduce load on servers. However knowledge of past user activities need to be gathered from network, thus we develop techniques to do this in a distributed manner.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;&lt;a href=&#34;https://github.com/bramp/phd-thesis/blob/master/thesis.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/phd-thesis&#34;&gt;LaTeX Source&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
@@ -87,15 +70,11 @@ This allows the protocol to change its transmission characteristics depending on
       
       <guid>https://blog.bramp.net/publication/a-case-for-hybrid-content-distribution-for-interactive-video-on-demand/</guid>
       <description>&lt;p&gt;Andrew MacQuire, Andrew Brampton, Nicholas J. P. Race, Laurent Mathy, Michael Fry&lt;/p&gt;
-
-&lt;p&gt;In proceedings of Next Generation Mobile Applications, Services and Technologies (NGMAST&amp;rsquo;08)&lt;/p&gt;
-
+&lt;p&gt;In proceedings of Next Generation Mobile Applications, Services and Technologies (NGMAST&#39;08)&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
-
 &lt;p&gt;With the advent of numerous video distribution services, Content Distribution Networks (CDNs) are under increasing demand. Given the associated expenses, many organisations have made use of Peer-to-Peer (P2P) approaches to offset bandwidth costs. Unfortunately, using clients as part of the delivery process can vastly increase load on service providers’ networks. Furthermore, many approaches thus far lack the ability for interactive, on-demand viewing. For these reasons, this paper considers how ‘hybrid’ methods could alleviate these issues, through simulations of delivery methodologies in a CDN context. As it is unlikely that any one method will suffice for all content, network and audience types, a successful system should adapt in response to changes, as outlined in this paper.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/ivod/NGMAST08/paper.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/raw/master/ivod/NGMAST08/slides.pdf&#34;&gt;Slides&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
@@ -107,17 +86,12 @@ This allows the protocol to change its transmission characteristics depending on
       
       <guid>https://blog.bramp.net/publication/characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand/</guid>
       <description>&lt;p&gt;Andrew Brampton, Andrew MacQuire, Michael Fry, Idris A. Rai, Nicholas J. P. Race, Laurent Mathy.&lt;/p&gt;
-
 &lt;p&gt;In journal of Multimedia Systems (2008 Volume 15, Issue 1)&lt;/p&gt;
-
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
-
 &lt;p&gt;This paper presents a detailed characterisation of user behaviour for a series of interactive video experiments over a 12 month period, in which we served popular sporting and musical content. In addition to generic VCR-like features, our custom-built video-on-demand application provides advanced interactivity features such as bookmarking. The dramatic impact of such functionality on how users consume content is studied and analysed. We discuss in detail how this user behaviour can be exploited by content distributors to improve user experience. Specifically, we study how simple dynamic bookmark placement and interactivity-aware content pre-fetching and replication can reduce the impact of highly interactive media on CDN performance.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/ivod/MMSJ/iVOD_MMSJ.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/ivod/MMSJ&#34;&gt;LaTeX Source&lt;/a&gt;&lt;/p&gt;
-
 &lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/ivod/poster/Poster.pdf&#34;&gt;Poster&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/ivod/poster&#34;&gt;Poster Source&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
@@ -129,15 +103,11 @@ This allows the protocol to change its transmission characteristics depending on
       
       <guid>https://blog.bramp.net/publication/characterising-user-interactivity-for-sports-video-on-demand/</guid>
       <description>&lt;p&gt;Andrew Brampton, Andrew MacQuire, Idris A. Rai, Nicholas J. P. Race, Laurent Mathy, and Michael Fry.&lt;/p&gt;
-
-&lt;p&gt;In proceedings of the International workshop on Network and Operating Systems Support for Digital Audio &amp;amp; Video (NOSSDAV&amp;#8217;07)&lt;/p&gt;
-
+&lt;p&gt;In proceedings of the International workshop on Network and Operating Systems Support for Digital Audio &amp;amp; Video (NOSSDAV’07)&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
-
 &lt;p&gt;This paper presents a detailed characterisation of user behaviour for a series of interactive sport videos from the 2006 FIFA World Cup. In addition to generic VCR-like features, our custom-built Video-on-Demand architecture enabled us to provide advanced interactivity features such as bookmarking. We illustrate how such functionality may have a dramatic impact on how users consume content. A detailed discussion is also provided on how content distributors may turn this knowledge to their advantage, and thus increase the efficiency of their delivery networks.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/ivod/NOSSDAV07/p-brampton.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/ivod/NOSSDAV07&#34;&gt;LaTeX Source&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/raw/master/ivod/NOSSDAV07-slides/slides.pdf&#34;&gt;Slides&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/ivod/NOSSDAV07-slides&#34;&gt;Slides Source&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
@@ -149,15 +119,11 @@ This allows the protocol to change its transmission characteristics depending on
       
       <guid>https://blog.bramp.net/publication/performance-modelling-of-peer-to-peer-routing/</guid>
       <description>&lt;p&gt;Idris A. Rai, Andrew Brampton, Andrew MacQuire, and Laurent Mathy.&lt;/p&gt;
-
-&lt;p&gt;In proceedings of the 4th International Workshop on Peer-to-Peer Systems (HOTP2P&amp;#8217;07)&lt;/p&gt;
-
+&lt;p&gt;In proceedings of the 4th International Workshop on Peer-to-Peer Systems (HOTP2P’07)&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
-
 &lt;p&gt;We propose several models based on discrete-time Markov chains for the analysis of Distributed Hash Tables (DHTs). Specifically, we examine the Pastry routing protocol, as well as a Stealth DHT adaptation of Pastry to compute their exact expressions for average number of lookup hops. We show that our analytical models match with the protocols&amp;rsquo; simulation results almost perfectly, making them ideal for rapid evaluation.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/HOTP2P07/models.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/HOTP2P07&#34;&gt;LaTeX Source&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/HOTP2P07-slides&#34;&gt;Slides Source&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
@@ -169,15 +135,11 @@ This allows the protocol to change its transmission characteristics depending on
       
       <guid>https://blog.bramp.net/publication/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/</guid>
       <description>&lt;p&gt;Andrew Brampton, Andrew MacQuire, Idris A. Rai, Nicholas J. P. Race, and Laurent Mathy.&lt;/p&gt;
-
-&lt;p&gt;In proceedings of the 2nd Conference on Future Networking Technologies (CoNEXT&amp;#8217;06)&lt;/p&gt;
-
+&lt;p&gt;In proceedings of the 2nd Conference on Future Networking Technologies (CoNEXT’06)&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
-
 &lt;p&gt;Most Distributed Hash Tables (DHTs) simply consider interconnecting homogeneous nodes on the same overlay. However, realistically nodes on a network are heterogeneous in terms of their capabilities. Because of this, traditional DHTs have been shown to exhibit poor performance in a real-world environment. Additionally, we believe that it is this approach that contributes to a limited exploitation of peer-to-peer technologies. Previous work on super-peers in DHTs was proposed to address these performance issues, however the strategy used is often based on locally clustering peers around individual super-peers. This method of superpeering, however, compromises fundamental features such as load-balancing, resilience and routing efficiency, which traditional DHTs originally promised to offer. We propose a Stealth DHT which addresses the deficiencies of previous super-peer approaches by using the DHT algorithm itself to select the most appropriate super-peer for each message sent by peers. Through simulations and measurements, we show the fitness for purpose of our proposal.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/CoNEXT-2006/conext.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/CoNEXT-2006&#34;&gt;LaTeX Source&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/blob/master/stealth-dht/CoNEXT-2006-slides/slides.ppt&#34;&gt;Slides&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/CoNEXT-2006-slides&#34;&gt;Slides Source&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
@@ -189,17 +151,12 @@ This allows the protocol to change its transmission characteristics depending on
       
       <guid>https://blog.bramp.net/publication/authentication-in-stealth-distributed-hash-tables/</guid>
       <description>&lt;p&gt;Andrew MacQuire, Andrew Brampton, Idris A. Rai, and Laurent Mathy.&lt;/p&gt;
-
 &lt;p&gt;In Proceedings of the 32nd Euromicro Conference on Software Engineering and Advanced Applications&lt;/p&gt;
-
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
-
 &lt;p&gt;Most existing DHT algorithms assume that all nodes have equal capabilities. This assumption has previously been shown to be untrue in real deployments, where the heterogeneity of nodes can actually have a detrimental effect upon performance. In this paper, we acknowledge that nodes on the same overlay may also differ in terms of their trustworthiness. However, implementing and enforcing security policies in a network where all nodes are treated equally is a non-trivial task. We therefore extend our previous work on Stealth DHTs to consider the differentiation of nodes based on their trustworthiness rather than their capabilities alone.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/Euromicro2006/Camera%20Ready/MacQuireA-Authentication.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/Euromicro2006&#34;&gt;LaTeX Source&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/Euromicro2006-slides/authslides.pdf&#34;&gt;Slides&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/Euromicro2006-slides&#34;&gt;Slides Source&lt;/a&gt;&lt;/p&gt;
-
 &lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/Euromicro2006/Journal%20Version/JSA-S-07-00036-1.pdf&#34;&gt;Journal PDF&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/Euromicro2006/Journal%20Version&#34;&gt;Journal LaTeX Source&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
@@ -211,15 +168,11 @@ This allows the protocol to change its transmission characteristics depending on
       
       <guid>https://blog.bramp.net/publication/performance-analysis-of-stealth-dht-with-mobile-nodes./</guid>
       <description>&lt;p&gt;Andrew MacQuire, Andrew Brampton, Idris A. Rai, and Laurent Mathy.&lt;/p&gt;
-
-&lt;p&gt;In proceedings of the 3rd International Workshop on Mobile Peer-to-Peer Computing (MP2P&amp;#8217;06)&lt;/p&gt;
-
+&lt;p&gt;In proceedings of the 3rd International Workshop on Mobile Peer-to-Peer Computing (MP2P’06)&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
-
 &lt;p&gt;The advances in wireless networking and the consequent emergence of new applications that wireless networks increasingly support inevitably leads to low capability mobile nodes connecting to peer-to-peer networks. However, the characteristics of mobile nodes and limitations of access point coverage often cause mobile nodes to lose connectivity, which can cause many mobile nodes to simultaneously rejoin the network. Continuous departures and joins due to the mobility of nodes leads to mobility churn, which can often degrade the performance of the underlying peer-to-peer network significantly. In this paper, we use simulations to demonstrate that the Stealth Distributed Hash Table (Stealth DHT) algorithm is ideally suited for networks with mobile nodes. By avoiding storing state in unreliable nodes, a Stealth DHT prevents mobile nodes from being used by other nodes to provide services. Consequently, Stealth DHTs eliminate the mobility churn effect and significantly reduce the amount of overhead as compared to a generic DHT. This paper demonstrates this using simulation results that compare the performance of Stealth DHTs to a generic DHT, Pastry.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/MP2P06/Camera%20Ready/MP2P_MacQuire_A.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/MP2P06&#34;&gt;LaTeX Source&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/MP2P06-slides/mp2pslides.pdf&#34;&gt;Slides&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/MP2P06-slides&#34;&gt;Slides Source&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
@@ -231,9 +184,7 @@ This allows the protocol to change its transmission characteristics depending on
       
       <guid>https://blog.bramp.net/publication/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/</guid>
       <description>&lt;p&gt;Andrew Brampton, Andrew MacQuire, Idris A. Rai, Nicholas J. P. Race, and Laurent Mathy.&lt;/p&gt;
-
 &lt;p&gt;In Proceedings of the ACM Conference on Emerging Network Experiments and Technology (CoNEXT) (Student Workshop Session), Toulouse, France, October 2005.&lt;/p&gt;
-
 &lt;p&gt;&lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/CoNEXT-2005/sw13-brampton.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/CoNEXT-2005&#34;&gt;LaTeX Source&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/raw/master/stealth-dht/CoNEXT-2005-poster/CoNEXT%20Poster.pdf&#34;&gt;Poster&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/publication/tree/master/stealth-dht/CoNEXT-2005-poster&#34;&gt;Poster Source&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>

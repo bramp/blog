@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -102,7 +102,7 @@ window.dataLayer = window.dataLayer || [];
 <p>Using unsafe is not too difficult, but I found the need for a few helper methods, thus I created a collection of classes wrapping the Unsafe code, starting with <a href=https://bramp.github.io/unsafe/index.html?net/bramp/unsafe/UnsafeHelper.html>UnsafeHelper</a>. The main methods of interest are <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#getUnsafe-->getUnsafe()</a>, <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#sizeOf-java.lang.Object->sizeOf()</a>, <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#firstFieldOffset-java.lang.Class->firstFieldOffset()</a>, <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#toByteArray-java.lang.Object->toByteArray()</a> and <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#hexDump-java.io.PrintStream-java.lang.Object->hexDump()</a>. The <a href=https://bramp.github.io/unsafe/ >javadoc</a> is the best place to look for documentation, however I’ll quickly explain their use.</p>
 <p>To get an sun.misc.Unsafe instance, you have to extract it from a private static field within sun.misc.Unsafe class. For ease, the <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#getUnsafe-->UnsafeHelper.getUnsafe()</a> method does that.</p>
 <p>When accessing an object, you typically need to know the size of the object (in bytes), and be able to find the offset to individual fields. If you <a href=http://www.codeinstructions.com/2008/12/java-objects-memory-structure.html>understand the memory layout</a> the JVM uses, you’ll know there is a header in front of the Object’s fields. Typically it looks like this, but varies based on CPU architecture, platform, etc:</p>
-<p><table class="table table-bordered" style=margin-bottom:0>
+<table class="table table-bordered" style=margin-bottom:0>
 <tr>
 <th class=text-center>0</th>
 <th class=text-center>1</th>
@@ -127,7 +127,7 @@ window.dataLayer = window.dataLayer || [];
 <td class=text-center colspan=4>padding</td>
 </tr>
 </table>
-</p><div class=text-right>More information <a href=http://www.codeinstructions.com/2008/12/java-objects-memory-structure.html>here</a> and <a href=http://stackoverflow.com/a/17348396/88646>here</a>.</div><p></p>
+<div class=text-right>More information [here][6] and [here][7].</div>
 <p>To hide some of the details, <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#headerSize-java.lang.Object->headerSize()</a> returns the size of the header, and <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#sizeOf-java.lang.Object->sizeOf()</a> return the total size an object including the header in bytes. <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#firstFieldOffset-java.lang.Class->firstFieldOffset()</a> is then useful as it provides the the offset to the first field. Note that <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#headerSize-java.lang.Object->headerSize()</a> and <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#firstFieldOffset-java.lang.Class->firstFieldOffset()</a> do not always return identical results, as padding (not part of the header) may be used to correctly align the first field.</p>
 <p>Next <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#toByteArray-java.lang.Object->toByteArray()</a> will take an object, and copy it (and its header) into a byte array. Useful for easily inspecting, and serialising the object. Finally, <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#hexDump-java.io.PrintStream-java.lang.Object->hexDump()</a> uses the <a href=https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#toByteArray-java.lang.Object->toByteArray()</a> to grab an object, and print out a hex representation of the memory, for example:</p>
 <div class=highlight><pre class=chroma><code class=language-java data-lang=java><span class=cm>/**
@@ -146,15 +146,15 @@ window.dataLayer = window.dataLayer || [];
 </span><span class=cm> */</span>
 <span class=kd>static</span> <span class=kd>class</span> <span class=nc>Class8</span> <span class=o>{</span>
     <span class=kt>long</span> <span class=n>l</span> <span class=o>=</span> <span class=n>0x0123456789ABCDEFL</span><span class=o>;</span>
-<span class=o>}</span></code></pre></div>
-<p>In the first example, Class4, a simple class with a single int field, takes up 16 bytes of memory, with the first 8 used by the JVM, the 2nd 4 bytes being a class pointer (basically how the object knows what kind of class it is), and the last four actually being the value of the field. The second example shows a similar header, but with bytes 12-16 being used as padding, so that the long field value is 8 byte aligned.</p>
+<span class=o>}</span>
+</code></pre></div><p>In the first example, Class4, a simple class with a single int field, takes up 16 bytes of memory, with the first 8 used by the JVM, the 2nd 4 bytes being a class pointer (basically how the object knows what kind of class it is), and the last four actually being the value of the field. The second example shows a similar header, but with bytes 12-16 being used as padding, so that the long field value is 8 byte aligned.</p>
 <p>These helper methods are available in <a href=https://github.com/bramp/unsafe>new project on Github</a>, and downloadable via Maven. Just <a href=https://oss.sonatype.org/service/local/repositories/releases/content/net/bramp/unsafe/unsafe-helper/1.0/unsafe-helper-1.0.jar>download the jar file</a>, or include a maven dependency, and <code>import net.bramp.unsafe.UnsafeHelper</code>.</p>
 <div class=highlight><pre class=chroma><code class=language-xml data-lang=xml><span class=nt>&lt;dependency&gt;</span>
     <span class=nt>&lt;groupId&gt;</span>net.bramp.unsafe<span class=nt>&lt;/groupId&gt;</span>
     <span class=nt>&lt;artifactId&gt;</span>unsafe-helper<span class=nt>&lt;/artifactId&gt;</span>
     <span class=nt>&lt;version&gt;</span>1.0<span class=nt>&lt;/version&gt;</span>
-<span class=nt>&lt;/dependency&gt;</span></code></pre></div>
-<p><a href=https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/ >Next article</a>, we&rsquo;ll make use of this new UnsafeHelper to build a special List which copies objects, instead of storing references.</p>
+<span class=nt>&lt;/dependency&gt;</span>
+</code></pre></div><p><a href=https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/ >Next article</a>, we&rsquo;ll make use of this new UnsafeHelper to build a special List which copies objects, instead of storing references.</p>
 </div>
 </article>
 <div class=row>
@@ -178,18 +178,19 @@ window.dataLayer = window.dataLayer || [];
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2015\/08\/24\/unsafe-part-1-sun.misc.unsafe-helper-classes\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2015\/08\/24\/unsafe-part-1-sun.misc.unsafe-helper-classes\/';
     var disqus_title = 'Unsafe Part 1: sun.misc.Unsafe Helper Classes';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2015\/08\/24\/unsafe-part-1-sun.misc.unsafe-helper-classes\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -197,7 +198,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

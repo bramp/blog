@@ -6,7 +6,7 @@
 <link href=https://blog.bramp.net/publication/performance-analysis-of-stealth-dht-with-mobile-nodes./ rel=canonical itemprop=url />
 <title>Performance analysis of Stealth DHT with mobile nodes.</title>
 <meta content="Andrew MacQuire, Andrew Brampton, Idris A. Rai, and Laurent Mathy.
-In proceedings of the 3rd International Workshop on Mobile Peer-to-Peer Computing (MP2P&#8217;06)
+In proceedings of the 3rd International Workshop on Mobile Peer-to-Peer Computing (MP2P’06)
  Abstract
 The advances in wireless …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
@@ -27,7 +27,7 @@ The advances in wireless …" name=description itemprop=description>
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -48,7 +48,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=bramp.net property=og:site_name />
 <meta content="Performance analysis of Stealth DHT with mobile nodes." property=og:title />
 <meta content="Andrew MacQuire, Andrew Brampton, Idris A. Rai, and Laurent Mathy.
-In proceedings of the 3rd International Workshop on Mobile Peer-to-Peer Computing (MP2P&#8217;06)
+In proceedings of the 3rd International Workshop on Mobile Peer-to-Peer Computing (MP2P’06)
  Abstract
 The advances in wireless …" property=og:description />
 <meta content=2006-03-01T00:00:00&#43;00:00 property=og:updated_time />
@@ -102,7 +102,7 @@ The advances in wireless …" property=og:description />
 </p>
 <div class=post itemprop=articleBody>
 <p>Andrew MacQuire, Andrew Brampton, Idris A. Rai, and Laurent Mathy.</p>
-<p>In proceedings of the 3rd International Workshop on Mobile Peer-to-Peer Computing (MP2P&#8217;06)</p>
+<p>In proceedings of the 3rd International Workshop on Mobile Peer-to-Peer Computing (MP2P’06)</p>
 <blockquote>
 <p><strong>Abstract</strong></p>
 <p>The advances in wireless networking and the consequent emergence of new applications that wireless networks increasingly support inevitably leads to low capability mobile nodes connecting to peer-to-peer networks. However, the characteristics of mobile nodes and limitations of access point coverage often cause mobile nodes to lose connectivity, which can cause many mobile nodes to simultaneously rejoin the network. Continuous departures and joins due to the mobility of nodes leads to mobility churn, which can often degrade the performance of the underlying peer-to-peer network significantly. In this paper, we use simulations to demonstrate that the Stealth Distributed Hash Table (Stealth DHT) algorithm is ideally suited for networks with mobile nodes. By avoiding storing state in unreliable nodes, a Stealth DHT prevents mobile nodes from being used by other nodes to provide services. Consequently, Stealth DHTs eliminate the mobility churn effect and significantly reduce the amount of overhead as compared to a generic DHT. This paper demonstrates this using simulation results that compare the performance of Stealth DHTs to a generic DHT, Pastry.</p>
@@ -131,18 +131,19 @@ The advances in wireless …" property=og:description />
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/publication\/performance-analysis-of-stealth-dht-with-mobile-nodes.\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/publication\/performance-analysis-of-stealth-dht-with-mobile-nodes.\/';
     var disqus_title = 'Performance analysis of Stealth DHT with mobile nodes.';
     var disqus_url = 'https:\/\/blog.bramp.net\/publication\/performance-analysis-of-stealth-dht-with-mobile-nodes.\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -150,7 +151,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

@@ -5,7 +5,7 @@
 <meta content="width=device-width,initial-scale=1" name=viewport>
 <link href=https://blog.bramp.net/post/2013/03/31/alignment-of-raphael-text/ rel=canonical itemprop=url />
 <title>Alignment of Raphaël Paper.text(…) and Paper.print(…)</title>
-<meta content="Working with Raphaël I noticed the alignment of text drawn with the Paper.text(&#8230;) and Paper.print(&#8230;) methods differed. The documentation wasn&#8217;t helpful in explaining the difference, …" name=description itemprop=description>
+<meta content="Working with Raphaël I noticed the alignment of text drawn with the Paper.text(…) and Paper.print(…) methods differed. The documentation wasn’t helpful in explaining the difference, so I wrote a …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -43,7 +43,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=https://blog.bramp.net/post/2013/03/31/alignment-of-raphael-text/ property=og:url />
 <meta content=bramp.net property=og:site_name />
 <meta content="Alignment of Raphaël Paper.text(…) and Paper.print(…)" property=og:title />
-<meta content="Working with Raphaël I noticed the alignment of text drawn with the Paper.text(&#8230;) and Paper.print(&#8230;) methods differed. The documentation wasn&#8217;t helpful in explaining the difference, …" property=og:description />
+<meta content="Working with Raphaël I noticed the alignment of text drawn with the Paper.text(…) and Paper.print(…) methods differed. The documentation wasn’t helpful in explaining the difference, so I wrote a …" property=og:description />
 <meta content=2013-03-31T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -93,13 +93,13 @@ window.dataLayer = window.dataLayer || [];
 <svg class="icon icon-calendar"><use xlink:href=/images/icons.svg#icon-calendar></use></svg> <time itemprop=datePublished>2013-03-31</time>
 </p>
 <div class=post itemprop=articleBody>
-<p>Working with <a href=http://raphaeljs.com/ >Raphaël</a> I noticed the alignment of text drawn with the <a href=http://raphaeljs.com/reference.html#Paper.text>Paper.text(&#8230;)</a> and <a href=http://raphaeljs.com/reference.html#Paper.print>Paper.print(&#8230;)</a> methods differed. The documentation wasn&#8217;t helpful in explaining the difference, so I wrote a simple test to work out their behaviour, and then a small method to normalise them.</p>
+<p>Working with <a href=http://raphaeljs.com/ >Raphaël</a> I noticed the alignment of text drawn with the <a href=http://raphaeljs.com/reference.html#Paper.text>Paper.text(…)</a> and <a href=http://raphaeljs.com/reference.html#Paper.print>Paper.print(…)</a> methods differed. The documentation wasn’t helpful in explaining the difference, so I wrote a simple test to work out their behaviour, and then a small method to normalise them.</p>
 <div class=text-center>
 <a href=raphaeljs-text-test.svg>
 <img alt=raphaeljs-text-test src=raphaeljs-text-test.svg />
 </a>
 </div>
-<p>In this I&#8217;m drawing text with it&#8217;s bounding box show, and a cross over the x,y coordinates the text is meant to appear. As you can see <a href=http://raphaeljs.com/reference.html#Paper.text>Paper.text(&#8230;)</a> defaults to centre aligning vertically and horizontally. <a href=http://raphaeljs.com/reference.html#Paper.print>Paper.print(&#8230;)</a> aligns with the baseline of the first line, and I&#8217;m guess horizontally with the left edge (with a small amount of padding). The last example I wrote a simple method to centre <a href=http://raphaeljs.com/reference.html#Paper.print>Paper.print(&#8230;)</a> so it acts like <a href=http://raphaeljs.com/reference.html#Paper.text>Paper.text(&#8230;)</a></p>
+<p>In this I’m drawing text with it’s bounding box show, and a cross over the x,y coordinates the text is meant to appear. As you can see <a href=http://raphaeljs.com/reference.html#Paper.text>Paper.text(…)</a> defaults to centre aligning vertically and horizontally. <a href=http://raphaeljs.com/reference.html#Paper.print>Paper.print(…)</a> aligns with the baseline of the first line, and I’m guess horizontally with the left edge (with a small amount of padding). The last example I wrote a simple method to centre <a href=http://raphaeljs.com/reference.html#Paper.print>Paper.print(…)</a> so it acts like <a href=http://raphaeljs.com/reference.html#Paper.text>Paper.text(…)</a></p>
 <p>Code to draw this SVG is below, with my normalised print method named print_center.</p>
 <div class=highlight><pre class=chroma><code class=language-javascript data-lang=javascript><span class=nx>Raphael</span><span class=p>.</span><span class=nx>fn</span><span class=p>.</span><span class=nx>line</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(</span><span class=nx>x1</span><span class=p>,</span> <span class=nx>y1</span><span class=p>,</span> <span class=nx>x2</span><span class=p>,</span> <span class=nx>y2</span><span class=p>)</span> <span class=p>{</span>
     <span class=c1>//assert(_.all([x1,x2,y1,y2], _.isFinite), &#34;x1,x2,y1,y2 must be numeric&#34;);
@@ -113,8 +113,8 @@ window.dataLayer = window.dataLayer || [];
     <span class=kd>var</span> <span class=nx>path</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>print</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>,</span> <span class=nx>string</span><span class=p>,</span> <span class=nx>font</span><span class=p>,</span> <span class=nx>size</span><span class=p>,</span> <span class=s1>&#39;baseline&#39;</span><span class=p>,</span> <span class=nx>letter_spacing</span><span class=p>);</span>
     <span class=kd>var</span> <span class=nx>bb</span> <span class=o>=</span> <span class=nx>path</span><span class=p>.</span><span class=nx>getBBox</span><span class=p>();</span>
 
-    <span class=kd>var</span> <span class=nx>dx</span> <span class=o>=</span> <span class=p>(</span><span class=nx>x</span> <span class=o>-</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>x</span><span class=p>)</span> <span class=o>-</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>width</span> <span class=err>/ 2;</span>
-    <span class=kd>var</span> <span class=nx>dy</span> <span class=o>=</span> <span class=p>(</span><span class=nx>y</span> <span class=o>-</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>y</span><span class=p>)</span> <span class=o>-</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>height</span> <span class=err>/ 2;</span>
+    <span class=kd>var</span> <span class=nx>dx</span> <span class=o>=</span> <span class=p>(</span><span class=nx>x</span> <span class=o>-</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>x</span><span class=p>)</span> <span class=o>-</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>width</span> <span class=o>/</span> <span class=mi>2</span><span class=p>;</span>
+    <span class=kd>var</span> <span class=nx>dy</span> <span class=o>=</span> <span class=p>(</span><span class=nx>y</span> <span class=o>-</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>y</span><span class=p>)</span> <span class=o>-</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>height</span> <span class=o>/</span> <span class=mi>2</span><span class=p>;</span>
 
     <span class=k>return</span> <span class=nx>path</span><span class=p>.</span><span class=nx>transform</span><span class=p>(</span><span class=s2>&#34;t&#34;</span> <span class=o>+</span> <span class=nx>dx</span> <span class=o>+</span> <span class=s2>&#34;,&#34;</span> <span class=o>+</span> <span class=nx>dy</span><span class=p>);</span>
 <span class=p>}</span>
@@ -187,18 +187,19 @@ window.dataLayer = window.dataLayer || [];
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = '1614111094';
+var disqus_identifier = '1614111094';
     var disqus_title = 'Alignment of Raphaël Paper.text(…) and Paper.print(…)';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2013\/03\/31\/alignment-of-raphael-text\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -206,7 +207,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

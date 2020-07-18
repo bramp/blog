@@ -5,7 +5,7 @@
 <meta content="width=device-width,initial-scale=1" name=viewport>
 <link href=https://blog.bramp.net/post/2011/01/24/intel-ucode-firmware-version-parser/ rel=canonical itemprop=url />
 <title>Intel ucode firmware version parser</title>
-<meta content="Out of fun I wrote a simple Python script to pull the version number out of Intel&#8217;s ucode firmware, for example, the firmware used by my wifi driver. I needed this so I could see what version I …" name=description itemprop=description>
+<meta content="Out of fun I wrote a simple Python script to pull the version number out of Intel’s ucode firmware, for example, the firmware used by my wifi driver. I needed this so I could see what version I was …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -46,7 +46,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=https://blog.bramp.net/post/2011/01/24/intel-ucode-firmware-version-parser/ property=og:url />
 <meta content=bramp.net property=og:site_name />
 <meta content="Intel ucode firmware version parser" property=og:title />
-<meta content="Out of fun I wrote a simple Python script to pull the version number out of Intel&#8217;s ucode firmware, for example, the firmware used by my wifi driver. I needed this so I could see what version I …" property=og:description />
+<meta content="Out of fun I wrote a simple Python script to pull the version number out of Intel’s ucode firmware, for example, the firmware used by my wifi driver. I needed this so I could see what version I was …" property=og:description />
 <meta content=2011-01-24T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -99,23 +99,24 @@ window.dataLayer = window.dataLayer || [];
 | <a href=https://blog.bramp.net/tags/ucode/ >ucode</a>
 </p>
 <div class=post itemprop=articleBody>
-<p>Out of fun I wrote a simple Python script to pull the version number out of Intel&#8217;s ucode firmware, for example, the firmware used by my wifi driver. I needed this so I could see what version I was running versus a new version I had downloaded from <a href="http://intellinuxwireless.org/?n=Downloads">Intel&#8217;s Linux Wireless site</a>.</p>
+<p>Out of fun I wrote a simple Python script to pull the version number out of Intel’s ucode firmware, for example, the firmware used by my wifi driver. I needed this so I could see what version I was running versus a new version I had downloaded from <a href="http://intellinuxwireless.org/?n=Downloads">Intel’s Linux Wireless site</a>.</p>
 <p>So here is the code if anyone finds it interesting:</p>
 <p>and example of using it is:</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ ./ucode.py /lib/firmware/*.ucode
-iwlwifi-1000-3.ucode    : ver <span class=m>128</span>.50.3.1
-iwlwifi-3945-1.ucode    : ver <span class=m>15</span>.28.1.6
-iwlwifi-3945-2.ucode    : ver <span class=m>15</span>.32.2.9
-iwlwifi-4965-1.ucode    : ver <span class=m>228</span>.57.1.21
-iwlwifi-4965-2.ucode    : ver <span class=m>228</span>.61.2.24
-iwlwifi-5000-1.ucode    : ver <span class=m>5</span>.4.1.16
-iwlwifi-5000-2.ucode    : ver <span class=m>8</span>.24.2.12
-iwlwifi-5150-2.ucode    : ver <span class=m>8</span>.24.2.2
-iwlwifi-6000-4.ucode    : ver <span class=m>9</span>.221.4.1
-iwlwifi-6000g2a-5.ucode : ver <span class=m>17</span>.168.5.1 <span class=o>(</span>6000g2a fw v17.168.5.1 build <span class=m>33993</span><span class=o>)</span>
-iwlwifi-6000g2b-5.ucode : ver <span class=m>17</span>.168.5.1 <span class=o>(</span>6000g2b fw v17.168.5.1 build <span class=m>33993</span><span class=o>)</span>
-iwlwifi-6050-4.ucode    : ver <span class=m>9</span>.201.4.1
-iwlwifi-6050-5.ucode    : ver <span class=m>41</span>.28.5.1 <span class=o>(</span><span class=m>6050</span> fw v41.28.5.1 build <span class=m>33926</span><span class=o>)</span></code></pre></div>
+iwlwifi-1000-3.ucode    : ver 128.50.3.1
+iwlwifi-3945-1.ucode    : ver 15.28.1.6
+iwlwifi-3945-2.ucode    : ver 15.32.2.9
+iwlwifi-4965-1.ucode    : ver 228.57.1.21
+iwlwifi-4965-2.ucode    : ver 228.61.2.24
+iwlwifi-5000-1.ucode    : ver 5.4.1.16
+iwlwifi-5000-2.ucode    : ver 8.24.2.12
+iwlwifi-5150-2.ucode    : ver 8.24.2.2
+iwlwifi-6000-4.ucode    : ver 9.221.4.1
+iwlwifi-6000g2a-5.ucode : ver 17.168.5.1 <span class=o>(</span>6000g2a fw v17.168.5.1 build 33993<span class=o>)</span>
+iwlwifi-6000g2b-5.ucode : ver 17.168.5.1 <span class=o>(</span>6000g2b fw v17.168.5.1 build 33993<span class=o>)</span>
+iwlwifi-6050-4.ucode    : ver 9.201.4.1
+iwlwifi-6050-5.ucode    : ver 41.28.5.1 <span class=o>(</span><span class=m>6050</span> fw v41.28.5.1 build 33926<span class=o>)</span>
+</code></pre></div>
 </div>
 </article>
 <div class=row>
@@ -139,18 +140,19 @@ iwlwifi-6050-5.ucode    : ver <span class=m>41</span>.28.5.1 <span class=o>(</sp
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2011\/01\/24\/intel-ucode-firmware-version-parser\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2011\/01\/24\/intel-ucode-firmware-version-parser\/';
     var disqus_title = 'Intel ucode firmware version parser';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2011\/01\/24\/intel-ucode-firmware-version-parser\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -158,7 +160,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

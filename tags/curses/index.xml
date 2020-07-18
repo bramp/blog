@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Curses on bramp.net</title>
+    <title>curses on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Curses on bramp.net</description>
+    <description>Recent content in curses on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Sun, 07 Aug 2011 00:00:00 +0000</lastBuildDate>
@@ -15,11 +14,10 @@
       <pubDate>Sun, 07 Aug 2011 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2011/08/07/default-to-curses-interface-for-mtr/</guid>
-      <description>&lt;p&gt;I really like &lt;a href=&#34;http://www.bitwizard.nl/mtr/&#34;&gt;mtr&lt;/a&gt; (the traceroute tool), however, it always bugged me that it launches a GUI app instead of using the &lt;a href=&#34;http://en.wikipedia.org/wiki/Curses_(programming_library)&#34;&gt;curses&lt;/a&gt; interface. You can easily pass the &amp;#8220;-t&amp;#8221; or &amp;#8220;&amp;#8211;curses&amp;#8221; flag to default to the curses interface, but I always forget.&lt;/p&gt;
-
+      <description>&lt;p&gt;I really like &lt;a href=&#34;http://www.bitwizard.nl/mtr/&#34;&gt;mtr&lt;/a&gt; (the traceroute tool), however, it always bugged me that it launches a GUI app instead of using the &lt;a href=&#34;http://en.wikipedia.org/wiki/Curses_(programming_library)&#34;&gt;curses&lt;/a&gt; interface. You can easily pass the “-t” or “–curses” flag to default to the curses interface, but I always forget.&lt;/p&gt;
 &lt;p&gt;So today I set about writing a patch for mtr to read a environment varable to force the curses interface. While I was reading the source I noticed there was already a simple undocumented way!&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;MTR_OPTIONS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;-t&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Voila the curses interface is now used by default. This is certainly going into my ~/.bashrc&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;MTR_OPTIONS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;-t
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Voila the curses interface is now used by default. This is certainly going into my ~/.bashrc&lt;/p&gt;
 </description>
     </item>
     

@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Jolt on bramp.net</title>
+    <title>jolt on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Jolt on bramp.net</description>
+    <description>Recent content in jolt on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Wed, 01 Oct 2008 00:00:00 +0000</lastBuildDate>
@@ -15,10 +14,8 @@
       <pubDate>Wed, 01 Oct 2008 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2008/10/01/jolt-cola/</guid>
-      <description>&lt;p&gt;Thanks to this lovely beverage I have now completed my thesis on time :) I thought I&amp;#8217;ll quickly post about the drink, and upload some photos:&lt;/p&gt;
-
+      <description>&lt;p&gt;Thanks to this lovely beverage I have now completed my thesis on time :) I thought I’ll quickly post about the drink, and upload some photos:&lt;/p&gt;
 &lt;!-- TODO link to the non-thumbnail version --&gt;
-
 &lt;p&gt;&lt;figure&gt;
     &lt;img src=&#34;DSCF1334_thumb.JPG&#34;/&gt; &lt;figcaption&gt;
             &lt;h4&gt;The 5 flavours of Jolt Cola&lt;/h4&gt;
@@ -31,7 +28,6 @@
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;/p&gt;
-
 &lt;p&gt;It comes in six flavors, only 5 or which are listed here. Power Cola, Orange Blast, Blue Raspberry, Cherry Bomb, and Wild Grape.&lt;/p&gt;
 </description>
     </item>

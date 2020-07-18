@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Android-apps on bramp.net</title>
@@ -18,9 +17,7 @@
       <description>&lt;div class=&#34;pull-right text-center&#34;&gt;
   &lt;a href=&#34;https://play.google.com/store/apps/details?id=net.bramp.musicgrid&#34;&gt;&lt;img src=&#34;https://chart.googleapis.com/chart?cht=qr&amp;chs=150x150&amp;chl=https://play.google.com/store/apps/details?id=net.bramp.musicgrid&#34; alt=&#34;&#34; width=&#34;150&#34; height=&#34;150&#34; /&gt;&lt;br /&gt; Download Me (for free!)&lt;br /&gt; &lt;/a&gt;
 &lt;/div&gt;
-
 &lt;p&gt;Make music with this simple, easy to use, and addictive little app. Technically a step sequencers, MusicGrid was inspired by the funky &lt;a href=&#34;http://www.global.yamaha.com/tenori-on/&#34;&gt;Tenori-on&lt;/a&gt; and the great online &lt;a href=&#34;http://lab.andre-michelle.com/JwUQ&amp;amp;sig2=M5U9nzjbsQdyvpgC0qg86g&#34;&gt;ToneMatrix&lt;/a&gt;. It has been reviewed on &lt;a href=&#34;http://news.bbc.co.uk/2/hi/programmes/click_online/9451965.stm&#34;&gt;television&lt;/a&gt; and downloaded by 1000s of people. Check out the below user generated videos for more information!&lt;/p&gt;
-
 &lt;iframe width=&#34;420&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/SaGJtBZ321s&#34; frameborder=&#34;0&#34; allowfullscreen&gt;&lt;/iframe&gt;
 </description>
     </item>
@@ -31,31 +28,22 @@
       <pubDate>Sun, 29 Apr 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/android-app/finder/</guid>
-      <description>
-
-&lt;p&gt;This framework is able to display lists of specific locations, be it restaurant chains, coffee shops, offices, or anything else! These locations are stored in a local database, so no Internet connection is needed.&lt;/p&gt;
-
+      <description>&lt;p&gt;This framework is able to display lists of specific locations, be it restaurant chains, coffee shops, offices, or anything else! These locations are stored in a local database, so no Internet connection is needed.&lt;/p&gt;
 &lt;p&gt;The framework supports the following features:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;Self contained database of locations.&lt;/li&gt;
 &lt;li&gt;Sort locations by names or distance.&lt;/li&gt;
 &lt;li&gt;Display the 10 nearest locations in a list or on a map.&lt;/li&gt;
 &lt;li&gt;Display detailed information on a single location, i.e. Full Address, Phone Number.&lt;/li&gt;
-&lt;li&gt;Add the location to the phone&amp;#8217;s address book.&lt;/li&gt;
+&lt;li&gt;Add the location to the phone’s address book.&lt;/li&gt;
 &lt;li&gt;Get directions to a specific location.&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;So far this framework is used by one application, &lt;a href=&#34;https://blog.bramp.net/android-app/nandos-finder/&#34; title=&#34;Nando’s Finder&#34;&gt;Nando&amp;#8217;s Finder&lt;/a&gt;. If you are interested in using this framework or have suggestions on what other apps I could make then please &lt;a href=&#34;https://blog.bramp.net/about-me/&#34;&gt;contact me&lt;/a&gt;.&lt;/p&gt;
-
+&lt;p&gt;So far this framework is used by one application, &lt;a href=&#34;https://blog.bramp.net/android-app/nandos-finder/&#34; title=&#34;Nando’s Finder&#34;&gt;Nando’s Finder&lt;/a&gt;. If you are interested in using this framework or have suggestions on what other apps I could make then please &lt;a href=&#34;https://blog.bramp.net/about-me/&#34;&gt;contact me&lt;/a&gt;.&lt;/p&gt;
 &lt;h3 id=&#34;versions&#34;&gt;Versions&lt;/h3&gt;
-
 &lt;ul&gt;
-&lt;li&gt;2010-01-08 &amp;#8211; First Release&lt;/li&gt;
+&lt;li&gt;2010-01-08 – First Release&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h3 id=&#34;todo&#34;&gt;TODO&lt;/h3&gt;
-
 &lt;ul&gt;
 &lt;li&gt;Secure the database by compressing and encypting it ourself.&lt;/li&gt;
 &lt;li&gt;Automatic updates of CSV file.&lt;/li&gt;
@@ -73,18 +61,12 @@
       <pubDate>Sun, 29 Apr 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/android-app/nandos-finder/</guid>
-      <description>
-
-&lt;div class=&#34;pull-right text-center&#34;&gt;
+      <description>&lt;div class=&#34;pull-right text-center&#34;&gt;
   &lt;a href=&#34;https://play.google.com/store/apps/details?id=net.bramp.finder&#34;&gt;&lt;img src=&#34;https://chart.googleapis.com/chart?cht=qr&amp;chs=150x150&amp;chl=https://play.google.com/store/apps/details?id=net.bramp.finder&#34; width=150 height=150 /&gt;&lt;br /&gt; Download Me&lt;br /&gt; &lt;/a&gt;
 &lt;/div&gt;
-
-&lt;p&gt;This unoffical fan made application contains a database of every Nando&amp;#8217;s in the UK, and allows you to easily find the closest one.&lt;/p&gt;
-
+&lt;p&gt;This unoffical fan made application contains a database of every Nando’s in the UK, and allows you to easily find the closest one.&lt;/p&gt;
 &lt;div class=&#34;clearfix&#34;&gt;&lt;/div&gt;
-
 &lt;h3 id=&#34;screenshots&#34;&gt;Screenshots&lt;/h3&gt;
-
 &lt;div class=&#34;text-center&#34;&gt;
   &lt;img src=&#34;nandos1.png&#34; width=320 height=480 /&gt;
   &amp;nbsp;&amp;nbsp;
@@ -99,16 +81,11 @@
       <pubDate>Sun, 29 Apr 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/android-app/scorer/</guid>
-      <description>
-
-&lt;div class=&#34;pull-right text-center&#34;&gt;
+      <description>&lt;div class=&#34;pull-right text-center&#34;&gt;
   &lt;a href=&#34;https://play.google.com/store/apps/details?id=net.bramp.scorer&#34;&gt;&lt;img src=&#34;https://chart.googleapis.com/chart?cht=qr&amp;chs=150x150&amp;chl=https://play.google.com/store/apps/details?id=net.bramp.scorer&#34; width=150 height=150 /&gt;&lt;br /&gt;Download Me&lt;/a&gt;
 &lt;/div&gt;
-
 &lt;p&gt;Track the score of any number of players with this simple to use application. Great for card and board games such as Scrabble, Magic, Carcassonne, etc.&lt;/p&gt;
-
 &lt;p&gt;Features:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;Unlimited players.&lt;/li&gt;
 &lt;li&gt;Easy to use.&lt;/li&gt;
@@ -117,60 +94,51 @@
 &lt;li&gt;Keeps players and scores.&lt;/li&gt;
 &lt;li&gt;Free!&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;If you love or hate this app, or have any suggestions then feel free to &lt;a href=&#34;https://blog.bramp.net/about-me/&#34;&gt;contact me&lt;/a&gt;.&lt;/p&gt;
-
 &lt;h3 id=&#34;screenshots&#34;&gt;Screenshots&lt;/h3&gt;
-
 &lt;div style=&#34;text-align:center&#34;&gt;
   &lt;img src=&#34;scorer_1.png&#34; alt=&#34;&#34; title=&#34;Scorer Screenshot&#34; width=&#34;320&#34; height=&#34;480&#34; /&gt;
   &amp;nbsp;&amp;nbsp;
   &lt;img src=&#34;scorer_2.png&#34; alt=&#34;&#34; title=&#34;Scorer Screenshot&#34; width=&#34;320&#34; height=&#34;480&#34; /&gt;
 &lt;/div&gt;
-
 &lt;h3 id=&#34;versions&#34;&gt;Versions&lt;/h3&gt;
-
 &lt;ul&gt;
 &lt;li&gt;2010-04-07
-
 &lt;ul&gt;
 &lt;li&gt;Add options page
-
 &lt;ul&gt;
 &lt;li&gt;Move to next player after OK&lt;/li&gt;
 &lt;li&gt;Show/Hide totals row&lt;/li&gt;
 &lt;li&gt;Set values of each button&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;Display two more +/- buttons when in Landscape&lt;/li&gt;
 &lt;li&gt;Move players up and down&lt;/li&gt;
 &lt;li&gt;Sort by name, or score&lt;/li&gt;
 &lt;li&gt;Minor other changes&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;2010-03-09
-
 &lt;ul&gt;
 &lt;li&gt;French Translation&lt;/li&gt;
 &lt;li&gt;US Translation ;)&lt;/li&gt;
 &lt;li&gt;Added a totals row&lt;/li&gt;
 &lt;li&gt;Minor UI tweaks&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;2010-03-07
-
 &lt;ul&gt;
 &lt;li&gt;Fixed minor crash&lt;/li&gt;
-&lt;li&gt;Buttons disable when they can&amp;#8217;t be pressed&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;2010-03-06 &amp;#8211; First Release&lt;/li&gt;
+&lt;li&gt;Buttons disable when they can’t be pressed&lt;/li&gt;
 &lt;/ul&gt;
-
+&lt;/li&gt;
+&lt;li&gt;2010-03-06 – First Release&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;todo&#34;&gt;TODO&lt;/h3&gt;
-
 &lt;ul&gt;
 &lt;li&gt;Chart the scores over time.&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h3 id=&#34;credits&#34;&gt;Credits&lt;/h3&gt;
-
 &lt;p&gt;The software was written by Andrew Brampton. The scorer icon was taken from &lt;a href=&#34;http://www.fatcow.com/free-icons/&#34;&gt;FatCow&lt;/a&gt;. The French translation was done by Vevert.&lt;/p&gt;
 </description>
     </item>

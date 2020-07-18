@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -113,9 +113,10 @@ window.dataLayer = window.dataLayer || [];
 		<span class=n>destOffset</span> <span class=o>+=</span> <span class=n>COPY_STRIDE</span><span class=o>;</span>
 		<span class=n>src</span> <span class=o>+=</span> <span class=n>COPY_STRIDE</span><span class=o>;</span>
 	<span class=o>}</span>
-<span class=o>}</span></code></pre></div>
-<p>Note, we use <code>putLong</code>, not because the <a href=https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/ ><code>UnsafeArrayList</code></a> is storing objects made up of longs, but because this is the <code>Unsafe</code> method that can copy the most in one go. This <code>putLong</code> method is thus being used as the building block to build a more complex looping copy method. Note, this works great for memory which is aligned on a 8 byte boundary, and the total copy is a multiple of 8 bytes. For the sake of this article, we make the assumption that this is always true.</p>
-<p>In the <code>FourLong</code>&rsquo;s case, the copy method would iterates four times. This is predictable, and occurs every time we <code>get()</code> on a <code>UnsafeArrayList&lt;FourLong&gt;</code> instance. Since this copy loop will be executed every time <code>get()</code> is called, it is worth seeing if we can make it execute faster. A common optimisation is for the developer to manually <a href=https://en.wikipedia.org/wiki/Loop_unrolling>unroll the loop</a>, avoiding the loop counter, and producing potentially quicker code<sup class=footnote-ref id=fnref:unrolled><a href=#fn:unrolled>1</a></sup>. In this case, manually unrolling the code is not possible because the parameterised type could be any size. For example, a <code>UnsafeArrayList&lt;Point&gt;</code> would only need to copy 8 bytes (two 4 byte ints). You would hope that the JIT would notice the loop always iterates the same number of times (for a particular list), and be able to remove the loop. Sadly, it does not seem to do this, perhaps because the JVM does not know what side effects <code>unsafe.{get,put}Long</code> have. To measure the cost of the looping we compare the previous code to this:</p>
+<span class=o>}</span>
+
+</code></pre></div><p>Note, we use <code>putLong</code>, not because the <a href=https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/ ><code>UnsafeArrayList</code></a> is storing objects made up of longs, but because this is the <code>Unsafe</code> method that can copy the most in one go. This <code>putLong</code> method is thus being used as the building block to build a more complex looping copy method. Note, this works great for memory which is aligned on a 8 byte boundary, and the total copy is a multiple of 8 bytes. For the sake of this article, we make the assumption that this is always true.</p>
+<p>In the <code>FourLong</code>'s case, the copy method would iterates four times. This is predictable, and occurs every time we <code>get()</code> on a <code>UnsafeArrayList&lt;FourLong&gt;</code> instance. Since this copy loop will be executed every time <code>get()</code> is called, it is worth seeing if we can make it execute faster. A common optimisation is for the developer to manually <a href=https://en.wikipedia.org/wiki/Loop_unrolling>unroll the loop</a>, avoiding the loop counter, and producing potentially quicker code<sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>. In this case, manually unrolling the code is not possible because the parameterised type could be any size. For example, a <code>UnsafeArrayList&lt;Point&gt;</code> would only need to copy 8 bytes (two 4 byte ints). You would hope that the JIT would notice the loop always iterates the same number of times (for a particular list), and be able to remove the loop. Sadly, it does not seem to do this, perhaps because the JVM does not know what side effects <code>unsafe.{get,put}Long</code> have. To measure the cost of the looping we compare the previous code to this:</p>
 <div class=highlight><pre class=chroma><code class=language-java data-lang=java><span class=kd>final</span> <span class=kt>int</span> <span class=n>COPY_STRIDE</span> <span class=o>=</span> <span class=n>8</span><span class=o>;</span>
 <span class=kd>final</span> <span class=n>Unsafe</span> <span class=n>unsafe</span> <span class=o>=</span> <span class=n>UnsafeHelper</span><span class=o>.</span><span class=na>getUnsafe</span><span class=o>();</span>
 
@@ -137,8 +138,8 @@ window.dataLayer = window.dataLayer || [];
 	<span class=n>src</span> <span class=o>+=</span> <span class=n>COPY_STRIDE</span><span class=o>;</span>
 
 	<span class=n>unsafe</span><span class=o>.</span><span class=na>putLong</span><span class=o>(</span><span class=n>dest</span><span class=o>,</span> <span class=n>destOffset</span><span class=o>,</span> <span class=n>unsafe</span><span class=o>.</span><span class=na>getLong</span><span class=o>(</span><span class=n>src</span><span class=o>));</span>
-<span class=o>}</span></code></pre></div>
-<p>When benchmarked, this manually unrolled code runs 2 times faster! This got me thinking, since a particular <a href=https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/ ><code>UnsafeArrayList</code></a> instance is always going to copy the same sized object, again and again and again, it could perhaps generate bytecode during creation, that unrolled the loop.</p>
+<span class=o>}</span>
+</code></pre></div><p>When benchmarked, this manually unrolled code runs 2 times faster! This got me thinking, since a particular <a href=https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/ ><code>UnsafeArrayList</code></a> instance is always going to copy the same sized object, again and again and again, it could perhaps generate bytecode during creation, that unrolled the loop.</p>
 <h2 id=enter-byte-buddy>Enter Byte Buddy</h2>
 <p>Thus investigation into <a href=http://bytebuddy.net/ >Byte Buddy</a> began, a library designed for generating bytecode at runtime. The rest of this article explains how to use Byte Buddy for this goal.</p>
 <p>To start, I used Intellij IDEA’s “<a href=https://plugins.jetbrains.com/plugin/5918>Show Bytecode</a>” option, to inspect the code generated by my hand unrolled code.</p>
@@ -176,8 +177,8 @@ window.dataLayer = window.dataLayer || [];
   <span class=nf>LLOAD</span> <span class=mi>2</span>   <span class=c1>; Load src</span>
   <span class=nf>LDC</span> <span class=mi>8</span>     <span class=c1>; Load 8</span>
   <span class=nf>LADD</span>      <span class=c1>; Add src and 8</span>
-  <span class=nf>LSTORE</span> <span class=mi>2</span>  <span class=c1>; Store result to src</span></code></pre></div>
-<p>After reading a <a href=http://download.forge.objectweb.org/asm/asm4-guide.pdf>primer to bytecode</a>, this generated bytecode looked quite simple. It can be broken up into three steps, initialisation, copy, and increment. At runtime, Byte Buddy can be used to generate bytecode that is an unrolled equivalent, such that there is 1 initialisation step, N copy steps, and N-1 increment steps, where N is based on the size of the object the <a href=https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/ ><code>UnsafeArrayList</code></a> plans to copy.</p>
+  <span class=nf>LSTORE</span> <span class=mi>2</span>  <span class=c1>; Store result to src</span>
+</code></pre></div><p>After reading a <a href=http://download.forge.objectweb.org/asm/asm4-guide.pdf>primer to bytecode</a>, this generated bytecode looked quite simple. It can be broken up into three steps, initialisation, copy, and increment. At runtime, Byte Buddy can be used to generate bytecode that is an unrolled equivalent, such that there is 1 initialisation step, N copy steps, and N-1 increment steps, where N is based on the size of the object the <a href=https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/ ><code>UnsafeArrayList</code></a> plans to copy.</p>
 <p>Reading through the Byte Buddy API it seems the best way to achieve this is to create an abstract class, which will form the base of a generated class. Then at runtime create an instantiation of this abstract class, specialised with the unrolled copy bytecode.</p>
 <p>For example, the base class would look like this:</p>
 <div class=highlight><pre class=chroma><code class=language-java data-lang=java><span class=kd>public</span> <span class=kd>abstract</span> <span class=kd>class</span> <span class=nc>UnsafeCopier</span> <span class=o>{</span>
@@ -188,8 +189,8 @@ window.dataLayer = window.dataLayer || [];
 	<span class=o>}</span>
 
 	<span class=kd>abstract</span> <span class=kt>void</span> <span class=nf>copy</span><span class=o>(</span><span class=n>Object</span> <span class=n>dest</span><span class=o>,</span> <span class=kt>long</span> <span class=n>src</span><span class=o>);</span>
-<span class=o>}</span></code></pre></div>
-<p>Leaving us to implement the <code>copy(…)</code> method optimally for the size of object being copied.</p>
+<span class=o>}</span>
+</code></pre></div><p>Leaving us to implement the <code>copy(…)</code> method optimally for the size of object being copied.</p>
 <p>Using the <a href=https://en.wikipedia.org/wiki/Builder_pattern>Builder pattern</a> I created the <a href=https://bramp.github.io/unsafe/index.html?net/bramp/unsafe/UnrolledUnsafeCopierBuilder.html><code>UnrolledUnsafeCopierBuilder</code></a> class. The <code>build()</code> method will calculate the size of the class being copied, then using Byte Buddy generate the copy implementation, and returns a specialised instance UnsafeCopier.</p>
 <div class=highlight><pre class=chroma><code class=language-java data-lang=java><span class=kd>public</span> <span class=n>UnsafeCopier</span> <span class=nf>build</span><span class=o>(</span><span class=n>Unsafe</span> <span class=n>unsafe</span><span class=o>)</span> <span class=o>{</span>
 	<span class=kd>final</span> <span class=kt>long</span> <span class=n>length</span> <span class=o>=</span> <span class=n>UnsafeHelper</span><span class=o>.</span><span class=na>sizeOf</span><span class=o>(</span><span class=n>clazz</span><span class=o>);</span>
@@ -204,8 +205,8 @@ window.dataLayer = window.dataLayer || [];
 	<span class=k>return</span> <span class=o>(</span><span class=n>UnsafeCopier</span><span class=o>)</span> <span class=n>dynamicType</span>
 		<span class=o>.</span><span class=na>getDeclaredConstructor</span><span class=o>(</span><span class=n>Unsafe</span><span class=o>.</span><span class=na>class</span><span class=o>)</span>
 		<span class=o>.</span><span class=na>newInstance</span><span class=o>(</span><span class=n>unsafe</span><span class=o>);</span>
-<span class=o>}</span></code></pre></div>
-<p>This begins by calculating the size of the class. Then using a <a href=http://bytebuddy.net/javadoc/0.7-rc1/index.html?net/bytebuddy/ByteBuddy.html>ByteBuddy</a> instance, creates a new dynamicType, which extends <code>UnsafeCopier</code>. This subclass then obtains its copy method with code generated by <code>CopierImplementation(length)</code>. Finally, this new dynamicType is used to create an instance of the copier, which is now specialised for copying instances of clazz.</p>
+<span class=o>}</span>
+</code></pre></div><p>This begins by calculating the size of the class. Then using a <a href=http://bytebuddy.net/javadoc/0.7-rc1/index.html?net/bytebuddy/ByteBuddy.html>ByteBuddy</a> instance, creates a new dynamicType, which extends <code>UnsafeCopier</code>. This subclass then obtains its copy method with code generated by <code>CopierImplementation(length)</code>. Finally, this new dynamicType is used to create an instance of the copier, which is now specialised for copying instances of clazz.</p>
 <p>The real meat of the code is in <code>CopierImplementation</code>, which can be explained in pieces:</p>
 <div class=highlight><pre class=chroma><code class=language-java data-lang=java><span class=kd>class</span> <span class=nc>CopierImplementation</span> <span class=kd>implements</span> <span class=n>ByteCodeAppender</span><span class=o>,</span> <span class=n>Implementation</span> <span class=o>{</span>
 
@@ -239,14 +240,14 @@ window.dataLayer = window.dataLayer || [];
 	<span class=o>}</span>
 
 	<span class=o>...</span>
-<span class=o>}</span></code></pre></div>
-<p>Byte Buddy uses <a href=http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html><code>StackManipulation</code></a> objects to define what bytecode to generate. These <a href=http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html><code>StackManipulation</code></a> objects can be built up hierarchically and contain all the bytecode instructions to execute. We define a separate <a href=http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html><code>StackManipulation</code></a> object for each step, and in the <code>buildStack()</code> method combine the steps multiple times into one array. In particular, this stack array contains one initialise step, N copy steps, and N-1 increment steps, with a <code>return</code> instruction on the end.</p>
+<span class=o>}</span>
+</code></pre></div><p>Byte Buddy uses <a href=http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html><code>StackManipulation</code></a> objects to define what bytecode to generate. These <a href=http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html><code>StackManipulation</code></a> objects can be built up hierarchically and contain all the bytecode instructions to execute. We define a separate <a href=http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html><code>StackManipulation</code></a> object for each step, and in the <code>buildStack()</code> method combine the steps multiple times into one array. In particular, this stack array contains one initialise step, N copy steps, and N-1 increment steps, with a <code>return</code> instruction on the end.</p>
 <p>Recall from the early bytecode listing, that the initialisation was two bytecode operations, a LCONST, and LSTORE. In Byte Buddy, we can thus do the following:</p>
 <div class=highlight><pre class=chroma><code class=language-java data-lang=java><span class=kd>final</span> <span class=n>StackManipulation</span> <span class=n>setupStack</span> <span class=o>=</span> <span class=k>new</span> <span class=n>StackManipulation</span><span class=o>.</span><span class=na>Compound</span><span class=o>(</span>
 	<span class=n>LongConstant</span><span class=o>.</span><span class=na>ZERO</span><span class=o>,</span>                       <span class=c1>// LCONST_0
 </span><span class=c1></span>	<span class=n>MethodVariableStore</span><span class=o>.</span><span class=na>LONG</span><span class=o>.</span><span class=na>storeOffset</span><span class=o>[</span><span class=n>4</span><span class=o>]</span>  <span class=c1>// LSTORE 4
-</span><span class=c1></span><span class=o>);</span></code></pre></div>
-<p>Byte Buddy provides the primitives for most bytecode instructions, and can be built up in these <a href=http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html><code>StackManipulation</code></a> arrays. However, some instructions are missing, for example LADD (needed by the increment step). But it is simple enough to create one from scratch, as <a href=https://github.com/bramp/unsafe/tree/master/unsafe-unroller/src/main/java/net/bramp/unsafe/bytebuddy>shown outside of this article</a>.</p>
+</span><span class=c1></span><span class=o>);</span>
+</code></pre></div><p>Byte Buddy provides the primitives for most bytecode instructions, and can be built up in these <a href=http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html><code>StackManipulation</code></a> arrays. However, some instructions are missing, for example LADD (needed by the increment step). But it is simple enough to create one from scratch, as <a href=https://github.com/bramp/unsafe/tree/master/unsafe-unroller/src/main/java/net/bramp/unsafe/bytebuddy>shown outside of this article</a>.</p>
 <p>Next the copy step is defined which is a few more instructions than the increment, but relatively simple:</p>
 <div class=highlight><pre class=chroma><code class=language-java data-lang=java><span class=kd>final</span> <span class=n>Field</span> <span class=n>unsafeField</span> <span class=o>=</span> <span class=n>UnsafeCopier</span><span class=o>.</span><span class=na>class</span><span class=o>.</span><span class=na>getDeclaredField</span><span class=o>(</span><span class=s>&#34;unsafe&#34;</span><span class=o>);</span>
 <span class=kd>final</span> <span class=n>Method</span> <span class=n>getLongMethod</span> <span class=o>=</span> <span class=n>Unsafe</span><span class=o>.</span><span class=na>class</span><span class=o>.</span><span class=na>getMethod</span><span class=o>(</span><span class=s>&#34;getLong&#34;</span><span class=o>,</span> <span class=kt>long</span><span class=o>.</span><span class=na>class</span><span class=o>);</span>
@@ -270,8 +271,8 @@ window.dataLayer = window.dataLayer || [];
 </span><span class=c1></span>
 	<span class=n>MethodInvocation</span><span class=o>.</span><span class=na>invoke</span><span class=o>(</span><span class=k>new</span> <span class=n>MethodDescription</span><span class=o>.</span><span class=na>ForLoadedMethod</span><span class=o>(</span><span class=n>getLongMethod</span><span class=o>)),</span>
 	<span class=n>MethodInvocation</span><span class=o>.</span><span class=na>invoke</span><span class=o>(</span><span class=k>new</span> <span class=n>MethodDescription</span><span class=o>.</span><span class=na>ForLoadedMethod</span><span class=o>(</span><span class=n>putLongMethod</span><span class=o>))</span>
-<span class=o>);</span></code></pre></div>
-<p>Again, the bytecode instructions are created as a sequence of <a href=http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html><code>StackManipulation</code></a>, replicating the bytecode the java compiler code had generated earlier. This example contains a couple of new <a href=http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html><code>StackManipulation</code></a> classes, in particular the Field and Method Descriptions classes.</p>
+<span class=o>);</span>
+</code></pre></div><p>Again, the bytecode instructions are created as a sequence of <a href=http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html><code>StackManipulation</code></a>, replicating the bytecode the java compiler code had generated earlier. This example contains a couple of new <a href=http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html><code>StackManipulation</code></a> classes, in particular the Field and Method Descriptions classes.</p>
 <p>The final step is the increment step, which won’t be explained, but for the interested reader <a href=https://github.com/bramp/unsafe/blob/ff8f463bf60661ff63133e8a3beada7fd65c7c45/unsafe-unroller/src/main/java/net/bramp/unsafe/CopierImplementation.java#L86>the source can be found here</a>.</p>
 <p>One last piece of information Byte Buddy needs, is the size of the stack needed for the <code>copy()</code> method, including any space local variables may need. The <a href=http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html><code>StackManipulation</code></a> comes in handy here, as it is able to infer some of these details from the byte code it represents. In particular, the following code calculates the stack size:</p>
 <div class=highlight><pre class=chroma><code class=language-java data-lang=java><span class=kd>public</span> <span class=n>Size</span> <span class=nf>apply</span><span class=o>(</span><span class=n>MethodVisitor</span> <span class=n>methodVisitor</span><span class=o>,</span> <span class=n>Implementation</span><span class=o>.</span><span class=na>Context</span> <span class=n>implementationContext</span><span class=o>,</span>
@@ -288,8 +289,8 @@ window.dataLayer = window.dataLayer || [];
 	<span class=c1>// Now return the size of this bytecode, plus two, which is the size of the local
 </span><span class=c1></span>	<span class=c1>// destOffset variable.
 </span><span class=c1></span>	<span class=k>return</span> <span class=k>new</span> <span class=n>Size</span><span class=o>(</span><span class=n>finalStackSize</span><span class=o>.</span><span class=na>getMaximalSize</span><span class=o>(),</span> <span class=n>instrumentedMethod</span><span class=o>.</span><span class=na>getStackSize</span><span class=o>()</span> <span class=o>+</span> <span class=n>2</span><span class=o>);</span>
-<span class=o>}</span></code></pre></div>
-<p>An important part here, is the <code>+2</code>, which makes room for the <code>long destOffset</code> variable. If that was missing, the generated bytecode would incorrectly write over instructions on the stack, and most likely crash the JVM.</p>
+<span class=o>}</span>
+</code></pre></div><p>An important part here, is the <code>+2</code>, which makes room for the <code>long destOffset</code> variable. If that was missing, the generated bytecode would incorrectly write over instructions on the stack, and most likely crash the JVM.</p>
 <p>Now at runtime the <a href=https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/ ><code>UnsafeArrayList</code></a>&rsquo;s constructor can use the <a href=https://bramp.github.io/unsafe/index.html?net/bramp/unsafe/UnrolledUnsafeCopierBuilder.html><code>UnrolledUnsafeCopierBuilder</code></a> to generate a specialised <code>UnsafeCopier</code> designed for the exact class the <a href=https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/ ><code>UnsafeArrayList</code></a> is storing.</p>
 <h2 id=results>Results</h2>
 <p>Now we have most of what we need, it is worth benchmarking this code. Using <a href=http://openjdk.java.net/projects/code-tools/jmh/ >JMH</a>, we can write three microbenchmarks. One using the original looping code, one using the hand unrolled code, and one using the Byte Buddy unrolled code. The <a href=https://github.com/bramp/unsafe/blob/master/unsafe-benchmark/src/main/java/net/bramp/unsafe/copier/UnrolledCopierBenchmark.java>code for the benchmarks</a> is on GitHub, and follows a similar methodology to that in a <a href=https://blog.bramp.net/post/2015/08/27/unsafe-part-3-benchmarking-a-java-unsafearraylist/ >previous article</a>.</p>
@@ -337,13 +338,14 @@ window.dataLayer = window.dataLayer || [];
 <p>In summary, we managed to unroll a loop at runtime by generating on demand bytecode for that specific purpose. This was possible by inspecting machine generated bytecode, and using Byte Buddy to generate equivalent bytecode at runtime, customised specifically with the correct number of unrolled iterations.</p>
 <p>This technique may seem completely crazy, and I don’t suggest its used unless you know what you are doing. That includes, actually measuring you have a performance problem which could be fixed with this, and not being able to depend on the JVM’s own JIT to do this optimisation for you.</p>
 <p><em>Helpful Links:</em> <a href=https://github.com/bramp/unsafe/ >GitHub Home</a> | <a href=https://github.com/bramp/unsafe/tree/master/unsafe-unroller/src/main/java/net/bramp/unsafe>Gitub Code</a> | <a href=https://bramp.github.io/unsafe/ >JavaDoc</a></p>
-<div class=footnotes>
-<hr/>
+<section class=footnotes role=doc-endnotes>
+<hr>
 <ol>
-<li id=fn:unrolled>Unrolled code is not always faster, as larger code may not fit into CPU instruction cache.
-<a href=#fnref:unrolled class=footnote-return><sup>[return]</sup></a></li>
+<li id=fn:1 role=doc-endnote>
+<p>Unrolled code is not always faster, as larger code may not fit into CPU instruction cache. <a href=#fnref:1 class=footnote-backref role=doc-backlink>&#x21a9;&#xfe0e;</a></p>
+</li>
 </ol>
-</div>
+</section>
 </div>
 </article>
 <div class=row>
@@ -367,18 +369,19 @@ window.dataLayer = window.dataLayer || [];
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2015\/09\/09\/unrolling-loops-at-runtime-with-byte-buddy\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2015\/09\/09\/unrolling-loops-at-runtime-with-byte-buddy\/';
     var disqus_title = 'Unrolling loops at runtime with Byte Buddy';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2015\/09\/09\/unrolling-loops-at-runtime-with-byte-buddy\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -386,7 +389,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

@@ -5,7 +5,7 @@
 <meta content="width=device-width,initial-scale=1" name=viewport>
 <link href=https://blog.bramp.net/post/2008/04/05/linux-kernel-patch-for-tcp-timestamping/ rel=canonical itemprop=url />
 <title>Linux kernel patch for TCP timestamping</title>
-<meta content="Recently I needed to measure the time it takes a packet to travel though the Linux network stack. To begin with I thought I&#8217;ll hack the kernel to add my own timing measurements, but then I found …" name=description itemprop=description>
+<meta content="Recently I needed to measure the time it takes a packet to travel though the Linux network stack. To begin with I thought I’ll hack the kernel to add my own timing measurements, but then I found this …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -46,7 +46,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=https://blog.bramp.net/post/2008/04/05/linux-kernel-patch-for-tcp-timestamping/ property=og:url />
 <meta content=bramp.net property=og:site_name />
 <meta content="Linux kernel patch for TCP timestamping" property=og:title />
-<meta content="Recently I needed to measure the time it takes a packet to travel though the Linux network stack. To begin with I thought I&#8217;ll hack the kernel to add my own timing measurements, but then I found …" property=og:description />
+<meta content="Recently I needed to measure the time it takes a packet to travel though the Linux network stack. To begin with I thought I’ll hack the kernel to add my own timing measurements, but then I found this …" property=og:description />
 <meta content=2008-04-05T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -99,13 +99,13 @@ window.dataLayer = window.dataLayer || [];
 | <a href=https://blog.bramp.net/tags/tcp/ >TCP</a>
 </p>
 <div class=post itemprop=articleBody>
-<p>Recently I needed to measure the time it takes a packet to travel though the Linux network stack. To begin with I thought I&#8217;ll hack the kernel to add my own timing measurements, but then I found this was already built in! I could use the SIOCGSTAMP or SIOCGSTAMPNS ioctl calls to retrieve the timestamp assigned by the network driver when the packet first enters the stack.</p>
+<p>Recently I needed to measure the time it takes a packet to travel though the Linux network stack. To begin with I thought I’ll hack the kernel to add my own timing measurements, but then I found this was already built in! I could use the SIOCGSTAMP or SIOCGSTAMPNS ioctl calls to retrieve the timestamp assigned by the network driver when the packet first enters the stack.</p>
 <div class=highlight><pre class=chroma><code class=language-c data-lang=c><span class=n>SOCKET</span> <span class=n>s</span><span class=p>;</span>
 <span class=k>struct</span> <span class=n>timeval</span> <span class=n>tv</span> <span class=o>=</span> <span class=p>{</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>};</span>
 <span class=k>if</span> <span class=p>(</span> <span class=n>ioctl</span><span class=p>(</span><span class=n>s</span><span class=p>,</span> <span class=n>SIOCGSTAMP</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>tv</span><span class=p>)</span> <span class=p>)</span>
    <span class=k>return</span> <span class=mi>0</span><span class=p>;</span> <span class=c1>// error
-</span><span class=c1></span><span class=n>printf</span><span class=p>(</span> <span class=s>&#34;%ld seconds and %ld nanoseconds&#34;</span><span class=p>,</span>  <span class=n>tv</span><span class=p>.</span><span class=n>tv_sec</span><span class=p>,</span>  <span class=n>tv</span><span class=p>.</span><span class=n>tv_usec</span> <span class=p>);</span></code></pre></div>
-<p>This works great for UDP packets or RAW sockets, but does not work for TCP. There are many good reasons why TCP isn&#8217;t supported, mainly because TCP is a stream protocol, whereas UDP and RAW sockets typically operate on discrete packets.</p>
+</span><span class=c1></span><span class=n>printf</span><span class=p>(</span> <span class=s>&#34;%ld seconds and %ld nanoseconds&#34;</span><span class=p>,</span>  <span class=n>tv</span><span class=p>.</span><span class=n>tv_sec</span><span class=p>,</span>  <span class=n>tv</span><span class=p>.</span><span class=n>tv_usec</span> <span class=p>);</span>
+</code></pre></div><p>This works great for UDP packets or RAW sockets, but does not work for TCP. There are many good reasons why TCP isn’t supported, mainly because TCP is a stream protocol, whereas UDP and RAW sockets typically operate on discrete packets.</p>
 <p>Ignoring this fact I decided to hack the kernel anyway to record the timestamps for TCP. It is a simple patch which hopefully others might find useful if they ever need to profile the TCP stack. It applys cleanly to 2.6.24 kernels.</p>
 <div class=highlight><pre class=chroma><code class=language-diff data-lang=diff><span class=gd>--- a/linux-2.6.24/net/ipv4/tcp.c	2008-01-24 22:58:37.000000000 +0000
 </span><span class=gd></span><span class=gi>+++ b/linux-2.6.24/net/ipv4/tcp.c	2008-02-11 19:40:41.000000000 +0000
@@ -144,18 +144,19 @@ window.dataLayer = window.dataLayer || [];
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2008\/04\/05\/linux-kernel-patch-for-tcp-timestamping\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2008\/04\/05\/linux-kernel-patch-for-tcp-timestamping\/';
     var disqus_title = 'Linux kernel patch for TCP timestamping';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2008\/04\/05\/linux-kernel-patch-for-tcp-timestamping\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -163,7 +164,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

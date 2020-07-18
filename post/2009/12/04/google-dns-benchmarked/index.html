@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -105,13 +105,13 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p>Today <a href=http://googleblog.blogspot.com/2009/12/introducing-google-public-dns.html>Google announced</a> a public DNS service they are hosting. They claim that their DNS infrastructure is <a href=http://code.google.com/speed/public-dns/docs/performance.html>faster and more secure</a>, because their servers do some clever things. I wanted to test their performance claims, so I wrote a <a href=dns.php>little script</a> to measure a lookup times for different domains across a number of DNS servers.</p>
 <h3 id=methodology>Methodology</h3>
-<p>Firstly I found a <a href=http://www.quantcast.com/top-sites-1>list of the 1 million most popular sites</a>. I then picked a number of DNS servers to test against. I chose <a href=http://code.google.com/speed/public-dns/ >Google</a>&#8216;s, <a href=http://www.opendns.com/ >OpenDNS</a>&#8216;s, my ISP (<a href=http://broadband.sky.com/ >Sky/Easynet</a>) and my old ISP&#8217;s (<a href=http://www.plus.net/ >Plus.net</a>).</p>
+<p>Firstly I found a <a href=http://www.quantcast.com/top-sites-1>list of the 1 million most popular sites</a>. I then picked a number of DNS servers to test against. I chose <a href=http://code.google.com/speed/public-dns/ >Google</a>‘s, <a href=http://www.opendns.com/ >OpenDNS</a>‘s, my ISP (<a href=http://broadband.sky.com/ >Sky/Easynet</a>) and my old ISP’s (<a href=http://www.plus.net/ >Plus.net</a>).</p>
 <p>I decided I would query an <a href=http://en.wikipedia.org/wiki/List_of_DNS_record_types>A record</a> for each of the domains in the list, one at a time, starting with the most popular. I would query each server three times for the same domain name. The ordering was like this:</p>
 <div class=highlight><pre class=chroma><code class=language-php data-lang=php>foreach (domain)
    for (i =0; i<span class=p>&lt;</span><span class=nt>3</span><span class=err>;</span><span class=na>i</span><span class=err>++)</span>
       <span class=na>foreach</span> <span class=err>(</span><span class=na>server</span><span class=err>)</span>
-         <span class=na>query</span><span class=err>(</span><span class=na>server</span><span class=err>,</span> <span class=na>domain</span><span class=err>)</span></code></pre></div>
-<p>I recorded the time it took for each query to be answered, and I also recorded the replies. I was curious to see if some servers replied with different answers, or if some returned more information, i.e. additional records.</p>
+         <span class=na>query</span><span class=err>(</span><span class=na>server</span><span class=err>,</span> <span class=na>domain</span><span class=err>)</span>
+</code></pre></div><p>I recorded the time it took for each query to be answered, and I also recorded the replies. I was curious to see if some servers replied with different answers, or if some returned more information, i.e. additional records.</p>
 <p>I <a href=dns.php>wrote a script</a> in PHP 5.3, and ran it from the command line on my Windows Server 2008 machine. The script used PEAR&rsquo;s Net_DNS to craft and send the DNS questions. I was not using my operating system&rsquo;s resolver, and I was not using any form of client side caching. I ran the experiments from my home ADSL connection and as far as I know my ISP was not interfering with my DNS requests in any way. I live in the North West of the UK.</p>
 <h3 id=results>Results</h3>
 <p>After letting this run for a few hours, and querying roughly the top 10,000 domains, I have some preliminary results.</p>
@@ -240,18 +240,19 @@ window.dataLayer = window.dataLayer || [];
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/12\/04\/google-dns-benchmarked\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/12\/04\/google-dns-benchmarked\/';
     var disqus_title = 'Google DNS Benchmarked';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2009\/12\/04\/google-dns-benchmarked\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -259,7 +260,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

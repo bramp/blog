@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Threadnetperf on bramp.net</title>
+    <title>threadnetperf on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Threadnetperf on bramp.net</description>
+    <description>Recent content in threadnetperf on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Mon, 01 Jun 2009 00:00:00 +0000</lastBuildDate>
@@ -15,13 +14,10 @@
       <pubDate>Mon, 01 Jun 2009 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2009/06/01/threadnetperf-v1.0/</guid>
-      <description>&lt;p&gt;Today I am proud to announce that I&amp;#8217;m releasing a tool I&amp;#8217;ve used privately for well over a year now. It is a multi-threaded network testing tool which gives the user great control over how many connections, threads and processes the tool uses, and which CPU cores the threads/processes are allowed to execute on.&lt;/p&gt;
-
+      <description>&lt;p&gt;Today I am proud to announce that I’m releasing a tool I’ve used privately for well over a year now. It is a multi-threaded network testing tool which gives the user great control over how many connections, threads and processes the tool uses, and which CPU cores the threads/processes are allowed to execute on.&lt;/p&gt;
 &lt;p&gt;Currently the tool runs on Linux, FreeBSD, and Windows, and has performance as good as (if not better) than other similar tools, such as netperf, iperf, but with the added flexibility. Additionally, Threadnetperf has been completely written from scratch in C, using modern programming techniques and APIs (such as ePoll on Linux) which ensures the program runs as far as possible with minimal overheads.&lt;/p&gt;
-
 &lt;p&gt;You can &lt;a href=&#34;https://github.com/bramp/threadnetperf&#34;&gt;download the source from GitHub&lt;/a&gt;, which contains instructions on how to build it.&lt;/p&gt;
-
-&lt;p&gt;So that you get an extra idea of it&amp;#8217;s features here is the README.txt&lt;/p&gt;
+&lt;p&gt;So that you get an extra idea of it’s features here is the README.txt&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;****** Threadnetperf ******
 A multi-threaded network benchmark tool
  by  Andrew Brampton (2007-2009)
@@ -105,7 +101,8 @@ tests very easy as the daemon will continue to wait for new tests until it is
 told otherwise.
 
 If you find this tool useful, or you have any suggestions for improvements then
-please contact us.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+please contact us.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
   </channel>

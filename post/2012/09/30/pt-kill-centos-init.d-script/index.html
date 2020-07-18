@@ -5,7 +5,7 @@
 <meta content="width=device-width,initial-scale=1" name=viewport>
 <link href=https://blog.bramp.net/post/2012/09/30/pt-kill-centos-init.d-script/ rel=canonical itemprop=url />
 <title>pt-kill CentOS init.d script</title>
-<meta content="pt-kill is a neat little application that can stop long running MySQL queries. It was formally know as mk-kill before Percona took over the project. Here is the init.d script I use (as one …" name=description itemprop=description>
+<meta content="pt-kill is a neat little application that can stop long running MySQL queries. It was formally know as mk-kill before Percona took over the project. Here is the init.d script I use (as one doesn’t …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -46,7 +46,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=https://blog.bramp.net/post/2012/09/30/pt-kill-centos-init.d-script/ property=og:url />
 <meta content=bramp.net property=og:site_name />
 <meta content="pt-kill CentOS init.d script" property=og:title />
-<meta content="pt-kill is a neat little application that can stop long running MySQL queries. It was formally know as mk-kill before Percona took over the project. Here is the init.d script I use (as one …" property=og:description />
+<meta content="pt-kill is a neat little application that can stop long running MySQL queries. It was formally know as mk-kill before Percona took over the project. Here is the init.d script I use (as one doesn’t …" property=og:description />
 <meta content=2012-09-30T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -99,10 +99,10 @@ window.dataLayer = window.dataLayer || [];
 | <a href=https://blog.bramp.net/tags/mysql/ >mysql</a>
 </p>
 <div class=post itemprop=articleBody>
-<p><a href=http://www.percona.com/doc/percona-toolkit/2.1/pt-kill.html>pt-kill</a> is a neat little application that can stop long running MySQL queries. It was formally know as <a href=http://www.maatkit.org/doc/mk-kill.html>mk-kill</a> before <a href=http://www.Percona.com>Percona</a> took over the project. Here is the init.d script I use (as one doesn&#8217;t seem provided by the project):</p>
+<p><a href=http://www.percona.com/doc/percona-toolkit/2.1/pt-kill.html>pt-kill</a> is a neat little application that can stop long running MySQL queries. It was formally know as <a href=http://www.maatkit.org/doc/mk-kill.html>mk-kill</a> before <a href=http://www.Percona.com>Percona</a> took over the project. Here is the init.d script I use (as one doesn’t seem provided by the project):</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=cp>#!/bin/sh
 </span><span class=cp></span>#
-<span class=c1># pt-kill   This shell script takes care of starting and stopping</span>
+<span class=c1># pt-kill	This shell script takes care of starting and stopping</span>
 <span class=c1>#               the pt-kill services.</span>
 #
 <span class=c1># chkconfig: - 60 20</span>
@@ -141,23 +141,23 @@ window.dataLayer = window.dataLayer || [];
   <span class=p>;;</span>
   stop<span class=o>)</span>
         <span class=c1># Stop daemons.</span>
-        <span class=nb>echo</span> -n <span class=s2>$&#34;Shutting down pt-kill: &#34;</span>
+       	<span class=nb>echo</span> -n <span class=s2>$&#34;Shutting down pt-kill: &#34;</span>
         killproc pt-kill
         <span class=nb>echo</span>
-    <span class=p>;;</span>
+	<span class=p>;;</span>
   restart<span class=o>)</span>
-    <span class=nv>$0</span> stop
+	<span class=nv>$0</span> stop
         <span class=nv>$0</span> start
         <span class=p>;;</span>
   *<span class=o>)</span>
-        <span class=nb>echo</span> <span class=s2>$&#34;Usage: pt-kill {start|stop}&#34;</span>
+    	<span class=nb>echo</span> <span class=s2>$&#34;Usage: pt-kill {start|stop}&#34;</span>
         <span class=nv>RETVAL</span><span class=o>=</span><span class=m>3</span>
         <span class=p>;;</span>
 <span class=k>esac</span>
  
-<span class=nb>exit</span> <span class=nv>$RETVAL</span></code></pre></div>
-<p><strong>Usage:</strong></p>
-<p>Create the script as /etc/init.d/pt-kill, and change the pt-kill command in the middle of the script to suit your needs. Then run &#8216;chkconfig &#8211;level 345 pt-kill on&#8217; to ensure this script starts up at boot. Alternatively test the script with &#8216;/etc/init.d/pt-kill start&#8217; or &#8216;/etc/init.d/pt-kill stop&#8217;.</p>
+<span class=nb>exit</span> <span class=nv>$RETVAL</span>
+</code></pre></div><p><strong>Usage:</strong></p>
+<p>Create the script as /etc/init.d/pt-kill, and change the pt-kill command in the middle of the script to suit your needs. Then run ‘chkconfig –level 345 pt-kill on’ to ensure this script starts up at boot. Alternatively test the script with ‘/etc/init.d/pt-kill start’ or ‘/etc/init.d/pt-kill stop’.</p>
 <p>Thanks to <a href=http://www.mysqldiary.com/you-must-have-a-killer-in-your-system/ >MySQL Diary</a> as they provided their default pt-kill command line. Perhaps in future someone could create a more generic startup script.</p>
 </div>
 </article>
@@ -182,18 +182,19 @@ window.dataLayer = window.dataLayer || [];
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2012\/09\/30\/pt-kill-centos-init.d-script\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2012\/09\/30\/pt-kill-centos-init.d-script\/';
     var disqus_title = 'pt-kill CentOS init.d script';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2012\/09\/30\/pt-kill-centos-init.d-script\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -201,7 +202,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

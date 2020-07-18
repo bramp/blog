@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Marvel on bramp.net</title>
+    <title>marvel on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Marvel on bramp.net</description>
+    <description>Recent content in marvel on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Sun, 08 Apr 2018 21:46:21 -0700</lastBuildDate>
@@ -16,27 +15,22 @@
       
       <guid>https://blog.bramp.net/post/2018/04/08/the-mcu/</guid>
       <description>&lt;p&gt;In the run up to the &lt;a href=&#34;https://www.imdb.com/title/tt4154756/&#34;&gt;third Avengers movie&lt;/a&gt;, I was wondering which characters have appeared together, and when. With dozens of characters across eighteen &lt;a href=&#34;https://en.wikipedia.org/wiki/Marvel_Cinematic_Universe&#34;&gt;Marvel Cinematic Universe&lt;/a&gt; (MCU) movies, this will make Avengers Infinity War one huge mashup. In the style of the &lt;a href=&#34;https://xkcd.com/657/&#34;&gt;XKCD narrative diagrams&lt;/a&gt;, I plotted out the journey each character has taken across the numerous movies. I also got carried away and created a similar (yet smaller) diagram for the &lt;a href=&#34;https://en.wikipedia.org/wiki/List_of_Marvel_Cinematic_Universe_television_series#Netflix_series&#34;&gt;Netflix Marvel shows&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Marvel Cinematic Universe - Iron Man (2008) though Avengers: Infinity War (2018)&lt;/strong&gt;
+&lt;p&gt;&lt;strong&gt;Marvel Cinematic Universe - Iron Man (2008) though Avengers: Infinity War (2018)&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;text-center&#34;&gt;
 &lt;a href=&#34;https://projects.bramp.net/mcu/film.html&#34;&gt;
   &lt;img src=&#34;film.png&#34; width=770 height=344 alt=&#34;Marvel Cinematic Universe - Character Timeline&#34;&gt;&lt;/img&gt;
   &lt;p&gt;click to open an interactive version&lt;/p&gt;
 &lt;/a&gt;
-&lt;/div&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Marvel Cinematic Universe - Netflix Shows&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br/&gt;
+&lt;p&gt;&lt;strong&gt;Marvel Cinematic Universe - Netflix Shows&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;text-center&#34;&gt;
 &lt;a href=&#34;https://projects.bramp.net/mcu/netflix.html&#34;&gt;
   &lt;img src=&#34;netflix.png&#34; width=770 height=411 alt=&#34;Marvel Netflix Shows - Character Timeline&#34;&gt;&lt;/img&gt;
   &lt;p&gt;click to open an interactive version&lt;/p&gt;
 &lt;/a&gt;
-&lt;/div&gt;&lt;/p&gt;
-
+&lt;/div&gt;
 &lt;p&gt;I would like to thank the contributors to &lt;a href=&#34;http://marvel-movies.wikia.com/&#34;&gt;marvel-movies.wikia.com&lt;/a&gt; where I got all the information. As well as &lt;a href=&#34;https://twitter.com/drzax&#34;&gt;Simon Elvery&lt;/a&gt; who created the &lt;a href=&#34;https://github.com/abcnews/d3-layout-narrative&#34;&gt;d3-layout-narrative&lt;/a&gt; module for &lt;a href=&#34;https://d3js.org/&#34;&gt;d3.js&lt;/a&gt; that made these diagrams easier to create. Check back in future when I write up an article on how I created these diagrams. As always, I welcome feedback, you may contact me at &lt;a href=&#34;https://twitter.com/TheBramp&#34;&gt;@TheBramp&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>

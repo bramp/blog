@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ssl on bramp.net</title>
+    <title>ssl on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Ssl on bramp.net</description>
+    <description>Recent content in ssl on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Wed, 08 Jun 2016 19:37:47 -0700</lastBuildDate>
@@ -16,9 +15,7 @@
       
       <guid>https://blog.bramp.net/post/2016/06/08/turn-on-github-io-ssl/</guid>
       <description>&lt;p&gt;GitHub just &lt;a href=&#34;https://github.com/blog/2186-https-for-github-pages&#34;&gt;announced&lt;/a&gt; that all github.io sites can enforce the use of HTTPS. Previously GitHub supported HTTPS on these sites, but you couldn&amp;rsquo;t force users to use HTTPS other than using a &lt;a href=&#34;https://gist.github.com/konklone/9968713&#34;&gt;javascript redirect hack&lt;/a&gt;, or putting a CDN infront of GitHub. Now by checking a single box you can force users to the secure version:&lt;/p&gt;
-
 &lt;p&gt;&lt;img src=&#34;checkbox.png&#34; alt=&#34;Enforce HTTPS Checkbox&#34;&gt;&lt;/img&gt;&lt;/p&gt;
-
 &lt;p&gt;Sadly I have far too many repositories, and I don&amp;rsquo;t recall which one uses pages. I figured it would be easy to hit &lt;a href=&#34;https://developer.github.com/v3/&#34;&gt;GitHub&amp;rsquo;s API&lt;/a&gt; and enabled this. The API doesn&amp;rsquo;t directly support enabling HTTPS, so instead I wrote a quick script to list all repos with GitHub pages:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;ch&#34;&gt;#!/usr/bin/env python&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;# Prints a list of all owned repositories with pages.&lt;/span&gt;
@@ -39,9 +36,8 @@
 		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;repo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;has_pages&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]:&lt;/span&gt;
 			&lt;span class=&#34;k&#34;&gt;print&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;%32s&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;%s&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/settings&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;repo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;name&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;repo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;html_url&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
 
-	&lt;span class=&#34;n&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;page&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Download &lt;a href=&#34;turn-on-github-ssl.py&#34;&gt;turn-on-github-ssl.py&lt;/a&gt;&lt;/p&gt;
-
+	&lt;span class=&#34;n&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;page&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Download &lt;a href=&#34;turn-on-github-ssl.py&#34;&gt;turn-on-github-ssl.py&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;This print out something like so:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ./turn-on-github-ssl.py
 
@@ -53,8 +49,8 @@ js-sequence-diagrams https://github.com/bramp/js-sequence-diagrams/settings
              prob.js https://github.com/bramp/prob.js/settings
                 &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; https://github.com/bramp/test/settings
               unsafe https://github.com/bramp/unsafe/settings
-...&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Now click on each URL, and just check the box.&lt;/p&gt;
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now click on each URL, and just check the box.&lt;/p&gt;
 </description>
     </item>
     

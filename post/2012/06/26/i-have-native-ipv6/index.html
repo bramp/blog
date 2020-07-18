@@ -5,7 +5,7 @@
 <meta content="width=device-width,initial-scale=1" name=viewport>
 <link href=https://blog.bramp.net/post/2012/06/26/i-have-native-ipv6/ rel=canonical itemprop=url />
 <title>I have native IPv6</title>
-<meta content="I&#8217;m more excited than I should be, but today I noticed that Comcast has enabled IPv6 on my home internet connection. All my devices in the home have picked up one or more Internet routable IPv6 …" name=description itemprop=description>
+<meta content="I’m more excited than I should be, but today I noticed that Comcast has enabled IPv6 on my home internet connection. All my devices in the home have picked up one or more Internet routable IPv6 …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -46,7 +46,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=https://blog.bramp.net/post/2012/06/26/i-have-native-ipv6/ property=og:url />
 <meta content=bramp.net property=og:site_name />
 <meta content="I have native IPv6" property=og:title />
-<meta content="I&#8217;m more excited than I should be, but today I noticed that Comcast has enabled IPv6 on my home internet connection. All my devices in the home have picked up one or more Internet routable IPv6 …" property=og:description />
+<meta content="I’m more excited than I should be, but today I noticed that Comcast has enabled IPv6 on my home internet connection. All my devices in the home have picked up one or more Internet routable IPv6 …" property=og:description />
 <meta content=2012-06-26T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -99,7 +99,7 @@ window.dataLayer = window.dataLayer || [];
 | <a href=https://blog.bramp.net/tags/ipv6/ >IPv6</a>
 </p>
 <div class=post itemprop=articleBody>
-<p>I&#8217;m more excited than I should be, but today I noticed that Comcast has enabled IPv6 on my home internet connection. All my devices in the home have picked up one or more Internet routable IPv6 addresses. Here are a few screen shots:</p>
+<p>I’m more excited than I should be, but today I noticed that Comcast has enabled IPv6 on my home internet connection. All my devices in the home have picked up one or more Internet routable IPv6 addresses. Here are a few screen shots:</p>
 <p></p><figure>
 <img src=ifconfig-v6.png /><figcaption>
 <h4>IPv6 ifconfig</h4>
@@ -126,7 +126,7 @@ window.dataLayer = window.dataLayer || [];
 </figcaption>
 </figure>
 <p></p>
-<p>So this is very cool, but this has identified a few issues. The most important of which, is that I had previously been using my NAT as a firewall, protecting all devices on the internal network. However, now they all have external IP addresses, they are effectively open to the Internet and un-firewalled. That&#8217;s not an issue for my Linux machines, but could be problematic for my girlfriend&#8217;s Windows laptop, and my various embedded devices (phones, tablets, and TVs).</p>
+<p>So this is very cool, but this has identified a few issues. The most important of which, is that I had previously been using my NAT as a firewall, protecting all devices on the internal network. However, now they all have external IP addresses, they are effectively open to the Internet and un-firewalled. That’s not an issue for my Linux machines, but could be problematic for my girlfriend’s Windows laptop, and my various embedded devices (phones, tablets, and TVs).</p>
 </div>
 </article>
 <div class=row>
@@ -150,18 +150,19 @@ window.dataLayer = window.dataLayer || [];
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2012\/06\/26\/i-have-native-ipv6\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2012\/06\/26\/i-have-native-ipv6\/';
     var disqus_title = 'I have native IPv6';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2012\/06\/26\/i-have-native-ipv6\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -169,7 +170,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Viva on bramp.net</title>
+    <title>viva on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Viva on bramp.net</description>
+    <description>Recent content in viva on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Mon, 15 Dec 2008 00:00:00 +0000</lastBuildDate>
@@ -16,7 +15,6 @@
       
       <guid>https://blog.bramp.net/post/2008/12/15/passed-my-viva/</guid>
       <description>&lt;p&gt;Hey, so after 3 hours 30 minutes, I successfully defended my thesis and passed my viva (subject to minor corrections).&lt;/p&gt;
-
 &lt;p&gt;YAY&lt;/p&gt;
 </description>
     </item>

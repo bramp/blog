@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Windows Xp on bramp.net</title>
+    <title>Windows XP on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Windows Xp on bramp.net</description>
+    <description>Recent content in Windows XP on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Fri, 20 Jun 2008 00:00:00 +0000</lastBuildDate>
@@ -16,12 +15,9 @@
       
       <guid>https://blog.bramp.net/post/2008/06/20/2tb-is-too-much-for-xp/</guid>
       <description>&lt;p&gt;I just got a new motherboard and 4 new shiny 750GB &lt;a href=&#34;http://www.samsung.com/global/business/hdd/productmodel.do?type=61&amp;amp;subtype=63&amp;amp;model_cd=248&#34;&gt;Samsung F1 hard drives&lt;/a&gt;. So I thought I would use the Intel Matrix Storage feature of my motherboard to create a RAID 5 array from these drives.&lt;/p&gt;
-
-&lt;p&gt;A day or so later I finally managed to get an array set up, however it was not larger than 2 Terabytes. The problem appears to be the lack of support of partitions in Windows XP (32 bit edition) which are greater than 2 TB in size. If I was using Windows XP (64 bit) or Vista I would not have had this problem. In fact there didn&amp;#8217;t even seem to be a problem, which is why it took me so long to figure this out.&lt;/p&gt;
-
-&lt;p&gt;Within the Intel application I could see my nice larger than 2TB drive; however inside Windows&amp;#8217; Disk Management the array would not appear. Oddly it would appear in Device manager under the Disk Drive heading. After thinking something was wrong with a drive, or my new windows installed, I set to Google. However that proved useless as I couldn&amp;#8217;t find anyone reporting their RAID would not appear. Also the Intel docs were not helpful, not once pointing out that a single partition of over 2TB was not supported on XP.&lt;/p&gt;
-
-&lt;p&gt;Finally the solution to my problem was found on &lt;a href=&#34;http://www.carltonbale.com/2007/05/how-to-break-the-2tb-2-terabyte-file-system-limit/&#34;&gt;Carlton Bale&amp;#8217;s blog&lt;/a&gt;. I could either buy a &lt;a href=&#34;http://www.mediafour.com/products/gptmounter/&#34;&gt;piece of software&lt;/a&gt;, upgrade to Vista, or make multiple 2TB sized arrays. I finally decided to go with option 3, multiple 2TB arrays. This &lt;a href=&#34;http://www.microsoft.com/whdc/device/storage/LUN_SP1.&#34;&gt;Microsoft article&lt;/a&gt; has more information.&lt;/p&gt;
+&lt;p&gt;A day or so later I finally managed to get an array set up, however it was not larger than 2 Terabytes. The problem appears to be the lack of support of partitions in Windows XP (32 bit edition) which are greater than 2 TB in size. If I was using Windows XP (64 bit) or Vista I would not have had this problem. In fact there didn’t even seem to be a problem, which is why it took me so long to figure this out.&lt;/p&gt;
+&lt;p&gt;Within the Intel application I could see my nice larger than 2TB drive; however inside Windows’ Disk Management the array would not appear. Oddly it would appear in Device manager under the Disk Drive heading. After thinking something was wrong with a drive, or my new windows installed, I set to Google. However that proved useless as I couldn’t find anyone reporting their RAID would not appear. Also the Intel docs were not helpful, not once pointing out that a single partition of over 2TB was not supported on XP.&lt;/p&gt;
+&lt;p&gt;Finally the solution to my problem was found on &lt;a href=&#34;http://www.carltonbale.com/2007/05/how-to-break-the-2tb-2-terabyte-file-system-limit/&#34;&gt;Carlton Bale’s blog&lt;/a&gt;. I could either buy a &lt;a href=&#34;http://www.mediafour.com/products/gptmounter/&#34;&gt;piece of software&lt;/a&gt;, upgrade to Vista, or make multiple 2TB sized arrays. I finally decided to go with option 3, multiple 2TB arrays. This &lt;a href=&#34;http://www.microsoft.com/whdc/device/storage/LUN_SP1.&#34;&gt;Microsoft article&lt;/a&gt; has more information.&lt;/p&gt;
 </description>
     </item>
     
