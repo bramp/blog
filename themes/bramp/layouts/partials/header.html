@@ -32,7 +32,7 @@
   <meta itemprop="description" name="description" content="{{ . | truncate 200 }}">
 {{ end }}
   <meta itemprop="creator" name="author" content="{{ .Site.Author.name }}">
-  <meta name="generator" content="{{ .Hugo.Generator }}"/>
+  <meta name="generator" content="{{ hugo.Generator }}"/>
 
 {{ if .Site.RSSLink  }}
   <link href="{{ .Site.RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
