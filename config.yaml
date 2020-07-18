@@ -8,6 +8,8 @@ theme: "bramp"
 author:
   name: "Andrew Brampton"
 
+DisqusShortname: "bramp"
+
 params:
   Description: "Andrew Brampton's Tech blog"
   github: "bramp"
@@ -15,7 +17,6 @@ params:
   linkedin: "bramp"
   facebook: "bramp"
   GoogleAnalytics: "UA-136478-5"
-  DisqusShortname: "bramp"
   GoogleSiteVerification: "RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"
   FeedBurner: "brampnet"
 
