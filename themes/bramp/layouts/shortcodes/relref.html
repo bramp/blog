@@ -1,11 +1,17 @@
+{{/* Returns a relative reference to the give page e.g:
+   {{< relref "about-me.md" >}}
+
+TODO Do we need this shortcode?
+*/}}
+
 {{- if in (.Get 0) "/_index.md" -}}
 	{{- $path := (trim (.Get 0) "_index.md") -}}
 	{{- with .Site.GetPage "section" (trim $path "/") -}}
-		{{- .URL -}}
+		{{- .RelPermalink -}}
 	{{- end -}}
 {{- else -}}
 	{{- with .Site.GetPage "section" (.Get 0) }}
-		{{- .URL -}}
+		{{- .RelPermalink -}}
 	{{- else -}}
 		{{- .Get 0 | relref .Page -}}
 	{{- end -}}
