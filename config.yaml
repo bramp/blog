@@ -29,7 +29,7 @@ taxonomies:
   category: "categories"
   post: "posts"
 
-pygmentsCodeFences: true
+# TODO Hugo moved to Chroma, does the following work?
 pygmentsUseClasses: true
 pygmentsStyle: friendly
 #pygmentsoptions: startinline=true

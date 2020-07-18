@@ -20,7 +20,7 @@
 
 	<h1>Recent Articles</h1>
 	<div id="article" itemscope="" itemtype="http://schema.org/Blog">
-		{{ $paginator := .Paginate (where .Data.Pages "Type" "post") 25 }}
+		{{ $paginator := .Paginate (where .Site.RegularPages "Type" "post") 25 }}
 		{{ range $paginator.Pages }}
 		<p itemprop="blogPost" itemscope="" itemtype="http://schema.org/BlogPosting">
 			<a href="{{ .RelPermalink }}" itemprop="url">
