@@ -32,4 +32,8 @@ taxonomies:
 # TODO Hugo moved to Chroma, does the following work?
 pygmentsUseClasses: true
 pygmentsStyle: friendly
-#pygmentsoptions: startinline=true
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true # Allow inline HTML in the markdown
