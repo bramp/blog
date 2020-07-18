@@ -9,6 +9,7 @@ author:
   name: "Andrew Brampton"
 
 DisqusShortname: "bramp"
+GoogleAnalytics: "UA-136478-5"
 
 params:
   Description: "Andrew Brampton's Tech blog"
@@ -16,7 +17,6 @@ params:
   twitter: "TheBramp"
   linkedin: "bramp"
   facebook: "bramp"
-  GoogleAnalytics: "UA-136478-5"
   GoogleSiteVerification: "RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"
   FeedBurner: "brampnet"
 
