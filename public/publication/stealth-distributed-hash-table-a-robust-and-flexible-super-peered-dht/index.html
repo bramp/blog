@@ -6,9 +6,9 @@
 <link href=https://blog.bramp.net/publication/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/ rel=canonical itemprop=url />
 <title>Stealth Distributed Hash Table: A robust and flexible super-peered DHT</title>
 <meta content="Andrew Brampton, Andrew MacQuire, Idris A. Rai, Nicholas J. P. Race, and Laurent Mathy.
-In proceedings of the 2nd Conference on Future Networking Technologies (CoNEXT&#8217;06)
+In proceedings of the 2nd Conference on Future Networking Technologies (CoNEXT’06)
  Abstract
-Most …" name=description itemprop=description>
+Most Distributed …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -27,7 +27,7 @@ Most …" name=description itemprop=description>
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -48,9 +48,9 @@ window.dataLayer = window.dataLayer || [];
 <meta content=bramp.net property=og:site_name />
 <meta content="Stealth Distributed Hash Table: A robust and flexible super-peered DHT" property=og:title />
 <meta content="Andrew Brampton, Andrew MacQuire, Idris A. Rai, Nicholas J. P. Race, and Laurent Mathy.
-In proceedings of the 2nd Conference on Future Networking Technologies (CoNEXT&#8217;06)
+In proceedings of the 2nd Conference on Future Networking Technologies (CoNEXT’06)
  Abstract
-Most …" property=og:description />
+Most Distributed …" property=og:description />
 <meta content=2006-12-01T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -102,7 +102,7 @@ Most …" property=og:description />
 </p>
 <div class=post itemprop=articleBody>
 <p>Andrew Brampton, Andrew MacQuire, Idris A. Rai, Nicholas J. P. Race, and Laurent Mathy.</p>
-<p>In proceedings of the 2nd Conference on Future Networking Technologies (CoNEXT&#8217;06)</p>
+<p>In proceedings of the 2nd Conference on Future Networking Technologies (CoNEXT’06)</p>
 <blockquote>
 <p><strong>Abstract</strong></p>
 <p>Most Distributed Hash Tables (DHTs) simply consider interconnecting homogeneous nodes on the same overlay. However, realistically nodes on a network are heterogeneous in terms of their capabilities. Because of this, traditional DHTs have been shown to exhibit poor performance in a real-world environment. Additionally, we believe that it is this approach that contributes to a limited exploitation of peer-to-peer technologies. Previous work on super-peers in DHTs was proposed to address these performance issues, however the strategy used is often based on locally clustering peers around individual super-peers. This method of superpeering, however, compromises fundamental features such as load-balancing, resilience and routing efficiency, which traditional DHTs originally promised to offer. We propose a Stealth DHT which addresses the deficiencies of previous super-peer approaches by using the DHT algorithm itself to select the most appropriate super-peer for each message sent by peers. Through simulations and measurements, we show the fitness for purpose of our proposal.</p>
@@ -131,18 +131,19 @@ Most …" property=og:description />
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/publication\/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/publication\/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht\/';
     var disqus_title = 'Stealth Distributed Hash Table: A robust and flexible super-peered DHT';
     var disqus_url = 'https:\/\/blog.bramp.net\/publication\/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -150,7 +151,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

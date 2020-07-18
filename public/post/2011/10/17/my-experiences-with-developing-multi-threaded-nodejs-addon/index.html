@@ -5,7 +5,7 @@
 <meta content="width=device-width,initial-scale=1" name=viewport>
 <link href=https://blog.bramp.net/post/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/ rel=canonical itemprop=url />
 <title>My experiences with developing multi-threaded nodejs addon</title>
-<meta content="I&#8217;ve been modifying an existing nodejs extension, that wraps libcwiid (a C library written to interface with a Wiimote). This extension uses polling to check if the state of the Wiimote has …" name=description itemprop=description>
+<meta content="I’ve been modifying an existing nodejs extension, that wraps libcwiid (a C library written to interface with a Wiimote). This extension uses polling to check if the state of the Wiimote has changed …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -46,7 +46,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=https://blog.bramp.net/post/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/ property=og:url />
 <meta content=bramp.net property=og:site_name />
 <meta content="My experiences with developing multi-threaded nodejs addon" property=og:title />
-<meta content="I&#8217;ve been modifying an existing nodejs extension, that wraps libcwiid (a C library written to interface with a Wiimote). This extension uses polling to check if the state of the Wiimote has …" property=og:description />
+<meta content="I’ve been modifying an existing nodejs extension, that wraps libcwiid (a C library written to interface with a Wiimote). This extension uses polling to check if the state of the Wiimote has changed …" property=og:description />
 <meta content=2011-10-17T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -99,13 +99,12 @@ window.dataLayer = window.dataLayer || [];
 | <a href=https://blog.bramp.net/tags/threads/ >threads</a>
 </p>
 <div class=post itemprop=articleBody>
-<p>I&#8217;ve been modifying an <a href=https://github.com/tbranyen/nodewii>existing nodejs extension</a>, that wraps <a href=http://abstrakraft.org/cwiid/wiki/libcwiid>libcwiid</a> (a C library written to interface with a <a href=http://en.wikipedia.org/wiki/Wii_Remote>Wiimote</a>). This extension uses polling to check if the state of the Wiimote has changed (such as a button being pressed). Libcwiid however provides a callback mechanism to be alerted as soon as a state change occurs. This has the benefit of being instantaneous, instead of at the polling interval.</p>
-<p>While adapting <a href=https://github.com/bramp/nodewii>nodewii</a> to use this callback mechanism I learnt a couple of things about developing multi-threaded nodejs extensions that I thought I&#8217;d share.</p>
+<p>I’ve been modifying an <a href=https://github.com/tbranyen/nodewii>existing nodejs extension</a>, that wraps <a href=http://abstrakraft.org/cwiid/wiki/libcwiid>libcwiid</a> (a C library written to interface with a <a href=http://en.wikipedia.org/wiki/Wii_Remote>Wiimote</a>). This extension uses polling to check if the state of the Wiimote has changed (such as a button being pressed). Libcwiid however provides a callback mechanism to be alerted as soon as a state change occurs. This has the benefit of being instantaneous, instead of at the polling interval.</p>
+<p>While adapting <a href=https://github.com/bramp/nodewii>nodewii</a> to use this callback mechanism I learnt a couple of things about developing multi-threaded nodejs extensions that I thought I’d share.</p>
 <h4 id=1-all-v8-operations-must-run-from-the-main-thread>1) All V8 operations must run from the main thread</h4>
 <p><a href=http://nodejs.org/ >Nodejs</a> uses a single thread for executing the <a href=http://code.google.com/p/v8/ >V8 JavaScript engine</a>, and multiple worker threads to execute longer running non-JavaScript blocking tasks. Because V8 is not thread safe, all V8 operations must be executed from this single V8 thread. That means you are not allowed to create V8 objects, integers, strings, etc, from any other thread. If you try, race conditions happen, memory get corrupted and nodejs is likely to crash. Helpfully, nodejs does provide a mechanism to simplify using these threads:</p>
 <div class=highlight><pre class=chroma><code class=language-c++ data-lang=c++><span class=n>eio_custom</span><span class=p>(</span><span class=n>eio_cb</span> <span class=n>execute</span><span class=p>,</span> <span class=kt>int</span> <span class=n>pri</span><span class=p>,</span> <span class=n>eio_cb</span> <span class=n>cb</span><span class=p>,</span> <span class=kt>void</span> <span class=o>*</span><span class=n>data</span><span class=p>);</span>
-</code></pre></div>
-<p>This function allows you to execute a blocking task in a worker thread. Once that task is finished another callback is called on the main JavaScript thread. Multiple extensions use it, and this is the basis for how nodejs provides it&#8217;s callback mechanism. Here is a very short example (adapted from <a href=https://github.com/bramp/nodewii/blob/master/src/wiimote.cc>wiimote.cc</a>) of how to use eio_custom.</p>
+</code></pre></div><p>This function allows you to execute a blocking task in a worker thread. Once that task is finished another callback is called on the main JavaScript thread. Multiple extensions use it, and this is the basis for how nodejs provides it’s callback mechanism. Here is a very short example (adapted from <a href=https://github.com/bramp/nodewii/blob/master/src/wiimote.cc>wiimote.cc</a>) of how to use eio_custom.</p>
 <div class=highlight><pre class=chroma><code class=language-c++ data-lang=c++><span class=n>Handle</span><span class=o>&amp;</span><span class=n>lt</span><span class=p>;</span><span class=n>Value</span><span class=o>&amp;</span><span class=n>gt</span><span class=p>;</span> <span class=n>WiiMote</span><span class=o>::</span><span class=n>Connect</span><span class=p>(</span><span class=k>const</span> <span class=n>Arguments</span><span class=o>&amp;</span> <span class=n>args</span><span class=p>)</span> <span class=p>{</span>
   <span class=n>WiiMote</span><span class=o>*</span> <span class=n>wiimote</span> <span class=o>=</span> <span class=n>ObjectWrap</span><span class=o>::</span><span class=n>Unwrap</span><span class=o>&amp;</span><span class=n>lt</span><span class=p>;</span><span class=n>WiiMote</span><span class=o>&amp;</span><span class=n>gt</span><span class=p>;(</span><span class=n>args</span><span class=p>.</span><span class=n>This</span><span class=p>());</span>
   <span class=n>Local</span><span class=o>&amp;</span><span class=n>lt</span><span class=p>;</span><span class=n>Function</span><span class=o>&amp;</span><span class=n>gt</span><span class=p>;</span> <span class=n>callback</span><span class=p>;</span>
@@ -114,7 +113,7 @@ window.dataLayer = window.dataLayer || [];
 
   <span class=c1>// Pass the arguments like you would any other method
 </span><span class=c1></span>  <span class=k>if</span><span class=p>(</span><span class=n>args</span><span class=p>.</span><span class=n>Length</span><span class=p>()</span> <span class=o>==</span> <span class=mi>0</span> <span class=o>||</span> <span class=o>!</span><span class=n>args</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>-&amp;</span><span class=n>gt</span><span class=p>;</span><span class=n>IsFunction</span><span class=p>())</span> <span class=p>{</span>
-    <span class=k>return</span> <span class=n>ThrowException</span><span class=p>(</span>
+    <span class=k>return</span> <span class=nf>ThrowException</span><span class=p>(</span>
       <span class=n>Exception</span><span class=o>::</span><span class=n>Error</span><span class=p>(</span><span class=n>String</span><span class=o>::</span><span class=n>New</span><span class=p>(</span><span class=s>&#34;Callback is required and must be a Function.&#34;</span><span class=p>))</span>
     <span class=p>);</span>
   <span class=p>}</span>
@@ -181,24 +180,22 @@ window.dataLayer = window.dataLayer || [];
 
   <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
 <span class=p>}</span>
-</code></pre></div>
-<p>This simple pattern makes writing callback code relatively simple. However, this only works well if you are in control of creating the callback.</p>
-<h4 id=2-how-to-run-something-on-the-main-thread-without-eio-custom>2) How to run something on the main thread without eio_custom</h4>
-<p>Libcwiid creates it&#8217;s own thread, which is uses to read data from the wiimote. When data is received, it invokes a callback function passing this new data. This callback function is run on the libcwiid thread. This restricts us from interacting with V8. We ideally need this callback function running in the context of the main thread. The answer to this problem is:</p>
+</code></pre></div><p>This simple pattern makes writing callback code relatively simple. However, this only works well if you are in control of creating the callback.</p>
+<h4 id=2-how-to-run-something-on-the-main-thread-without-eio_custom>2) How to run something on the main thread without eio_custom</h4>
+<p>Libcwiid creates it’s own thread, which is uses to read data from the wiimote. When data is received, it invokes a callback function passing this new data. This callback function is run on the libcwiid thread. This restricts us from interacting with V8. We ideally need this callback function running in the context of the main thread. The answer to this problem is:</p>
 <div class=highlight><pre class=chroma><code class=language-c++ data-lang=c++><span class=n>eio_req</span> <span class=o>*</span><span class=nf>eio_nop</span>       <span class=p>(</span><span class=kt>int</span> <span class=n>pri</span><span class=p>,</span> <span class=n>eio_cb</span> <span class=n>cb</span><span class=p>,</span> <span class=kt>void</span> <span class=o>*</span><span class=n>data</span><span class=p>);</span>
-</code></pre></div>
-<p>It is safe to call this function from any thread. It will place the eio_cb callback task on the main event queue. This task is then eventually executed on the V8&#8242;s thread. An example of this follows:</p>
-<div class=highlight><pre class=chroma><code class=language-c++ data-lang=c++><span class=kt>void</span> <span class=n>WiiMote</span><span class=o>::</span><span class=n>HandleMessages</span><span class=p>(</span><span class=n>cwiid_wiimote_t</span> <span class=o>*</span><span class=n>wiimote</span><span class=p>,</span> <span class=kt>int</span> <span class=n>len</span><span class=p>,</span> <span class=k>union</span> <span class=n>cwiid_mesg</span> <span class=n>mesgs</span><span class=p>[])</span> <span class=p>{</span>
+</code></pre></div><p>It is safe to call this function from any thread. It will place the eio_cb callback task on the main event queue. This task is then eventually executed on the V8′s thread. An example of this follows:</p>
+<div class=highlight><pre class=chroma><code class=language-c++ data-lang=c++><span class=kt>void</span> <span class=n>WiiMote</span><span class=o>::</span><span class=n>HandleMessages</span><span class=p>(</span><span class=n>cwiid_wiimote_t</span> <span class=o>*</span><span class=n>wiimote</span><span class=p>,</span> <span class=kt>int</span> <span class=n>len</span><span class=p>,</span> <span class=k>union</span> <span class=nc>cwiid_mesg</span> <span class=n>mesgs</span><span class=p>[])</span> <span class=p>{</span>
   <span class=c1>// This thread is running on the libcwiid&#39;s thread, and thus we can not use V8 operations
 </span><span class=c1></span>  <span class=n>WiiMote</span> <span class=o>*</span><span class=n>self</span> <span class=o>=</span> <span class=k>const_cast</span><span class=o>&amp;</span><span class=n>lt</span><span class=p>;</span><span class=n>WiiMote</span><span class=o>*&amp;</span><span class=n>gt</span><span class=p>;(</span><span class=k>static_cast</span><span class=o>&amp;</span><span class=n>lt</span><span class=p>;</span><span class=k>const</span> <span class=n>WiiMote</span><span class=o>*&amp;</span><span class=n>gt</span><span class=p>;(</span><span class=n>cwiid_get_data</span><span class=p>(</span><span class=n>wiimote</span><span class=p>)));</span>
 
   <span class=c1>// Create a struct to pass to the V8 thread
-</span><span class=c1></span>  <span class=k>struct</span> <span class=n>message_request</span> <span class=o>*</span> <span class=n>req</span> <span class=o>=</span> <span class=p>(</span><span class=k>struct</span> <span class=n>message_request</span> <span class=o>*</span><span class=p>)</span><span class=n>malloc</span><span class=p>(</span> <span class=k>sizeof</span><span class=p>(</span><span class=o>*</span><span class=n>req</span><span class=p>)</span> <span class=o>+</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>req</span><span class=o>-&amp;</span><span class=n>gt</span><span class=p>;</span><span class=n>mesgs</span><span class=p>)</span> <span class=o>*</span> <span class=p>(</span><span class=n>len</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span> <span class=p>);</span>
+</span><span class=c1></span>  <span class=k>struct</span> <span class=nc>message_request</span> <span class=o>*</span> <span class=n>req</span> <span class=o>=</span> <span class=p>(</span><span class=k>struct</span> <span class=nc>message_request</span> <span class=o>*</span><span class=p>)</span><span class=n>malloc</span><span class=p>(</span> <span class=k>sizeof</span><span class=p>(</span><span class=o>*</span><span class=n>req</span><span class=p>)</span> <span class=o>+</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>req</span><span class=o>-&amp;</span><span class=n>gt</span><span class=p>;</span><span class=n>mesgs</span><span class=p>)</span> <span class=o>*</span> <span class=p>(</span><span class=n>len</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span> <span class=p>);</span>
 
   <span class=c1>// Copy all the data into this struct
 </span><span class=c1></span>  <span class=n>req</span><span class=o>-&amp;</span><span class=n>gt</span><span class=p>;</span><span class=n>wiimote</span> <span class=o>=</span> <span class=n>self</span><span class=p>;</span>
   <span class=n>req</span><span class=o>-&amp;</span><span class=n>gt</span><span class=p>;</span><span class=n>len</span> <span class=o>=</span> <span class=n>len</span><span class=p>;</span>
-  <span class=n>memcpy</span><span class=p>(</span><span class=n>req</span><span class=o>-&amp;</span><span class=n>gt</span><span class=p>;</span><span class=n>mesgs</span><span class=p>,</span> <span class=n>mesgs</span><span class=p>,</span> <span class=n>len</span> <span class=o>*</span> <span class=k>sizeof</span><span class=p>(</span><span class=k>union</span> <span class=n>cwiid_mesg</span><span class=p>));</span>
+  <span class=n>memcpy</span><span class=p>(</span><span class=n>req</span><span class=o>-&amp;</span><span class=n>gt</span><span class=p>;</span><span class=n>mesgs</span><span class=p>,</span> <span class=n>mesgs</span><span class=p>,</span> <span class=n>len</span> <span class=o>*</span> <span class=k>sizeof</span><span class=p>(</span><span class=k>union</span> <span class=nc>cwiid_mesg</span><span class=p>));</span>
 
   <span class=c1>// Now pass this over to the main V8 thread
 </span><span class=c1></span>  <span class=n>eio_nop</span> <span class=p>(</span><span class=n>EIO_PRI_DEFAULT</span><span class=p>,</span> <span class=n>WiiMote</span><span class=o>::</span><span class=n>HandleMessagesAfter</span><span class=p>,</span> <span class=n>req</span><span class=p>);</span>
@@ -217,8 +214,7 @@ window.dataLayer = window.dataLayer || [];
   <span class=c1>// Emit this event to a JavaScript callback.
 </span><span class=c1></span>  <span class=k>this</span><span class=o>-&amp;</span><span class=n>gt</span><span class=p>;</span><span class=n>Emit</span><span class=p>(</span><span class=n>event</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=n>argv</span><span class=p>);</span>
 <span class=p>}</span>
-</code></pre></div>
-<p>Using a combination of eio_custom and eio_nop you should be able to interface with any external library of service. You just have to make sure you always know what thread you are on, and what methods you are allowed to use in that context.</p>
+</code></pre></div><p>Using a combination of eio_custom and eio_nop you should be able to interface with any external library of service. You just have to make sure you always know what thread you are on, and what methods you are allowed to use in that context.</p>
 <p>Finally, writing correct thread-safe code is hard. From the various nodejs extensions I have come across I regularlly find memory management, or threading issues with them. So I suggest you rigorously use <a href=http://valgrind.org/ >valgrind</a> while developing, and simplify your designs so that most of the heavily lifting is done by nodejs itself.</p>
 </div>
 </article>
@@ -243,18 +239,19 @@ window.dataLayer = window.dataLayer || [];
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2011\/10\/17\/my-experiences-with-developing-multi-threaded-nodejs-addon\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2011\/10\/17\/my-experiences-with-developing-multi-threaded-nodejs-addon\/';
     var disqus_title = 'My experiences with developing multi-threaded nodejs addon';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2011\/10\/17\/my-experiences-with-developing-multi-threaded-nodejs-addon\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -262,7 +259,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

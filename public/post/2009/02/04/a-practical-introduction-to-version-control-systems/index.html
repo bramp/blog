@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -106,7 +106,7 @@ window.dataLayer = window.dataLayer || [];
 </p>
 <div class=post itemprop=articleBody>
 <p>Today I presented a CAKES talk in our department to help teach people about version control systems. I hope by sharing my knowledge on a subject, that others will share theirs. Below is the abstract and slides for my tak:</p>
-<p>This talk aims to explain what version control systems (VCS) also known as source control management (SCM) are, how they work, and how to use them. This includes explaining why you should use VCS for your every day projects, even if they don&#8217;t include any source code. The differences between the main two classes of VCS; centralised and decentralised systems will be discussed, outlining both their benefits and disadvantages. This presentation will give you practical knowledge to start using systems such as subversion (SVN) or git, as well as many example use cases. Bottom line is that using a VCS can help you keep your work organised, backed up, revertible, whilst allowing contributions from multiple users. This talk is for anyone that has heard about CVS/SVN/git but was never quite sure what it was, or how to use it.</p>
+<p>This talk aims to explain what version control systems (VCS) also known as source control management (SCM) are, how they work, and how to use them. This includes explaining why you should use VCS for your every day projects, even if they don’t include any source code. The differences between the main two classes of VCS; centralised and decentralised systems will be discussed, outlining both their benefits and disadvantages. This presentation will give you practical knowledge to start using systems such as subversion (SVN) or git, as well as many example use cases. Bottom line is that using a VCS can help you keep your work organised, backed up, revertible, whilst allowing contributions from multiple users. This talk is for anyone that has heard about CVS/SVN/git but was never quite sure what it was, or how to use it.</p>
 <p><a href=version_control.pdf>Download Slides</a></p>
 </div>
 </article>
@@ -131,18 +131,19 @@ window.dataLayer = window.dataLayer || [];
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/02\/04\/a-practical-introduction-to-version-control-systems\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/02\/04\/a-practical-introduction-to-version-control-systems\/';
     var disqus_title = 'A Practical Introduction to Version Control Systems';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2009\/02\/04\/a-practical-introduction-to-version-control-systems\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -150,7 +151,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

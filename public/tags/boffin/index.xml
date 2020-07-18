@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Boffin on bramp.net</title>
+    <title>boffin on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Boffin on bramp.net</description>
+    <description>Recent content in boffin on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Wed, 25 Mar 2009 00:00:00 +0000</lastBuildDate>
@@ -15,22 +14,19 @@
       <pubDate>Wed, 25 Mar 2009 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2009/03/25/last-fm-s-boffin-wordle/</guid>
-      <description>&lt;p&gt;Today I catagorigised my music with &lt;a href=&#34;http://last.fm/&#34;&gt;Last.fm&lt;/a&gt;&amp;#8216;s &lt;a href=&#34;http://blog.last.fm/2009/03/11/introducing-boffin-lastfms-music-knowledge-meets-your-mp3-collection&#34;&gt;Boffin&lt;/a&gt;, and then took the resulting list of genres with their respective frequencies and plugged it into &lt;a href=&#34;http://www.wordle.net/&#34;&gt;Wordle&lt;/a&gt;.&lt;/p&gt;
-
+      <description>&lt;p&gt;Today I catagorigised my music with &lt;a href=&#34;http://last.fm/&#34;&gt;Last.fm&lt;/a&gt;‘s &lt;a href=&#34;http://blog.last.fm/2009/03/11/introducing-boffin-lastfms-music-knowledge-meets-your-mp3-collection&#34;&gt;Boffin&lt;/a&gt;, and then took the resulting list of genres with their respective frequencies and plugged it into &lt;a href=&#34;http://www.wordle.net/&#34;&gt;Wordle&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;http://www.wordle.net/gallery/wrdl/687741/Metal&#34;&gt;&lt;figure&gt;
     &lt;img src=&#34;metal.png&#34;/&gt; &lt;figcaption&gt;
             &lt;h4&gt;The first randomly generated image&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;/a&gt;&lt;/p&gt;
-
 &lt;p&gt;&lt;a href=&#34;http://www.wordle.net/gallery/wrdl/687752/Metal_2&#34;&gt;&lt;figure&gt;
     &lt;img src=&#34;metal_2.png&#34;/&gt; &lt;figcaption&gt;
             &lt;h4&gt;With a little bit of effort, I then generated this one&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;/a&gt;&lt;/p&gt;
-
 &lt;p&gt;Both are also available in PDF format, &lt;a href=&#34;metal.pdf&#34;&gt;Metal&lt;/a&gt; and &lt;a href=&#34;metal_2.pdf&#34;&gt;Metal_2&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>

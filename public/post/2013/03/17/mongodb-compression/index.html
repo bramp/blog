@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -98,7 +98,7 @@ window.dataLayer = window.dataLayer || [];
 </p>
 <div class=post itemprop=articleBody>
 <p>For a while people have wanted MongoDB to <a href=https://jira.mongodb.org/browse/SERVER-164>compress their data</a>, or at least <a href=https://jira.mongodb.org/browse/SERVER-863>compress their field names</a>. This would be beneficial in not only reducing the amount of disk space required, but also in theory improving performance as we trade disk IO with CPU IO. I thought this be a fun project to investigate, so I started by working out if this would actually be useful.</p>
-<p>Lets start with compressing the data. I&#8217;ve taken a project I&#8217;ve been working on, where most of the records have the similar set of fields. An example record may look like (which across the database had an average size of 547 bytes):</p>
+<p>Lets start with compressing the data. I’ve taken a project I’ve been working on, where most of the records have the similar set of fields. An example record may look like (which across the database had an average size of 547 bytes):</p>
 <div class=highlight><pre class=chroma><code class=language-javascript data-lang=javascript><span class=p>{</span>
 	<span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=nx>ObjectId</span><span class=p>(</span><span class=s2>&#34;5134b1c644ae658fc8c050c0&#34;</span><span class=p>),</span>
 	<span class=s2>&#34;version&#34;</span> <span class=o>:</span> <span class=nx>NumberLong</span><span class=p>(</span><span class=mi>0</span><span class=p>),</span>
@@ -128,26 +128,25 @@ window.dataLayer = window.dataLayer || [];
 		<span class=s2>&#34;subscriptions&#34;</span> <span class=o>:</span> <span class=p>[</span> <span class=p>]</span>
 	<span class=p>}]</span>
 <span class=p>}</span>
-</code></pre></div>
-<p>There are some excellent <a href=http://www.10gen.com/presentations/mongosv-2011/mongodb-storage-engine-bit-by-bit>presentations</a> and <a href=https://dzone.com/articles/mongodb%E2%80%99s-storage-engine-bit>articles</a> on how MongoDB structures the data on the disk. For the sake of this investigation I took a single data file (of size 2 GiB) that was full of just these kinds of records.</p>
+</code></pre></div><p>There are some excellent <a href=http://www.10gen.com/presentations/mongosv-2011/mongodb-storage-engine-bit-by-bit>presentations</a> and <a href=https://dzone.com/articles/mongodb%E2%80%99s-storage-engine-bit>articles</a> on how MongoDB structures the data on the disk. For the sake of this investigation I took a single data file (of size 2 GiB) that was full of just these kinds of records.</p>
 <h2 id=full-compression>Full Compression</h2>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ gzip datafile.5</code></pre></div>
-<p><strong>Original size:</strong> 2,146,435,072 bytes (2.0 GiB)<br/>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ gzip datafile.5
+</code></pre></div><p><strong>Original size:</strong> 2,146,435,072 bytes (2.0 GiB)<br>
 <strong>Compressed gzip size:</strong> 453,359,908 bytes (432 MiB) / 21% of the original size</p>
 <p>Simple gzip across the whole file gave a 4.7x saving in file size. This is obviously best case, as it covers the full file. Next lets look at the savings from compressing the field names.</p>
 <h2 id=field-name-compression>Field name Compression</h2>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ strings -n3 datafile.5 <span class=p>|</span> sort <span class=p>|</span> uniq -c <span class=p>|</span> sort -n <span class=p>|</span> tail -n20</code></pre></div>
-<p>That prints out a list of the most popular strings in the data file, sorted by frequency. From those stats we can infer</p>
-<p><strong>Unique fields:</strong> 14<br/>
-<strong>Fields:</strong> 75,764,300<br/>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ strings -n3 datafile.5 <span class=p>|</span> sort <span class=p>|</span> uniq -c <span class=p>|</span> sort -n <span class=p>|</span> tail -n20
+</code></pre></div><p>That prints out a list of the most popular strings in the data file, sorted by frequency. From those stats we can infer</p>
+<p><strong>Unique fields:</strong> 14<br>
+<strong>Fields:</strong> 75,764,300<br>
 <strong>Field bytes:</strong> 506,244,611 bytes (482 MiB) / 23% of the total data file size</p>
-<p>If we assume that we can encode each field to just a single byte, then we reduce the bytes taken by the field names from 482 MiB to 72.2 MiB, a 6.6x saving of the field names. That&#8217;s a good saving, but as the field names only take up 23% of the file, the overall saving would be 20% of the total data file size.</p>
+<p>If we assume that we can encode each field to just a single byte, then we reduce the bytes taken by the field names from 482 MiB to 72.2 MiB, a 6.6x saving of the field names. That’s a good saving, but as the field names only take up 23% of the file, the overall saving would be 20% of the total data file size.</p>
 <h2 id=document-compression>Document Compression</h2>
-<p>Compression of individual document might provide a better solution than field compression. It&#8217;s not possible to compress the whole database, as that&#8217;ll make it extremely hard to alter individual documents. So instead each document would be compressed independently of the others. This is different to field compression would would have to be compressed across documents.</p>
+<p>Compression of individual document might provide a better solution than field compression. It’s not possible to compress the whole database, as that’ll make it extremely hard to alter individual documents. So instead each document would be compressed independently of the others. This is different to field compression would would have to be compressed across documents.</p>
 <p>To try this out I wrote a <a href=https://gist.github.com/bramp/5183117>simple Python script</a> instead of hacking the MongoDB code. This script simulates the compression by finding each BSON encoded document on disk, compresses it (with zlib), and sums up the uncompressed and compressed document sizes.</p>
-<p><strong>Uncompressed document length:</strong> 1,888,733,156 bytes (1.75 GiB)<br/>
+<p><strong>Uncompressed document length:</strong> 1,888,733,156 bytes (1.75 GiB)<br>
 <strong>Compressed document length:</strong> 1,261,267,661 bytes (1.17 GiB) / 66% of the total document length</p>
-<p>The keen reader will notice the documents only made up 1.75 GiB, of the total 2 GiB data file. The rest of the file contains non-document data, such as indexes, padding, and perhaps deleted documents. As the non-document data wasn&#8217;t compressed in this test, the total savings was about 30% of the total file. This could improve if the document was more compressible (for example if they were larger), or if a better compression scheme was used.</p>
+<p>The keen reader will notice the documents only made up 1.75 GiB, of the total 2 GiB data file. The rest of the file contains non-document data, such as indexes, padding, and perhaps deleted documents. As the non-document data wasn’t compressed in this test, the total savings was about 30% of the total file. This could improve if the document was more compressible (for example if they were larger), or if a better compression scheme was used.</p>
 <h2 id=conclusion>Conclusion</h2>
 <p>In conclusion, compression could certainly help reduce the size on disk, and this could lead to performance improvements. Field level compression gave us 20% reduction and document compression gave us 30%. The next step is to actually implement this, and run various benchmarks.</p>
 <h2 id=future>Future</h2>
@@ -177,18 +176,19 @@ window.dataLayer = window.dataLayer || [];
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2013\/03\/17\/mongodb-compression\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2013\/03\/17\/mongodb-compression\/';
     var disqus_title = 'MongoDB Compression';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2013\/03\/17\/mongodb-compression\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -196,7 +196,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

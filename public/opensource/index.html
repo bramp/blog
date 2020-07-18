@@ -5,7 +5,7 @@
 <meta content="width=device-width,initial-scale=1" name=viewport>
 <link href=https://blog.bramp.net/opensource/ rel=canonical itemprop=url />
 <title>Open Source Projects</title>
-<meta content="I&#8217;ve always been a big fan of open source, and always try and contribute where I can. In addition over the years I have created multiple small projects that I give back to the community. Here …" name=description itemprop=description>
+<meta content="I’ve always been a big fan of open source, and always try and contribute where I can. In addition over the years I have created multiple small projects that I give back to the community. Here are the …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -43,7 +43,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=https://blog.bramp.net/opensource/ property=og:url />
 <meta content=bramp.net property=og:site_name />
 <meta content="Open Source Projects" property=og:title />
-<meta content="I&#8217;ve always been a big fan of open source, and always try and contribute where I can. In addition over the years I have created multiple small projects that I give back to the community. Here …" property=og:description />
+<meta content="I’ve always been a big fan of open source, and always try and contribute where I can. In addition over the years I have created multiple small projects that I give back to the community. Here are the …" property=og:description />
 <meta content=2013-02-16T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -93,7 +93,7 @@ window.dataLayer = window.dataLayer || [];
 <svg class="icon icon-calendar"><use xlink:href=/images/icons.svg#icon-calendar></use></svg> <time itemprop=datePublished>2013-02-16</time>
 </p>
 <div class=post itemprop=articleBody>
-<p>I&#8217;ve always been a big fan of open source, and always try and contribute where I can. In addition over the years I have created multiple small projects that I give back to the community. Here are the ones I have on GitHub:</p>
+<p>I’ve always been a big fan of open source, and always try and contribute where I can. In addition over the years I have created multiple small projects that I give back to the community. Here are the ones I have on GitHub:</p>
 <div class=row>
 <div class=col-md-4>
 <p>
@@ -167,7 +167,7 @@ A java implementation of <a href=http://www.psych.lancs.ac.uk/people/simon-slavi
 </div>
 </div>
 <p>As well as creating projects, I have made contributions to at least the following projects:</p>
-<p><a href=http://www.kernel.org/ >Linux Kernel</a>, <a href=http://www.freebsd.org/ >FreeBSD</a>, <a href=http://php.net/ >PHP</a>, <a href=http://www.python.org/ >Python</a>, <a href=http://redis.io/ >Redis</a>, <a href=http://www.nih.at/libzip/ >libzip</a>, <a href=http://www.read.cs.ucla.edu/click/click>Click</a>, <a href=http://www.chromium.org/ >Chromium</a>, <a href=https://github.com/bramp/archivemount>archivemount</a>, <a href=https://github.com/bramp/NanoHTTPd>NanoHTTPd</a> and more I just don&#8217;t remember.</p>
+<p><a href=http://www.kernel.org/ >Linux Kernel</a>, <a href=http://www.freebsd.org/ >FreeBSD</a>, <a href=http://php.net/ >PHP</a>, <a href=http://www.python.org/ >Python</a>, <a href=http://redis.io/ >Redis</a>, <a href=http://www.nih.at/libzip/ >libzip</a>, <a href=http://www.read.cs.ucla.edu/click/click>Click</a>, <a href=http://www.chromium.org/ >Chromium</a>, <a href=https://github.com/bramp/archivemount>archivemount</a>, <a href=https://github.com/bramp/NanoHTTPd>NanoHTTPd</a> and more I just don’t remember.</p>
 </div>
 </article>
 <div class=row>
@@ -186,21 +186,23 @@ A java implementation of <a href=http://www.psych.lancs.ac.uk/people/simon-slavi
 </div>
 </div>
 <ul class=pager>
+&nbsp;<li class=previous><a href=/about-me/ >&larr; About Me</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/opensource\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/opensource\/';
     var disqus_title = 'Open Source Projects';
     var disqus_url = 'https:\/\/blog.bramp.net\/opensource\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -208,7 +210,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

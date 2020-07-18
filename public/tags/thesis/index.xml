@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Thesis on bramp.net</title>
+    <title>thesis on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Thesis on bramp.net</description>
+    <description>Recent content in thesis on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Fri, 10 Jul 2009 00:00:00 +0000</lastBuildDate>
@@ -15,21 +14,13 @@
       <pubDate>Fri, 10 Jul 2009 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2009/07/10/final-version-of-my-thesis-online/</guid>
-      <description>
-
-&lt;p&gt;I finished my corrections a while ago now but I just hadn&amp;#8217;t gotten around to putting my final thesis on-line.&lt;/p&gt;
-
+      <description>&lt;p&gt;I finished my corrections a while ago now but I just hadn’t gotten around to putting my final thesis on-line.&lt;/p&gt;
 &lt;p&gt;So here it is &lt;a href=&#34;https://github.com/bramp/phd-thesis/blob/master/thesis.pdf?raw=true&#34;&gt;pdf&lt;/a&gt; and &lt;a href=&#34;https://github.com/bramp/phd-thesis/&#34;&gt;tex sources&lt;/a&gt;.&lt;/p&gt;
-
 &lt;h3 id=&#34;the-impact-of-highly-interactive-workloads-on-video-on-demand-systems&#34;&gt;The Impact of Highly Interactive Workloads on Video-on-Demand Systems&lt;/h3&gt;
-
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
-
 &lt;p&gt;The traditional start-to-finish playback model is not suitable for all modern interactive video streams. Users expect support for higher levels of interactivity such as fast forward and rewind or the ability to arbitrary seek within their media quickly and efficiently. By conducting user studies we have observed start-to-finish is not applicable to many genres of video, and that different playback models fit better. We discuss how existing delivery techniques are impacted by these new observations.&lt;/p&gt;
-
-&lt;p&gt;Novel interactive controls such as bookmarks have also highly impacted user behaviour. This has lead to the segments within the media being accessed in a uneven fashion, causing hotspots of interest to form; areas with orders of magnitudes more viewers than others. These hotspots typically began at the beginning of a bookmark, however not always, which lead us to design a dynamic bookmark positioning algorithm. As well as their position, determining the hotspot&amp;#8217;s length can be beneficial. This aids in autonomic techniques such as replication and pre-fetching as well as allowing the users to find what they want quicker.&lt;/p&gt;
-
+&lt;p&gt;Novel interactive controls such as bookmarks have also highly impacted user behaviour. This has lead to the segments within the media being accessed in a uneven fashion, causing hotspots of interest to form; areas with orders of magnitudes more viewers than others. These hotspots typically began at the beginning of a bookmark, however not always, which lead us to design a dynamic bookmark positioning algorithm. As well as their position, determining the hotspot’s length can be beneficial. This aids in autonomic techniques such as replication and pre-fetching as well as allowing the users to find what they want quicker.&lt;/p&gt;
 &lt;p&gt;Under high level of interactivity, delivery techniques are less efficient due to the unpredictability of the users. We however developed techniques which restore some of this predictability, allowing clients or servers to predict future actions based on past user actions. These technique proves exceeding useful for pre-fetching which reduces seek latencies for client and can reduce load on servers. However knowledge of past user activities need to be gathered from network, thus we develop techniques to do this in a distributed manner.&lt;/p&gt;
 &lt;/blockquote&gt;
 </description>
@@ -42,7 +33,6 @@
       
       <guid>https://blog.bramp.net/post/2008/12/15/passed-my-viva/</guid>
       <description>&lt;p&gt;Hey, so after 3 hours 30 minutes, I successfully defended my thesis and passed my viva (subject to minor corrections).&lt;/p&gt;
-
 &lt;p&gt;YAY&lt;/p&gt;
 </description>
     </item>
@@ -53,10 +43,8 @@
       <pubDate>Wed, 01 Oct 2008 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2008/10/01/jolt-cola/</guid>
-      <description>&lt;p&gt;Thanks to this lovely beverage I have now completed my thesis on time :) I thought I&amp;#8217;ll quickly post about the drink, and upload some photos:&lt;/p&gt;
-
+      <description>&lt;p&gt;Thanks to this lovely beverage I have now completed my thesis on time :) I thought I’ll quickly post about the drink, and upload some photos:&lt;/p&gt;
 &lt;!-- TODO link to the non-thumbnail version --&gt;
-
 &lt;p&gt;&lt;figure&gt;
     &lt;img src=&#34;DSCF1334_thumb.JPG&#34;/&gt; &lt;figcaption&gt;
             &lt;h4&gt;The 5 flavours of Jolt Cola&lt;/h4&gt;
@@ -69,7 +57,6 @@
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;/p&gt;
-
 &lt;p&gt;It comes in six flavors, only 5 or which are listed here. Power Cola, Orange Blast, Blue Raspberry, Cherry Bomb, and Wild Grape.&lt;/p&gt;
 </description>
     </item>
@@ -81,19 +68,13 @@
       
       <guid>https://blog.bramp.net/publication/the-impact-of-highly-interactive-workloads-on-video-on-demand-systems/</guid>
       <description>&lt;p&gt;Andrew Brampton.&lt;/p&gt;
-
 &lt;p&gt;Thesis submitted for the degree of Doctor of Philosophy&lt;/p&gt;
-
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
-
 &lt;p&gt;The traditional start-to-finish playback model is not suitable for all modern interactive video streams. Users expect support for higher levels of interactivity such as fast forward and rewind or the ability to arbitrary seek within their media quickly and efficiently. By conducting user studies we have observed start-to-finish is not applicable to many genres of video, and that different playback models fit better. We discuss how existing delivery techniques are impacted by these new observations.&lt;/p&gt;
-
-&lt;p&gt;Novel interactive controls such as bookmarks have also highly impacted user behaviour. This has lead to the segments within the media being accessed in a uneven fashion, causing hotspots of interest to form; areas with orders of magnitudes more viewers than others. These hotspots typically began at the beginning of a bookmark, however not always, which lead us to design a dynamic bookmark positioning algorithm. As well as their position, determining the hotspot&amp;#8217;s length can be beneficial. This aids in autonomic techniques such as replication and pre-fetching as well as allowing the users to find what they want quicker.&lt;/p&gt;
-
+&lt;p&gt;Novel interactive controls such as bookmarks have also highly impacted user behaviour. This has lead to the segments within the media being accessed in a uneven fashion, causing hotspots of interest to form; areas with orders of magnitudes more viewers than others. These hotspots typically began at the beginning of a bookmark, however not always, which lead us to design a dynamic bookmark positioning algorithm. As well as their position, determining the hotspot’s length can be beneficial. This aids in autonomic techniques such as replication and pre-fetching as well as allowing the users to find what they want quicker.&lt;/p&gt;
 &lt;p&gt;Under high level of interactivity, delivery techniques are less efficient due to the unpredictability of the users. We however developed techniques which restore some of this predictability, allowing clients or servers to predict future actions based on past user actions. These technique proves exceeding useful for pre-fetching which reduces seek latencies for client and can reduce load on servers. However knowledge of past user activities need to be gathered from network, thus we develop techniques to do this in a distributed manner.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;&lt;a href=&#34;https://github.com/bramp/phd-thesis/blob/master/thesis.pdf&#34;&gt;PDF Download&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/phd-thesis&#34;&gt;LaTeX Source&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>

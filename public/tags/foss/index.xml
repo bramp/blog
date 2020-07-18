@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Foss on bramp.net</title>
+    <title>FOSS on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Foss on bramp.net</description>
+    <description>Recent content in FOSS on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Tue, 07 Apr 2009 00:00:00 +0000</lastBuildDate>
@@ -16,22 +15,16 @@
       
       <guid>https://blog.bramp.net/post/2009/04/07/open-source-government-petition/</guid>
       <description>&lt;p&gt;There is a petition at the moment to ensure that the software created by the government should be open sourced.&lt;/p&gt;
-
 &lt;blockquote&gt;
 &lt;p&gt;We the undersigned petition the Prime Minister to ask the Communities Secretary to require that all software produced by councils under the Timely Information to Citizens project be released under an open source licence.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;So if you are a British citizen please go &lt;a href=&#34;http://petitions.number10.gov.uk/open-source-tic/&#34;&gt;sign it&lt;/a&gt;&lt;/p&gt;
-
 &lt;blockquote&gt;
 &lt;p&gt;The Department for Communities and Local Government (CLG) is running a project called Timely Information to Citizens (TIC). As part of this project, several local authorities are being given funding totalling approximately £1m to develop software and web services to improve local information and service provision.&lt;/p&gt;
-
-&lt;p&gt;While CLG&amp;#8217;s aim is that these projects are incorporated into a &amp;#8220;best practice toolkit&amp;#8221;, we ask the government to reduce duplication of effort and expense and make this software available for other users at the earliest opportunity by releasing each package on deployment under an OSI-approved open source licence.&lt;/p&gt;
-
+&lt;p&gt;While CLG’s aim is that these projects are incorporated into a “best practice toolkit”, we ask the government to reduce duplication of effort and expense and make this software available for other users at the earliest opportunity by releasing each package on deployment under an OSI-approved open source licence.&lt;/p&gt;
 &lt;p&gt;Though we welcome these projects themselves, as citizens we cannot and do not support this substantial sum of public money being spent to create private, proprietary software.&lt;/p&gt;
 &lt;/blockquote&gt;
-
-&lt;p&gt;I have always felt that any software I write while at university should be released under a BSD-style licence. The tax payer has allowed me to study for free, and continues to pay for my employment at university, so why shouldn&amp;#8217;t the tax payer receive the benefits of the software I create.&lt;/p&gt;
+&lt;p&gt;I have always felt that any software I write while at university should be released under a BSD-style licence. The tax payer has allowed me to study for free, and continues to pay for my employment at university, so why shouldn’t the tax payer receive the benefits of the software I create.&lt;/p&gt;
 </description>
     </item>
     

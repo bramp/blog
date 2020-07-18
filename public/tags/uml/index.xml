@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Uml on bramp.net</title>
+    <title>uml on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Uml on bramp.net</description>
+    <description>Recent content in uml on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Sat, 23 Mar 2013 00:00:00 +0000</lastBuildDate>
@@ -15,20 +14,19 @@
       <pubDate>Sat, 23 Mar 2013 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2013/03/23/draw-uml-sequence-diagrams-with-javascript/</guid>
-      <description>&lt;p&gt;I&amp;#8217;m happy to announce one of my projects, &lt;a href=&#34;https://bramp.github.io/js-sequence-diagrams/&#34;&gt;js-sequence-diagrams&lt;/a&gt;. This uses Javascript to draw UML sequence diagrams in SVG format. Here is an example:&lt;/p&gt;
-
+      <description>&lt;p&gt;I’m happy to announce one of my projects, &lt;a href=&#34;https://bramp.github.io/js-sequence-diagrams/&#34;&gt;js-sequence-diagrams&lt;/a&gt;. This uses Javascript to draw UML sequence diagrams in SVG format. Here is an example:&lt;/p&gt;
 &lt;div class=&#34;text-center&#34;&gt;
     &lt;a href=&#34;https://bramp.github.io/js-sequence-diagrams/&#34;&gt;
-        &lt;img src=&#34;sample-with-editor.png&#34; alt=&#34;js-sequence-diagram example&#34; width=&#34;865&#34; height=&#34;333&#34; /&gt;
-    &lt;/a&gt;
+		&lt;img src=&#34;sample-with-editor.png&#34; alt=&#34;js-sequence-diagram example&#34; width=&#34;865&#34; height=&#34;333&#34; /&gt;
+	&lt;/a&gt;
 &lt;/div&gt;
-
 &lt;p&gt;You can alter the diagram in real time, and I even have a simple jQuery plugin to make this easy to use on your own sites.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;script src=&amp;#34;sequence-diagram-min.js&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&amp;amp;lt;&lt;/span&gt;/script&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
 &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;div class=&amp;#34;diagram&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;A-&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;B: Message&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/div&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
 &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;script&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
 $(&amp;#34;.diagram&amp;#34;).sequenceDiagram({theme: &lt;span class=&#34;ni&#34;&gt;&amp;amp;#39;&lt;/span&gt;hand&lt;span class=&#34;ni&#34;&gt;&amp;amp;#39;&lt;/span&gt;});
-&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/script&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/script&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
   </channel>

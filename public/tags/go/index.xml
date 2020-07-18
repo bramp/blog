@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Go on bramp.net</title>
+    <title>go on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Go on bramp.net</description>
+    <description>Recent content in go on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Sat, 05 Jan 2019 07:59:08 -0800</lastBuildDate>
@@ -15,103 +14,80 @@
       <pubDate>Sat, 05 Jan 2019 07:59:08 -0800</pubDate>
       
       <guid>https://blog.bramp.net/post/2019/01/05/apache-beam-and-google-dataflow-in-go/</guid>
-      <description>
-
-&lt;p&gt;&lt;em&gt;Originally &lt;a href=&#34;https://blog.gopheracademy.com/advent-2018/apache-beam/&#34;&gt;published&lt;/a&gt; as part of the Go Advent 2018 series&lt;/em&gt;&lt;/p&gt;
-
+      <description>&lt;p&gt;&lt;em&gt;Originally &lt;a href=&#34;https://blog.gopheracademy.com/advent-2018/apache-beam/&#34;&gt;published&lt;/a&gt; as part of the Go Advent 2018 series&lt;/em&gt;&lt;/p&gt;
 &lt;h1 id=&#34;overview&#34;&gt;Overview&lt;/h1&gt;
-
 &lt;p&gt;&lt;a href=&#34;https://beam.apache.org/&#34;&gt;Apache Beam&lt;/a&gt; (&lt;strong&gt;b&lt;/strong&gt;atch and str&lt;strong&gt;eam&lt;/strong&gt;) is a powerful tool for handling &lt;a href=&#34;https://en.wikipedia.org/wiki/Embarrassingly_parallel&#34;&gt;embarrassingly parallel&lt;/a&gt; workloads. It is a evolution of &lt;a href=&#34;https://ai.google/research/pubs/pub35650&#34;&gt;Google’s Flume&lt;/a&gt;, which provides batch and streaming data processing based on the &lt;a href=&#34;https://en.wikipedia.org/wiki/MapReduce&#34;&gt;MapReduce&lt;/a&gt; concepts. One of the novel features of Beam is that it’s agnostic to the platform that runs the code. For example, a pipeline can be written once, and run locally, across &lt;a href=&#34;https://flink.apache.org/&#34;&gt;Flink&lt;/a&gt; or &lt;a href=&#34;https://spark.apache.org/&#34;&gt;Spark&lt;/a&gt; clusters, or on &lt;a href=&#34;https://cloud.google.com/dataflow/&#34;&gt;Google Cloud Dataflow&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;An experimental &lt;a href=&#34;https://beam.apache.org/documentation/sdks/go/&#34;&gt;Go SDK&lt;/a&gt; was created for Beam, and while it is still immature compared to Beam for &lt;a href=&#34;https://beam.apache.org/documentation/sdks/python/&#34;&gt;Python&lt;/a&gt; and &lt;a href=&#34;https://beam.apache.org/documentation/sdks/java/&#34;&gt;Java&lt;/a&gt;, it is able to do some impressive things. The remainder of this article will briefly recap a simple example from the Apache Beam site, and then work through a more complex example running on Dataflow. Consider this a more advanced version of the &lt;a href=&#34;https://beam.apache.org/get-started/&#34;&gt;official getted started guide&lt;/a&gt; on the Apache Beam site.&lt;/p&gt;
-
 &lt;p&gt;Before we begin, it’s worth pointing out, that if you can do your analysis on a single machine, it is more likely faster, and more cost effective. Beam is more suitable when your data processing needs are large enough they must run in a distributed fashion.&lt;/p&gt;
-
 &lt;h2 id=&#34;table-of-contents&#34;&gt;Table of Contents&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#concepts&#34;&gt;Concepts&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#shakespeare-simple-example&#34;&gt;Shakespeare (simple example)&lt;/a&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#running-the-pipeline&#34;&gt;Running the pipeline&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#art-history-more-complex-example&#34;&gt;Art history (more complex example)&lt;/a&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#stateful-functions&#34;&gt;Stateful functions&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#iterating-over-a-cogbk&#34;&gt;Iterating over a CoGBK&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#data-enrichment&#34;&gt;Data enrichment&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#error-handling-and-dead-letters&#34;&gt;Error handling and dead letters&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#gotchas&#34;&gt;Gotchas&lt;/a&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#marshing&#34;&gt;Marshing&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#errors&#34;&gt;Errors&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#difference-between-direct-and-dataflow-runners&#34;&gt;Difference between direct and dataflow runners&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#conclusion&#34;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h1 id=&#34;concepts&#34;&gt;Concepts&lt;/h1&gt;
-
 &lt;p&gt;Beam already has good documentation, that explains all the &lt;a href=&#34;https://beam.apache.org/documentation/programming-guide/&#34;&gt;main concepts&lt;/a&gt;. We will cover some of the basics.&lt;/p&gt;
-
 &lt;figure&gt;
     &lt;img src=&#34;design-your-pipeline-linear.png&#34; width=&#34;720&#34; height=&#34;175&#34;/&gt; &lt;figcaption&gt;
             &lt;h4&gt;Pipeline stages&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-
 &lt;p&gt;A pipeline is made up of multiple steps, that takes some input, operates on that data, and finally produces output. The steps that operates on the data are called PTransforms (parallel transforms), and the data is always stored in PCollections (parallel collections). The PTransform takes one item at a time from the PCollection and operates on it. The PTransform are assumed to be hermetic, using no global state, thus ensuring it will always produce the same output for the given input. These properties allow the data to be sharded into multiple smaller dataset and processed in any order across multiple machines. The code you write ends up being very simple, but is able to seamlessly split across 100s of machines.&lt;/p&gt;
-
 &lt;h1 id=&#34;shakespeare-simple-example&#34;&gt;Shakespeare (simple example)&lt;/h1&gt;
-
 &lt;div style=&#34;float: right; width: 200px&#34;&gt;
-    &lt;img src=&#34;word-count.png&#34; width=200 height=436&gt;
+	&lt;img src=&#34;word-count.png&#34; width=200 height=436&gt;
 &lt;/div&gt;
-
 &lt;p&gt;A classic example is counting the words in Shakespeare. In brief, the pipeline counts the number of times each word appears across Shakespeare’s works, and outputs a simple key-value list of word to word-count. There is an &lt;a href=&#34;https://github.com/apache/beam/blob/master/sdks/go/examples/minimal_wordcount/minimal_wordcount.go&#34;&gt;example&lt;/a&gt; provided with the Beam SDK, and along with a great &lt;a href=&#34;https://beam.apache.org/get-started/wordcount-example/&#34;&gt;walk through&lt;/a&gt;. I suggest you read that before continuing. I will however dive into some of the Go specifics, and add additional context.&lt;/p&gt;
-
 &lt;p&gt;The example begins with &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/io/textio#Read&#34;&gt;&lt;code&gt;textio.Read&lt;/code&gt;&lt;/a&gt;, which reads all the files under the shakespeare directory stored on &lt;a href=&#34;https://cloud.google.com/storage/&#34;&gt;Google Cloud Storage&lt;/a&gt; (GCS). The files are stored on GCS, so when this pipeline runs across a cluster of machines, they will all have access. &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/io/textio#Read&#34;&gt;&lt;code&gt;textio.Read&lt;/code&gt;&lt;/a&gt; always returns a &lt;code&gt;PCollection&amp;lt;string&amp;gt;&lt;/code&gt; which contains one element for every line in the given files.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;lines&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;textio&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Read&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;gs://apache-beam-samples/shakespeare/*&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The &lt;code&gt;lines&lt;/code&gt; PCollection is then processed by a ParDo (&lt;strong&gt;Par&lt;/strong&gt;allel &lt;strong&gt;Do&lt;/strong&gt;), a type of PTransform. Most transforms are built with a &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#ParDo&#34;&gt;&lt;code&gt;beam.ParDo&lt;/code&gt;&lt;/a&gt;. It will execute a supplied function in parallel on the source PCollection. In this example, the function is defined inline and very simply splits the input lines into words with a regexp. Each word is then emitted to another &lt;code&gt;PCollection&amp;lt;string&amp;gt;&lt;/code&gt; named &lt;code&gt;words&lt;/code&gt;. Note how for every line, zero or more words may be emitted, making this new collection a different size to the original.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;lines&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;textio&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Read&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;gs://apache-beam-samples/shakespeare/*&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;lines&lt;/code&gt; PCollection is then processed by a ParDo (&lt;strong&gt;Par&lt;/strong&gt;allel &lt;strong&gt;Do&lt;/strong&gt;), a type of PTransform. Most transforms are built with a &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#ParDo&#34;&gt;&lt;code&gt;beam.ParDo&lt;/code&gt;&lt;/a&gt;. It will execute a supplied function in parallel on the source PCollection. In this example, the function is defined inline and very simply splits the input lines into words with a regexp. Each word is then emitted to another &lt;code&gt;PCollection&amp;lt;string&amp;gt;&lt;/code&gt; named &lt;code&gt;words&lt;/code&gt;. Note how for every line, zero or more words may be emitted, making this new collection a different size to the original.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;splitFunc&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;line&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;emit&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;word&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;range&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;wordRE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;FindAllString&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;line&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
         &lt;span class=&#34;nf&#34;&gt;emit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;word&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
     &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;words&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;ParDo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;splitFunc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;An interesting trick used by the Apache Beam Go API is passing functions as an &lt;code&gt;interface{}&lt;/code&gt;, and using reflection to infer the types. Specifically, since &lt;code&gt;lines&lt;/code&gt; is a &lt;code&gt;PCollection&amp;lt;string&amp;gt;&lt;/code&gt; it is expected that the first argument of &lt;code&gt;splitFunc&lt;/code&gt; is a string type. The second argument to &lt;code&gt;splitFunc&lt;/code&gt; will allow Beam to infer the type of the &lt;code&gt;words&lt;/code&gt; output PCollection. In this example it is a function with a single string argument. Thus the output type will be &lt;code&gt;PCollection&amp;lt;string&amp;gt;&lt;/code&gt;. If &lt;code&gt;emit&lt;/code&gt; was defined as &lt;code&gt;func(int)&lt;/code&gt; then the return type would be a &lt;code&gt;PCollection&amp;lt;int&amp;gt;&lt;/code&gt;, and the next PTransform would be expected to handle ints.&lt;/p&gt;
-
+&lt;span class=&#34;nx&#34;&gt;words&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;ParDo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;splitFunc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;An interesting trick used by the Apache Beam Go API is passing functions as an &lt;code&gt;interface{}&lt;/code&gt;, and using reflection to infer the types. Specifically, since &lt;code&gt;lines&lt;/code&gt; is a &lt;code&gt;PCollection&amp;lt;string&amp;gt;&lt;/code&gt; it is expected that the first argument of &lt;code&gt;splitFunc&lt;/code&gt; is a string type. The second argument to &lt;code&gt;splitFunc&lt;/code&gt; will allow Beam to infer the type of the &lt;code&gt;words&lt;/code&gt; output PCollection. In this example it is a function with a single string argument. Thus the output type will be &lt;code&gt;PCollection&amp;lt;string&amp;gt;&lt;/code&gt;. If &lt;code&gt;emit&lt;/code&gt; was defined as &lt;code&gt;func(int)&lt;/code&gt; then the return type would be a &lt;code&gt;PCollection&amp;lt;int&amp;gt;&lt;/code&gt;, and the next PTransform would be expected to handle ints.&lt;/p&gt;
 &lt;p&gt;The next step uses one of the library’s higher level constructs.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;counted&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;stats&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Count&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;words&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/transforms/stats#Count&#34;&gt;&lt;code&gt;stats.Count&lt;/code&gt;&lt;/a&gt; takes a &lt;code&gt;PCollection&amp;lt;X&amp;gt;&lt;/code&gt;, counts each unique element, and outputs a key-value pair of (X, int) as a &lt;code&gt;PCollection&amp;lt;KV&amp;lt;X, int&amp;gt;&amp;gt;&lt;/code&gt;. In this specific example, the input is a &lt;code&gt;PCollection&amp;lt;string&amp;gt;&lt;/code&gt;, thus the output is &lt;code&gt;PCollection&amp;lt;KV&amp;lt;string, int&amp;gt;&amp;gt;&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;counted&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;stats&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Count&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;words&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/transforms/stats#Count&#34;&gt;&lt;code&gt;stats.Count&lt;/code&gt;&lt;/a&gt; takes a &lt;code&gt;PCollection&amp;lt;X&amp;gt;&lt;/code&gt;, counts each unique element, and outputs a key-value pair of (X, int) as a &lt;code&gt;PCollection&amp;lt;KV&amp;lt;X, int&amp;gt;&amp;gt;&lt;/code&gt;. In this specific example, the input is a &lt;code&gt;PCollection&amp;lt;string&amp;gt;&lt;/code&gt;, thus the output is &lt;code&gt;PCollection&amp;lt;KV&amp;lt;string, int&amp;gt;&amp;gt;&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Internally &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/transforms/stats#Count&#34;&gt;&lt;code&gt;stats.Count&lt;/code&gt;&lt;/a&gt; it’s made up of multiple ParDos, and a &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#GroupByKey&#34;&gt;&lt;code&gt;beam.GroupByKey&lt;/code&gt;&lt;/a&gt;, but it hides that to make it easier to use.&lt;/p&gt;
-
 &lt;p&gt;At this point, the counts of each word has been calculated, and the results are stored to a simple text file. To do this the &lt;code&gt;PCollection&amp;lt;KV&amp;lt;string, int&amp;gt;&amp;gt;&lt;/code&gt; is converted to a &lt;code&gt;PCollection&amp;lt;string&amp;gt;&lt;/code&gt;, containing one element for each line to be written out.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;formatFunc&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;w&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Sprintf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;%s: %v&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;nx&#34;&gt;formatted&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;ParDo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;formatFunc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;counted&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Again a &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#ParDo&#34;&gt;&lt;code&gt;beam.ParDo&lt;/code&gt;&lt;/a&gt; is used, but you’ll notice the &lt;code&gt;formatFunc&lt;/code&gt; is slightly different to the &lt;code&gt;splitFunc&lt;/code&gt; above. The &lt;code&gt;formatFunc&lt;/code&gt; takes two arguments, a string (the key), and a int (the value). These are the pairs in the &lt;code&gt;PCollection&amp;lt;KV&amp;lt;string, int&amp;gt;&amp;gt;&lt;/code&gt;. However, the &lt;code&gt;formatFunc&lt;/code&gt; does not take a &lt;code&gt;emit func(...)&lt;/code&gt; instead it simply returns a type string.&lt;/p&gt;
-
+&lt;span class=&#34;nx&#34;&gt;formatted&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;ParDo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;formatFunc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;counted&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Again a &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#ParDo&#34;&gt;&lt;code&gt;beam.ParDo&lt;/code&gt;&lt;/a&gt; is used, but you’ll notice the &lt;code&gt;formatFunc&lt;/code&gt; is slightly different to the &lt;code&gt;splitFunc&lt;/code&gt; above. The &lt;code&gt;formatFunc&lt;/code&gt; takes two arguments, a string (the key), and a int (the value). These are the pairs in the &lt;code&gt;PCollection&amp;lt;KV&amp;lt;string, int&amp;gt;&amp;gt;&lt;/code&gt;. However, the &lt;code&gt;formatFunc&lt;/code&gt; does not take a &lt;code&gt;emit func(...)&lt;/code&gt; instead it simply returns a type string.&lt;/p&gt;
 &lt;p&gt;Since the PTransform outputs a single line for each input element, a simpler form of the function can be specified. One where the output element is just returned from the function. The &lt;code&gt;emit func(...)&lt;/code&gt; is useful when the number of output elements differ to the number of input elements. If its a 1:1 mapping a return makes the function easier to read. As above this is all inferred at runtime with reflection when the pipeline is being constructed..&lt;/p&gt;
-
 &lt;p&gt;Multiple return arguments can also be used. For example, if the output was expected to be &lt;code&gt;PCollection&amp;lt;KV&amp;lt;float64, bool&amp;gt;&amp;gt;&lt;/code&gt;, the return type could be &lt;code&gt;func(...) (float64, bool)&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;textio&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Write&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;wordcounts.txt&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;formatted&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Finally &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/io/textio#Write&#34;&gt;&lt;code&gt;textio.Write&lt;/code&gt;&lt;/a&gt; takes the formatted &lt;code&gt;PCollection&amp;lt;string&amp;gt;&lt;/code&gt; and writes it to a file named “wordcounts.txt&amp;rdquo; with one line per element.&lt;/p&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;textio&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Write&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;wordcounts.txt&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;formatted&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Finally &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/io/textio#Write&#34;&gt;&lt;code&gt;textio.Write&lt;/code&gt;&lt;/a&gt; takes the formatted &lt;code&gt;PCollection&amp;lt;string&amp;gt;&lt;/code&gt; and writes it to a file named “wordcounts.txt&amp;rdquo; with one line per element.&lt;/p&gt;
 &lt;h2 id=&#34;running-the-pipeline&#34;&gt;Running the pipeline&lt;/h2&gt;
-
 &lt;p&gt;To test the pipeline it can easily be run locally like so:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;go get github.com/apache/beam/sdks/go/examples/wordcount
 &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$GOPATH&lt;/span&gt;/src/github.com/apache/beam/sdks/go/examples/wordcount
-go run wordcount.go --runner&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;direct&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;To run in a more realistic way, it can be run on &lt;a href=&#34;https://cloud.google.com/dataflow/&#34;&gt;GCP Dataflow&lt;/a&gt;. Before you do so, you need to create a GCP project, create a GCS bucket, enable the Cloud Dataflow APIs, and create a service account. This is documented on the &lt;a href=&#34;https://cloud.google.com/dataflow/docs/quickstarts/quickstart-python&#34;&gt;Python quickstart guide&lt;/a&gt;, under “Before you begin”.&lt;/p&gt;
+go run wordcount.go --runner&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;direct
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To run in a more realistic way, it can be run on &lt;a href=&#34;https://cloud.google.com/dataflow/&#34;&gt;GCP Dataflow&lt;/a&gt;. Before you do so, you need to create a GCP project, create a GCS bucket, enable the Cloud Dataflow APIs, and create a service account. This is documented on the &lt;a href=&#34;https://cloud.google.com/dataflow/docs/quickstarts/quickstart-python&#34;&gt;Python quickstart guide&lt;/a&gt;, under “Before you begin”.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;GOOGLE_APPLICATION_CREDENTIALS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PWD&lt;/span&gt;/your-gcp-project.json
 &lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;BUCKET&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;your-gcs-bucket
 &lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;PROJECT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;your-gcp-project
@@ -124,9 +100,8 @@ go run wordcount.go &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    --project &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;PROJECT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;?&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    --temp_location gs://&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;BUCKET&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;?&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;/tmp/ &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    --staging_location gs://&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;BUCKET&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;?&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;/binaries/ &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    --worker_harness_container_image&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;apache-docker-beam-snapshots-docker.bintray.io/beam/go:20180515&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;If this works correctly you’ll see something similar to the following printed:&lt;/p&gt;
-
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    --worker_harness_container_image&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;apache-docker-beam-snapshots-docker.bintray.io/beam/go:20180515
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If this works correctly you’ll see something similar to the following printed:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Cross-compiling .../wordcount.go as .../worker-1-1544590905654809000
 Staging worker binary:  .../worker-1-1544590905654809000
 Submitted job: 2018-12-11_21_02_29
@@ -137,24 +112,15 @@ Job still running …
 Job still running …
 ...
 Job succeeded!
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Let&amp;rsquo;s take a moment to explain what’s going on, starting with the various flags. The &lt;code&gt;--runner dataflow&lt;/code&gt; flag tells the Apache Beam SDK to run this on GCP Dataflow, including executing all the steps required to make that happen. This includes, compiling the code and uploading it to the &lt;code&gt;--staging_location&lt;/code&gt;. Later the staged binary will be run by Dataflow under the &lt;code&gt;--project&lt;/code&gt; project. As this will be running “in the cloud”, the pipeline will not be able to access local files. Thus for both the &lt;code&gt;--input&lt;/code&gt; and &lt;code&gt;--output&lt;/code&gt; flags are set to paths on GCS, as this is a convenient place to store files. Finally the &lt;code&gt;--worker_harness_container_image&lt;/code&gt; flag specifies the docker image that Dataflow will use to host the workcount.go binary that was uploaded to the &lt;code&gt;--staging_location&lt;/code&gt;.&lt;/p&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Let&amp;rsquo;s take a moment to explain what’s going on, starting with the various flags. The &lt;code&gt;--runner dataflow&lt;/code&gt; flag tells the Apache Beam SDK to run this on GCP Dataflow, including executing all the steps required to make that happen. This includes, compiling the code and uploading it to the &lt;code&gt;--staging_location&lt;/code&gt;. Later the staged binary will be run by Dataflow under the &lt;code&gt;--project&lt;/code&gt; project. As this will be running “in the cloud”, the pipeline will not be able to access local files. Thus for both the &lt;code&gt;--input&lt;/code&gt; and &lt;code&gt; --output&lt;/code&gt; flags are set to paths on GCS, as this is a convenient place to store files. Finally the &lt;code&gt;--worker_harness_container_image&lt;/code&gt; flag specifies the docker image that Dataflow will use to host the workcount.go binary that was uploaded to the &lt;code&gt;--staging_location&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Once wordcount.go is running, it prints out helpful information, such as links to the the Dataflow console. The console displays current progress as well as a visualization of the pipeline as a directed graph. The local wordcount.go continues to run only to display status updates. It can be interrupted at any time, but the pipeline will continue to run on Dataflow until it either succeeds or fails. Once that occurs, the logs link can provide useful information.&lt;/p&gt;
-
 &lt;h1 id=&#34;art-history-more-complex-example&#34;&gt;Art history (more complex example)&lt;/h1&gt;
-
 &lt;div style=&#34;float: right; width: 300px&#34;&gt;
-    &lt;img src=&#34;palette.png&#34; width=300 height=411&gt;
+	&lt;img src=&#34;palette.png&#34; width=300 height=411&gt;
 &lt;/div&gt;
-
 &lt;p&gt;Now we’ll construct a more complex pipeline, that demonstrates some other features of Beam and Dataflow. In this pipeline we will be taking 100,000 paintings from the last 600 years and processing them to extract information about their color palettes. Specifically the question we aim to answer is, “Has the color palettes of paintings change over the decades?”. This may not be a pipeline we run repeatedly, but it was a fun example, and demonstrates many advance topics.&lt;/p&gt;
-
 &lt;p&gt;We will skip over the details of the color extraction algorithm, and provide that in a later article. Here we’ll focus on how to create a pipeline to accomplish this task.&lt;/p&gt;
-
 &lt;p&gt;We start by reading a csv file that contains metadata for each painting, such as the artist, year it was painted, and a GCS path to a jpg of the painting. The paintings will then be grouped by the decade they were painted, and then the color palette for each group will be determined. Each palette will saved to a png file (DrawColorPalette), as well as all the palette saved to a single large json file (WriteIndex). To finish it off, the pipeline will be productionised, so it easier to debug, and re-run. The full source code is &lt;a href=&#34;https://github.com/bramp/dataflow-art&#34;&gt;available here&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;To start with, the main function for the pipeline looks like this:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
@@ -179,9 +145,8 @@ Job succeeded!
 	&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beamx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Run&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ctx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;nil&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 		&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Fatalf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ctx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;Failed to execute job: %v&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;That is the standard boilerplate for a Beam pipeline, it parses the flags, initialises Beam, delegates the pipeline construction to &lt;code&gt;buildPipeline&lt;/code&gt; function, and finally runs the pipeline.&lt;/p&gt;
-
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That is the standard boilerplate for a Beam pipeline, it parses the flags, initialises Beam, delegates the pipeline construction to &lt;code&gt;buildPipeline&lt;/code&gt; function, and finally runs the pipeline.&lt;/p&gt;
 &lt;p&gt;The interesting code begins in the &lt;code&gt;buildPipeline&lt;/code&gt; function, which constructs the pipeline, by passing PCollections from one function to the next. To build up the tree we see in the above diagram.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildPipeline&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scope&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;c1&#34;&gt;// nothing -&amp;gt; PCollection&amp;lt;Painting&amp;gt;
@@ -207,8 +172,8 @@ Job succeeded!
 
 	&lt;span class=&#34;c1&#34;&gt;// PCollection&amp;lt;KV&amp;lt;string, string&amp;gt;&amp;gt; -&amp;gt; nothing
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nf&#34;&gt;WriteErrorLog&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;errors.log&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;errors1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;errors2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;errors3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;To make it easy to follow, each function describes the step, and is annotated with a comment that explains what kind of PCollection is accepted and returned. Let&amp;rsquo;s highlight some interesting steps.&lt;/p&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To make it easy to follow, each function describes the step, and is annotated with a comment that explains what kind of PCollection is accepted and returned. Let&amp;rsquo;s highlight some interesting steps.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;flag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;index&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;art.csv&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;Index of the art.&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -229,20 +194,15 @@ Job succeeded!
 &lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildPipeline&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scope&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;c1&#34;&gt;// nothing -&amp;gt; PCollection&amp;lt;Painting&amp;gt;
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;paintings&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;csvio&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Read&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;reflect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;TypeOf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Painting&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{}))&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The very first step uses &lt;a href=&#34;https://godoc.org/github.com/bramp/morebeam/csvio#Read&#34;&gt;&lt;code&gt;csvio.Read&lt;/code&gt;&lt;/a&gt; to read the CSV file specified by the &lt;code&gt;--index&lt;/code&gt; flag, and returns a PCollection of Painting structs. In all the examples we’ve seen before the PCollections only contains basic types, e.g. strings, ints, etc. More complex types, such as a slices and structs are allowed (but not maps and interfaces). This makes it easier to pass rich information between the PTransforms. The only caveat is the type must be JSON-serialisable. This is because in a distributed pipeline, the PTransforms could be processed on different machines, and the PCollection needs to be marshalled to be passed between them.&lt;/p&gt;
-
+&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The very first step uses &lt;a href=&#34;https://godoc.org/github.com/bramp/morebeam/csvio#Read&#34;&gt;&lt;code&gt;csvio.Read&lt;/code&gt;&lt;/a&gt; to read the CSV file specified by the &lt;code&gt;--index&lt;/code&gt; flag, and returns a PCollection of Painting structs. In all the examples we’ve seen before the PCollections only contains basic types, e.g. strings, ints, etc. More complex types, such as a slices and structs are allowed (but not maps and interfaces). This makes it easier to pass rich information between the PTransforms. The only caveat is the type must be JSON-serialisable. This is because in a distributed pipeline, the PTransforms could be processed on different machines, and the PCollection needs to be marshalled to be passed between them.&lt;/p&gt;
 &lt;p&gt;For Beam to successfully unmarshal your data, the types must also be registered. This is typically done within the init() function, by called &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#RegisterType&#34;&gt;&lt;code&gt;beam.RegisterType&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;init&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;RegisterType&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;reflect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;TypeOf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Painting&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{}))&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;If you forget to register the type, a error will occur at Runtime, for example:&lt;/p&gt;
-
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you forget to register the type, a error will occur at Runtime, for example:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;java.util.concurrent.ExecutionException: java.lang.RuntimeException: Error received from SDK harness for instruction -224: execute failed: panic: reflect: Call using main.Painting as type struct { Artist string; Title string; ... } goroutine 70 [running]:
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This can be a little frustrating, as when running the pipeline locally with the &lt;code&gt;direct&lt;/code&gt; runner, it does not marshal your data, so errors like this aren’t exposed until running on Dataflow.&lt;/p&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This can be a little frustrating, as when running the pipeline locally with the &lt;code&gt;direct&lt;/code&gt; runner, it does not marshal your data, so errors like this aren’t exposed until running on Dataflow.&lt;/p&gt;
 &lt;p&gt;Now we have a collection of Paintings, we group them by decade:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// GroupByDecade takes a PCollection&amp;lt;Painting&amp;gt; and returns a 
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// PCollection&amp;lt;CoGBK&amp;lt;string, Painting&amp;gt;&amp;gt; of the paintings group by decade.
@@ -256,15 +216,11 @@ Job succeeded!
 
 	&lt;span class=&#34;c1&#34;&gt;// PCollection&amp;lt;string, Painting&amp;gt; -&amp;gt; PCollection&amp;lt;CoGBK&amp;lt;string, Painting&amp;gt;&amp;gt;
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;GroupByKey&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;paintingsWithKey&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The first line in this function, &lt;code&gt;s.Scope(&amp;quot;GroupBy Decade&amp;quot;)&lt;/code&gt; allows us to name this step, and group multiple sub-steps. For example, in the above diagram “GroupBy Decade” is a single step, which can be expanded to show a &lt;a href=&#34;https://godoc.org/github.com/bramp/morebeam#AddKey&#34;&gt;&lt;code&gt;AddKey&lt;/code&gt;&lt;/a&gt; and &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#GroupByKey&#34;&gt;&lt;code&gt;GroupByKey&lt;/code&gt;&lt;/a&gt; step.&lt;/p&gt;
-
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The first line in this function, &lt;code&gt;s.Scope(&amp;quot;GroupBy Decade&amp;quot;)&lt;/code&gt; allows us to name this step, and group multiple sub-steps. For example, in the above diagram “GroupBy Decade” is a single step, which can be expanded to show a &lt;a href=&#34;https://godoc.org/github.com/bramp/morebeam#AddKey&#34;&gt;&lt;code&gt;AddKey&lt;/code&gt;&lt;/a&gt; and &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#GroupByKey&#34;&gt;&lt;code&gt;GroupByKey&lt;/code&gt;&lt;/a&gt; step.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;GroupByDecade&lt;/code&gt; returns a &lt;code&gt;PCollection&amp;lt;CoGBK&amp;lt;string, Painting&amp;gt;&amp;gt;&lt;/code&gt;. The CoGBK, is short for &lt;strong&gt;Co&lt;/strong&gt;mmon &lt;strong&gt;G&lt;/strong&gt;roup &lt;strong&gt;B&lt;/strong&gt;y &lt;strong&gt;K&lt;/strong&gt;ey. It is a special collection, where (as you’ll see later) each element is a tuple of a key, and an iterable collection of elements. The key in this case is the decade the painting was painted. The &lt;code&gt;PCollection&amp;lt;Painting&amp;gt;&lt;/code&gt; is transformed into a &lt;code&gt;PCollection&amp;lt;KV&amp;lt;String,Painting&amp;gt;&amp;gt;&lt;/code&gt; by the &lt;a href=&#34;https://godoc.org/github.com/bramp/morebeam#AddKey&#34;&gt;&lt;code&gt;morebeam.AddKey&lt;/code&gt;&lt;/a&gt; step, adding a key to each value. Then the &lt;code&gt;GroupByKey&lt;/code&gt; will use that key to produce the final PCollection.&lt;/p&gt;
-
 &lt;p&gt;Next up is the &lt;code&gt;ExtractHistogram&lt;/code&gt;, which takes the &lt;code&gt;PCollection&amp;lt;CoGBK&amp;lt;string, Painting&amp;gt;&amp;gt;&lt;/code&gt;, and returns two PCollections. The first PCollection is a &lt;code&gt;PCollection&amp;lt;KV&amp;lt;string, Histogram&amp;gt;&amp;gt;&lt;/code&gt;, which contains a &lt;a href=&#34;https://en.wikipedia.org/wiki/Color_histogram&#34;&gt;color histogram&lt;/a&gt; for every decade of paintings. The second PCollection is related to error handling, and will be explained later.&lt;/p&gt;
-
 &lt;p&gt;The ExtractHistogram function demonstrates three new concepts, “Stateful functions”, “Data enrichment”, and “Error handling”.&lt;/p&gt;
-
 &lt;h2 id=&#34;stateful-functions&#34;&gt;Stateful functions&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;artPrefix&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;flag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;art&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;gs://mybucket/art&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;Path to where the art is kept.&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -288,18 +244,15 @@ Job succeeded!
 	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;ParDo2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;extractHistogramFn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 		&lt;span class=&#34;nx&#34;&gt;ArtPrefix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;artPrefix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
 	&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;files&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Instead of passing a simple function to &lt;code&gt;beam.ParDo&lt;/code&gt;, a struct containing two fields is passed. The exported field, &lt;code&gt;ArtPrefix&lt;/code&gt; is the path to where the painting jpgs are stored, and the unexported field, &lt;code&gt;fs&lt;/code&gt;, is a filesystem client for reading these jpgs.&lt;/p&gt;
-
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Instead of passing a simple function to &lt;code&gt;beam.ParDo&lt;/code&gt;, a struct containing two fields is passed. The exported field, &lt;code&gt;ArtPrefix&lt;/code&gt; is the path to where the painting jpgs are stored, and the unexported field, &lt;code&gt;fs&lt;/code&gt;, is a filesystem client for reading these jpgs.&lt;/p&gt;
 &lt;p&gt;When the pipeline runs, no global variables are allowed, including the command line flag variables. For example, when running this pipeline we may start it like so:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;go run main.go &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --art gs://&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;BUCKET&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;?&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;/art/ &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --runner dataflow &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  ...&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;When the code actually runs on the Dataflow workers, the &lt;code&gt;--art&lt;/code&gt; flag is not specified. Thus the &lt;code&gt;*artPrefix&lt;/code&gt; value will use the default value. To pass this to the Dataflow workers, it must be part of the DoFn struct that is passed to &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#ParDo&#34;&gt;&lt;code&gt;beam.ParDo&lt;/code&gt;&lt;/a&gt;. So in this example, we create a &lt;code&gt;extractHistogramFn&lt;/code&gt; struct, with the exported &lt;code&gt;ArtPrefix&lt;/code&gt; field set to the value of the &lt;code&gt;--art&lt;/code&gt; flag. This &lt;code&gt;extractHistogramFn&lt;/code&gt; is then marshalled and passed to the workers. As with the unmarshalled PCollection values, the extractHistogramFn must also be registered with beam during &lt;code&gt;init&lt;/code&gt;.&lt;/p&gt;
-
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  ...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;When the code actually runs on the Dataflow workers, the &lt;code&gt;--art&lt;/code&gt; flag is not specified. Thus the &lt;code&gt;*artPrefix&lt;/code&gt; value will use the default value. To pass this to the Dataflow workers, it must be part of the DoFn struct that is passed to &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#ParDo&#34;&gt;&lt;code&gt;beam.ParDo&lt;/code&gt;&lt;/a&gt;. So in this example, we create a &lt;code&gt;extractHistogramFn&lt;/code&gt; struct, with the exported &lt;code&gt;ArtPrefix&lt;/code&gt; field set to the value of the &lt;code&gt;--art&lt;/code&gt; flag. This &lt;code&gt;extractHistogramFn&lt;/code&gt; is then marshalled and passed to the workers. As with the unmarshalled PCollection values, the extractHistogramFn must also be registered with beam during &lt;code&gt;init&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;When the pipeline executes this step it calls the &lt;code&gt;extractHistogramFn&lt;/code&gt;’s &lt;code&gt;ProcessElement&lt;/code&gt; method. This method works in a similar way to a simple DoFn functions. The arguments and return value are reflected at runtime and mapped to the PCollections being processed and returned.&lt;/p&gt;
-
 &lt;h2 id=&#34;iterating-over-a-cogbk&#34;&gt;Iterating over a CoGBK&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fn&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;extractHistogramFn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;ProcessElement&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
 		&lt;span class=&#34;nx&#34;&gt;ctx&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
@@ -319,15 +272,11 @@ Job succeeded!
 	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
 	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;result&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code&gt;ProcessElement&lt;/code&gt; is called once for every unique group in the &lt;code&gt;PCollection&amp;lt;CoGBK&amp;lt;string, Painting&amp;gt;&lt;/code&gt;. The &lt;code&gt;key string&lt;/code&gt; argument will be the key for that group, and a &lt;code&gt;values func(*Painting) bool&lt;/code&gt; is used to iterate all values within the group. The contact is that &lt;code&gt;values&lt;/code&gt; is passed a pointer to a &lt;code&gt;Painting&lt;/code&gt; struct, which is populated on each iteration. As long as there are more paintings to process in the group the values function returns true. Once it returns false, the group has been fully processed. This iterator pattern is unique to the &lt;code&gt;CoGBK&lt;/code&gt; and makes it convient to apply an operation to every element in the group.&lt;/p&gt;
-
-&lt;p&gt;In this case, &lt;code&gt;extractHistogram&lt;/code&gt; is called for each Painting, fetches a jpg of the artwork, and extract a [histogram of colors]((&lt;a href=&#34;https://en.wikipedia.org/wiki/Color_histogram&#34;&gt;https://en.wikipedia.org/wiki/Color_histogram&lt;/a&gt;). The histograms from all painting in that group are combined, and finally one result is per group is returned.&lt;/p&gt;
-
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;ProcessElement&lt;/code&gt; is called once for every unique group in the &lt;code&gt;PCollection&amp;lt;CoGBK&amp;lt;string, Painting&amp;gt;&lt;/code&gt;. The &lt;code&gt;key string&lt;/code&gt; argument will be the key for that group, and a &lt;code&gt;values func(*Painting) bool&lt;/code&gt; is used to iterate all values within the group. The contact is that &lt;code&gt;values&lt;/code&gt; is passed a pointer to a &lt;code&gt;Painting&lt;/code&gt; struct, which is populated on each iteration. As long as there are more paintings to process in the group the values function returns true. Once it returns false, the group has been fully processed. This iterator pattern is unique to the &lt;code&gt;CoGBK&lt;/code&gt; and makes it convient to apply an operation to every element in the group.&lt;/p&gt;
+&lt;p&gt;In this case, &lt;code&gt;extractHistogram&lt;/code&gt; is called for each Painting, fetches a jpg of the artwork, and extract a [histogram of colors]((&lt;a href=&#34;https://en.wikipedia.org/wiki/Color_histogram)&#34;&gt;https://en.wikipedia.org/wiki/Color_histogram)&lt;/a&gt;. The histograms from all painting in that group are combined, and finally one result is per group is returned.&lt;/p&gt;
 &lt;h2 id=&#34;data-enrichment&#34;&gt;Data enrichment&lt;/h2&gt;
-
 &lt;p&gt;Reading the paintings from an external service (such as &lt;a href=&#34;https://cloud.google.com/storage/&#34;&gt;GCS&lt;/a&gt;) demonstrates a data enrichment step. This is where an external service is used to “enrich” the dataset the pipeline is processing. You could imagine a user service being called when processing log entries, or a product service when processing purchases. It should be noted, that any external action should be &lt;a href=&#34;https://en.wikipedia.org/wiki/Idempotence&#34;&gt;idempotent&lt;/a&gt;. If a worker fails, it is possible the same element is retried, and thus processed multiple times. Dataflow keeps track of failures and ensures the final result only has each element processed once.&lt;/p&gt;
-
 &lt;p&gt;When calling a remote service, typically some kind of client is needed to make the request. In this pipeline we read the images from GCS, thus setting up GCS client at startup is useful. Since we are using a struct based DoFn, there are some additional methods that can be defined.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fn&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;extractHistogramFn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;Setup&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ctx&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;error&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;error&lt;/span&gt;
@@ -340,9 +289,8 @@ Job succeeded!
 
 &lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fn&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;extractHistogramFn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;Teardown&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;error&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Close&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;When the DoFn is initialized on the worker, the &lt;code&gt;Setup&lt;/code&gt; method is called. Here a new &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/io/filesystem&#34;&gt;Filesystem client&lt;/a&gt; is created and store it in the struct’s &lt;code&gt;fs&lt;/code&gt; field. Later, when the DoFn is no longer needed, the &lt;code&gt;Teardown&lt;/code&gt; method is called, giving us opportunity to cleanup the client. With all things distributed, don’t expect the &lt;code&gt;Teardown&lt;/code&gt; to ever be called.&lt;/p&gt;
-
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;When the DoFn is initialized on the worker, the &lt;code&gt;Setup&lt;/code&gt; method is called. Here a new &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/io/filesystem&#34;&gt;Filesystem client&lt;/a&gt; is created and store it in the struct’s &lt;code&gt;fs&lt;/code&gt; field. Later, when the DoFn is no longer needed, the &lt;code&gt;Teardown&lt;/code&gt; method is called, giving us opportunity to cleanup the client. With all things distributed, don’t expect the &lt;code&gt;Teardown&lt;/code&gt; to ever be called.&lt;/p&gt;
 &lt;p&gt;There are also some simple best practices around error handling that should be following when calling an external services.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fn&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;extractHistogramFn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;extractHistogram&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ctx&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
 &lt;span class=&#34;nx&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;filename&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;palette&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Histogram&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -361,23 +309,17 @@ Job succeeded!
 	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
 	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;palette&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;NewColorHistogram&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;nil&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The function begins by using a &lt;a href=&#34;https://golang.org/pkg/context/#WithTimeout&#34;&gt;&lt;code&gt;context.WithTimeout&lt;/code&gt;&lt;/a&gt;. This ensures that if the external service does not respond in a timely manner the context will be cancelled and a error returned. If this timeout wasn’t set, the external call may never end, and the pipeline never terminates.&lt;/p&gt;
-
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The function begins by using a &lt;a href=&#34;https://golang.org/pkg/context/#WithTimeout&#34;&gt;&lt;code&gt;context.WithTimeout&lt;/code&gt;&lt;/a&gt;. This ensures that if the external service does not respond in a timely manner the context will be cancelled and a error returned. If this timeout wasn’t set, the external call may never end, and the pipeline never terminates.&lt;/p&gt;
 &lt;p&gt;Since the pipeline could be running across 100s of machines, it could generate significant load on a remote service. It is wise to implement appropriate &lt;a href=&#34;https://cloud.google.com/storage/docs/exponential-backoff&#34;&gt;backoff and retry logic&lt;/a&gt;. In some cases even &lt;a href=&#34;https://cloud.google.com/service-infrastructure/docs/rate-limiting&#34;&gt;rate limiting&lt;/a&gt; your pipeline’s execution, or tagging your pipeline’s traffic at a &lt;a href=&#34;https://www.usenix.org/conference/srecon17asia/program/presentation/sheerin&#34;&gt;lower QoS&lt;/a&gt; so it can be easily shed.&lt;/p&gt;
-
 &lt;p&gt;The external service, may also return permanent errors. Thus a more robust error handling pattern is needed.&lt;/p&gt;
-
 &lt;h2 id=&#34;error-handling-and-dead-letters&#34;&gt;Error handling and dead letters&lt;/h2&gt;
-
 &lt;p&gt;When Beam processes a PCollection, it bundles up multiple elements and processes one bundle at a time. If the PTransform return an error, panics, or otherwise fails (such as running out of memory), the full bundle is retried. With Dataflow, bundles are &lt;a href=&#34;https://cloud.google.com/dataflow/docs/resources/faq#how-are-java-exceptions-handled-in-cloud-dataflow&#34;&gt;retried up to four times&lt;/a&gt;, after which the entire pipeline is aborted. This can be inconvenient, so where appropriate instead of returning an error we we use a &lt;a href=&#34;https://en.wikipedia.org/wiki/Dead_letter_queue&#34;&gt;dead letter queue&lt;/a&gt;. This is a new PCollection that collects processing errors. These errors can then be persisted at the end of the pipeline, manually inspected, and processed again later.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;ParDo2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;extractHistogramFn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;ArtPrefix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;artPrefix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;files&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;A keen observer would have noticed that &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#ParDo2&#34;&gt;&lt;code&gt;beam.ParDo2&lt;/code&gt;&lt;/a&gt; was used by ExtractHistogram, instead of &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#ParDo&#34;&gt;&lt;code&gt;beam.ParDo&lt;/code&gt;&lt;/a&gt;. This function works the same, but returns two PCollections. In our case, the first is the normal output, and the second is a &lt;code&gt;PCollection&amp;lt;KV&amp;lt;string, string&amp;gt;&amp;gt;&lt;/code&gt;. This second collection is keyed on the unique identifer of the painting having an issue, and the value is the error message.&lt;/p&gt;
-
+&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;files&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;A keen observer would have noticed that &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#ParDo2&#34;&gt;&lt;code&gt;beam.ParDo2&lt;/code&gt;&lt;/a&gt; was used by ExtractHistogram, instead of &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#ParDo&#34;&gt;&lt;code&gt;beam.ParDo&lt;/code&gt;&lt;/a&gt;. This function works the same, but returns two PCollections. In our case, the first is the normal output, and the second is a &lt;code&gt;PCollection&amp;lt;KV&amp;lt;string, string&amp;gt;&amp;gt;&lt;/code&gt;. This second collection is keyed on the unique identifer of the painting having an issue, and the value is the error message.&lt;/p&gt;
 &lt;p&gt;Since returning a error is optional, the errors PCollection was passed to &lt;code&gt;extractHistogramFn&lt;/code&gt;’s &lt;code&gt;ProcessElement&lt;/code&gt; as a &lt;code&gt;errors func(string, string)&lt;/code&gt;.&lt;/p&gt;
-
 &lt;p&gt;Throughout we use this kind of error PCollections from every stage, and at the end of the pipeline they are collected together and output to a single errors log file:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// WriteErrorLog takes multiple PCollection&amp;lt;KV&amp;lt;string,string&amp;gt;&amp;gt;s combines them
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// and writes them to the given filename.
@@ -390,29 +332,21 @@ Job succeeded!
 	&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
 	&lt;span class=&#34;nx&#34;&gt;textio&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Write&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;morebeam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Join&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;outputPrefix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;filename&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Since the output is key, comma, value, the file can easily be re-read to try just the failed keys.&lt;/p&gt;
-
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Since the output is key, comma, value, the file can easily be re-read to try just the failed keys.&lt;/p&gt;
 &lt;p&gt;The rest of the pipeline is much of the same, and thus won’t be explained in detail. &lt;code&gt;CalculateColorPalette&lt;/code&gt; takes the color histograms and runs a K-Means clustering algorithm to extract the color palettes for those paintings. Those palettes are written out to png files with the &lt;code&gt;DrawColorPalette&lt;/code&gt;, and finally all the palettes are written out to a JSON file in &lt;code&gt;WriteIndex&lt;/code&gt;.&lt;/p&gt;
-
 &lt;h2 id=&#34;gotchas&#34;&gt;Gotchas&lt;/h2&gt;
-
 &lt;h3 id=&#34;marshing&#34;&gt;Marshing&lt;/h3&gt;
-
 &lt;p&gt;Always remember to register the types that will be transmitted between workers. This is anything that’s inside a PCollection, as well as any DoFn. Not all types are allowed, but slices, structs, and primitives are. For other types, custom JSON marshalling can be used.&lt;/p&gt;
-
 &lt;p&gt;It should also be reminded that global state is not allowed. Flags and other global variables will not always be populated when running on a remote worker. Also, examples like this may catch you out:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;prefix&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;“&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;”&lt;/span&gt;
 &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Scope&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;“&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Prefix&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;”&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;prefix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;ParDo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;prefix&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This simple example appears to add “X” to the beginning of each element, however, it will prefix nothing. This is because, the simple anonymous function is marshalled, and unmarshalled on the worker. When it is then invoked on the worker, it does not have the closure, and thus has not captured the value of prefix. Instead prefix is the zero value. For this example to work, prefix must be defined inside the anonymous function, or a DoFn struct used which contains the prefix as a marshalled field.&lt;/p&gt;
-
+&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This simple example appears to add “X” to the beginning of each element, however, it will prefix nothing. This is because, the simple anonymous function is marshalled, and unmarshalled on the worker. When it is then invoked on the worker, it does not have the closure, and thus has not captured the value of prefix. Instead prefix is the zero value. For this example to work, prefix must be defined inside the anonymous function, or a DoFn struct used which contains the prefix as a marshalled field.&lt;/p&gt;
 &lt;h3 id=&#34;errors&#34;&gt;Errors&lt;/h3&gt;
-
 &lt;p&gt;Since the pipeline could be running across 100s of workers, errors are to be expected. Extensively using  &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/log#Infof&#34;&gt;&lt;code&gt;log.Infof&lt;/code&gt;&lt;/a&gt;, &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/log#Debugf&#34;&gt;&lt;code&gt;log.Debugf&lt;/code&gt;&lt;/a&gt;, etc will make your live better. They can make it very easy to debug why the pipeline got stuck, or mysteriously failed.&lt;/p&gt;
-
 &lt;p&gt;While debugging this pipeline, it would occasionally fail due to exceeding the memory limits of the Dataflow worker’s. Standard Go infrastructure can be used to help debug this, such as &lt;a href=&#34;https://golang.org/pkg/net/http/pprof/&#34;&gt;pprof&lt;/a&gt;.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
 	&lt;span class=&#34;s&#34;&gt;&amp;#34;net/http&amp;#34;&lt;/span&gt;
@@ -426,17 +360,12 @@ Job succeeded!
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;		&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Info&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ctx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;ListenAndServe&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;localhost:8080&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;nil&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
 	&lt;span class=&#34;p&#34;&gt;}()&lt;/span&gt;
 	&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This configures a webserver which can export useful stats, and used for grabbing pprof profiling data.&lt;/p&gt;
-
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This configures a webserver which can export useful stats, and used for grabbing pprof profiling data.&lt;/p&gt;
 &lt;h3 id=&#34;difference-between-direct-and-dataflow-runners&#34;&gt;Difference between direct and dataflow runners&lt;/h3&gt;
-
 &lt;p&gt;Running the pipeline locally is a quick way to validate the pipeline is setup, and that is runs as expected. However, running locally won’t run the pipeline in parallel, and it is obviously constrained to a single machine. There are some other difference, mostly around marshalling data. It’s always a good idea to test on Dataflow, perhaps with a smaller or sampled dataset as input, that can be used as a smoke test.&lt;/p&gt;
-
 &lt;h1 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h1&gt;
-
 &lt;p&gt;This article has covered the basics of creating an Apache Beam pipeline with the Go SDK, while also covering some more advanced topics. The results of the specific pipeline will be revealed in a later article, until then the &lt;a href=&#34;https://github.com/bramp/dataflow-art&#34;&gt;code is available here&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;While the Beam Go SDK is still experimental, there are many great tutorials and example using the more mature Java and Python Beam SDKs [&lt;a href=&#34;https://medium.com/google-cloud/popular-java-projects-on-github-that-could-use-some-help-analyzed-using-bigquery-and-dataflow-dbd5753827f4&#34;&gt;1&lt;/a&gt;, &lt;a href=&#34;https://medium.com/@vallerylancey/error-handling-elements-in-apache-beam-pipelines-fffdea91af2a&#34;&gt;2&lt;/a&gt;]. Google themselves even published a series of generic articles [&lt;a href=&#34;https://cloud.google.com/blog/products/gcp/guide-to-common-cloud-dataflow-use-case-patterns-part-1&#34;&gt;part 1&lt;/a&gt;, &lt;a href=&#34;https://cloud.google.com/blog/products/gcp/guide-to-common-cloud-dataflow-use-case-patterns-part-2&#34;&gt;part 2&lt;/a&gt;] explaining common use cases.&lt;/p&gt;
 </description>
     </item>
@@ -450,33 +379,26 @@ Job succeeded!
       <description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;tl;dr Google Fonts doesn&amp;rsquo;t supply fonts with OpenType features (such as old-style figures, or small-caps), but you can build and host the fonts yourself to support everything you need.&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;I recently posted a &lt;a href=&#34;https://blog.bramp.net/post/2018/01/16/measuring-percentile-latency/&#34;&gt;article which contained lots of numbers&lt;/a&gt;. While I was proofreading the article, I didn’t quite liked how the numbers looked, sometime the digits were below the baseline, for example:&lt;/p&gt;
-
 &lt;figure&gt;
     &lt;img src=&#34;oldstyle.png&#34; width=&#34;760&#34; height=&#34;157&#34;/&gt; &lt;figcaption&gt;
             &lt;h4&gt;Oldstyle figures&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-
 &lt;p&gt;Where I would have expected the top and bottom of each digit to be aligned:&lt;/p&gt;
-
 &lt;figure&gt;
     &lt;img src=&#34;lining.png&#34; width=&#34;760&#34; height=&#34;152&#34;/&gt; &lt;figcaption&gt;
             &lt;h4&gt;Lining figures&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-
 &lt;p&gt;This made me flashback to all the typography I learnt when &lt;a href=&#34;https://github.com/bramp/publication&#34;&gt;working with LaTeX&lt;/a&gt;. These two styles of figures are called old-style, and lining (or sometimes lowercase and uppercase numbers). The theory is that old-style numbers flow better when mixed with text. Recall, letters like q, j and p, all drop below the baseline, which makes the text nicer to read:&lt;/p&gt;
-
 &lt;figure&gt;
     &lt;img src=&#34;quickbrownfox.png&#34; width=&#34;760&#34; height=&#34;100&#34;/&gt; &lt;figcaption&gt;
             &lt;h4&gt;Example with characters below the baseline&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
-
 
 &lt;p&gt;However, my article had many numbers on the page, sometimes within tables, where old-style just made the numbers look odd. I looked for a way to force the lining style throughout. I quickly found the CSS styling:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span class=&#34;nt&#34;&gt;body&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -485,21 +407,17 @@ Job succeeded!
      &lt;span class=&#34;kp&#34;&gt;-moz-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;font-feature-settings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;lnum&amp;#34;&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
       &lt;span class=&#34;kp&#34;&gt;-ms-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;font-feature-settings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;lnum&amp;#34;&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
           &lt;span class=&#34;k&#34;&gt;font-feature-settings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;lnum&amp;#34;&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Sadly when I applied this to my site, it did nothing. I wondered if perhaps the font did not support lining figures. A quick search led me to &lt;a href=&#34;https://stackoverflow.com/questions/28098992/google-fonts-lining-numbers&#34;&gt;Stack Overflow&lt;/a&gt; that implied both the font I was using, &lt;a href=&#34;https://fonts.google.com/specimen/Raleway&#34;&gt;Raleway&lt;/a&gt;, and Google Fonts (which hosted the font) did in fact support lining.&lt;/p&gt;
-
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Sadly when I applied this to my site, it did nothing. I wondered if perhaps the font did not support lining figures. A quick search led me to &lt;a href=&#34;https://stackoverflow.com/questions/28098992/google-fonts-lining-numbers&#34;&gt;Stack Overflow&lt;/a&gt; that implied both the font I was using, &lt;a href=&#34;https://fonts.google.com/specimen/Raleway&#34;&gt;Raleway&lt;/a&gt;, and Google Fonts (which hosted the font) did in fact support lining.&lt;/p&gt;
 &lt;p&gt;So I went deeper down the rabbit hole to figure out what was going wrong. I wanted to confirm for myself that the font supported lining figures. I searched for a while for a simple CLI that would inspect the &lt;a href=&#34;https://en.wikipedia.org/wiki/Web_Open_Font_Format&#34;&gt;WOFF&lt;/a&gt;/&lt;a href=&#34;https://en.wikipedia.org/wiki/TrueType&#34;&gt;TTF&lt;/a&gt; files and tell me what they contained. Sadly, the best I could find was &lt;a href=&#34;https://fontforge.github.io/&#34;&gt;FontForge&lt;/a&gt;, a GUI. That worked, and confirmed the fonts being served by Google did not contain the lining feature, or in fact any feature other than basic ligatures.&lt;/p&gt;
-
 &lt;p&gt;Later I found this &lt;a href=&#34;https://github.com/google/fonts/issues/1335&#34;&gt;GitHub issue&lt;/a&gt; which confirmed all features were stripped from the font. So I sought out a way to rebuild the Google font to keep the lining figures.&lt;/p&gt;
-
 &lt;p&gt;Before that, I started to &lt;a href=&#34;http://sethgodin.typepad.com/seths_blog/2005/03/dont_shave_that.html&#34;&gt;shave another yak&lt;/a&gt;, and decided to create a CLI tool that would easily display the font features. I came across a Go library, &lt;a href=&#34;https://github.com/ConradIrwin/font&#34;&gt;SFNT&lt;/a&gt; that can parse OpenType fonts. Sadly it didn’t implement the parsing of the features. A few hours later, I read the &lt;a href=&#34;http://www.adobe.com/devnet/opentype/afdko/topic_feature_file_syntax.html&#34;&gt;OpenType spec&lt;/a&gt; and sent them a &lt;a href=&#34;https://github.com/ConradIrwin/font/pull/3&#34;&gt;pull request&lt;/a&gt; to add this functionality. Now I can easily confirm from the command line what features are supported.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ font features raleway-v12-latin-ext_latin-regular.woff
 Glyph Substitution Table &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;GSUB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
 	Script &lt;span class=&#34;s2&#34;&gt;&amp;#34;latn&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Latin&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
 		Default Language:
-			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;liga&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Standard Ligatures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;I decided to play around with &lt;a href=&#34;https://developers.google.com/fonts/docs/developer_api&#34;&gt;Google Font API&lt;/a&gt;, and then eventually the unoffical (but awesome) &lt;a href=&#34;https://google-webfonts-helper.herokuapp.com/fonts/raleway&#34;&gt;google-webfonts-helper&lt;/a&gt; (a hassle-free way to self-host Google Fonts). However, no combination of options would make the font contain the lining figures.&lt;/p&gt;
-
+			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;liga&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Standard Ligatures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I decided to play around with &lt;a href=&#34;https://developers.google.com/fonts/docs/developer_api&#34;&gt;Google Font API&lt;/a&gt;, and then eventually the unoffical (but awesome) &lt;a href=&#34;https://google-webfonts-helper.herokuapp.com/fonts/raleway&#34;&gt;google-webfonts-helper&lt;/a&gt; (a hassle-free way to self-host Google Fonts). However, no combination of options would make the font contain the lining figures.&lt;/p&gt;
 &lt;p&gt;Since the Google Fonts are open source, I downloaded the &lt;a href=&#34;https://github.com/google/fonts/tree/master/ofl/raleway&#34;&gt;source TTF of the font&lt;/a&gt;, and double-checked it did indeed contain the feature:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ font features Raleway-Regular.ttf 
 Glyph Substitution Table &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;GSUB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
@@ -512,14 +430,13 @@ Glyph Substitution Table &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;GSUB&lt;spa
       Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;onum&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Oldstyle Figures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
       Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;salt&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Alternates&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
       Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;smcp&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Small Capitals&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;ss01&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Set &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;ss02&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Set &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;So my next idea was to take the original Raleway-Regular.ttf and convert it to &lt;a href=&#34;https://en.wikipedia.org/wiki/Web_Open_Font_Format&#34;&gt;WOFF&lt;/a&gt; and &lt;a href=&#34;https://www.w3.org/TR/WOFF2/&#34;&gt;WOFF2&lt;/a&gt;, and strip out the bits I don’t need. Just how Google Fonts does, to ensure the resulting files are lean and performant.&lt;/p&gt;
-
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;ss01&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Set 1&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;ss02&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Set 2&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So my next idea was to take the original Raleway-Regular.ttf and convert it to &lt;a href=&#34;https://en.wikipedia.org/wiki/Web_Open_Font_Format&#34;&gt;WOFF&lt;/a&gt; and &lt;a href=&#34;https://www.w3.org/TR/WOFF2/&#34;&gt;WOFF2&lt;/a&gt;, and strip out the bits I don’t need. Just how Google Fonts does, to ensure the resulting files are lean and performant.&lt;/p&gt;
 &lt;p&gt;I couldn’t find the pipeline Google Fonts uses to process the files, so I instead took it upon myself to figure this out. I started by using &lt;code&gt;pyftsubset&lt;/code&gt; (part of &lt;a href=&#34;https://github.com/fonttools/fonttools&#34;&gt;FontTools&lt;/a&gt;) to remove unneeded character sets, features, and other parts from the original TTF file.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ pip install fonttools
-$ pyftsubset Raleway-Regular.ttf --layout-features&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;*&amp;#39;&lt;/span&gt; --unicodes&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;U+0000-00FF, U+0100-024F, U+0131, U+0152-0153, U+02DA, U+02DC, U+02BB-02BC, U+02C6, U+0259, U+0370-03FF, U+1E00-1EFF, U+2000-206F, U+2070-209F, U+2074, U+20A0-20CF, U+2122, U+2150-218F, U+2200-22FF, U+2C60-2C7F, U+A720-A7FF&amp;#34;&lt;/span&gt; --output-file&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Raleway-Regular.subset.ttf&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Now I had a TTF file with all the features, but only the subset of characters I use on my site. Next I needed to convert this this file to all the &lt;a href=&#34;https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization&#34;&gt;recommended font formats&lt;/a&gt;, so my site would look nice in IE, Chrome, Android and iOS. The resulting CSS would look like this:&lt;/p&gt;
+$ pyftsubset Raleway-Regular.ttf --layout-features&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;*&amp;#39;&lt;/span&gt; --unicodes&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;U+0000-00FF, U+0100-024F, U+0131, U+0152-0153, U+02DA, U+02DC, U+02BB-02BC, U+02C6, U+0259, U+0370-03FF, U+1E00-1EFF, U+2000-206F, U+2070-209F, U+2074, U+20A0-20CF, U+2122, U+2150-218F, U+2200-22FF, U+2C60-2C7F, U+A720-A7FF&amp;#34;&lt;/span&gt; --output-file&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Raleway-Regular.subset.ttf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now I had a TTF file with all the features, but only the subset of characters I use on my site. Next I needed to convert this this file to all the &lt;a href=&#34;https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization&#34;&gt;recommended font formats&lt;/a&gt;, so my site would look nice in IE, Chrome, Android and iOS. The resulting CSS would look like this:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span class=&#34;p&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;font-face&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;font-family&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Raleway&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;raleway-regular.subset.eot&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;                           &lt;span class=&#34;c&#34;&gt;/* IE9 Compat Modes */&lt;/span&gt;
@@ -531,14 +448,13 @@ $ pyftsubset Raleway-Regular.ttf --layout-features&lt;span class=&#34;o&#34;&gt;
        &lt;span class=&#34;nt&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;raleway-regular.subset.svg#ralewayregular&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;format&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;svg&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;    &lt;span class=&#34;c&#34;&gt;/* Legacy iOS */&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;font-style&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;normal&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;font-weight&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;400&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;I again tried to use &lt;code&gt;pyftsubset&lt;/code&gt; to save the files in the required formats. This worked well for TTF, WOFF, and WOFF2. But didn’t support &lt;a href=&#34;https://en.wikipedia.org/wiki/Embedded_OpenType&#34;&gt;EOT&lt;/a&gt; or &lt;a href=&#34;http://caniuse.com/svg-fonts&#34;&gt;SVG&lt;/a&gt; fonts:&lt;/p&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I again tried to use &lt;code&gt;pyftsubset&lt;/code&gt; to save the files in the required formats. This worked well for TTF, WOFF, and WOFF2. But didn’t support &lt;a href=&#34;https://en.wikipedia.org/wiki/Embedded_OpenType&#34;&gt;EOT&lt;/a&gt; or &lt;a href=&#34;http://caniuse.com/svg-fonts&#34;&gt;SVG&lt;/a&gt; fonts:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ pip install zopfli
 $ pip install brotli
 $ pyftsubset ... --flavor&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;woff --with-zopfli --output-file&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Raleway-Regular.subset.woff
-$ pyftsubset ... --flavor&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;woff2 --output-file&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Raleway-Regular.subset.woff2&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;So instead I searched for a all-in-one solution to converting fonts. I found numerous websites that offered to do it, the one I settled on was &lt;a href=&#34;https://www.fontsquirrel.com/tools/webfont-generator&#34;&gt;fontsquirrel.com&lt;/a&gt;. Here I used the expert feature, to control exactly what was in the font, and to produce compressed versions in all file formats. I originally tried to use the subsetting feature on fontsquirrel, but I couldn’t get it to maintain all the features I needed, so I used &lt;code&gt;pyftsubset&lt;/code&gt; locally instead.&lt;/p&gt;
-
+$ pyftsubset ... --flavor&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;woff2 --output-file&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Raleway-Regular.subset.woff2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So instead I searched for a all-in-one solution to converting fonts. I found numerous websites that offered to do it, the one I settled on was &lt;a href=&#34;https://www.fontsquirrel.com/tools/webfont-generator&#34;&gt;fontsquirrel.com&lt;/a&gt;. Here I used the expert feature, to control exactly what was in the font, and to produce compressed versions in all file formats. I originally tried to use the subsetting feature on fontsquirrel, but I couldn’t get it to maintain all the features I needed, so I used &lt;code&gt;pyftsubset&lt;/code&gt; locally instead.&lt;/p&gt;
 &lt;p&gt;After fontsquirrel.com produced the fonts, I checked it contained the features, and compared the resulting file sizes:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ls -ltr
 
@@ -563,14 +479,12 @@ Glyph Substitution Table &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;GSUB&lt;spa
       Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;onum&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Oldstyle Figures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
       Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;salt&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Alternates&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
       Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;smcp&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Small Capitals&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;ss01&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Set &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;ss02&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Set &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The file size didn&amp;rsquo;t vary too much, and thus it was a simple matter of &lt;a href=&#34;https://blog.bramp.net/fonts/raleway-regular.subset-webfont.woff2&#34;&gt;uploading the fonts&lt;/a&gt; to my blog, and updating the CSS.&lt;/p&gt;
-
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;ss01&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Set 1&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+      Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;ss02&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Set 2&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The file size didn&amp;rsquo;t vary too much, and thus it was a simple matter of &lt;a href=&#34;https://blog.bramp.net/fonts/raleway-regular.subset-webfont.woff2&#34;&gt;uploading the fonts&lt;/a&gt; to my blog, and updating the CSS.&lt;/p&gt;
 &lt;p class=&#34;text-center&#34;&gt;
 &lt;span class=&#34;onum&#34; style=&#34;text-decoration: red underline overline; font-size: 3.5em&#34;&gt;1234567890&lt;/span&gt; &amp;nbsp;vs&amp;nbsp; &lt;span class=&#34;lnum&#34; style=&#34;text-decoration: red underline overline; font-size: 3.5em&#34;&gt;1234567890&lt;/span&gt;
-&lt;/p&gt;
-</description>
+&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -579,12 +493,8 @@ Glyph Substitution Table &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;GSUB&lt;spa
       <pubDate>Sat, 16 Dec 2017 12:50:31 -0800</pubDate>
       
       <guid>https://blog.bramp.net/post/2017/12/16/parsing-with-antlr4-and-go/</guid>
-      <description>
-
-&lt;p&gt;&lt;em&gt;Originally &lt;a href=&#34;https://blog.gopheracademy.com/advent-2017/parsing-with-antlr4-and-go/&#34;&gt;published&lt;/a&gt; as part of the Go Advent 2017 series&lt;/em&gt;&lt;/p&gt;
-
+      <description>&lt;p&gt;&lt;em&gt;Originally &lt;a href=&#34;https://blog.gopheracademy.com/advent-2017/parsing-with-antlr4-and-go/&#34;&gt;published&lt;/a&gt; as part of the Go Advent 2017 series&lt;/em&gt;&lt;/p&gt;
 &lt;h2 id=&#34;what-is-antlr&#34;&gt;What is ANTLR?&lt;/h2&gt;
-
 &lt;p&gt;&lt;a href=&#34;http://www.antlr.org&#34;&gt;ANTLR&lt;/a&gt; (ANother Tool for Language Recognition),
 is an &lt;a href=&#34;http://www.antlr.org/papers/allstar-techreport.pdf&#34;&gt;ALL(*)&lt;/a&gt;
 &lt;a href=&#34;https://en.wikipedia.org/wiki/Parser_generator&#34;&gt;parser generator&lt;/a&gt;. In
@@ -593,21 +503,18 @@ Java, C, C#, Javascript), that can process text or binary input. The
 generated parser provides a callback interface to parse the input in an
 event-driven manner, which can be used as-is, or used to build parse
 trees (a data structure representing the input).&lt;/p&gt;
-
 &lt;p&gt;ANTLR is used by a number of popular projects, e.g Hive and Pig use it
 to parse Hadoop queries, Oracle and NetBeans uses it for their IDEs, and
 Twitter even uses it to understand search queries. Support was recently
 added so that ANTLR 4 can be used to generate parsers in pure Go. This
 article will explain some of the benefits of ANTLR, and walk us through
 a simple example.&lt;/p&gt;
-
 &lt;h2 id=&#34;why-use-it&#34;&gt;Why use it?&lt;/h2&gt;
-
 &lt;p&gt;It is possible to &lt;a href=&#34;https://blog.gopheracademy.com/advent-2014/parsers-lexers/&#34;&gt;hand write a
 parser&lt;/a&gt;, but
 this process can be complex, error prone, and hard to change. Instead
-there are many &lt;a href=&#34;https://en.wikipedia.org/wiki/Compari
-son_of_parser_generators&#34;&gt;parser generators&lt;/a&gt; that take a grammar expressed in an domain-
+there are many [parser generators](&lt;a href=&#34;https://en.wikipedia.org/wiki/Compari&#34;&gt;https://en.wikipedia.org/wiki/Compari&lt;/a&gt;
+son_of_parser_generators) that take a grammar expressed in an domain-
 specific way, and generates code to parse that language. Popular parser
 generates include &lt;a href=&#34;https://www.gnu.org/software/bison/&#34;&gt;bison&lt;/a&gt; and
 &lt;a href=&#34;http://dinosaur.compilertools.net/yacc/&#34;&gt;yacc&lt;/a&gt;. In fact, there is a
@@ -615,66 +522,64 @@ version of yacc, goyacc, which is written in Go and was part of the main
 go repo until it was moved to
 &lt;a href=&#34;https://godoc.org/golang.org/x/tools/cmd/goyacc&#34;&gt;golang.org/x/tools&lt;/a&gt;
 last year.&lt;/p&gt;
-
 &lt;h3 id=&#34;so-why-use-antlr-over-these&#34;&gt;So why use ANTLR over these?&lt;/h3&gt;
-
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;ANTLR has a &lt;a href=&#34;http://www.antlr.org/tools.html&#34;&gt;suite of tools&lt;/a&gt;, and
+&lt;li&gt;
+&lt;p&gt;ANTLR has a &lt;a href=&#34;http://www.antlr.org/tools.html&#34;&gt;suite of tools&lt;/a&gt;, and
 &lt;a href=&#34;http://tunnelvisionlabs.com/products/demo/antlrworks&#34;&gt;GUIs&lt;/a&gt;, that
-makes writing and debugging grammars easy.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;It uses a simple &lt;a href=&#34;https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form&#34;&gt;EBNF&lt;/a&gt;
+makes writing and debugging grammars easy.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It uses a simple &lt;a href=&#34;https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form&#34;&gt;EBNF&lt;/a&gt;
 syntax to define the grammar, instead of a bespoke configuration
-language.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;ANTLR is an &lt;a href=&#34;http://www.antlr.org/papers/allstar-techreport.pdf&#34;&gt;Adaptive&lt;/a&gt;
+language.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ANTLR is an &lt;a href=&#34;http://www.antlr.org/papers/allstar-techreport.pdf&#34;&gt;Adaptive&lt;/a&gt;
 &lt;a href=&#34;https://en.wikipedia.org/wiki/LL_parser&#34;&gt;LL(*) parser&lt;/a&gt;, ALL(*) for short,
 whereas most other parser generators (e.g Bison and Yacc) are
 &lt;a href=&#34;https://en.wikipedia.org/wiki/LALR_parser&#34;&gt;LALR&lt;/a&gt;. The difference
 between LL(*) and LALR is out of scope for this article, but
 simply LALR works bottom-up, and LL(*) works top-down. This
 has a bearing on how the grammar is written, making some languages
-easier or harder to express.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;The generated code for a LL(*) parser is more understandable than a
+easier or harder to express.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The generated code for a LL(*) parser is more understandable than a
 LALR parser. This is because LALR parsers are commonly table driven,
 whereas LL(*) parsers encode the logic in its control flow, making
-it more comprehensible.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Finally ANTLR is agnostic to the target language. A single grammar
+it more comprehensible.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Finally ANTLR is agnostic to the target language. A single grammar
 can be used to generate parsers in Java, Go, C, etc. Unlike
 Bison/Yacc which typically embeds target language code into the
-grammar, making it harder to port.&lt;/p&gt;&lt;/li&gt;
+grammar, making it harder to port.&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;installing-antlr-v4&#34;&gt;Installing ANTLR v4&lt;/h2&gt;
-
 &lt;p&gt;ANTLR is a Java 1.7 application, that generates the Go code needed to
 parse your language. During development Java is needed, but once the
 parser is built only Go and the &lt;a href=&#34;https://godoc.org/github.com/antlr/antlr4/runtime/Go/antlr&#34;&gt;ANTLR runtime
 library&lt;/a&gt; is
 required. The ANTLR site has
-&lt;a href=&#34;https://github.com/antlr/antlr4/blob/master/doc/getting-
-started.md&#34;&gt;documentation&lt;/a&gt; on how to install this on multiple platforms, but in brief,
+[documentation](&lt;a href=&#34;https://github.com/antlr/antlr4/blob/master/doc/getting-&#34;&gt;https://github.com/antlr/antlr4/blob/master/doc/getting-&lt;/a&gt;
+started.md) on how to install this on multiple platforms, but in brief,
 you can do the following:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ wget http://www.antlr.org/download/antlr-4.7-complete.jar
-$ &lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;java -jar $PWD/antlr-4.7-complete.jar&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The &lt;code&gt;antlr&lt;/code&gt; command is now available in your shell. If you prefer, the
+$ &lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;java -jar $PWD/antlr-4.7-complete.jar&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;antlr&lt;/code&gt; command is now available in your shell. If you prefer, the
 .jar file can be placed into a &lt;code&gt;~/bin&lt;/code&gt; directory, and the alias can be
 stored in your &lt;code&gt;~/.bash_profile&lt;/code&gt;.&lt;/p&gt;
-
 &lt;h2 id=&#34;classic-calculator-example&#34;&gt;Classic calculator example&lt;/h2&gt;
-
 &lt;p&gt;Let&amp;rsquo;s start with the “hello world” for parsers, the calculator example.
 We want to build a parser that handles simple mathematical expressions
 such as &lt;code&gt;1 + 2 * 3&lt;/code&gt;. The focus of this article is on how to use Go with
 ANTLR, so the syntax of the ANTLR language won’t be explained in
-detail, but the ANTLR site has &lt;a href=&#34;https://githu
-b.com/antlr/antlr4/blob/master/doc/grammars.md&#34;&gt;compressive documentation&lt;/a&gt;.&lt;/p&gt;
-
+detail, but the ANTLR site has [compressive documentation](https://githu
+b.com/antlr/antlr4/blob/master/doc/grammars.md).&lt;/p&gt;
 &lt;p&gt;As we go along, the &lt;a href=&#34;https://github.com/bramp/goadvent-antlr&#34;&gt;source is available to all
 examples&lt;/a&gt;.&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;// Calc.g4
 grammar Calc;
 
@@ -694,18 +599,15 @@ expression
    | expression op=(&#39;+&#39;|&#39;-&#39;) expression # AddSub
    | NUMBER                             # Number
    ;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The above is a simple grammar split into two sections, &lt;em&gt;tokens&lt;/em&gt;, and
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The above is a simple grammar split into two sections, &lt;em&gt;tokens&lt;/em&gt;, and
 &lt;em&gt;rules&lt;/em&gt;. The tokens are terminal symbols in the grammar, that is, they
 are made up of nothing but literal characters. Whereas rules are non-
 terminal states made up of tokens and/or other rules.&lt;/p&gt;
-
 &lt;p&gt;By convention this grammar must be saved with a filename that matches
 the name of the grammar, in this case “Calc.g4” . To process this file,
 and generate the Go parser, we run the &lt;code&gt;antlr&lt;/code&gt; command like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ antlr -Dlanguage&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Go -o parser Calc.g4 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This will generate a set of Go files in the “parser” package and
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ antlr -Dlanguage&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Go -o parser Calc.g4 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will generate a set of Go files in the “parser” package and
 subdirectory. It is possible to place the generated code in a different
 package by using the &lt;code&gt;-package &amp;lt;name&amp;gt;&lt;/code&gt; argument. This is useful if your
 project has multiple parsers, or you just want a more descriptive
@@ -717,27 +619,22 @@ following:&lt;/p&gt;
     ├── calc_lexer.go
     ├── calc_parser.go
     ├── calc_base_listener.go
-    └── calc_listener.go&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The generated files consist of three main components, the Lexer, Parser,
+    └── calc_listener.go
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The generated files consist of three main components, the Lexer, Parser,
 and Listener.&lt;/p&gt;
-
 &lt;p&gt;The Lexer takes arbitrary input and returns a stream of tokens. For
 input such as &lt;code&gt;1 + 2 * 3&lt;/code&gt;, the Lexer would return the following tokens:
 &lt;code&gt;NUMBER (1), ADD (+), NUMBER (2), MUL (*), NUMBER (3), EOF&lt;/code&gt;.&lt;/p&gt;
-
 &lt;p&gt;The Parser uses the Lexer’s output and applies the Grammar’s rules.
 Building higher level constructs, such as expressions that can be used
 to calculate the result.&lt;/p&gt;
-
 &lt;p&gt;The Listener then allows us to make use of the the parsed input. As
 mentioned earlier, yacc requires language specific code to be embedded
 with the grammar. However, ANTLR separates this concern, allowing the
 grammar to be agnostic to the target programming language. It does this
 through use of listeners, which effectively allows hooks to be placed
 before and after every rule is encountered in the parsed input.&lt;/p&gt;
-
 &lt;h2 id=&#34;using-the-lexer&#34;&gt;Using the Lexer&lt;/h2&gt;
-
 &lt;p&gt;Let&amp;rsquo;s move onto an example of using this generated code, starting with
 the Lexer.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// example1.go
@@ -766,22 +663,21 @@ the Lexer.&lt;/p&gt;
 		&lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Printf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;%s (%q)\n&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
 			&lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SymbolicNames&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;GetTokenType&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()],&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;GetText&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
 	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;To begin with, the generated parser is imported from the local
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To begin with, the generated parser is imported from the local
 subdirectory &lt;code&gt;import &amp;quot;./parser&amp;quot;&lt;/code&gt;. Next the Lexer is created with some
 input:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;	&lt;span class=&#34;c1&#34;&gt;// Setup the input
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;NewInputStream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;1 + 2 * 3&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
 	&lt;span class=&#34;c1&#34;&gt;// Create the Lexer
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;NewCalcLexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;In this example the input is a simple string, &lt;code&gt;&amp;quot;1 + 2 * 3&amp;quot;&lt;/code&gt; but there
-are other &lt;a href=&#34;https://godoc.org/github.com/antlr/antlr
-4/runtime/Go/antlr#InputStream&#34;&gt;&lt;code&gt;antlr.InputStream&lt;/code&gt;&lt;/a&gt;s, for example, the &lt;a href=&#34;https://godoc.org/github.com/antlr/antlr4/runtime/Go/antlr#FileStream&#34;&gt;&lt;code&gt;antlr.FileStream&lt;/code&gt;&lt;/a&gt;
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;NewCalcLexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this example the input is a simple string, &lt;code&gt;&amp;quot;1 + 2 * 3&amp;quot;&lt;/code&gt; but there
+are other [&lt;code&gt;antlr.InputStream&lt;/code&gt;](&lt;a href=&#34;https://godoc.org/github.com/antlr/antlr&#34;&gt;https://godoc.org/github.com/antlr/antlr&lt;/a&gt;
+4/runtime/Go/antlr#InputStream)s, for example, the &lt;a href=&#34;https://godoc.org/github.com/antlr/antlr4/runtime/Go/antlr#FileStream&#34;&gt;&lt;code&gt;antlr.FileStream&lt;/code&gt;&lt;/a&gt;
 type can read directly from a file. The &lt;code&gt;InputStream&lt;/code&gt; is then passed to
 a newly created Lexer. Note the name of the Lexer is &lt;code&gt;CalcLexer&lt;/code&gt; which
 matches the grammar’s name defined in the Calc.g4.&lt;/p&gt;
-
 &lt;p&gt;The lexer is then used to consume all the tokens from the input,
 printing them one by one. This wouldn’t normally be necessary but we do
 this for demonstrative purposes.&lt;/p&gt;
@@ -792,8 +688,8 @@ this for demonstrative purposes.&lt;/p&gt;
 		&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 		&lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Printf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;%s (%q)\n&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
 			&lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SymbolicNames&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;GetTokenType&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()],&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;GetText&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
-	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Each token has two main components, the TokenType, and the Text. The
+	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Each token has two main components, the TokenType, and the Text. The
 TokenType is a simple integer representing the type of token, while the
 Text is literally the text that made up this token. All the TokenTypes
 are defined at the end of calc_lexer.go, with their string names stored
@@ -806,14 +702,11 @@ in the SymbolicNames slice:&lt;/p&gt;
 	&lt;span class=&#34;nx&#34;&gt;CalcLexerSUB&lt;/span&gt;        &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;CalcLexerNUMBER&lt;/span&gt;     &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;CalcLexerWHITESPACE&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;You may also note, that the Whitespace token is not printed, even though
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You may also note, that the Whitespace token is not printed, even though
 the input clearly had whitespace. This is because the grammar was
-designed to skip (i.e. discard) the whitespace &lt;code&gt;WHITESPACE: [ \r\n\t]+
--&amp;gt; skip;&lt;/code&gt;.&lt;/p&gt;
-
+designed to skip (i.e. discard) the whitespace &lt;code&gt;WHITESPACE: [ \r\n\t]+ -&amp;gt; skip;&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;using-the-parser&#34;&gt;Using the Parser&lt;/h2&gt;
-
 &lt;p&gt;The Lexer on its own is not very useful, so the example can be modified
 to also use the Parser and Listener:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// example2.go
@@ -841,16 +734,15 @@ to also use the Parser and Listener:&lt;/p&gt;
 
 	&lt;span class=&#34;c1&#34;&gt;// Finally parse the expression
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ParseTreeWalkerDefault&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Walk&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;calcListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Start&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This is very similar to before, but instead of manually iterating over
-the tokens, the lexer is used to create a &lt;a href=&#34;https://
-godoc.org/github.com/antlr/antlr4/runtime/Go/antlr#CommonTokenStream&#34;&gt;&lt;code&gt;CommonTokenStream&lt;/code&gt;&lt;/a&gt;,
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This is very similar to before, but instead of manually iterating over
+the tokens, the lexer is used to create a [&lt;code&gt;CommonTokenStream&lt;/code&gt;](https://
+godoc.org/github.com/antlr/antlr4/runtime/Go/antlr#CommonTokenStream),
 which in turn is used to create a new &lt;code&gt;CalcParser&lt;/code&gt;. This &lt;code&gt;CalcParser&lt;/code&gt; is
 then “walked”, which is ANTLR&amp;rsquo;s event-driven API for receiving the
 results of parsing the rules.&lt;/p&gt;
-
-&lt;p&gt;Note, the &lt;a href=&#34;https://godoc.org/github.com/antlr/antlr4/runtime/Go/
-antlr#ParseTreeWalker.Walk&#34;&gt;&lt;code&gt;Walk&lt;/code&gt;&lt;/a&gt; function does not return anything. Some may
+&lt;p&gt;Note, the [&lt;code&gt;Walk&lt;/code&gt;](&lt;a href=&#34;https://godoc.org/github.com/antlr/antlr4/runtime/Go/&#34;&gt;https://godoc.org/github.com/antlr/antlr4/runtime/Go/&lt;/a&gt;
+antlr#ParseTreeWalker.Walk) function does not return anything. Some may
 have expected a parsed form of the expression to be returned, such as
 some kind of &lt;a href=&#34;https://en.wikipedia.org/wiki/Abstract_syntax_tree&#34;&gt;AST&lt;/a&gt;
 (abstract syntax tree), but instead the Listener receives event as the
@@ -860,7 +752,6 @@ for XML. Event-based parsing can sometimes be harder to use, but it has
 many advantages. For example, the parser can be very memory efficient as
 previously parsed rules can be discarded once they are no longer needed.
 The parser can also be aborted early if the programmer wishes to.&lt;/p&gt;
-
 &lt;p&gt;But so far, this example doesn’t do anything beyond ensuring the input
 can be parsed without error. To add logic, we must extend the
 &lt;code&gt;calcListener&lt;/code&gt; type. The &lt;code&gt;calcListener&lt;/code&gt; has an embedded
@@ -895,21 +786,17 @@ looks like:&lt;/p&gt;
 
 	&lt;span class=&#34;c1&#34;&gt;// ExitAddSub is called when exiting the AddSub production.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nf&#34;&gt;ExitAddSub&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;AddSubContext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;There is an Enter and Exit function for each rule found in the grammar.
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There is an Enter and Exit function for each rule found in the grammar.
 As the input is walked, the Parser calls the appropriate function on the
 listener, to indicate when the rule starts and finishes being evaluated.&lt;/p&gt;
-
 &lt;h2 id=&#34;adding-the-logic&#34;&gt;Adding the logic&lt;/h2&gt;
-
 &lt;p&gt;A simple calculator can be constructed from this event driven parser by
 using a stack of values. Every time a number is found, it is added to a
 stack. Everytime an expression (add/multiple/etc) is found, the last two
 numbers on the stack are popped, and the appropriate operation is
 carried out. The result is then placed back on the stack.&lt;/p&gt;
-
-&lt;p&gt;Take the expression &lt;code&gt;1 + 2 * 3&lt;/code&gt;,  the result could be either &lt;code&gt;(1 + 2) *
-3 = 9&lt;/code&gt;, or &lt;code&gt;1 + (2 * 3) = 7&lt;/code&gt;. Those that recall the &lt;a href=&#34;https://en.wikipedia.org/wiki/Order_of_operations&#34;&gt;order of
+&lt;p&gt;Take the expression &lt;code&gt;1 + 2 * 3&lt;/code&gt;,  the result could be either &lt;code&gt;(1 + 2) * 3 = 9&lt;/code&gt;, or &lt;code&gt;1 + (2 * 3) = 7&lt;/code&gt;. Those that recall the &lt;a href=&#34;https://en.wikipedia.org/wiki/Order_of_operations&#34;&gt;order of
 operations&lt;/a&gt;, will
 know that multiplication should always be carried out before addition,
 thus the correct result is 7. However, without the parentheses there
@@ -917,11 +804,9 @@ could be some ambiguity on how this should be parsed. Luckily the
 ambiguity is resolved by the grammar. The precedence of multiplication
 over addition was subtly implied within Calc.g4, by placing the &lt;code&gt;MulDiv&lt;/code&gt;
 expressed before the &lt;code&gt;AddSub&lt;/code&gt; expression.&lt;/p&gt;
-
 &lt;div class=&#34;text-center&#34;&gt;
-    &lt;img src=&#34;parse-tree.svg&#34;&gt;
+	&lt;img src=&#34;parse-tree.svg&#34;&gt;
 &lt;/div&gt;
-
 &lt;p&gt;The code for a listener that implements this stack of value
 implementation is relatively simple:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;calcListener&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -981,8 +866,9 @@ implementation is relatively simple:&lt;/p&gt;
 	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
 	&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;push&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Finally this listener would be used like so:&lt;/p&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Finally this listener would be used like so:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// calc takes a string expression and returns the evaluated result.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;calc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;c1&#34;&gt;// Setup the input
@@ -1000,9 +886,8 @@ implementation is relatively simple:&lt;/p&gt;
 	&lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ParseTreeWalkerDefault&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Walk&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;listener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Start&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
 
 	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;listener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;pop&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Following the algorithm, the parsing of &lt;code&gt;1 + 2 * 3&lt;/code&gt; would work like so.&lt;/p&gt;
-
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Following the algorithm, the parsing of &lt;code&gt;1 + 2 * 3&lt;/code&gt; would work like so.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;The numbers 2 and 3 would be visited first (and placed on the stack),&lt;/li&gt;
 &lt;li&gt;Then the MulDiv expression would be visited, taking the values 2 and
@@ -1011,25 +896,20 @@ implementation is relatively simple:&lt;/p&gt;
 &lt;li&gt;Finally AddSub would be visited, popping the 1 and the 6 from the
 stack, placing the result 7 back.&lt;/li&gt;
 &lt;/ol&gt;
-
 &lt;p&gt;The order the rules are visited is completely driven by the Parser, and
 thus the grammar.&lt;/p&gt;
-
 &lt;h2 id=&#34;more-grammars&#34;&gt;More grammars&lt;/h2&gt;
-
 &lt;p&gt;Learning how to write a grammar may be daunting, but there are many
 resources for help. The author of ANTLR, &lt;a href=&#34;http://parrt.cs.usfca.edu/&#34;&gt;Terence
 Parr&lt;/a&gt;, has &lt;a href=&#34;https://pragprog.com/book/tpantlr2/the-definitive-antlr-4-reference&#34;&gt;published a
 book&lt;/a&gt;,
 with some of the content freely available on &lt;a href=&#34;http://antlr.org&#34;&gt;antlr.org&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;If you don’t want to write your own grammar, there are many &lt;a href=&#34;https://github.com/antlr/grammars-v4&#34;&gt;pre-written
 grammars available&lt;/a&gt;. Including
 grammars for CSS, HTML, SQL, etc, as well many popular programming
 languages. To make it easier, I have &lt;a href=&#34;https://github.com/bramp/antlr4-grammars&#34;&gt;generated
 parsers&lt;/a&gt; for all those
 available grammars, making them as easy to use just by importing.&lt;/p&gt;
-
 &lt;p&gt;A quick example of using one of the pre-generated grammars:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
 	&lt;span class=&#34;s&#34;&gt;&amp;#34;bramp.net/antlr4/json&amp;#34;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// The parser
@@ -1060,9 +940,8 @@ available grammars, making them as easy to use just by importing.&lt;/p&gt;
 
 	&lt;span class=&#34;c1&#34;&gt;// Finally walk the tree
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ParseTreeWalkerDefault&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Walk&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;exampleListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Json&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;Hopefully this article has given you a taste of how to use ANTLR with Go.
 The examples for this article are &lt;a href=&#34;https://github.com/bramp/goadvent-antlr&#34;&gt;found here&lt;/a&gt;,
 and the &lt;a href=&#34;https://godoc.org/github.com/antlr/antlr4/runtime/Go/antlr&#34;&gt;godoc for the ANTLR library is here&lt;/a&gt;
@@ -1081,44 +960,37 @@ how to download that package from the Internet. For example, to use the
 popular structured logging library, &lt;a href=&#34;https://github.com/sirupsen/logrus&#34;&gt;Logrus&lt;/a&gt;, it would imported at the top of the Go program like so:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
   &lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/sirupsen/logrus&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;When &lt;code&gt;go get&lt;/code&gt; is then executed, it fetches the Logrus source code from GitHub
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;When &lt;code&gt;go get&lt;/code&gt; is then executed, it fetches the Logrus source code from GitHub
 and places the code in the &lt;code&gt;$GOPATH/src&lt;/code&gt; directory. Take a look for yourself:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ tree &lt;span class=&#34;nv&#34;&gt;$GOPATH&lt;/span&gt;/src
 ...
 ├── github.com
 │   ├── Sirupsen
 │   │   └── logrus
-...&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;An astute reader may wonder, how exactly does &lt;code&gt;go get&lt;/code&gt; know that &lt;code&gt;github.com/sirupsen/logrus&lt;/code&gt; is a Git repository, and that it can be fetched via the git protocol from that URL. The &lt;code&gt;go get&lt;/code&gt; binary could have some smarts in it, that knows about GitHub, and does the right thing. But that seems inflexible, and problematic if new sites want to be supported. Instead the Go developers built a layer of indirection that allows the &lt;code&gt;go get&lt;/code&gt; tool to discover the correct source repo.&lt;/p&gt;
-
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;An astute reader may wonder, how exactly does &lt;code&gt;go get&lt;/code&gt; know that &lt;code&gt;github.com/sirupsen/logrus&lt;/code&gt; is a Git repository, and that it can be fetched via the git protocol from that URL. The &lt;code&gt;go get&lt;/code&gt; binary could have some smarts in it, that knows about GitHub, and does the right thing. But that seems inflexible, and problematic if new sites want to be supported. Instead the Go developers built a layer of indirection that allows the &lt;code&gt;go get&lt;/code&gt; tool to discover the correct source repo.&lt;/p&gt;
 &lt;p&gt;As outlined in the &lt;a href=&#34;https://golang.org/cmd/go/#hdr-Remote_import_paths&#34;&gt;Remote Import Paths&lt;/a&gt; docs,  the &lt;code&gt;go get&lt;/code&gt; binary will make a normal HTTP request to &lt;code&gt;https://github.com/sirupsen/logrus&lt;/code&gt; (falling back to http if needed) and look at the returned HTML for a &lt;code&gt;&amp;lt;meta name=&amp;quot;go-import&amp;quot;&lt;/code&gt; tag. This meta tag, can then redirect the &lt;code&gt;go get&lt;/code&gt; binary to the correct source code repository for the package.&lt;/p&gt;
-
 &lt;p&gt;This meta tag can been seen with &lt;code&gt;curl&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl https://github.com/sirupsen/logrus &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep meta &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep go-import&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;meta&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;go-import&amp;#34;&lt;/span&gt;
-  &lt;span class=&#34;na&#34;&gt;content&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/sirupsen/logrus git https://github.com/sirupsen/logrus.git&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;That tag says, the package rooted at &lt;code&gt;github.com/sirupsen/logrus&lt;/code&gt; can be fetched with git, at the
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl https://github.com/sirupsen/logrus &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep meta &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep go-import
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;meta&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;go-import&amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;na&#34;&gt;content&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/sirupsen/logrus git https://github.com/sirupsen/logrus.git&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That tag says, the package rooted at &lt;code&gt;github.com/sirupsen/logrus&lt;/code&gt; can be fetched with git, at the
 URL &lt;code&gt;https://github.com/sirupsen/logrus.git&lt;/code&gt;. The meta tag can express other source control systems, e.g Mercurial, Bazaar, Subversion.&lt;/p&gt;
-
 &lt;p&gt;GitHub is a very convenient place to host source code, but the GitHub URL is generic. Instead it is possible to use the &lt;code&gt;&amp;lt;meta&amp;gt;&lt;/code&gt; tag to create vanity domains to host projects. For example, the package hosted at &lt;a href=&#34;https://github.com/bramp/goredirects&#34;&gt;github.com/bramp/goredirects&lt;/a&gt; could instead be imported as &lt;code&gt;bramp.net/goredirects&lt;/code&gt;. All that is needed is a static HTML page at &lt;code&gt;bramp.net/goredirects&lt;/code&gt;, containing the following &lt;code&gt;&amp;lt;meta&amp;gt;&lt;/code&gt; tag pointing at GitHub.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;meta&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;go-import&lt;/span&gt;
-  &lt;span class=&#34;na&#34;&gt;content&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;bramp.net/goredirects git https://github.com/bramp/goredirects.git&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Incase a user attempted to visit that page directly with their web browser, it is worthwhile
+  &lt;span class=&#34;na&#34;&gt;content&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;bramp.net/goredirects git https://github.com/bramp/goredirects.git&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Incase a user attempted to visit that page directly with their web browser, it is worthwhile
 placing more information about the project on the page, or simply making the page redirect.&lt;/p&gt;
-
 &lt;p&gt;To help make these redirect pages, I wrote a simple go tool, &lt;a href=&#34;https://github.com/bramp/goredirects&#34;&gt;&lt;code&gt;goredirects&lt;/code&gt;&lt;/a&gt;, that inspects all local repositories under a vanity domain directory in the local &lt;code&gt;$GOPATH/src/&lt;/code&gt; and outputs static HTML pages that can be hosted on that domain.&lt;/p&gt;
-
 &lt;p&gt;For example, create your new project on GitHub, but check out the project under &lt;code&gt;$GOPATH/src/example.com/project&lt;/code&gt;. Then run the tool:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ go install bramp.net/goredirects
-$ goredirects example.com outputdir&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The directory &lt;code&gt;outputdir&lt;/code&gt; will now contain multiple directories and html files, one for each project under &lt;code&gt;$GOPATH/src/example.com&lt;/code&gt;. These HTML files contain the appropriate goimports meta tag to redirect the download of source code from the vanity name, to GitHub. Just upload these files to your website, voilà you are done. Examples of these vanity redirect files can be found on bramp.net, e.g &lt;a href=&#34;https://bramp.net/goredirects/index.html&#34;&gt;bramp.net/goredirects/index.html&lt;/a&gt;. This tool even works for packages with sub-packages under the main root.&lt;/p&gt;
-
+$ goredirects example.com outputdir
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The directory &lt;code&gt;outputdir&lt;/code&gt; will now contain multiple directories and html files, one for each project under &lt;code&gt;$GOPATH/src/example.com&lt;/code&gt;. These HTML files contain the appropriate goimports meta tag to redirect the download of source code from the vanity name, to GitHub. Just upload these files to your website, voilà you are done. Examples of these vanity redirect files can be found on bramp.net, e.g &lt;a href=&#34;https://bramp.net/goredirects/index.html&#34;&gt;bramp.net/goredirects/index.html&lt;/a&gt;. This tool even works for packages with sub-packages under the main root.&lt;/p&gt;
 &lt;p&gt;Finally, it is possible to ensure that if someone finds your project via GitHub, that &lt;code&gt;go get&lt;/code&gt; will always place it under your vanity domain. This be can be achieved with an &lt;a href=&#34;https://golang.org/cmd/go/#hdr-Import_path_checking&#34;&gt;import comment&lt;/a&gt;. Within the source code, ensure that at least one of the files in your page has a comment like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;project&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;//&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;example.com/project&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Then &lt;code&gt;go get&lt;/code&gt; will enforce the correct/vanity URL to use, instead of the true location.&lt;/p&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;project&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// import &amp;#34;example.com/project&amp;#34;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then &lt;code&gt;go get&lt;/code&gt; will enforce the correct/vanity URL to use, instead of the true location.&lt;/p&gt;
 &lt;p&gt;More helpful links on the topic:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://golang.org/cmd/go/#hdr-Import_path_checking&#34;&gt;golang.org/cmd/go/#hdr-Import_path_checking&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://golang.org/cmd/go/#hdr-Remote_import_paths&#34;&gt;golang.org/cmd/go/#hdr-Remote_import_paths&lt;/a&gt;&lt;/li&gt;
@@ -1135,40 +1007,28 @@ $ goredirects example.com outputdir&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
       <pubDate>Mon, 20 Feb 2017 12:50:31 -0800</pubDate>
       
       <guid>https://blog.bramp.net/post/2017/02/20/building-a-better-whats-my-ip-site/</guid>
-      <description>
-
-&lt;p&gt;Occasionally I’m curious to know what network my device is using, if it has a IPv6 address, and who owns the address space. For example, when in a coffee shop I’m curious to know their ISP, or when roaming internationally I’m always curious to understand which mobile operator’s IP address gets assigned to device.&lt;/p&gt;
-
-&lt;p&gt;Most &amp;ldquo;&lt;a href=&#34;https://www.google.com/search?q=What’s+my+IP+address&#34;&gt;What’s my IP address&lt;/a&gt;&amp;rdquo; sites, will either only show you one of your IPv4, or IPv6. It won’t do a DNS lookup, and they rarely do a WHOIS lookup.  Doing all these things, shouldn’t be too hard, so I figured in a weekend I could hack together a site to do this.&lt;/p&gt;
-
+      <description>&lt;p&gt;Occasionally I’m curious to know what network my device is using, if it has a IPv6 address, and who owns the address space. For example, when in a coffee shop I’m curious to know their ISP, or when roaming internationally I’m always curious to understand which mobile operator’s IP address gets assigned to device.&lt;/p&gt;
+&lt;p&gt;Most &amp;ldquo;&lt;a href=&#34;https://www.google.com/search?q=What%E2%80%99s+my+IP+address&#34;&gt;What’s my IP address&lt;/a&gt;&amp;rdquo; sites, will either only show you one of your IPv4, or IPv6. It won’t do a DNS lookup, and they rarely do a WHOIS lookup.  Doing all these things, shouldn’t be too hard, so I figured in a weekend I could hack together a site to do this.&lt;/p&gt;
 &lt;p&gt;This blog post explains the creation of &lt;a href=&#34;http://ip.bramp.net&#34;&gt;ip.bramp.net&lt;/a&gt;.&lt;/p&gt;
-
 &lt;div class=&#34;text-center&#34;&gt;
   &lt;img src=&#34;screenshot.png&#34; alt=&#34;Screenshot of ip.bramp.net in action&#34;&gt;&lt;/img&gt;
 &lt;/div&gt;
-
 &lt;h2 id=&#34;how-to-get-both-ipv4-and-ipv6-address&#34;&gt;How to get both IPv4 and IPv6 address?&lt;/h2&gt;
-
 &lt;p&gt;When navigating to a website your browser makes a connection, normally over one of IPv4, or IPv6. Which one is based on the DNS records available for the website’s domain, and the preference of your OS and browser. Thus your web server sees a single incoming connection, with a single remote address. This address is typically stored in a variable named REMOTE_ADDR. Most &amp;ldquo;What’s my IP&amp;rdquo; sites then display this variable back to the user as their IP address. However, as I’d like to see both IPv4 and IPv6 addresses, I need to somehow force the browser to make two requests, one over each.&lt;/p&gt;
-
 &lt;p&gt;There is no API to tell a browser to use IPv6 over IPv4, however, I use a trick with two domain names. Namely, I have ip4.bramp.net, and ip6.bramp.net. Both resolve to the same web server, but the former only has &lt;a href=&#34;https://tools.ietf.org/html/rfc1035&#34;&gt;DNS A records&lt;/a&gt;, and the latter only &lt;a href=&#34;https://tools.ietf.org/html/rfc3596&#34;&gt;DNS AAAA records&lt;/a&gt;. For example:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ dig ip4.bramp.net
-ip4.bramp.net.		&lt;span class=&#34;m&#34;&gt;300&lt;/span&gt;	IN	A	&lt;span class=&#34;m&#34;&gt;216&lt;/span&gt;.239.32.21
+ip4.bramp.net.		300	IN	A	216.239.32.21
 
 $ dig AAAA ip6.bramp.net
-ip6.bramp.net.		&lt;span class=&#34;m&#34;&gt;291&lt;/span&gt;	IN	AAAA	&lt;span class=&#34;m&#34;&gt;2001&lt;/span&gt;:4860:4802:32::15&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This forces the connection to be over either IPv4, or IPv6. If a browser doesn’t support IPv6, then the connection is never made, and an error is returned. Interesting side note, some browsers uses a technique called &lt;a href=&#34;https://en.wikipedia.org/wiki/Happy_Eyeballs&#34;&gt;Happy Eyeballs&lt;/a&gt;, which tries to connect over both concurrently, but abandons the slower or worse behaving of the two connections.&lt;/p&gt;
-
+ip6.bramp.net.		291	IN	AAAA	2001:4860:4802:32::15
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This forces the connection to be over either IPv4, or IPv6. If a browser doesn’t support IPv6, then the connection is never made, and an error is returned. Interesting side note, some browsers uses a technique called &lt;a href=&#34;https://en.wikipedia.org/wiki/Happy_Eyeballs&#34;&gt;Happy Eyeballs&lt;/a&gt;, which tries to connect over both concurrently, but abandons the slower or worse behaving of the two connections.&lt;/p&gt;
 &lt;h2 id=&#34;how-do-you-make-two-requests-from-one-page&#34;&gt;How do you make two requests from one page?&lt;/h2&gt;
-
 &lt;p&gt;To force the site to make requests to both of these domains, I issue two &lt;a href=&#34;https://en.wikipedia.org/wiki/Ajax_(programming)&#34;&gt;AJAX&lt;/a&gt; queries. The typical flow looks like:&lt;/p&gt;
-
 &lt;div class=&#34;text-center&#34;&gt;
   &lt;object data=&#34;diagram.svg&#34; type=&#34;image/svg+xml&#34; height=&#34;364&#34; width=&#34;583&#34; alt=&#34;diagram of AJAX calls&#34;&gt;
     &lt;img src=&#34;diagram.png&#34; /&gt;
   &lt;/object&gt;
 &lt;/div&gt;
-
 &lt;!--
 ```
 user-&gt;ip.bramp.net: GET /
@@ -1179,57 +1039,52 @@ user-&gt;ip6.bramp.net: GET ip6.bramp.net/json
 ip6.bramp.net-&gt;user: {address: 2001:db8::1}
 ```
 --&gt;
-
 &lt;p&gt;These AJAX queries return a simple JSON object, containing information about the requesting user. In my application an example response may look like:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddrFamily&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;IPv6&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddr&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;       &lt;span class=&#34;s2&#34;&gt;&amp;#34;2601:646:c200:b466:b446:ff32:b227:a53c&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This response can then be used to update the page, to display the appropriate address.&lt;/p&gt;
-
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This response can then be used to update the page, to display the appropriate address.&lt;/p&gt;
 &lt;p&gt;An experienced reader may be aware of some security issues with making AJAX request to a different domain. In particular, there are subtle ways in which a malicious site could abuse your AJAX endpoints. This is easily fixed by using cross-origin resource sharing (&lt;a href=&#34;https://en.wikipedia.org/wiki/Cross-origin_resource_sharing&#34;&gt;CORS&lt;/a&gt;) headers, in particular ip4.bramp.net, and ip6.bramp.net return the following:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl -v ip4.bramp.net/json
 
 &amp;lt; HTTP/1.1 &lt;span class=&#34;m&#34;&gt;200&lt;/span&gt; OK
 &amp;lt; Content-Type: application/json
-&amp;lt; Access-Control-Allow-Origin: http://ip.bramp.net&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The last header, explicitly allows requests from ip.bramp.net only, and thus forbids requests from other sites. Without this header, the AJAX request would be issued, but then rejected by the browser.&lt;/p&gt;
-
+&amp;lt; Access-Control-Allow-Origin: http://ip.bramp.net
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The last header, explicitly allows requests from ip.bramp.net only, and thus forbids requests from other sites. Without this header, the AJAX request would be issued, but then rejected by the browser.&lt;/p&gt;
 &lt;h2 id=&#34;what-about-the-reverse-dns-and-whois&#34;&gt;What about the reverse DNS and WHOIS?&lt;/h2&gt;
-
 &lt;p&gt;I noted I wanted to display both the reverse DNS, and WHOIS records. This is something the browser doesn’t support, but the server side could. Thus as part of processing the /json AJAX request, the application makes various additional requests to remote DNS and WHOIS servers.&lt;/p&gt;
-
 &lt;p&gt;To reverse lookup a IP address, you need to issue a &lt;a href=&#34;https://tools.ietf.org/html/rfc1035&#34;&gt;PTR DNS request&lt;/a&gt;. This is a special DNS request which requires the IP address to be formatted as a in-addr.arpa or ip6.arpa name. For example, the IP address 1.2.3.4, would become 4.3.2.1.in-addr.arpa. Then when a request is sent for that in-addr.arpa. name, the reverse DNS is returned.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ dig PTR &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;.3.2.1.in-addr.arpa.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ dig PTR 4.3.2.1.in-addr.arpa.
 
-&lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;.3.2.1.in-addr.arpa.	&lt;span class=&#34;m&#34;&gt;74312&lt;/span&gt;	IN	PTR	c-1-2-3-4.example.com.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The in-addr.arpa transformation, and lookup is commonly provided by &lt;a href=&#34;https://linux.die.net/man/3/getaddrinfo&#34;&gt;getaddrinfo(3)&lt;/a&gt; function, which makes this easy to do.&lt;/p&gt;
-
+4.3.2.1.in-addr.arpa.	74312	IN	PTR	c-1-2-3-4.example.com.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The in-addr.arpa transformation, and lookup is commonly provided by &lt;a href=&#34;https://linux.die.net/man/3/getaddrinfo&#34;&gt;getaddrinfo(3)&lt;/a&gt; function, which makes this easy to do.&lt;/p&gt;
 &lt;p&gt;The WHOIS lookup is a little bit more complex. Each domain is represented by a different WHOIS server, that can be determined by the ccTLD or TLD of the domain. However, with IP addresses, you must identify the Regional Internet Registry (&lt;a href=&#34;https://en.wikipedia.org/wiki/Regional_Internet_registry&#34;&gt;RIR&lt;/a&gt;) that owns the IP space. Sadly there is not a trivial mapping, so instead I issue a WHOIS query to the Internet Assigned Numbers Authority (&lt;a href=&#34;https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority&#34;&gt;IANA&lt;/a&gt;), who replies with the RIR which owns the IP address. From there, I can query the correct registry directly, typically one of &lt;a href=&#34;https://en.wikipedia.org/wiki/AFRINIC&#34;&gt;AFRINIC&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/American_Registry_for_Internet_Numbers&#34;&gt;ARIN&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Asia-Pacific_Network_Information_Centre&#34;&gt;APNIC&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Latin_America_and_Caribbean_Network_Information_Centre&#34;&gt;LACNIC&lt;/a&gt;, or &lt;a href=&#34;https://en.wikipedia.org/wiki/R%C3%A9seaux_IP_Europ%C3%A9ens_Network_Coordination_Centre&#34;&gt;RIPE NCC&lt;/a&gt;. Thus a typical WHOIS request looks like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ whois -h whois.iana.org &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.2.3.4
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ whois -h whois.iana.org 1.2.3.4
 
 % IANA WHOIS server
 % &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; more information on IANA, visit http://www.iana.org
 % This query returned &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; object
 refer:        whois.apnic.net
-inetnum:      &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.0.0.0 - &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.255.255.255
+inetnum:      1.0.0.0 - 1.255.255.255
 organisation: APNIC
 status:       ALLOCATED
 whois:        whois.apnic.net
-changed:      &lt;span class=&#34;m&#34;&gt;2010&lt;/span&gt;-01
-source:       IANA&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ whois -h whois.apnic.net &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.2.3.4
+changed:      2010-01
+source:       IANA
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ whois -h whois.apnic.net 1.2.3.4
 
 % &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;whois.apnic.net&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
 % Whois data copyright terms    http://www.apnic.net/db/dbcopyright.html
 % Information related to &lt;span class=&#34;s1&#34;&gt;&amp;#39;1.2.3.0 - 1.2.3.255&amp;#39;&lt;/span&gt;
-inetnum:        &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.2.3.0 - &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.2.3.255
+inetnum:        1.2.3.0 - 1.2.3.255
 netname:        Example-prefix
 descr:          APNIC Example Project
 
 ...
 
-% This query was served by the APNIC Whois Service version &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.69.1-APNICv1r0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Both the reverse DNS and WHOIS response is returned as part of the AJAX JSON response.&lt;/p&gt;
+% This query was served by the APNIC Whois Service version 1.69.1-APNICv1r0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Both the reverse DNS and WHOIS response is returned as part of the AJAX JSON response.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddrFamily&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;  &lt;span class=&#34;s2&#34;&gt;&amp;#34;IPv4&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddr&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;        &lt;span class=&#34;s2&#34;&gt;&amp;#34;1.2.3.4&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
@@ -1244,19 +1099,13 @@ descr:          APNIC Example Project
 &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    status:       ALLOCATED
 &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    ...
 &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;  &amp;#34;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2 id=&#34;what-about-proxies&#34;&gt;What about proxies?&lt;/h2&gt;
-
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;what-about-proxies&#34;&gt;What about proxies?&lt;/h2&gt;
 &lt;p&gt;Many users are behind proxies, which connects to the webserver on the user’s behalf. Thus the REMOTE_ADDR is the address of the proxy, not the actual user.  Some proxies have a workaround for this, by placing the user’s real IP address in the &lt;a href=&#34;https://en.wikipedia.org/wiki/X-Forwarded-For&#34;&gt;X-Forwarded-For&lt;/a&gt; (XFF), or newer &lt;a href=&#34;https://tools.ietf.org/html/rfc7239&#34;&gt;Forwarded&lt;/a&gt; HTTP header. However, these headers are easily set by the user, so can not be trusted. Thus for the moment I ignore these headers, and will instead display the proxy’s IP address. It is conceivable to create a whitelist of proxies, that I would trust the XFF header, but for now I didn’t want that headache. Especially since the server side issues requests to external hosts, if I trusted the XFF header, an abusive user could use my site as a proxy, or even use my site as a relay to &lt;a href=&#34;https://en.wikipedia.org/wiki/Denial-of-service_attack&#34;&gt;denial of service&lt;/a&gt; these remote servers.&lt;/p&gt;
-
 &lt;h2 id=&#34;tying-this-all-together&#34;&gt;Tying this all together&lt;/h2&gt;
-
 &lt;p&gt;Server side I use &lt;a href=&#34;https://cloud.google.com/appengine/&#34;&gt;App Engine&lt;/a&gt;, and &lt;a href=&#34;https://golang.org/&#34;&gt;Go&lt;/a&gt;. Why? Because I wanted to play with App Engine, and I’m a fan of Go right now. On the client side I use &lt;a href=&#34;http://getbootstrap.com&#34;&gt;Bootstrap&lt;/a&gt; to make the page look nice, and &lt;a href=&#34;https://angularjs.org&#34;&gt;AngularJS&lt;/a&gt;. AngularJS because I’m familiar with it, and because it is really easy to issue an AJAX requests and transform the result into a web page.&lt;/p&gt;
-
 &lt;p&gt;I like App Engine, because of the &lt;a href=&#34;https://en.wikipedia.org/wiki/Platform_as_a_service&#34;&gt;PaaS&lt;/a&gt; model. It keeps my costs down, and I don’t need to setup a virtual machine, or create docker images. Instead I just write a single binary and upload it. However, App Engine does place some restrictions on what I can do, in particular limiting outbound connections to ones made via its own library. Thus I had to jump through a few hoops to make the reverse DNS and WHOIS requests. Instead of using &lt;a href=&#34;https://linux.die.net/man/3/getaddrinfo&#34;&gt;getaddrinfo(3)&lt;/a&gt;, I had to issue DNS requests myself using App Engine’s socket library and my own UDP packets on port 53. Luckily the Go DNS library, &lt;a href=&#34;https://github.com/miekg/dns&#34;&gt;miekg/dns&lt;/a&gt;, makes this relatively easy.  Similarly I had to implement the WHOIS lookup by hand, but again aided by a library, this time &lt;a href=&#34;https://github.com/domainr/whois&#34;&gt;domainr/whois&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;In conclusion, though the use of multiple domain names, some AJAX queries, and server side support. I was able to make &amp;ldquo;(a better) What&amp;rsquo;s My IP Address?&amp;rdquo; site in under a weekend.&lt;/p&gt;
-
 &lt;p&gt;Check out the &lt;a href=&#34;https://github.com/bramp/myip&#34;&gt;full source on github&lt;/a&gt;, or view the site at &lt;a href=&#34;http://ip.bramp.net/&#34;&gt;ip.bramp.net&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
@@ -1268,7 +1117,6 @@ descr:          APNIC Example Project
       
       <guid>https://blog.bramp.net/post/2016/08/08/peano-curves/</guid>
       <description>&lt;p&gt;My latest addition to the &lt;a href=&#34;https://github.com/google/hilbert&#34;&gt;hilbert go library&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Peano_curve&#34;&gt;Peano Curves&lt;/a&gt;. The original space-filing curve, similar to the Hilbert curve, but a little more complex.&lt;/p&gt;
-
 &lt;figure&gt;
     &lt;img src=&#34;peano_animation.gif&#34;/&gt; &lt;figcaption&gt;
             &lt;h4&gt;Animation of Peano curve with N in the range 1..5&lt;/h4&gt;
@@ -1285,16 +1133,13 @@ descr:          APNIC Example Project
       
       <guid>https://blog.bramp.net/post/2015/08/07/introducing-hilbert/</guid>
       <description>&lt;p&gt;A &lt;a href=&#34;https://en.wikipedia.org/wiki/Hilbert_curve&#34;&gt;Hilbert curve&lt;/a&gt; is a space-filling (snakey) curve through a 2D space:&lt;/p&gt;
-
 &lt;figure&gt;
     &lt;img src=&#34;hilbert.png&#34;/&gt; &lt;figcaption&gt;
             &lt;h4&gt;Image of 8 by 8 Hilbert curve&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-
 &lt;p&gt;This can be very useful for mapping a 1D value, into a 2D space. For example, it is commonly used to &lt;a href=&#34;https://xkcd.com/195/&#34;&gt;map IP addresses into a 2D space&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;I recently created a library for &lt;a href=&#34;https://golang.org/&#34;&gt;Go&lt;/a&gt; that can map to and from a curve. The project is &lt;a href=&#34;http://github.com/google/hilbert&#34;&gt;hosted on Github&lt;/a&gt;, and can be used like so:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/google/hilbert&amp;#34;&lt;/span&gt;
 
@@ -1306,9 +1151,8 @@ descr:          APNIC Example Project
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
 &lt;span class=&#34;c1&#34;&gt;// Also map back from (x,y) to t.
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;MapInverse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The project contains some demos, such as this cool animations:&lt;/p&gt;
-
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;MapInverse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The project contains some demos, such as this cool animations:&lt;/p&gt;
 &lt;figure&gt;
     &lt;img src=&#34;hilbert_animation.gif&#34;/&gt; &lt;figcaption&gt;
             &lt;h4&gt;Hilbert curve animation&lt;/h4&gt;

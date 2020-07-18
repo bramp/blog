@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Maps on bramp.net</title>
+    <title>maps on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Maps on bramp.net</description>
+    <description>Recent content in maps on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Mon, 31 Oct 2011 00:00:00 +0000</lastBuildDate>
@@ -15,8 +14,7 @@
       <pubDate>Mon, 31 Oct 2011 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2011/10/31/2010-census-tiger-line-shapefiles-code-names/</guid>
-      <description>&lt;p&gt;I&amp;#8217;ve been playing with the Tiger shapefiles to generate some interesting plots. While doing this I kept wondering what all the &lt;a href=&#34;ftp://ftp2.census.gov/geo/tiger/TIGER2010/&#34;&gt;different geographies&lt;/a&gt; were. I couldn&amp;#8217;t find a single concise list, so I made my own (but not yet complete) list from various source of information:&lt;/p&gt;
-
+      <description>&lt;p&gt;I’ve been playing with the Tiger shapefiles to generate some interesting plots. While doing this I kept wondering what all the &lt;a href=&#34;ftp://ftp2.census.gov/geo/tiger/TIGER2010/&#34;&gt;different geographies&lt;/a&gt; were. I couldn’t find a single concise list, so I made my own (but not yet complete) list from various source of information:&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -24,90 +22,73 @@
 &lt;th&gt;Description&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
-
 &lt;tbody&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;strong&gt;cbsa&lt;/strong&gt;&lt;/td&gt;
 &lt;td&gt;Metropolitan/Micropolitan Statistical Area&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&lt;strong&gt;bg&lt;/strong&gt;&lt;/td&gt;
 &lt;td&gt;Block Group&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&lt;strong&gt;csa&lt;/strong&gt;&lt;/td&gt;
 &lt;td&gt;Combined Statistical Area&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&lt;strong&gt;cd&lt;/strong&gt;&lt;/td&gt;
 &lt;td&gt;Congress Districts&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&lt;strong&gt;state&lt;/strong&gt;&lt;/td&gt;
 &lt;td&gt;State&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&lt;strong&gt;county&lt;/strong&gt;&lt;/td&gt;
 &lt;td&gt;County&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&lt;strong&gt;cnecta&lt;/strong&gt;&lt;/td&gt;
 &lt;td&gt;Combined New England City and Town Area&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&lt;strong&gt;necta&lt;/strong&gt;&lt;/td&gt;
 &lt;td&gt;New England City and Town Area&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&lt;strong&gt;elsd&lt;/strong&gt;&lt;/td&gt;
 &lt;td&gt;Elementary School District&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&lt;strong&gt;scsd&lt;/strong&gt;&lt;/td&gt;
 &lt;td&gt;Secondary School District&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&lt;strong&gt;unsd&lt;/strong&gt;&lt;/td&gt;
 &lt;td&gt;Unified School District&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&lt;strong&gt;sldl&lt;/strong&gt;&lt;/td&gt;
 &lt;td&gt;State Legislative District Lower Chamber&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&lt;strong&gt;sldu&lt;/strong&gt;&lt;/td&gt;
 &lt;td&gt;State Legislative District Upper Chamber&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&lt;strong&gt;submcd&lt;/strong&gt;&lt;/td&gt;
 &lt;td&gt;Subminor Civil Division&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&lt;strong&gt;vtd&lt;/strong&gt;&lt;/td&gt;
 &lt;td&gt;Voting Districting&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&lt;strong&gt;zcta5&lt;/strong&gt;&lt;/td&gt;
 &lt;td&gt;ZIP Code Tabulation Areas&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-
 &lt;p&gt;More to be added later, as well as some tools for processing Tiger 2010.&lt;/p&gt;
 </description>
     </item>

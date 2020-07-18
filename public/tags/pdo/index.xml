@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Pdo on bramp.net</title>
+    <title>pdo on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Pdo on bramp.net</description>
+    <description>Recent content in pdo on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Tue, 25 Oct 2011 00:00:00 +0000</lastBuildDate>
@@ -18,16 +17,16 @@
       <description>&lt;p&gt;I encountered the following odd exception:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;PHP Fatal error:  Uncaught exception &amp;#39;PDOException&amp;#39; with message &amp;#39;SQLSTATE[HY000]: General error: 2053 &amp;#39; in /home/bramp/my.php:29
 Stack trace:
-#0 /home/bramp/my.php(29): PDOStatement-&amp;gt;fetch(2)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Searching on Google didn&amp;#8217;t reveal much help, but I eventually figure out the root cause. Spot the mistake:&lt;/p&gt;
+#0 /home/bramp/my.php(29): PDOStatement-&amp;gt;fetch(2)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Searching on Google didn’t reveal much help, but I eventually figure out the root cause. Spot the mistake:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;...
 $sql = &amp;#39;SELECT TRIGGER_NAME, TRIGGER_GROUP, JOB_NAME FROM QRTZ_TRIGGERS&amp;#39;;
 $sth = $dbh-&amp;gt;prepare($sql) or die(&amp;#39;Failed to prepare SELECT TRIGGER query&amp;#39;);
 while ($row = $sth-&amp;gt;fetch(PDO::FETCH_ASSOC)) {
-...&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;I am missing a&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;$sth-&amp;gt;execute();&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;in between the prepare and the fetch. Easy fix. For reference I&amp;#8217;m using a old version of PHP 5.1.6, and MySQL client 5.0.45.&lt;/p&gt;
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I am missing a&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;$sth-&amp;gt;execute();
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;in between the prepare and the fetch. Easy fix. For reference I’m using a old version of PHP 5.1.6, and MySQL client 5.0.45.&lt;/p&gt;
 </description>
     </item>
     

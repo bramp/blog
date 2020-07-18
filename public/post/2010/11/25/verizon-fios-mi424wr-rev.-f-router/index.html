@@ -5,7 +5,7 @@
 <meta content="width=device-width,initial-scale=1" name=viewport>
 <link href=https://blog.bramp.net/post/2010/11/25/verizon-fios-mi424wr-rev.-f-router/ rel=canonical itemprop=url />
 <title>Verizon FiOS MI424WR rev. F Router</title>
-<meta content="I just got a FiOS wifi router and I must say I really like it. The web interface has many more options than any home router I&#8217;ve ever played with, and it seems like it&#8217;d be easy for a …" name=description itemprop=description>
+<meta content="I just got a FiOS wifi router and I must say I really like it. The web interface has many more options than any home router I’ve ever played with, and it seems like it’d be easy for a beginner but …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -46,7 +46,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=https://blog.bramp.net/post/2010/11/25/verizon-fios-mi424wr-rev.-f-router/ property=og:url />
 <meta content=bramp.net property=og:site_name />
 <meta content="Verizon FiOS MI424WR rev. F Router" property=og:title />
-<meta content="I just got a FiOS wifi router and I must say I really like it. The web interface has many more options than any home router I&#8217;ve ever played with, and it seems like it&#8217;d be easy for a …" property=og:description />
+<meta content="I just got a FiOS wifi router and I must say I really like it. The web interface has many more options than any home router I’ve ever played with, and it seems like it’d be easy for a beginner but …" property=og:description />
 <meta content=2010-11-25T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -99,44 +99,44 @@ window.dataLayer = window.dataLayer || [];
 | <a href=https://blog.bramp.net/tags/verizon/ >verizon</a>
 </p>
 <div class=post itemprop=articleBody>
-<p>I just got a FiOS wifi router and I must say I really like it. The web interface has many more options than any home router I&#8217;ve ever played with, and it seems like it&#8217;d be easy for a beginner but doesn&#8217;t get in the way of an expert. It also telnet access (optionally over SSL), which puts you into a custom shell. Poking around the commands I find one awesome one:</p>
+<p>I just got a FiOS wifi router and I must say I really like it. The web interface has many more options than any home router I’ve ever played with, and it seems like it’d be easy for a beginner but doesn’t get in the way of an expert. It also telnet access (optionally over SSL), which puts you into a custom shell. Poking around the commands I find one awesome one:</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>Wireless Broadband Router&gt; <span class=nb>help</span> system shell
 shell   Spawn busybox shell in foreground
 
 Wireless Broadband Router&gt; system shell
-BusyBox v1.01 <span class=o>(</span><span class=m>2005</span>.09.07-07:38+0000<span class=o>)</span> Built-in shell <span class=o>(</span>lash<span class=o>)</span>
+BusyBox v1.01 <span class=o>(</span>2005.09.07-07:38+0000<span class=o>)</span> Built-in shell <span class=o>(</span>lash<span class=o>)</span>
 Enter <span class=s1>&#39;help&#39;</span> <span class=k>for</span> a list of built-in commands.
 
-/ # </code></pre></div>
-<p>This is very clearly running Linux, with BusyBox. For those interested here are some interesting bits of information:</p>
+/ # 
+</code></pre></div><p>This is very clearly running Linux, with BusyBox. For those interested here are some interesting bits of information:</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>/ <span class=c1># cat /proc/version</span> 
-Linux version <span class=m>2</span>.6.16.14 <span class=c1>#1 SMP Sat Nov 28 00:38:50 PST 2009</span></code></pre></div>
-<p>A four year old kernel. Well what do you expect from this kind of device :)</p>
+Linux version 2.6.16.14 <span class=c1>#1 SMP Sat Nov 28 00:38:50 PST 2009</span>
+</code></pre></div><p>A four year old kernel. Well what do you expect from this kind of device :)</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>/ <span class=c1># cat /proc/cpuinfo</span> 
-system <span class=nb>type</span>     : MC524WR
-processor       : <span class=m>0</span>
-cpu model       : Cavium Networks Octeon CN50XX V0.1
-BogoMIPS        : <span class=m>1000</span>.48
-<span class=nb>wait</span> instruction    : yes
-microsecond timers  : yes
-tlb_entries     : <span class=m>64</span>
-extra interrupt vector  : yes
-hardware watchpoint : yes
-ASEs implemented    :
-VCED exceptions     : not available
-VCEI exceptions     : not available
-processor       : <span class=m>1</span>
-cpu model       : Cavium Networks Octeon CN50XX V0.1
-BogoMIPS        : <span class=m>1000</span>.48
-<span class=nb>wait</span> instruction    : yes
-microsecond timers  : yes
-tlb_entries     : <span class=m>64</span>
-extra interrupt vector  : yes
-hardware watchpoint : yes
-ASEs implemented    :
-VCED exceptions     : not available
-VCEI exceptions     : not available</code></pre></div>
-<p>w00t, a <a href=http://www.caviumnetworks.com/OCTEON-Plus_CN50XX.html>Dual Cores 64bit MIPS chip</a></p>
+system <span class=nb>type</span>		: MC524WR
+processor		: <span class=m>0</span>
+cpu model		: Cavium Networks Octeon CN50XX V0.1
+BogoMIPS		: 1000.48
+<span class=nb>wait</span> instruction	: yes
+microsecond timers	: yes
+tlb_entries		: <span class=m>64</span>
+extra interrupt vector	: yes
+hardware watchpoint	: yes
+ASEs implemented	:
+VCED exceptions		: not available
+VCEI exceptions		: not available
+processor		: <span class=m>1</span>
+cpu model		: Cavium Networks Octeon CN50XX V0.1
+BogoMIPS		: 1000.48
+<span class=nb>wait</span> instruction	: yes
+microsecond timers	: yes
+tlb_entries		: <span class=m>64</span>
+extra interrupt vector	: yes
+hardware watchpoint	: yes
+ASEs implemented	:
+VCED exceptions		: not available
+VCEI exceptions		: not available
+</code></pre></div><p>w00t, a <a href=http://www.caviumnetworks.com/OCTEON-Plus_CN50XX.html>Dual Cores 64bit MIPS chip</a></p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>/ <span class=c1># cat /proc/meminfo</span> 
 MemTotal:        <span class=m>53200</span> kB
 MemFree:         <span class=m>11588</span> kB
@@ -163,11 +163,11 @@ VmallocUsed:      <span class=m>2752</span> kB
 VmallocChunk: <span class=m>1073738692</span> kB
 HugePages_Total:     <span class=m>0</span>
 HugePages_Free:      <span class=m>0</span>
-Hugepagesize:     <span class=m>2048</span> kB</code></pre></div>
-<p>Only ~53MB of RAM if I&#8217;m reading that right. Seems most likely to be 64MB to me, but I will investigate further.</p>
+Hugepagesize:     <span class=m>2048</span> kB
+</code></pre></div><p>Only ~53MB of RAM if I’m reading that right. Seems most likely to be 64MB to me, but I will investigate further.</p>
 <p>Also, as this is Linux, the <a href=http://opensource.actiontec.com/ >source code</a> has been made available. The <a href=http://opensource.actiontec.com/sourcecode/mi424wr/rev_ef/mi424wr-fw-20.10.7.5_readme>README</a> reveals it is a MC524 Router (MI424WR-GEN2 REV E/F).</p>
-<p>The device doesn&#8217;t seem to have many of the standard Linux tools, no doubt to save space. It does however have an external USB port. My plan is to compile more of busybox, as well as some other binaries, and run them from an external USB stick.</p>
-<p>Hacking an router has never been so easy! I&#8217;ll post more when I know more!</p>
+<p>The device doesn’t seem to have many of the standard Linux tools, no doubt to save space. It does however have an external USB port. My plan is to compile more of busybox, as well as some other binaries, and run them from an external USB stick.</p>
+<p>Hacking an router has never been so easy! I’ll post more when I know more!</p>
 </div>
 </article>
 <div class=row>
@@ -191,18 +191,19 @@ Hugepagesize:     <span class=m>2048</span> kB</code></pre></div>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2010\/11\/25\/verizon-fios-mi424wr-rev.-f-router\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2010\/11\/25\/verizon-fios-mi424wr-rev.-f-router\/';
     var disqus_title = 'Verizon FiOS MI424WR rev. F Router';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2010\/11\/25\/verizon-fios-mi424wr-rev.-f-router\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -210,7 +211,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

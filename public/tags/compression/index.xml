@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Compression on bramp.net</title>
+    <title>compression on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Compression on bramp.net</description>
+    <description>Recent content in compression on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Sun, 17 Mar 2013 00:00:00 +0000</lastBuildDate>
@@ -16,8 +15,7 @@
       
       <guid>https://blog.bramp.net/post/2013/03/17/mongodb-compression/</guid>
       <description>&lt;p&gt;For a while people have wanted MongoDB to &lt;a href=&#34;https://jira.mongodb.org/browse/SERVER-164&#34;&gt;compress their data&lt;/a&gt;, or at least &lt;a href=&#34;https://jira.mongodb.org/browse/SERVER-863&#34;&gt;compress their field names&lt;/a&gt;. This would be beneficial in not only reducing the amount of disk space required, but also in theory improving performance as we trade disk IO with CPU IO. I thought this be a fun project to investigate, so I started by working out if this would actually be useful.&lt;/p&gt;
-
-&lt;p&gt;Lets start with compressing the data. I&amp;#8217;ve taken a project I&amp;#8217;ve been working on, where most of the records have the similar set of fields. An example record may look like (which across the database had an average size of 547 bytes):&lt;/p&gt;
+&lt;p&gt;Lets start with compressing the data. I’ve taken a project I’ve been working on, where most of the records have the similar set of fields. An example record may look like (which across the database had an average size of 547 bytes):&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;s2&#34;&gt;&amp;#34;_id&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;ObjectId&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;5134b1c644ae658fc8c050c0&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
 	&lt;span class=&#34;s2&#34;&gt;&amp;#34;version&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;NumberLong&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
@@ -47,47 +45,30 @@
 		&lt;span class=&#34;s2&#34;&gt;&amp;#34;subscriptions&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
 	&lt;span class=&#34;p&#34;&gt;}]&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;There are some excellent &lt;a href=&#34;http://www.10gen.com/presentations/mongosv-2011/mongodb-storage-engine-bit-by-bit&#34;&gt;presentations&lt;/a&gt; and &lt;a href=&#34;https://dzone.com/articles/mongodb%E2%80%99s-storage-engine-bit&#34;&gt;articles&lt;/a&gt; on how MongoDB structures the data on the disk. For the sake of this investigation I took a single data file (of size 2 GiB) that was full of just these kinds of records.&lt;/p&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There are some excellent &lt;a href=&#34;http://www.10gen.com/presentations/mongosv-2011/mongodb-storage-engine-bit-by-bit&#34;&gt;presentations&lt;/a&gt; and &lt;a href=&#34;https://dzone.com/articles/mongodb%E2%80%99s-storage-engine-bit&#34;&gt;articles&lt;/a&gt; on how MongoDB structures the data on the disk. For the sake of this investigation I took a single data file (of size 2 GiB) that was full of just these kinds of records.&lt;/p&gt;
 &lt;h2 id=&#34;full-compression&#34;&gt;Full Compression&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ gzip datafile.5&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Original size:&lt;/strong&gt; 2,146,435,072 bytes (2.0 GiB)&lt;br /&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ gzip datafile.5
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Original size:&lt;/strong&gt; 2,146,435,072 bytes (2.0 GiB)&lt;br&gt;
 &lt;strong&gt;Compressed gzip size:&lt;/strong&gt; 453,359,908 bytes (432 MiB) / 21% of the original size&lt;/p&gt;
-
 &lt;p&gt;Simple gzip across the whole file gave a 4.7x saving in file size. This is obviously best case, as it covers the full file. Next lets look at the savings from compressing the field names.&lt;/p&gt;
-
 &lt;h2 id=&#34;field-name-compression&#34;&gt;Field name Compression&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ strings -n3 datafile.5 &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sort &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; uniq -c &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sort -n &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; tail -n20&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;That prints out a list of the most popular strings in the data file, sorted by frequency. From those stats we can infer&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Unique fields:&lt;/strong&gt; 14&lt;br /&gt;
-&lt;strong&gt;Fields:&lt;/strong&gt; 75,764,300&lt;br /&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ strings -n3 datafile.5 &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sort &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; uniq -c &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sort -n &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; tail -n20
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That prints out a list of the most popular strings in the data file, sorted by frequency. From those stats we can infer&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Unique fields:&lt;/strong&gt; 14&lt;br&gt;
+&lt;strong&gt;Fields:&lt;/strong&gt; 75,764,300&lt;br&gt;
 &lt;strong&gt;Field bytes:&lt;/strong&gt; 506,244,611 bytes (482 MiB) / 23% of the total data file size&lt;/p&gt;
-
-&lt;p&gt;If we assume that we can encode each field to just a single byte, then we reduce the bytes taken by the field names from 482 MiB to 72.2 MiB, a 6.6x saving of the field names. That&amp;#8217;s a good saving, but as the field names only take up 23% of the file, the overall saving would be 20% of the total data file size.&lt;/p&gt;
-
+&lt;p&gt;If we assume that we can encode each field to just a single byte, then we reduce the bytes taken by the field names from 482 MiB to 72.2 MiB, a 6.6x saving of the field names. That’s a good saving, but as the field names only take up 23% of the file, the overall saving would be 20% of the total data file size.&lt;/p&gt;
 &lt;h2 id=&#34;document-compression&#34;&gt;Document Compression&lt;/h2&gt;
-
-&lt;p&gt;Compression of individual document might provide a better solution than field compression. It&amp;#8217;s not possible to compress the whole database, as that&amp;#8217;ll make it extremely hard to alter individual documents. So instead each document would be compressed independently of the others. This is different to field compression would would have to be compressed across documents.&lt;/p&gt;
-
+&lt;p&gt;Compression of individual document might provide a better solution than field compression. It’s not possible to compress the whole database, as that’ll make it extremely hard to alter individual documents. So instead each document would be compressed independently of the others. This is different to field compression would would have to be compressed across documents.&lt;/p&gt;
 &lt;p&gt;To try this out I wrote a &lt;a href=&#34;https://gist.github.com/bramp/5183117&#34;&gt;simple Python script&lt;/a&gt; instead of hacking the MongoDB code. This script simulates the compression by finding each BSON encoded document on disk, compresses it (with zlib), and sums up the uncompressed and compressed document sizes.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Uncompressed document length:&lt;/strong&gt; 1,888,733,156 bytes (1.75 GiB)&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;Uncompressed document length:&lt;/strong&gt; 1,888,733,156 bytes (1.75 GiB)&lt;br&gt;
 &lt;strong&gt;Compressed document length:&lt;/strong&gt; 1,261,267,661 bytes (1.17 GiB) / 66% of the total document length&lt;/p&gt;
-
-&lt;p&gt;The keen reader will notice the documents only made up 1.75 GiB, of the total 2 GiB data file. The rest of the file contains non-document data, such as indexes, padding, and perhaps deleted documents. As the non-document data wasn&amp;#8217;t compressed in this test, the total savings was about 30% of the total file. This could improve if the document was more compressible (for example if they were larger), or if a better compression scheme was used.&lt;/p&gt;
-
+&lt;p&gt;The keen reader will notice the documents only made up 1.75 GiB, of the total 2 GiB data file. The rest of the file contains non-document data, such as indexes, padding, and perhaps deleted documents. As the non-document data wasn’t compressed in this test, the total savings was about 30% of the total file. This could improve if the document was more compressible (for example if they were larger), or if a better compression scheme was used.&lt;/p&gt;
 &lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-
 &lt;p&gt;In conclusion, compression could certainly help reduce the size on disk, and this could lead to performance improvements. Field level compression gave us 20% reduction and document compression gave us 30%. The next step is to actually implement this, and run various benchmarks.&lt;/p&gt;
-
 &lt;h2 id=&#34;future&#34;&gt;Future&lt;/h2&gt;
-
 &lt;p&gt;My current thinking on field level compression is to create a simple lookup table that maps field names to a token. This lookup table would be stored in the extents, which contains numerous documents. As new extents are created new lookup tables will be created. This allows the lookup tables to adapt as new types of documents are put into the system. The lookup table will only be appended to, to ensure existing documents continue to work. The table can then be optimised when a compact operation is called.&lt;/p&gt;
-
 &lt;p&gt;Looking at the existing MongoDB code, adding field level compression might be quite tricky, as the BSON objects are memory mapped, and multiple places make assumptions about being able to access fields. So an easier approach might be to do full BSON object compression, and create uncompressed copies in memory.&lt;/p&gt;
-
 &lt;p&gt;&lt;a href=&#34;https://github.com/bramp/mongo/tree/SERVER-164&#34;&gt;Look forward to my attempt of compression&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     

@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Freebsd on bramp.net</title>
+    <title>FreeBSD on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Freebsd on bramp.net</description>
+    <description>Recent content in FreeBSD on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Thu, 14 Jan 2010 00:00:00 +0000</lastBuildDate>
@@ -16,14 +15,11 @@
       
       <guid>https://blog.bramp.net/post/2010/01/14/installing-packages-into-your-user-directory/</guid>
       <description>&lt;p&gt;Today I had the need to install some &lt;a href=&#34;http://www.freebsd.org/&#34;&gt;FreeBSD&lt;/a&gt; and &lt;a href=&#34;http://www.ubuntu.com/&#34;&gt;Ubuntu&lt;/a&gt; packages inside my home directory because I did not have root permissions to install them.&lt;/p&gt;
-
 &lt;p&gt;It was quite simple to install the packages on FreeBSD&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;pkg_add -rRP /home/bramp nano&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Where nano is the name of the package I wanted.&lt;/p&gt;
-
-&lt;p&gt;I should point out you don&amp;#8217;t need to be root to do this!, but the installed packages only work for you, and in future could cause you hassle if the base OS is updated.&lt;/p&gt;
-
-&lt;p&gt;On Ubuntu I however failed :( I tried the &amp;#8220;&amp;#8211;root&amp;#8221; option and did some &lt;a href=&#34;http://ubuntuforums.org/archive/index.php/t-513933.html&#34;&gt;Googleing&lt;/a&gt; but I didn&amp;#8217;t find a solution. Unitl then I&amp;#8217;ll just install from source.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;pkg_add -rRP /home/bramp nano
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Where nano is the name of the package I wanted.&lt;/p&gt;
+&lt;p&gt;I should point out you don’t need to be root to do this!, but the installed packages only work for you, and in future could cause you hassle if the base OS is updated.&lt;/p&gt;
+&lt;p&gt;On Ubuntu I however failed :( I tried the “–root” option and did some &lt;a href=&#34;http://ubuntuforums.org/archive/index.php/t-513933.html&#34;&gt;Googleing&lt;/a&gt; but I didn’t find a solution. Unitl then I’ll just install from source.&lt;/p&gt;
 </description>
     </item>
     
@@ -33,15 +29,14 @@
       <pubDate>Sat, 19 Dec 2009 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2009/12/19/updating-%5C/</guid>
-      <description>&lt;p&gt;Do people other than me find updating their servers to be relaxing? At every opportunity I run &amp;#8220;apt-get update&amp;#8221;. Today I&amp;#8217;m updating 7 different machines simultaneously.&lt;/p&gt;
-
+      <description>&lt;p&gt;Do people other than me find updating their servers to be relaxing? At every opportunity I run “apt-get update”. Today I’m updating 7 different machines simultaneously.&lt;/p&gt;
 &lt;p&gt;My Debian machines I simply issue the following commands:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apt-get update
-apt-get upgrade&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;My FreeBSD machines:&lt;/p&gt;
+apt-get upgrade
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;My FreeBSD machines:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;portsnap fetch update
-portmanager -u&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;I think the Debian process is easier (and clearly the fastest) but it obviously has to do less work because I&amp;#8217;m downloading precompiled code. Portmanager is just as easy but seems to randomly ask me questions through the process whereas apt-get seems to get them out of the way early on. Either way I find this all very easy and relaxing&amp;#8230; until I have to reboot the machines and find something is broken :/&lt;/p&gt;
+portmanager -u
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I think the Debian process is easier (and clearly the fastest) but it obviously has to do less work because I’m downloading precompiled code. Portmanager is just as easy but seems to randomly ask me questions through the process whereas apt-get seems to get them out of the way early on. Either way I find this all very easy and relaxing… until I have to reboot the machines and find something is broken :/&lt;/p&gt;
 </description>
     </item>
     
@@ -54,37 +49,37 @@ portmanager -u&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
       <description>&lt;p&gt;Make &lt;a href=&#34;http://git-scm.com&#34;&gt;git&lt;/a&gt; colourful&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;git config --global color.diff auto
 git config --global color.status auto
-git config --global color.branch auto&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Make &lt;a href=&#34;http://www.nano-editor.org/&#34;&gt;nano&lt;/a&gt; colourful&lt;/p&gt;
+git config --global color.branch auto
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Make &lt;a href=&#34;http://www.nano-editor.org/&#34;&gt;nano&lt;/a&gt; colourful&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;cp /usr/local/share/examples/nano/nanorc.sample ~/.nanorc
 &lt;span class=&#34;c1&#34;&gt;# or&lt;/span&gt;
 zcat /usr/share/doc/nano/examples/nanorc.sample.gz &amp;gt;~/.nanorc
 
 &lt;span class=&#34;c1&#34;&gt;# then&lt;/span&gt;
-nano ~/.nanorc&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;To trim trailing whitespace from *.cc on Linux (taken from &lt;a href=&#34;http://zebert.blogspot.com/2009/06/clean-up-trailing-whitespaces-in.html&#34;&gt;this blog&lt;/a&gt;):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;find . -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;o&#34;&gt;{}&lt;/span&gt; -e &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/[ \t]*$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;and on BSDs:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;find . -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; -e &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/\ *$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{}&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Linux style &amp;#8216;ls&amp;#8217; colours on FreeBSD (taken from &lt;a href=&#34;http://www.puresimplicity.net/~hemi/freebsd/misc.html&#34;&gt;here&lt;/a&gt;):&lt;/p&gt;
+nano ~/.nanorc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To trim trailing whitespace from *.cc on Linux (taken from &lt;a href=&#34;http://zebert.blogspot.com/2009/06/clean-up-trailing-whitespaces-in.html&#34;&gt;this blog&lt;/a&gt;):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;find . -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;o&#34;&gt;{}&lt;/span&gt; -e &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/[ \t]*$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and on BSDs:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;find . -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.cc&amp;#39;&lt;/span&gt; -exec sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt; -e &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/\ *$//&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{}&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;;&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Linux style ‘ls’ colours on FreeBSD (taken from &lt;a href=&#34;http://www.puresimplicity.net/~hemi/freebsd/misc.html&#34;&gt;here&lt;/a&gt;):&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CLICOLOR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;YES&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;LSCOLORS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;ExGxFxdxCxDxDxhbadExEx&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;To ensure the http_proxy environmental variable is passed to sudo. Edit the sudoers file by running visudo. Then add the following.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Defaults &lt;span class=&#34;nv&#34;&gt;env_keep&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;ftp_proxy http_proxy https_proxy&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Bash autocompletion on FreeBSD:&lt;/p&gt;
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;LSCOLORS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;ExGxFxdxCxDxDxhbadExEx&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To ensure the http_proxy environmental variable is passed to sudo. Edit the sudoers file by running visudo. Then add the following.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Defaults &lt;span class=&#34;nv&#34;&gt;env_keep&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;ftp_proxy http_proxy https_proxy&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Bash autocompletion on FreeBSD:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt;  /usr/ports/shells/bash-completion
-sudo make install clean&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Edit ~/.bashrc and add&lt;/p&gt;
+sudo make install clean
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Edit ~/.bashrc and add&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; -f /usr/local/etc/bash_completion &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
     . /usr/local/etc/bash_completion
-&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Make svn output colorful&lt;br /&gt;
+&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Make svn output colorful&lt;br&gt;
 Edit ~/.subversion/config&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span class=&#34;k&#34;&gt;[helpers]&lt;/span&gt;
-&lt;span class=&#34;na&#34;&gt;diff-cmd&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;/usr/bin/colordiff&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Create diffs with function names and ignoring whitespace&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;svn diff -x -uwp&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;To be continued&amp;#8230;&lt;/p&gt;
+&lt;span class=&#34;na&#34;&gt;diff-cmd&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;/usr/bin/colordiff&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Create diffs with function names and ignoring whitespace&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;svn diff -x -uwp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To be continued…&lt;/p&gt;
 </description>
     </item>
     
@@ -94,18 +89,12 @@ Edit ~/.subversion/config&lt;/p&gt;
       <pubDate>Fri, 16 Oct 2009 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2009/10/16/freebsd-software-watchdog/</guid>
-      <description>&lt;p&gt;Recently I&amp;#8217;ve been doing some kernel hacking and I managed to deadlock my system. The system still responded to pings but the terminal was unresponsive, and it needed a hard reboot to fix. I would have loved to drop into a debugger or panic&amp;#8217;ed the kernel to get a suitable back-trace.&lt;/p&gt;
-
+      <description>&lt;p&gt;Recently I’ve been doing some kernel hacking and I managed to deadlock my system. The system still responded to pings but the terminal was unresponsive, and it needed a hard reboot to fix. I would have loved to drop into a debugger or panic’ed the kernel to get a suitable back-trace.&lt;/p&gt;
 &lt;p&gt;I found that FreeBSD has a software watchdog feature, that will panic the kernel if a problem like this occurs. The watchdog does not seem to be built into the kernel by default, and I found the documentation a bit lacking. So here is what I did:&lt;/p&gt;
-
 &lt;p&gt;Firstly, build and install a custom kernel which includes: &lt;code&gt;options SW_WATCHDOG&lt;/code&gt;&lt;/p&gt;
-
 &lt;p&gt;Secondly, edit the &lt;code&gt;/etc/rc.conf&lt;/code&gt; file and add a line: &lt;code&gt;watchdogd_enable=&amp;quot;YES&amp;quot;&lt;/code&gt;&lt;/p&gt;
-
 &lt;p&gt;When you next reboot, the watchdogd daemon will run, enabling the watchdog feature. Every second the watchdogd will reset a timer within the kernel. If after 16 seconds the timer has not been reset, the kernel will print out some interrupt information, and panic.&lt;/p&gt;
-
 &lt;p&gt;Watchdogd seems to have some useful features, for example, you can configure it to execute a specific command every second, and if that command fails the timer will not be reset. The configuration option I use is: &lt;code&gt;watchdogd_flags=&amp;quot;-e /bin/ps&amp;quot;&lt;/code&gt;&lt;/p&gt;
-
 &lt;p&gt;Read &lt;a href=&#34;http://www.freebsd.org/cgi/man.cgi?query=watchdogd&amp;amp;sektion=8&#34;&gt;WATCHDOGD(8)&lt;/a&gt; for more information.&lt;/p&gt;
 </description>
     </item>
@@ -116,16 +105,14 @@ Edit ~/.subversion/config&lt;/p&gt;
       <pubDate>Mon, 10 Aug 2009 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2009/08/10/memcmp-broken-in-the-freebsd-kernel/</guid>
-      <description>&lt;p&gt;I&amp;#8217;ve spent a day tracking down a bug in a FreeBSD kernel module I&amp;#8217;m developing, and to my surprise the bug was due to memcmp being broken! For those that don&amp;#8217;t know, memcmp is used to compare two byte strings and returns 0 if they are identical, a negative number of the first string is less than the second, and a positive number of the first string is greater than the second.&lt;/p&gt;
-
+      <description>&lt;p&gt;I’ve spent a day tracking down a bug in a FreeBSD kernel module I’m developing, and to my surprise the bug was due to memcmp being broken! For those that don’t know, memcmp is used to compare two byte strings and returns 0 if they are identical, a negative number of the first string is less than the second, and a positive number of the first string is greater than the second.&lt;/p&gt;
 &lt;p&gt;However, the implementation of memcmp in the FreeBSD kernel looks like this:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;k&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;__inline&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;
 &lt;span class=&#34;nf&#34;&gt;memcmp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bcmp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The problem with this is that bcmp is defined to return 0 if the strings are identical, otherwise returns a non-zero integer. This is not the same as memcmp, and you would only notice this if you are testing the signedness of the return value. I suspect this has not been noticed because traditionally FreeBSD has favoured bcmp, and in the few cases it does uses memcmp it only compares it with zero.&lt;/p&gt;
-
-&lt;p&gt;There is some good news, obrien@ noticed this problem in September 2008 and commited a patch (svn r183299). However, it looks like this fix won&amp;#8217;t be included until FreeBSD 8.0. In the mean time I&amp;#8217;m implementing a minor hack to fix this.&lt;/p&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The problem with this is that bcmp is defined to return 0 if the strings are identical, otherwise returns a non-zero integer. This is not the same as memcmp, and you would only notice this if you are testing the signedness of the return value. I suspect this has not been noticed because traditionally FreeBSD has favoured bcmp, and in the few cases it does uses memcmp it only compares it with zero.&lt;/p&gt;
+&lt;p&gt;There is some good news, obrien@ noticed this problem in September 2008 and commited a patch (svn r183299). However, it looks like this fix won’t be included until FreeBSD 8.0. In the mean time I’m implementing a minor hack to fix this.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;my_memcmp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 		&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
@@ -137,7 +124,8 @@ Edit ~/.subversion/config&lt;/p&gt;
 	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#define memcmp my_memcmp&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;span class=&#34;cp&#34;&gt;#define memcmp my_memcmp
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -146,13 +134,10 @@ Edit ~/.subversion/config&lt;/p&gt;
       <pubDate>Mon, 01 Jun 2009 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2009/06/01/threadnetperf-v1.0/</guid>
-      <description>&lt;p&gt;Today I am proud to announce that I&amp;#8217;m releasing a tool I&amp;#8217;ve used privately for well over a year now. It is a multi-threaded network testing tool which gives the user great control over how many connections, threads and processes the tool uses, and which CPU cores the threads/processes are allowed to execute on.&lt;/p&gt;
-
+      <description>&lt;p&gt;Today I am proud to announce that I’m releasing a tool I’ve used privately for well over a year now. It is a multi-threaded network testing tool which gives the user great control over how many connections, threads and processes the tool uses, and which CPU cores the threads/processes are allowed to execute on.&lt;/p&gt;
 &lt;p&gt;Currently the tool runs on Linux, FreeBSD, and Windows, and has performance as good as (if not better) than other similar tools, such as netperf, iperf, but with the added flexibility. Additionally, Threadnetperf has been completely written from scratch in C, using modern programming techniques and APIs (such as ePoll on Linux) which ensures the program runs as far as possible with minimal overheads.&lt;/p&gt;
-
 &lt;p&gt;You can &lt;a href=&#34;https://github.com/bramp/threadnetperf&#34;&gt;download the source from GitHub&lt;/a&gt;, which contains instructions on how to build it.&lt;/p&gt;
-
-&lt;p&gt;So that you get an extra idea of it&amp;#8217;s features here is the README.txt&lt;/p&gt;
+&lt;p&gt;So that you get an extra idea of it’s features here is the README.txt&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;****** Threadnetperf ******
 A multi-threaded network benchmark tool
  by  Andrew Brampton (2007-2009)
@@ -236,7 +221,8 @@ tests very easy as the daemon will continue to wait for new tests until it is
 told otherwise.
 
 If you find this tool useful, or you have any suggestions for improvements then
-please contact us.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+please contact us.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -246,8 +232,8 @@ please contact us.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
       
       <guid>https://blog.bramp.net/post/2009/03/06/compiler-defined-symbols/</guid>
       <description>&lt;p&gt;I found this neat little command to list all the GCC compiler defined symbols&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;gcc -dM -E - &amp;gt; /dev/null&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This can help if you aren&amp;rsquo;t quite sure which defines are used on your systems. For example my FreeBSD 7.1 machine outputs this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;gcc -dM -E - &amp;gt; /dev/null
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This can help if you aren&amp;rsquo;t quite sure which defines are used on your systems. For example my FreeBSD 7.1 machine outputs this:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#define __DBL_MIN_EXP__ (-1021)
 &lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#define __FLT_MIN__ 1.17549435e-38F
 &lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#define __DEC64_DEN__ 0.000000000000001E-383DD
@@ -358,8 +344,8 @@ please contact us.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
 &lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#define __PTRDIFF_TYPE__ long int
 &lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#define __DEC128_MANT_DIG__ 34
 &lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MIN_10_EXP__ (-4931)
-&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#define __GNUC_GNU_INLINE__ 1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;and my Debian Linux machine outputs this:&lt;/p&gt;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#define __GNUC_GNU_INLINE__ 1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and my Debian Linux machine outputs this:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#define __DBL_MIN_EXP__ (-1021)
 &lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#define __FLT_MIN__ 1.17549435e-38F
 &lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#define __DEC64_DEN__ 0.000000000000001E-383DD
@@ -487,7 +473,8 @@ please contact us.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
 &lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#define __LDBL_MIN_10_EXP__ (-4931)
 &lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#define __SIZEOF_LONG_LONG__ 8
 &lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#define __LDBL_DIG__ 18
-&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#define __GNUC_GNU_INLINE__ 1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#define __GNUC_GNU_INLINE__ 1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -496,13 +483,9 @@ please contact us.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
       <pubDate>Sun, 11 Jan 2009 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2009/01/11/autoload-symbols-for-freebsd-kernel-module/</guid>
-      <description>&lt;p&gt;When debugging FreeBSD kernel modules with GDB, you have to tell GDB the correct symbols for the module, and the location the module is loaded in RAM. This is helpfully explained in the &lt;a href=&#34;http://www.freebsd.org/doc/en/books/developers-handbook/kerneldebug-kld.html&#34;&gt;FreeBSD Developers&amp;#8217; Handbook&lt;/a&gt;. First you must load the module, then run kldstat, note down the address the module is loaded at, and finally execute a command in GDB that looks like the following.&lt;/p&gt;
-
+      <description>&lt;p&gt;When debugging FreeBSD kernel modules with GDB, you have to tell GDB the correct symbols for the module, and the location the module is loaded in RAM. This is helpfully explained in the &lt;a href=&#34;http://www.freebsd.org/doc/en/books/developers-handbook/kerneldebug-kld.html&#34;&gt;FreeBSD Developers’ Handbook&lt;/a&gt;. First you must load the module, then run kldstat, note down the address the module is loaded at, and finally execute a command in GDB that looks like the following.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;add-symbol-file /sys/modules/linux/linux.ko 0xc0ae22d0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;However, I find this process tedious, so instead I wrote a quick python script which can be used with an &lt;a href=&#34;http://sourceware.org/gdb/wiki/PythonGdb&#34;&gt;experimental gdb built with python scripting support&lt;/a&gt;.&lt;/p&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;However, I find this process tedious, so instead I wrote a quick python script which can be used with an &lt;a href=&#34;http://sourceware.org/gdb/wiki/PythonGdb&#34;&gt;experimental gdb built with python scripting support&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;So here is the script:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;gdb&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;FreeBSD_ReloadModuleSymbols&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gdb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Command&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
@@ -523,10 +506,10 @@ please contact us.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
 					&lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;link&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;address&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;address&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 			&lt;span class=&#34;n&#34;&gt;link&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;link&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;link&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;][&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;tqe_next&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
 
-&lt;span class=&#34;n&#34;&gt;FreeBSD_ReloadModuleSymbols&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;You load this by running the following command in GDB:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;source&lt;/span&gt; freebsd_load_modules.py&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Then the command &lt;code&gt;reload-freebsd-module-symbols&lt;/code&gt; is magically added to GDB. Running this command will parse the linker table inside the FreeBSD kernel, determine which modules are loaded, and attempt to load their symbols.&lt;/p&gt;
+&lt;span class=&#34;n&#34;&gt;FreeBSD_ReloadModuleSymbols&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You load this by running the following command in GDB:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;source&lt;/span&gt; freebsd_load_modules.py
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then the command &lt;code&gt;reload-freebsd-module-symbols&lt;/code&gt; is magically added to GDB. Running this command will parse the linker table inside the FreeBSD kernel, determine which modules are loaded, and attempt to load their symbols.&lt;/p&gt;
 </description>
     </item>
     
@@ -537,11 +520,8 @@ please contact us.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
       
       <guid>https://blog.bramp.net/post/2009/01/11/linuxoffsets-for-freebsd/</guid>
       <description>&lt;p&gt;VMWare 6 and above has this neat debugging functionality where you can attach gdb running on a host, to a guest running inside VMWare. This allows you to debug a running kernel, or on linux running processes.&lt;/p&gt;
-
 &lt;p&gt;However, VMWare seems to have coded a bit of a hack to allow gdb to understand what process/threads are inside the virtual machine. Now this hack involves using something called linuxoffsets, which provides the offset for certain fields in a linux kernel struct.&lt;/p&gt;
-
 &lt;p&gt;So I thought I could abuse these offsets, and hopefully make them work for FreeBSD. The Linux offsets are:&lt;/p&gt;
-
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -551,7 +531,6 @@ please contact us.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
 &lt;th&gt;Notes&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
-
 &lt;tbody&gt;
 &lt;tr&gt;
 &lt;td&gt;&amp;lt;version&amp;gt;&lt;/td&gt;
@@ -559,91 +538,78 @@ please contact us.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
 &lt;td&gt;&lt;/td&gt;
 &lt;td&gt;Version number of linux kernel, ie 0x020609 (2.6.9)&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&amp;lt;mm&amp;gt;&lt;/td&gt;
 &lt;td&gt;task_struct-&amp;gt;mm&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&amp;lt;next_task&amp;gt;&lt;/td&gt;
 &lt;td&gt;task_struct-&amp;gt;next_task (linux &amp;lt; 2.4.15)&lt;/td&gt;
 &lt;td&gt;struct proc-&amp;gt;p_list-&amp;gt;le_next&lt;/td&gt;
 &lt;td&gt;Pointer to next task struct&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&amp;lt;tasks&amp;gt;&lt;/td&gt;
 &lt;td&gt;task_struct-&amp;gt;tasks (linux &amp;gt;= 2.4.15)&lt;/td&gt;
 &lt;td&gt;0&lt;/td&gt;
 &lt;td&gt;Pointers to prev and next task struct&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&amp;lt;comm&amp;gt;&lt;/td&gt;
 &lt;td&gt;task_struct-&amp;gt;comm&lt;/td&gt;
 &lt;td&gt;struct proc-&amp;gt;p_comm&lt;/td&gt;
 &lt;td&gt;executable name&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&amp;lt;pid&amp;gt;&lt;/td&gt;
 &lt;td&gt;task_struct-&amp;gt;pid&lt;/td&gt;
 &lt;td&gt;struct proc-&amp;gt;p_pid&lt;/td&gt;
 &lt;td&gt;pid of the process&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&amp;lt;thread&amp;gt;&lt;/td&gt;
 &lt;td&gt;task_struct-&amp;gt;thread&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&amp;lt;pgd&amp;gt;&lt;/td&gt;
 &lt;td&gt;mm_struct-&amp;gt;pgd&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&amp;lt;rsp0/esp0&amp;gt;&lt;/td&gt;
 &lt;td&gt;thread_struct-&amp;gt;rsp0 (or thread_struct-&amp;gt;esp0 32bit)&lt;/td&gt;
 &lt;td&gt;struct thread-&amp;gt;td_sigstk-&amp;gt;ss_sp&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&amp;lt;fs&amp;gt;&lt;/td&gt;
 &lt;td&gt;thread_struct-&amp;gt;fs&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&amp;lt;threadsize&amp;gt;&lt;/td&gt;
 &lt;td&gt;0x2000 or sizeof(union thread_union-&amp;gt;stack) (linux &amp;gt;= 2.6)&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&amp;lt;grouplead&amp;gt;&lt;/td&gt;
 &lt;td&gt;task_struct-&amp;gt;group_leader (linux &amp;gt;= 2.6.11)&lt;/td&gt;
 &lt;td&gt;0&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&amp;lt;threadgroup&amp;gt;&lt;/td&gt;
 &lt;td&gt;task_struct-&amp;gt;thread_group (linux &amp;gt;= 2.6.11)&lt;/td&gt;
 &lt;td&gt;0&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;&amp;lt;commsize&amp;gt;&lt;/td&gt;
 &lt;td&gt;sizeof(struct task_struct-&amp;gt;comm)&lt;/td&gt;
@@ -652,10 +618,8 @@ please contact us.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-
-&lt;p&gt;However, after some time I feel this isn&amp;#8217;t going to be possible. Each value represents a offset into a Linux task_struct struct, however, nothing represents the location of the first task_struct in RAM. I suspect VMWare is figuring out the location via some other means. Since FreeBSD doesn&amp;#8217;t have a task_struct it most likely won&amp;#8217;t be able to find what it needs.&lt;/p&gt;
-
-&lt;p&gt;Regardless I&amp;#8217;ve posted this entry in case someone wants to continue my work. However, not all is lost as my next solution involves playing with gdb-python.&lt;/p&gt;
+&lt;p&gt;However, after some time I feel this isn’t going to be possible. Each value represents a offset into a Linux task_struct struct, however, nothing represents the location of the first task_struct in RAM. I suspect VMWare is figuring out the location via some other means. Since FreeBSD doesn’t have a task_struct it most likely won’t be able to find what it needs.&lt;/p&gt;
+&lt;p&gt;Regardless I’ve posted this entry in case someone wants to continue my work. However, not all is lost as my next solution involves playing with gdb-python.&lt;/p&gt;
 </description>
     </item>
     

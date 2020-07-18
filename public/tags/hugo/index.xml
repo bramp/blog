@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hugo on bramp.net</title>
+    <title>hugo on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Hugo on bramp.net</description>
+    <description>Recent content in hugo on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Sat, 01 Aug 2015 14:02:29 -0700</lastBuildDate>
@@ -15,7 +14,9 @@
       <pubDate>Sat, 01 Aug 2015 14:02:29 -0700</pubDate>
       
       <guid>https://blog.bramp.net/post/2015/08/01/hugo-makefile/</guid>
-      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-make&#34; data-lang=&#34;make&#34;&gt;&lt;span class=&#34;nf&#34;&gt;.PHONY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;all&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;clean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minified&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;server&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;watch&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;help&lt;/span&gt;
+      <description>&lt;p&gt;While developing my blog using &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt;, I created a simple Makefile to help automate some steps. Hopefully someone else will find this useful&lt;/p&gt;
+&lt;p&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-make&#34; data-lang=&#34;make&#34;&gt;&lt;span class=&#34;nf&#34;&gt;.PHONY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;all&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;clean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minified&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;server&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;watch&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;help&lt;/span&gt;
 
 &lt;span class=&#34;nv&#34;&gt;HUGO&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; hugo
 &lt;span class=&#34;nv&#34;&gt;HTML_MINIFIER&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; html-minifier -c html-minifier.conf
@@ -70,9 +71,7 @@
 	&lt;span class=&#34;c1&#34;&gt;# Find all HTML and in parallel run the minifier&lt;/span&gt;
 	find public -type f -iname &lt;span class=&#34;s1&#34;&gt;&amp;#39;*.html&amp;#39;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; parallel --tag &lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;HTML_MINIFIER&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;{}&amp;#34;&lt;/span&gt; -o &lt;span class=&#34;s2&#34;&gt;&amp;#34;{}&amp;#34;&lt;/span&gt;
 	touch .minified
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The latest version is always checked into github &lt;a href=&#34;https://github.com/bramp/blog&#34;&gt;with my blog&lt;/a&gt;, but the above is easy to copy and paste.&lt;/p&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The latest version is always checked into github &lt;a href=&#34;https://github.com/bramp/blog&#34;&gt;with my blog&lt;/a&gt;, but the above is easy to copy and paste.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;make help&lt;/code&gt; reminds me of the commands when I need it.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;make all&lt;/code&gt; executes hugo to build the site, then I run the generated HTML through a &lt;a href=&#34;https://www.npmjs.com/package/html-minifier&#34;&gt;minifier&lt;/a&gt;, and do some other minor tweaks.&lt;/li&gt;

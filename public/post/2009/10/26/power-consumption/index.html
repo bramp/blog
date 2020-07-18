@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -132,7 +132,7 @@ window.dataLayer = window.dataLayer || [];
 <td class=text-center>50W</td>
 </tr>
 <tr>
-<td>&nbsp;</td>
+<td> </td>
 <td class=text-center></td>
 </tr>
 <tr>
@@ -144,7 +144,7 @@ window.dataLayer = window.dataLayer || [];
 <td class=text-center>27W</td>
 </tr>
 <tr>
-<td>&nbsp;</td>
+<td> </td>
 <td class=text-center></td>
 </tr>
 <tr>
@@ -156,7 +156,7 @@ window.dataLayer = window.dataLayer || [];
 <td class=text-center>38W</td>
 </tr>
 <tr>
-<td>&nbsp;</td>
+<td> </td>
 <td class=text-center></td>
 </tr>
 <tr>
@@ -168,7 +168,7 @@ window.dataLayer = window.dataLayer || [];
 <td class=text-center>59W</td>
 </tr>
 <tr>
-<td>&nbsp;</td>
+<td> </td>
 <td class=text-center></td>
 </tr>
 <tr>
@@ -184,7 +184,7 @@ window.dataLayer = window.dataLayer || [];
 <td class=text-center>158W</td>
 </tr>
 <tr>
-<td>&nbsp;</td>
+<td> </td>
 <td class=text-center></td>
 </tr>
 <tr>
@@ -196,7 +196,7 @@ window.dataLayer = window.dataLayer || [];
 <td class=text-center>29W</td>
 </tr>
 <tr>
-<td>&nbsp;</td>
+<td> </td>
 <td class=text-center></td>
 </tr>
 <tr>
@@ -208,7 +208,7 @@ window.dataLayer = window.dataLayer || [];
 <td class=text-center>24W</td>
 </tr>
 <tr>
-<td>&nbsp;</td>
+<td> </td>
 <td class=text-center></td>
 </tr>
 <tr>
@@ -220,7 +220,7 @@ window.dataLayer = window.dataLayer || [];
 <td class=text-center>95W</td>
 </tr>
 <tr>
-<td>&nbsp;</td>
+<td> </td>
 <td class=text-center></td>
 </tr>
 <tr>
@@ -228,7 +228,7 @@ window.dataLayer = window.dataLayer || [];
 <td class=text-center>2300W</td>
 </tr>
 <tr>
-<td>&nbsp;</td>
+<td> </td>
 <td class=text-center></td>
 </tr>
 <tr>
@@ -279,9 +279,9 @@ window.dataLayer = window.dataLayer || [];
 </table>
 <p>Some observations I made about these results:</p>
 <ul>
-<li>My speakers use the same amount of power playing music as when they aren&#8217;t. I assume this is because the amps in them are always trying to amplify the signal.</li>
+<li>My speakers use the same amount of power playing music as when they aren’t. I assume this is because the amps in them are always trying to amplify the signal.</li>
 <li>My Sky+ box is pretty poor at conserving power. I found this interesting because Sky made a big deal about the Sky box automatically turning off at night. It even advertises this fact in big letters on the side of the packaging.</li>
-<li>My PC which has a 800W power supply, with a quad core Intel, 4GB of RAM, and 6 harddrives, obviously doesn&#8217;t need 800W of power. The peak value, which I found during POST, was only 230W, with it idling (in Windows) at 128W.</li>
+<li>My PC which has a 800W power supply, with a quad core Intel, 4GB of RAM, and 6 harddrives, obviously doesn’t need 800W of power. The peak value, which I found during POST, was only 230W, with it idling (in Windows) at 128W.</li>
 <li>Linux uses more power than Windows! This is using the latest Debian testing (2.6.30-8), and Windows Server 2008. Clearly, Linux has less energy efficient drivers, or is not powering something down that Windows is.</li>
 </ul>
 </div>
@@ -307,18 +307,19 @@ window.dataLayer = window.dataLayer || [];
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/10\/26\/power-consumption\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/10\/26\/power-consumption\/';
     var disqus_title = 'Power Consumption';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2009\/10\/26\/power-consumption\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -326,7 +327,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

@@ -5,7 +5,7 @@
 <meta content="width=device-width,initial-scale=1" name=viewport>
 <link href=https://blog.bramp.net/post/2009/06/01/threadnetperf-v1.0/ rel=canonical itemprop=url />
 <title>Threadnetperf v1.0</title>
-<meta content="Today I am proud to announce that I&#8217;m releasing a tool I&#8217;ve used privately for well over a year now. It is a multi-threaded network testing tool which gives the user great control over how …" name=description itemprop=description>
+<meta content="Today I am proud to announce that I’m releasing a tool I’ve used privately for well over a year now. It is a multi-threaded network testing tool which gives the user great control over how many …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -48,7 +48,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=https://blog.bramp.net/post/2009/06/01/threadnetperf-v1.0/ property=og:url />
 <meta content=bramp.net property=og:site_name />
 <meta content="Threadnetperf v1.0" property=og:title />
-<meta content="Today I am proud to announce that I&#8217;m releasing a tool I&#8217;ve used privately for well over a year now. It is a multi-threaded network testing tool which gives the user great control over how …" property=og:description />
+<meta content="Today I am proud to announce that I’m releasing a tool I’ve used privately for well over a year now. It is a multi-threaded network testing tool which gives the user great control over how many …" property=og:description />
 <meta content=2009-06-01T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -103,10 +103,10 @@ window.dataLayer = window.dataLayer || [];
 | <a href=https://blog.bramp.net/tags/windows/ >windows</a>
 </p>
 <div class=post itemprop=articleBody>
-<p>Today I am proud to announce that I&#8217;m releasing a tool I&#8217;ve used privately for well over a year now. It is a multi-threaded network testing tool which gives the user great control over how many connections, threads and processes the tool uses, and which CPU cores the threads/processes are allowed to execute on.</p>
+<p>Today I am proud to announce that I’m releasing a tool I’ve used privately for well over a year now. It is a multi-threaded network testing tool which gives the user great control over how many connections, threads and processes the tool uses, and which CPU cores the threads/processes are allowed to execute on.</p>
 <p>Currently the tool runs on Linux, FreeBSD, and Windows, and has performance as good as (if not better) than other similar tools, such as netperf, iperf, but with the added flexibility. Additionally, Threadnetperf has been completely written from scratch in C, using modern programming techniques and APIs (such as ePoll on Linux) which ensures the program runs as far as possible with minimal overheads.</p>
 <p>You can <a href=https://github.com/bramp/threadnetperf>download the source from GitHub</a>, which contains instructions on how to build it.</p>
-<p>So that you get an extra idea of it&#8217;s features here is the README.txt</p>
+<p>So that you get an extra idea of it’s features here is the README.txt</p>
 <div class=highlight><pre class=chroma><code class=language-text data-lang=text>****** Threadnetperf ******
 A multi-threaded network benchmark tool
  by  Andrew Brampton (2007-2009)
@@ -190,7 +190,8 @@ tests very easy as the daemon will continue to wait for new tests until it is
 told otherwise.
 
 If you find this tool useful, or you have any suggestions for improvements then
-please contact us.</code></pre></div>
+please contact us.
+</code></pre></div>
 </div>
 </article>
 <div class=row>
@@ -214,18 +215,19 @@ please contact us.</code></pre></div>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/06\/01\/threadnetperf-v1.0\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/06\/01\/threadnetperf-v1.0\/';
     var disqus_title = 'Threadnetperf v1.0';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2009\/06\/01\/threadnetperf-v1.0\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -233,7 +235,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

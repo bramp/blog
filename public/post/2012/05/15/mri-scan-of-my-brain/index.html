@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -124,7 +124,7 @@ window.dataLayer = window.dataLayer || [];
 <video controls height=256 width=256><source src=008.mp4 type=video/mp4 /><source src=008.webm type=video/webm />Your browser does not support the video tag.</video>
 </div>
 </div>
-<p>I don&#8217;t know the exact layout, but on the CD I seemed to have 12 different scans, each with a series of images. The name of the files were all 8 digits numbers, with the first three being the scan number (0 to 11), and the following five digits being (0 to whatever). For example:</p>
+<p>I don’t know the exact layout, but on the CD I seemed to have 12 different scans, each with a series of images. The name of the files were all 8 digits numbers, with the first three being the scan number (0 to 11), and the following five digits being (0 to whatever). For example:</p>
 <div class=highlight><pre class=chroma><code class=language-text data-lang=text>DICOM/185723/00000000: DICOM medical imaging data
 DICOM/185723/00000001: DICOM medical imaging data
 DICOM/185723/00000002: DICOM medical imaging data
@@ -132,28 +132,28 @@ DICOM/185723/00000002: DICOM medical imaging data
 DICOM/185723/00100000: DICOM medical imaging data
 DICOM/185723/00100001: DICOM medical imaging data
 DICOM/185723/00100002: DICOM medical imaging data
-...</code></pre></div>
-<p>To create videos the first thing I did was to convert the images from DICOM to PNG</p>
+...
+</code></pre></div><p>To create videos the first thing I did was to convert the images from DICOM to PNG</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>sudo apt-get install medcon
 mkdir png
-<span class=k>for</span> i in DICOM/185723/*<span class=p>;</span> <span class=k>do</span> medcon -f <span class=nv>$i</span> -c png -o png/<span class=sb>`</span>basename <span class=nv>$i</span><span class=sb>`</span>.png <span class=p>;</span> <span class=k>done</span><span class=p>;</span></code></pre></div>
-<p>Now to batch the images I started by creating animated gifs.</p>
+<span class=k>for</span> i in DICOM/185723/*<span class=p>;</span> <span class=k>do</span> medcon -f <span class=nv>$i</span> -c png -o png/<span class=sb>`</span>basename <span class=nv>$i</span><span class=sb>`</span>.png <span class=p>;</span> <span class=k>done</span><span class=p>;</span>
+</code></pre></div><p>Now to batch the images I started by creating animated gifs.</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>sudo apt-get install imagemagick
 
 <span class=c1># Create animated gifs</span>
-<span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> <span class=m>011</span><span class=sb>`</span><span class=p>;</span> <span class=k>do</span> convert -delay <span class=m>20</span> -loop <span class=m>0</span> png/<span class=nv>$i</span>*.png <span class=nv>$i</span>.gif<span class=p>;</span> <span class=k>done</span><span class=p>;</span></code></pre></div>
-<p>However, those gifs were huge, up to 20mb. So next I created a set of videos (that were a order of magnitude smaller than the gifs):</p>
+<span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> 011<span class=sb>`</span><span class=p>;</span> <span class=k>do</span> convert -delay <span class=m>20</span> -loop <span class=m>0</span> png/<span class=nv>$i</span>*.png <span class=nv>$i</span>.gif<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
+</code></pre></div><p>However, those gifs were huge, up to 20mb. So next I created a set of videos (that were a order of magnitude smaller than the gifs):</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>sudo apt-get install ffmpeg
 
 <span class=c1># Create MP4</span>
-<span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> <span class=m>011</span><span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.mp4<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
+<span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> 011<span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.mp4<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
 
 <span class=c1># Create webm</span>
-<span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> <span class=m>011</span><span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.webm<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
+<span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> 011<span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.webm<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
 
 <span class=c1># Create ogg video</span>
-<span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> <span class=m>011</span><span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.ogg<span class=p>;</span> <span class=k>done</span><span class=p>;</span></code></pre></div>
-<p>easy!</p>
+<span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> 011<span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.ogg<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
+</code></pre></div><p>easy!</p>
 </div>
 </article>
 <div class=row>
@@ -177,18 +177,19 @@ mkdir png
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2012\/05\/15\/mri-scan-of-my-brain\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2012\/05\/15\/mri-scan-of-my-brain\/';
     var disqus_title = 'MRI scan of my brain';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2012\/05\/15\/mri-scan-of-my-brain\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -196,7 +197,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

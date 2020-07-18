@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Java on bramp.net</title>
+    <title>java on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Java on bramp.net</description>
+    <description>Recent content in java on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Sat, 13 Jan 2018 12:50:31 -0800</lastBuildDate>
@@ -15,126 +14,73 @@
       <pubDate>Sat, 13 Jan 2018 12:50:31 -0800</pubDate>
       
       <guid>https://blog.bramp.net/post/2018/01/13/running-java-in-production/</guid>
-      <description>
-
-&lt;p&gt;&lt;em&gt;Originally &lt;a href=&#34;https://www.javaadvent.com/2017/12/running-java-in-production.html&#34;&gt;published&lt;/a&gt; as part of the Java Advent 2017 series&lt;/em&gt;&lt;/p&gt;
-
+      <description>&lt;p&gt;&lt;em&gt;Originally &lt;a href=&#34;https://www.javaadvent.com/2017/12/running-java-in-production.html&#34;&gt;published&lt;/a&gt; as part of the Java Advent 2017 series&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;As a &lt;a href=&#34;https://landing.google.com/sre/&#34;&gt;Site Reliability Engineer&lt;/a&gt; (SRE) I make sure our production services are efficient, scalable, and reliable. A typical SRE is a master of production, and has to have a good understanding of the wider architecture, and be well versed in many of the finer details.&lt;/p&gt;
-
 &lt;p&gt;It is common that SREs are polyglot programmer, expected to understand multiple different languages. For example, C++ may be hard to write, test and get right, but has high performance, perfect for backend systems such as databases. Whereas Python is easy to write, and great for quick scripting, useful for automation. Java is somewhere in the middle, and even though it is a compiled language, it provides type safety, performance, and many other advantages that make it a good choice for writing web infrastructure.&lt;/p&gt;
-
 &lt;p&gt;Even though many of the &lt;a href=&#34;https://landing.google.com/sre/book.html&#34;&gt;best practices that SREs adopt&lt;/a&gt; can be generalised to any language, there are some unique challenges with Java Web applications. This article highlight some of these challenges and talks about what we can do to address them.&lt;/p&gt;
-
 &lt;h1 id=&#34;deployment&#34;&gt;Deployment&lt;/h1&gt;
-
 &lt;p&gt;A typical java application consists of 100s of class files, either written by your team, or from common libraries that the application depends on. To keep the number of class files under control, and to provide better versioning, and compartmentalisation, they are typically bundled up into &lt;a href=&#34;https://en.wikipedia.org/wiki/JAR_(file_format)&#34;&gt;JAR&lt;/a&gt; or &lt;a href=&#34;https://en.wikipedia.org/wiki/WAR_(file_format)&#34;&gt;WAR&lt;/a&gt; files.&lt;/p&gt;
-
 &lt;p&gt;There are many ways to host a java application, one popular method is using a &lt;a href=&#34;https://en.wikipedia.org/wiki/Web_container&#34;&gt;Java Servlet Container&lt;/a&gt; such as &lt;a href=&#34;https://tomcat.apache.org/&#34;&gt;Tomcat&lt;/a&gt;, or &lt;a href=&#34;https://www.jboss.org/&#34;&gt;JBoss&lt;/a&gt;. These provide some common web infrastructure, and libraries to make it, in theory, easier to deploy and manage the java application. Take Tomcat, a java program that provides the actual webserver and loads the application (bundled as a WAR file) on your behalf. This may work well in some situations, but actually adds additional complexity. For example, you now need to keep track of the version of the JRE, the version of Tomcat, and the version of your application. Testing for incompatibility, and ensuring everyone is using the same versions of the full stack can be problematic, and lead to subtle problems. Tomcat also brings along its own bespoke configuration, which is yet another thing to learn.&lt;/p&gt;
-
 &lt;p&gt;A good tenant to follow is to “&lt;a href=&#34;https://landing.google.com/sre/book/chapters/simplicity.html&#34;&gt;keep it simple&lt;/a&gt;”, but in the Servlet Container approach, you have to keep track of a few dozen Tomcat files, plus one or more WAR files that make up the application, plus all the Tomcat configuration that goes along with it.&lt;/p&gt;
-
 &lt;p&gt;Thus there are some frameworks that attempt to reduce this overhead by instead of being hosted within a full application server, they embed their own web server. There is still a JVM but it invokes a single JAR file that contains everything needed to run the application. Popular frameworks that enable these standalone apps are &lt;a href=&#34;http://www.dropwizard.io/&#34;&gt;Dropwizard&lt;/a&gt; and &lt;a href=&#34;https://projects.spring.io/spring-boot/&#34;&gt;Spring Boot&lt;/a&gt;. To deploy a new version of the application, only a single file needs to be changed, and the JVM restarted. This is also useful when developing and testing the application, because everyone is using the same version of the stack. It is also especially useful for rollbacks (one of SRE’s core tools), as only a single file has to be changed (which can be as quick as a symlink change).&lt;/p&gt;
-
 &lt;p&gt;One thing to note with a Tomcat style WAR file, the file would contain the application class files, as well as all the libraries the application depends on as JAR files. In the standalone approach, all the dependencies are merged into a single, &lt;a href=&#34;https://stackoverflow.com/questions/19150811/what-is-a-fat-jar&#34;&gt;Fat JAR&lt;/a&gt;. A single JAR file that contains the class files for the entire application. These Fat or Uber JARs, not only are easier to version and copy around (because it is a single immutable file), but can actually be smaller than an equivalent WAR file due to pruning of unused classes in the dependencies.&lt;/p&gt;
-
 &lt;p&gt;This can even be taken further, by not requiring separate JVM and JAR files. Tools like &lt;a href=&#34;http://www.capsule.io/&#34;&gt;capsule.io&lt;/a&gt;, can actually bundle up the JAR file, JVM, and all configuration into a single executable file. Now we can really ensure the full stack is using the same versions, and the deployment is agnostic to what may already be installed on the server.&lt;/p&gt;
-
 &lt;blockquote&gt;
 &lt;p&gt;Keep it simple, and make the application as quick and easy to version, using a single Fat JAR, or executable where possible.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;h1 id=&#34;startup&#34;&gt;Startup&lt;/h1&gt;
-
 &lt;p&gt;Even though Java is a compiled language, it is not compiled to machine code, it is instead compiled to bytecode. At runtime the Java Virtual Machine (JVM) interprets the bytecode, and executes it in the most efficient way. For example, &lt;a href=&#34;https://en.wikipedia.org/wiki/Just-in-time_compilation&#34;&gt;just-in-time&lt;/a&gt; (JIT) compilation allows the JVM to watch how the application is used, and on the fly compile the bytecode into optimal machine code. Over the long run this may be advantageous for the application, but during startup can make the application perform suboptimally for tens of minutes, or longer. This is something to be aware of, as it has implications on load balancing, monitoring, capacity planning, etc.&lt;/p&gt;
-
 &lt;p&gt;In a multi-server deployment, it is best practice to slowly ramp up traffic to a newly started task, giving it time to warm up, and to not harm the overall performance of the service. You may be tempted to warm up new tasks by sending it artificial traffic, before it is placed into the user-serving path. Artificial traffic can be problematic if it does not approximate normal user traffic. In fact, this fake traffic may trigger the JIT to optimise for cases that don’t normally occur, thus leaving the application in a sub-optimal or worse state than not being JIT’d.&lt;/p&gt;
-
 &lt;p&gt;Slow starts should also be considered when capacity planning. Don’t expect cold tasks to handle the same load as warm tasks. This is important when rolling out a new version of the application, as the capacity of the system will drop until the tasks warms up. If this is not taken into account, too many tasks may be reloaded concurrently, causing a capacity based cascading outage.&lt;/p&gt;
-
 &lt;blockquote&gt;
 &lt;p&gt;Expect cold starts, and try to warm the application up with real traffic.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;h1 id=&#34;monitoring&#34;&gt;Monitoring&lt;/h1&gt;
-
 &lt;p&gt;This advice is generic &lt;a href=&#34;https://landing.google.com/sre/book/chapters/monitoring-distributed-systems.html&#34;&gt;monitoring advice&lt;/a&gt;, but it is worth repeating for Java. Make sure the most important and useful metrics are exported from the Java application, are collected and easily graphed. There are many tools and frameworks for exporting metrics, and even more for collecting, aggregating, and displaying.&lt;/p&gt;
-
 &lt;p&gt;When something breaks, &lt;a href=&#34;https://landing.google.com/sre/book/chapters/effective-troubleshooting.html&#34;&gt;troubleshooting&lt;/a&gt; the issue should be possible from only the metrics being collected. You should not be to depending on log files, or looking at code, to deal with an outage.&lt;/p&gt;
-
 &lt;p&gt;Most outages are caused by change. That is, a new version of the application, a config change, new source of traffic, a hardware failure, or a backend dependencies behaving differently. The metrics exported by the application, should include ways to identify the version of Java, application, and configuration in use. It should break down sources of traffic, mix, error counts, etc. It should also track the health, latency, error rates, etc of backend dependencies. Most of the time, this is enough to diagnose a outage quickly.&lt;/p&gt;
-
 &lt;p&gt;Specific to Java, there are metrics that can be helpful to understand the health, and performance of the application. Guiding future decisions on how to scale and optimise the application. Garbage collection time, heap size, thread count, JIT time are all important and Java specific.&lt;/p&gt;
-
 &lt;p&gt;Finally, a note about measuring response times, or latency. That is, the time it takes the application to handle a request. Many make the mistake of looking at average latency, in part because it can be easily calculated. &lt;a href=&#34;https://www.elastic.co/blog/averages-can-dangerous-use-percentile&#34;&gt;Averages can be misleading&lt;/a&gt;, because it doesn’t show the &lt;a href=&#34;https://en.wikipedia.org/wiki/Percentile_rank&#34;&gt;shape of the distribution&lt;/a&gt;. The majority of requests may be handled quickly, but there may be a long tail of requests that are rare but take a while. This is especially troubling for JVM application, because during garbage collection there is a &lt;a href=&#34;https://www.cubrid.org/blog/understanding-java-garbage-collection&#34;&gt;stop the world&lt;/a&gt; (STW) phase, where the application must pause, to allow the garbage collection to finish. In this pause, no requests will be responded to, and users may wait multiple seconds.&lt;/p&gt;
-
 &lt;p&gt;It is better to collect either the max, or 99 (or higher) percentile latency. For percentile, that say for every every 100 requests, 99 are served quicker than this number. Looking at the worst case latency is more meaningful, and more reflective of the user perceived performance.&lt;/p&gt;
-
 &lt;blockquote&gt;
 &lt;p&gt;Measure metrics that matter, and you can later depend on.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;h1 id=&#34;memory-management&#34;&gt;Memory Management&lt;/h1&gt;
-
 &lt;p&gt;A good investment of your time is to learn about the various &lt;a href=&#34;https://plumbr.io/handbook/garbage-collection-algorithms-implementations&#34;&gt;JVM garbage collection algorithms&lt;/a&gt;. The current state of the art are the concurrent collectors, either &lt;a href=&#34;https://www.redhat.com/en/blog/part-1-introduction-g1-garbage-collector&#34;&gt;G1&lt;/a&gt;, or &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/cms.html&#34;&gt;CMS&lt;/a&gt;. You can decide on what may be best for your application, but for now G1 is the likely winner. There are many great articles that explain how they work, but I’ll cover some key topics.&lt;/p&gt;
-
 &lt;p&gt;When starting up, the Java Virtual Machine (JVM) reserves a large chunk of OS memory and splits it into heap and non-heap. The non-heap contains areas such as &lt;a href=&#34;https://blogs.oracle.com/poonam/about-g1-garbage-collector,-permanent-generation-and-metaspace&#34;&gt;Metaspace&lt;/a&gt; (&lt;a href=&#34;https://dzone.com/articles/java-8-permgen-metaspace&#34;&gt;formally called Permgen&lt;/a&gt;), and stack space. Metaspace is for class definitions, and stack space is for each thread&amp;rsquo;s stacks. The heap is used for the objects that are created, which normally takes up the majority of the memory usage. Unlike a typical executable, the JVM has the &lt;a href=&#34;https://alvinalexander.com/blog/post/java/java-xmx-xms-memory-heap-size-control&#34;&gt;&lt;code&gt;-Xms&lt;/code&gt; and &lt;code&gt;-Xmx&lt;/code&gt; flags&lt;/a&gt; that control the minimum and maximum size of the heap. These limits constrain the maximum amount of RAM the JVM will use, which can make the memory demands on your servers predictable. It is common to set both these flags to the same value, provisioning them to fill up the available RAM on your server. There are also best practices around this when &lt;a href=&#34;https://developers.redhat.com/blog/2017/03/14/java-inside-docker/&#34;&gt;sizing Docker containers&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;Garbage collection (GC) is the process of managing this heap, by finding java objects that are no longer in use (i.e no longer referred to), and can be reclaimed. In most cases the JVM scans the full graph of objects, marking which it finds. At the end, any that weren’t visited, are deleted. To ensure there aren’t race conditions, the GC typically has to stop the world (STW), which pauses the application for a short while, while it finishes up.&lt;/p&gt;
-
 &lt;p&gt;The GC is a source of (perhaps unwarranted) resentment because it is blamed for many performance problems. Typically this boils down to not understanding how the GC works. For example, if the heap is sized too small, the JVM can aggressive garbage collect, trying to futilely free up space. The application can then get stuck in this “&lt;a href=&#34;http://javaagile.blogspot.com/2013/07/the-thrashing-of-garbage-collector.html&#34;&gt;GC thrashing&lt;/a&gt;” cycle, that makes very little progress freeing up space, and spending a larger and larger proportion of time in GC, instead of running the application code.&lt;/p&gt;
-
 &lt;p&gt;Two common cases where this can happen, are &lt;a href=&#34;https://plumbr.io/blog/memory-leaks/what-is-a-memory-leak&#34;&gt;memory leaks&lt;/a&gt;, or &lt;a href=&#34;http://www.oracle.com/technetwork/articles/java/trywithresources-401775.html&#34;&gt;resource exhaustion&lt;/a&gt;. Garbage collected languages shouldn’t allow what is conventionally called memory leaks, however, they can occur. Take for example, maintaining a cache of objects that never expire. This cache will grow forever, and even though the objects in the cache may never be used again, they are still referenced, thus ineligible to be garbage collected.&lt;/p&gt;
-
 &lt;p&gt;Another common cases is &lt;a href=&#34;https://blog.bramp.net/post/2015/12/17/the-importance-of-tuning-your-thread-pools/&#34;&gt;unbounded queues&lt;/a&gt;. If your application places incoming requests on a unbounded queue, this queue could grow forever. If there is a spike of request, objects retained on the queue could increase the heap usage, causing the application to spend more and more time in GC. Thus the application will have less time to process requests from the queue, causing the backlog to grow. This spirals out of control as the GC struggles to find any objects to free, until the application can make no forward progress.&lt;/p&gt;
-
 &lt;p&gt;The garbage collector algorithms has many optimisations to try and reduce total GC time. One important observation, the &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/generations.html&#34;&gt;weak generational hypothesis&lt;/a&gt;, is that objects either exist for a short time (for example, related to the handling a request), or last a long time (such as global objects that manage long lived resources).&lt;/p&gt;
-
 &lt;p&gt;Because of this, the heap is further divided into young and old space. The GC algorithm that runs across the young space assume the object will be freed, and if not, the GC promotes the object into old space. The algorithm for old space, makes the opposite assumption, the the object won’t be freed. The size of the &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/sizing.html&#34;&gt;young/old may thus also be tuned&lt;/a&gt;, and depending on G1 or CMS the approach will be different. But, if the young space is too small, objects that should only exist for short time end up getting promoted to old space. Breaking some of the assumptions the old GC algorithms make, causing GC to run less efficiently, and causing secondary issues such as memory fragmentation.&lt;/p&gt;
-
 &lt;p&gt;As mentioned earlier, GC is a source of &lt;a href=&#34;https://www.weave.works/blog/the-long-tail-tools-to-investigate-high-long-tail-latency/&#34;&gt;long tail latency&lt;/a&gt;, so should be monitored closely. The time taken for each phase of the GC should be recorded, as well as the fullness of heap space (broken down by young/old/etc) before and after GC runs. This provides all the hints needed to either tune, or improve the application to get GC under control.&lt;/p&gt;
-
 &lt;blockquote&gt;
 &lt;p&gt;Make GC your friend. Careful attention should be paid to the heap, and garbage collector, and it should be tuned (even coarsely) to ensure there is enough heap space even in the fully loaded/worst case.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;h1 id=&#34;other-tips&#34;&gt;Other tips&lt;/h1&gt;
-
 &lt;h2 id=&#34;debugging&#34;&gt;Debugging&lt;/h2&gt;
-
 &lt;p&gt;Java has many rich tools for debugging during development and in production. For example, it is possible to capture live stack traces, and heap dumps from the running application. This can be useful to understand memory leaks, or deadlocks. However, you must ensure the application is started to allow these features, and that the typical tools, &lt;a href=&#34;https://docs.oracle.com/javase/6/docs/technotes/tools/share/jmap.html&#34;&gt;jmap&lt;/a&gt;, &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/technotes/guides/troubleshoot/tooldescr006.html&#34;&gt;jcmd&lt;/a&gt;, etc are actually available on the server. Running the application inside a &lt;a href=&#34;http://trustmeiamadeveloper.com/2016/03/18/where-is-my-memory-java/&#34;&gt;Docker container&lt;/a&gt;, or non-standard environment, may make this more difficult, so test and write a playbook on how to do this now.&lt;/p&gt;
-
 &lt;p&gt;Many frameworks, also expose much of this information via webservices, for easier debugging, for example the Dropwizard /threads resource, or the &lt;a href=&#34;https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html&#34;&gt;Spring Boot production endpoints&lt;/a&gt;.&lt;/p&gt;
-
 &lt;blockquote&gt;
 &lt;p&gt;Don’t wait until you have a production issue, test now how to grab heap dumps and stack traces.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;h2 id=&#34;fewer-but-larger-tasks&#34;&gt;Fewer but larger tasks&lt;/h2&gt;
-
 &lt;p&gt;There are many features of the JVM that have a fixed cost per running JVM, such as JIT and garbage collection. Your application may also have fixed overheads, such as resource polling (backend database connections), etc. If you run fewer, but larger (in terms of CPU and RAM) instances, you can reduce this fixed cost, getting an economy of scale. I’ve seen doubling the amount of CPU and RAM a Java application had, allowed it to handle 4x the requests per second (with no impact to latency). This however makes some assumption about the application’s ability to scale in a multi-threaded way, but generally scaling vertically is easier than horizontally.&lt;/p&gt;
-
 &lt;blockquote&gt;
 &lt;p&gt;Make your JVM as large as possible.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;h2 id=&#34;32-bit-vs-64-bit-java&#34;&gt;32-bit vs. 64-bit Java&lt;/h2&gt;
-
 &lt;p&gt;It used to be common practice to run a 32-bit JVM if your application didn’t use more than 4GiB of RAM. This was because 32-bit pointers are half the size of 64-bit, which reduced the overhead of each java object. However, as modern CPUs are 64-bit, typically with 64-bit specific performance improvements, and that the cost of RAM being cheap this make 64-bit JVMs the clear winner.&lt;/p&gt;
-
 &lt;blockquote&gt;
 &lt;p&gt;Use 64-bit JVMs.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;h2 id=&#34;load-shedding&#34;&gt;Load Shedding&lt;/h2&gt;
-
 &lt;p&gt;Again general advice, but important for java. To &lt;a href=&#34;https://landing.google.com/sre/book/chapters/handling-overload.html&#34;&gt;avoid overload&lt;/a&gt; caused by GC thrashing, or cold tasks, the application should aggressively load shed. That is, beyond some threshold, the application should reject new requests. It may seem bad to reject some requests early, but it is better than allowing the application to become unrecoverably unhealthy and fail all requests. There are many ways to avoid overload, but common approaches are to ensure queues are bounded, and that &lt;a href=&#34;https://blog.bramp.net/post/2015/12/17/the-importance-of-tuning-your-thread-pools/&#34;&gt;thread pools are sized correctly&lt;/a&gt;. Additionally, outbound request should have &lt;a href=&#34;https://www.datawire.io/guide/traffic/deadlines-distributed-timeouts-microservices/&#34;&gt;appropriate deadlines&lt;/a&gt;, to ensure a slow backend doesn’t cause problems for your application.&lt;/p&gt;
-
 &lt;blockquote&gt;
 &lt;p&gt;Handle as many requests as you can, and no more.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;h1 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h1&gt;
-
 &lt;p&gt;Hopefully this article has made you think about your java production environment. While not be prescriptive, we highlight some areas to focus. The links throughout should guide you in the right direction.&lt;/p&gt;
 </description>
     </item>
@@ -146,28 +92,21 @@
       
       <guid>https://blog.bramp.net/post/2017/04/01/maven-plugins-on-java-8/</guid>
       <description>&lt;p&gt;As part of my standard Maven configuration, I like to use two plugins backed by Google technologies, the first to help keep my code formatted correctly, and the second to check for compile time errors. However, Google recently moved to require JDK 1.8, which broke anyone trying to compile my projects with an older JDK. In this article I&amp;rsquo;ll quickly explain how to configure Maven to work around this problem.&lt;/p&gt;
-
 &lt;p&gt;Specifically I use the following two plugins:&lt;/p&gt;
-
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/coveo/fmt-maven-plugin&#34;&gt;coveo/fmt-maven-plugin&lt;/a&gt; (which uses &lt;a href=&#34;https://github.com/google/google-java-format&#34;&gt;google-java-format&lt;/a&gt;). This follows the &lt;a href=&#34;https://google.github.io/styleguide/javaguide.html&#34;&gt;Google&amp;rsquo;s Java Style&lt;/a&gt; guide, and reformats the code to ensure it stays consistent. This is great when accepting external contributions, as it keeps the code base uniform, and avoids style discussion on pull requests.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/codehaus-plexus/plexus-compiler&#34;&gt;plexus-compiler-javac-errorprone&lt;/a&gt; (which uses Google&amp;rsquo;s &lt;a href=&#34;https://github.com/google/error-prone&#34;&gt;errorprone&lt;/a&gt;). This is a static code analysis tool, that checks for simple errors at compile time, and fails the build if they are found. Again, this helps improve the quality of the code.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/coveo/fmt-maven-plugin&#34;&gt;coveo/fmt-maven-plugin&lt;/a&gt; (which uses &lt;a href=&#34;https://github.com/google/google-java-format&#34;&gt;google-java-format&lt;/a&gt;). This follows the &lt;a href=&#34;https://google.github.io/styleguide/javaguide.html&#34;&gt;Google&amp;rsquo;s Java Style&lt;/a&gt; guide, and reformats the code to ensure it stays consistent. This is great when accepting external contributions, as it keeps the code base uniform, and avoids style discussion on pull requests.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/codehaus-plexus/plexus-compiler&#34;&gt;plexus-compiler-javac-errorprone&lt;/a&gt; (which uses Google&amp;rsquo;s &lt;a href=&#34;https://github.com/google/error-prone&#34;&gt;errorprone&lt;/a&gt;). This is a static code analysis tool, that checks for simple errors at compile time, and fails the build if they are found. Again, this helps improve the quality of the code.&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;Even though my projects typically target 1.7, these plugins require to run under 1.8. Really I&amp;rsquo;d prefer I could bump all my projects to target 1.8+, but since a few of my projects are libraries (which other people include into their projects), that is easier said than done. To deal with this, I changed my Maven configuration to only run these two plugins when run under the sufficient JDK. This means those using a older JDK don&amp;rsquo;t get the benefits, but since locally I use JDK 8, and all my open source projects use &lt;a href=&#34;https://travis-ci.org&#34;&gt;Travis CI&lt;/a&gt;, eventually these issues will be identified.&lt;/p&gt;
-
 &lt;p&gt;So if you get an error like&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;java.lang.UnsupportedClassVersionError: com/google/googlejavaformat/java/FormatterException : Unsupported major.minor version 52.0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;or&lt;/p&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;or&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;An API incompatibility was encountered while executing org.apache.maven.plugins:maven-compiler-plugin:3.5.1:compile: java.lang.UnsupportedClassVersionError: javax/tools/DiagnosticListener : Unsupported major.minor version 52.0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Please update to JDK 1.8, or update your Maven configuration to restrict these plugins to when run on a modern JDK:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Please update to JDK 1.8, or update your Maven configuration to restrict these plugins to when run on a modern JDK:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;project&amp;gt;&lt;/span&gt;
 ...
     &lt;span class=&#34;nt&#34;&gt;&amp;lt;profiles&amp;gt;&lt;/span&gt;
@@ -220,10 +159,9 @@
         &lt;span class=&#34;nt&#34;&gt;&amp;lt;/profile&amp;gt;&lt;/span&gt;
     &lt;span class=&#34;nt&#34;&gt;&amp;lt;/profiles&amp;gt;&lt;/span&gt;
 ...
-&lt;span class=&#34;nt&#34;&gt;&amp;lt;/project&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This defines a new profile, that is only &amp;ldquo;activated&amp;rdquo; under Java 1.8. When activated the &lt;code&gt;&amp;lt;build&amp;gt;&lt;/code&gt; section has the two additional plugins added.
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/project&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This defines a new profile, that is only &amp;ldquo;activated&amp;rdquo; under Java 1.8. When activated the &lt;code&gt;&amp;lt;build&amp;gt;&lt;/code&gt; section has the two additional plugins added.
 Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&amp;lt;build&amp;gt;&lt;/code&gt; section, and only in the &lt;code&gt;&amp;lt;profile&amp;gt;&amp;lt;build&amp;gt;&lt;/code&gt; section.&lt;/p&gt;
-
 &lt;p&gt;An example of this change can be found in &lt;a href=&#34;https://github.com/bramp/ffmpeg-cli-wrapper/commit/4985ba3ab3ef84839bc0f4ca8b63573b77e33c67&#34;&gt;recent commit&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
@@ -234,16 +172,10 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
       <pubDate>Thu, 17 Dec 2015 01:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2015/12/17/the-importance-of-tuning-your-thread-pools/</guid>
-      <description>
-
-&lt;p&gt;&lt;em&gt;Originally &lt;a href=&#34;http://www.javaadvent.com/2015/12/the-importance-of-tuning-your-thread-pools.html&#34;&gt;published&lt;/a&gt; as part of the Java Advent 2015 series&lt;/em&gt;&lt;/p&gt;
-
+      <description>&lt;p&gt;&lt;em&gt;Originally &lt;a href=&#34;http://www.javaadvent.com/2015/12/the-importance-of-tuning-your-thread-pools.html&#34;&gt;published&lt;/a&gt; as part of the Java Advent 2015 series&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Whether you know it or not, your Java web application is most likely using a thread pool to handle incoming requests. This is an implementation detail that many overlook, but sooner or later you will need to understand how the pool is used, and how to correctly tune it for your application. This article aims to explain the threaded model, what a thread pool is, and what you need to do to correctly configure them.&lt;/p&gt;
-
 &lt;h2 id=&#34;single-threaded&#34;&gt;Single Threaded&lt;/h2&gt;
-
 &lt;p&gt;Let us start with some basics, and progress with the evolution of the threaded model. No matter which application server or framework you use, &lt;a href=&#34;https://tomcat.apache.org/&#34;&gt;Tomcat&lt;/a&gt;, &lt;a href=&#34;http://www.dropwizard.io/&#34;&gt;Dropwizard&lt;/a&gt;, &lt;a href=&#34;https://eclipse.org/jetty/&#34;&gt;Jetty&lt;/a&gt;, they all use the same fundamental approach. Buried deep inside the web server is a socket. This socket is listening for incoming TCP connections, and accepting them. Once accepted, data can be read from the newly established TCP connection, parsed, and turned into a HTTP request. This request is then handed off to the web application, to do with what it wants.&lt;/p&gt;
-
 &lt;p&gt;To provide an understanding of the role of threads, we won’t use an application server, instead we will build a simple server from scratch. This server mirrors what most application servers do under the hood. To start with, a single threaded web server may look like this:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;ServerSocket&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;listener&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServerSocket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;8080&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
@@ -257,8 +189,9 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;finally&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;n&#34;&gt;listener&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This code creates a &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/net/ServerSocket.html&#34;&gt;ServerSocket&lt;/a&gt; on port 8080, then in a tight loop the ServerSocket checks for new connections to accept. Once accepted the socket is passed to a handleRequest method. That method would typically read the HTTP request, do whatever process is needed, and write a response. In this simple example, handleRequest reads a single line, and returns a short HTTP response. It would be normal for handleRequest to do something more complex, such as reading from a database, or conducting some other kind of IO.&lt;/p&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This code creates a &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/net/ServerSocket.html&#34;&gt;ServerSocket&lt;/a&gt; on port 8080, then in a tight loop the ServerSocket checks for new connections to accept. Once accepted the socket is passed to a handleRequest method. That method would typically read the HTTP request, do whatever process is needed, and write a response. In this simple example, handleRequest reads a single line, and returns a short HTTP response. It would be normal for handleRequest to do something more complex, such as reading from a database, or conducting some other kind of IO.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;response&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;
 	&lt;span class=&#34;s&#34;&gt;&amp;#34;HTTP/1.0 200 OK\r\n&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;
 	&lt;span class=&#34;s&#34;&gt;&amp;#34;Content-type: text/plain\r\n&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;
@@ -278,11 +211,9 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;finally&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
 		&lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
 	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;As there is only a single thread handling all accepted sockets, each request must be fully handled, before accepting the next.  In a real application it could be normal for the equivalent handleRequest method to take on the order of 100 milliseconds to return. If this was the case, the server would be limited to handling only 10 requests per second, one after the other.&lt;/p&gt;
-
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;As there is only a single thread handling all accepted sockets, each request must be fully handled, before accepting the next.  In a real application it could be normal for the equivalent handleRequest method to take on the order of 100 milliseconds to return. If this was the case, the server would be limited to handling only 10 requests per second, one after the other.&lt;/p&gt;
 &lt;h2 id=&#34;multi-threaded&#34;&gt;Multi-threaded&lt;/h2&gt;
-
 &lt;p&gt;Even though handleRequest may be blocked on IO, the CPU is free to handle more requests. With a single threaded approach this is not possible. Thus this server can be improved to allow concurrent operations, via creating multiple threads:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;HandleRequestRunnable&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Runnable&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Socket&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
@@ -309,23 +240,15 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;finally&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;n&#34;&gt;listener&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Here, accept() is still called in a tight loop within a single thread, but once a TCP connection is accepted, and a socket available, a new thread is spawned. This spawned thread executes a HandleRequestRunnable, which simply calls the same handleRequest method from above.&lt;/p&gt;
-
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here, accept() is still called in a tight loop within a single thread, but once a TCP connection is accepted, and a socket available, a new thread is spawned. This spawned thread executes a HandleRequestRunnable, which simply calls the same handleRequest method from above.&lt;/p&gt;
 &lt;p&gt;Creating the new thread, now frees up the original accept() thread to handle more TCP connections, and allows the application to handle requests concurrently. This technique is referred to as a “thread per request”, and is the most popular approach taken. It is worth noting there are other approaches, such as the event driven asynchronous model &lt;a href=&#34;https://www.nginx.com/&#34;&gt;NGINX&lt;/a&gt; and &lt;a href=&#34;https://nodejs.org/&#34;&gt;Node.js&lt;/a&gt; deploy, but they don’t use thread pools, and thus are out of scope for this article.&lt;/p&gt;
-
 &lt;p&gt;In the thread per request approach, creating a new thread (and later destroying it) can be expensive, as both the JVM and the OS needs to allocate resources. Additionally in the above implementation, the number of threads being created is unbounded. Being unbounded is very problematic, as it can quickly led to resource exhaustion.&lt;/p&gt;
-
 &lt;h2 id=&#34;resource-exhaustion&#34;&gt;Resource exhaustion&lt;/h2&gt;
-
 &lt;p&gt;Each thread requires a certain amount of memory for the stack. On recent 64bit JVMs, the &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html&#34;&gt;default stack size&lt;/a&gt; is 1024KB. If the server receives a flood of requests, or the handleRequest method becomes slow, the server may end up with huge number of concurrent threads. Thus to manage 1000 concurrent requests, the 1000 threads would consume 1GB of the JVM’s RAM just for thread’s stacks. In addition the code executing in each thread will be creating objects on the heap needed to process the request. This very quickly adds up, and can exceed the heap space assigned to the JVM, putting pressure on the garbage collector, causing thrashing and eventually leading to &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/lang/OutOfMemoryError.html&#34;&gt;OutOfMemoryErrors&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;Not only consuming RAM, the threads may use other finite resources, such as file handles, or database connections. Exceeding these may led to other types of errors or crashes. Thus to avoid exhausting resources it is important to avoid unbounded data structures.&lt;/p&gt;
-
 &lt;p&gt;Not a panacea, but the stack size issue can be somewhat mitigated by tuning the stack size with the -Xss flag. A smaller stack will reduce the per thread overhead, but potentially leads to &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/lang/StackOverflowError.html&#34;&gt;StackOverflowErrors&lt;/a&gt;. Your mileage will vary, but for many applications the default 1024KB is excessive, and smaller 256KB or 512KB values might be more appropriate. The smallest value Java will allow is 160KB.&lt;/p&gt;
-
 &lt;h2 id=&#34;thread-pool&#34;&gt;Thread pool&lt;/h2&gt;
-
 &lt;p&gt;To avoid continuously creating new threads, and to bound the maximum number, a simple thread pool can be used. Simply put, the pool keeps track of all threads, creating new ones when needed up to an upper bound, and where possible reusing idle threads.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;ServerSocket&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;listener&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServerSocket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;8080&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;ExecutorService&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;executor&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Executors&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;newFixedThreadPool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
@@ -336,15 +259,11 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;finally&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;n&#34;&gt;listener&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Now, instead of directly creating threads, this code uses an ExecutorService, which submits work (in the term of Runnables) to be executed across a pool of threads. In this example a fixed thread pool of four threads is used to handle all incoming requests. This bounds the number of “in-flight” requests, and thus places bounds on the resource usage.&lt;/p&gt;
-
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now, instead of directly creating threads, this code uses an ExecutorService, which submits work (in the term of Runnables) to be executed across a pool of threads. In this example a fixed thread pool of four threads is used to handle all incoming requests. This bounds the number of “in-flight” requests, and thus places bounds on the resource usage.&lt;/p&gt;
 &lt;p&gt;In addition to &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newFixedThreadPool(int)&#34;&gt;newFixedThreadPool&lt;/a&gt;, the Executors utility class also provides a &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newCachedThreadPool()&#34;&gt;newCachedThreadPool&lt;/a&gt; method. This suffers from the earlier unbounded number of threads, but whenever possible makes use of previously created but now idle threads. Typically this type of pool is useful for short-lived requests that do not block on external resources.&lt;/p&gt;
-
 &lt;p&gt;&lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.html&#34;&gt;ThreadPoolExecutors&lt;/a&gt; can be constructed directly, allowing for its behaviour to be customised. For example, the min and max number of threads within the pool can be defined, as well as policies for when threads are created and destroyed. An example of this is shown shortly.&lt;/p&gt;
-
 &lt;h2 id=&#34;work-queue&#34;&gt;Work queue&lt;/h2&gt;
-
 &lt;p&gt;In the fixed thread pool case, the observant reader may wonder what happens if all threads are busy, and a new request comes in. Well the ThreadPoolExecutor may use a queue to hold pending requests before a thread becomes available. The Executors.newFixedThreadPool by default use an unbounded LinkedList. Again this leads to the resource exhaustion problem, albeit much slower since each queued request is smaller than a full thread, and will typically not be using as many resources. However, in our examples, each queued request is holding a socket which (depending on OS) would be consuming a file handle. This is the kind of resource that the operating system will limit, so it may not be best to hold on to it unless needed. Therefore it also makes sense to bound the size of the work queue.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ExecutorService&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;newBoundedFixedThreadPool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nThreads&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;capacity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ThreadPoolExecutor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nThreads&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nThreads&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
@@ -364,66 +283,39 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;finally&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
 		&lt;span class=&#34;n&#34;&gt;listener&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
 	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Again, we create a thread pool, but instead of using the Executors.newFixedThreadPool helper method, we create the ThreadPoolExecutor ourselves, passing a bounded &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/LinkedBlockingQueue.html&#34;&gt;LinkedBlockingQueue&lt;/a&gt; capped to 16 elements. Alternatively an &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ArrayBlockingQueue.html&#34;&gt;ArrayBlockingQueue&lt;/a&gt; could have be used, which is an implementation of a bounded buffer.&lt;/p&gt;
-
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Again, we create a thread pool, but instead of using the Executors.newFixedThreadPool helper method, we create the ThreadPoolExecutor ourselves, passing a bounded &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/LinkedBlockingQueue.html&#34;&gt;LinkedBlockingQueue&lt;/a&gt; capped to 16 elements. Alternatively an &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ArrayBlockingQueue.html&#34;&gt;ArrayBlockingQueue&lt;/a&gt; could have be used, which is an implementation of a bounded buffer.&lt;/p&gt;
 &lt;p&gt;If all threads are busy, and the queue fills up, what happens next is defined by the last argument to the ThreadPoolExecutor. In this example, a &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.DiscardPolicy.html&#34;&gt;DiscardPolicy&lt;/a&gt; is used, which simply discards any work that would overflow the queue. There are other policies, such as the &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.AbortPolicy.html&#34;&gt;AbortPolicy&lt;/a&gt; which throws an exception, or the &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.CallerRunsPolicy.html&#34;&gt;CallerRunsPolicy&lt;/a&gt; which executes the job on the caller’s thread. This CallerRunsPolicy provides a simple way to self limit the rate jobs can be added, however, it could be harmful, blocking a thread that should stay unblocked.&lt;/p&gt;
-
 &lt;p&gt;A good default policy is to Discard or Abort, which both drop the work. In these cases it would be easy to return a simple error to the client, such as a &lt;a href=&#34;http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4&#34;&gt;HTTP 503 “Service unavailable”&lt;/a&gt;. Some would argue that the queue size could just be increased, and then all work would eventually be run. However, users are unwilling to wait forever, and if fundamentally the rate at which work comes in, exceeds the rate it can be executed, then the queue will grow indefinitely. Instead the queue should only be used to smooth out bursts of requests, or handle short stalls in processing. In normal operation the queue should be empty.&lt;/p&gt;
-
 &lt;h2 id=&#34;how-many-threads&#34;&gt;How many threads?&lt;/h2&gt;
-
 &lt;p&gt;Now we understand how to create a thread pool, the hard question is how many threads should be available? We have determined that the maximum number should be bounded to not cause resource exhaustion. This includes all types of resources, memory (stack and heap), open file handles, open TCP connections, the number of connections a remote database can handle, and any other finite resource. Conversely, if the threads are CPU bound instead of IO bound, then the number of physical cores should be considered finite, and perhaps no more than one thread per core should be created.&lt;/p&gt;
-
 &lt;p&gt;This all depends on the work the application is doing. A user should run load tests using various pool sizes, and a realistic mix of requests. Each time increasing their thread pool size until breaking point. This makes it possible to find the upper bound, for when resources are exhausted. In some cases it may be prudent to increase the number of available resources, for example making more RAM available to the JVM, or tuning the OS to allow for more file handles. However, at some point the theoretical upper bound will be reached, and should be noted, but this is not the end of the story.&lt;/p&gt;
-
-&lt;h2 id=&#34;little-s-law&#34;&gt;Little’s Law&lt;/h2&gt;
-
+&lt;h2 id=&#34;littles-law&#34;&gt;Little’s Law&lt;/h2&gt;
 &lt;figure&gt;
     &lt;img src=&#34;littlelaw.png&#34;/&gt; &lt;figcaption&gt;
             &lt;h4&gt;Little&amp;#39;s Law equation&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-
 &lt;p&gt;Queuing theory, in particular, &lt;a href=&#34;https://en.wikipedia.org/wiki/Little%27s_law&#34;&gt;Little’s Law&lt;/a&gt;, can be used to help understand the properties of the thread pool. In simple terms, Little’s Law describes the relationship between three variables; L the number of requests in-flight, λ the rate at which new requests arrive, and W the average time to handle the request. For example, if there are 10 requests arriving per second, and each request takes one second to process, there is an average of 10 request in-flight at any time. In our example, this maps to using 10 threads. If the time to process a single request is doubled, then the average in-flight requests also doubles to 20, and thus requires 20 threads.&lt;/p&gt;
-
 &lt;p&gt;Understanding the impact that execution time has on in-flight request is very important. It is common for some backend resource (such as a database) to stall, causing requests to take longer to process, quickly exhausting a thread pool. Therefore the theoretical upper bound may not be an appropriate limit for the pool size. Instead, a limit should be placed on execution time, and used in combination with the theoretical upper bound.&lt;/p&gt;
-
 &lt;p&gt;For example, let’s say the maximum in-flight requests that can be handled is 1000 before the JVM exceeds its memory allocation. If we budget for each request to take no longer than 30 seconds, we should expect in the worst case to handle no more than 33 ⅓ requests per second. However, if everything is working correctly, and requests take only 500ms to handle, the application can handle 2000 requests per second, on only 1000 threads. It may also be reasonable to specify that a queue can be used to smooth out short bursts of delay.&lt;/p&gt;
-
 &lt;h2 id=&#34;why-the-hassle&#34;&gt;Why the hassle?&lt;/h2&gt;
-
 &lt;p&gt;If the thread pool has too few threads, you run the risk of under utilising the resources, and turning users away unnecessarily. However, if too many threads are allowed, resource exhaustion occurs, which can be more damaging.&lt;/p&gt;
-
 &lt;p&gt;Not only can local resources be exhausted but it is possible to adversely impact others. Take for example, multiple applications querying the same backend database. Databases typically have a hard limit on the number of concurrent connections. If one misbehaving unbounded application consumes all these connections, it would block the others from accessing the database. Causing a widespread outage.&lt;/p&gt;
-
 &lt;p&gt;Even worse, a cascading failure could occur. Imagine an environment with multiple instances of a single application, behind a common load balancer. If one of the instances begins to run out of memory due to excessive in-flight requests, the JVM will spend more time garbage collecting, and less time handling the requests. That slow down, will reduce the capacity of that one instance, and force the other instances to handle a higher fraction of incoming requests. As they now handle more requests, with their unbounded thread pools, the same problem occurs. They run out of memory, and again begin aggressively garbage collecting. This vicious cycle cascades across all instances, until there is a systemic failure.&lt;/p&gt;
-
 &lt;p&gt;Far too often I’ve observed that load testing is not conducted, and an arbitrarily high number of threads is allowed. In the common case the application can happily process requests at the incoming rate using a small number of threads. If however, processing the requests depends on a remote service, and that service temporarily slows down, the impact of increasing W (the average processing time) can very quickly exhaust the pool. Because the application was never load tested at the maximum number, all the resource exhaustion issues outlined before are exhibited.&lt;/p&gt;
-
 &lt;h2 id=&#34;how-many-thread-pools&#34;&gt;How many thread pools?&lt;/h2&gt;
-
 &lt;p&gt;In &lt;a href=&#34;http://martinfowler.com/articles/microservices.html&#34;&gt;microservice&lt;/a&gt;, or &lt;a href=&#34;https://en.wikipedia.org/wiki/Service-oriented_architecture&#34;&gt;service oriented architectures&lt;/a&gt; (SOA), it is normal to access multiple remote backend services. This setup is particularly susceptible to failures, and thought should be given to gracefully dealing with them. If a remote service’s performance degrades, it can cause the thread pool to quickly hit its limit, and subsequent requests are dropped. However, not all requests may require this unhealthy backend, but since the thread pool is full these requests are needlessly dropped.&lt;/p&gt;
-
 &lt;p&gt;The failure of each backend can be isolated by providing backend specific thread pools. In this pattern, there is still a single request worker pool, but if the request needs to call a remote service, the work is transferred to that backend’s thread pool. This leaves the main request pool unburden by a single slow backend. Then only requests needing that particular backend pool are impacted when it malfunctions.&lt;/p&gt;
-
 &lt;p&gt;A final benefit of multiple thread pools, is it helps avoid a form of deadlock. If every available thread becomes blocked on a result of a yet to be processed request, then a deadlock occurs, and no thread is able to move forward. When using multiple pools, and having a good understanding of the work they execute, this issue can be somewhat mitigated.&lt;/p&gt;
-
 &lt;h2 id=&#34;deadlines-and-other-best-practices&#34;&gt;Deadlines and other best practices&lt;/h2&gt;
-
 &lt;p&gt;A common best practice is to ensure there is a deadline on all remote calls. That is, if the remote service does not respond within a reasonable time, the request is abandoned. The same technique can be used for work within the thread pool. Specifically, if the thread is processing one request for longer than a defined deadline, it should be terminated. Making room for a new request, and placing an upper bound on W.  This may seem like a waste, but if the user (which might typically be a web browser) is waiting for a response, then after 30 seconds the browser might just give up anyway, or more likely the user becomes impatient and navigates away.&lt;/p&gt;
-
 &lt;p&gt;Failing fast, is another approach that can be taken when creating pools for backends. If the backend has failed, the thread pool will quickly fill up with request waiting to connect to the unresponsive backend. Instead, the backend can be flagged as unhealthy, all subsequent requests could fail instantly instead of needlessly waiting. Note however, that a mechanism is needed to determine when the backend has become healthy again.&lt;/p&gt;
-
 &lt;p&gt;Finally, if a request will need to call multiple backends independently, it should be possible to call them in parallel, instead of sequentially. This would reduce the wait time, at the cost of increased threads.&lt;/p&gt;
-
 &lt;p&gt;Luckily, there is a great library, &lt;a href=&#34;https://github.com/Netflix/Hystrix&#34;&gt;hystrix&lt;/a&gt;, which packages many of these best practices and exposes them in a simple and safe way.&lt;/p&gt;
-
 &lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-
 &lt;p&gt;Hopefully this article has improved your understanding of thread pools.  By understanding the application’s needs, and using a combination of the maximum thread count, and the average response time, an appropriate thread pool can be determined. Not only will this avoid cascading failures, but help plan and provision your service.&lt;/p&gt;
-
 &lt;p&gt;Even though your application may not explicitly use a thread pool, they are implicitly used by your application server or higher level abstraction. &lt;a href=&#34;https://tomcat.apache.org/tomcat-8.0-doc/config/http.html&#34;&gt;Tomcat&lt;/a&gt;, &lt;a href=&#34;https://developer.jboss.org/wiki/ThreadPoolConfiguration&#34;&gt;JBoss&lt;/a&gt;, &lt;a href=&#34;http://undertow.io/undertow-docs/undertow-docs-1.2.0/listeners.html&#34;&gt;Undertow&lt;/a&gt;, &lt;a href=&#34;https://dropwizard.github.io/dropwizard/0.7.1/docs/manual/configuration.html&#34;&gt;Dropwizard&lt;/a&gt; all provides multiple tunables to their thread pools (the pool which your servlet is executed).&lt;/p&gt;
 </description>
     </item>
@@ -434,10 +326,7 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
       <pubDate>Wed, 09 Sep 2015 20:29:04 -0700</pubDate>
       
       <guid>https://blog.bramp.net/post/2015/09/09/unrolling-loops-at-runtime-with-byte-buddy/</guid>
-      <description>
-
-&lt;p&gt;While creating the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt;, I encountered a problem that I felt I could optimise. The &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; copies objects into off-heap memory, instead of what a normal &lt;code&gt;ArrayList&lt;/code&gt; would do, which is to store references to the object in an array on the heap. For example an &lt;code&gt;UnsafeArrayList&amp;lt;FourLong&amp;gt;&lt;/code&gt; holds instances of &lt;a href=&#34;https://github.com/bramp/unsafe/blob/master/unsafe-tests/src/main/java/net/bramp/unsafe/examples/FourLongs.java&#34;&gt;FourLongs&lt;/a&gt;, whose fields consume a total of 32 bytes (4×8 bytes) of memory. By design, when &lt;code&gt;set()&lt;/code&gt; or &lt;code&gt;get()&lt;/code&gt; are called, the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; copies these 32 bytes into or out of a contiguous segment of memory.&lt;/p&gt;
-
+      <description>&lt;p&gt;While creating the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt;, I encountered a problem that I felt I could optimise. The &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; copies objects into off-heap memory, instead of what a normal &lt;code&gt;ArrayList&lt;/code&gt; would do, which is to store references to the object in an array on the heap. For example an &lt;code&gt;UnsafeArrayList&amp;lt;FourLong&amp;gt;&lt;/code&gt; holds instances of &lt;a href=&#34;https://github.com/bramp/unsafe/blob/master/unsafe-tests/src/main/java/net/bramp/unsafe/examples/FourLongs.java&#34;&gt;FourLongs&lt;/a&gt;, whose fields consume a total of 32 bytes (4×8 bytes) of memory. By design, when &lt;code&gt;set()&lt;/code&gt; or &lt;code&gt;get()&lt;/code&gt; are called, the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; copies these 32 bytes into or out of a contiguous segment of memory.&lt;/p&gt;
 &lt;p&gt;To achieve the copying, &lt;code&gt;sun.misc.Unsafe&lt;/code&gt;’s &lt;a href=&#34;http://www.docjar.com/docs/api/sun/misc/Unsafe.html#putLong(long,+long)&#34;&gt;putLong()&lt;/a&gt; is repeatedly called, moving 8 bytes at a time. For example, this simple loop will copy a long’s worth of memory each iteration, from src, into dest:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getUnsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
@@ -451,10 +340,10 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 		&lt;span class=&#34;n&#34;&gt;destOffset&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 		&lt;span class=&#34;n&#34;&gt;src&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Note, we use &lt;code&gt;putLong&lt;/code&gt;, not because the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; is storing objects made up of longs, but because this is the &lt;code&gt;Unsafe&lt;/code&gt; method that can copy the most in one go. This &lt;code&gt;putLong&lt;/code&gt; method is thus being used as the building block to build a more complex looping copy method. Note, this works great for memory which is aligned on a 8 byte boundary, and the total copy is a multiple of 8 bytes. For the sake of this article, we make the assumption that this is always true.&lt;/p&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 
-&lt;p&gt;In the &lt;code&gt;FourLong&lt;/code&gt;&amp;rsquo;s case, the copy method would iterates four times. This is predictable, and occurs every time we &lt;code&gt;get()&lt;/code&gt; on a &lt;code&gt;UnsafeArrayList&amp;lt;FourLong&amp;gt;&lt;/code&gt; instance. Since this copy loop will be executed every time &lt;code&gt;get()&lt;/code&gt; is called, it is worth seeing if we can make it execute faster. A common optimisation is for the developer to manually &lt;a href=&#34;https://en.wikipedia.org/wiki/Loop_unrolling&#34;&gt;unroll the loop&lt;/a&gt;, avoiding the loop counter, and producing potentially quicker code&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:unrolled&#34;&gt;&lt;a href=&#34;#fn:unrolled&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. In this case, manually unrolling the code is not possible because the parameterised type could be any size. For example, a &lt;code&gt;UnsafeArrayList&amp;lt;Point&amp;gt;&lt;/code&gt; would only need to copy 8 bytes (two 4 byte ints). You would hope that the JIT would notice the loop always iterates the same number of times (for a particular list), and be able to remove the loop. Sadly, it does not seem to do this, perhaps because the JVM does not know what side effects &lt;code&gt;unsafe.{get,put}Long&lt;/code&gt; have. To measure the cost of the looping we compare the previous code to this:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Note, we use &lt;code&gt;putLong&lt;/code&gt;, not because the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; is storing objects made up of longs, but because this is the &lt;code&gt;Unsafe&lt;/code&gt; method that can copy the most in one go. This &lt;code&gt;putLong&lt;/code&gt; method is thus being used as the building block to build a more complex looping copy method. Note, this works great for memory which is aligned on a 8 byte boundary, and the total copy is a multiple of 8 bytes. For the sake of this article, we make the assumption that this is always true.&lt;/p&gt;
+&lt;p&gt;In the &lt;code&gt;FourLong&lt;/code&gt;&#39;s case, the copy method would iterates four times. This is predictable, and occurs every time we &lt;code&gt;get()&lt;/code&gt; on a &lt;code&gt;UnsafeArrayList&amp;lt;FourLong&amp;gt;&lt;/code&gt; instance. Since this copy loop will be executed every time &lt;code&gt;get()&lt;/code&gt; is called, it is worth seeing if we can make it execute faster. A common optimisation is for the developer to manually &lt;a href=&#34;https://en.wikipedia.org/wiki/Loop_unrolling&#34;&gt;unroll the loop&lt;/a&gt;, avoiding the loop counter, and producing potentially quicker code&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. In this case, manually unrolling the code is not possible because the parameterised type could be any size. For example, a &lt;code&gt;UnsafeArrayList&amp;lt;Point&amp;gt;&lt;/code&gt; would only need to copy 8 bytes (two 4 byte ints). You would hope that the JIT would notice the loop always iterates the same number of times (for a particular list), and be able to remove the loop. Sadly, it does not seem to do this, perhaps because the JVM does not know what side effects &lt;code&gt;unsafe.{get,put}Long&lt;/code&gt; have. To measure the cost of the looping we compare the previous code to this:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getUnsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
 
@@ -476,13 +365,10 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 	&lt;span class=&#34;n&#34;&gt;src&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;COPY_STRIDE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 
 	&lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;putLong&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;destOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getLong&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;When benchmarked, this manually unrolled code runs 2 times faster! This got me thinking, since a particular &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; instance is always going to copy the same sized object, again and again and again, it could perhaps generate bytecode during creation, that unrolled the loop.&lt;/p&gt;
-
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;When benchmarked, this manually unrolled code runs 2 times faster! This got me thinking, since a particular &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; instance is always going to copy the same sized object, again and again and again, it could perhaps generate bytecode during creation, that unrolled the loop.&lt;/p&gt;
 &lt;h2 id=&#34;enter-byte-buddy&#34;&gt;Enter Byte Buddy&lt;/h2&gt;
-
 &lt;p&gt;Thus investigation into &lt;a href=&#34;http://bytebuddy.net/&#34;&gt;Byte Buddy&lt;/a&gt; began, a library designed for generating bytecode at runtime. The rest of this article explains how to use Byte Buddy for this goal.&lt;/p&gt;
-
 &lt;p&gt;To start, I used Intellij IDEA’s “&lt;a href=&#34;https://plugins.jetbrains.com/plugin/5918&#34;&gt;Show Bytecode&lt;/a&gt;” option, to inspect the code generated by my hand unrolled code.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-nasm&#34; data-lang=&#34;nasm&#34;&gt;&lt;span class=&#34;c1&#34;&gt;; Initialisation&lt;/span&gt;
   &lt;span class=&#34;c1&#34;&gt;; long destOffset = 0;&lt;/span&gt;
@@ -518,11 +404,9 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
   &lt;span class=&#34;nf&#34;&gt;LLOAD&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;   &lt;span class=&#34;c1&#34;&gt;; Load src&lt;/span&gt;
   &lt;span class=&#34;nf&#34;&gt;LDC&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;; Load 8&lt;/span&gt;
   &lt;span class=&#34;nf&#34;&gt;LADD&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;; Add src and 8&lt;/span&gt;
-  &lt;span class=&#34;nf&#34;&gt;LSTORE&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;; Store result to src&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;After reading a &lt;a href=&#34;http://download.forge.objectweb.org/asm/asm4-guide.pdf&#34;&gt;primer to bytecode&lt;/a&gt;, this generated bytecode looked quite simple. It can be broken up into three steps, initialisation, copy, and increment. At runtime, Byte Buddy can be used to generate bytecode that is an unrolled equivalent, such that there is 1 initialisation step, N copy steps, and N-1 increment steps, where N is based on the size of the object the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; plans to copy.&lt;/p&gt;
-
+  &lt;span class=&#34;nf&#34;&gt;LSTORE&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;; Store result to src&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After reading a &lt;a href=&#34;http://download.forge.objectweb.org/asm/asm4-guide.pdf&#34;&gt;primer to bytecode&lt;/a&gt;, this generated bytecode looked quite simple. It can be broken up into three steps, initialisation, copy, and increment. At runtime, Byte Buddy can be used to generate bytecode that is an unrolled equivalent, such that there is 1 initialisation step, N copy steps, and N-1 increment steps, where N is based on the size of the object the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; plans to copy.&lt;/p&gt;
 &lt;p&gt;Reading through the Byte Buddy API it seems the best way to achieve this is to create an abstract class, which will form the base of a generated class. Then at runtime create an instantiation of this abstract class, specialised with the unrolled copy bytecode.&lt;/p&gt;
-
 &lt;p&gt;For example, the base class would look like this:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;UnsafeCopier&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;kd&#34;&gt;protected&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
@@ -532,9 +416,8 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 
 	&lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;copy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Leaving us to implement the &lt;code&gt;copy(…)&lt;/code&gt; method optimally for the size of object being copied.&lt;/p&gt;
-
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Leaving us to implement the &lt;code&gt;copy(…)&lt;/code&gt; method optimally for the size of object being copied.&lt;/p&gt;
 &lt;p&gt;Using the &lt;a href=&#34;https://en.wikipedia.org/wiki/Builder_pattern&#34;&gt;Builder pattern&lt;/a&gt; I created the &lt;a href=&#34;https://bramp.github.io/unsafe/index.html?net/bramp/unsafe/UnrolledUnsafeCopierBuilder.html&#34;&gt;&lt;code&gt;UnrolledUnsafeCopierBuilder&lt;/code&gt;&lt;/a&gt; class. The &lt;code&gt;build()&lt;/code&gt; method will calculate the size of the class being copied, then using Byte Buddy generate the copy implementation, and returns a specialised instance UnsafeCopier.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeCopier&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sizeOf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;clazz&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
@@ -549,9 +432,8 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UnsafeCopier&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dynamicType&lt;/span&gt;
 		&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDeclaredConstructor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
 		&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;newInstance&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This begins by calculating the size of the class. Then using a &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/index.html?net/bytebuddy/ByteBuddy.html&#34;&gt;ByteBuddy&lt;/a&gt; instance, creates a new dynamicType, which extends &lt;code&gt;UnsafeCopier&lt;/code&gt;. This subclass then obtains its copy method with code generated by &lt;code&gt;CopierImplementation(length)&lt;/code&gt;. Finally, this new dynamicType is used to create an instance of the copier, which is now specialised for copying instances of clazz.&lt;/p&gt;
-
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This begins by calculating the size of the class. Then using a &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/index.html?net/bytebuddy/ByteBuddy.html&#34;&gt;ByteBuddy&lt;/a&gt; instance, creates a new dynamicType, which extends &lt;code&gt;UnsafeCopier&lt;/code&gt;. This subclass then obtains its copy method with code generated by &lt;code&gt;CopierImplementation(length)&lt;/code&gt;. Finally, this new dynamicType is used to create an instance of the copier, which is now specialised for copying instances of clazz.&lt;/p&gt;
 &lt;p&gt;The real meat of the code is in &lt;code&gt;CopierImplementation&lt;/code&gt;, which can be explained in pieces:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;CopierImplementation&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ByteCodeAppender&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Implementation&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
 
@@ -585,16 +467,14 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 	&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 
 	&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Byte Buddy uses &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; objects to define what bytecode to generate. These &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; objects can be built up hierarchically and contain all the bytecode instructions to execute. We define a separate &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; object for each step, and in the &lt;code&gt;buildStack()&lt;/code&gt; method combine the steps multiple times into one array. In particular, this stack array contains one initialise step, N copy steps, and N-1 increment steps, with a &lt;code&gt;return&lt;/code&gt; instruction on the end.&lt;/p&gt;
-
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Byte Buddy uses &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; objects to define what bytecode to generate. These &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; objects can be built up hierarchically and contain all the bytecode instructions to execute. We define a separate &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; object for each step, and in the &lt;code&gt;buildStack()&lt;/code&gt; method combine the steps multiple times into one array. In particular, this stack array contains one initialise step, N copy steps, and N-1 increment steps, with a &lt;code&gt;return&lt;/code&gt; instruction on the end.&lt;/p&gt;
 &lt;p&gt;Recall from the early bytecode listing, that the initialisation was two bytecode operations, a LCONST, and LSTORE. In Byte Buddy, we can thus do the following:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StackManipulation&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;setupStack&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StackManipulation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Compound&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;
 	&lt;span class=&#34;n&#34;&gt;LongConstant&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ZERO&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;                       &lt;span class=&#34;c1&#34;&gt;// LCONST_0
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;n&#34;&gt;MethodVariableStore&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;LONG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;storeOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;// LSTORE 4
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Byte Buddy provides the primitives for most bytecode instructions, and can be built up in these &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; arrays. However, some instructions are missing, for example LADD (needed by the increment step). But it is simple enough to create one from scratch, as &lt;a href=&#34;https://github.com/bramp/unsafe/tree/master/unsafe-unroller/src/main/java/net/bramp/unsafe/bytebuddy&#34;&gt;shown  outside of this article&lt;/a&gt;.&lt;/p&gt;
-
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Byte Buddy provides the primitives for most bytecode instructions, and can be built up in these &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; arrays. However, some instructions are missing, for example LADD (needed by the increment step). But it is simple enough to create one from scratch, as &lt;a href=&#34;https://github.com/bramp/unsafe/tree/master/unsafe-unroller/src/main/java/net/bramp/unsafe/bytebuddy&#34;&gt;shown  outside of this article&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Next the copy step is defined which is a few more instructions than the increment, but relatively simple:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Field&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafeField&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeCopier&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDeclaredField&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;unsafe&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Method&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;getLongMethod&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;getLong&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
@@ -618,11 +498,9 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
 	&lt;span class=&#34;n&#34;&gt;MethodInvocation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;invoke&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MethodDescription&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ForLoadedMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;getLongMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)),&lt;/span&gt;
 	&lt;span class=&#34;n&#34;&gt;MethodInvocation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;invoke&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MethodDescription&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ForLoadedMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;putLongMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Again, the bytecode instructions are created as a sequence of &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt;, replicating the bytecode the java compiler code had generated earlier. This example contains a couple of new &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; classes, in particular the Field and Method Descriptions classes.&lt;/p&gt;
-
+&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Again, the bytecode instructions are created as a sequence of &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt;, replicating the bytecode the java compiler code had generated earlier. This example contains a couple of new &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; classes, in particular the Field and Method Descriptions classes.&lt;/p&gt;
 &lt;p&gt;The final step is the increment step, which won’t be explained, but for the interested reader &lt;a href=&#34;https://github.com/bramp/unsafe/blob/ff8f463bf60661ff63133e8a3beada7fd65c7c45/unsafe-unroller/src/main/java/net/bramp/unsafe/CopierImplementation.java#L86&#34;&gt;the source can be found here&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;One last piece of information Byte Buddy needs, is the size of the stack needed for the &lt;code&gt;copy()&lt;/code&gt; method, including any space local variables may need. The &lt;a href=&#34;http://bytebuddy.net/javadoc/0.7-rc1/net/bytebuddy/implementation/bytecode/StackManipulation.html&#34;&gt;&lt;code&gt;StackManipulation&lt;/code&gt;&lt;/a&gt; comes in handy here, as it is able to infer some of these details from the byte code it represents. In particular, the following code calculates the stack size:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Size&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;apply&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MethodVisitor&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;methodVisitor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Implementation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Context&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;implementationContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
    &lt;span class=&#34;n&#34;&gt;MethodDescription&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;instrumentedMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
@@ -638,17 +516,12 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 	&lt;span class=&#34;c1&#34;&gt;// Now return the size of this bytecode, plus two, which is the size of the local
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;c1&#34;&gt;// destOffset variable.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;finalStackSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getMaximalSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;instrumentedMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getStackSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;An important part here, is the &lt;code&gt;+2&lt;/code&gt;, which makes room for the &lt;code&gt;long destOffset&lt;/code&gt; variable. If that was missing, the generated bytecode would incorrectly write over instructions on the stack, and most likely crash the JVM.&lt;/p&gt;
-
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;An important part here, is the &lt;code&gt;+2&lt;/code&gt;, which makes room for the &lt;code&gt;long destOffset&lt;/code&gt; variable. If that was missing, the generated bytecode would incorrectly write over instructions on the stack, and most likely crash the JVM.&lt;/p&gt;
 &lt;p&gt;Now at runtime the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt;&amp;rsquo;s constructor can use the &lt;a href=&#34;https://bramp.github.io/unsafe/index.html?net/bramp/unsafe/UnrolledUnsafeCopierBuilder.html&#34;&gt;&lt;code&gt;UnrolledUnsafeCopierBuilder&lt;/code&gt;&lt;/a&gt; to generate a specialised &lt;code&gt;UnsafeCopier&lt;/code&gt; designed for the exact class the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;&lt;code&gt;UnsafeArrayList&lt;/code&gt;&lt;/a&gt; is storing.&lt;/p&gt;
-
 &lt;h2 id=&#34;results&#34;&gt;Results&lt;/h2&gt;
-
 &lt;p&gt;Now we have most of what we need, it is worth benchmarking this code. Using &lt;a href=&#34;http://openjdk.java.net/projects/code-tools/jmh/&#34;&gt;JMH&lt;/a&gt;, we can write three microbenchmarks. One using the original looping code, one using the hand unrolled code, and one using the Byte Buddy unrolled code. The &lt;a href=&#34;https://github.com/bramp/unsafe/blob/master/unsafe-benchmark/src/main/java/net/bramp/unsafe/copier/UnrolledCopierBenchmark.java&#34;&gt;code for the benchmarks&lt;/a&gt; is on GitHub, and follows a similar methodology to that in a &lt;a href=&#34;https://blog.bramp.net/post/2015/08/27/unsafe-part-3-benchmarking-a-java-unsafearraylist/&#34;&gt;previous article&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;The results are as you may expect:&lt;/p&gt;
-
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -660,7 +533,6 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 &lt;th&gt;Units&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
-
 &lt;tbody&gt;
 &lt;tr&gt;
 &lt;td&gt;Loop&lt;/td&gt;
@@ -670,7 +542,6 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 &lt;td&gt;± 11.123&lt;/td&gt;
 &lt;td&gt;ops/us&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;Hand Unrolled&lt;/td&gt;
 &lt;td&gt;thrpt&lt;/td&gt;
@@ -679,7 +550,6 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 &lt;td&gt;± 27.448&lt;/td&gt;
 &lt;td&gt;ops/us&lt;/td&gt;
 &lt;/tr&gt;
-
 &lt;tr&gt;
 &lt;td&gt;Byte Buddy Unrolled&lt;/td&gt;
 &lt;td&gt;thrpt&lt;/td&gt;
@@ -690,25 +560,19 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-
 &lt;p&gt;The loop code can execute ~218 times per microseconds, whereas both the Byte Buddy, and hand unrolled code had near identical performance, of ~430-437 iterations per microsecond, nearly twice as fast. Of course, not measured here is the startup cost of generating the unrolled code. It is assumed this technique would only be used when the generated code would exist for a long time. Otherwise the setup cost undoes any per execution savings.&lt;/p&gt;
-
 &lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-
 &lt;p&gt;In summary, we managed to unroll a loop at runtime by generating on demand bytecode for that specific purpose. This was possible by inspecting machine generated bytecode, and using Byte Buddy to generate equivalent bytecode at runtime, customised specifically with the correct number of unrolled iterations.&lt;/p&gt;
-
 &lt;p&gt;This technique may seem completely crazy, and I don’t suggest its used unless you know what you are doing. That includes, actually measuring you have a performance problem which could be fixed with this, and not being able to depend on the JVM’s own JIT to do this optimisation for you.&lt;/p&gt;
-
 &lt;p&gt;&lt;em&gt;Helpful Links:&lt;/em&gt; &lt;a href=&#34;https://github.com/bramp/unsafe/&#34;&gt;GitHub Home&lt;/a&gt; | &lt;a href=&#34;https://github.com/bramp/unsafe/tree/master/unsafe-unroller/src/main/java/net/bramp/unsafe&#34;&gt;Gitub Code&lt;/a&gt; | &lt;a href=&#34;https://bramp.github.io/unsafe/&#34;&gt;JavaDoc&lt;/a&gt;&lt;/p&gt;
-&lt;div class=&#34;footnotes&#34;&gt;
-
-&lt;hr /&gt;
-
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:unrolled&#34;&gt;Unrolled code is not always faster, as larger code may not fit into CPU instruction cache.
- &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:unrolled&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Unrolled code is not always faster, as larger code may not fit into CPU instruction cache. &lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;
+&lt;/section&gt;
 </description>
     </item>
     
@@ -718,96 +582,64 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
       <pubDate>Thu, 27 Aug 2015 20:39:04 -0700</pubDate>
       
       <guid>https://blog.bramp.net/post/2015/08/27/unsafe-part-3-benchmarking-a-java-unsafearraylist/</guid>
-      <description>
-
-&lt;p&gt;Previously we introduced a &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;UnsafeArrayList&lt;/a&gt;, an ArrayList style collection that instead of storing references to the objects, it would use &lt;a href=&#34;http://www.docjar.com/docs/api/sun/misc/Unsafe.html&#34;&gt;sun.misc.Unsafe&lt;/a&gt; and &lt;a href=&#34;https://blog.bramp.net/post/2015/08/24/unsafe-part-1-sun.misc.unsafe-helper-classes/&#34;&gt;UnsafeHelper&lt;/a&gt; to copy the objects into heap allocated memory. This has the unique property of keeping all objects contiguous in memory, and avoids a pointer indirection, at the cost of needing to copy values in and out. This article aims to benchmark this list, and understand its unique characteristics.&lt;/p&gt;
-
+      <description>&lt;p&gt;Previously we introduced a &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;UnsafeArrayList&lt;/a&gt;, an ArrayList style collection that instead of storing references to the objects, it would use &lt;a href=&#34;http://www.docjar.com/docs/api/sun/misc/Unsafe.html&#34;&gt;sun.misc.Unsafe&lt;/a&gt; and &lt;a href=&#34;https://blog.bramp.net/post/2015/08/24/unsafe-part-1-sun.misc.unsafe-helper-classes/&#34;&gt;UnsafeHelper&lt;/a&gt; to copy the objects into heap allocated memory. This has the unique property of keeping all objects contiguous in memory, and avoids a pointer indirection, at the cost of needing to copy values in and out. This article aims to benchmark this list, and understand its unique characteristics.&lt;/p&gt;
 &lt;h2 id=&#34;methodology&#34;&gt;Methodology&lt;/h2&gt;
-
 &lt;p&gt;To test the performance of this new style of list, a series of benchmarks were devised. The new &lt;a href=&#34;http://openjdk.java.net/projects/code-tools/jmh/&#34;&gt;JMH benchmark framework&lt;/a&gt; was used, and final benchmark code is &lt;a href=&#34;https://github.com/bramp/unsafe/tree/master/unsafe-benchmark&#34;&gt;available here&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;Multiple iterations were run, and unless stated results were calculated with a 99% confidence interval. A couple of warmup iteration were always run and discarded. All tests were run on a Ubuntu Linux 3.19.0-22 desktop, with a 64bit Intel® Core™ i3-2125 CPU @ 3.30GHz, and 16 GiB of 1333 MHz DDR3 RAM. The JVM was OpenJDK (version 1.8.0_45-internal).&lt;/p&gt;
-
 &lt;p&gt;For each benchmark new ArrayLists and UnsafeArrayLists were constructed, and populated with newly created objects. The size of the lists were varied, up to a maximum that could be held in memory without disk swapping. Two artificial workloads were created,&lt;/p&gt;
-
 &lt;ol&gt;
 &lt;li&gt;Reading items from the lists start to finish, and&lt;/li&gt;
 &lt;li&gt;Processing the elements in a random order.&lt;/li&gt;
 &lt;/ol&gt;
-
 &lt;p&gt;The first was reproduced by simply reading the first field of every element of the list in order, and the second by sorting the list based on the object’s fields (with a simple quicksort).&lt;/p&gt;
-
 &lt;p&gt;Three test classes of different sizes were created to be stored within the ArrayLists, one class had two long fields, one had four long fields, and finally one with eight long fields . Named TwoLongs, FourLongs and EightLongs requiring 16, 32, and 64 bytes for the fields respectively. Each iteration these classes were created with random values in the fields.&lt;/p&gt;
-
 &lt;h2 id=&#34;the-results&#34;&gt;The Results&lt;/h2&gt;
-
 &lt;table class=&#34;table table-hover table-striped table-condensed&#34;&gt;
-    &lt;thead&gt;
-        &lt;tr&gt;&lt;th&gt;Benchmark&lt;/th&gt;&lt;th&gt;List&lt;/th&gt;&lt;th&gt;Type&lt;/th&gt;&lt;th&gt;Size&lt;/th&gt;&lt;th class=&#34;text-center&#34;&gt;Mean Time (s)&lt;/th&gt;&lt;/tr&gt;
-    &lt;/thead&gt;
-    &lt;tbody&gt;
-        &lt;tr&gt;&lt;td&gt;Iterate&lt;/td&gt;&lt;td&gt;ArrayList&lt;/td&gt;&lt;td&gt;TwoLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;2.266 ± 0.229&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Iterate&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;TwoLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;1.79 ± 0.03&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;IterateInPlace&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;TwoLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;0.442 ± 0.023&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Iterate&lt;/td&gt;&lt;td&gt;ArrayList&lt;/td&gt;&lt;td&gt;FourLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;2.277 ± 0.211&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Iterate&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;FourLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;2.126 ± 0.019&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;IterateInPlace&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;FourLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;0.648 ± 0.019&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Iterate&lt;/td&gt;&lt;td&gt;ArrayList&lt;/td&gt;&lt;td&gt;EightLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;2.792 ± 0.072&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Iterate&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;EightLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;2.672 ± 0.322&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;IterateInPlace&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;EightLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;0.941 ± 0.032&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Sort&lt;/td&gt;&lt;td&gt;ArrayList&lt;/td&gt;&lt;td&gt;TwoLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;70.31 ± 3.939&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Sort&lt;/td&gt;&lt;td&gt;ArrayList&lt;/td&gt;&lt;td&gt;FourLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;79.673 ± 6.119&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Sort&lt;/td&gt;&lt;td&gt;ArrayList&lt;/td&gt;&lt;td&gt;EightLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;97.687 ± 4.86&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Sort&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;TwoLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;18.69 ± 3.158&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Sort&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;FourLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;24.822 ± 0.79&lt;/td&gt;&lt;/tr&gt;
-        &lt;tr&gt;&lt;td&gt;Sort&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;EightLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;40.697 ± 0.743&lt;/td&gt;&lt;/tr&gt;
-    &lt;/tbody&gt;
+	&lt;thead&gt;
+		&lt;tr&gt;&lt;th&gt;Benchmark&lt;/th&gt;&lt;th&gt;List&lt;/th&gt;&lt;th&gt;Type&lt;/th&gt;&lt;th&gt;Size&lt;/th&gt;&lt;th class=&#34;text-center&#34;&gt;Mean Time (s)&lt;/th&gt;&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+		&lt;tr&gt;&lt;td&gt;Iterate&lt;/td&gt;&lt;td&gt;ArrayList&lt;/td&gt;&lt;td&gt;TwoLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;2.266 ± 0.229&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;Iterate&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;TwoLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;1.79 ± 0.03&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;IterateInPlace&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;TwoLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;0.442 ± 0.023&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;Iterate&lt;/td&gt;&lt;td&gt;ArrayList&lt;/td&gt;&lt;td&gt;FourLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;2.277 ± 0.211&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;Iterate&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;FourLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;2.126 ± 0.019&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;IterateInPlace&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;FourLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;0.648 ± 0.019&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;Iterate&lt;/td&gt;&lt;td&gt;ArrayList&lt;/td&gt;&lt;td&gt;EightLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;2.792 ± 0.072&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;Iterate&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;EightLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;2.672 ± 0.322&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;IterateInPlace&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;EightLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;0.941 ± 0.032&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;Sort&lt;/td&gt;&lt;td&gt;ArrayList&lt;/td&gt;&lt;td&gt;TwoLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;70.31 ± 3.939&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;Sort&lt;/td&gt;&lt;td&gt;ArrayList&lt;/td&gt;&lt;td&gt;FourLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;79.673 ± 6.119&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;Sort&lt;/td&gt;&lt;td&gt;ArrayList&lt;/td&gt;&lt;td&gt;EightLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;97.687 ± 4.86&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;Sort&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;TwoLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;18.69 ± 3.158&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;Sort&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;FourLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;24.822 ± 0.79&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;Sort&lt;/td&gt;&lt;td&gt;UnsafeArrayList&lt;/td&gt;&lt;td&gt;EightLongs&lt;/td&gt;&lt;td&gt;80,000,000&lt;/td&gt;&lt;td class=&#34;text-center&#34;&gt;40.697 ± 0.743&lt;/td&gt;&lt;/tr&gt;
+	&lt;/tbody&gt;
 &lt;/table&gt;
-
 &lt;h3 id=&#34;iterate&#34;&gt;Iterate&lt;/h3&gt;
-
 &lt;p&gt;Starting with the smallest test object, TwoLongs, to read the first field of all 80 million  elements within an ArrayList took on average 2.266 ± 0.229 seconds. To do the same with the UnsafeArrayList (which doesn’t store objects, and instead copies elements in/out) took on average 1.79 ±0.03 seconds (an 24% improvement).&lt;/p&gt;
-
 &lt;p&gt;Remember in the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;previous article&lt;/a&gt;, UnsafeArrayList has two methods for retrieving an element &lt;code&gt;T get(int index)&lt;/code&gt; and a &lt;code&gt;T get(T dest, int index)&lt;/code&gt;. The former creates a new object and copies the fields. The latter copies the fields in place of a given destination object, allowing the reuse of a single temp object, and avoiding creations of new objects, thus is labelled &amp;ldquo;InPlace&amp;rdquo; in the above results.&lt;/p&gt;
-
 &lt;p&gt;It is therefore surprising that the UnsafeArrayList can iterate 24% faster than an ArrayList, when it has the additional overhead of creating an object, and copying fields into it. Compared to an ArrayList which is just reading existing objects.&lt;/p&gt;
-
 &lt;p&gt;Some theory is needed to understand what might be happening here. A modern CISC CPU can execute an instruction in a few clock cycles, let&amp;rsquo;s say ~0.5 nanoseconds, however, reading from RAM takes ~10 nanoseconds. While the CPU is waiting for the response from RAM it is effectively blocked. To compensate the CPU deploys a few tricks, two of which could be helping here. Firstly, the CPU tries to predicting and prefetch the next memory request. Secondly, the CPU will execute instructions out of order, thus not waiting for the memory if a later instruction does not depend on the read.&lt;/p&gt;
-
 &lt;p&gt;In the ArrayList case, the array of reference is stored in contiguous memory. However, the actual objects (that the references point to) could be anywhere in RAM. As the program loops through it is making reads from effectively random locations in memory, that can’t be predicted, and thus stalls the CPU.&lt;/p&gt;
-
 &lt;p&gt;There is no doubt in the UnsafeArrayList the CPU is prefetching the next elements before it is needed. Additionally the cost of creating these short lived objects is most likely very small because they live and die in eden space and are thus simple to create and garbage collect. I also would not be surprised if the CPU or the JIT compiler was able to do &lt;a href=&#34;https://en.wikipedia.org/wiki/Automatic_vectorization&#34;&gt;some kind of vectorising&lt;/a&gt; on the input. That is, concurrently operating on multiple entries at the same time.&lt;/p&gt;
-
 &lt;p&gt;If we then test the &lt;code&gt;T get(T dest, int index)&lt;/code&gt; method (labelled IterateInPlace), it can iterate through the array in an impressive 0.442 ±0.023 seconds. That’s 5 times faster than the ArrayList, and 4 times faster than the &lt;code&gt;T get(int index)&lt;/code&gt;. This is certainly because the objects are not created for each get.&lt;/p&gt;
-
 &lt;p&gt;It was not measured here, but it is possible to confirm what the CPU is doing, by using &lt;a href=&#34;https://en.wikipedia.org/wiki/Hardware_performance_counter&#34;&gt;hardware based performance counters&lt;/a&gt;. These are special registers within the CPU that can be configured to measure cache hit/miss rates, prefetches, instructions per cycle, and many other metrics. These can be invaluable to understand what’s truly going on, as in most cases humans are bad at understanding performance bottlenecks through intuition alone. Tools such as &lt;a href=&#34;http://oprofile.sourceforge.net/&#34;&gt;oprofile&lt;/a&gt;, &lt;a href=&#34;https://perf.wiki.kernel.org/index.php/Main_Page&#34;&gt;perf&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/DTrace&#34;&gt;dtrace&lt;/a&gt; and &lt;a href=&#34;https://sourceware.org/systemtap/&#34;&gt;systemtap&lt;/a&gt; can be used for this.&lt;/p&gt;
-
 &lt;p&gt;To do a quick sanity check, in the ArrayList case it takes an average of 28.325 nanoseconds per element. &lt;a href=&#34;https://en.wikipedia.org/wiki/CAS_latency&#34;&gt;According to wikipedia&lt;/a&gt; it takes between 9.00-18.75 nanoseconds to read from DDR3 memory at 1333 Mhz. Thus this number doesn’t seem unexpected, as the ArrayList has to issue two memory reads, firstly reading sequentially from an array of references, and then reading from the object (which is at an unpredictable address).&lt;/p&gt;
-
 &lt;p&gt;With the UnsafeArrayList in-place test, it takes an average of 5.53 nanoseconds per element. As the fields are stored contiguously in memory, the CPU can efficiency pipeline the requests, amortizing the 9-18 ns memory read cost. Here the speed is most likely limited by either the memory’s bandwidth, or the CPU’s clock cycles.  To read 80 million memory addresses in 0.442 seconds, requires 180 Megatransfers per second, and assuming each object is two longs, or 16 bytes requires ~2.68 GiB/s of throughput. Neither of those values approach the upper limit of what DDR3 is capable of, thus I suspect the time is a combination of this and CPU instructions.&lt;/p&gt;
-
 &lt;h3 id=&#34;sorting&#34;&gt;Sorting&lt;/h3&gt;
-
 &lt;p&gt;The second benchmark measured the speed at which the lists could be read and written to somewhat randomly, and in particular sorted. This should cause a less predictable reads from memory.  To sort 80 million elements in the ArrayList took 70.31 ±3.939 seconds, and only 18.69 ±3.158 seconds for the UnsafeArrayList using the in-place get. The relative times is not as impressive as the previous test, but still the UnsafeArrayList is ~3.7 times as quick.  I’m unsure exactly why the UnsafeArrayList would be faster, but I suspect it is related to the fewer memory indirections, and prefetching effect the copying of fields has.&lt;/p&gt;
-
 &lt;p&gt;It’s also worth noting, the increase performance becomes less profound as the size of the stored class increases. For the FourLong the difference between ArrayList and UnsafeArrayList is 3.2x, and for EightLong the difference is 2.4x. This can easily be explained by the increasing cost of copying the fields in and out of the list. Even so, I would argue that the copy cost is in part hidden, as it is effectively prefetching the object’s fields into the CPU cache. Saving a memory load when the field is actually used (most likely shortly after it is pulled from the list).&lt;/p&gt;
-
 &lt;h3 id=&#34;other-observations&#34;&gt;Other observations&lt;/h3&gt;
-
 &lt;p&gt;Overlooked is the smaller memory requirements for the UnsafeArrayList. A TwoLong instance is 16 bytes of data, plus 16 bytes of JVM object header. Thus an ArrayList of 40 million instances take 2.4 GiB of RAM (32 bytes x 80M), plus an additional 305MiB for an array of 80 million references (assuming &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/technotes/guides/vm/performance-enhancements-7.html#compressedOop&#34;&gt;compressed object pointers&lt;/a&gt; takes 4 bytes each). Totalling 2.68 GiB, whereas the UnsafeArray takes 16 bytes per entry, totaling only 1.2GiB (roughly half the size!).&lt;/p&gt;
-
 &lt;p&gt;Of course if the array is holding larger classes (such as the EightLong), the per object overhead is smaller, in these cases 6.25GiB vs 4.76GiB, roughly 75% the size.&lt;/p&gt;
-
 &lt;p&gt;One last observation of interest is the confidence intervals for the results. A larger error implies more variability in the test runs. For example, if the garbage collector ran during some of the runs, and slowed down the test, it would increase this error. In all the tests using the UnsafeArrayList in-place methods, the confidence interval is smaller, implying more constancy and predictability. This can be important in certain situations, such as real-time systems.&lt;/p&gt;
-
 &lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-
 &lt;p&gt;We benchmarked the &lt;a href=&#34;https://bramp.github.io/unsafe/index.html?net/bramp/unsafe/UnsafeHelper.html&#34;&gt;UnsafeArrayList&lt;/a&gt;, against a normal ArrayList in two artificial workloads. We found that in both the start-to-finish iteration, and in the sorting case, that the UnsafeArrayList was 4-5x faster than its counterpart. This result itself is interesting when designing high performance data structures, however, the use of &lt;a href=&#34;http://www.docjar.com/docs/api/sun/misc/Unsafe.html&#34;&gt;sun.misc.Unsafe&lt;/a&gt; is considered dangerous, and thus the performance comes with many caveats and risks. In fact, it was recently announced that the &lt;a href=&#34;http://blog.dripstat.com/removal-of-sun-misc-unsafe-a-disaster-in-the-making/&#34;&gt;Unsafe class is being deprecated and hidden in java 9&lt;/a&gt;. So instead, this was just an insightful journey into how the CPU can optomise particular workloads, and how Java can be pushed to extreme speeds.&lt;/p&gt;
-
 &lt;p&gt;Your results may vary, and as always you should benchmark your exact workload instead of a hypothetical one, but this was still an interesting experiment.&lt;/p&gt;
 </description>
     </item>
@@ -819,9 +651,8 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
       
       <guid>https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/</guid>
       <description>&lt;p&gt;I recently came across an article from the &lt;a href=&#34;http://mechanical-sympathy.blogspot.com/2012/10/compact-off-heap-structurestuples-in.html&#34;&gt;Mechanical Sympathy blog&lt;/a&gt;, that used the &lt;a href=&#34;https://en.wikipedia.org/wiki/Flyweight_pattern&#34;&gt;flyweight pattern&lt;/a&gt; to build a “compact off-heap” array of objects. They basically allocated an area of memory large enough to store N copies of their object. Then using a single instance of a proxy object, would pack/unpack fields into this memory. For example, let&amp;rsquo;s say we needed to store an array of &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/api/java/awt/Point.html&#34;&gt;Point&lt;/a&gt; objects. We could construct a simple array like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;Point&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;points&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Point&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The inefficiency here is that each instance of a Point requires 12-16 bytes of overhead to store metadata about the object (such as class, GC state, etc), and each additional instance adds to the cost of garbage collection. Additionally, the array actually contains references to Point objects stored elsewhere in RAM. These references require a memory indirection when accessing the actual instances.&lt;/p&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;Point&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;points&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Point&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The inefficiency here is that each instance of a Point requires 12-16 bytes of overhead to store metadata about the object (such as class, GC state, etc), and each additional instance adds to the cost of garbage collection. Additionally, the array actually contains references to Point objects stored elsewhere in RAM. These references require a memory indirection when accessing the actual instances.&lt;/p&gt;
 &lt;p&gt;In the &lt;a href=&#34;http://mechanical-sympathy.blogspot.com/2012/10/compact-off-heap-structurestuples-in.html&#34;&gt;Mechanical Sympathy&lt;/a&gt; article, they instead packed all the fields of the instances into a contiguous array. For simplification I changed their example, but it was something like this:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;memory&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
 
@@ -839,69 +670,69 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
     &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
     	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;memory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;With this approach there is no overhead for each Point object (as there is only ever one PointProxy, and one array). This also has the interesting property that the fields for all the Points are stored in the same contiguous region of memory.  Which leads to some great cache/CPU benefits. For example, if you read all the points sequentially, adjacent objects share the same CPU cache line, and the CPU can predictably prefetch the next point. This would not be possible with an array of references to Points, as each Point could potentially be stored anywhere in RAM.&lt;/p&gt;
-
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;With this approach there is no overhead for each Point object (as there is only ever one PointProxy, and one array). This also has the interesting property that the fields for all the Points are stored in the same contiguous region of memory.  Which leads to some great cache/CPU benefits. For example, if you read all the points sequentially, adjacent objects share the same CPU cache line, and the CPU can predictably prefetch the next point. This would not be possible with an array of references to Points, as each Point could potentially be stored anywhere in RAM.&lt;/p&gt;
 &lt;p&gt;Now with this primer, it would be interesting to have a normal Java &lt;a href=&#34;https://docs.oracle.com/javase/8/docs/api/java/util/List.html&#34;&gt;List&lt;/a&gt; that stored fields packed together like this. The above solution only works if you create a proxy object ahead of time knowing what class you would be storing. Using the recently released &lt;a href=&#34;https://bramp.github.io/unsafe/index.html?net/bramp/unsafe/UnsafeHelper.html&#34;&gt;UnsafeHelper class&lt;/a&gt; (&lt;a href=&#34;https://blog.bramp.net/post/2015/08/24/unsafe-part-1-sun.misc.unsafe-helper-classes/&#34;&gt;discussed previously&lt;/a&gt;), I went about to build something that looked like a standard generic ArrayList, that could store any type. But with the benefit of storing all elements in contiguous region of memory.&lt;/p&gt;
-
 &lt;p&gt;The final solution is &lt;a href=&#34;https://bramp.github.io/unsafe/index.html?net/bramp/unsafe/UnsafeArrayList.html&#34;&gt;UnsafeArrayList.java&lt;/a&gt;. This implements the Java List interface, but instead of storing references to objects, it copies the object into a contiguous region of memory. If you are a C++ programmer, you can think of this as a &lt;code&gt;std::vector&amp;lt;Point&amp;gt;&lt;/code&gt; instead of a &lt;code&gt;std::vector&amp;lt;Point*&amp;gt;&lt;/code&gt;. This minor change comes with it’s own pros and cons, outlined later.&lt;/p&gt;
-
 &lt;p&gt;To begin with the list is constructed like so &lt;code&gt;new UnsafeArrayList&amp;lt;Point&amp;gt;(Point.class)&lt;/code&gt;. The &lt;code&gt;Point.class&lt;/code&gt; is passed in so that the list knows what kind of objects it will be storing. This is required due to a limitation in Java’s implementation of generics, that makes it &lt;a href=&#34;http://stackoverflow.com/q/182636/88646&#34;&gt;impossible for a class to know its own generic type&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;The constructor begins by calculating the size of an instance, and uses the UnsafeHelper to calculates the offset to the first field within an instance.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;UnsafeArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;capacity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;firstFieldOffset&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;firstFieldOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;elementSize&lt;/span&gt;      &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sizeOf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;firstFieldOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;unsafe&lt;/span&gt;           &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getUnsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;An area of memory is then allocated, like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;    &lt;span class=&#34;n&#34;&gt;base&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;allocateMemory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;elementSize&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;capacity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This base variable holds the address to the beginning of the memory, and can only be used via the Unsafe class. The memory is large enough to hold &lt;code&gt;capacity&lt;/code&gt; objects of &lt;code&gt;elementSize&lt;/code&gt; bytes.&lt;/p&gt;
-
+    &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;unsafe&lt;/span&gt;           &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UnsafeHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getUnsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;An area of memory is then allocated, like so:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;    &lt;span class=&#34;n&#34;&gt;base&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;allocateMemory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;elementSize&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;capacity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This base variable holds the address to the beginning of the memory, and can only be used via the Unsafe class. The memory is large enough to hold &lt;code&gt;capacity&lt;/code&gt; objects of &lt;code&gt;elementSize&lt;/code&gt; bytes.&lt;/p&gt;
 &lt;p&gt;Unlike a Java reference, this base address allows &lt;a href=&#34;https://www.cs.umd.edu/class/sum2003/cmsc311/Notes/BitOp/pointer.html&#34;&gt;pointer arithmetic&lt;/a&gt;, and thus to access a particular element we have a simple method to calculate the memory offset:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;offset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
         &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;base&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;elementSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Then to &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeArrayList.html#set-int-T-&#34;&gt;set&lt;/a&gt; an element within this List, we copy its fields into the allocated memory:&lt;/p&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then to &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeArrayList.html#set-int-T-&#34;&gt;set&lt;/a&gt; an element within this List, we copy its fields into the allocated memory:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;    &lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
     &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;element&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
         &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;copyMemory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;element&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;firstFieldOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// src, src_offset
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;                          &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;offset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt;       &lt;span class=&#34;c1&#34;&gt;// dst, dst_offset
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;                          &lt;span class=&#34;n&#34;&gt;elementSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;              &lt;span class=&#34;o&#34;&gt;//&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;size&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This copies from object &lt;code&gt;element&lt;/code&gt;, starting at offset &lt;code&gt;firstFieldOffset&lt;/code&gt;, into the raw memory address determined by &lt;code&gt;offset(index)&lt;/code&gt;.&lt;/p&gt;
-
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;                          &lt;span class=&#34;n&#34;&gt;elementSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;              &lt;span class=&#34;c1&#34;&gt;// size
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This copies from object &lt;code&gt;element&lt;/code&gt;, starting at offset &lt;code&gt;firstFieldOffset&lt;/code&gt;, into the raw memory address determined by &lt;code&gt;offset(index)&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;The &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeArrayList.html#get-int-&#34;&gt;get&lt;/a&gt; method is a little more problematic, as the List interface expects get to return an instance of the object. Since we aren’t actually storing references to the objects (but copies of their fields), we need to construct an instance and populate it. This is quite costly, and defeats the point of this UnsafeArrayList. Instead an additional &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeArrayList.html#get-T-int-&#34;&gt;get&lt;/a&gt; method is provided, that allows an object to be passed in, which will have its fields replaced.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
         &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;copyMemory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;offset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt;
                           &lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;firstFieldOffset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
                           &lt;span class=&#34;n&#34;&gt;elementSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
         &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;For completeness a standard &lt;code&gt;get(int index)&lt;/code&gt; method is provided, which creates a new instance of the object (using unsafe.allocateInstance() instead of &lt;code&gt;new Type&lt;/code&gt;).&lt;/p&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For completeness a standard &lt;code&gt;get(int index)&lt;/code&gt; method is provided, which creates a new instance of the object (using unsafe.allocateInstance() instead of &lt;code&gt;new Type&lt;/code&gt;).&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
         &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unsafe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;allocateInstance&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;You can inspect the rest of the &lt;a href=&#34;https://github.com/bramp/unsafe/blob/master/unsafe-collection/src/main/java/net/bramp/unsafe/UnsafeArrayList.java&#34;&gt;code via GitHub&lt;/a&gt;, but these are the main parts.&lt;/p&gt;
-
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can inspect the rest of the &lt;a href=&#34;https://github.com/bramp/unsafe/blob/master/unsafe-collection/src/main/java/net/bramp/unsafe/UnsafeArrayList.java&#34;&gt;code via GitHub&lt;/a&gt;, but these are the main parts.&lt;/p&gt;
 &lt;p&gt;In conclusion, this approach has some pros and cons, but was mostly created for fun.&lt;/p&gt;
-
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Pros&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;List&amp;lt;&amp;gt; interfaces that stores objects in contiguous memory&lt;/li&gt;
-&lt;li&gt;Better cache locality and CPU performance&lt;/li&gt;
-&lt;li&gt;Minimal memory overhead&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Cons&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Uses sun.misc.Unsafe&lt;/li&gt;
-&lt;li&gt;Additional CPU cycles needed to copies objects in and out of array&lt;/li&gt;
-&lt;li&gt;Copies the class out of the garbage collector’s view, thus if a stored object contains the only references to other objects, the garbage collector will not know it is still used.&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Pros&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;List&amp;lt;&amp;gt; interfaces that stores objects in contiguous memory&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Better cache locality and CPU performance&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Minimal memory overhead&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Cons&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Uses sun.misc.Unsafe&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Additional CPU cycles needed to copies objects in and out of array&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Copies the class out of the garbage collector’s view, thus if a stored object contains the only references to other objects, the garbage collector will not know it is still used.&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;In the &lt;a href=&#34;https://blog.bramp.net/post/2015/08/27/unsafe-part-3-benchmarking-a-java-unsafearraylist/&#34;&gt;next article&lt;/a&gt;, we&amp;rsquo;ll benchmark this UnsafeArrayList, and investigate the performance impact of the cache locality, and other overheads.&lt;/p&gt;
 </description>
     </item>
@@ -913,16 +744,11 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
       
       <guid>https://blog.bramp.net/post/2015/08/24/unsafe-part-1-sun.misc.unsafe-helper-classes/</guid>
       <description>&lt;p&gt;I recently came across the &lt;a href=&#34;http://www.docjar.com/docs/api/sun/misc/Unsafe.html&#34;&gt;sun.misc.Unsafe class&lt;/a&gt;, a poorly documented, internal API that gives your java program direct access to the JVM’s memory. Of course accessing the JVM’s memory can be considered unsafe, but allows for some exciting opportunities.&lt;/p&gt;
-
 &lt;p&gt;You can use Unsafe to inspect and manipulate the layout of your objects in RAM, allocate memory off the heap, do interesting things with threads, or even &lt;a href=&#34;http://mishadoff.com/blog/java-magic-part-4-sun-dot-misc-dot-unsafe/&#34;&gt;hack in multiple inheritance&lt;/a&gt;. Multiple people have &lt;a href=&#34;https://dzone.com/articles/understanding-sunmiscunsafe&#34;&gt;written about Unsafe&lt;/a&gt; before, and there are some really &lt;a href=&#34;http://mydailyjava.blogspot.com/2013/12/sunmiscunsafe.html&#34;&gt;good articles&lt;/a&gt;, so we won’t cover it here.&lt;/p&gt;
-
 &lt;p&gt;Using unsafe is not too difficult, but I found the need for a few helper methods, thus I created a collection of classes wrapping the Unsafe code, starting with &lt;a href=&#34;https://bramp.github.io/unsafe/index.html?net/bramp/unsafe/UnsafeHelper.html&#34;&gt;UnsafeHelper&lt;/a&gt;. The main methods of interest are &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#getUnsafe--&#34;&gt;getUnsafe()&lt;/a&gt;, &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#sizeOf-java.lang.Object-&#34;&gt;sizeOf()&lt;/a&gt;, &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#firstFieldOffset-java.lang.Class-&#34;&gt;firstFieldOffset()&lt;/a&gt;, &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#toByteArray-java.lang.Object-&#34;&gt;toByteArray()&lt;/a&gt; and &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#hexDump-java.io.PrintStream-java.lang.Object-&#34;&gt;hexDump()&lt;/a&gt;. The &lt;a href=&#34;https://bramp.github.io/unsafe/&#34;&gt;javadoc&lt;/a&gt; is the best place to look for documentation, however I’ll quickly explain their use.&lt;/p&gt;
-
 &lt;p&gt;To get an sun.misc.Unsafe instance, you have to extract it from a private static field within sun.misc.Unsafe class. For ease, the &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#getUnsafe--&#34;&gt;UnsafeHelper.getUnsafe()&lt;/a&gt; method does that.&lt;/p&gt;
-
 &lt;p&gt;When accessing an object, you typically need to know the size of the object (in bytes), and be able to find the offset to individual fields. If you &lt;a href=&#34;http://www.codeinstructions.com/2008/12/java-objects-memory-structure.html&#34;&gt;understand the memory layout&lt;/a&gt; the JVM uses, you’ll know there is a header in front of the Object’s fields. Typically it looks like this, but varies based on CPU architecture, platform, etc:&lt;/p&gt;
-
-&lt;p&gt;&lt;table class=&#34;table table-bordered&#34; style=&#34;margin-bottom: 0px&#34;&gt;
+&lt;table class=&#34;table table-bordered&#34; style=&#34;margin-bottom: 0px&#34;&gt;
   &lt;tr&gt;
     &lt;th class=&#34;text-center&#34;&gt;0&lt;/th&gt;
     &lt;th class=&#34;text-center&#34;&gt;1&lt;/th&gt;
@@ -947,10 +773,8 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
     &lt;td class=&#34;text-center&#34; colspan=&#34;4&#34;&gt;padding&lt;/td&gt;
   &lt;/tr&gt;
 &lt;/table&gt;
-&lt;div class=&#34;text-right&#34;&gt;More information &lt;a href=&#34;http://www.codeinstructions.com/2008/12/java-objects-memory-structure.html&#34;&gt;here&lt;/a&gt; and &lt;a href=&#34;http://stackoverflow.com/a/17348396/88646&#34;&gt;here&lt;/a&gt;.&lt;/div&gt;&lt;/p&gt;
-
+&lt;div class=&#34;text-right&#34;&gt;More information [here][6] and [here][7].&lt;/div&gt;
 &lt;p&gt;To hide some of the details, &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#headerSize-java.lang.Object-&#34;&gt;headerSize()&lt;/a&gt; returns the size of the header, and &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#sizeOf-java.lang.Object-&#34;&gt;sizeOf()&lt;/a&gt; return the total size an object including the header in bytes. &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#firstFieldOffset-java.lang.Class-&#34;&gt;firstFieldOffset()&lt;/a&gt; is then useful as it provides the the offset to the first field. Note that &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#headerSize-java.lang.Object-&#34;&gt;headerSize()&lt;/a&gt; and &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#firstFieldOffset-java.lang.Class-&#34;&gt;firstFieldOffset()&lt;/a&gt; do not always return identical results, as padding (not part of the header) may be used to correctly align the first field.&lt;/p&gt;
-
 &lt;p&gt;Next &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#toByteArray-java.lang.Object-&#34;&gt;toByteArray()&lt;/a&gt; will take an object, and copy it (and its header) into a byte array. Useful for easily inspecting, and serialising the object. Finally, &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#hexDump-java.io.PrintStream-java.lang.Object-&#34;&gt;hexDump()&lt;/a&gt; uses the &lt;a href=&#34;https://bramp.github.io/unsafe/net/bramp/unsafe/UnsafeHelper.html#toByteArray-java.lang.Object-&#34;&gt;toByteArray()&lt;/a&gt; to grab an object, and print out a hex representation of the memory, for example:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;cm&#34;&gt;/**
 &lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; * hexDump(new Class4()) prints:
@@ -968,16 +792,15 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 &lt;/span&gt;&lt;span class=&#34;cm&#34;&gt; */&lt;/span&gt;
 &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Class8&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0x0123456789ABCDEFL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;In the first example, Class4, a simple class with a single int field, takes up 16 bytes of memory, with the first 8 used by the JVM, the 2nd 4 bytes being a class pointer (basically how the object knows what kind of class it is), and the last four actually being the value of the field. The second example shows a similar header, but with bytes 12-16 being used as padding, so that the long field value is 8 byte aligned.&lt;/p&gt;
-
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In the first example, Class4, a simple class with a single int field, takes up 16 bytes of memory, with the first 8 used by the JVM, the 2nd 4 bytes being a class pointer (basically how the object knows what kind of class it is), and the last four actually being the value of the field. The second example shows a similar header, but with bytes 12-16 being used as padding, so that the long field value is 8 byte aligned.&lt;/p&gt;
 &lt;p&gt;These helper methods are available in &lt;a href=&#34;https://github.com/bramp/unsafe&#34;&gt;new project on Github&lt;/a&gt;, and downloadable via Maven. Just &lt;a href=&#34;https://oss.sonatype.org/service/local/repositories/releases/content/net/bramp/unsafe/unsafe-helper/1.0/unsafe-helper-1.0.jar&#34;&gt;download the jar file&lt;/a&gt;, or include a maven dependency, and &lt;code&gt;import net.bramp.unsafe.UnsafeHelper&lt;/code&gt;.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
     &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;net.bramp.unsafe&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
     &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;unsafe-helper&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
     &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;1.0&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;Next article&lt;/a&gt;, we&amp;rsquo;ll make use of this new UnsafeHelper to build a special List which copies objects, instead of storing references.&lt;/p&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://blog.bramp.net/post/2015/08/26/unsafe-part-2-using-sun.misc.unsafe-to-create-a-contiguous-array-of-objects/&#34;&gt;Next article&lt;/a&gt;, we&amp;rsquo;ll make use of this new UnsafeHelper to build a special List which copies objects, instead of storing references.&lt;/p&gt;
 </description>
     </item>
     
@@ -987,57 +810,48 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
       <pubDate>Sat, 01 Aug 2015 12:24:59 -0700</pubDate>
       
       <guid>https://blog.bramp.net/post/2015/08/01/decompile-and-recompile-android-apk/</guid>
-      <description>
-
-&lt;p&gt;I had the need to take an existing &lt;a href=&#34;https://en.wikipedia.org/wiki/Android_application_package&#34;&gt;Android APK&lt;/a&gt;, tweak it, and rebuild. This is not too difficult, but I did have to download the tools from a few different sites, and find a full list of instructions. Thus to make this easier, here is a quick recap of what&amp;rsquo;s needed.&lt;/p&gt;
-
+      <description>&lt;p&gt;I had the need to take an existing &lt;a href=&#34;https://en.wikipedia.org/wiki/Android_application_package&#34;&gt;Android APK&lt;/a&gt;, tweak it, and rebuild. This is not too difficult, but I did have to download the tools from a few different sites, and find a full list of instructions. Thus to make this easier, here is a quick recap of what&amp;rsquo;s needed.&lt;/p&gt;
 &lt;p&gt;Download the following:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://ibotpeaches.github.io/Apktool/&#34;&gt;apktool&lt;/a&gt; - tool for reverse engineering Android apk files. In this case can extract and rebuild.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://docs.oracle.com/javase/8/docs/technotes/tools/unix/keytool.html&#34;&gt;keytool&lt;/a&gt; - Java tool for creating keys/certs. Comes with the JDK.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jarsigner.html&#34;&gt;jarsigner&lt;/a&gt; Java tool for signing JAR/APK files. Comes with the JDK.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://developer.android.com/tools/help/zipalign.html&#34;&gt;zipalign&lt;/a&gt; - archive alignment tool, that comes with the Android SDK.&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;Some extras:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://jd.benow.ca/&#34;&gt;JD-GUI&lt;/a&gt; - Java Decompiler&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/pxb1988/dex2jar&#34;&gt;dex2jar&lt;/a&gt; - Converts Android dex files to class/jar files.&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;instructions&#34;&gt;Instructions:&lt;/h2&gt;
-
 &lt;p&gt;We assume you are on a Linux or Mac, but this will work (with some tweaking) on Windows. Install a recent Java JDK, then the &lt;a href=&#34;https://developer.android.com/sdk/installing/index.html?pkg=tools&#34;&gt;Stand-alone Android SDK&lt;/a&gt;, and finally &lt;a href=&#34;http://ibotpeaches.github.io/Apktool/&#34;&gt;apktool&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;Optionally setup some alias:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;apktool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;java -jar ~/bin/apktool_2.0.1.jar&amp;#39;&lt;/span&gt;
 &lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;dex2jar&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;~/bin/dex2jar-2.0/d2j-dex2jar.sh&amp;#39;&lt;/span&gt;
-&lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; jd-gui&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;java -jar ~/bin/jd-gui-1.3.0.jar&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;First, unpack the application.apk file. This will create a &amp;ldquo;application&amp;rdquo; directory with assets, resources, compiled code, etc.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apktool d -r -s application.apk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Now poke around, and edit any of the files in the application directory. If you wish to decompile any java you can do the following:&lt;/p&gt;
+&lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; jd-gui&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;java -jar ~/bin/jd-gui-1.3.0.jar&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;First, unpack the application.apk file. This will create a &amp;ldquo;application&amp;rdquo; directory with assets, resources, compiled code, etc.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apktool d -r -s application.apk
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now poke around, and edit any of the files in the application directory. If you wish to decompile any java you can do the following:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Convert the Dex files into standard class files&lt;/span&gt;
 dex2jar application/classes.dex
 
 &lt;span class=&#34;c1&#34;&gt;# Now use the JD (Java Decompiler) to inspect the source&lt;/span&gt;
-jd-gui classes-dex2jar.jar&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Once you have made your changes, you need to repack the APK. This will create a &lt;code&gt;my_application.apk&lt;/code&gt; file:&lt;/p&gt;
+jd-gui classes-dex2jar.jar
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Once you have made your changes, you need to repack the APK. This will create a &lt;code&gt;my_application.apk&lt;/code&gt; file:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;apktool b -f -d application
-mv application/dist/application.apk my_application.apk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The APK must be signed before it will run on a device. Create a key if you don&amp;rsquo;t have an existing one. If prompted for a password, enter anything (but remember it).&lt;/p&gt;
+mv application/dist/application.apk my_application.apk
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The APK must be signed before it will run on a device. Create a key if you don&amp;rsquo;t have an existing one. If prompted for a password, enter anything (but remember it).&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;keytool -genkey -v -keystore my-release-key.keystore -alias alias_name &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;                   -keyalg RSA -keysize &lt;span class=&#34;m&#34;&gt;2048&lt;/span&gt; -validity &lt;span class=&#34;m&#34;&gt;10000&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Now sign the APK with the key:&lt;/p&gt;
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;                   -keyalg RSA -keysize &lt;span class=&#34;m&#34;&gt;2048&lt;/span&gt; -validity &lt;span class=&#34;m&#34;&gt;10000&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now sign the APK with the key:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Sign the apk&lt;/span&gt;
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore my_application.apk alias_name
 
 &lt;span class=&#34;c1&#34;&gt;# Verify apk&lt;/span&gt;
-jarsigner -verify -verbose -certs my_application.apk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Finally, the apk must be aligned for optimal loading:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;zipalign -v &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; my_application.apk my_application-aligned.apk&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Voila, now you have a &lt;code&gt;my_application-aligned.apk&lt;/code&gt; file, which you can side load onto your device.&lt;/p&gt;
+jarsigner -verify -verbose -certs my_application.apk
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Finally, the apk must be aligned for optimal loading:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;zipalign -v &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; my_application.apk my_application-aligned.apk
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Voila, now you have a &lt;code&gt;my_application-aligned.apk&lt;/code&gt; file, which you can side load onto your device.&lt;/p&gt;
 </description>
     </item>
     
@@ -1057,7 +871,8 @@ openssl x509 -in www.google.com.pem -inform PEM -out www.google.com.der -outform
 &lt;span class=&#34;c1&#34;&gt;# Import it into your keystore&lt;/span&gt;
 sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.der -keystore /usr/java6/jre/lib/security/cacerts
 
-&lt;span class=&#34;c1&#34;&gt;# The keystore password is by default &amp;#34;changeit&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;span class=&#34;c1&#34;&gt;# The keystore password is by default &amp;#34;changeit&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -1066,65 +881,48 @@ sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.d
       <pubDate>Wed, 04 Jul 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2012/07/04/groovy-grails/</guid>
-      <description>&lt;p&gt;Over the past couple of weeks I&amp;#8217;ve been playing with Groovy and Grails, and after a somewhat frustrainting week I thought I&amp;#8217;d share my thoughts. &lt;a href=&#34;http://groovy.codehaus.org/&#34; title=&#34;Groovy&#34;&gt;Groovy&lt;/a&gt; is a dynamic language that runs in a standard JVM, and effectively extends the Java langugage. This makes it easy for existing Java programmer to pick it up and ease into it. &lt;a href=&#34;http://grails.org/&#34;&gt;Grails&lt;/a&gt; is the Groovy equilivant of &lt;a href=&#34;http://rubyonrails.org/&#34;&gt;Ruby on Rails&lt;/a&gt;, a rapid web development framework. I had high hopes for both as Groovy adds lots of interesting features to Java, such as &lt;a href=&#34;http://en.wikipedia.org/wiki/Closure_(computer_science)&#34;&gt;Closures&lt;/a&gt;, &lt;a href=&#34;http://en.wikipedia.org/wiki/Type_system&#34;&gt;Dynamic typing&lt;/a&gt;, &lt;a href=&#34;http://en.wikipedia.org/wiki/Mixin&#34;&gt;Mixins&lt;/a&gt;, and lots of clever syntax to reduce code and to speed up the average developer. On top of this Grails can quickly scaffold a &lt;a href=&#34;http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller&#34;&gt;MVC&lt;/a&gt; framework, allowing you to literally build a &lt;a href=&#34;http://en.wikipedia.org/wiki/Create,_read,_update_and_delete&#34;&gt;CRUD&lt;/a&gt; based application in minutes.&lt;/p&gt;
-
+      <description>&lt;p&gt;Over the past couple of weeks I’ve been playing with Groovy and Grails, and after a somewhat frustrainting week I thought I’d share my thoughts. &lt;a href=&#34;http://groovy.codehaus.org/&#34; title=&#34;Groovy&#34;&gt;Groovy&lt;/a&gt; is a dynamic language that runs in a standard JVM, and effectively extends the Java langugage. This makes it easy for existing Java programmer to pick it up and ease into it. &lt;a href=&#34;http://grails.org/&#34;&gt;Grails&lt;/a&gt; is the Groovy equilivant of &lt;a href=&#34;http://rubyonrails.org/&#34;&gt;Ruby on Rails&lt;/a&gt;, a rapid web development framework. I had high hopes for both as Groovy adds lots of interesting features to Java, such as &lt;a href=&#34;http://en.wikipedia.org/wiki/Closure_(computer_science)&#34;&gt;Closures&lt;/a&gt;, &lt;a href=&#34;http://en.wikipedia.org/wiki/Type_system&#34;&gt;Dynamic typing&lt;/a&gt;, &lt;a href=&#34;http://en.wikipedia.org/wiki/Mixin&#34;&gt;Mixins&lt;/a&gt;, and lots of clever syntax to reduce code and to speed up the average developer. On top of this Grails can quickly scaffold a &lt;a href=&#34;http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller&#34;&gt;MVC&lt;/a&gt; framework, allowing you to literally build a &lt;a href=&#34;http://en.wikipedia.org/wiki/Create,_read,_update_and_delete&#34;&gt;CRUD&lt;/a&gt; based application in minutes.&lt;/p&gt;
 &lt;p&gt;This all sounds great but I think both of these technologies are still young and there are a lot of things to work out. I was consistently hitting bugs in Grails, and I found the support for Groovy to be lacking in my IDE of choice Ecplise, forcing me to move to IntelliJ which did a lot better job.&lt;/p&gt;
-
 &lt;h1 id=&#34;groovy&#34;&gt;Groovy&lt;/h1&gt;
-
 &lt;h2 id=&#34;dynamic-typing&#34;&gt;Dynamic typing&lt;/h2&gt;
-
-&lt;p&gt;The dynamic variable typing allows you to create a variable and not declare what type it is. Then as you use the variable you can very easily convert it between types. To be honest, and maybe I miss the point, but I&amp;#8217;ve never been fond of dynamic typing in other languages. I tend to create a variable and ensure I keep it a particular type. I do this because dynamic typing can introduce all sorts of errors, and you have to truely understand the rules. For example, if I try and convert a String to a boolean (as I might do in a condition), what type of Strings evaluate to true and false? In Groovy a empty string is false, but a string with a single whitespace char would be true.&lt;/p&gt;
+&lt;p&gt;The dynamic variable typing allows you to create a variable and not declare what type it is. Then as you use the variable you can very easily convert it between types. To be honest, and maybe I miss the point, but I’ve never been fond of dynamic typing in other languages. I tend to create a variable and ensure I keep it a particular type. I do this because dynamic typing can introduce all sorts of errors, and you have to truely understand the rules. For example, if I try and convert a String to a boolean (as I might do in a condition), what type of Strings evaluate to true and false? In Groovy a empty string is false, but a string with a single whitespace char would be true.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-groovy&#34; data-lang=&#34;groovy&#34;&gt;&lt;span class=&#34;kt&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;someString&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;someString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;s&#34;&gt;//&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;useful&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;example&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;of&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;conversion&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Groovy also adds &lt;a href=&#34;http://en.wikipedia.org/wiki/Duck_typing&#34;&gt;duck typing&lt;/a&gt;. If a variable walks like a duck, quacks like a duck then it must be a duck. This is effectively a way to avoid having to implement a interface by checking at runtime if the class has a particular method. This is only useful because at runtime Groovy allows methods to be add (and removed) from classes. This thus allow from some interesting programming, however I find it very error prone. As a method could be added to a class at runtime there is no compile-time checking.&lt;/p&gt;
+&lt;span class=&#34;c1&#34;&gt;// a useful example of String-&amp;amp;gt;boolean conversion
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Groovy also adds &lt;a href=&#34;http://en.wikipedia.org/wiki/Duck_typing&#34;&gt;duck typing&lt;/a&gt;. If a variable walks like a duck, quacks like a duck then it must be a duck. This is effectively a way to avoid having to implement a interface by checking at runtime if the class has a particular method. This is only useful because at runtime Groovy allows methods to be add (and removed) from classes. This thus allow from some interesting programming, however I find it very error prone. As a method could be added to a class at runtime there is no compile-time checking.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-groovy&#34; data-lang=&#34;groovy&#34;&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;SomeObject&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
 
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;SomeObject&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;o&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;SomeObject&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;SomeObject&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;o&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SomeObject&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;someMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-&lt;span class=&#34;s&#34;&gt;//&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;This&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;code&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;valid&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;at&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;compile&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;time&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;but&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;only&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;at&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;runtime&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;with&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;an&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MissingMethod&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;exception&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;be&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;thrown&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Because of the dynamic nature a lot of the silly typo errors that should be caught at compile time, will only now be found at run time. Mistyping a method name wasn&amp;#8217;t caught until that line of code was reached. Also, due to dynamic typing, errors such as calling a method with the wrong argument types were not caught. I found this very frustrating as it slowed down my development.  This also makes me dread what will happen if this code is pushed into production without a very rigorous 100% line test coverage.&lt;/p&gt;
-
+&lt;span class=&#34;c1&#34;&gt;// This code is valid at compile time, but only at runtime with an MissingMethod exception be thrown.
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Because of the dynamic nature a lot of the silly typo errors that should be caught at compile time, will only now be found at run time. Mistyping a method name wasn’t caught until that line of code was reached. Also, due to dynamic typing, errors such as calling a method with the wrong argument types were not caught. I found this very frustrating as it slowed down my development.  This also makes me dread what will happen if this code is pushed into production without a very rigorous 100% line test coverage.&lt;/p&gt;
 &lt;p&gt;It looks like Groovy 2.0 is trying to resolve this concern with &lt;a href=&#34;http://docs.codehaus.org/display/GroovyJSR/GEP+8+-+Static+type+checking&#34;&gt;GEP 8&lt;/a&gt;, a new type of annotation that will force Groovy to statically check your class/method at compile time.&lt;/p&gt;
-
 &lt;h1 id=&#34;grails&#34;&gt;Grails&lt;/h1&gt;
-
 &lt;h2 id=&#34;gorm&#34;&gt;GORM&lt;/h2&gt;
-
-&lt;p&gt;The GORM is Grails&amp;#8217;s &lt;a href=&#34;http://en.wikipedia.org/wiki/Object-relational_mapping&#34;&gt;ORM&lt;/a&gt;, which sits on top of &lt;a href=&#34;http://www.hibernate.org/&#34;&gt;Hibernate&lt;/a&gt;. It takes advantage of Groovy&amp;#8217;s &lt;a href=&#34;http://groovy.codehaus.org/Collections&#34;&gt;collection syntax&lt;/a&gt; to make configuring a model easy. However, I think due to the young nature of Grails I found multiple problems with GORM. I started by using the super convenient &lt;a href=&#34;http://www.h2database.com/&#34;&gt;H2&lt;/a&gt; data source for testing. Then as I progressed I moved to MySQL. However, the code that worked perfectly with with H2 stopped working in MySQL. There were little things, like reserved keywords being different, which tripped up MySQL. Looking at the generated SQL the MySQL queries weren&amp;#8217;t being escaped, which would have solved this issue. Secondly, and a bigger issue, but I was using hierarchical data models. That is, I had a generic abstract Base model, and multiple specific models that extended from the base. This worked well in H2 and avoided a lot of duplication of code, but with the MySQL data source it was handled incorrectly, causing me to spend hours investigating and modifying the code.&lt;/p&gt;
-
-&lt;p&gt;I also tried the &lt;a href=&#34;http://grails.org/plugin/mongodb&#34;&gt;MongoDB plugin&lt;/a&gt;, as the document store concept works great for my heirachy concept. However it wasn&amp;#8217;t a direct drop in replacement for H2/MySQL, and I even found some bugs, which I &lt;a href=&#34;http://jira.grails.org/browse/GPMONGODB-210&#34;&gt;reported&lt;/a&gt;.&lt;/p&gt;
-
+&lt;p&gt;The GORM is Grails’s &lt;a href=&#34;http://en.wikipedia.org/wiki/Object-relational_mapping&#34;&gt;ORM&lt;/a&gt;, which sits on top of &lt;a href=&#34;http://www.hibernate.org/&#34;&gt;Hibernate&lt;/a&gt;. It takes advantage of Groovy’s &lt;a href=&#34;http://groovy.codehaus.org/Collections&#34;&gt;collection syntax&lt;/a&gt; to make configuring a model easy. However, I think due to the young nature of Grails I found multiple problems with GORM. I started by using the super convenient &lt;a href=&#34;http://www.h2database.com/&#34;&gt;H2&lt;/a&gt; data source for testing. Then as I progressed I moved to MySQL. However, the code that worked perfectly with with H2 stopped working in MySQL. There were little things, like reserved keywords being different, which tripped up MySQL. Looking at the generated SQL the MySQL queries weren’t being escaped, which would have solved this issue. Secondly, and a bigger issue, but I was using hierarchical data models. That is, I had a generic abstract Base model, and multiple specific models that extended from the base. This worked well in H2 and avoided a lot of duplication of code, but with the MySQL data source it was handled incorrectly, causing me to spend hours investigating and modifying the code.&lt;/p&gt;
+&lt;p&gt;I also tried the &lt;a href=&#34;http://grails.org/plugin/mongodb&#34;&gt;MongoDB plugin&lt;/a&gt;, as the document store concept works great for my heirachy concept. However it wasn’t a direct drop in replacement for H2/MySQL, and I even found some bugs, which I &lt;a href=&#34;http://jira.grails.org/browse/GPMONGODB-210&#34;&gt;reported&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;scaffolding&#34;&gt;Scaffolding&lt;/h2&gt;
-
 &lt;p&gt;This was one of the coolest features, but also one of the biggest let downs. Scaffolding generates all the code you quickly need for a simple CRUD application. There are two modes, dynamic and static. A dynaimic one literally allows you to create a controller in just a few lines, with all the code for create/read/update/delete hidden behind the scenes. Static scaffolding is very similar in features, but placed all the code in the groovy file ready for you to edit.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-groovy&#34; data-lang=&#34;groovy&#34;&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;SomeController&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;scaffold&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Author&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;s&#34;&gt;//&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;This&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;all&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;you&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;need&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;CRUD&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;controller&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;that&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;maps&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;to&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;the&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Author&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;model&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The problem I found here is that it dynamic scaffolding served little purpose than showing off how little you could write. To actually customise it you would have to use static scaffolding. Even then, the static scaffolding didn&amp;#8217;t seem particular neat and simple (as compared to other rapid dev frameworks I&amp;#8217;ve used), and you eventually had to throw 90% of that generated code away and write it all yourself.&lt;/p&gt;
-
+&lt;span class=&#34;c1&#34;&gt;// This is all you need for a CRUD controller that maps to the Author model
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The problem I found here is that it dynamic scaffolding served little purpose than showing off how little you could write. To actually customise it you would have to use static scaffolding. Even then, the static scaffolding didn’t seem particular neat and simple (as compared to other rapid dev frameworks I’ve used), and you eventually had to throw 90% of that generated code away and write it all yourself.&lt;/p&gt;
 &lt;h2 id=&#34;closures&#34;&gt;Closures&lt;/h2&gt;
-
 &lt;p&gt;The concept of closures and anonymous functions is a very cool one, which in fact I have quite liked using in Python and JavaScript. The implementation here also seemed quite good, except for some minor pet pevs I had. The real issue I had with closures is how it polluted the call stack. Some of my call stacks were now chains of methods like:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;at _GrailsCompile_groovy$_run_closure2.doCall(_GrailsCompile_groovy:46)
 at com.springsource.loaded.ri.ReflectiveInterceptor.jlrMethodInvoke(ReflectiveInterceptor.java:1231)
 at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:133)
 at com.springsource.loaded.ri.ReflectiveInterceptor.jlrMethodInvoke(ReflectiveInterceptor.java:1231)
-at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:133)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This is no doubt a limitation of being built onto of the JVM that couldn&amp;#8217;t provide more helpful output.&lt;/p&gt;
-
+at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:133)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This is no doubt a limitation of being built onto of the JVM that couldn’t provide more helpful output.&lt;/p&gt;
 &lt;h2 id=&#34;run-app&#34;&gt;Run-app&lt;/h2&gt;
-
 &lt;p&gt;Grails comes with a CLI tool that does a lot of the code generation for you. One of the useful commands is &lt;code&gt;grails run-app&lt;/code&gt;, this will start up an embedded webserver which runs your application, and better yet, allows you to make code changes without recompiling/redeploying. This truly makes it quicker to develop and test your Java/Groovy, and allows those minor tweaks to your Controllers, etc without a wait. However, yet again I was let down by this feature. Lots of simple changes would cause the run-app to stop serving my pages with odd exception. The solution was to stop the webserver and start it again, which defeats the purpose. Even worse, I sometimes had to &lt;code&gt;grails clean&lt;/code&gt; as it did not always pick up my code changes.&lt;/p&gt;
-
 &lt;h1 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;I liked everything that Groovy and Grails was trying to do, but I think their implementation isn&amp;#8217;t good enough yet, and there are too many gotchas for me to considering using this in a production environment. I no doubt will follow it&amp;#8217;s progress and play with it every so often.&lt;/p&gt;</description>
+&lt;p&gt;I liked everything that Groovy and Grails was trying to do, but I think their implementation isn’t good enough yet, and there are too many gotchas for me to considering using this in a production environment. I no doubt will follow it’s progress and play with it every so often.&lt;/p&gt;</description>
     </item>
     
   </channel>

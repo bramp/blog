@@ -5,7 +5,7 @@
 <meta content="width=device-width,initial-scale=1" name=viewport>
 <link href=https://blog.bramp.net/post/2011/11/22/building-phps-debian-package-nightmare/ rel=canonical itemprop=url />
 <title>Building PHP’s Debian package nightmare</title>
-<meta content="I just tried to compile the Debian PHP packages, so I could make some minor tweaks to the source, to fix a bug I&#8217;m hopefully going to document shortly. This turned out to be very problematic, …" name=description itemprop=description>
+<meta content="I just tried to compile the Debian PHP packages, so I could make some minor tweaks to the source, to fix a bug I’m hopefully going to document shortly. This turned out to be very problematic, mainly …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -47,7 +47,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=https://blog.bramp.net/post/2011/11/22/building-phps-debian-package-nightmare/ property=og:url />
 <meta content=bramp.net property=og:site_name />
 <meta content="Building PHP’s Debian package nightmare" property=og:title />
-<meta content="I just tried to compile the Debian PHP packages, so I could make some minor tweaks to the source, to fix a bug I&#8217;m hopefully going to document shortly. This turned out to be very problematic, …" property=og:description />
+<meta content="I just tried to compile the Debian PHP packages, so I could make some minor tweaks to the source, to fix a bug I’m hopefully going to document shortly. This turned out to be very problematic, mainly …" property=og:description />
 <meta content=2011-11-22T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -101,23 +101,23 @@ window.dataLayer = window.dataLayer || [];
 | <a href=https://blog.bramp.net/tags/php/ >PHP</a>
 </p>
 <div class=post itemprop=articleBody>
-<p>I just tried to compile the Debian PHP packages, so I could make some <a href=http://www.howtoforge.com/recompiling-php5-with-bundled-support-for-gd-on-ubuntu>minor tweaks</a> to the source, to fix a bug I&#8217;m hopefully going to document shortly. This turned out to be very problematic, mainly due to the testing phase!</p>
+<p>I just tried to compile the Debian PHP packages, so I could make some <a href=http://www.howtoforge.com/recompiling-php5-with-bundled-support-for-gd-on-ubuntu>minor tweaks</a> to the source, to fix a bug I’m hopefully going to document shortly. This turned out to be very problematic, mainly due to the testing phase!</p>
 <p>To build the Debian packages you typically do the following:</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>mkdir php
 <span class=nb>cd</span> php
 apt-get <span class=nb>source</span> php5
 <span class=nb>cd</span> php5-*
-debuild -us -uc -j4</code></pre></div>
-<p>While testing, the debian/setup_mysql.sh script is called, to create a temporary MySQL database. This however failed to execute correctly because I had some custom options in my <a href=http://dev.mysql.com/doc/refman/5.1/en/option-files.html>~/.my.cnf</a>. Thus it failed like so:</p>
+debuild -us -uc -j4
+</code></pre></div><p>While testing, the debian/setup_mysql.sh script is called, to create a temporary MySQL database. This however failed to execute correctly because I had some custom options in my <a href=http://dev.mysql.com/doc/refman/5.1/en/option-files.html>~/.my.cnf</a>. Thus it failed like so:</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=c1># start our own mysql server for the tests</span>
 /bin/sh debian/setup-mysql.sh <span class=m>1029</span> /home/bramp/vendor/php/php5-5.3.8.0/mysql_db
 mysqladmin: connect to server at <span class=s1>&#39;localhost&#39;</span> failed
 error: <span class=s1>&#39;Access denied for user &#39;</span>root<span class=s1>&#39;@&#39;</span>localhost<span class=s1>&#39; (using password: YES)&#39;</span>
 make: *** <span class=o>[</span>test-results.txt<span class=o>]</span> Error <span class=m>1</span>
 dpkg-buildpackage: error: debian/rules build gave error <span class=nb>exit</span> status <span class=m>2</span>
-debuild: fatal error at line <span class=m>1348</span>:
-dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed</code></pre></div>
-<p>After removing the my.cnf things were ok. The below patch fixes it in a more general way:</p>
+debuild: fatal error at line 1348:
+dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed
+</code></pre></div><p>After removing the my.cnf things were ok. The below patch fixes it in a more general way:</p>
 <div class=highlight><pre class=chroma><code class=language-diff data-lang=diff><span class=gd>-- debian/setup-mysql.sh.org	2011-11-21 21:57:07.244481175 -0500
 </span><span class=gd></span><span class=gi>+++ debian/setup-mysql.sh	2011-11-21 21:40:39.384455880 -0500
 </span><span class=gi></span><span class=gu>@@ -16,7 +16,7 @@
@@ -129,12 +129,11 @@ dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed</code></pre></div>
 </span><span class=gi></span> mysqld=&#34;/usr/sbin/mysqld --no-defaults --bind-address=localhost --port=$port --socket=$socket --datadir=$datadir&#34;
  
  # Main code #
-</code></pre></div>
-<p>The next problem I encountered is that all the automated PHP unit tests were failing, and they would eventually get stuck and use all my RAM and swap space (at least 16GiB of it) :( I&#8217;m not sure what made the machine run out of RAM, but the tests were failing because the version of PHP that was running the tests was incorrectly loading extensions from my system. The quick fix for this was to disable any extensions I had installed to my system. I just</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>sudo mv /etc/php5/conf.d /etc/php5/conf.d.tmp</code></pre></div>
-<p>to do that.</p>
+</code></pre></div><p>The next problem I encountered is that all the automated PHP unit tests were failing, and they would eventually get stuck and use all my RAM and swap space (at least 16GiB of it) :( I’m not sure what made the machine run out of RAM, but the tests were failing because the version of PHP that was running the tests was incorrectly loading extensions from my system. The quick fix for this was to disable any extensions I had installed to my system. I just</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>sudo mv /etc/php5/conf.d /etc/php5/conf.d.tmp
+</code></pre></div><p>to do that.</p>
 <p>This made me think that in future I should perhaps find a cleaner environment to build these packages. In fact, it makes me wonder if the builds are just broken if my environment clearly impacts the successful run of tests.</p>
-<p>One trick I found while building again and again, is that you can pass &#8220;-nc&#8221; to debuild so that it does not clean, and thus reuses the existing build materials for a faster build. Either way, I now have my own version of PHP built and installed! Next time I might just ignore the .deb files and build direct from source.</p>
+<p>One trick I found while building again and again, is that you can pass “-nc” to debuild so that it does not clean, and thus reuses the existing build materials for a faster build. Either way, I now have my own version of PHP built and installed! Next time I might just ignore the .deb files and build direct from source.</p>
 </div>
 </article>
 <div class=row>
@@ -158,18 +157,19 @@ dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed</code></pre></div>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2011\/11\/22\/building-phps-debian-package-nightmare\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2011\/11\/22\/building-phps-debian-package-nightmare\/';
     var disqus_title = 'Building PHP’s Debian package nightmare';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2011\/11\/22\/building-phps-debian-package-nightmare\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -177,7 +177,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

@@ -25,7 +25,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -108,10 +108,10 @@ window.dataLayer = window.dataLayer || [];
 <p>So if you are a British citizen please go <a href=http://petitions.number10.gov.uk/open-source-tic/ >sign it</a></p>
 <blockquote>
 <p>The Department for Communities and Local Government (CLG) is running a project called Timely Information to Citizens (TIC). As part of this project, several local authorities are being given funding totalling approximately £1m to develop software and web services to improve local information and service provision.</p>
-<p>While CLG&#8217;s aim is that these projects are incorporated into a &#8220;best practice toolkit&#8221;, we ask the government to reduce duplication of effort and expense and make this software available for other users at the earliest opportunity by releasing each package on deployment under an OSI-approved open source licence.</p>
+<p>While CLG’s aim is that these projects are incorporated into a “best practice toolkit”, we ask the government to reduce duplication of effort and expense and make this software available for other users at the earliest opportunity by releasing each package on deployment under an OSI-approved open source licence.</p>
 <p>Though we welcome these projects themselves, as citizens we cannot and do not support this substantial sum of public money being spent to create private, proprietary software.</p>
 </blockquote>
-<p>I have always felt that any software I write while at university should be released under a BSD-style licence. The tax payer has allowed me to study for free, and continues to pay for my employment at university, so why shouldn&#8217;t the tax payer receive the benefits of the software I create.</p>
+<p>I have always felt that any software I write while at university should be released under a BSD-style licence. The tax payer has allowed me to study for free, and continues to pay for my employment at university, so why shouldn’t the tax payer receive the benefits of the software I create.</p>
 </div>
 </article>
 <div class=row>
@@ -135,18 +135,19 @@ window.dataLayer = window.dataLayer || [];
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/04\/07\/open-source-government-petition\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/04\/07\/open-source-government-petition\/';
     var disqus_title = 'Open source Government Petition';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2009\/04\/07\/open-source-government-petition\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -154,7 +155,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

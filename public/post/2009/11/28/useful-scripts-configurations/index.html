@@ -26,7 +26,7 @@ cp /usr/local/share/examples/nano/nanorc.sample …" name=description itemprop=d
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -114,37 +114,37 @@ cp /usr/local/share/examples/nano/nanorc.sample …" property=og:description />
 <p>Make <a href=http://git-scm.com>git</a> colourful</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>git config --global color.diff auto
 git config --global color.status auto
-git config --global color.branch auto</code></pre></div>
-<p>Make <a href=http://www.nano-editor.org/ >nano</a> colourful</p>
+git config --global color.branch auto
+</code></pre></div><p>Make <a href=http://www.nano-editor.org/ >nano</a> colourful</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>cp /usr/local/share/examples/nano/nanorc.sample ~/.nanorc
 <span class=c1># or</span>
 zcat /usr/share/doc/nano/examples/nanorc.sample.gz &gt;~/.nanorc
 
 <span class=c1># then</span>
-nano ~/.nanorc</code></pre></div>
-<p>To trim trailing whitespace from *.cc on Linux (taken from <a href=http://zebert.blogspot.com/2009/06/clean-up-trailing-whitespaces-in.html>this blog</a>):</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>find . -name <span class=s1>&#39;*.cc&#39;</span> -exec sed -i <span class=o>{}</span> -e <span class=s1>&#39;s/[ \t]*$//&#39;</span> <span class=s1>&#39;;&#39;</span></code></pre></div>
-<p>and on BSDs:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>find . -name <span class=s1>&#39;*.cc&#39;</span> -exec sed -i <span class=s1>&#39;&#39;</span> -e <span class=s1>&#39;s/\ *$//&#39;</span> <span class=o>{}</span> <span class=s1>&#39;;&#39;</span></code></pre></div>
-<p>Linux style &#8216;ls&#8217; colours on FreeBSD (taken from <a href=http://www.puresimplicity.net/~hemi/freebsd/misc.html>here</a>):</p>
+nano ~/.nanorc
+</code></pre></div><p>To trim trailing whitespace from *.cc on Linux (taken from <a href=http://zebert.blogspot.com/2009/06/clean-up-trailing-whitespaces-in.html>this blog</a>):</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>find . -name <span class=s1>&#39;*.cc&#39;</span> -exec sed -i <span class=o>{}</span> -e <span class=s1>&#39;s/[ \t]*$//&#39;</span> <span class=s1>&#39;;&#39;</span>
+</code></pre></div><p>and on BSDs:</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>find . -name <span class=s1>&#39;*.cc&#39;</span> -exec sed -i <span class=s1>&#39;&#39;</span> -e <span class=s1>&#39;s/\ *$//&#39;</span> <span class=o>{}</span> <span class=s1>&#39;;&#39;</span>
+</code></pre></div><p>Linux style ‘ls’ colours on FreeBSD (taken from <a href=http://www.puresimplicity.net/~hemi/freebsd/misc.html>here</a>):</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=nb>export</span> <span class=nv>CLICOLOR</span><span class=o>=</span><span class=s2>&#34;YES&#34;</span>
-<span class=nb>export</span> <span class=nv>LSCOLORS</span><span class=o>=</span><span class=s2>&#34;ExGxFxdxCxDxDxhbadExEx&#34;</span></code></pre></div>
-<p>To ensure the http_proxy environmental variable is passed to sudo. Edit the sudoers file by running visudo. Then add the following.</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>Defaults <span class=nv>env_keep</span> <span class=o>+=</span> <span class=s2>&#34;ftp_proxy http_proxy https_proxy&#34;</span></code></pre></div>
-<p>Bash autocompletion on FreeBSD:</p>
+<span class=nb>export</span> <span class=nv>LSCOLORS</span><span class=o>=</span><span class=s2>&#34;ExGxFxdxCxDxDxhbadExEx&#34;</span>
+</code></pre></div><p>To ensure the http_proxy environmental variable is passed to sudo. Edit the sudoers file by running visudo. Then add the following.</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>Defaults <span class=nv>env_keep</span> <span class=o>+=</span> <span class=s2>&#34;ftp_proxy http_proxy https_proxy&#34;</span>
+</code></pre></div><p>Bash autocompletion on FreeBSD:</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=nb>cd</span>  /usr/ports/shells/bash-completion
-sudo make install clean</code></pre></div>
-<p>Edit ~/.bashrc and add</p>
+sudo make install clean
+</code></pre></div><p>Edit ~/.bashrc and add</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=k>if</span> <span class=o>[</span> -f /usr/local/etc/bash_completion <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
     . /usr/local/etc/bash_completion
-<span class=k>fi</span></code></pre></div>
-<p>Make svn output colorful<br/>
+<span class=k>fi</span>
+</code></pre></div><p>Make svn output colorful<br>
 Edit ~/.subversion/config</p>
 <div class=highlight><pre class=chroma><code class=language-ini data-lang=ini><span class=k>[helpers]</span>
-<span class=na>diff-cmd</span> <span class=o>=</span> <span class=s>/usr/bin/colordiff</span></code></pre></div>
-<p>Create diffs with function names and ignoring whitespace</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>svn diff -x -uwp</code></pre></div>
-<p>To be continued&#8230;</p>
+<span class=na>diff-cmd</span> <span class=o>=</span> <span class=s>/usr/bin/colordiff</span>
+</code></pre></div><p>Create diffs with function names and ignoring whitespace</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>svn diff -x -uwp
+</code></pre></div><p>To be continued…</p>
 </div>
 </article>
 <div class=row>
@@ -168,18 +168,19 @@ Edit ~/.subversion/config</p>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/11\/28\/useful-scripts-configurations\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/11\/28\/useful-scripts-configurations\/';
     var disqus_title = 'Useful scripts\/configurations';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2009\/11\/28\/useful-scripts-configurations\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -187,7 +188,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

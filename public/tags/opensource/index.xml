@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Opensource on bramp.net</title>
+    <title>opensource on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Opensource on bramp.net</description>
+    <description>Recent content in opensource on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Sat, 16 Dec 2017 12:50:31 -0800</lastBuildDate>
@@ -15,12 +14,8 @@
       <pubDate>Sat, 16 Dec 2017 12:50:31 -0800</pubDate>
       
       <guid>https://blog.bramp.net/post/2017/12/16/parsing-with-antlr4-and-go/</guid>
-      <description>
-
-&lt;p&gt;&lt;em&gt;Originally &lt;a href=&#34;https://blog.gopheracademy.com/advent-2017/parsing-with-antlr4-and-go/&#34;&gt;published&lt;/a&gt; as part of the Go Advent 2017 series&lt;/em&gt;&lt;/p&gt;
-
+      <description>&lt;p&gt;&lt;em&gt;Originally &lt;a href=&#34;https://blog.gopheracademy.com/advent-2017/parsing-with-antlr4-and-go/&#34;&gt;published&lt;/a&gt; as part of the Go Advent 2017 series&lt;/em&gt;&lt;/p&gt;
 &lt;h2 id=&#34;what-is-antlr&#34;&gt;What is ANTLR?&lt;/h2&gt;
-
 &lt;p&gt;&lt;a href=&#34;http://www.antlr.org&#34;&gt;ANTLR&lt;/a&gt; (ANother Tool for Language Recognition),
 is an &lt;a href=&#34;http://www.antlr.org/papers/allstar-techreport.pdf&#34;&gt;ALL(*)&lt;/a&gt;
 &lt;a href=&#34;https://en.wikipedia.org/wiki/Parser_generator&#34;&gt;parser generator&lt;/a&gt;. In
@@ -29,21 +24,18 @@ Java, C, C#, Javascript), that can process text or binary input. The
 generated parser provides a callback interface to parse the input in an
 event-driven manner, which can be used as-is, or used to build parse
 trees (a data structure representing the input).&lt;/p&gt;
-
 &lt;p&gt;ANTLR is used by a number of popular projects, e.g Hive and Pig use it
 to parse Hadoop queries, Oracle and NetBeans uses it for their IDEs, and
 Twitter even uses it to understand search queries. Support was recently
 added so that ANTLR 4 can be used to generate parsers in pure Go. This
 article will explain some of the benefits of ANTLR, and walk us through
 a simple example.&lt;/p&gt;
-
 &lt;h2 id=&#34;why-use-it&#34;&gt;Why use it?&lt;/h2&gt;
-
 &lt;p&gt;It is possible to &lt;a href=&#34;https://blog.gopheracademy.com/advent-2014/parsers-lexers/&#34;&gt;hand write a
 parser&lt;/a&gt;, but
 this process can be complex, error prone, and hard to change. Instead
-there are many &lt;a href=&#34;https://en.wikipedia.org/wiki/Compari
-son_of_parser_generators&#34;&gt;parser generators&lt;/a&gt; that take a grammar expressed in an domain-
+there are many [parser generators](&lt;a href=&#34;https://en.wikipedia.org/wiki/Compari&#34;&gt;https://en.wikipedia.org/wiki/Compari&lt;/a&gt;
+son_of_parser_generators) that take a grammar expressed in an domain-
 specific way, and generates code to parse that language. Popular parser
 generates include &lt;a href=&#34;https://www.gnu.org/software/bison/&#34;&gt;bison&lt;/a&gt; and
 &lt;a href=&#34;http://dinosaur.compilertools.net/yacc/&#34;&gt;yacc&lt;/a&gt;. In fact, there is a
@@ -51,66 +43,64 @@ version of yacc, goyacc, which is written in Go and was part of the main
 go repo until it was moved to
 &lt;a href=&#34;https://godoc.org/golang.org/x/tools/cmd/goyacc&#34;&gt;golang.org/x/tools&lt;/a&gt;
 last year.&lt;/p&gt;
-
 &lt;h3 id=&#34;so-why-use-antlr-over-these&#34;&gt;So why use ANTLR over these?&lt;/h3&gt;
-
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;ANTLR has a &lt;a href=&#34;http://www.antlr.org/tools.html&#34;&gt;suite of tools&lt;/a&gt;, and
+&lt;li&gt;
+&lt;p&gt;ANTLR has a &lt;a href=&#34;http://www.antlr.org/tools.html&#34;&gt;suite of tools&lt;/a&gt;, and
 &lt;a href=&#34;http://tunnelvisionlabs.com/products/demo/antlrworks&#34;&gt;GUIs&lt;/a&gt;, that
-makes writing and debugging grammars easy.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;It uses a simple &lt;a href=&#34;https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form&#34;&gt;EBNF&lt;/a&gt;
+makes writing and debugging grammars easy.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It uses a simple &lt;a href=&#34;https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form&#34;&gt;EBNF&lt;/a&gt;
 syntax to define the grammar, instead of a bespoke configuration
-language.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;ANTLR is an &lt;a href=&#34;http://www.antlr.org/papers/allstar-techreport.pdf&#34;&gt;Adaptive&lt;/a&gt;
+language.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ANTLR is an &lt;a href=&#34;http://www.antlr.org/papers/allstar-techreport.pdf&#34;&gt;Adaptive&lt;/a&gt;
 &lt;a href=&#34;https://en.wikipedia.org/wiki/LL_parser&#34;&gt;LL(*) parser&lt;/a&gt;, ALL(*) for short,
 whereas most other parser generators (e.g Bison and Yacc) are
 &lt;a href=&#34;https://en.wikipedia.org/wiki/LALR_parser&#34;&gt;LALR&lt;/a&gt;. The difference
 between LL(*) and LALR is out of scope for this article, but
 simply LALR works bottom-up, and LL(*) works top-down. This
 has a bearing on how the grammar is written, making some languages
-easier or harder to express.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;The generated code for a LL(*) parser is more understandable than a
+easier or harder to express.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The generated code for a LL(*) parser is more understandable than a
 LALR parser. This is because LALR parsers are commonly table driven,
 whereas LL(*) parsers encode the logic in its control flow, making
-it more comprehensible.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Finally ANTLR is agnostic to the target language. A single grammar
+it more comprehensible.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Finally ANTLR is agnostic to the target language. A single grammar
 can be used to generate parsers in Java, Go, C, etc. Unlike
 Bison/Yacc which typically embeds target language code into the
-grammar, making it harder to port.&lt;/p&gt;&lt;/li&gt;
+grammar, making it harder to port.&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;installing-antlr-v4&#34;&gt;Installing ANTLR v4&lt;/h2&gt;
-
 &lt;p&gt;ANTLR is a Java 1.7 application, that generates the Go code needed to
 parse your language. During development Java is needed, but once the
 parser is built only Go and the &lt;a href=&#34;https://godoc.org/github.com/antlr/antlr4/runtime/Go/antlr&#34;&gt;ANTLR runtime
 library&lt;/a&gt; is
 required. The ANTLR site has
-&lt;a href=&#34;https://github.com/antlr/antlr4/blob/master/doc/getting-
-started.md&#34;&gt;documentation&lt;/a&gt; on how to install this on multiple platforms, but in brief,
+[documentation](&lt;a href=&#34;https://github.com/antlr/antlr4/blob/master/doc/getting-&#34;&gt;https://github.com/antlr/antlr4/blob/master/doc/getting-&lt;/a&gt;
+started.md) on how to install this on multiple platforms, but in brief,
 you can do the following:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ wget http://www.antlr.org/download/antlr-4.7-complete.jar
-$ &lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;java -jar $PWD/antlr-4.7-complete.jar&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The &lt;code&gt;antlr&lt;/code&gt; command is now available in your shell. If you prefer, the
+$ &lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;java -jar $PWD/antlr-4.7-complete.jar&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;antlr&lt;/code&gt; command is now available in your shell. If you prefer, the
 .jar file can be placed into a &lt;code&gt;~/bin&lt;/code&gt; directory, and the alias can be
 stored in your &lt;code&gt;~/.bash_profile&lt;/code&gt;.&lt;/p&gt;
-
 &lt;h2 id=&#34;classic-calculator-example&#34;&gt;Classic calculator example&lt;/h2&gt;
-
 &lt;p&gt;Let&amp;rsquo;s start with the “hello world” for parsers, the calculator example.
 We want to build a parser that handles simple mathematical expressions
 such as &lt;code&gt;1 + 2 * 3&lt;/code&gt;. The focus of this article is on how to use Go with
 ANTLR, so the syntax of the ANTLR language won’t be explained in
-detail, but the ANTLR site has &lt;a href=&#34;https://githu
-b.com/antlr/antlr4/blob/master/doc/grammars.md&#34;&gt;compressive documentation&lt;/a&gt;.&lt;/p&gt;
-
+detail, but the ANTLR site has [compressive documentation](https://githu
+b.com/antlr/antlr4/blob/master/doc/grammars.md).&lt;/p&gt;
 &lt;p&gt;As we go along, the &lt;a href=&#34;https://github.com/bramp/goadvent-antlr&#34;&gt;source is available to all
 examples&lt;/a&gt;.&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;// Calc.g4
 grammar Calc;
 
@@ -130,18 +120,15 @@ expression
    | expression op=(&#39;+&#39;|&#39;-&#39;) expression # AddSub
    | NUMBER                             # Number
    ;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The above is a simple grammar split into two sections, &lt;em&gt;tokens&lt;/em&gt;, and
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The above is a simple grammar split into two sections, &lt;em&gt;tokens&lt;/em&gt;, and
 &lt;em&gt;rules&lt;/em&gt;. The tokens are terminal symbols in the grammar, that is, they
 are made up of nothing but literal characters. Whereas rules are non-
 terminal states made up of tokens and/or other rules.&lt;/p&gt;
-
 &lt;p&gt;By convention this grammar must be saved with a filename that matches
 the name of the grammar, in this case “Calc.g4” . To process this file,
 and generate the Go parser, we run the &lt;code&gt;antlr&lt;/code&gt; command like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ antlr -Dlanguage&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Go -o parser Calc.g4 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This will generate a set of Go files in the “parser” package and
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ antlr -Dlanguage&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Go -o parser Calc.g4 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will generate a set of Go files in the “parser” package and
 subdirectory. It is possible to place the generated code in a different
 package by using the &lt;code&gt;-package &amp;lt;name&amp;gt;&lt;/code&gt; argument. This is useful if your
 project has multiple parsers, or you just want a more descriptive
@@ -153,27 +140,22 @@ following:&lt;/p&gt;
     ├── calc_lexer.go
     ├── calc_parser.go
     ├── calc_base_listener.go
-    └── calc_listener.go&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The generated files consist of three main components, the Lexer, Parser,
+    └── calc_listener.go
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The generated files consist of three main components, the Lexer, Parser,
 and Listener.&lt;/p&gt;
-
 &lt;p&gt;The Lexer takes arbitrary input and returns a stream of tokens. For
 input such as &lt;code&gt;1 + 2 * 3&lt;/code&gt;, the Lexer would return the following tokens:
 &lt;code&gt;NUMBER (1), ADD (+), NUMBER (2), MUL (*), NUMBER (3), EOF&lt;/code&gt;.&lt;/p&gt;
-
 &lt;p&gt;The Parser uses the Lexer’s output and applies the Grammar’s rules.
 Building higher level constructs, such as expressions that can be used
 to calculate the result.&lt;/p&gt;
-
 &lt;p&gt;The Listener then allows us to make use of the the parsed input. As
 mentioned earlier, yacc requires language specific code to be embedded
 with the grammar. However, ANTLR separates this concern, allowing the
 grammar to be agnostic to the target programming language. It does this
 through use of listeners, which effectively allows hooks to be placed
 before and after every rule is encountered in the parsed input.&lt;/p&gt;
-
 &lt;h2 id=&#34;using-the-lexer&#34;&gt;Using the Lexer&lt;/h2&gt;
-
 &lt;p&gt;Let&amp;rsquo;s move onto an example of using this generated code, starting with
 the Lexer.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// example1.go
@@ -202,22 +184,21 @@ the Lexer.&lt;/p&gt;
 		&lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Printf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;%s (%q)\n&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
 			&lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SymbolicNames&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;GetTokenType&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()],&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;GetText&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
 	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;To begin with, the generated parser is imported from the local
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To begin with, the generated parser is imported from the local
 subdirectory &lt;code&gt;import &amp;quot;./parser&amp;quot;&lt;/code&gt;. Next the Lexer is created with some
 input:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;	&lt;span class=&#34;c1&#34;&gt;// Setup the input
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;NewInputStream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;1 + 2 * 3&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
 	&lt;span class=&#34;c1&#34;&gt;// Create the Lexer
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;NewCalcLexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;In this example the input is a simple string, &lt;code&gt;&amp;quot;1 + 2 * 3&amp;quot;&lt;/code&gt; but there
-are other &lt;a href=&#34;https://godoc.org/github.com/antlr/antlr
-4/runtime/Go/antlr#InputStream&#34;&gt;&lt;code&gt;antlr.InputStream&lt;/code&gt;&lt;/a&gt;s, for example, the &lt;a href=&#34;https://godoc.org/github.com/antlr/antlr4/runtime/Go/antlr#FileStream&#34;&gt;&lt;code&gt;antlr.FileStream&lt;/code&gt;&lt;/a&gt;
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;NewCalcLexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this example the input is a simple string, &lt;code&gt;&amp;quot;1 + 2 * 3&amp;quot;&lt;/code&gt; but there
+are other [&lt;code&gt;antlr.InputStream&lt;/code&gt;](&lt;a href=&#34;https://godoc.org/github.com/antlr/antlr&#34;&gt;https://godoc.org/github.com/antlr/antlr&lt;/a&gt;
+4/runtime/Go/antlr#InputStream)s, for example, the &lt;a href=&#34;https://godoc.org/github.com/antlr/antlr4/runtime/Go/antlr#FileStream&#34;&gt;&lt;code&gt;antlr.FileStream&lt;/code&gt;&lt;/a&gt;
 type can read directly from a file. The &lt;code&gt;InputStream&lt;/code&gt; is then passed to
 a newly created Lexer. Note the name of the Lexer is &lt;code&gt;CalcLexer&lt;/code&gt; which
 matches the grammar’s name defined in the Calc.g4.&lt;/p&gt;
-
 &lt;p&gt;The lexer is then used to consume all the tokens from the input,
 printing them one by one. This wouldn’t normally be necessary but we do
 this for demonstrative purposes.&lt;/p&gt;
@@ -228,8 +209,8 @@ this for demonstrative purposes.&lt;/p&gt;
 		&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 		&lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Printf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;%s (%q)\n&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
 			&lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SymbolicNames&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;GetTokenType&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()],&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;GetText&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
-	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Each token has two main components, the TokenType, and the Text. The
+	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Each token has two main components, the TokenType, and the Text. The
 TokenType is a simple integer representing the type of token, while the
 Text is literally the text that made up this token. All the TokenTypes
 are defined at the end of calc_lexer.go, with their string names stored
@@ -242,14 +223,11 @@ in the SymbolicNames slice:&lt;/p&gt;
 	&lt;span class=&#34;nx&#34;&gt;CalcLexerSUB&lt;/span&gt;        &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;CalcLexerNUMBER&lt;/span&gt;     &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;CalcLexerWHITESPACE&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;You may also note, that the Whitespace token is not printed, even though
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You may also note, that the Whitespace token is not printed, even though
 the input clearly had whitespace. This is because the grammar was
-designed to skip (i.e. discard) the whitespace &lt;code&gt;WHITESPACE: [ \r\n\t]+
--&amp;gt; skip;&lt;/code&gt;.&lt;/p&gt;
-
+designed to skip (i.e. discard) the whitespace &lt;code&gt;WHITESPACE: [ \r\n\t]+ -&amp;gt; skip;&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;using-the-parser&#34;&gt;Using the Parser&lt;/h2&gt;
-
 &lt;p&gt;The Lexer on its own is not very useful, so the example can be modified
 to also use the Parser and Listener:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// example2.go
@@ -277,16 +255,15 @@ to also use the Parser and Listener:&lt;/p&gt;
 
 	&lt;span class=&#34;c1&#34;&gt;// Finally parse the expression
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ParseTreeWalkerDefault&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Walk&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;calcListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Start&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This is very similar to before, but instead of manually iterating over
-the tokens, the lexer is used to create a &lt;a href=&#34;https://
-godoc.org/github.com/antlr/antlr4/runtime/Go/antlr#CommonTokenStream&#34;&gt;&lt;code&gt;CommonTokenStream&lt;/code&gt;&lt;/a&gt;,
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This is very similar to before, but instead of manually iterating over
+the tokens, the lexer is used to create a [&lt;code&gt;CommonTokenStream&lt;/code&gt;](https://
+godoc.org/github.com/antlr/antlr4/runtime/Go/antlr#CommonTokenStream),
 which in turn is used to create a new &lt;code&gt;CalcParser&lt;/code&gt;. This &lt;code&gt;CalcParser&lt;/code&gt; is
 then “walked”, which is ANTLR&amp;rsquo;s event-driven API for receiving the
 results of parsing the rules.&lt;/p&gt;
-
-&lt;p&gt;Note, the &lt;a href=&#34;https://godoc.org/github.com/antlr/antlr4/runtime/Go/
-antlr#ParseTreeWalker.Walk&#34;&gt;&lt;code&gt;Walk&lt;/code&gt;&lt;/a&gt; function does not return anything. Some may
+&lt;p&gt;Note, the [&lt;code&gt;Walk&lt;/code&gt;](&lt;a href=&#34;https://godoc.org/github.com/antlr/antlr4/runtime/Go/&#34;&gt;https://godoc.org/github.com/antlr/antlr4/runtime/Go/&lt;/a&gt;
+antlr#ParseTreeWalker.Walk) function does not return anything. Some may
 have expected a parsed form of the expression to be returned, such as
 some kind of &lt;a href=&#34;https://en.wikipedia.org/wiki/Abstract_syntax_tree&#34;&gt;AST&lt;/a&gt;
 (abstract syntax tree), but instead the Listener receives event as the
@@ -296,7 +273,6 @@ for XML. Event-based parsing can sometimes be harder to use, but it has
 many advantages. For example, the parser can be very memory efficient as
 previously parsed rules can be discarded once they are no longer needed.
 The parser can also be aborted early if the programmer wishes to.&lt;/p&gt;
-
 &lt;p&gt;But so far, this example doesn’t do anything beyond ensuring the input
 can be parsed without error. To add logic, we must extend the
 &lt;code&gt;calcListener&lt;/code&gt; type. The &lt;code&gt;calcListener&lt;/code&gt; has an embedded
@@ -331,21 +307,17 @@ looks like:&lt;/p&gt;
 
 	&lt;span class=&#34;c1&#34;&gt;// ExitAddSub is called when exiting the AddSub production.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nf&#34;&gt;ExitAddSub&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;AddSubContext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;There is an Enter and Exit function for each rule found in the grammar.
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There is an Enter and Exit function for each rule found in the grammar.
 As the input is walked, the Parser calls the appropriate function on the
 listener, to indicate when the rule starts and finishes being evaluated.&lt;/p&gt;
-
 &lt;h2 id=&#34;adding-the-logic&#34;&gt;Adding the logic&lt;/h2&gt;
-
 &lt;p&gt;A simple calculator can be constructed from this event driven parser by
 using a stack of values. Every time a number is found, it is added to a
 stack. Everytime an expression (add/multiple/etc) is found, the last two
 numbers on the stack are popped, and the appropriate operation is
 carried out. The result is then placed back on the stack.&lt;/p&gt;
-
-&lt;p&gt;Take the expression &lt;code&gt;1 + 2 * 3&lt;/code&gt;,  the result could be either &lt;code&gt;(1 + 2) *
-3 = 9&lt;/code&gt;, or &lt;code&gt;1 + (2 * 3) = 7&lt;/code&gt;. Those that recall the &lt;a href=&#34;https://en.wikipedia.org/wiki/Order_of_operations&#34;&gt;order of
+&lt;p&gt;Take the expression &lt;code&gt;1 + 2 * 3&lt;/code&gt;,  the result could be either &lt;code&gt;(1 + 2) * 3 = 9&lt;/code&gt;, or &lt;code&gt;1 + (2 * 3) = 7&lt;/code&gt;. Those that recall the &lt;a href=&#34;https://en.wikipedia.org/wiki/Order_of_operations&#34;&gt;order of
 operations&lt;/a&gt;, will
 know that multiplication should always be carried out before addition,
 thus the correct result is 7. However, without the parentheses there
@@ -353,11 +325,9 @@ could be some ambiguity on how this should be parsed. Luckily the
 ambiguity is resolved by the grammar. The precedence of multiplication
 over addition was subtly implied within Calc.g4, by placing the &lt;code&gt;MulDiv&lt;/code&gt;
 expressed before the &lt;code&gt;AddSub&lt;/code&gt; expression.&lt;/p&gt;
-
 &lt;div class=&#34;text-center&#34;&gt;
-    &lt;img src=&#34;parse-tree.svg&#34;&gt;
+	&lt;img src=&#34;parse-tree.svg&#34;&gt;
 &lt;/div&gt;
-
 &lt;p&gt;The code for a listener that implements this stack of value
 implementation is relatively simple:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;calcListener&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -417,8 +387,9 @@ implementation is relatively simple:&lt;/p&gt;
 	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
 	&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;push&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Finally this listener would be used like so:&lt;/p&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Finally this listener would be used like so:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// calc takes a string expression and returns the evaluated result.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;calc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;c1&#34;&gt;// Setup the input
@@ -436,9 +407,8 @@ implementation is relatively simple:&lt;/p&gt;
 	&lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ParseTreeWalkerDefault&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Walk&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;listener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Start&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
 
 	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;listener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;pop&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Following the algorithm, the parsing of &lt;code&gt;1 + 2 * 3&lt;/code&gt; would work like so.&lt;/p&gt;
-
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Following the algorithm, the parsing of &lt;code&gt;1 + 2 * 3&lt;/code&gt; would work like so.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;The numbers 2 and 3 would be visited first (and placed on the stack),&lt;/li&gt;
 &lt;li&gt;Then the MulDiv expression would be visited, taking the values 2 and
@@ -447,25 +417,20 @@ implementation is relatively simple:&lt;/p&gt;
 &lt;li&gt;Finally AddSub would be visited, popping the 1 and the 6 from the
 stack, placing the result 7 back.&lt;/li&gt;
 &lt;/ol&gt;
-
 &lt;p&gt;The order the rules are visited is completely driven by the Parser, and
 thus the grammar.&lt;/p&gt;
-
 &lt;h2 id=&#34;more-grammars&#34;&gt;More grammars&lt;/h2&gt;
-
 &lt;p&gt;Learning how to write a grammar may be daunting, but there are many
 resources for help. The author of ANTLR, &lt;a href=&#34;http://parrt.cs.usfca.edu/&#34;&gt;Terence
 Parr&lt;/a&gt;, has &lt;a href=&#34;https://pragprog.com/book/tpantlr2/the-definitive-antlr-4-reference&#34;&gt;published a
 book&lt;/a&gt;,
 with some of the content freely available on &lt;a href=&#34;http://antlr.org&#34;&gt;antlr.org&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;If you don’t want to write your own grammar, there are many &lt;a href=&#34;https://github.com/antlr/grammars-v4&#34;&gt;pre-written
 grammars available&lt;/a&gt;. Including
 grammars for CSS, HTML, SQL, etc, as well many popular programming
 languages. To make it easier, I have &lt;a href=&#34;https://github.com/bramp/antlr4-grammars&#34;&gt;generated
 parsers&lt;/a&gt; for all those
 available grammars, making them as easy to use just by importing.&lt;/p&gt;
-
 &lt;p&gt;A quick example of using one of the pre-generated grammars:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
 	&lt;span class=&#34;s&#34;&gt;&amp;#34;bramp.net/antlr4/json&amp;#34;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// The parser
@@ -496,9 +461,8 @@ available grammars, making them as easy to use just by importing.&lt;/p&gt;
 
 	&lt;span class=&#34;c1&#34;&gt;// Finally walk the tree
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ParseTreeWalkerDefault&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Walk&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;exampleListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Json&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;Hopefully this article has given you a taste of how to use ANTLR with Go.
 The examples for this article are &lt;a href=&#34;https://github.com/bramp/goadvent-antlr&#34;&gt;found here&lt;/a&gt;,
 and the &lt;a href=&#34;https://godoc.org/github.com/antlr/antlr4/runtime/Go/antlr&#34;&gt;godoc for the ANTLR library is here&lt;/a&gt;
@@ -512,40 +476,28 @@ which explains the various InputStream, Lexer, Parser, etc interfaces.&lt;/p&gt;
       <pubDate>Mon, 20 Feb 2017 12:50:31 -0800</pubDate>
       
       <guid>https://blog.bramp.net/post/2017/02/20/building-a-better-whats-my-ip-site/</guid>
-      <description>
-
-&lt;p&gt;Occasionally I’m curious to know what network my device is using, if it has a IPv6 address, and who owns the address space. For example, when in a coffee shop I’m curious to know their ISP, or when roaming internationally I’m always curious to understand which mobile operator’s IP address gets assigned to device.&lt;/p&gt;
-
-&lt;p&gt;Most &amp;ldquo;&lt;a href=&#34;https://www.google.com/search?q=What’s+my+IP+address&#34;&gt;What’s my IP address&lt;/a&gt;&amp;rdquo; sites, will either only show you one of your IPv4, or IPv6. It won’t do a DNS lookup, and they rarely do a WHOIS lookup.  Doing all these things, shouldn’t be too hard, so I figured in a weekend I could hack together a site to do this.&lt;/p&gt;
-
+      <description>&lt;p&gt;Occasionally I’m curious to know what network my device is using, if it has a IPv6 address, and who owns the address space. For example, when in a coffee shop I’m curious to know their ISP, or when roaming internationally I’m always curious to understand which mobile operator’s IP address gets assigned to device.&lt;/p&gt;
+&lt;p&gt;Most &amp;ldquo;&lt;a href=&#34;https://www.google.com/search?q=What%E2%80%99s+my+IP+address&#34;&gt;What’s my IP address&lt;/a&gt;&amp;rdquo; sites, will either only show you one of your IPv4, or IPv6. It won’t do a DNS lookup, and they rarely do a WHOIS lookup.  Doing all these things, shouldn’t be too hard, so I figured in a weekend I could hack together a site to do this.&lt;/p&gt;
 &lt;p&gt;This blog post explains the creation of &lt;a href=&#34;http://ip.bramp.net&#34;&gt;ip.bramp.net&lt;/a&gt;.&lt;/p&gt;
-
 &lt;div class=&#34;text-center&#34;&gt;
   &lt;img src=&#34;screenshot.png&#34; alt=&#34;Screenshot of ip.bramp.net in action&#34;&gt;&lt;/img&gt;
 &lt;/div&gt;
-
 &lt;h2 id=&#34;how-to-get-both-ipv4-and-ipv6-address&#34;&gt;How to get both IPv4 and IPv6 address?&lt;/h2&gt;
-
 &lt;p&gt;When navigating to a website your browser makes a connection, normally over one of IPv4, or IPv6. Which one is based on the DNS records available for the website’s domain, and the preference of your OS and browser. Thus your web server sees a single incoming connection, with a single remote address. This address is typically stored in a variable named REMOTE_ADDR. Most &amp;ldquo;What’s my IP&amp;rdquo; sites then display this variable back to the user as their IP address. However, as I’d like to see both IPv4 and IPv6 addresses, I need to somehow force the browser to make two requests, one over each.&lt;/p&gt;
-
 &lt;p&gt;There is no API to tell a browser to use IPv6 over IPv4, however, I use a trick with two domain names. Namely, I have ip4.bramp.net, and ip6.bramp.net. Both resolve to the same web server, but the former only has &lt;a href=&#34;https://tools.ietf.org/html/rfc1035&#34;&gt;DNS A records&lt;/a&gt;, and the latter only &lt;a href=&#34;https://tools.ietf.org/html/rfc3596&#34;&gt;DNS AAAA records&lt;/a&gt;. For example:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ dig ip4.bramp.net
-ip4.bramp.net.		&lt;span class=&#34;m&#34;&gt;300&lt;/span&gt;	IN	A	&lt;span class=&#34;m&#34;&gt;216&lt;/span&gt;.239.32.21
+ip4.bramp.net.		300	IN	A	216.239.32.21
 
 $ dig AAAA ip6.bramp.net
-ip6.bramp.net.		&lt;span class=&#34;m&#34;&gt;291&lt;/span&gt;	IN	AAAA	&lt;span class=&#34;m&#34;&gt;2001&lt;/span&gt;:4860:4802:32::15&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This forces the connection to be over either IPv4, or IPv6. If a browser doesn’t support IPv6, then the connection is never made, and an error is returned. Interesting side note, some browsers uses a technique called &lt;a href=&#34;https://en.wikipedia.org/wiki/Happy_Eyeballs&#34;&gt;Happy Eyeballs&lt;/a&gt;, which tries to connect over both concurrently, but abandons the slower or worse behaving of the two connections.&lt;/p&gt;
-
+ip6.bramp.net.		291	IN	AAAA	2001:4860:4802:32::15
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This forces the connection to be over either IPv4, or IPv6. If a browser doesn’t support IPv6, then the connection is never made, and an error is returned. Interesting side note, some browsers uses a technique called &lt;a href=&#34;https://en.wikipedia.org/wiki/Happy_Eyeballs&#34;&gt;Happy Eyeballs&lt;/a&gt;, which tries to connect over both concurrently, but abandons the slower or worse behaving of the two connections.&lt;/p&gt;
 &lt;h2 id=&#34;how-do-you-make-two-requests-from-one-page&#34;&gt;How do you make two requests from one page?&lt;/h2&gt;
-
 &lt;p&gt;To force the site to make requests to both of these domains, I issue two &lt;a href=&#34;https://en.wikipedia.org/wiki/Ajax_(programming)&#34;&gt;AJAX&lt;/a&gt; queries. The typical flow looks like:&lt;/p&gt;
-
 &lt;div class=&#34;text-center&#34;&gt;
   &lt;object data=&#34;diagram.svg&#34; type=&#34;image/svg+xml&#34; height=&#34;364&#34; width=&#34;583&#34; alt=&#34;diagram of AJAX calls&#34;&gt;
     &lt;img src=&#34;diagram.png&#34; /&gt;
   &lt;/object&gt;
 &lt;/div&gt;
-
 &lt;!--
 ```
 user-&gt;ip.bramp.net: GET /
@@ -556,57 +508,52 @@ user-&gt;ip6.bramp.net: GET ip6.bramp.net/json
 ip6.bramp.net-&gt;user: {address: 2001:db8::1}
 ```
 --&gt;
-
 &lt;p&gt;These AJAX queries return a simple JSON object, containing information about the requesting user. In my application an example response may look like:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddrFamily&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;IPv6&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddr&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;       &lt;span class=&#34;s2&#34;&gt;&amp;#34;2601:646:c200:b466:b446:ff32:b227:a53c&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This response can then be used to update the page, to display the appropriate address.&lt;/p&gt;
-
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This response can then be used to update the page, to display the appropriate address.&lt;/p&gt;
 &lt;p&gt;An experienced reader may be aware of some security issues with making AJAX request to a different domain. In particular, there are subtle ways in which a malicious site could abuse your AJAX endpoints. This is easily fixed by using cross-origin resource sharing (&lt;a href=&#34;https://en.wikipedia.org/wiki/Cross-origin_resource_sharing&#34;&gt;CORS&lt;/a&gt;) headers, in particular ip4.bramp.net, and ip6.bramp.net return the following:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl -v ip4.bramp.net/json
 
 &amp;lt; HTTP/1.1 &lt;span class=&#34;m&#34;&gt;200&lt;/span&gt; OK
 &amp;lt; Content-Type: application/json
-&amp;lt; Access-Control-Allow-Origin: http://ip.bramp.net&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The last header, explicitly allows requests from ip.bramp.net only, and thus forbids requests from other sites. Without this header, the AJAX request would be issued, but then rejected by the browser.&lt;/p&gt;
-
+&amp;lt; Access-Control-Allow-Origin: http://ip.bramp.net
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The last header, explicitly allows requests from ip.bramp.net only, and thus forbids requests from other sites. Without this header, the AJAX request would be issued, but then rejected by the browser.&lt;/p&gt;
 &lt;h2 id=&#34;what-about-the-reverse-dns-and-whois&#34;&gt;What about the reverse DNS and WHOIS?&lt;/h2&gt;
-
 &lt;p&gt;I noted I wanted to display both the reverse DNS, and WHOIS records. This is something the browser doesn’t support, but the server side could. Thus as part of processing the /json AJAX request, the application makes various additional requests to remote DNS and WHOIS servers.&lt;/p&gt;
-
 &lt;p&gt;To reverse lookup a IP address, you need to issue a &lt;a href=&#34;https://tools.ietf.org/html/rfc1035&#34;&gt;PTR DNS request&lt;/a&gt;. This is a special DNS request which requires the IP address to be formatted as a in-addr.arpa or ip6.arpa name. For example, the IP address 1.2.3.4, would become 4.3.2.1.in-addr.arpa. Then when a request is sent for that in-addr.arpa. name, the reverse DNS is returned.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ dig PTR &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;.3.2.1.in-addr.arpa.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ dig PTR 4.3.2.1.in-addr.arpa.
 
-&lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;.3.2.1.in-addr.arpa.	&lt;span class=&#34;m&#34;&gt;74312&lt;/span&gt;	IN	PTR	c-1-2-3-4.example.com.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The in-addr.arpa transformation, and lookup is commonly provided by &lt;a href=&#34;https://linux.die.net/man/3/getaddrinfo&#34;&gt;getaddrinfo(3)&lt;/a&gt; function, which makes this easy to do.&lt;/p&gt;
-
+4.3.2.1.in-addr.arpa.	74312	IN	PTR	c-1-2-3-4.example.com.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The in-addr.arpa transformation, and lookup is commonly provided by &lt;a href=&#34;https://linux.die.net/man/3/getaddrinfo&#34;&gt;getaddrinfo(3)&lt;/a&gt; function, which makes this easy to do.&lt;/p&gt;
 &lt;p&gt;The WHOIS lookup is a little bit more complex. Each domain is represented by a different WHOIS server, that can be determined by the ccTLD or TLD of the domain. However, with IP addresses, you must identify the Regional Internet Registry (&lt;a href=&#34;https://en.wikipedia.org/wiki/Regional_Internet_registry&#34;&gt;RIR&lt;/a&gt;) that owns the IP space. Sadly there is not a trivial mapping, so instead I issue a WHOIS query to the Internet Assigned Numbers Authority (&lt;a href=&#34;https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority&#34;&gt;IANA&lt;/a&gt;), who replies with the RIR which owns the IP address. From there, I can query the correct registry directly, typically one of &lt;a href=&#34;https://en.wikipedia.org/wiki/AFRINIC&#34;&gt;AFRINIC&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/American_Registry_for_Internet_Numbers&#34;&gt;ARIN&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Asia-Pacific_Network_Information_Centre&#34;&gt;APNIC&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Latin_America_and_Caribbean_Network_Information_Centre&#34;&gt;LACNIC&lt;/a&gt;, or &lt;a href=&#34;https://en.wikipedia.org/wiki/R%C3%A9seaux_IP_Europ%C3%A9ens_Network_Coordination_Centre&#34;&gt;RIPE NCC&lt;/a&gt;. Thus a typical WHOIS request looks like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ whois -h whois.iana.org &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.2.3.4
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ whois -h whois.iana.org 1.2.3.4
 
 % IANA WHOIS server
 % &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; more information on IANA, visit http://www.iana.org
 % This query returned &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; object
 refer:        whois.apnic.net
-inetnum:      &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.0.0.0 - &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.255.255.255
+inetnum:      1.0.0.0 - 1.255.255.255
 organisation: APNIC
 status:       ALLOCATED
 whois:        whois.apnic.net
-changed:      &lt;span class=&#34;m&#34;&gt;2010&lt;/span&gt;-01
-source:       IANA&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ whois -h whois.apnic.net &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.2.3.4
+changed:      2010-01
+source:       IANA
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ whois -h whois.apnic.net 1.2.3.4
 
 % &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;whois.apnic.net&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
 % Whois data copyright terms    http://www.apnic.net/db/dbcopyright.html
 % Information related to &lt;span class=&#34;s1&#34;&gt;&amp;#39;1.2.3.0 - 1.2.3.255&amp;#39;&lt;/span&gt;
-inetnum:        &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.2.3.0 - &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.2.3.255
+inetnum:        1.2.3.0 - 1.2.3.255
 netname:        Example-prefix
 descr:          APNIC Example Project
 
 ...
 
-% This query was served by the APNIC Whois Service version &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;.69.1-APNICv1r0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Both the reverse DNS and WHOIS response is returned as part of the AJAX JSON response.&lt;/p&gt;
+% This query was served by the APNIC Whois Service version 1.69.1-APNICv1r0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Both the reverse DNS and WHOIS response is returned as part of the AJAX JSON response.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddrFamily&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;  &lt;span class=&#34;s2&#34;&gt;&amp;#34;IPv4&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddr&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;        &lt;span class=&#34;s2&#34;&gt;&amp;#34;1.2.3.4&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
@@ -621,19 +568,13 @@ descr:          APNIC Example Project
 &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    status:       ALLOCATED
 &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    ...
 &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;  &amp;#34;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2 id=&#34;what-about-proxies&#34;&gt;What about proxies?&lt;/h2&gt;
-
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;what-about-proxies&#34;&gt;What about proxies?&lt;/h2&gt;
 &lt;p&gt;Many users are behind proxies, which connects to the webserver on the user’s behalf. Thus the REMOTE_ADDR is the address of the proxy, not the actual user.  Some proxies have a workaround for this, by placing the user’s real IP address in the &lt;a href=&#34;https://en.wikipedia.org/wiki/X-Forwarded-For&#34;&gt;X-Forwarded-For&lt;/a&gt; (XFF), or newer &lt;a href=&#34;https://tools.ietf.org/html/rfc7239&#34;&gt;Forwarded&lt;/a&gt; HTTP header. However, these headers are easily set by the user, so can not be trusted. Thus for the moment I ignore these headers, and will instead display the proxy’s IP address. It is conceivable to create a whitelist of proxies, that I would trust the XFF header, but for now I didn’t want that headache. Especially since the server side issues requests to external hosts, if I trusted the XFF header, an abusive user could use my site as a proxy, or even use my site as a relay to &lt;a href=&#34;https://en.wikipedia.org/wiki/Denial-of-service_attack&#34;&gt;denial of service&lt;/a&gt; these remote servers.&lt;/p&gt;
-
 &lt;h2 id=&#34;tying-this-all-together&#34;&gt;Tying this all together&lt;/h2&gt;
-
 &lt;p&gt;Server side I use &lt;a href=&#34;https://cloud.google.com/appengine/&#34;&gt;App Engine&lt;/a&gt;, and &lt;a href=&#34;https://golang.org/&#34;&gt;Go&lt;/a&gt;. Why? Because I wanted to play with App Engine, and I’m a fan of Go right now. On the client side I use &lt;a href=&#34;http://getbootstrap.com&#34;&gt;Bootstrap&lt;/a&gt; to make the page look nice, and &lt;a href=&#34;https://angularjs.org&#34;&gt;AngularJS&lt;/a&gt;. AngularJS because I’m familiar with it, and because it is really easy to issue an AJAX requests and transform the result into a web page.&lt;/p&gt;
-
 &lt;p&gt;I like App Engine, because of the &lt;a href=&#34;https://en.wikipedia.org/wiki/Platform_as_a_service&#34;&gt;PaaS&lt;/a&gt; model. It keeps my costs down, and I don’t need to setup a virtual machine, or create docker images. Instead I just write a single binary and upload it. However, App Engine does place some restrictions on what I can do, in particular limiting outbound connections to ones made via its own library. Thus I had to jump through a few hoops to make the reverse DNS and WHOIS requests. Instead of using &lt;a href=&#34;https://linux.die.net/man/3/getaddrinfo&#34;&gt;getaddrinfo(3)&lt;/a&gt;, I had to issue DNS requests myself using App Engine’s socket library and my own UDP packets on port 53. Luckily the Go DNS library, &lt;a href=&#34;https://github.com/miekg/dns&#34;&gt;miekg/dns&lt;/a&gt;, makes this relatively easy.  Similarly I had to implement the WHOIS lookup by hand, but again aided by a library, this time &lt;a href=&#34;https://github.com/domainr/whois&#34;&gt;domainr/whois&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;In conclusion, though the use of multiple domain names, some AJAX queries, and server side support. I was able to make &amp;ldquo;(a better) What&amp;rsquo;s My IP Address?&amp;rdquo; site in under a weekend.&lt;/p&gt;
-
 &lt;p&gt;Check out the &lt;a href=&#34;https://github.com/bramp/myip&#34;&gt;full source on github&lt;/a&gt;, or view the site at &lt;a href=&#34;http://ip.bramp.net/&#34;&gt;ip.bramp.net&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
@@ -645,7 +586,6 @@ descr:          APNIC Example Project
       
       <guid>https://blog.bramp.net/post/2016/08/08/peano-curves/</guid>
       <description>&lt;p&gt;My latest addition to the &lt;a href=&#34;https://github.com/google/hilbert&#34;&gt;hilbert go library&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Peano_curve&#34;&gt;Peano Curves&lt;/a&gt;. The original space-filing curve, similar to the Hilbert curve, but a little more complex.&lt;/p&gt;
-
 &lt;figure&gt;
     &lt;img src=&#34;peano_animation.gif&#34;/&gt; &lt;figcaption&gt;
             &lt;h4&gt;Animation of Peano curve with N in the range 1..5&lt;/h4&gt;
@@ -661,14 +601,10 @@ descr:          APNIC Example Project
       <pubDate>Mon, 08 Aug 2016 21:33:33 -0700</pubDate>
       
       <guid>https://blog.bramp.net/post/2016/08/08/introducing-prob.js/</guid>
-      <description>
-
-&lt;h2 id=&#34;generate-random-numbers-from-different-probability-distributions&#34;&gt;Generate random numbers from different probability distributions&lt;/h2&gt;
-
+      <description>&lt;h2 id=&#34;generate-random-numbers-from-different-probability-distributions&#34;&gt;Generate random numbers from different probability distributions&lt;/h2&gt;
 &lt;p&gt;There are multiple libraries for generating random numbers from a uniform, and sometimes normal distributions. However,
 I needed code to generate them from a expontential or lognormal distribution. I had written code to do this ~10 years ago
 in Java, but I needed a more modern Javascript solution.&lt;/p&gt;
-
 &lt;p&gt;Introducing &lt;a href=&#34;https://github.com/bramp/prob.js&#34;&gt;Prob.js&lt;/a&gt;, a javascript library to generate random numbers from different probability distributions. Avaiable via both bower and NPM, prob.js can generate random numbers from the following distrubtions:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;uniform&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;min&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// Uniform distribution in range [min, max).
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;normal&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;μ&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;σ&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;// Normal distribution with mean and standard deviation.
@@ -677,8 +613,7 @@ in Java, but I needed a more modern Javascript solution.&lt;/p&gt;
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;poisson&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;λ&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;// Poisson distribution returning integers &amp;gt;= 0.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;zipf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;// Zipf&amp;#39;s distribution returning integers in range [1, N].
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;After&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;generating&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;distribution&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;the&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;following&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;methods&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;are&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;available&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;With a very simple to use API:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;With a very simple to use API:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;exponential&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;1.0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// Create a distribution.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;// Generates a number within the distribution.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;// Generates a number using a `src` of random numbers. (See note below.)
@@ -686,9 +621,7 @@ in Java, but I needed a more modern Javascript solution.&lt;/p&gt;
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Max&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;// The max random number which could be returned by `r()` (exclusive).
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Mean&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;// The expected mean for this distribution.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Variance&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// The expected variance for this distribution.
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;I created a &lt;a href=&#34;https://bramp.github.io/prob.js/&#34;&gt;quick demo site&lt;/a&gt; that generates 1 million random numbers from each distribution in the browser, and plots the PDF as it goes. Same samples:&lt;/p&gt;
-
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I created a &lt;a href=&#34;https://bramp.github.io/prob.js/&#34;&gt;quick demo site&lt;/a&gt; that generates 1 million random numbers from each distribution in the browser, and plots the PDF as it goes. Same samples:&lt;/p&gt;
 &lt;p&gt;&lt;figure&gt;
     &lt;img src=&#34;normal.png&#34;/&gt; &lt;figcaption&gt;
             &lt;h4&gt;Normal (μ = 0, σ = 1.0)&lt;/h4&gt;
@@ -717,16 +650,13 @@ in Java, but I needed a more modern Javascript solution.&lt;/p&gt;
       
       <guid>https://blog.bramp.net/post/2015/08/07/introducing-hilbert/</guid>
       <description>&lt;p&gt;A &lt;a href=&#34;https://en.wikipedia.org/wiki/Hilbert_curve&#34;&gt;Hilbert curve&lt;/a&gt; is a space-filling (snakey) curve through a 2D space:&lt;/p&gt;
-
 &lt;figure&gt;
     &lt;img src=&#34;hilbert.png&#34;/&gt; &lt;figcaption&gt;
             &lt;h4&gt;Image of 8 by 8 Hilbert curve&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-
 &lt;p&gt;This can be very useful for mapping a 1D value, into a 2D space. For example, it is commonly used to &lt;a href=&#34;https://xkcd.com/195/&#34;&gt;map IP addresses into a 2D space&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;I recently created a library for &lt;a href=&#34;https://golang.org/&#34;&gt;Go&lt;/a&gt; that can map to and from a curve. The project is &lt;a href=&#34;http://github.com/google/hilbert&#34;&gt;hosted on Github&lt;/a&gt;, and can be used like so:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/google/hilbert&amp;#34;&lt;/span&gt;
 
@@ -738,9 +668,8 @@ in Java, but I needed a more modern Javascript solution.&lt;/p&gt;
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
 &lt;span class=&#34;c1&#34;&gt;// Also map back from (x,y) to t.
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;MapInverse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The project contains some demos, such as this cool animations:&lt;/p&gt;
-
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;MapInverse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The project contains some demos, such as this cool animations:&lt;/p&gt;
 &lt;figure&gt;
     &lt;img src=&#34;hilbert_animation.gif&#34;/&gt; &lt;figcaption&gt;
             &lt;h4&gt;Hilbert curve animation&lt;/h4&gt;
@@ -756,20 +685,19 @@ in Java, but I needed a more modern Javascript solution.&lt;/p&gt;
       <pubDate>Sat, 23 Mar 2013 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2013/03/23/draw-uml-sequence-diagrams-with-javascript/</guid>
-      <description>&lt;p&gt;I&amp;#8217;m happy to announce one of my projects, &lt;a href=&#34;https://bramp.github.io/js-sequence-diagrams/&#34;&gt;js-sequence-diagrams&lt;/a&gt;. This uses Javascript to draw UML sequence diagrams in SVG format. Here is an example:&lt;/p&gt;
-
+      <description>&lt;p&gt;I’m happy to announce one of my projects, &lt;a href=&#34;https://bramp.github.io/js-sequence-diagrams/&#34;&gt;js-sequence-diagrams&lt;/a&gt;. This uses Javascript to draw UML sequence diagrams in SVG format. Here is an example:&lt;/p&gt;
 &lt;div class=&#34;text-center&#34;&gt;
     &lt;a href=&#34;https://bramp.github.io/js-sequence-diagrams/&#34;&gt;
-        &lt;img src=&#34;sample-with-editor.png&#34; alt=&#34;js-sequence-diagram example&#34; width=&#34;865&#34; height=&#34;333&#34; /&gt;
-    &lt;/a&gt;
+		&lt;img src=&#34;sample-with-editor.png&#34; alt=&#34;js-sequence-diagram example&#34; width=&#34;865&#34; height=&#34;333&#34; /&gt;
+	&lt;/a&gt;
 &lt;/div&gt;
-
 &lt;p&gt;You can alter the diagram in real time, and I even have a simple jQuery plugin to make this easy to use on your own sites.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;script src=&amp;#34;sequence-diagram-min.js&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&amp;amp;lt;&lt;/span&gt;/script&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
 &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;div class=&amp;#34;diagram&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;A-&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;B: Message&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/div&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
 &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;script&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
 $(&amp;#34;.diagram&amp;#34;).sequenceDiagram({theme: &lt;span class=&#34;ni&#34;&gt;&amp;amp;#39;&lt;/span&gt;hand&lt;span class=&#34;ni&#34;&gt;&amp;amp;#39;&lt;/span&gt;});
-&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/script&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/script&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
   </channel>

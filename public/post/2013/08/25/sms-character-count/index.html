@@ -5,7 +5,7 @@
 <meta content="width=device-width,initial-scale=1" name=viewport>
 <link href=https://blog.bramp.net/post/2013/08/25/sms-character-count/ rel=canonical itemprop=url />
 <title>SMS Character Count</title>
-<meta content="It is commonly known that Twitter allows 140 character messages, and some will tell you that a single SMS message is limited to 160 characters. However, it&#8217;s not as simple as that. In the US a …" name=description itemprop=description>
+<meta content="It is commonly known that Twitter allows 140 character messages, and some will tell you that a single SMS message is limited to 160 characters. However, it’s not as simple as that. In the US a single …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -45,7 +45,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=https://blog.bramp.net/post/2013/08/25/sms-character-count/ property=og:url />
 <meta content=bramp.net property=og:site_name />
 <meta content="SMS Character Count" property=og:title />
-<meta content="It is commonly known that Twitter allows 140 character messages, and some will tell you that a single SMS message is limited to 160 characters. However, it&#8217;s not as simple as that. In the US a …" property=og:description />
+<meta content="It is commonly known that Twitter allows 140 character messages, and some will tell you that a single SMS message is limited to 160 characters. However, it’s not as simple as that. In the US a single …" property=og:description />
 <meta content=2013-08-25T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -97,13 +97,13 @@ window.dataLayer = window.dataLayer || [];
 | <a href=https://blog.bramp.net/tags/sms/ >sms</a>
 </p>
 <div class=post itemprop=articleBody>
-<p>It is commonly known that Twitter allows 140 character messages, and some will tell you that a single SMS message is limited to 160 characters. However, it&#8217;s not as simple as that. In the US a single SMS message can contain 140 bytes of data, which if using <a href=http://en.wikipedia.org/wiki/GSM_03.38>GSM encoding</a>, we can squeeze up to 160 7-bit characters. Those 7-bit GSM characters don&#8217;t match up with normal ASCII characters, and even worse, not all characters take 7 bits, some take up 14 bits (for example the { character)!</p>
+<p>It is commonly known that Twitter allows 140 character messages, and some will tell you that a single SMS message is limited to 160 characters. However, it’s not as simple as that. In the US a single SMS message can contain 140 bytes of data, which if using <a href=http://en.wikipedia.org/wiki/GSM_03.38>GSM encoding</a>, we can squeeze up to 160 7-bit characters. Those 7-bit GSM characters don’t match up with normal ASCII characters, and even worse, not all characters take 7 bits, some take up 14 bits (for example the { character)!</p>
 <p>When we start talking about messaging in non-latin scripts, such as Chinese, then a different encoding must be used. In the SMS world the encoding of choice is <a href=http://en.wikipedia.org/wiki/UTF-16>UCS-2</a>, which uses 16 bits per character. This limits a single part message to 70 characters (down from 160).</p>
-<p>On top of that, most SMS clients will let you send concatenated SMS messages. That is, multiple message parts that appear as one long SMS message. A two part message allow up to 304 characters, not the 320 (160&#215;2) you might expect. This is due to the overhead required to store meta data about each part.</p>
-<p>This all makes it very hard to count how long a SMS message will be, what characters are allowed, and how many parts it will take. To help with these isuses, I&#8217;ve created this simple tool which allows you to type out your message, and see how well it&#8217;ll fit</p>
-<p><a href=https:/blog.bramp.net/sms/ >
+<p>On top of that, most SMS clients will let you send concatenated SMS messages. That is, multiple message parts that appear as one long SMS message. A two part message allow up to 304 characters, not the 320 (160×2) you might expect. This is due to the overhead required to store meta data about each part.</p>
+<p>This all makes it very hard to count how long a SMS message will be, what characters are allowed, and how many parts it will take. To help with these isuses, I’ve created this simple tool which allows you to type out your message, and see how well it’ll fit</p>
+<a href=https:/blog.bramp.net/sms/ >
 <img alt="SMS Character Count" class=aligncenter height=196 src=sms-count.png width=741 /><br/>
-https:/blog.bramp.net/sms/</a></p>
+https:/blog.bramp.net/sms/</a>
 </div>
 </article>
 <div class=row>
@@ -127,18 +127,19 @@ https:/blog.bramp.net/sms/</a></p>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2013\/08\/25\/sms-character-count\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2013\/08\/25\/sms-character-count\/';
     var disqus_title = 'SMS Character Count';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2013\/08\/25\/sms-character-count\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -146,7 +147,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

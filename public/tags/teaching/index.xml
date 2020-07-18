@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Teaching on bramp.net</title>
+    <title>teaching on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Teaching on bramp.net</description>
+    <description>Recent content in teaching on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Sat, 15 Jul 2017 12:23:18 -0700</lastBuildDate>
@@ -16,27 +15,29 @@
       
       <guid>https://blog.bramp.net/post/2017/07/15/teaching-binary-to-8th-graders/</guid>
       <description>&lt;p&gt;This summer, as part of &lt;a href=&#34;https://www.google.com/intl/en/giving/people.html#google-serve&#34;&gt;GoogleServe&lt;/a&gt;, I volunteered in a local school to teach kids about the importance of mathematics. This was part part of a larger program organised by the &lt;a href=&#34;svefoundation.org&#34;&gt;Silicon Valley Education Foundation&lt;/a&gt; (SVEF).&lt;/p&gt;
-
 &lt;p&gt;I had 90 minutes, to introduce myself, talk a little about Google, and then spend the majority of the time teaching a topic of my choosing. Not knowing anything about teaching 8th graders I went to the Internet to find some material.&lt;/p&gt;
-
 &lt;p&gt;I quickly found &lt;a href=&#34;http://cse4k12.org&#34;&gt;cse4k12.org&lt;/a&gt;, and the excellent &lt;a href=&#34;https://www.youtube.com/user/csunplugged&#34;&gt;YouTube series&lt;/a&gt; by &lt;a href=&#34;http://csunplugged.org&#34;&gt;csunplugged.org&lt;/a&gt;. I decided I would teach about counting in binary. The &lt;a href=&#34;http://csunplugged.org/binary-numbers/&#34;&gt;csunplugged videos&lt;/a&gt; showed how to introduced this material in a way that seemed fun and got got the kids to work out the concepts on their own. I decided to mix the teaching with worksheets from &lt;a href=&#34;http://cse4k12.org&#34;&gt;cse4k12.org&lt;/a&gt; (to reinforce what the kids just learnt). Since I only had ~90 minutes to cover a lot, I took what I found on cse4k12.org and simplified their activities. I went ahead and created new worksheets, and am providing them here today for others to use. The rough schedule I used was:&lt;/p&gt;
-
 &lt;ul&gt;
-&lt;li&gt;10min Intro to counting in binary, with kids holding up &lt;a href=&#34;https://docs.google.com/document/d/1dCmZc3_v16eIqP230j0DyLXIsS2SVY1Ia8TmGo4b0vQ/edit?usp=sharing&#34;&gt;bits&lt;/a&gt; (similar to &lt;a href=&#34;https://youtu.be/Pz7dLWvi2w0&#34;&gt;this video&lt;/a&gt;).&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;15min Work on this “&lt;a href=&#34;https://docs.google.com/document/d/1u3ITluIYx7K4x7yqy9101DB813TWI9_TYnUu8VxHBgs/edit#bookmark=id.rsbu3f59m3ry&#34;&gt;Counting In Binary&lt;/a&gt;” worksheet.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;10min Representing text (again &lt;a href=&#34;https://youtu.be/xc0stfTVE_8&#34;&gt;similar to this video&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;15min Using “&lt;a href=&#34;https://docs.google.com/document/d/1u3ITluIYx7K4x7yqy9101DB813TWI9_TYnUu8VxHBgs/edit#bookmark=id.gpxpgtxg156z&#34;&gt;Encoding Table&lt;/a&gt;” and “&lt;a href=&#34;https://docs.google.com/document/d/1u3ITluIYx7K4x7yqy9101DB813TWI9_TYnUu8VxHBgs/edit#bookmark=id.1r2yly29a01u&#34;&gt;Encoding Message&lt;/a&gt;” worksheets to write some secret messages to each other.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;10min Representing images with binary.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;15min Using the “&lt;a href=&#34;https://docs.google.com/document/d/1u3ITluIYx7K4x7yqy9101DB813TWI9_TYnUu8VxHBgs/edit#bookmark=id.1gznllvnujnk&#34;&gt;Bitmaps&lt;/a&gt;” worksheets to encode their own images, and if time allows swapping encoded images with each other to decode.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;10min Intro to counting in binary, with kids holding up &lt;a href=&#34;https://docs.google.com/document/d/1dCmZc3_v16eIqP230j0DyLXIsS2SVY1Ia8TmGo4b0vQ/edit?usp=sharing&#34;&gt;bits&lt;/a&gt; (similar to &lt;a href=&#34;https://youtu.be/Pz7dLWvi2w0&#34;&gt;this video&lt;/a&gt;).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;15min Work on this “&lt;a href=&#34;https://docs.google.com/document/d/1u3ITluIYx7K4x7yqy9101DB813TWI9_TYnUu8VxHBgs/edit#bookmark=id.rsbu3f59m3ry&#34;&gt;Counting In Binary&lt;/a&gt;” worksheet.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;10min Representing text (again &lt;a href=&#34;https://youtu.be/xc0stfTVE_8&#34;&gt;similar to this video&lt;/a&gt;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;15min Using “&lt;a href=&#34;https://docs.google.com/document/d/1u3ITluIYx7K4x7yqy9101DB813TWI9_TYnUu8VxHBgs/edit#bookmark=id.gpxpgtxg156z&#34;&gt;Encoding Table&lt;/a&gt;” and “&lt;a href=&#34;https://docs.google.com/document/d/1u3ITluIYx7K4x7yqy9101DB813TWI9_TYnUu8VxHBgs/edit#bookmark=id.1r2yly29a01u&#34;&gt;Encoding Message&lt;/a&gt;” worksheets to write some secret messages to each other.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;10min Representing images with binary.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;15min Using the “&lt;a href=&#34;https://docs.google.com/document/d/1u3ITluIYx7K4x7yqy9101DB813TWI9_TYnUu8VxHBgs/edit#bookmark=id.1gznllvnujnk&#34;&gt;Bitmaps&lt;/a&gt;” worksheets to encode their own images, and if time allows swapping encoded images with each other to decode.&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;All in all, this worked quite well. I learnt a lot, and was happy to see the class engaged! I will certainly be taking part in activities like this again.&lt;/p&gt;
-
 &lt;p&gt;P.S I found printing all sheets double sided worked really well. Oh and no computers needed! Put those laptops away.&lt;/p&gt;
 </description>
     </item>

@@ -5,7 +5,7 @@
 <meta content="width=device-width,initial-scale=1" name=viewport>
 <link href=https://blog.bramp.net/post/2009/09/10/grub2-and-windows/ rel=canonical itemprop=url />
 <title>Grub2 and Windows</title>
-<meta content="I&#8217;ve just installed grub2 on my Debian laptop, and I wanted to write a quick note on how to get dual booting working. Grub2 seems to have a far more complex configuration system than grub, this …" name=description itemprop=description>
+<meta content="I’ve just installed grub2 on my Debian laptop, and I wanted to write a quick note on how to get dual booting working. Grub2 seems to have a far more complex configuration system than grub, this may be …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -47,7 +47,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=https://blog.bramp.net/post/2009/09/10/grub2-and-windows/ property=og:url />
 <meta content=bramp.net property=og:site_name />
 <meta content="Grub2 and Windows" property=og:title />
-<meta content="I&#8217;ve just installed grub2 on my Debian laptop, and I wanted to write a quick note on how to get dual booting working. Grub2 seems to have a far more complex configuration system than grub, this …" property=og:description />
+<meta content="I’ve just installed grub2 on my Debian laptop, and I wanted to write a quick note on how to get dual booting working. Grub2 seems to have a far more complex configuration system than grub, this may be …" property=og:description />
 <meta content=2009-09-10T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -101,23 +101,25 @@ window.dataLayer = window.dataLayer || [];
 | <a href=https://blog.bramp.net/tags/linux/ >Linux</a>
 </p>
 <div class=post itemprop=articleBody>
-<p>I&#8217;ve just installed grub2 on my Debian laptop, and I wanted to write a quick note on how to get dual booting working. Grub2 seems to have a far more complex configuration system than grub, this may be a good or a bad thing. One feature of this is a /etc/grub.d directory which contains a set of scripts to configure what items should be listed on the boot menu.</p>
+<p>I’ve just installed grub2 on my Debian laptop, and I wanted to write a quick note on how to get dual booting working. Grub2 seems to have a far more complex configuration system than grub, this may be a good or a bad thing. One feature of this is a /etc/grub.d directory which contains a set of scripts to configure what items should be listed on the boot menu.</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ ls /etc/grub.d/
-00_header  05_debian_theme  10_linux  30_os-prober  40_custom  README</code></pre></div>
-<p>The scripts get run in order, each adding features to the boot menu. To dual boot Windows you can acheive this in two ways.<br/>
-1) Write a script which manual adds windows<br/>
-2) Use the os-prober script.</p>
+00_header  05_debian_theme  10_linux  30_os-prober  40_custom  README
+</code></pre></div><p>The scripts get run in order, each adding features to the boot menu. To dual boot Windows you can acheive this in two ways.</p>
+<ol>
+<li>Write a script which manual adds windows</li>
+<li>Use the os-prober script.</li>
+</ol>
 <p>I opted for option 2 since it seemed the easiest. However, this os-prober script does not work unless the package os-prober is installed. So:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ sudo apt-get install os-prober</code></pre></div>
-<p>Once that is installed you can reconfigure grub by doing:</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ sudo apt-get install os-prober
+</code></pre></div><p>Once that is installed you can reconfigure grub by doing:</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ sudo update-grub2
 Generating grub.cfg ...
 Found Debian background: moreblue-orbit-grub.png
 Found linux image: /boot/vmlinuz-2.6.30-1-amd64
 Found initrd image: /boot/initrd.img-2.6.30-1-amd64
 Found Microsoft Windows XP Professional on /dev/sda1
-<span class=k>done</span></code></pre></div>
-<p>When you reboot you should now have Windows on your boot menu.</p>
+<span class=k>done</span>
+</code></pre></div><p>When you reboot you should now have Windows on your boot menu.</p>
 </div>
 </article>
 <div class=row>
@@ -141,18 +143,19 @@ Found Microsoft Windows XP Professional on /dev/sda1
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/09\/10\/grub2-and-windows\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2009\/09\/10\/grub2-and-windows\/';
     var disqus_title = 'Grub2 and Windows';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2009\/09\/10\/grub2-and-windows\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -160,7 +163,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

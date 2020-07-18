@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Rfc on bramp.net</title>
+    <title>rfc on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Rfc on bramp.net</description>
+    <description>Recent content in rfc on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Mon, 03 Sep 2012 00:00:00 +0000</lastBuildDate>
@@ -16,20 +15,23 @@
       
       <guid>https://blog.bramp.net/post/2012/09/03/rfc-1123-dates-in-php/</guid>
       <description>&lt;p&gt;While playing with &lt;a href=&#34;http://redbot.org/&#34;&gt;REDbot&lt;/a&gt; I realised my last-modified headers (being sent by PHP) were not RFC 1123 complaint. A complaint date looks like &lt;code&gt;Sun, 06 Nov 1994 08:49:37 GMT&lt;/code&gt;. There are two ways to generate such a date in PHP;&lt;/p&gt;
-
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;if you have pecl_http &amp;gt;= 0.1.0, then&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;http_date($timestamp)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;or if you don&amp;#8217;t want to use pecl&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;gmdate(&amp;#39;D, d M Y H:i:s&amp;#39;, $timestamp).&amp;#39; GMT&amp;#39;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;or if you have PHP &amp;gt;5.2 you can use the DateTime constant&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;gmdate(DATE_RFC2822, $timestamp)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;if you have pecl_http &amp;gt;= 0.1.0, then&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;http_date($timestamp)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;or if you don’t want to use pecl&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;gmdate(&amp;#39;D, d M Y H:i:s&amp;#39;, $timestamp).&amp;#39; GMT&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;or if you have PHP &amp;gt;5.2 you can use the DateTime constant&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;gmdate(DATE_RFC2822, $timestamp)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
-
-&lt;p&gt;an example of it&amp;#8217;s use:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;header(&amp;#39;Last-Modified: &amp;#39; . gmdate(&amp;#39;D, d M Y H:i:s&amp;#39;, $lastModified).&amp;#39; GMT&amp;#39;);&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;p&gt;an example of it’s use:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;header(&amp;#39;Last-Modified: &amp;#39; . gmdate(&amp;#39;D, d M Y H:i:s&amp;#39;, $lastModified).&amp;#39; GMT&amp;#39;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
   </channel>

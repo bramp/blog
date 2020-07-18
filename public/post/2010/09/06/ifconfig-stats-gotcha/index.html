@@ -5,7 +5,7 @@
 <meta content="width=device-width,initial-scale=1" name=viewport>
 <link href=https://blog.bramp.net/post/2010/09/06/ifconfig-stats-gotcha/ rel=canonical itemprop=url />
 <title>ifconfig stats gotcha</title>
-<meta content="I&#8217;ve recently been running network benchmarks and I wanted to highlight a quick gotcha that caught me out. My benchmark script would run ifconfig before and after the experiment and record the …" name=description itemprop=description>
+<meta content="I’ve recently been running network benchmarks and I wanted to highlight a quick gotcha that caught me out. My benchmark script would run ifconfig before and after the experiment and record the number …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -46,7 +46,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=https://blog.bramp.net/post/2010/09/06/ifconfig-stats-gotcha/ property=og:url />
 <meta content=bramp.net property=og:site_name />
 <meta content="ifconfig stats gotcha" property=og:title />
-<meta content="I&#8217;ve recently been running network benchmarks and I wanted to highlight a quick gotcha that caught me out. My benchmark script would run ifconfig before and after the experiment and record the …" property=og:description />
+<meta content="I’ve recently been running network benchmarks and I wanted to highlight a quick gotcha that caught me out. My benchmark script would run ifconfig before and after the experiment and record the number …" property=og:description />
 <meta content=2010-09-06T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -99,7 +99,7 @@ window.dataLayer = window.dataLayer || [];
 | <a href=https://blog.bramp.net/tags/stats/ >stats</a>
 </p>
 <div class=post itemprop=articleBody>
-<p>I&#8217;ve recently been running network benchmarks and I wanted to highlight a quick gotcha that caught me out. My benchmark script would run ifconfig before and after the experiment and record the number of packets sent and received. The same would be recorded on another machine which was generating the packets.</p>
+<p>I’ve recently been running network benchmarks and I wanted to highlight a quick gotcha that caught me out. My benchmark script would run ifconfig before and after the experiment and record the number of packets sent and received. The same would be recorded on another machine which was generating the packets.</p>
 <p>I started to notice a problem that more packets were being received than being sent. It was only a small number, but nevertheless an seemingly impossible situation to have occurred. I tracked the problem down to the fact that the network card driver did not always report accurate and up to date stats. In fact, after checking the source, the e1000, ixgb, ixgbe and most likely the other Intel drivers all refresh their stats every 2 seconds. The other NIC I was using, an embedded smsc9500, always updated its stats in realtime.</p>
 <p>Delaying the update of stats is obviously a performance optimisation, which no doubt avoids costly locking, or problems such as cache line bouncing. I did some searching and other people have noticed similar delays in other networking devices, in some cases as much as 30 seconds on <a href=http://fixunix.com/snmp/443079-how-handle-interface-counter-update-delay.html>cisco routers</a>.</p>
 <p>From now on I will always pause my scripts for a few seconds to allow the ifconfig stats to catch up before I record my data. An alternative would be to hack the drivers to either stay up to date, or offer a API that forces a update.</p>
@@ -126,18 +126,19 @@ window.dataLayer = window.dataLayer || [];
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2010\/09\/06\/ifconfig-stats-gotcha\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2010\/09\/06\/ifconfig-stats-gotcha\/';
     var disqus_title = 'ifconfig stats gotcha';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2010\/09\/06\/ifconfig-stats-gotcha\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -145,7 +146,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

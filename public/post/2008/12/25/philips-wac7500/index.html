@@ -5,7 +5,7 @@
 <meta content="width=device-width,initial-scale=1" name=viewport>
 <link href=https://blog.bramp.net/post/2008/12/25/philips-wac7500/ rel=canonical itemprop=url />
 <title>Philips WAC7500</title>
-<meta content="I&#8217;m at home for Christmas and I&#8217;ve found my parents have brought a Philips WAC7500, a fancy hi-fi which has far more features than people would ever need. It can play music from its …" name=description itemprop=description>
+<meta content="I’m at home for Christmas and I’ve found my parents have brought a Philips WAC7500, a fancy hi-fi which has far more features than people would ever need. It can play music from its internal hard …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -46,7 +46,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=https://blog.bramp.net/post/2008/12/25/philips-wac7500/ property=og:url />
 <meta content=bramp.net property=og:site_name />
 <meta content="Philips WAC7500" property=og:title />
-<meta content="I&#8217;m at home for Christmas and I&#8217;ve found my parents have brought a Philips WAC7500, a fancy hi-fi which has far more features than people would ever need. It can play music from its …" property=og:description />
+<meta content="I’m at home for Christmas and I’ve found my parents have brought a Philips WAC7500, a fancy hi-fi which has far more features than people would ever need. It can play music from its internal hard …" property=og:description />
 <meta content=2008-12-25T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -99,12 +99,12 @@ window.dataLayer = window.dataLayer || [];
 | <a href=https://blog.bramp.net/tags/wac7500/ >WAC7500</a>
 </p>
 <div class=post itemprop=articleBody>
-<p>I&#8217;m at home for Christmas and I&#8217;ve found my parents have brought a Philips WAC7500, a fancy hi-fi which has far more features than people would ever need. It can play music from its internal hard drive, iPod/USB, UPnP (via wired or wireless), and radio from either FM or Internet.</p>
+<p>I’m at home for Christmas and I’ve found my parents have brought a Philips WAC7500, a fancy hi-fi which has far more features than people would ever need. It can play music from its internal hard drive, iPod/USB, UPnP (via wired or wireless), and radio from either FM or Internet.</p>
 <p>So needless to say it is a tad fancy, so I started to play with it and quickly found out it is an embedded Linux running on a ARM processor. You can download a full copy of the software as a firmware update. The firmware is actually a cramfs file system which I was easily able to mount.</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>mkdir /mnt/wac7500
-mount -t cramfs -o loop wac7500_update.bin /mnt/wac7500</code></pre></div>
-<p>I&#8217;m going to spend some time trying to hack it apart. So far I&#8217;ve found it is running a simple webserver, which allows you to access all you music via a URL such as: <code>http://&lt;ip&gt;/media/</code></p>
-<p>It also has a nvram to store all the settings, and one of those settings is dbg_startsshd which if enabled seems to start a dropbear SSH server. I&#8217;ve yet to figure out how to edit nvram or enable the sshd, but I&#8217;m sure I will soon.</p>
+mount -t cramfs -o loop wac7500_update.bin /mnt/wac7500
+</code></pre></div><p>I’m going to spend some time trying to hack it apart. So far I’ve found it is running a simple webserver, which allows you to access all you music via a URL such as: <code>http://&lt;ip&gt;/media/</code></p>
+<p>It also has a nvram to store all the settings, and one of those settings is dbg_startsshd which if enabled seems to start a dropbear SSH server. I’ve yet to figure out how to edit nvram or enable the sshd, but I’m sure I will soon.</p>
 </div>
 </article>
 <div class=row>
@@ -128,18 +128,19 @@ mount -t cramfs -o loop wac7500_update.bin /mnt/wac7500</code></pre></div>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2008\/12\/25\/philips-wac7500\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2008\/12\/25\/philips-wac7500\/';
     var disqus_title = 'Philips WAC7500';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2008\/12\/25\/philips-wac7500\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -147,7 +148,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

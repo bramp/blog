@@ -25,7 +25,7 @@ Whether you know it or not, your Java web application is most likely using a thr
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -118,8 +118,9 @@ Whether you know it or not, your Java web application is most likely using a thr
 	<span class=o>}</span>
 <span class=o>}</span> <span class=k>finally</span> <span class=o>{</span>
 	<span class=n>listener</span><span class=o>.</span><span class=na>close</span><span class=o>();</span>
-<span class=o>}</span></code></pre></div>
-<p>This code creates a <a href=https://docs.oracle.com/javase/7/docs/api/java/net/ServerSocket.html>ServerSocket</a> on port 8080, then in a tight loop the ServerSocket checks for new connections to accept. Once accepted the socket is passed to a handleRequest method. That method would typically read the HTTP request, do whatever process is needed, and write a response. In this simple example, handleRequest reads a single line, and returns a short HTTP response. It would be normal for handleRequest to do something more complex, such as reading from a database, or conducting some other kind of IO.</p>
+<span class=o>}</span>
+
+</code></pre></div><p>This code creates a <a href=https://docs.oracle.com/javase/7/docs/api/java/net/ServerSocket.html>ServerSocket</a> on port 8080, then in a tight loop the ServerSocket checks for new connections to accept. Once accepted the socket is passed to a handleRequest method. That method would typically read the HTTP request, do whatever process is needed, and write a response. In this simple example, handleRequest reads a single line, and returns a short HTTP response. It would be normal for handleRequest to do something more complex, such as reading from a database, or conducting some other kind of IO.</p>
 <div class=highlight><pre class=chroma><code class=language-java data-lang=java><span class=kd>final</span> <span class=kd>static</span> <span class=n>String</span> <span class=n>response</span> <span class=o>=</span>
 	<span class=s>&#34;HTTP/1.0 200 OK\r\n&#34;</span> <span class=o>+</span>
 	<span class=s>&#34;Content-type: text/plain\r\n&#34;</span> <span class=o>+</span>
@@ -139,8 +140,8 @@ Whether you know it or not, your Java web application is most likely using a thr
 	<span class=o>}</span> <span class=k>finally</span> <span class=o>{</span>
 		<span class=n>socket</span><span class=o>.</span><span class=na>close</span><span class=o>();</span>
 	<span class=o>}</span>
-<span class=o>}</span></code></pre></div>
-<p>As there is only a single thread handling all accepted sockets, each request must be fully handled, before accepting the next. In a real application it could be normal for the equivalent handleRequest method to take on the order of 100 milliseconds to return. If this was the case, the server would be limited to handling only 10 requests per second, one after the other.</p>
+<span class=o>}</span>
+</code></pre></div><p>As there is only a single thread handling all accepted sockets, each request must be fully handled, before accepting the next. In a real application it could be normal for the equivalent handleRequest method to take on the order of 100 milliseconds to return. If this was the case, the server would be limited to handling only 10 requests per second, one after the other.</p>
 <h2 id=multi-threaded>Multi-threaded</h2>
 <p>Even though handleRequest may be blocked on IO, the CPU is free to handle more requests. With a single threaded approach this is not possible. Thus this server can be improved to allow concurrent operations, via creating multiple threads:</p>
 <div class=highlight><pre class=chroma><code class=language-java data-lang=java><span class=kd>public</span> <span class=kd>static</span> <span class=kd>class</span> <span class=nc>HandleRequestRunnable</span> <span class=kd>implements</span> <span class=n>Runnable</span> <span class=o>{</span>
@@ -168,8 +169,8 @@ Whether you know it or not, your Java web application is most likely using a thr
 	<span class=o>}</span>
 <span class=o>}</span> <span class=k>finally</span> <span class=o>{</span>
 	<span class=n>listener</span><span class=o>.</span><span class=na>close</span><span class=o>();</span>
-<span class=o>}</span></code></pre></div>
-<p>Here, accept() is still called in a tight loop within a single thread, but once a TCP connection is accepted, and a socket available, a new thread is spawned. This spawned thread executes a HandleRequestRunnable, which simply calls the same handleRequest method from above.</p>
+<span class=o>}</span>
+</code></pre></div><p>Here, accept() is still called in a tight loop within a single thread, but once a TCP connection is accepted, and a socket available, a new thread is spawned. This spawned thread executes a HandleRequestRunnable, which simply calls the same handleRequest method from above.</p>
 <p>Creating the new thread, now frees up the original accept() thread to handle more TCP connections, and allows the application to handle requests concurrently. This technique is referred to as a “thread per request”, and is the most popular approach taken. It is worth noting there are other approaches, such as the event driven asynchronous model <a href=https://www.nginx.com/ >NGINX</a> and <a href=https://nodejs.org/ >Node.js</a> deploy, but they don’t use thread pools, and thus are out of scope for this article.</p>
 <p>In the thread per request approach, creating a new thread (and later destroying it) can be expensive, as both the JVM and the OS needs to allocate resources. Additionally in the above implementation, the number of threads being created is unbounded. Being unbounded is very problematic, as it can quickly led to resource exhaustion.</p>
 <h2 id=resource-exhaustion>Resource exhaustion</h2>
@@ -187,8 +188,8 @@ Whether you know it or not, your Java web application is most likely using a thr
 	<span class=o>}</span>
 <span class=o>}</span> <span class=k>finally</span> <span class=o>{</span>
 	<span class=n>listener</span><span class=o>.</span><span class=na>close</span><span class=o>();</span>
-<span class=o>}</span></code></pre></div>
-<p>Now, instead of directly creating threads, this code uses an ExecutorService, which submits work (in the term of Runnables) to be executed across a pool of threads. In this example a fixed thread pool of four threads is used to handle all incoming requests. This bounds the number of “in-flight” requests, and thus places bounds on the resource usage.</p>
+<span class=o>}</span>
+</code></pre></div><p>Now, instead of directly creating threads, this code uses an ExecutorService, which submits work (in the term of Runnables) to be executed across a pool of threads. In this example a fixed thread pool of four threads is used to handle all incoming requests. This bounds the number of “in-flight” requests, and thus places bounds on the resource usage.</p>
 <p>In addition to <a href=https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newFixedThreadPool(int)>newFixedThreadPool</a>, the Executors utility class also provides a <a href=https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html#newCachedThreadPool()>newCachedThreadPool</a> method. This suffers from the earlier unbounded number of threads, but whenever possible makes use of previously created but now idle threads. Typically this type of pool is useful for short-lived requests that do not block on external resources.</p>
 <p><a href=https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.html>ThreadPoolExecutors</a> can be constructed directly, allowing for its behaviour to be customised. For example, the min and max number of threads within the pool can be defined, as well as policies for when threads are created and destroyed. An example of this is shown shortly.</p>
 <h2 id=work-queue>Work queue</h2>
@@ -211,14 +212,14 @@ Whether you know it or not, your Java web application is most likely using a thr
 	<span class=o>}</span> <span class=k>finally</span> <span class=o>{</span>
 		<span class=n>listener</span><span class=o>.</span><span class=na>close</span><span class=o>();</span>
 	<span class=o>}</span>
-<span class=o>}</span></code></pre></div>
-<p>Again, we create a thread pool, but instead of using the Executors.newFixedThreadPool helper method, we create the ThreadPoolExecutor ourselves, passing a bounded <a href=https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/LinkedBlockingQueue.html>LinkedBlockingQueue</a> capped to 16 elements. Alternatively an <a href=https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ArrayBlockingQueue.html>ArrayBlockingQueue</a> could have be used, which is an implementation of a bounded buffer.</p>
+<span class=o>}</span>
+</code></pre></div><p>Again, we create a thread pool, but instead of using the Executors.newFixedThreadPool helper method, we create the ThreadPoolExecutor ourselves, passing a bounded <a href=https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/LinkedBlockingQueue.html>LinkedBlockingQueue</a> capped to 16 elements. Alternatively an <a href=https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ArrayBlockingQueue.html>ArrayBlockingQueue</a> could have be used, which is an implementation of a bounded buffer.</p>
 <p>If all threads are busy, and the queue fills up, what happens next is defined by the last argument to the ThreadPoolExecutor. In this example, a <a href=https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.DiscardPolicy.html>DiscardPolicy</a> is used, which simply discards any work that would overflow the queue. There are other policies, such as the <a href=https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.AbortPolicy.html>AbortPolicy</a> which throws an exception, or the <a href=https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.CallerRunsPolicy.html>CallerRunsPolicy</a> which executes the job on the caller’s thread. This CallerRunsPolicy provides a simple way to self limit the rate jobs can be added, however, it could be harmful, blocking a thread that should stay unblocked.</p>
 <p>A good default policy is to Discard or Abort, which both drop the work. In these cases it would be easy to return a simple error to the client, such as a <a href=http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4>HTTP 503 “Service unavailable”</a>. Some would argue that the queue size could just be increased, and then all work would eventually be run. However, users are unwilling to wait forever, and if fundamentally the rate at which work comes in, exceeds the rate it can be executed, then the queue will grow indefinitely. Instead the queue should only be used to smooth out bursts of requests, or handle short stalls in processing. In normal operation the queue should be empty.</p>
 <h2 id=how-many-threads>How many threads?</h2>
 <p>Now we understand how to create a thread pool, the hard question is how many threads should be available? We have determined that the maximum number should be bounded to not cause resource exhaustion. This includes all types of resources, memory (stack and heap), open file handles, open TCP connections, the number of connections a remote database can handle, and any other finite resource. Conversely, if the threads are CPU bound instead of IO bound, then the number of physical cores should be considered finite, and perhaps no more than one thread per core should be created.</p>
 <p>This all depends on the work the application is doing. A user should run load tests using various pool sizes, and a realistic mix of requests. Each time increasing their thread pool size until breaking point. This makes it possible to find the upper bound, for when resources are exhausted. In some cases it may be prudent to increase the number of available resources, for example making more RAM available to the JVM, or tuning the OS to allow for more file handles. However, at some point the theoretical upper bound will be reached, and should be noted, but this is not the end of the story.</p>
-<h2 id=little-s-law>Little’s Law</h2>
+<h2 id=littles-law>Little’s Law</h2>
 <figure>
 <img src=littlelaw.png /><figcaption>
 <h4>Little&#39;s Law equation</h4>
@@ -267,18 +268,19 @@ Whether you know it or not, your Java web application is most likely using a thr
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2015\/12\/17\/the-importance-of-tuning-your-thread-pools\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2015\/12\/17\/the-importance-of-tuning-your-thread-pools\/';
     var disqus_title = 'The importance of tuning your thread pools';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2015\/12\/17\/the-importance-of-tuning-your-thread-pools\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -286,7 +288,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

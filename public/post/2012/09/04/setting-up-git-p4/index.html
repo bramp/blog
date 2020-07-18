@@ -5,7 +5,7 @@
 <meta content="width=device-width,initial-scale=1" name=viewport>
 <link href=https://blog.bramp.net/post/2012/09/04/setting-up-git-p4/ rel=canonical itemprop=url />
 <title>Setting up git-p4</title>
-<meta content="I couldn&#8217;t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I&#8217;d quickly write this up." name=description itemprop=description>
+<meta content="I couldn’t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I’d quickly write this up." name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -45,7 +45,7 @@ window.dataLayer = window.dataLayer || [];
 <meta content=https://blog.bramp.net/post/2012/09/04/setting-up-git-p4/ property=og:url />
 <meta content=bramp.net property=og:site_name />
 <meta content="Setting up git-p4" property=og:title />
-<meta content="I couldn&#8217;t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I&#8217;d quickly write this up." property=og:description />
+<meta content="I couldn’t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I’d quickly write this up." property=og:description />
 <meta content=2012-09-04T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -97,27 +97,27 @@ window.dataLayer = window.dataLayer || [];
 | <a href=https://blog.bramp.net/tags/perforce/ >perforce</a>
 </p>
 <div class=post itemprop=articleBody>
-<p>I couldn&#8217;t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I&#8217;d quickly write this up.</p>
+<p>I couldn’t find a good article on setting up git-p4, and for some reason most of the articles out there point to dead URLs. So I figured I’d quickly write this up.</p>
 <p>Git-p4 is a tool for using git on top of a perforce server. This is great if your team wants to work with a DVCS, but your company requires a centralised VCS.</p>
-<p>There were multiple github projects <a href=https://github.com/baldrick/git-p4/ >1</a>, <a href=https://github.com/gkielSfdc/git-p4>2</a>, <a href=https://github.com/jendave/git-p4>3</a>, that had forks of the git-p4 script, however, I found the latest mixed in with the official git source code. So download it from <a href=https://raw.github.com/git/git/master/git-p4.py>here</a>. Tip: Don&#8217;t forget to &#8220;chmod +x git-p4.py&#8221; once it&#8217;s downloaded.</p>
-<p>Next, I wanted to be able to type &#8220;git p4&#8243;, so I used an <a href=https://git.wiki.kernel.org/index.php/Aliases>alias</a> to do this. Edit/create the file ~/.gitconfig and add:</p>
+<p>There were multiple github projects <a href=https://github.com/baldrick/git-p4/ >1</a>, <a href=https://github.com/gkielSfdc/git-p4>2</a>, <a href=https://github.com/jendave/git-p4>3</a>, that had forks of the git-p4 script, however, I found the latest mixed in with the official git source code. So download it from <a href=https://raw.github.com/git/git/master/git-p4.py>here</a>. Tip: Don’t forget to “chmod +x git-p4.py” once it’s downloaded.</p>
+<p>Next, I wanted to be able to type “git p4″, so I used an <a href=https://git.wiki.kernel.org/index.php/Aliases>alias</a> to do this. Edit/create the file ~/.gitconfig and add:</p>
 <div class=highlight><pre class=chroma><code class=language-ini data-lang=ini><span class=k>[alias]</span>
-<span class=na>p4</span> <span class=o>=</span> <span class=s>!~/bin/git-p4.py</span></code></pre></div>
-<p>Once that&#8217;s done you should be able to:</p>
+<span class=na>p4</span> <span class=o>=</span> <span class=s>!~/bin/git-p4.py</span>
+</code></pre></div><p>Once that’s done you should be able to:</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=c1># Fetch only the head</span>
 git p4 clone //depot/path/to/project/ project
 
 <span class=c1># or Fetch all revisions (takes a little longer)</span>
-git p4 clone //depot/path/to/project/@all project</code></pre></div>
-<p>If that returns an error, such as &#8220;p4 returned an error: Perforce password (P4PASSWD) invalid or unset.&#8221;, then you most likely don&#8217;t have your p4 command line set up. To set mine up, I added the following to my .bashrc</p>
+git p4 clone //depot/path/to/project/@all project
+</code></pre></div><p>If that returns an error, such as “p4 returned an error: Perforce password (P4PASSWD) invalid or unset.”, then you most likely don’t have your p4 command line set up. To set mine up, I added the following to my .bashrc</p>
 <div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=nb>export</span> <span class=nv>P4CLIENT</span><span class=o>=</span>myclient
 <span class=nb>export</span> <span class=nv>P4HOST</span><span class=o>=</span>perforce:1666
 <span class=nb>export</span> <span class=nv>P4USER</span><span class=o>=</span>myuser
-<span class=nb>export</span> <span class=nv>P4EDITOR</span><span class=o>=</span>nano</code></pre></div>
-<p>and then logged in</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>p4 login</code></pre></div>
-<p>More information on that set up can be found in the <a href=http://www.perforce.com/perforce/doc.current/manuals/p4guide/02_config.html>official documentation</a>.</p>
-<p>Once cloned, you can change to the project directory and use many of the normal git commands, such as &#8220;git log&#8221;. You may notice that your newly checked out git repo only has one commit. If you want to see a full history use @all on the end of your depot path.</p>
+<span class=nb>export</span> <span class=nv>P4EDITOR</span><span class=o>=</span>nano
+</code></pre></div><p>and then logged in</p>
+<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>p4 login
+</code></pre></div><p>More information on that set up can be found in the <a href=http://www.perforce.com/perforce/doc.current/manuals/p4guide/02_config.html>official documentation</a>.</p>
+<p>Once cloned, you can change to the project directory and use many of the normal git commands, such as “git log”. You may notice that your newly checked out git repo only has one commit. If you want to see a full history use @all on the end of your depot path.</p>
 </div>
 </article>
 <div class=row>
@@ -141,18 +141,19 @@ git p4 clone //depot/path/to/project/@all project</code></pre></div>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2012\/09\/04\/setting-up-git-p4\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2012\/09\/04\/setting-up-git-p4\/';
     var disqus_title = 'Setting up git-p4';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2012\/09\/04\/setting-up-git-p4\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -160,7 +161,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>

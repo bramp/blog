@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Openssl on bramp.net</title>
+    <title>openssl on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Openssl on bramp.net</description>
+    <description>Recent content in openssl on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Sat, 16 Aug 2014 00:00:00 +0000</lastBuildDate>
@@ -25,7 +24,8 @@ openssl x509 -in www.google.com.pem -inform PEM -out www.google.com.der -outform
 &lt;span class=&#34;c1&#34;&gt;# Import it into your keystore&lt;/span&gt;
 sudo /usr/java6/bin/keytool -import -alias www.google.com -file www.google.com.der -keystore /usr/java6/jre/lib/security/cacerts
 
-&lt;span class=&#34;c1&#34;&gt;# The keystore password is by default &amp;#34;changeit&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;span class=&#34;c1&#34;&gt;# The keystore password is by default &amp;#34;changeit&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
   </channel>

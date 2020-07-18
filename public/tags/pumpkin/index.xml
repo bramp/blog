@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Pumpkin on bramp.net</title>
+    <title>pumpkin on bramp.net</title>
     <link>https://blog.bramp.net</link>
-    <description>Recent content in Pumpkin on bramp.net</description>
+    <description>Recent content in pumpkin on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
     <lastBuildDate>Mon, 27 Oct 2008 00:00:00 +0000</lastBuildDate>
@@ -16,7 +15,6 @@
       
       <guid>https://blog.bramp.net/post/2008/10/27/bat-pumpkin/</guid>
       <description>&lt;p&gt;Today I carved my first pumpkins in the shape of the new Batman Logo. Here are a few photos:&lt;/p&gt;
-
 &lt;p&gt;&lt;a href=&#34;DSC_1206.JPG&#34;&gt;&lt;figure&gt;
     &lt;img src=&#34;DSC_1206_thumb.JPG&#34;/&gt; 
 &lt;/figure&gt;
@@ -29,7 +27,6 @@
     &lt;img src=&#34;DSC_1210_thumb.JPG&#34;/&gt; 
 &lt;/figure&gt;
 &lt;/a&gt;&lt;/p&gt;
-
 &lt;p&gt;Tomorrow I might try others logos, any suggestions?&lt;/p&gt;
 </description>
     </item>

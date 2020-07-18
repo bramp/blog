@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.ad4b5f8bc8524c949dac48b8aeba9bf4.min.css rel=stylesheet>
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
 <script>
@@ -99,7 +99,7 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p>I was thinking about publishing but wanted to know the time frame for different conferences. So I spent a hour and compiled a list at Google Calendars. All the big names are on there, such as Infocom, Sigcomm, ACM Multimedia, CoNext, etc</p>
 <p>Or the full page <a href="http://www.google.com/calendar/embed?src=9op851c1neqk0qf90pq40s6sss%40group.calendar.google.com">HTML link</a>, <a href=http://www.google.com/calendar/ical/9op851c1neqk0qf90pq40s6sss%40group.calendar.google.com/public/basic.ics>iCal link</a>, and <a href=http://www.google.com/calendar/feeds/9op851c1neqk0qf90pq40s6sss%40group.calendar.google.com/public/basic>XML link</a>.</p>
-<p>I&#8217;m hoping that this will be of use to others, and that I will receive feedback on conference that I&#8217;ve missed.</p>
+<p>I’m hoping that this will be of use to others, and that I will receive feedback on conference that I’ve missed.</p>
 </div>
 </article>
 <div class=row>
@@ -123,18 +123,19 @@ window.dataLayer = window.dataLayer || [];
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>
-var disqus_shortname = 'bramp';
-    var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2008\/04\/07\/networking-conference-calendar\/';
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2008\/04\/07\/networking-conference-calendar\/';
     var disqus_title = 'Networking Conference Calendar';
     var disqus_url = 'https:\/\/blog.bramp.net\/post\/2008\/04\/07\/networking-conference-calendar\/';
     (function() {
 	    
 	    
-	    if (window.location.host.lastIndexOf(":1313") >= 0)
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
 	        return;
+        }
 
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
@@ -142,7 +143,7 @@ var disqus_shortname = 'bramp';
 <a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2019. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
 </footer>
 </div>
 </div>
