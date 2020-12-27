@@ -99,33 +99,33 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p>PHP’s lack of a finally keyword is apalling, and even though there seems to be some hacks around it, I have come up with own today. I’m following the C++ concept of allocating objects on the stack, and letting them cleanup any resources when the stack is rolled back.</p>
 <p>Take an example. I am creating some files that I want to always be deleted after the script has finished. In any sane language (that has Exceptions) I would write:</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php>try {
-  // Create files
-  // Do something with the files
-} finally {
-  // Delete files - This code will run no matter what exceptions or errors occur while creating the files.
-}
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=k>try</span> <span class=p>{</span>
+  <span class=c1>// Create files
+</span><span class=c1></span>  <span class=c1>// Do something with the files
+</span><span class=c1></span><span class=p>}</span> <span class=k>finally</span> <span class=p>{</span>
+  <span class=c1>// Delete files - This code will run no matter what exceptions or errors occur while creating the files.
+</span><span class=c1></span><span class=p>}</span>
 </code></pre></div><p>However, this is the hack I’ve managed with PHP:</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php>class UnlinkMe {
-	var $filename;
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=k>class</span> <span class=nc>UnlinkMe</span> <span class=p>{</span>
+	<span class=k>var</span> <span class=nv>$filename</span><span class=p>;</span>
 
-	function __construct($filename) {
-		$this-<span class=ni>&amp;gt;</span>filename = $filename;
-	}
+	<span class=k>function</span> <span class=fm>__construct</span><span class=p>(</span><span class=nv>$filename</span><span class=p>)</span> <span class=p>{</span>
+		<span class=nv>$this</span><span class=o>-&amp;</span><span class=nx>gt</span><span class=p>;</span><span class=nx>filename</span> <span class=o>=</span> <span class=nv>$filename</span><span class=p>;</span>
+	<span class=p>}</span>
 
-	function __destruct() {
-		unlink($this-<span class=ni>&amp;gt;</span>filename);
-	}
-}
+	<span class=k>function</span> <span class=fm>__destruct</span><span class=p>()</span> <span class=p>{</span>
+		<span class=nx>unlink</span><span class=p>(</span><span class=nv>$this</span><span class=o>-&amp;</span><span class=nx>gt</span><span class=p>;</span><span class=nx>filename</span><span class=p>);</span>
+	<span class=p>}</span>
+<span class=p>}</span>
 
-// To use:
-function doSomething() {
-  $unlinkme = new UnlinkMe(&#39;/tmp/filename&#39;):
+<span class=c1>// To use:
+</span><span class=c1></span><span class=k>function</span> <span class=nf>doSomething</span><span class=p>()</span> <span class=p>{</span>
+  <span class=nv>$unlinkme</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>UnlinkMe</span><span class=p>(</span><span class=s1>&#39;/tmp/filename&#39;</span><span class=p>)</span><span class=o>:</span>
 
-  // Do some work with the files
-
-  return;
-}
+  <span class=c1>// Do some work with the files
+</span><span class=c1></span>
+  <span class=k>return</span><span class=p>;</span>
+<span class=p>}</span>
 </code></pre></div><p>Here we are creating a UnlinkMe object, that has a destructor set up to delete a file. This UnlinkMe object is only used in the doSomething() function. Once that function returns, there are no longer any references to the object. When PHP decides to garbage collect (to free up some memory), it will destroy the UnlinkMe object, and thus call the __destruct method. Voila, we now call unlink and have cleaned up the file, even after the script has finished running.</p>
 <p>There is lots of room for improvement, and this technique has lots of gotchas. For example, PHP has some bizzare rules for when __destruct method will not be called. So please don’t rely on this technique, but it might be useful, and keep your code cleaner and more organised.</p>
 </div>

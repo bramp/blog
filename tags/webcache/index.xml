@@ -68,7 +68,7 @@ iptables -t nat -A HTTPFORCE --dst 10.0.0.0/8 -j RETURN
 &lt;span class=&#34;c1&#34;&gt;#iptables -t nat -A HTTPFORCE -p tcp --dport 80 -j DNAT --to $WEBCACHE&lt;/span&gt;
 
 &lt;span class=&#34;c1&#34;&gt;# 2) Redirect packets on port 80 to localhost port 1234&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;#    On port 1234 you need to run a local web proxy, which forwards&lt;/span&gt; 
+&lt;span class=&#34;c1&#34;&gt;#    On port 1234 you need to run a local web proxy, which forwards &lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;#    requests to the real webcache&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;#iptables -t nat -A HTTPFORCE -p tcp --dport 80 -j REDIRECT --to-port 1234&lt;/span&gt;
 

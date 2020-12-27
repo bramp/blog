@@ -167,7 +167,7 @@ Overview Apache Beam (batch and stream) is a powerful tool for handling embarras
 <p>Since the PTransform outputs a single line for each input element, a simpler form of the function can be specified. One where the output element is just returned from the function. The <code>emit func(...)</code> is useful when the number of output elements differ to the number of input elements. If its a 1:1 mapping a return makes the function easier to read. As above this is all inferred at runtime with reflection when the pipeline is being constructed..</p>
 <p>Multiple return arguments can also be used. For example, if the output was expected to be <code>PCollection&lt;KV&lt;float64, bool&gt;&gt;</code>, the return type could be <code>func(...) (float64, bool)</code>.</p>
 <div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=nx>textio</span><span class=p>.</span><span class=nf>Write</span><span class=p>(</span><span class=nx>s</span><span class=p>,</span> <span class=s>&#34;wordcounts.txt&#34;</span><span class=p>,</span> <span class=nx>formatted</span><span class=p>)</span>
-</code></pre></div><p>Finally <a href=https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/io/textio#Write><code>textio.Write</code></a> takes the formatted <code>PCollection&lt;string&gt;</code> and writes it to a file named “wordcounts.txt&rdquo; with one line per element.</p>
+</code></pre></div><p>Finally <a href=https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/io/textio#Write><code>textio.Write</code></a> takes the formatted <code>PCollection&lt;string&gt;</code> and writes it to a file named “wordcounts.txt&quot; with one line per element.</p>
 <h2 id=running-the-pipeline>Running the pipeline</h2>
 <p>To test the pipeline it can easily be run locally like so:</p>
 <div class=highlight><pre class=chroma><code class=language-shell data-lang=shell>go get github.com/apache/beam/sdks/go/examples/wordcount
@@ -472,6 +472,7 @@ Job succeeded!
 </div>
 <ul class=pager>
 &nbsp;<li class=previous><a href=/post/2018/05/26/certbot-unexpected-error/ >&larr; Certbot: Unexpected Error</a></li>
+&nbsp;<li class=next><a href=/post/2020/12/27/local-https-server-for-development/ >Local HTTPS Server for development &rarr;</a></li>
 </ul>
 <div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
 <script type=text/javascript>

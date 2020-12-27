@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang=en>
+<head itemscope itemtype=http://schema.org/WebSite>
+<meta charset=utf-8>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<link href=https://blog.bramp.net/post/2020/12/27/local-https-server-for-development/ rel=canonical itemprop=url />
+<title>Local HTTPS Server for development</title>
+<meta content="I regularly do web development with the host localhost. Running a simple HTTP server to service my site. Recently I came across a problem where some of the newer web APIs (such as DeviceMotionEvent) …" name=description itemprop=description>
+<meta content="Andrew Brampton" name=author itemprop=creator>
+<meta content="" name=generator />
+<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
+<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
+<meta content=#4582EC name=theme-color>
+<link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
+<link href=/images/favicon.png rel=apple-touch-icon />
+<link href=/images/favicon-57x57.png rel=apple-touch-icon sizes=57x57 />
+<link href=/images/favicon-72x72.png rel=apple-touch-icon sizes=72x72 />
+<link href=/images/favicon-76x76.png rel=apple-touch-icon sizes=76x76 />
+<link href=/images/favicon-114x114.png rel=apple-touch-icon sizes=114x114 />
+<link href=/images/favicon-120x120.png rel=apple-touch-icon sizes=120x120 />
+<link href=/images/favicon-144x144.png rel=apple-touch-icon sizes=144x144 />
+<link href=/images/favicon-152x152.png rel=apple-touch-icon sizes=152x152 />
+<link href=/images/favicon-180x180.png rel=apple-touch-icon sizes=180x180 />
+<meta content=#4582EC name=msapplication-TileColor>
+<meta content=/images/favicon-144x144.png name=msapplication-TileImage>
+<link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
+<link href=/css/all.554836f8e47467127af4349dc0592099.min.css rel=stylesheet>
+<link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
+<script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-136478-5');
+</script>
+<meta content=summary name=twitter:card />
+<meta content=@TheBramp name=twitter:site />
+<meta content=@TheBramp name=twitter:creator />
+<meta content=article property=og:type />
+<meta content=https://www.facebook.com/bramp property=article:author />
+<meta content=2020-12-27T09:14:22&#43;07:00 property=article:published_time />
+<meta content=certbot property=article:tag />
+<meta content=ssl property=article:tag />
+<meta content=https property=article:tag />
+<meta content=letsencrypt property=article:tag />
+<meta content=https://blog.bramp.net/post/2020/12/27/local-https-server-for-development/ property=og:url />
+<meta content=bramp.net property=og:site_name />
+<meta content="Local HTTPS Server for development" property=og:title />
+<meta content="I regularly do web development with the host localhost. Running a simple HTTP server to service my site. Recently I came across a problem where some of the newer web APIs (such as DeviceMotionEvent) …" property=og:description />
+<meta content=2020-12-27T09:14:22-08:00 property=og:updated_time />
+<meta content=en_GB property=og:locale />
+<meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
+</head>
+<body itemscope itemtype=Blog>
+<div id=wrapper>
+<div class="navbar navbar-default">
+<div class=container>
+<div class=navbar-header>
+<button class=navbar-toggle data-target=.navbar-collapse data-toggle=collapse type=button>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<div class=navbar-brand aria-label="About Andrew Brampton">
+<a href=/ >
+<img height=64 src=/images/favicon-64x64.png width=64 alt=Home class=profile-image>
+</a>
+<div itemprop=author itemscope itemtype=https://schema.org/Person>
+<a href=/about-me/ itemprop=name>Andrew Brampton</a>
+<div id=social-wrapper>
+<a href=https://twitter.com/TheBramp aria-label=Twitter><svg class="icon icon-twitter-square"><use xlink:href=/images/icons.svg#icon-twitter-square></use></svg></a>
+<a href=https://www.linkedin.com/in/bramp aria-label=LinkedIn><svg class="icon icon-linkedin-square"><use xlink:href=/images/icons.svg#icon-linkedin-square></use></svg></a>
+<a href=https://www.facebook.com/bramp aria-label=Facebook><svg class="icon icon-facebook-square"><use xlink:href=/images/icons.svg#icon-facebook-square></use></svg></a>
+<a href=https://github.com/bramp aria-label=GitHub><svg class="icon icon-github-square"><use xlink:href=/images/icons.svg#icon-github-square></use></svg></a>
+<a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed"><svg class="icon icon-github-square"><use xlink:href=/images/icons.svg#icon-rss-square></use></svg></a>
+</div>
+</div>
+</div>
+</div>
+<div class="collapse navbar-collapse">
+<ul class="nav navbar-nav" role=navigation>
+<li><a href=/ >Articles</a></li>
+<li><a href=/about-me/ >About Me</a></li>
+<li><a href=/android-app/ >Android Apps</a></li>
+<li><a href=/opensource/ >Open Source</a></li>
+<li><a href=/publication/ >Publications</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="container main">
+<article id=article itemProp=blogPost itemscope itemtype=http://schema.org/BlogPosting>
+<h1 itemprop=headline>Local HTTPS Server for development</h1>
+<p class=meta>
+<svg class="icon icon-calendar"><use xlink:href=/images/icons.svg#icon-calendar></use></svg> <time itemprop=datePublished>2020-12-27</time>
+| <a href=https://blog.bramp.net/tags/certbot/ >certbot</a>
+| <a href=https://blog.bramp.net/tags/ssl/ >ssl</a>
+| <a href=https://blog.bramp.net/tags/https/ >https</a>
+| <a href=https://blog.bramp.net/tags/letsencrypt/ >letsencrypt</a>
+</p>
+<div class=post itemprop=articleBody>
+<p>I regularly do web development with the host localhost. Running a simple HTTP server to service my site. Recently I came across a problem where some of the newer web APIs (such as DeviceMotionEvent) do not work unless the site is served via SSL. So I went about setting up a local SSL server, and certificate.</p>
+<p>Many of the <a href=https://matthewhoelter.com/2019/10/21/how-to-setup-https-on-your-local-development-environment-localhost-in-minutes.html>instructions out there</a> create a self-signed certificate, that you install to be trusted locally. I wanted my development server to be accessible from other devices on my network, and I didn&rsquo;t want the hassle of installing this self-signed cert. Instead I wanted a SSL certificate that uses a real/trusted CA.</p>
+<p>Enter <a href=https://letsencrypt.org/ >Let&rsquo;s Encrypt</a>, a free service to provide SSL certificates, providing you can prove you own the domain. To go about this, I did the following on my macbook:</p>
+<h1 id=install-certbot-to-generate-the-cert>Install Certbot (to generate the cert)</h1>
+<div class=highlight><pre class=chroma><code class=language-shell data-lang=shell>brew install certbot
+</code></pre></div><p>There are a few ways to prove you own a domain, the HTTP based ones require a public web server. Since my development server is only on my local network, I&rsquo;m going to use a DNS based proof. Since I use Cloudflare for my DNS, I&rsquo;ll be using their plugin.</p>
+<div class=highlight><pre class=chroma><code class=language-shell data-lang=shell>pip3 install certbot-dns-cloudflare
+</code></pre></div><h1 id=setup-the-domain-localbrampnet>Setup the domain (local.bramp.net)</h1>
+<p>I use cloudflare to host the DNS for my domain, so I setup a new domain, local.bramp.net, that points to an internal IP address (192.168.0.123). This domain won&rsquo;t actually be used via the Internet, but will happily work for any devices on my local network.</p>
+<figure>
+<img height=208 src=setup-dns.png width=720 /><figcaption>
+<h4>Setup DNS record for local.bramp.net</h4>
+</figcaption>
+</figure>
+<p>You&rsquo;ll also need a <a href=https://support.cloudflare.com/hc/en-us/articles/200167836-Where-do-I-find-my-Cloudflare-API-key->API key from Cloudflare</a>. They allow you to scope the key to only access this test domain. For example:</p>
+<figure>
+<img height=304 src=create-token.png width=720 /><figcaption>
+<h4>Create a API token</h4>
+</figcaption>
+</figure>
+<p>That will give you a token, that is a long string of letters and numbers.</p>
+<h1 id=configure-certbot>Configure Certbot</h1>
+<div class=highlight><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># Create a place to store your secrets, that only you can access</span>
+
+mkdir ~/.secrets
+cat <span class=s>&lt;&lt;EOF &gt; ~/.secrets/cloudflare.ini
+</span><span class=s>dns_cloudflare_api_token = **your_key**
+</span><span class=s>EOF</span>
+
+chmod <span class=m>0700</span> ~/.secrets/
+chmod <span class=m>0400</span> ~/.secrets/cloudflare.ini
+</code></pre></div><h1 id=generate-the-certificate>Generate the Certificate</h1>
+<div class=highlight><pre class=chroma><code class=language-shell data-lang=shell>certbot certonly <span class=se>\
+</span><span class=se></span>  --config-dir ~/.secrets/ <span class=se>\
+</span><span class=se></span>  --work-dir ~/.secrets/ <span class=se>\
+</span><span class=se></span>  --logs-dir ~/.secrets/ <span class=se>\
+</span><span class=se></span>  --dns-cloudflare <span class=se>\
+</span><span class=se></span>  --dns-cloudflare-credentials ~/.secrets/cloudflare.ini <span class=se>\
+</span><span class=se></span>  -d local.bramp.net
+</code></pre></div><p>and voila:</p>
+<pre><code> - Congratulations! Your certificate and chain have been saved at:
+   /Users/bramp/.secrets/live/local.bramp.net/fullchain.pem
+   Your key file has been saved at:
+   /Users/bramp/.secrets/live/local.bramp.net/privkey.pem
+</code></pre><p>The <code>privkey.pem</code> is important to keep secret. Normally certbot runs as root, but here we run it as your user for convenience.</p>
+<p>If you want this to automatically renew, just run to add a renewal that occurs twice daily at a random minute after 12pm and 12am.</p>
+<div class=highlight><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># List your current crontab, and append certbot renewal</span>
+
+<span class=o>(</span>crontab -l <span class=p>;</span> <span class=nb>echo</span> <span class=s2>&#34;</span><span class=k>$((</span> RANDOM <span class=o>%</span> <span class=m>60</span> <span class=k>))</span><span class=s2> 0,12 * * * </span><span class=k>$(</span>which certbot<span class=k>)</span><span class=s2> renew -q --config-dir ~/.secrets/ --work-dir ~/.secrets/ --logs-dir ~/.secrets/&#34;</span><span class=o>)</span> <span class=p>|</span> crontab -
+</code></pre></div><p>Or you can renew (all certificates) on demand with a simple:</p>
+<pre><code>certbot renew \
+  --config-dir ~/.secrets/ \
+  --work-dir ~/.secrets/ \
+  --logs-dir ~/.secrets/
+</code></pre><h1 id=install-a-simple-https-web-server>Install a simple HTTPS web server</h1>
+<p>I use <a href=https://github.com/http-party/http-server>http-server</a>, &ldquo;a simple, zero-configuration command-line http server.&rdquo;. It supports many useful features, including SSL.</p>
+<div class=highlight><pre class=chroma><code class=language-shell data-lang=shell>brew install http-server
+</code></pre></div><h1 id=running-the-https-web-server>Running the HTTPS web server</h1>
+<div class=highlight><pre class=chroma><code class=language-shell data-lang=shell>http-server -S <span class=se>\
+</span><span class=se></span>  -C ~/.secrets/live/local.bramp.net/fullchain.pem <span class=se>\
+</span><span class=se></span>  -K ~/.secrets/live/local.bramp.net/privkey.pem
+</code></pre></div><p>You may wish to alias this to something shorter, for example:</p>
+<div class=highlight><pre class=chroma><code class=language-shell data-lang=shell><span class=nb>alias</span> <span class=nv>https</span><span class=o>=</span><span class=s2>&#34;http-server -S \
+</span><span class=s2>  -C ~/.secrets/live/local.bramp.net/fullchain.pem \
+</span><span class=s2>  -K ~/.secrets/live/local.bramp.net/privkey.pem&#34;</span>
+</code></pre></div><p>Now you can run <code>https</code> from any directory and it&rsquo;ll be served over SSL.</p>
+<h1 id=additional-reading>Additional Reading</h1>
+<ul>
+<li><a href=https://support.cloudflare.com/hc/en-us/articles/200167836-Where-do-I-find-my-Cloudflare-API-key->Cloudflare - Managing API Tokens and Keys</a></li>
+<li><a href=https://certbot.eff.org/lets-encrypt/osx-other>certbot instructions</a></li>
+<li><a href=https://mangolassi.it/topic/18355/setup-letsencrypt-certbot-with-cloudflare-dns-authentication-ubuntu/2>Setup LetsEncrypt Certbot with CLoudFlare DNS authentication (Ubuntu)</a></li>
+<li><a href=https://matthewhoelter.com/2019/10/21/how-to-setup-https-on-your-local-development-environment-localhost-in-minutes.html>How to setup HTTPS (SSL) on your local development environment (localhost) in minutes</a></li>
+<li><a href=https://certbot-dns-cloudflare.readthedocs.io/en/stable/ >certbot-dns-cloudflare’s documentation!</a></li>
+</ul>
+</div>
+</article>
+<div class=row>
+<div class=col-sm-6>
+<div class=addthis_sharing_toolbox></div>
+</div>
+<div class=col-sm-6>
+<div class=btn-toolbar>
+<div class=btn-group>
+<a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed" class="btn btn-sm btn-soundcloud"><svg class="icon icon-rss"><use xlink:href=/images/icons.svg#icon-rss></use></svg> Subscribe via RSS</a>
+</div>
+<div class=btn-group>
+<a href=https://twitter.com/TheBramp class="btn btn-sm btn-twitter"><svg class="icon icon-twitter"><use xlink:href=/images/icons.svg#icon-twitter></use></svg> Follow @TheBramp</a>
+</div>
+</div>
+</div>
+</div>
+<ul class=pager>
+&nbsp;<li class=previous><a href=/post/2019/01/05/apache-beam-and-google-dataflow-in-go/ >&larr; Apache Beam and Google Dataflow in Go</a></li>
+</ul>
+<div id=disqus_thread itemprop=comment itemscope itemtype=Comment></div>
+<script type=text/javascript>
+var disqus_identifier = 'https:\/\/blog.bramp.net\/post\/2020\/12\/27\/local-https-server-for-development\/';
+    var disqus_title = 'Local HTTPS Server for development';
+    var disqus_url = 'https:\/\/blog.bramp.net\/post\/2020\/12\/27\/local-https-server-for-development\/';
+    (function() {
+	    
+	    
+	    if (window.location.host.lastIndexOf(":1313") >= 0 || ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+	        return;
+        }
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'https://' + "bramp" + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+<br/>
+<footer>
+<p class="credit text-muted">&copy; 2020. All rights reserved.</p>
+</footer>
+</div>
+</div>
+<script src=/js/all.421bdc0798a792d922b399e8180168e3.min.js></script>
+<script src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-559846a374d7ecaa" async type=text/javascript></script>
+</body>
+</html>

@@ -103,19 +103,19 @@ window.dataLayer = window.dataLayer || [];
 <ol>
 <li>
 <p>if you have pecl_http &gt;= 0.1.0, then</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php>http_date($timestamp)
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=nx>http_date</span><span class=p>(</span><span class=nv>$timestamp</span><span class=p>)</span>
 </code></pre></div></li>
 <li>
 <p>or if you don’t want to use pecl</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php>gmdate(&#39;D, d M Y H:i:s&#39;, $timestamp).&#39; GMT&#39;
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=nx>gmdate</span><span class=p>(</span><span class=s1>&#39;D, d M Y H:i:s&#39;</span><span class=p>,</span> <span class=nv>$timestamp</span><span class=p>)</span><span class=o>.</span><span class=s1>&#39; GMT&#39;</span>
 </code></pre></div></li>
 <li>
 <p>or if you have PHP &gt;5.2 you can use the DateTime constant</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php>gmdate(DATE_RFC2822, $timestamp)
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=nx>gmdate</span><span class=p>(</span><span class=nx>DATE_RFC2822</span><span class=p>,</span> <span class=nv>$timestamp</span><span class=p>)</span>
 </code></pre></div></li>
 </ol>
 <p>an example of it’s use:</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php>header(&#39;Last-Modified: &#39; . gmdate(&#39;D, d M Y H:i:s&#39;, $lastModified).&#39; GMT&#39;);
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=nx>header</span><span class=p>(</span><span class=s1>&#39;Last-Modified: &#39;</span> <span class=o>.</span> <span class=nx>gmdate</span><span class=p>(</span><span class=s1>&#39;D, d M Y H:i:s&#39;</span><span class=p>,</span> <span class=nv>$lastModified</span><span class=p>)</span><span class=o>.</span><span class=s1>&#39; GMT&#39;</span><span class=p>);</span>
 </code></pre></div>
 </div>
 </article>
