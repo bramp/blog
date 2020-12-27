@@ -44,13 +44,13 @@ certbot-apache &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;0.23.0&lt;span class=
       <guid>https://blog.bramp.net/post/2012/09/30/pt-kill-centos-init.d-script/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://www.percona.com/doc/percona-toolkit/2.1/pt-kill.html&#34;&gt;pt-kill&lt;/a&gt; is a neat little application that can stop long running MySQL queries. It was formally know as &lt;a href=&#34;http://www.maatkit.org/doc/mk-kill.html&#34;&gt;mk-kill&lt;/a&gt; before &lt;a href=&#34;http://www.Percona.com&#34;&gt;Percona&lt;/a&gt; took over the project. Here is the init.d script I use (as one doesn’t seem provided by the project):&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/sh
-&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;#
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;# pt-kill	This shell script takes care of starting and stopping&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;#               the pt-kill services.&lt;/span&gt;
-#
+&lt;span class=&#34;c1&#34;&gt;#&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;# chkconfig: - 60 20&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;# description: pt-kill stops long running MySQL queries&lt;/span&gt;
-#
+&lt;span class=&#34;c1&#34;&gt;#&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;# probe: true&lt;/span&gt;
 
 &lt;span class=&#34;c1&#34;&gt;# Source function library.&lt;/span&gt;
@@ -448,7 +448,7 @@ iptables -t nat -A HTTPFORCE --dst 10.0.0.0/8 -j RETURN
 &lt;span class=&#34;c1&#34;&gt;#iptables -t nat -A HTTPFORCE -p tcp --dport 80 -j DNAT --to $WEBCACHE&lt;/span&gt;
 
 &lt;span class=&#34;c1&#34;&gt;# 2) Redirect packets on port 80 to localhost port 1234&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;#    On port 1234 you need to run a local web proxy, which forwards&lt;/span&gt; 
+&lt;span class=&#34;c1&#34;&gt;#    On port 1234 you need to run a local web proxy, which forwards &lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;#    requests to the real webcache&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;#iptables -t nat -A HTTPFORCE -p tcp --dport 80 -j REDIRECT --to-port 1234&lt;/span&gt;
 

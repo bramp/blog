@@ -102,7 +102,7 @@ window.dataLayer = window.dataLayer || [];
 </p>
 <div class=post itemprop=articleBody>
 <p>Today I needed to work out the MD5 Digest hash for SIP authorisation. A quick search on Google revealed <a href=http://alexkr.com/memos/66/digest-authorization-in-sip-with-md5/ >instructions</a> on how to generate the hash, and then I made this simple PHP script.</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=cp>&lt;?php</span>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=o>&lt;?</span><span class=nx>php</span>
 <span class=nv>$username</span> <span class=o>=</span> <span class=s1>&#39;1234&#39;</span><span class=p>;</span>
 <span class=nv>$realm</span>    <span class=o>=</span> <span class=s1>&#39;asterisk&#39;</span><span class=p>;</span>
 <span class=nv>$password</span> <span class=o>=</span> <span class=s1>&#39;PASSWORD&#39;</span><span class=p>;</span>
@@ -113,8 +113,8 @@ window.dataLayer = window.dataLayer || [];
 <span class=nv>$str2</span> <span class=o>=</span> <span class=nx>md5</span><span class=p>(</span><span class=s2>&#34;REGISTER:</span><span class=si>$uri</span><span class=s2>&#34;</span><span class=p>);</span>
 
 <span class=k>echo</span> <span class=nx>md5</span><span class=p>(</span><span class=s2>&#34;</span><span class=si>$str1</span><span class=s2>:</span><span class=si>$nonce</span><span class=s2>:</span><span class=si>$str2</span><span class=s2>&#34;</span><span class=p>);</span>
-<span class=cp>?&gt;</span>;
-</code></pre></div><p>All of those variables can be pulled out of a packet capture of a <a href=http://tools.ietf.org/html/rfc3261#section-10.2>SIP REGISTER</a>, and the results can be useful for validating the password a device is sending, is what it is actually sending.</p>
+<span class=cp>?&gt;</span><span class=err>;
+</span></code></pre></div><p>All of those variables can be pulled out of a packet capture of a <a href=http://tools.ietf.org/html/rfc3261#section-10.2>SIP REGISTER</a>, and the results can be useful for validating the password a device is sending, is what it is actually sending.</p>
 </div>
 </article>
 <div class=row>

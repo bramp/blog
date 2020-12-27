@@ -102,7 +102,7 @@ new lines, and grep assumed the \r was part of the pattern. Using <a href=http:/
 So I figured to allow it to make a simpler tree I would alter my smallfile to contain “^keyword”, instead of just “keyword”. I could do this because I knew the keyword would always<br>
 be at the beginning of the line. So <strong>awk ‘{print “^”$1} smallfile</strong> allowed me to do that. I tried grep again but it seemed to again be taking a long time.</p>
 <p>While waiting for grep to finish, I started to write a PHP script:</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=cp>&lt;?php</span>
+<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=o>&lt;?</span><span class=nx>php</span>
 <span class=c1>// Prints out each line from a CSV where the first entry is in another list
 </span><span class=c1>// By Andrew Brampton March 2011
 </span><span class=c1>// php inlist.php bigfile smallfile
@@ -130,8 +130,8 @@ be at the beginning of the line. So <strong>awk ‘{print “^”$1} smallfile</
         <span class=p>}</span>
 <span class=p>}</span>
 <span class=nx>fclose</span><span class=p>(</span><span class=nv>$fp</span><span class=p>);</span>
-<span class=cp>?&gt;</span>
-</code></pre></div><p>It took me 10 minutes to write this. I quickly ran it, and it completed within 20seconds. Looks like this is a far more efficient way to do it :)</p>
+<span class=cp>?&gt;</span><span class=err>
+</span></code></pre></div><p>It took me 10 minutes to write this. I quickly ran it, and it completed within 20seconds. Looks like this is a far more efficient way to do it :)</p>
 </div>
 </article>
 <div class=row>

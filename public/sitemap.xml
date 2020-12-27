@@ -8,27 +8,62 @@
   </url>
   
   <url>
+    <loc>https://blog.bramp.net/categories/blog/</loc>
+    <lastmod>2020-12-27T09:14:22-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/</loc>
+    <lastmod>2020-12-27T09:14:22-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/categories/</loc>
+    <lastmod>2020-12-27T09:14:22-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/certbot/</loc>
+    <lastmod>2020-12-27T09:14:22-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/https/</loc>
+    <lastmod>2020-12-27T09:14:22-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/letsencrypt/</loc>
+    <lastmod>2020-12-27T09:14:22-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/post/2020/12/27/local-https-server-for-development/</loc>
+    <lastmod>2020-12-27T09:14:22-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/post/</loc>
+    <lastmod>2020-12-27T09:14:22-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/ssl/</loc>
+    <lastmod>2020-12-27T09:14:22-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.bramp.net/tags/</loc>
+    <lastmod>2020-12-27T09:14:22-08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.bramp.net/tags/apache-beam/</loc>
     <lastmod>2019-01-05T07:59:08-08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.bramp.net/post/2019/01/05/apache-beam-and-google-dataflow-in-go/</loc>
-    <lastmod>2019-01-05T07:59:08-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.bramp.net/categories/blog/</loc>
-    <lastmod>2019-01-05T07:59:08-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.bramp.net/</loc>
-    <lastmod>2019-01-05T07:59:08-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.bramp.net/categories/</loc>
     <lastmod>2019-01-05T07:59:08-08:00</lastmod>
   </url>
   
@@ -43,27 +78,7 @@
   </url>
   
   <url>
-    <loc>https://blog.bramp.net/post/</loc>
-    <lastmod>2019-01-05T07:59:08-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.bramp.net/tags/</loc>
-    <lastmod>2019-01-05T07:59:08-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.bramp.net/tags/certbot/</loc>
-    <lastmod>2018-05-26T11:28:44-07:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.bramp.net/post/2018/05/26/certbot-unexpected-error/</loc>
-    <lastmod>2018-05-26T11:28:44-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.bramp.net/tags/letsencrypt/</loc>
     <lastmod>2018-05-26T11:28:44-07:00</lastmod>
   </url>
   
@@ -265,11 +280,6 @@
   <url>
     <loc>https://blog.bramp.net/tags/random/</loc>
     <lastmod>2016-08-08T21:33:33-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.bramp.net/tags/ssl/</loc>
-    <lastmod>2016-06-08T19:37:47-07:00</lastmod>
   </url>
   
   <url>
