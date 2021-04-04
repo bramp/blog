@@ -130,53 +130,54 @@
 </head>
 <body itemscope itemtype="Blog">
 <div id="wrapper">
-  <div class="navbar navbar-default">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <div class="navbar-brand" aria-label="About Andrew Brampton">
-            <a href="/">
-              <img src="/images/favicon-64x64.png" width=64 height=64 class="profile-image" alt="Home">
-            </a>
-            <div itemprop="author" itemscope itemtype="https://schema.org/Person">
-              <a href="/about-me/" itemprop="name">{{ .Site.Author.name }}</a>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand" aria-label="About Andrew Brampton">
+          <a href="/">
+            <img src="/images/favicon-64x64.png" width=64 height=64 class="profile-image" alt="Home">
+          </a>
+          <div itemprop="author" itemscope itemtype="https://schema.org/Person">
+            <a href="/about-me/" itemprop="name">{{ .Site.Author.name }}</a>
 
-              <div id="social-wrapper">
-              {{ with .Site.Params.twitter }}
-                <a href="https://twitter.com/{{ . }}" aria-label="Twitter"><svg class="icon icon-twitter-square"><use xlink:href="/images/icons.svg#icon-twitter-square"></use></svg></a>
-              {{end}}
-              {{ with .Site.Params.linkedin }}
-                <a href="https://www.linkedin.com/in/{{ . }}" aria-label="LinkedIn"><svg class="icon icon-linkedin-square"><use xlink:href="/images/icons.svg#icon-linkedin-square"></use></svg></a>
-              {{end}}
-              {{ with .Site.Params.facebook }}
-                <a href="https://www.facebook.com/{{ . }}" aria-label="Facebook"><svg class="icon icon-facebook-square"><use xlink:href="/images/icons.svg#icon-facebook-square"></use></svg></a>
-              {{end}}
-              {{ with .Site.Params.github }}
-                <a href="https://github.com/{{ . }}" aria-label="GitHub"><svg class="icon icon-github-square"><use xlink:href="/images/icons.svg#icon-github-square"></use></svg></a>
-              {{end}}
-              {{ with .Site.Params.FeedBurner }}
-                <a href="https://feeds.feedburner.com/{{ . }}" aria-label="RSS feed"><svg class="icon icon-github-square"><use xlink:href="/images/icons.svg#icon-rss-square"></use></svg></a>
-              {{end}}
-             </div>
-            </div>
+            <div id="social-wrapper">
+            {{ with .Site.Params.twitter }}
+              <a href="https://twitter.com/{{ . }}" aria-label="Twitter"><svg class="icon icon-twitter-square"><use xlink:href="/images/icons.svg#icon-twitter-square"></use></svg></a>
+            {{end}}
+            {{ with .Site.Params.linkedin }}
+              <a href="https://www.linkedin.com/in/{{ . }}" aria-label="LinkedIn"><svg class="icon icon-linkedin-square"><use xlink:href="/images/icons.svg#icon-linkedin-square"></use></svg></a>
+            {{end}}
+            {{ with .Site.Params.facebook }}
+              <a href="https://www.facebook.com/{{ . }}" aria-label="Facebook"><svg class="icon icon-facebook-square"><use xlink:href="/images/icons.svg#icon-facebook-square"></use></svg></a>
+            {{end}}
+            {{ with .Site.Params.github }}
+              <a href="https://github.com/{{ . }}" aria-label="GitHub"><svg class="icon icon-github-square"><use xlink:href="/images/icons.svg#icon-github-square"></use></svg></a>
+            {{end}}
+            {{ with .Site.Params.FeedBurner }}
+              <a href="https://feeds.feedburner.com/{{ . }}" aria-label="RSS feed"><svg class="icon icon-github-square"><use xlink:href="/images/icons.svg#icon-rss-square"></use></svg></a>
+            {{end}}
+           </div>
           </div>
         </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav" role="navigation">
-            <li><a href="/">Articles</a></li>
-            <li><a href="/about-me/">About Me</a></li>
-            <li><a href="/android-app/">Android Apps</a></li>
-            <li><a href="/opensource/">Open Source</a></li>
-            <li><a href="/publication/">Publications</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
       </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav" role="navigation">
+          <li><a href="/">Articles</a></li>
+          <li><a href="/about-me/">About Me</a></li>
+          <li><a href="/android-app/">Android Apps</a></li>
+          <li><a href="/opensource/">Open Source</a></li>
+          <li><a href="/publication/">Publications</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
     </div>
+  </nav>
 
-    <div class="container main">
+  <div class="container main">
+  <main>
 
