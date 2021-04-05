@@ -21,6 +21,7 @@ params:
   facebook: "bramp"
   GoogleSiteVerification: "RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ"
   FeedBurner: "brampnet"
+  AddThis: false # Disable the use of the AddThis plugin
 
 permalinks:
   post: /post/:year/:month/:day/:slug/

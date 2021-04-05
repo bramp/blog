@@ -15,8 +15,11 @@
 </article>
 
 <div class="row">
+	<hr />
 	<div class="col-sm-6">
+		{{ if .Site.Params.AddThis }}
 		<div class="addthis_sharing_toolbox"></div>
+		{{ end }}
 	</div>
 	<div class="col-sm-6">
 		<div class="btn-toolbar">
@@ -33,6 +36,7 @@
 		</div>
 	</div>
 </div>
+
 
 <ul class="pager">
      {{with .PrevInSection}} &nbsp;<li class="previous"><a href="{{.RelPermalink}}">&larr; {{.Title}}</a></li>{{end}}
