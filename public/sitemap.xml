@@ -5,14 +5,26 @@
     <loc>https://blog.bramp.net/publication/</loc>
     <lastmod>2013-02-16T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://blog.bramp.net/post/2021/04/03/alternative-milks/</loc>
+    <lastmod>2021-04-03T12:44:51-07:00</lastmod>
+  </url><url>
     <loc>https://blog.bramp.net/categories/blog/</loc>
-    <lastmod>2020-12-27T09:14:22-08:00</lastmod>
+    <lastmod>2021-04-03T12:44:51-07:00</lastmod>
   </url><url>
     <loc>https://blog.bramp.net/</loc>
-    <lastmod>2020-12-27T09:14:22-08:00</lastmod>
+    <lastmod>2021-04-03T12:44:51-07:00</lastmod>
   </url><url>
     <loc>https://blog.bramp.net/categories/</loc>
-    <lastmod>2020-12-27T09:14:22-08:00</lastmod>
+    <lastmod>2021-04-03T12:44:51-07:00</lastmod>
+  </url><url>
+    <loc>https://blog.bramp.net/tags/milk/</loc>
+    <lastmod>2021-04-03T12:44:51-07:00</lastmod>
+  </url><url>
+    <loc>https://blog.bramp.net/post/</loc>
+    <lastmod>2021-04-03T12:44:51-07:00</lastmod>
+  </url><url>
+    <loc>https://blog.bramp.net/tags/</loc>
+    <lastmod>2021-04-03T12:44:51-07:00</lastmod>
   </url><url>
     <loc>https://blog.bramp.net/tags/certbot/</loc>
     <lastmod>2020-12-27T09:14:22-08:00</lastmod>
@@ -26,13 +38,7 @@
     <loc>https://blog.bramp.net/post/2020/12/27/local-https-server-for-development/</loc>
     <lastmod>2020-12-27T09:14:22-08:00</lastmod>
   </url><url>
-    <loc>https://blog.bramp.net/post/</loc>
-    <lastmod>2020-12-27T09:14:22-08:00</lastmod>
-  </url><url>
     <loc>https://blog.bramp.net/tags/ssl/</loc>
-    <lastmod>2020-12-27T09:14:22-08:00</lastmod>
-  </url><url>
-    <loc>https://blog.bramp.net/tags/</loc>
     <lastmod>2020-12-27T09:14:22-08:00</lastmod>
   </url><url>
     <loc>https://blog.bramp.net/tags/apache-beam/</loc>
