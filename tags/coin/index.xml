@@ -17,95 +17,127 @@
       <description>&lt;p&gt;&lt;strong&gt;Update: I found out this coin game is called &lt;a href=&#34;http://en.wikipedia.org/wiki/Penney&#39;s_game&#34;&gt;Penney’s Game&lt;/a&gt; and is played slightly differently to how I thought.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;On TV tonight Derren Brown (poorly) described a game where two players would each pick a sequence of 3 heads or tails and then keep flipping a coin until they obtained their sequence. The winner would be the one that flips their own sequence the most times. Derren suggested that by having a team of supporters they could influence the coin tosses and allow you to win. In the programme the player with the supports won, but how?&lt;/p&gt;
 &lt;p&gt;So to start with the basics there are 8 different sequences to pick:&lt;/p&gt;
-&lt;table&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table class=&#34;table&#34;&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;Combination&lt;/th&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;Probability&lt;/th&gt;
+&lt;th class=&#34;text-center&#34;&gt;Combination&lt;/th&gt;
+&lt;th class=&#34;text-center&#34;&gt;Probability&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;HHH&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;1/8&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;HHH&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;1/8&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;HHT&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;1/8&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;HHT&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;1/8&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;HTH&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;1/8&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;HTH&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;1/8&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;HTT&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;1/8&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;HTT&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;1/8&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;THH&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;1/8&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;THH&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;1/8&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;THT&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;1/8&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;THT&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;1/8&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;TTH&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;1/8&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;TTH&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;1/8&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;TTT&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;1/8&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;TTT&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;1/8&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+
 &lt;p&gt;Each sequence of flips is equally likely, and on face value you would expect a 1 in 8 chance of any of these combinations to occur. Now this is true, however, if you play the game in the same way that Derren Brown does, then a different outcome will happen.&lt;/p&gt;
 &lt;p&gt;The difference in Derren&amp;rsquo;s game is what happens when you fail to flip the correct face. Instead of starting from the beginning you are allowed to carry on. So instead of having to get 3 in a row from scratch, you have to get your sequence from the last 3 attempts. The player would score a point with the combination HTT if they had previous flipped HTHTT.&lt;/p&gt;
 &lt;p&gt;This can be used to your advantage by picking a sequence which starts and ends with different sides. If, for example, your sequence starts with a head and ends in a tail, then if you fail to flip the 3rd coin correctly, then you have already successfully flipped once for the next attempt.&lt;/p&gt;
 &lt;p&gt;The worst combinations to pick are HHH and TTT because you can never capitalise on a previous bad flip. The next worst are HTH or THT, as with these you can capitalise on one previous flip if you fail to flip the 2nd coin. Finally the best combinations are, HHT, HTT, THH, TTH, as here you can always capitalise on a bad flip regardless if it is the second or third flip.&lt;/p&gt;
 &lt;p&gt;Because I&amp;rsquo;m too lazy to work out the exact odds, I used Monte-Carlo simulations to generate this table of results:&lt;/p&gt;
-&lt;table&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table class=&#34;table&#34;&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;Combination&lt;/th&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;Percentage Outcome&lt;/th&gt;
+&lt;th class=&#34;text-center&#34;&gt;Combination&lt;/th&gt;
+&lt;th class=&#34;text-center&#34;&gt;Percentage Outcome&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;HHH&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;8.4697%&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;HHH&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;8.4697%&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;HHT&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;14.8300%&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;HHT&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;14.8300%&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;HTH&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;11.8627%&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;HTH&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;11.8627%&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;HTT&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;14.8335%&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;HTT&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;14.8335%&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;THH&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;14.8326%&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;THH&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;14.8326%&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;THT&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;11.8603%&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;THT&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;11.8603%&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;TTH&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;14.8356%&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;TTH&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;14.8356%&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;TTT&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;8.4756%&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;TTT&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;8.4756%&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+
 &lt;p&gt;Derren suggested that if you ever played this game you should let your opponent chose first, and then you should transpose their sequence by flipping the middle value, placing it on the front, and then dropping the fourth value. So, for example, HHH has its middle value of H, flip this and move it to the front to make THHH, and finally drop the final H, leaving us with THH. If you do this with any combination you always get one of the better combinations. However, Derren incorrectly explained that this combination would always win over your opponent, this is not true if they picked one of the four best combinations. I did notice however, that this is true if you are playing with 4 flip sequences, and I even found a Wolfram &lt;a href=&#34;http://demonstrations.wolfram.com/CoinFlips/&#34;&gt; demonstration &lt;/a&gt; of this.&lt;/p&gt;
 </description>
     </item>

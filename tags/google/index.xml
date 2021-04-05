@@ -277,84 +277,100 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 &lt;p&gt;I &lt;a href=&#34;dns.php&#34;&gt;wrote a script&lt;/a&gt; in PHP 5.3, and ran it from the command line on my Windows Server 2008 machine. The script used PEAR&amp;rsquo;s Net_DNS to craft and send the DNS questions. I was not using my operating system&amp;rsquo;s resolver, and I was not using any form of client side caching. I ran the experiments from my home ADSL connection and as far as I know my ISP was not interfering with my DNS requests in any way. I live in the North West of the UK.&lt;/p&gt;
 &lt;h3 id=&#34;results&#34;&gt;Results&lt;/h3&gt;
 &lt;p&gt;After letting this run for a few hours, and querying roughly the top 10,000 domains, I have some preliminary results.&lt;/p&gt;
-&lt;table&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table class=&#34;table&#34;&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;DNS Server&lt;/th&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;Min (ms)&lt;/th&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;Max (ms)&lt;/th&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;Median&lt;/th&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;Mean (ms)&lt;/th&gt;
-&lt;th style=&#34;text-align:center&#34;&gt;Standard Dev (ms)&lt;/th&gt;
+&lt;th class=&#34;text-center&#34;&gt;Min (ms)&lt;/th&gt;
+&lt;th class=&#34;text-center&#34;&gt;Max (ms)&lt;/th&gt;
+&lt;th class=&#34;text-center&#34;&gt;Median&lt;/th&gt;
+&lt;th class=&#34;text-center&#34;&gt;Mean (ms)&lt;/th&gt;
+&lt;th class=&#34;text-center&#34;&gt;Standard Dev (ms)&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
 &lt;td&gt;Google A (8.8.8.8)&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;38.50&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;4932&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;42.45&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;122.8&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;181.6&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;38.50&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;4932&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;42.45&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;122.8&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;181.6&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;Google B (8.8.4.4)&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;38.65&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;4927&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;41.84&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;94.52&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;154.8&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;38.65&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;4927&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;41.84&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;94.52&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;154.8&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;OpenDNS A (208.67.222.222)&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;29.77&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;4035&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;31.87&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;74.37&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;115.4&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;29.77&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;4035&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;31.87&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;74.37&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;115.4&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;OpenDNS B (208.67.220.220)&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;29.76&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;1171&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;31.82&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;35.28&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;32.4&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;29.76&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;1171&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;31.82&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;35.28&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;32.4&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;Easynet A (90.207.238.97)&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;33.90&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;2578&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;61.29&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;105.2&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;103.7&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;33.90&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;2578&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;61.29&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;105.2&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;103.7&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;Easynet B (90.207.238.99)&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;33.65&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;4253&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;44.96&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;96.11&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;104.8&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;33.65&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;4253&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;44.96&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;96.11&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;104.8&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;Plusnet A (212.159.11.150)&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;43.78&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;4423&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;52.56&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;100.8&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;156.5&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;43.78&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;4423&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;52.56&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;100.8&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;156.5&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;Plusnet B (212.159.13.150)&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;38.87&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;4991&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;42.76&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;90.78&lt;/td&gt;
-&lt;td style=&#34;text-align:center&#34;&gt;169.1&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;38.87&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;4991&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;42.76&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;90.78&lt;/td&gt;
+&lt;td class=&#34;text-center&#34;&gt;169.1&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+
 &lt;p&gt;From this table of results, we can see that Google&amp;rsquo;s median response time is 41-42ms, however, OpenDNS performs much better with a result of ~31ms. Both my current ISP and my old ISP don&amp;rsquo;t perform as well and each achieved a result between 42ms and 61ms. To get a better feel for the data I plotted an empirical CDF of the lookup times for each server.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;ecdf_overview.pdf&#34;&gt;&lt;figure&gt;
     &lt;img src=&#34;ecdf_overview.png&#34; width=&#34;700&#34; height=&#34;700&#34;/&gt; &lt;figcaption&gt;
