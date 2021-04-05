@@ -117,3 +117,9 @@ img.profile-image {
 .btn-group {
 	margin-bottom: 5px;
 }
+
+/* Hack to allow the element to go outside the normal blog boundaries */
+.overflow-center {
+	display: flex;
+	justify-content: center;
+}
