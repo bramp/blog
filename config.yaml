@@ -8,7 +8,9 @@ theme: "bramp"
 author:
   name: "Andrew Brampton"
 
-DisqusShortname: "bramp"
+# Disabled because it didn't provide a lot of value, and was SLOW.
+#DisqusShortname: "bramp"
+
 GoogleAnalytics: "UA-136478-5"
 
 params:
