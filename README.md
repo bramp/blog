@@ -13,14 +13,14 @@ Dependencies
 ------------
 ```bash
 # Install hugo (Mac)
-brew install hugo@v0.74
+brew install hugo@v0.82
 
 # Install hugo (Linux)
 sudo apt-get install hugo
 
 # Install hugo (Other)
 go get github.com/kardianos/govendor
-govendor get github.com/spf13/hugo@v0.74
+govendor get github.com/spf13/hugo@v0.82
 
 # For minifiying/linting
 npm install clean-css-cli@4.1.10 uglify-js@3.2.1 html-minifier@3.5.7 purify-css@1.2.5
@@ -119,3 +119,8 @@ TODO (nice to have)
 - [ ] Hugo v0.58.0 Adds support for image manulation, plus extracting metadata. (e.g {{ ($myimg | fingerprint ).Width }}	or {{ $image.Resize "600x jpg #b31280" }}
 - [ ] Hugo v0.62.1 Demonstrates truly portable Markdown links and images, whether browsed on GitHub or deployed as a Hugo site.
 - [ ] Hugo v0.68.0 Native minifier, perhaps use it?
+- [ ] Use PageSpeed Insights to improve load performance
+- [ ] Disque causes the page to load slowly. Is there a way to improve that?
+- [ ] Set up better caching with CloudFlare. Github pages by default only cache for 10 minutes! https://webmasters.stackexchange.com/questions/30609/leverage-browser-caching-on-github-pages
+- [ ] Replace addthis with sharethis (it seems to have rebranded itself)
+- [ ] Update to the latest disque code: https://bramp.disqus.com/admin/settings/universalcode/ 

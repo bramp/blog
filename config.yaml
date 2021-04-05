@@ -35,5 +35,8 @@ pygmentsStyle: friendly
 
 markup:
   goldmark:
+    parser:
+      attribute:
+        block: true
     renderer:
       unsafe: true # Allow inline HTML in the markdown
