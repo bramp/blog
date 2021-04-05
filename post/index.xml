@@ -5,8 +5,277 @@
     <description>Recent content in Posts on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Sun, 27 Dec 2020 09:14:22 -0800</lastBuildDate>
+    <lastBuildDate>Sat, 03 Apr 2021 12:44:51 -0700</lastBuildDate>
     <atom:link href="https://blog.bramp.net/post/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Alternative Milks</title>
+      <link>https://blog.bramp.net/post/2021/04/03/alternative-milks/</link>
+      <pubDate>Sat, 03 Apr 2021 12:44:51 -0700</pubDate>
+      
+      <guid>https://blog.bramp.net/post/2021/04/03/alternative-milks/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve not been getting out as much during Covid, as such I&amp;rsquo;ve tried to reduce my caloric intake. One way I tried to do this, was to switch the kind of milk I drink. This also had a secondary impact on reducing my environmental impact. However, while researching the various milks, I couldn&amp;rsquo;t find one source that put both nutritional information, and the environmental impact of the various milks in one place. This article does just that.&lt;/p&gt;
+&lt;p&gt;During my research, I found there are minor differences in the US and UK in how they represent this data. For example, a UK serving size is 200ml, whereas in the US it&amp;rsquo;s 1 cup (or ~240ml). I&amp;rsquo;ve normalised all values to the UK serving size.&lt;/p&gt;
+&lt;!-- Generated at https://www.tablesgenerator.com/html_tables# --&gt;
+&lt;style type=&#34;text/css&#34;&gt;
+.tg  {
+	text-align: center;
+}
+.tg .tg-jkyp {
+	white-space:nowrap;
+	text-align:right;
+}
+.tg .tg-pb0m {
+	white-space:nowrap;
+	text-align: center;
+	font-weight: bold;
+}
+
+&lt;/style&gt;
+&lt;div class=&#34;overflow-center&#34;&gt;
+&lt;table class=&#34;tg table table-striped table-hover table-condensed&#34; data-sortable&gt;
+&lt;thead&gt;
+  &lt;tr&gt;
+    &lt;th class=&#34;tg-jkyp&#34;&gt;Type&lt;/th&gt;
+    &lt;th class=&#34;tg-pb0m&#34; data-sorted=&#34;true&#34; data-sorted-direction=&#34;descending&#34;&gt;Emissions&lt;br/&gt;(Kg)&lt;/th&gt;
+    &lt;th class=&#34;tg-pb0m&#34;&gt;Land Usage&lt;br/&gt;(m&lt;sup&gt;2&lt;/sup&gt;)&lt;/th&gt;
+    &lt;th class=&#34;tg-pb0m&#34;&gt;Water Usage&lt;br/&gt;(L)&lt;/th&gt;
+    &lt;th class=&#34;tg-jkyp&#34;&gt;Variant&lt;/th&gt;
+    &lt;th class=&#34;tg-pb0m&#34;&gt;Calories&lt;br/&gt;(kcals)&lt;/th&gt;
+    &lt;th class=&#34;tg-pb0m&#34;&gt;Calcium&lt;br/&gt;(mg)&lt;/th&gt;
+    &lt;th class=&#34;tg-pb0m&#34;&gt;Fat&lt;br/&gt;(g)&lt;/th&gt;
+    &lt;th class=&#34;tg-pb0m&#34;&gt;Sat Fat&lt;br/&gt;(g)&lt;/th&gt;
+    &lt;th class=&#34;tg-pb0m&#34;&gt;Sugar&lt;br/&gt;(g)&lt;/th&gt;
+    &lt;th class=&#34;tg-pb0m&#34;&gt;Protein&lt;br/&gt;(g)&lt;/th&gt;
+    &lt;th&gt;&lt;/th&gt;
+  &lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Dairy (Cow&#39;s) Milk&lt;/td&gt;
+    &lt;td&gt;0.630&lt;/td&gt;
+    &lt;td&gt;1.790&lt;/span&gt;&lt;/td&gt;
+    &lt;td&gt;125.64&lt;/span&gt;&lt;/td&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Whole&lt;/td&gt;
+    &lt;td&gt;120&lt;/td&gt;
+    &lt;td&gt;246&lt;/td&gt;
+    &lt;td&gt;6.40&lt;/td&gt;
+    &lt;td&gt;3.72&lt;/td&gt;
+    &lt;td&gt;9.62&lt;/td&gt;
+    &lt;td&gt;6.56&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097512/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Dairy (Cow&#39;s) Milk&lt;/td&gt;
+    &lt;td&gt;0.630&lt;/span&gt;&lt;/td&gt;
+    &lt;td&gt;1.790&lt;/span&gt;&lt;/td&gt;
+    &lt;td&gt;125.64&lt;/span&gt;&lt;/td&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Whole (Lactose free)&lt;/td&gt;
+    &lt;td&gt;120&lt;/td&gt;
+    &lt;td&gt;246&lt;/td&gt;
+    &lt;td&gt;6.40&lt;/td&gt;
+    &lt;td&gt;3.72&lt;/td&gt;
+    &lt;td&gt;9.62&lt;/td&gt;
+    &lt;td&gt;6.56&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097525/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Dairy (Cow&#39;s) Milk&lt;/td&gt;
+    &lt;td&gt;0.630&lt;/span&gt;&lt;/td&gt;
+    &lt;td&gt;1.790&lt;/span&gt;&lt;/td&gt;
+    &lt;td&gt;125.64&lt;/span&gt;&lt;/td&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Reduced fat (2%)&lt;/td&gt;
+    &lt;td&gt;100&lt;/td&gt;
+    &lt;td&gt;252&lt;/td&gt;
+    &lt;td&gt;3.80&lt;/td&gt;
+    &lt;td&gt;2.22&lt;/td&gt;
+    &lt;td&gt;9.78&lt;/td&gt;
+    &lt;td&gt;6.70&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097517/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Dairy (Cow&#39;s) Milk&lt;/td&gt;
+    &lt;td&gt;0.630&lt;/span&gt;&lt;/td&gt;
+    &lt;td&gt;1.790&lt;/span&gt;&lt;/td&gt;
+    &lt;td&gt;125.64&lt;/span&gt;&lt;/td&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Fat free (skim)&lt;/td&gt;
+    &lt;td&gt;68&lt;/td&gt;
+    &lt;td&gt;264&lt;/td&gt;
+    &lt;td&gt;0.16&lt;/td&gt;
+    &lt;td&gt;0.10&lt;/td&gt;
+    &lt;td&gt;10.10&lt;/td&gt;
+    &lt;td&gt;6.86&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097521/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Rice Milk&lt;/td&gt;
+    &lt;td class=&#34;tg-em69&#34;&gt;0.236&lt;/span&gt;&lt;/td&gt;
+    &lt;td class=&#34;tg-j1aw&#34;&gt;0.067&lt;/span&gt;&lt;/td&gt;
+    &lt;td class=&#34;tg-i9py&#34;&gt;53.96&lt;/span&gt;&lt;/td&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Rice Milk&lt;/td&gt;
+    &lt;td&gt;94&lt;/td&gt;
+    &lt;td&gt;236&lt;/td&gt;
+    &lt;td&gt;1.94&lt;/td&gt;
+    &lt;td&gt;0.00&lt;/td&gt;
+    &lt;td&gt;10.56&lt;/td&gt;
+    &lt;td&gt;0.56&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097552/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Soy Milk&lt;/td&gt;
+    &lt;td class=&#34;tg-wl0g&#34;&gt;0.196&lt;/span&gt;&lt;/td&gt;
+    &lt;td class=&#34;tg-aj4d&#34;&gt;0.132&lt;/span&gt;&lt;/td&gt;
+    &lt;td class=&#34;tg-j1aw&#34;&gt;5.56&lt;/span&gt;&lt;/td&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Soy Milk&lt;/td&gt;
+    &lt;td&gt;86&lt;/td&gt;
+    &lt;td&gt;246&lt;/td&gt;
+    &lt;td&gt;2.94&lt;/td&gt;
+    &lt;td&gt;0.41&lt;/td&gt;
+    &lt;td&gt;7.30&lt;/td&gt;
+    &lt;td&gt;5.20&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097542/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Oat Milk&lt;/td&gt;
+    &lt;td class=&#34;tg-a46i&#34;&gt;0.181&lt;/span&gt;&lt;/td&gt;
+    &lt;td class=&#34;tg-em69&#34;&gt;0.152&lt;/span&gt;&lt;/td&gt;
+    &lt;td class=&#34;tg-vnq0&#34;&gt;9.65&lt;/span&gt;&lt;/td&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;OATLY! (Brand)&lt;/td&gt;
+    &lt;td&gt;100&lt;/td&gt;
+    &lt;td&gt;292&lt;/td&gt;
+    &lt;td&gt;4.16&lt;/td&gt;
+    &lt;td&gt;0.42&lt;/td&gt;
+    &lt;td&gt;5.84&lt;/td&gt;
+    &lt;td&gt;2.50&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/719016/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Almond Milk&lt;/td&gt;
+    &lt;td class=&#34;tg-j1aw&#34;&gt;0.140&lt;/span&gt;&lt;/td&gt;
+    &lt;td class=&#34;tg-zomh&#34;&gt;0.099&lt;/span&gt;&lt;/td&gt;
+    &lt;td class=&#34;tg-em69&#34;&gt;74.29&lt;/span&gt;&lt;/td&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Sweetened&lt;/td&gt;
+    &lt;td&gt;60&lt;/td&gt;
+    &lt;td&gt;354&lt;/td&gt;
+    &lt;td&gt;1.86&lt;/td&gt;
+    &lt;td&gt;0.15&lt;/td&gt;
+    &lt;td&gt;9.54&lt;/td&gt;
+    &lt;td&gt;0.76&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097548/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Almond Milk&lt;/td&gt;
+    &lt;td class=&#34;tg-j1aw&#34;&gt;0.140&lt;/span&gt;&lt;/td&gt;
+    &lt;td class=&#34;tg-zomh&#34;&gt;0.099&lt;/span&gt;&lt;/td&gt;
+    &lt;td class=&#34;tg-em69&#34;&gt;74.29&lt;/span&gt;&lt;/td&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Unsweetened&lt;/td&gt;
+    &lt;td&gt;30&lt;/td&gt;
+    &lt;td&gt;368&lt;/td&gt;
+    &lt;td&gt;1.92&lt;/td&gt;
+    &lt;td&gt;0.16&lt;/td&gt;
+    &lt;td&gt;1.62&lt;/td&gt;
+    &lt;td&gt;0.80&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097550/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Goat’s Milk&lt;/td&gt;
+    &lt;td&gt;?&lt;/td&gt;
+    &lt;td&gt;?&lt;/td&gt;
+    &lt;td&gt;?&lt;/td&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Whole&lt;/td&gt;
+    &lt;td&gt;138&lt;/td&gt;
+    &lt;td&gt;268&lt;/td&gt;
+    &lt;td&gt;8.28&lt;/td&gt;
+    &lt;td&gt;5.33&lt;/td&gt;
+    &lt;td&gt;8.90&lt;/td&gt;
+    &lt;td&gt;7.12&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097531/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Coconut Milk&lt;/td&gt;
+    &lt;td&gt;?&lt;/td&gt;
+    &lt;td&gt;?&lt;/td&gt;
+    &lt;td&gt;?&lt;/td&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Coconut Milk&lt;/td&gt;
+    &lt;td&gt;138&lt;/td&gt;
+    &lt;td&gt;268&lt;/td&gt;
+    &lt;td&gt;8.28&lt;/td&gt;
+    &lt;td&gt;5.33&lt;/td&gt;
+    &lt;td&gt;8.90&lt;/td&gt;
+    &lt;td&gt;7.12&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097553/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Flax Hemp Milk&lt;/td&gt;
+    &lt;td&gt;?&lt;/td&gt;
+    &lt;td&gt;?&lt;/td&gt;
+    &lt;td&gt;?&lt;/td&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Flax Hemp Milk&lt;/td&gt;
+    &lt;td&gt;38&lt;/td&gt;
+    &lt;td&gt;24&lt;/td&gt;
+    &lt;td&gt;2.50&lt;/td&gt;
+    &lt;td&gt;0.00&lt;/td&gt;
+    &lt;td&gt;0.84&lt;/td&gt;
+    &lt;td&gt;1.66&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/468978/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Human Milk&lt;/td&gt;
+    &lt;td&gt;?&lt;/td&gt;
+    &lt;td&gt;?&lt;/td&gt;
+    &lt;td&gt;?&lt;/td&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Human Milk&lt;/td&gt;
+    &lt;td&gt;140&lt;/td&gt;
+    &lt;td&gt;64&lt;/td&gt;
+    &lt;td&gt;8.76&lt;/td&gt;
+    &lt;td&gt;0.64&lt;/td&gt;
+    &lt;td&gt;13.78&lt;/td&gt;
+    &lt;td&gt;2.06&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097510/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Chocolate Milk&lt;/td&gt;
+    &lt;td&gt;?&lt;/td&gt;
+    &lt;td&gt;?&lt;/td&gt;
+    &lt;td&gt;?&lt;/td&gt;
+    &lt;td class=&#34;tg-jkyp&#34;&gt;Chocolate Milk&lt;/td&gt;
+    &lt;td&gt;98&lt;/td&gt;
+    &lt;td&gt;200&lt;/td&gt;
+    &lt;td&gt;0.80&lt;/td&gt;
+    &lt;td&gt;0.02&lt;/td&gt;
+    &lt;td&gt;17.36&lt;/td&gt;
+    &lt;td&gt;1.28&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097699/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+  &lt;tr&gt;
+    &lt;td class=&#34;tg-pb0m&#34; colspan=&#34;4&#34;&gt;Environment Impact per 200ml &lt;a href=&#34;https://www.bbc.com/news/science-environment-46654042&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
+    &lt;td class=&#34;tg-pb0m&#34; colspan=&#34;8&#34;&gt;Nutritional Information per 200g (which is approx 200ml)&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;p&gt;I’m not going to provide any kind of editorial, I just wanted all the data in one place. The data is sourced from the following locations.&lt;/p&gt;
+&lt;p&gt;General Comparison:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.healthline.com/health/milk-almond-cow-soy-rice&#34;&gt;Heathline: Comparing Milks: Almond, Dairy, Soy, Rice, and Coconut&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.bbcgoodfood.com/howto/guide/which-milk-right-you&#34;&gt;BBC Good Food: Which milk is right for you?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Environment:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.theguardian.com/environment/2020/jan/28/what-plant-milk-should-i-drink-almond-killing-bees-aoe&#34;&gt;The Guardian: Almonds are out. Dairy is a disaster. So what milk should we drink?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.ediblebrooklyn.com/2020/plant-milks-sustainability/&#34;&gt;Edible Brooklyn: Which Plant-Based Milk Is Best for the Environment?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.bbc.com/news/science-environment-46654042&#34;&gt;BBC: Climate change: Which vegan milk is best?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ora.ox.ac.uk/objects/uuid:b0b53649-5e93-4415-bf07-6b0b1227172f&#34;&gt;Poore, J., &amp;amp; Nemecek, T. (2018). Reducing food’s environmental impacts through producers and consumers. Science, 360(6392), 987–992.&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Nutritional:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.gov.uk/government/publications/composition-of-foods-integrated-dataset-cofid&#34;&gt;2021 McCance and Widdowson&amp;rsquo;s Composition of Foods&lt;/a&gt; (&lt;a href=&#34;https://docs.google.com/spreadsheets/d/1aA2y5vMbS8_J8e9pUep9cPVVjrPz4NAO92nncYdoN6Y/edit#gid=1197879062&#34;&gt;Integrated Dataset&lt;/a&gt; | &lt;a href=&#34;https://docs.google.com/spreadsheets/d/1j46zZ39cPrn0wT8IGujw-USaYeTQArhLyejQcxFXsKs/edit#gid=279090816&#34;&gt;Old Foods&lt;/a&gt; )&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/&#34;&gt;U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2021. fdc.nal.usda.gov.&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Local HTTPS Server for development</title>
@@ -1759,52 +2028,6 @@ in Java, but I needed a more modern Javascript solution.&lt;/p&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Turn on HTTPS for all GitHub Pages</title>
-      <link>https://blog.bramp.net/post/2016/06/08/turn-on-github-io-ssl/</link>
-      <pubDate>Wed, 08 Jun 2016 19:37:47 -0700</pubDate>
-      
-      <guid>https://blog.bramp.net/post/2016/06/08/turn-on-github-io-ssl/</guid>
-      <description>&lt;p&gt;GitHub just &lt;a href=&#34;https://github.com/blog/2186-https-for-github-pages&#34;&gt;announced&lt;/a&gt; that all github.io sites can enforce the use of HTTPS. Previously GitHub supported HTTPS on these sites, but you couldn&amp;rsquo;t force users to use HTTPS other than using a &lt;a href=&#34;https://gist.github.com/konklone/9968713&#34;&gt;javascript redirect hack&lt;/a&gt;, or putting a CDN infront of GitHub. Now by checking a single box you can force users to the secure version:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;checkbox.png&#34; alt=&#34;Enforce HTTPS Checkbox&#34;&gt;&lt;/img&gt;&lt;/p&gt;
-&lt;p&gt;Sadly I have far too many repositories, and I don&amp;rsquo;t recall which one uses pages. I figured it would be easy to hit &lt;a href=&#34;https://developer.github.com/v3/&#34;&gt;GitHub&amp;rsquo;s API&lt;/a&gt; and enabled this. The API doesn&amp;rsquo;t directly support enabling HTTPS, so instead I wrote a quick script to list all repos with GitHub pages:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;ch&#34;&gt;#!/usr/bin/env python&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;# Prints a list of all owned repositories with pages.&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;# by Andrew Brampton 2016 https://bramp.net&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;#&lt;/span&gt;
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;requests&lt;/span&gt;
-
-&lt;span class=&#34;n&#34;&gt;headers&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Authorization&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;token XXXXX&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Replace XXXX with a token from https://github.com/settings/tokens&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;params&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;type&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;owner&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;page&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;True&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-	&lt;span class=&#34;n&#34;&gt;r&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;requests&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;https://api.github.com/user/repos&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;headers&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;headers&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-	&lt;span class=&#34;n&#34;&gt;repos&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;json&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-	&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;repos&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-		&lt;span class=&#34;k&#34;&gt;break&lt;/span&gt;
-
-	&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;repo&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;repos&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;repo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;has_pages&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]:&lt;/span&gt;
-			&lt;span class=&#34;k&#34;&gt;print&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;%32s&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;%s&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/settings&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;repo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;name&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;repo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;html_url&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
-
-	&lt;span class=&#34;n&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;page&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Download &lt;a href=&#34;turn-on-github-ssl.py&#34;&gt;turn-on-github-ssl.py&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;This print out something like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ./turn-on-github-ssl.py
-
-                blog https://github.com/bramp/blog/settings
-  ffmpeg-cli-wrapper https://github.com/bramp/ffmpeg-cli-wrapper/settings
-js-sequence-diagrams https://github.com/bramp/js-sequence-diagrams/settings
-           js-sudoku https://github.com/bramp/js-sudoku/settings
-        nodewii-talk https://github.com/bramp/nodewii-talk/settings
-             prob.js https://github.com/bramp/prob.js/settings
-                &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; https://github.com/bramp/test/settings
-              unsafe https://github.com/bramp/unsafe/settings
-...
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now click on each URL, and just check the box.&lt;/p&gt;
 </description>
     </item>
     
