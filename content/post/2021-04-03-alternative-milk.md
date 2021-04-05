@@ -7,7 +7,6 @@ categories:
   - Blog
 tags:
   - milk
-draft: true
 ---
 
 I've not been getting out as much during Covid, as such I've tried to reduce my caloric intake. One way I tried to do this, was to switch the kind of milk I drink. This also had a secondary impact on reducing my environmental impact. However, while researching the various milks, I couldn't find one source that put both nutritional information, and the environmental impact of the various milks in one place. This article does just that.
