@@ -19,6 +19,8 @@ However, VMWare seems to have coded a bit of a hack to allow gdb to understand w
 
 So I thought I could abuse these offsets, and hopefully make them work for FreeBSD. The Linux offsets are:
 
+{{<table "table">}}
+
 |  | Linux Values | FreeBSD 7.1 Values | Notes |
 |-------------------|------------------------------------------------------------|---------------------------------------|-----------------------------------------------------|
 | &lt;version&gt; |  |  | Version number of linux kernel, ie 0x020609 (2.6.9) |
@@ -35,6 +37,8 @@ So I thought I could abuse these offsets, and hopefully make them work for FreeB
 | &lt;grouplead&gt; | task_struct-&gt;group_leader (linux &gt;= 2.6.11) | 0 |  |
 | &lt;threadgroup&gt; | task_struct-&gt;thread_group (linux &gt;= 2.6.11) | 0 |  |
 | &lt;commsize&gt; | sizeof(struct task_struct-&gt;comm) | sizeof(struct proc-&gt;p_comm) | executable name’s max len |
+
+{{</table>}}
 
 However, after some time I feel this isn&#8217;t going to be possible. Each value represents a offset into a Linux task\_struct struct, however, nothing represents the location of the first task\_struct in RAM. I suspect VMWare is figuring out the location via some other means. Since FreeBSD doesn&#8217;t have a task_struct it most likely won&#8217;t be able to find what it needs.
 

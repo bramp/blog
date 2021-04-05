@@ -17,7 +17,22 @@
       <description>&lt;p&gt;VMWare 6 and above has this neat debugging functionality where you can attach gdb running on a host, to a guest running inside VMWare. This allows you to debug a running kernel, or on linux running processes.&lt;/p&gt;
 &lt;p&gt;However, VMWare seems to have coded a bit of a hack to allow gdb to understand what process/threads are inside the virtual machine. Now this hack involves using something called linuxoffsets, which provides the offset for certain fields in a linux kernel struct.&lt;/p&gt;
 &lt;p&gt;So I thought I could abuse these offsets, and hopefully make them work for FreeBSD. The Linux offsets are:&lt;/p&gt;
-&lt;table&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;table class=&#34;table&#34;&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;&lt;/th&gt;
@@ -113,6 +128,7 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+
 &lt;p&gt;However, after some time I feel this isn’t going to be possible. Each value represents a offset into a Linux task_struct struct, however, nothing represents the location of the first task_struct in RAM. I suspect VMWare is figuring out the location via some other means. Since FreeBSD doesn’t have a task_struct it most likely won’t be able to find what it needs.&lt;/p&gt;
 &lt;p&gt;Regardless I’ve posted this entry in case someone wants to continue my work. However, not all is lost as my next solution involves playing with gdb-python.&lt;/p&gt;
 </description>

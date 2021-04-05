@@ -1,0 +1,16 @@
+{{/* Thanks to https://willschenk.com/articles/2020/styling_tables_with_hugo/ */}}
+{{ $htmlTable := .Inner | markdownify }}
+
+{{/* Ensure the table element has the correct classes on them. */}}
+{{ $class := .Get 0 }}
+{{ $old := "<table>" }}
+{{ $new := printf "<table class=\"%s\">" $class }}
+{{ $htmlTable := replace $htmlTable $old $new }}
+
+{{/* Change the table align to be Bootstrap CSS classes. */}}
+{{ $htmlTable := replace $htmlTable "<th align=" "<th class=\"text-\"" }}
+{{ $htmlTable := replace $htmlTable "<td align=" "<td class=\"text-\"" }}
+{{ $htmlTable := replace $htmlTable "<th style=\"text-align:" "<th class=\"text-" }}
+{{ $htmlTable := replace $htmlTable "<td style=\"text-align:" "<td class=\"text-" }}
+
+{{ $htmlTable | safeHTML }}

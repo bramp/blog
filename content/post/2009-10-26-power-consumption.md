@@ -25,6 +25,8 @@ All these measurements were taken in my house in the UK, which according to my m
 
 ### Results
 
+{{<table "table">}}
+
 | Device (status)              | Power Usage (watts) |
 |------------------------------|:-------------------:|
 | xTune Speakers (standby)     |         24W         |
@@ -67,6 +69,8 @@ All these measurements were taken in my house in the UK, which according to my m
 | My PC (4 core prime #)       |         163W        |
 | My PC (sleep)                |         13W         |
 | My PC (idle – Linux)         |         150W        |
+
+{{</table>}}
 
 
 Some observations I made about these results:

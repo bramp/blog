@@ -13,7 +13,9 @@ tags:
 aliases:
   - /blog/2011/10/31/census-tigerline-shapefiles-code-names/
 ---
-I&#8217;ve been playing with the Tiger shapefiles to generate some interesting plots. While doing this I kept wondering what all the [different geographies][1] were. I couldn&#8217;t find a single concise list, so I made my own (but not yet complete) list from various source of information: 
+I've been playing with the Tiger shapefiles to generate some interesting plots. While doing this I kept wondering what all the [different geographies][1] were. I couldn't find a single concise list, so I made my own (but not yet complete) list from various source of information:
+
+{{<table "table">}}
 
 | Code       | Description                                |
 |------------|--------------------------------------------|
@@ -33,6 +35,8 @@ I&#8217;ve been playing with the Tiger shapefiles to generate some interesting p
 | **submcd** | Subminor Civil Division                    |
 | **vtd**    | Voting Districting                         |
 | **zcta5**  | ZIP Code Tabulation Areas                  |
+
+{{</table>}}
 
 More to be added later, as well as some tools for processing Tiger 2010.
 

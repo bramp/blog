@@ -52,60 +52,60 @@ But how well does this approximate? Lets look at our random dataset from earlier
 | 16,384 | 32,768 |    29 |         9,996 |  99.96% |
 -->
 
-<table>
+<table class="table">
 <thead>
 <tr>
-<th align="center" colspan=2>Bin Range (ms)</th>
-<th align="right">Count</th>
-<th align="right">Running total</th>
-<th align="right">eCDF(x)</th>
+<th class="text-center" colspan=2>Bin Range (ms)</th>
+<th class="text-right">Count</th>
+<th class="text-right">Running total</th>
+<th class="text-right">eCDF(x)</th>
 </tr>
 </thead>
 
 <tbody>
 
 <tr>
-<td colspan=5 align="center"> ... 12 rows cut ... </td>
+<td class="text-center" colspan=5> ... 12 rows cut ... </td>
 </tr>
 
 <tr>
-<td align="right">1,024</td>
-<td align="right">2,048</td>
-<td align="right">2,842</td>
-<td align="right">7,490</td>
-<td align="right">74.90%</td>
+<td class="text-right">1,024</td>
+<td class="text-right">2,048</td>
+<td class="text-right">2,842</td>
+<td class="text-right">7,490</td>
+<td class="text-right">74.90%</td>
 </tr>
 
 <tr>
-<td align="right">2,048</td>
-<td align="right">4,096</td>
-<td align="right">1,657</td>
-<td align="right">9,147</td>
-<td align="right">91.47%</td>
+<td class="text-right">2,048</td>
+<td class="text-right">4,096</td>
+<td class="text-right">1,657</td>
+<td class="text-right">9,147</td>
+<td class="text-right">91.47%</td>
 </tr>
 
 <tr>
-<td align="right">4,096</td>
-<td align="right">8,192</td>
-<td align="right">648</td>
-<td align="right">9,795</td>
-<td align="right">97.95%</td>
+<td class="text-right">4,096</td>
+<td class="text-right">8,192</td>
+<td class="text-right">648</td>
+<td class="text-right">9,795</td>
+<td class="text-right">97.95%</td>
 </tr>
 
 <tr>
-<td align="right">8,192</td>
-<td align="right">16,384</td>
-<td align="right">172</td>
-<td align="right">9,967</td>
-<td align="right">99.67%</td>
+<td class="text-right">8,192</td>
+<td class="text-right">16,384</td>
+<td class="text-right">172</td>
+<td class="text-right">9,967</td>
+<td class="text-right">99.67%</td>
 </tr>
 
 <tr>
-<td align="right">16,384</td>
-<td align="right">32,768</td>
-<td align="right">29</td>
-<td align="right">9,996</td>
-<td align="right">99.96%</td>
+<td class="text-right">16,384</td>
+<td class="text-right">32,768</td>
+<td class="text-right">29</td>
+<td class="text-right">9,996</td>
+<td class="text-right">99.96%</td>
 </tr>
 </tbody>
 </table>
@@ -153,51 +153,51 @@ Now we can calculate the percentiles, how would we extend this so we can aggrega
 <td colspan=5> ... </td>
 -->
 
-<table>
+<table class="table">
 <thead>
 <tr>
-<th align="center" colspan=2>Bin Range (ms)</th>
-<th align="right">Server A<br>Count</th>
-<th align="right">Server B<br>Count</th>
-<th align="right">Total<br>Count</th>
+<th class="text-center" colspan=2>Bin Range (ms)</th>
+<th class="text-right">Server A<br>Count</th>
+<th class="text-right">Server B<br>Count</th>
+<th class="text-right">Total<br>Count</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td align="center" colspan="5"> ... </td>
+<td class="text-center" colspan="5"> ... </td>
 </tr>
 
 <tr>
 <td>1,024</td>
-<td align="right">2,048</td>
-<td align="right">2,842</td>
-<td align="right">2,811</td>
-<td align="right">5,653</td>
+<td class="text-right">2,048</td>
+<td class="text-right">2,842</td>
+<td class="text-right">2,811</td>
+<td class="text-right">5,653</td>
 </tr>
 
 <tr>
 <td>2,048</td>
-<td align="right">4,096</td>
-<td align="right">1,657</td>
-<td align="right">1,660</td>
-<td align="right">3,317</td>
+<td class="text-right">4,096</td>
+<td class="text-right">1,657</td>
+<td class="text-right">1,660</td>
+<td class="text-right">3,317</td>
 </tr>
 
 <tr>
 <td>4,096</td>
-<td align="right">8,192</td>
-<td align="right">648</td>
-<td align="right">634</td>
-<td align="right">1,282</td>
+<td class="text-right">8,192</td>
+<td class="text-right">648</td>
+<td class="text-right">634</td>
+<td class="text-right">1,282</td>
 </tr>
 
 <tr>
 <td>8,192</td>
-<td align="right">16,384</td>
-<td align="right">172</td>
-<td align="right">155</td>
-<td align="right">327</td>
+<td class="text-right">16,384</td>
+<td class="text-right">172</td>
+<td class="text-right">155</td>
+<td class="text-right">327</td>
 </tr>
 </tbody>
 </table>
@@ -214,6 +214,8 @@ A more robust way is to never reset the histogram, but to always keep increasing
 
 To explore this concept, lets begin with a simpler (non-histogram) example, say calculating requests per second. If we store a running counter of requests, then if you recall your calculus, the rate per second, is the differential. That is, the delta between two values.
 
+{{<table "table">}}
+
 | Time (s) | Running Count | Delta (per minute) |
 |---------:|--------------:|-------------------:|
 |        0 |             0 |                    |
@@ -228,6 +230,8 @@ To explore this concept, lets begin with a simpler (non-histogram) example, say 
 |      540 |           590 |                 90 |
 |      600 |           700 |                110 |
 
+{{</table>}}
+
 Taking the example above, we can say the average requests per seconds between time 120s, and 180s is 1.75. Because at time 180s there were 310 total requests, and at time 120s there were only 205. Thus a delta of 105 requests per minutes, or 1.75 requests per second.
 
 This has the nice property, that we can easily calculate the rate over any arbitrary interval. For example, subtracting the value at time 600s, with the value at time 0s, calculates the average rate over the last 10 minutes.  This is a lot simpler than keeping track of the per second rate every minute, and calculating the average of them. This property is especially useful when plotting on a graph where each pixel may represent a wide interval (such as a full hour). Having a quick way to calculate the rate in that hour is a real performance win.
@@ -239,4 +243,4 @@ To truly understand latency, the distribution of it must be examined. This can b
 
 A quick word of warning, all monitoring lies to you in subtle ways, and it is your responsibility to understand it. If you have fewer than 100 values, does a 99%tile metric make sense? Perhaps extend the collection interval over a longer time period, or instead use the 90%tile.  A single percentile also doesn’t show the full picture, it may always be worth exporting the 50%, 90%, 99%tile, etc. Or perhaps, a percentile doesn’t capture your monitoring requirements, and instead simply taking the max value would be better. 
 
-Finally, you may not wish to calculate all this yourself, and instead use a off the shelf library, such as [HdrHistogram](http://hdrhistogram.github.io/HdrHistogram/), or a monitoring solution such as [Prometheus](https://prometheus.io).
+Finally, you may not wish to calculate all this yourself, and instead use a off the shelf library, such as [HdrHistogram](https://hdrhistogram.github.io/HdrHistogram/), or a monitoring solution such as [Prometheus](https://prometheus.io).

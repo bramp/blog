@@ -41,6 +41,23 @@ git add content/post/2017-07-15-the-title.md
 git commit
 ```
 
+Tables
+------
+
+The Bootstrap CSS requires that all tables have a `class="table"` added to them. It's a inconvience, but we have a Hugo shortcode to try and fix this for us. Please use the syntax:
+
+```markdown
+{{<table "table">}}
+
+| Your | Table |
+|------|-------|
+| Goes | Here  |
+
+{{</table>}}
+```
+
+or any of the [other styles](https://bootstrapdocs.com/v3.2.0/docs/css/#tables), such as `{{<table "table table-striped table-hover table-condensed table-bordered">}}
+
 Resize Images
 ---------------
 ```bash

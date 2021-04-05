@@ -51,18 +51,6 @@ watch: chromacss
 public: $(FILES) config.yaml goredirects chromacss
 	$(HUGO)
 
-	# Post process some files (to make the HTML more bootstrap friendly)
-	# Add a table class to all tables (with don't already have a clas= field)
-	# TODO Replace these grep/sed with something better
-	grep -IR --include=*.html --null -l -- "<table" public | xargs -0 sed -i.bak '/<table class/!s/<table/<table class="table"/g'
-
-	# Replace "align=..."" with class="test-..."
-	grep -IR --include=*.html --null -l -- "<th" public | xargs -0 sed -i.bak 's/<th align="/<th class="text-/g'
-	grep -IR --include=*.html --null -l -- "<td" public | xargs -0 sed -i.bak 's/<td align="/<td class="text-/g'
-
-	# Cleanup after the sed backups
-	find public -type f -iname '*.bak' -delete
-
 	# Ensure the public folder has it's mtime updated.
 	touch $@
 

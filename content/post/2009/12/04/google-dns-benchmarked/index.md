@@ -38,6 +38,8 @@ I [wrote a script][3] in PHP 5.3, and ran it from the command line on my Windows
 
 After letting this run for a few hours, and querying roughly the top 10,000 domains, I have some preliminary results.
 
+{{<table "table">}}
+
 | DNS Server                 | Min (ms) | Max (ms) | Median | Mean (ms) | Standard Dev (ms) |
 |----------------------------|:--------:|:--------:|:------:|:---------:|:-----------------:|
 | Google A (8.8.8.8)         |   38.50  |   4932   |  42.45 |   122.8   |       181.6       |
@@ -48,6 +50,8 @@ After letting this run for a few hours, and querying roughly the top 10,000 doma
 | Easynet B (90.207.238.99)  |   33.65  |   4253   |  44.96 |   96.11   |       104.8       |
 | Plusnet A (212.159.11.150) |   43.78  |   4423   |  52.56 |   100.8   |       156.5       |
 | Plusnet B (212.159.13.150) |   38.87  |   4991   |  42.76 |   90.78   |       169.1       |
+
+{{</table>}}
 
 From this table of results, we can see that Google's median response time is 41-42ms, however, OpenDNS performs much better with a result of ~31ms. Both my current ISP and my old ISP don't perform as well and each achieved a result between 42ms and 61ms. To get a better feel for the data I plotted an empirical CDF of the lookup times for each server.
 

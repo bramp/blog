@@ -17,6 +17,8 @@ On TV tonight Derren Brown (poorly) described a game where two players would eac
 
 So to start with the basics there are 8 different sequences to pick:
 
+{{<table "table">}}
+
 | Combination | Probability |
 |:-----------:|:-----------:|
 |     HHH     |     1/8     |
@@ -28,6 +30,8 @@ So to start with the basics there are 8 different sequences to pick:
 |     TTH     |     1/8     |
 |     TTT     |     1/8     |
 
+{{</table>}}
+
 Each sequence of flips is equally likely, and on face value you would expect a 1 in 8 chance of any of these combinations to occur. Now this is true, however, if you play the game in the same way that Derren Brown does, then a different outcome will happen. 
 
 The difference in Derren's game is what happens when you fail to flip the correct face. Instead of starting from the beginning you are allowed to carry on. So instead of having to get 3 in a row from scratch, you have to get your sequence from the last 3 attempts. The player would score a point with the combination HTT if they had previous flipped HTHTT. 
@@ -37,6 +41,8 @@ This can be used to your advantage by picking a sequence which starts and ends w
 The worst combinations to pick are HHH and TTT because you can never capitalise on a previous bad flip. The next worst are HTH or THT, as with these you can capitalise on one previous flip if you fail to flip the 2nd coin. Finally the best combinations are, HHT, HTT, THH, TTH, as here you can always capitalise on a bad flip regardless if it is the second or third flip.
 
 Because I'm too lazy to work out the exact odds, I used Monte-Carlo simulations to generate this table of results:
+
+{{<table "table">}}
 
 | Combination | Percentage Outcome |
 |:-----------:|:------------------:|
@@ -48,6 +54,8 @@ Because I'm too lazy to work out the exact odds, I used Monte-Carlo simulations 
 |     THT     |      11.8603%      |
 |     TTH     |      14.8356%      |
 |     TTT     |       8.4756%      |
+
+{{</table>}}
 
 Derren suggested that if you ever played this game you should let your opponent chose first, and then you should transpose their sequence by flipping the middle value, placing it on the front, and then dropping the fourth value. So, for example, HHH has its middle value of H, flip this and move it to the front to make THHH, and finally drop the final H, leaving us with THH. If you do this with any combination you always get one of the better combinations. However, Derren incorrectly explained that this combination would always win over your opponent, this is not true if they picked one of the four best combinations. I did notice however, that this is true if you are playing with 4 flip sequences, and I even found a Wolfram [ demonstration ][2] of this.
 
