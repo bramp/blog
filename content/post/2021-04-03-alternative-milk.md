@@ -194,12 +194,12 @@ During my research, I found there are minor differences in the US and UK in how 
     <td>?</td>
     <td>?</td>
     <td class="tg-jkyp">Coconut Milk</td>
-    <td>138</td>
-    <td>268</td>
-    <td>8.28</td>
-    <td>5.33</td>
-    <td>8.90</td>
-    <td>7.12</td>
+    <td>62</td>
+    <td>376</td>
+    <td>4.16</td>
+    <td>4.17</td>
+    <td>5.00</td>
+    <td>0.42</td>
     <td><a href="https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097553/nutrients">(source)</a></td>
   </tr>
   <tr>
