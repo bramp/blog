@@ -16,8 +16,7 @@
       <guid>https://blog.bramp.net/post/2010/07/14/iteratively-solving-time-travel/</guid>
       <description>&lt;p&gt;I recently watched the film &lt;a href=&#34;http://www.imdb.com/title/tt0480669/&#34;&gt;Timecrimes&lt;/a&gt;, which got me thinking about the theories of time travel. Now I’m not a physics expert, but I have thought about these ideas for a while now and thought it was time to write them done.&lt;/p&gt;
 &lt;p&gt;I’ll try not to spoil the film if you haven’t already seen it, but this discussion might give away too much. The general idea in the film was the main character Hector was chased into a time machine and was made to travel back a few hours in time. The film did a good job of explaining this to the viewer with the aid of a diagram and naming of the Hectors. I have reproduced their diagram and will use it for my discussion.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;timetravel-diagram.png&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;timetravel-diagram.png&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Diagram of Hector time travelling&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
@@ -26,8 +25,7 @@
 &lt;p&gt;Hector 2 is convinced he needs to chase Hector 1 into the machine, and try to recreate events exactly as before, otherwise his existence will end. Now what would happen if Hector 2 decides not to chase Hector 1. Will Hector 2 disappear? I don’t think so, because Hector 2 has to chase Hector 1 as it has already happened. I think this contradicts the multiple universes theory where every possible action that can happen, does happen. Here, the only thing that can happen for Hector 2 is to repeat exactly the events that Hector 1 experienced in his time frame. Without Hector 2 even knowing, he will be repeating exactly what he originally experienced.&lt;/p&gt;
 &lt;p&gt;If Hector 2 was able to decide not to chase Hector 1, then I think the order of events would have never happened, and Hector 1 would have never entered the time machine. So as soon as Hector 2 is created, he has no choice (or free will) to change the events that Hector 1 (his former self) experienced.&lt;/p&gt;
 &lt;p&gt;The thing I find interesting here is how the chain of events happened in the first place, and this is where I have a theory. In mathematics many equations can be solved iteratively, and there are typically two outcomes. The equation converges to a solution, or the iterative process does not converge and quickly goes off to infinity. A fractal is a perfect example of this, as the colours of a fractal represent how many iterations it takes to solve the equation, or if it does not solve it is coloured black. This can be seen with the simple &lt;a href=&#34;http://en.wikipedia.org/wiki/Mandelbrot_set&#34;&gt;Mandelbrot set&lt;/a&gt; fractal with equation Z&lt;sub&gt;n&lt;/sub&gt; = Z&lt;sub&gt;n-1&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt; + c.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;800px-Mandel_zoom_00_mandelbrot_set.jpg&#34; width=&#34;720&#34; height=&#34;540&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;800px-Mandel_zoom_00_mandelbrot_set.jpg&#34; width=&#34;720&#34; height=&#34;540&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Taken from &amp;lt;a href=&amp;#39;http://en.wikipedia.org/wiki/File:Mandel_zoom_00_mandelbrot_set.jpg&amp;#39;&amp;gt;Wikipedia&amp;lt;/a&amp;gt; under the Creative Commons Attribution-Share Alike Licence.&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;

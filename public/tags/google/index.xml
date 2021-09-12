@@ -18,28 +18,25 @@
 &lt;p&gt;&lt;strong&gt;tl;dr Google Fonts doesn&amp;rsquo;t supply fonts with OpenType features (such as old-style figures, or small-caps), but you can build and host the fonts yourself to support everything you need.&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;I recently posted a &lt;a href=&#34;https://blog.bramp.net/post/2018/01/16/measuring-percentile-latency/&#34;&gt;article which contained lots of numbers&lt;/a&gt;. While I was proofreading the article, I didn’t quite liked how the numbers looked, sometime the digits were below the baseline, for example:&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;oldstyle.png&#34; width=&#34;760&#34; height=&#34;157&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;oldstyle.png&#34; width=&#34;760&#34; height=&#34;157&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Oldstyle figures&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;Where I would have expected the top and bottom of each digit to be aligned:&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;lining.png&#34; width=&#34;760&#34; height=&#34;152&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;lining.png&#34; width=&#34;760&#34; height=&#34;152&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Lining figures&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;This made me flashback to all the typography I learnt when &lt;a href=&#34;https://github.com/bramp/publication&#34;&gt;working with LaTeX&lt;/a&gt;. These two styles of figures are called old-style, and lining (or sometimes lowercase and uppercase numbers). The theory is that old-style numbers flow better when mixed with text. Recall, letters like q, j and p, all drop below the baseline, which makes the text nicer to read:&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;quickbrownfox.png&#34; width=&#34;760&#34; height=&#34;100&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;quickbrownfox.png&#34; width=&#34;760&#34; height=&#34;100&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Example with characters below the baseline&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;However, my article had many numbers on the page, sometimes within tables, where old-style just made the numbers look odd. I looked for a way to force the lining style throughout. I quickly found the CSS styling:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span class=&#34;nt&#34;&gt;body&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span class=&#34;nt&#34;&gt;body&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
            &lt;span class=&#34;k&#34;&gt;font-variant-numeric&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lining-nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; 
   &lt;span class=&#34;kp&#34;&gt;-webkit-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;font-feature-settings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;lnum&amp;#34;&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
      &lt;span class=&#34;kp&#34;&gt;-moz-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;font-feature-settings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;lnum&amp;#34;&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
@@ -50,14 +47,14 @@
 &lt;p&gt;So I went deeper down the rabbit hole to figure out what was going wrong. I wanted to confirm for myself that the font supported lining figures. I searched for a while for a simple CLI that would inspect the &lt;a href=&#34;https://en.wikipedia.org/wiki/Web_Open_Font_Format&#34;&gt;WOFF&lt;/a&gt;/&lt;a href=&#34;https://en.wikipedia.org/wiki/TrueType&#34;&gt;TTF&lt;/a&gt; files and tell me what they contained. Sadly, the best I could find was &lt;a href=&#34;https://fontforge.github.io/&#34;&gt;FontForge&lt;/a&gt;, a GUI. That worked, and confirmed the fonts being served by Google did not contain the lining feature, or in fact any feature other than basic ligatures.&lt;/p&gt;
 &lt;p&gt;Later I found this &lt;a href=&#34;https://github.com/google/fonts/issues/1335&#34;&gt;GitHub issue&lt;/a&gt; which confirmed all features were stripped from the font. So I sought out a way to rebuild the Google font to keep the lining figures.&lt;/p&gt;
 &lt;p&gt;Before that, I started to &lt;a href=&#34;http://sethgodin.typepad.com/seths_blog/2005/03/dont_shave_that.html&#34;&gt;shave another yak&lt;/a&gt;, and decided to create a CLI tool that would easily display the font features. I came across a Go library, &lt;a href=&#34;https://github.com/ConradIrwin/font&#34;&gt;SFNT&lt;/a&gt; that can parse OpenType fonts. Sadly it didn’t implement the parsing of the features. A few hours later, I read the &lt;a href=&#34;http://www.adobe.com/devnet/opentype/afdko/topic_feature_file_syntax.html&#34;&gt;OpenType spec&lt;/a&gt; and sent them a &lt;a href=&#34;https://github.com/ConradIrwin/font/pull/3&#34;&gt;pull request&lt;/a&gt; to add this functionality. Now I can easily confirm from the command line what features are supported.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ font features raleway-v12-latin-ext_latin-regular.woff
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ font features raleway-v12-latin-ext_latin-regular.woff
 Glyph Substitution Table &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;GSUB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
 	Script &lt;span class=&#34;s2&#34;&gt;&amp;#34;latn&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Latin&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
 		Default Language:
 			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;liga&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Standard Ligatures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I decided to play around with &lt;a href=&#34;https://developers.google.com/fonts/docs/developer_api&#34;&gt;Google Font API&lt;/a&gt;, and then eventually the unoffical (but awesome) &lt;a href=&#34;https://google-webfonts-helper.herokuapp.com/fonts/raleway&#34;&gt;google-webfonts-helper&lt;/a&gt; (a hassle-free way to self-host Google Fonts). However, no combination of options would make the font contain the lining figures.&lt;/p&gt;
 &lt;p&gt;Since the Google Fonts are open source, I downloaded the &lt;a href=&#34;https://github.com/google/fonts/tree/master/ofl/raleway&#34;&gt;source TTF of the font&lt;/a&gt;, and double-checked it did indeed contain the feature:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ font features Raleway-Regular.ttf 
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ font features Raleway-Regular.ttf 
 Glyph Substitution Table &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;GSUB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
   Script &lt;span class=&#34;s2&#34;&gt;&amp;#34;latn&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Latin&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
     Default Language:
@@ -72,10 +69,10 @@ Glyph Substitution Table &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;GSUB&lt;spa
       Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;ss02&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Set 2&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So my next idea was to take the original Raleway-Regular.ttf and convert it to &lt;a href=&#34;https://en.wikipedia.org/wiki/Web_Open_Font_Format&#34;&gt;WOFF&lt;/a&gt; and &lt;a href=&#34;https://www.w3.org/TR/WOFF2/&#34;&gt;WOFF2&lt;/a&gt;, and strip out the bits I don’t need. Just how Google Fonts does, to ensure the resulting files are lean and performant.&lt;/p&gt;
 &lt;p&gt;I couldn’t find the pipeline Google Fonts uses to process the files, so I instead took it upon myself to figure this out. I started by using &lt;code&gt;pyftsubset&lt;/code&gt; (part of &lt;a href=&#34;https://github.com/fonttools/fonttools&#34;&gt;FontTools&lt;/a&gt;) to remove unneeded character sets, features, and other parts from the original TTF file.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ pip install fonttools
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ pip install fonttools
 $ pyftsubset Raleway-Regular.ttf --layout-features&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;*&amp;#39;&lt;/span&gt; --unicodes&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;U+0000-00FF, U+0100-024F, U+0131, U+0152-0153, U+02DA, U+02DC, U+02BB-02BC, U+02C6, U+0259, U+0370-03FF, U+1E00-1EFF, U+2000-206F, U+2070-209F, U+2074, U+20A0-20CF, U+2122, U+2150-218F, U+2200-22FF, U+2C60-2C7F, U+A720-A7FF&amp;#34;&lt;/span&gt; --output-file&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Raleway-Regular.subset.ttf
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now I had a TTF file with all the features, but only the subset of characters I use on my site. Next I needed to convert this this file to all the &lt;a href=&#34;https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization&#34;&gt;recommended font formats&lt;/a&gt;, so my site would look nice in IE, Chrome, Android and iOS. The resulting CSS would look like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span class=&#34;p&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;font-face&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span class=&#34;p&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;font-face&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;font-family&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Raleway&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;raleway-regular.subset.eot&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;                           &lt;span class=&#34;c&#34;&gt;/* IE9 Compat Modes */&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Raleway&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Raleway-Regular&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt;
@@ -88,13 +85,13 @@ $ pyftsubset Raleway-Regular.ttf --layout-features&lt;span class=&#34;o&#34;&gt;
   &lt;span class=&#34;nt&#34;&gt;font-weight&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;400&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I again tried to use &lt;code&gt;pyftsubset&lt;/code&gt; to save the files in the required formats. This worked well for TTF, WOFF, and WOFF2. But didn’t support &lt;a href=&#34;https://en.wikipedia.org/wiki/Embedded_OpenType&#34;&gt;EOT&lt;/a&gt; or &lt;a href=&#34;http://caniuse.com/svg-fonts&#34;&gt;SVG&lt;/a&gt; fonts:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ pip install zopfli
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ pip install zopfli
 $ pip install brotli
 $ pyftsubset ... --flavor&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;woff --with-zopfli --output-file&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Raleway-Regular.subset.woff
 $ pyftsubset ... --flavor&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;woff2 --output-file&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Raleway-Regular.subset.woff2
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So instead I searched for a all-in-one solution to converting fonts. I found numerous websites that offered to do it, the one I settled on was &lt;a href=&#34;https://www.fontsquirrel.com/tools/webfont-generator&#34;&gt;fontsquirrel.com&lt;/a&gt;. Here I used the expert feature, to control exactly what was in the font, and to produce compressed versions in all file formats. I originally tried to use the subsetting feature on fontsquirrel, but I couldn’t get it to maintain all the features I needed, so I used &lt;code&gt;pyftsubset&lt;/code&gt; locally instead.&lt;/p&gt;
 &lt;p&gt;After fontsquirrel.com produced the fonts, I checked it contained the features, and compared the resulting file sizes:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ls -ltr
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ls -ltr
 
 &lt;span class=&#34;c1&#34;&gt;# Google Fonts&lt;/span&gt;
  96K  raleway-v12-latin-ext_latin-regular.ttf
@@ -181,7 +178,7 @@ Glyph Substitution Table &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;GSUB&lt;spa
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;or&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;An API incompatibility was encountered while executing org.apache.maven.plugins:maven-compiler-plugin:3.5.1:compile: java.lang.UnsupportedClassVersionError: javax/tools/DiagnosticListener : Unsupported major.minor version 52.0
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Please update to JDK 1.8, or update your Maven configuration to restrict these plugins to when run on a modern JDK:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;project&amp;gt;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;project&amp;gt;&lt;/span&gt;
 ...
     &lt;span class=&#34;nt&#34;&gt;&amp;lt;profiles&amp;gt;&lt;/span&gt;
         &lt;span class=&#34;nt&#34;&gt;&amp;lt;profile&amp;gt;&lt;/span&gt;
@@ -250,8 +247,7 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 &lt;blockquote&gt;
 &lt;p&gt;Old school’s not cool. Google Chrome is woefully out of date because it hasn’t crashed or restarted in at least two weeks. Restart to apply update.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;chrome-old-school.jpg&#34; width=&#34;665&#34; height=&#34;410&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;chrome-old-school.jpg&#34; width=&#34;665&#34; height=&#34;410&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Old school&amp;#39;s not cool&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
@@ -269,7 +265,7 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 &lt;h3 id=&#34;methodology&#34;&gt;Methodology&lt;/h3&gt;
 &lt;p&gt;Firstly I found a &lt;a href=&#34;http://www.quantcast.com/top-sites-1&#34;&gt;list of the 1 million most popular sites&lt;/a&gt;. I then picked a number of DNS servers to test against. I chose &lt;a href=&#34;http://code.google.com/speed/public-dns/&#34;&gt;Google&lt;/a&gt;‘s, &lt;a href=&#34;http://www.opendns.com/&#34;&gt;OpenDNS&lt;/a&gt;‘s, my ISP (&lt;a href=&#34;http://broadband.sky.com/&#34;&gt;Sky/Easynet&lt;/a&gt;) and my old ISP’s (&lt;a href=&#34;http://www.plus.net/&#34;&gt;Plus.net&lt;/a&gt;).&lt;/p&gt;
 &lt;p&gt;I decided I would query an &lt;a href=&#34;http://en.wikipedia.org/wiki/List_of_DNS_record_types&#34;&gt;A record&lt;/a&gt; for each of the domains in the list, one at a time, starting with the most popular. I would query each server three times for the same domain name. The ordering was like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;k&#34;&gt;foreach&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;domain&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;k&#34;&gt;foreach&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;domain&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
       &lt;span class=&#34;k&#34;&gt;foreach&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;server&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
          &lt;span class=&#34;nx&#34;&gt;query&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;server&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;domain&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -372,8 +368,7 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 &lt;/table&gt;
 
 &lt;p&gt;From this table of results, we can see that Google&amp;rsquo;s median response time is 41-42ms, however, OpenDNS performs much better with a result of ~31ms. Both my current ISP and my old ISP don&amp;rsquo;t perform as well and each achieved a result between 42ms and 61ms. To get a better feel for the data I plotted an empirical CDF of the lookup times for each server.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;ecdf_overview.pdf&#34;&gt;&lt;figure&gt;
-    &lt;img src=&#34;ecdf_overview.png&#34; width=&#34;700&#34; height=&#34;700&#34;/&gt; &lt;figcaption&gt;
+&lt;p&gt;&lt;a href=&#34;ecdf_overview.pdf&#34;&gt;&lt;figure&gt;&lt;img src=&#34;ecdf_overview.png&#34; width=&#34;700&#34; height=&#34;700&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Click for a larger PDF version&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
@@ -382,8 +377,7 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 &lt;p&gt;The minimum lookup time for each pair of DNS servers seems to be the same, most likely caused by the network latency between me and the servers. Even so, if we normalise all the data by taking the servers&#39; minimum value away from each sample, we still find that OpenDNS performs better than Google, and Google performs slightly better than Plus.net and quite a bit better than my current ISP, Easynet.&lt;/p&gt;
 &lt;p&gt;Rather worryingly is that the latency to OpenDNS is smaller than the latency to my own ISP&amp;rsquo;s DNS servers. This makes me wonder where the hell my ISP hosts their DNS servers. Also, the ~38ms minimum time with Google indicates that at least some of their DNS servers are hosted in Europe, and possibly the UK.&lt;/p&gt;
 &lt;p&gt;SInce I ran each lookup three times, I wanted to compare the lookup times for each request. This time I plotted the empirical CDF of each iteration of request.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;ecdf_requests.pdf&#34;&gt;&lt;figure&gt;
-    &lt;img src=&#34;ecdf_requests.png&#34; width=&#34;700&#34; height=&#34;700&#34;/&gt; &lt;figcaption&gt;
+&lt;p&gt;&lt;a href=&#34;ecdf_requests.pdf&#34;&gt;&lt;figure&gt;&lt;img src=&#34;ecdf_requests.png&#34; width=&#34;700&#34; height=&#34;700&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Click for a larger PDF version&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
@@ -405,8 +399,7 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
       
       <guid>https://blog.bramp.net/post/2009/01/27/what-happens-when-you-mix/</guid>
       <description>&lt;p&gt;What happens when you mix; Haggis, Vodka, a room full of nerds, and a average of 1.4 laptops per person?&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;google-phone.jpg&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;google-phone.jpg&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;someone buys a phone at 1am while drunk&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;

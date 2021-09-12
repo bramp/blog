@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -109,7 +109,7 @@ window.dataLayer = window.dataLayer || [];
 <pre><code>add-symbol-file /sys/modules/linux/linux.ko 0xc0ae22d0
 </code></pre><p>However, I find this process tedious, so instead I wrote a quick python script which can be used with an <a href=http://sourceware.org/gdb/wiki/PythonGdb>experimental gdb built with python scripting support</a>.</p>
 <p>So here is the script:</p>
-<div class=highlight><pre class=chroma><code class=language-python data-lang=python><span class=kn>import</span> <span class=nn>gdb</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-python data-lang=python><span class=kn>import</span> <span class=nn>gdb</span>
 <span class=k>class</span> <span class=nc>FreeBSD_ReloadModuleSymbols</span> <span class=p>(</span><span class=n>gdb</span><span class=o>.</span><span class=n>Command</span><span class=p>):</span>
 	<span class=s2>&#34;Reloads the symbol files for all loaded kernel modules&#34;</span>
 
@@ -121,7 +121,7 @@ window.dataLayer = window.dataLayer || [];
 	<span class=k>def</span> <span class=nf>invoke</span> <span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>arg</span><span class=p>,</span> <span class=n>from_tty</span><span class=p>):</span>
 		<span class=n>link</span> <span class=o>=</span> <span class=n>gdb</span><span class=o>.</span><span class=n>parse_and_eval</span><span class=p>(</span><span class=s2>&#34;linker_files-&amp;gt;tqh_first&#34;</span><span class=p>)</span>
 		<span class=k>while</span> <span class=n>link</span> <span class=o>!=</span> <span class=mi>0</span><span class=p>:</span>
-			<span class=k>print</span> <span class=n>link</span><span class=p>[</span><span class=s1>&#39;filename&#39;</span><span class=p>]</span><span class=o>.</span><span class=n>string</span><span class=p>()</span>
+			<span class=nb>print</span> <span class=n>link</span><span class=p>[</span><span class=s1>&#39;filename&#39;</span><span class=p>]</span><span class=o>.</span><span class=n>string</span><span class=p>()</span>
 			<span class=k>if</span> <span class=n>link</span><span class=p>[</span><span class=s1>&#39;filename&#39;</span><span class=p>]</span><span class=o>.</span><span class=n>string</span><span class=p>()</span> <span class=o>!=</span> <span class=s2>&#34;kernel&#34;</span><span class=p>:</span>
 				<span class=n>gdb</span><span class=o>.</span><span class=n>execute</span><span class=p>(</span> <span class=s2>&#34;add-symbol-file &#34;</span> <span class=o>+</span> 
 					<span class=n>link</span><span class=p>[</span><span class=s1>&#39;pathname&#39;</span><span class=p>]</span><span class=o>.</span><span class=n>string</span><span class=p>()</span> <span class=o>+</span> <span class=s2>&#34; &#34;</span> <span class=o>+</span>  
@@ -130,7 +130,7 @@ window.dataLayer = window.dataLayer || [];
 
 <span class=n>FreeBSD_ReloadModuleSymbols</span> <span class=p>()</span>
 </code></pre></div><p>You load this by running the following command in GDB:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=nb>source</span> freebsd_load_modules.py
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=nb>source</span> freebsd_load_modules.py
 </code></pre></div><p>Then the command <code>reload-freebsd-module-symbols</code> is magically added to GDB. Running this command will parse the linker table inside the FreeBSD kernel, determine which modules are loaded, and attempt to load their symbols.</p>
 </div>
 </article>

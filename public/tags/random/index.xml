@@ -19,7 +19,7 @@
 I needed code to generate them from a expontential or lognormal distribution. I had written code to do this ~10 years ago
 in Java, but I needed a more modern Javascript solution.&lt;/p&gt;
 &lt;p&gt;Introducing &lt;a href=&#34;https://github.com/bramp/prob.js&#34;&gt;Prob.js&lt;/a&gt;, a javascript library to generate random numbers from different probability distributions. Avaiable via both bower and NPM, prob.js can generate random numbers from the following distrubtions:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;uniform&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;min&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// Uniform distribution in range [min, max).
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;uniform&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;min&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// Uniform distribution in range [min, max).
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;normal&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;μ&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;σ&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;// Normal distribution with mean and standard deviation.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;exponential&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;λ&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;// Exponential distribution with lambda.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;lognormal&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;μ&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;σ&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;   &lt;span class=&#34;c1&#34;&gt;// Log-normal distribution defined as ln(normal(μ, σ)).
@@ -27,7 +27,7 @@ in Java, but I needed a more modern Javascript solution.&lt;/p&gt;
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;zipf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;// Zipf&amp;#39;s distribution returning integers in range [1, N].
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;After&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;generating&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;distribution&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;the&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;following&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;methods&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;are&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;available&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;With a very simple to use API:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;exponential&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;1.0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// Create a distribution.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;exponential&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;1.0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// Create a distribution.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;// Generates a number within the distribution.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;// Generates a number using a `src` of random numbers. (See note below.)
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Min&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;// The min random number which could be returned by `r()` (inclusive).
@@ -35,20 +35,17 @@ in Java, but I needed a more modern Javascript solution.&lt;/p&gt;
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Mean&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;// The expected mean for this distribution.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Variance&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// The expected variance for this distribution.
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I created a &lt;a href=&#34;https://bramp.github.io/prob.js/&#34;&gt;quick demo site&lt;/a&gt; that generates 1 million random numbers from each distribution in the browser, and plots the PDF as it goes. Same samples:&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-    &lt;img src=&#34;normal.png&#34;/&gt; &lt;figcaption&gt;
+&lt;p&gt;&lt;figure&gt;&lt;img src=&#34;normal.png&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Normal (μ = 0, σ = 1.0)&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;figure&gt;
-    &lt;img src=&#34;lognormal.png&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;lognormal.png&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Log-normal (μ = 0, σ = 1.0)&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;figure&gt;
-    &lt;img src=&#34;zipf.png&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;zipf.png&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Zipf (s = 1, N = 100)&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;

@@ -16,8 +16,7 @@
       <guid>https://blog.bramp.net/post/2010/07/27/sonisphere-2010-running-order/</guid>
       <description>&lt;p&gt;I spent some time today writing a PHP script to generate a running order for a festival. Here is this year’s &lt;a href=&#34;http://uk.sonispherefestivals.com/&#34;&gt;Sonisphere&lt;/a&gt;‘s running order in a nice Gantt chart.&lt;/p&gt;
 &lt;!-- TODO link to sonisphere-2010.pdf --&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;sonisphere-2010.png&#34; width=&#34;438&#34; height=&#34;338&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;sonisphere-2010.png&#34; width=&#34;438&#34; height=&#34;338&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Sonisphere 2010 Running Order&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;

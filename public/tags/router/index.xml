@@ -20,7 +20,7 @@
 &lt;p&gt;Firstly I saw two DNS requests, one for the AAAA (IPv6) record for update.linksys.com, then a A request for update.linksys.com. Clearly the updates are coming from there. Secondly I saw a HTTPS connection form to that domain. That makes this a little more complex, as I am unable to see the encrypted traffic, and thus see what is being transferred.&lt;/p&gt;
 &lt;p&gt;So, I grabbed a &lt;a href=&#34;http://code.activestate.com/recipes/491264-mini-fake-dns-server/&#34;&gt;simple DNS server&lt;/a&gt;, and set up a simple SSL server following &lt;a href=&#34;http://wirewatcher.wordpress.com/2010/07/20/decrypting-ssl-traffic-with-wireshark-and-ways-to-prevent-it/&#34;&gt;these instructions&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Now with DNS spoofing, and a fake SSL server, I could intercept encrypted traffic from the router, as long as it does not validate the SSL certificate. Luckily it didn’t check the validity, and thus I was able to capture the request: (BTW Not checking the cert completely defeats the point of using SSL… bad Linksys!).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span class=&#34;nf&#34;&gt;POST&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;/cds/update&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;HTTP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1.1&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span class=&#34;nf&#34;&gt;POST&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;/cds/update&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;HTTP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1.1&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;Host&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;update.linksys.com&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;Accept&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;*/*&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;Content-Type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;text/xml&lt;/span&gt;
@@ -40,7 +40,7 @@
   &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/SOAP-ENV:Body&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
 &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/SOAP-ENV:Envelope&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and the response:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span class=&#34;kr&#34;&gt;HTTP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1.1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;200&lt;/span&gt; &lt;span class=&#34;ne&#34;&gt;OK&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span class=&#34;kr&#34;&gt;HTTP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1.1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;200&lt;/span&gt; &lt;span class=&#34;ne&#34;&gt;OK&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;Content-Language&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;en-US&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;Content-Type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;text/xml&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;SOAPAction&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
@@ -68,9 +68,9 @@
 &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/soapenv:Envelope&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;(I slightly modified portions of the request and response to hide the identify of my router.).&lt;/p&gt;
 &lt;p&gt;I might write a script to make fake requests, but until then you can easily create a request with curl:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl -d @request.raw https://update.linksys.com/cds/update
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl -d @request.raw https://update.linksys.com/cds/update
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then you just extract the DownloadURI and&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Voila I now have the firmware. Now I need to figure out what to do with it.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;: As requested I fetched the more recent version of the file:&lt;br&gt;
 2.0.37.131047 – &lt;a href=&#34;http://download.linksys.com/updates/to0040829450.pdx/FW&#34;&gt;http://download.linksys.com/updates/to0040829450.pdx/FW&lt;/a&gt;_E4200_2.0.37.131047.SSA&lt;/p&gt;
@@ -84,7 +84,7 @@
       
       <guid>https://blog.bramp.net/post/2010/11/25/verizon-fios-mi424wr-rev.-f-router/</guid>
       <description>&lt;p&gt;I just got a FiOS wifi router and I must say I really like it. The web interface has many more options than any home router I’ve ever played with, and it seems like it’d be easy for a beginner but doesn’t get in the way of an expert. It also telnet access (optionally over SSL), which puts you into a custom shell. Poking around the commands I find one awesome one:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Wireless Broadband Router&amp;gt; &lt;span class=&#34;nb&#34;&gt;help&lt;/span&gt; system shell
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Wireless Broadband Router&amp;gt; &lt;span class=&#34;nb&#34;&gt;help&lt;/span&gt; system shell
 shell   Spawn busybox shell in foreground
 
 Wireless Broadband Router&amp;gt; system shell
@@ -93,10 +93,10 @@ Enter &lt;span class=&#34;s1&#34;&gt;&amp;#39;help&amp;#39;&lt;/span&gt; &lt;spa
 
 / &lt;span class=&#34;c1&#34;&gt;# &lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This is very clearly running Linux, with BusyBox. For those interested here are some interesting bits of information:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/ &lt;span class=&#34;c1&#34;&gt;# cat /proc/version &lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/ &lt;span class=&#34;c1&#34;&gt;# cat /proc/version &lt;/span&gt;
 Linux version 2.6.16.14 &lt;span class=&#34;c1&#34;&gt;#1 SMP Sat Nov 28 00:38:50 PST 2009&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;A four year old kernel. Well what do you expect from this kind of device :)&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/ &lt;span class=&#34;c1&#34;&gt;# cat /proc/cpuinfo &lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/ &lt;span class=&#34;c1&#34;&gt;# cat /proc/cpuinfo &lt;/span&gt;
 system &lt;span class=&#34;nb&#34;&gt;type&lt;/span&gt;		: MC524WR
 processor		: &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
 cpu model		: Cavium Networks Octeon CN50XX V0.1
@@ -121,7 +121,7 @@ ASEs implemented	:
 VCED exceptions		: not available
 VCEI exceptions		: not available
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;w00t, a &lt;a href=&#34;http://www.caviumnetworks.com/OCTEON-Plus_CN50XX.html&#34;&gt;Dual Cores 64bit MIPS chip&lt;/a&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/ &lt;span class=&#34;c1&#34;&gt;# cat /proc/meminfo &lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/ &lt;span class=&#34;c1&#34;&gt;# cat /proc/meminfo &lt;/span&gt;
 MemTotal:        &lt;span class=&#34;m&#34;&gt;53200&lt;/span&gt; kB
 MemFree:         &lt;span class=&#34;m&#34;&gt;11588&lt;/span&gt; kB
 Buffers:          &lt;span class=&#34;m&#34;&gt;9252&lt;/span&gt; kB

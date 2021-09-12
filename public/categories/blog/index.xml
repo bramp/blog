@@ -5,8 +5,264 @@
     <description>Recent content in Blog on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Sat, 03 Apr 2021 12:44:51 -0700</lastBuildDate>
+    <lastBuildDate>Sun, 12 Sep 2021 13:09:07 -0700</lastBuildDate>
     <atom:link href="https://blog.bramp.net/categories/blog/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Recovering a RAID-5 Intel Storage Matrix on Linux (without the hardware)</title>
+      <link>https://blog.bramp.net/post/2021/09/12/recovering-a-raid-5-intel-storage-matrix-on-linux-without-the-hardware/</link>
+      <pubDate>Sun, 12 Sep 2021 13:09:07 -0700</pubDate>
+      
+      <guid>https://blog.bramp.net/post/2021/09/12/recovering-a-raid-5-intel-storage-matrix-on-linux-without-the-hardware/</guid>
+      <description>&lt;p&gt;I recently found hard drives from an old RAID array I stopped using over a decade ago. I wanted to &lt;a href=&#34;https://raid.wiki.kernel.org/index.php/RAID_Recovery&#34;&gt;recover the data&lt;/a&gt; from these disks, and that turned out to be more challenging than expected. This post outlines the steps, and hopefully helps someone else in future.&lt;/p&gt;
+&lt;p&gt;This was a four 750GB disk RAID-5 array using Intel Storage Matrix &amp;ldquo;fake-raid&amp;rdquo; (now called &lt;a href=&#34;https://en.wikipedia.org/wiki/Intel_Rapid_Storage_Technology&#34;&gt;Intel Rapid Storage Technology&lt;/a&gt;). This is a RAID solution that uses a mix of software and hardware. I no longer have this Intel hardware, and in fact I no longer have a machine that would accept four drives. Luckily &lt;code&gt;mdadm&lt;/code&gt; seems to have a pure software implementation of Intel Storage Matrix, so I hatched a plan. I would:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Create disk images for each of the four drives,&lt;/li&gt;
+&lt;li&gt;Mount the images locally as block devices,&lt;/li&gt;
+&lt;li&gt;Use &lt;code&gt;mdadm&lt;/code&gt; to construct an array,&lt;/li&gt;
+&lt;li&gt;Copy the data into my backups.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;1-create-disk-images&#34;&gt;1. Create disk images&lt;/h1&gt;
+&lt;p&gt;I have a &lt;a href=&#34;https://www.google.com/search?q=usb+sata+adapter&#34;&gt;USB SATA adapter&lt;/a&gt;, and connected one drive at a time to my PC. This computer has a single local 12 TB drive, which I would store the disk images to. I start to create the disk images using:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo dd &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/dev/sdc &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;1.raw
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This worked great for the first disk, but the 2nd disk fail around the 600GB point. It seems this drive has developed bad blocks, but I kept my fingers crossed that this was still recoverable since this was RAID-5 after all. I switched up to using &lt;a href=&#34;https://www.gnu.org/software/ddrescue/&#34;&gt;&lt;code&gt;ddrescue&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo ddrescue /dev/sdc 2.raw 2.log --try-again --force --verbose
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This worked great, and was able to create a full 750GB image, slowly retiring the failed blocks, recovering as much as possible. After about a week of copying I had four disk images, &lt;code&gt;1.raw&lt;/code&gt;, &lt;code&gt;2.raw&lt;/code&gt;, &lt;code&gt;3.raw&lt;/code&gt;, &lt;code&gt;4.raw&lt;/code&gt;, with only the 2nd disk having problems.&lt;/p&gt;
+&lt;p&gt;I now, &lt;code&gt;chmod -w *.raw&lt;/code&gt; to remove write permissions to the images, helping to prevent a future step accidently altered the images.&lt;/p&gt;
+&lt;h1 id=&#34;2-mounting-the-images&#34;&gt;2. Mounting the images&lt;/h1&gt;
+&lt;p&gt;To mount the images I use &lt;code&gt;losetup&lt;/code&gt; (roughly following instructions &lt;a href=&#34;https://askubuntu.com/questions/663027/create-raid-array-of-image-files&#34;&gt;here&lt;/a&gt;), specifically:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo losetup -r /dev/loop31 1.raw
+$ sudo losetup -r /dev/loop32 2.raw
+$ sudo losetup -r /dev/loop33 3.raw
+$ sudo losetup -r /dev/loop34 4.raw
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Later I would use &lt;code&gt;sudo losetup -d /dev/loop3[1234]&lt;/code&gt; to unmount these images. I then decided to inspect these drives, to see what partitions were on them:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo fdisk -l /dev/loop31
+
+Disk /dev/loop31: 698.65 GiB, &lt;span class=&#34;m&#34;&gt;750156374016&lt;/span&gt; bytes, &lt;span class=&#34;m&#34;&gt;1465149168&lt;/span&gt; sectors
+Units: sectors of &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; * &lt;span class=&#34;nv&#34;&gt;512&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt; bytes
+Sector size &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;logical/physical&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt; bytes / &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt; bytes
+I/O size &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;minimum/optimal&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt; bytes / &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt; bytes
+Disklabel type: dos
+Disk identifier: 0xd204616a
+
+Device        Boot Start        End    Sectors Size Id Type
+/dev/loop31p1          &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;4294967295&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;4294967295&lt;/span&gt;   2T ee GPT
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo fdisk -l /dev/loop32
+
+Disk /dev/loop32: 698.65 GiB, &lt;span class=&#34;m&#34;&gt;750156374016&lt;/span&gt; bytes, &lt;span class=&#34;m&#34;&gt;1465149168&lt;/span&gt; sectors
+Units: sectors of &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; * &lt;span class=&#34;nv&#34;&gt;512&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt; bytes
+Sector size &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;logical/physical&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt; bytes / &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt; bytes
+I/O size &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;minimum/optimal&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt; bytes / &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt; bytes
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo fdisk -l /dev/loop33
+
+Disk /dev/loop33: 698.65 GiB, &lt;span class=&#34;m&#34;&gt;750156374016&lt;/span&gt; bytes, &lt;span class=&#34;m&#34;&gt;1465149168&lt;/span&gt; sectors
+Units: sectors of &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; * &lt;span class=&#34;nv&#34;&gt;512&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt; bytes
+Sector size &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;logical/physical&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt; bytes / &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt; bytes
+I/O size &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;minimum/optimal&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt; bytes / &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt; bytes
+Disklabel type: dos
+Disk identifier: 0x899c1289
+
+Device        Boot      Start        End    Sectors   Size Id Type
+/dev/loop33p1        &lt;span class=&#34;m&#34;&gt;33488921&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;4294836216&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;4261347296&lt;/span&gt;     2T ee GPT
+/dev/loop33p2        &lt;span class=&#34;m&#34;&gt;35651584&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;35651584&lt;/span&gt;          &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;     0B  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; Empty
+/dev/loop33p3               &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;1377535&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;1377536&lt;/span&gt; 672.6M &lt;span class=&#34;m&#34;&gt;12&lt;/span&gt; Compaq diagnostics
+/dev/loop33p4      &lt;span class=&#34;m&#34;&gt;3071040408&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3104693987&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;33653580&lt;/span&gt;    16G &lt;span class=&#34;m&#34;&gt;64&lt;/span&gt; Novell Netware &lt;span class=&#34;m&#34;&gt;286&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Disk 1 had a single partition, disk 2 and 4 had no partitions, and the 3rd disk had four! Those partitions looked a little weird, and I wondered for a minute if I mixed up my drives, or reformatted them at some point. I tried to mount them to no success, so I just assumed the RAID added something that looked like a real partition table. So I moved onto the next step.&lt;/p&gt;
+&lt;h1 id=&#34;3-use-mdadm-to-construct-an-array&#34;&gt;3. Use &lt;code&gt;mdadm&lt;/code&gt; to construct an array.&lt;/h1&gt;
+&lt;p&gt;This is where it got difficult, due to limitations of mounting local disks, and the Intel Storage Matrix support.&lt;/p&gt;
+&lt;p&gt;I started by asking &lt;code&gt;mdadm&lt;/code&gt; to examine the images (telling it to use &lt;code&gt;imsm&lt;/code&gt;):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo mdadm --examine -e imsm /dev/loop31
+mdadm: /dev/loop31 is not attached to Intel&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;R&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; RAID controller.
+mdadm: Failed to retrieve serial &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; /dev/loop31
+mdadm: Failed to load all information sections on /dev/loop31
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Well that’s not a great start. If I understand the error &lt;code&gt;/dev/loop31 is not attached to Intel(R) RAID controller&lt;/code&gt; it implies I need to connect my drive (or in this case loopback disk image) via a real RAID controller. Well that defeats my whole plan. After some googling, I found this &lt;a href=&#34;https://askubuntu.com/questions/1239082/reassemble-intel-rst-raid-on-another-mainboard&#34;&gt;stackoverflow post&lt;/a&gt; pointing out there is a &lt;code&gt;IMSM_NO_PLATFORM=1&lt;/code&gt; environment various I could set. The messaging &lt;code&gt;is not attached to Intel(R) RAID controller&lt;/code&gt; was really a warning, and had no actual bearing on the problem.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo &lt;span class=&#34;nv&#34;&gt;IMSM_NO_PLATFORM&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; mdadm --examine -e imsm &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  /dev/loop31 /dev/loop32 /dev/loop33 /dev/loop34
+mdadm: no recogniseable superblock on /dev/loop34
+mdadm: Cannot assemble mbr metadata on /dev/loop33
+mdadm: no recogniseable superblock on /dev/loop32
+mdadm: Cannot assemble mbr metadata on /dev/loop31
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;A new set of errors, but they did not look promising. More head scratching, and I hit a bit of a dead end. I now wondered if the drives were corrupt, making the superblocks unreadable. I decided to start to read the source code for &lt;code&gt;mdadm&lt;/code&gt; to try and understand the superblock format, and see what was wrong.&lt;/p&gt;
+&lt;p&gt;It indicated the &lt;a href=&#34;https://github.com/neilbrown/mdadm/blob/5f4184557a98bb641a7889e280265109c73e2f43/super-intel.c#L242&#34;&gt;superblock&lt;/a&gt; (the data structure containing information about the array) was two sectors from the end of the disk, starting with the string &lt;code&gt;Intel Raid ISM Cfg Sig. &lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Guessing that a sector is 512 bytes long, I did the following:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ tail -c &lt;span class=&#34;m&#34;&gt;1024&lt;/span&gt; 3.raw  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; hd
+
+&lt;span class=&#34;m&#34;&gt;00000000&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;49&lt;/span&gt; 6e &lt;span class=&#34;m&#34;&gt;74&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;65&lt;/span&gt; 6c &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;52&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;61&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;69&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;64&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;49&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;53&lt;/span&gt; 4d &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;43&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;Intel Raid ISM C&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;m&#34;&gt;00000010&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;66&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;67&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;53&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;69&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;67&lt;/span&gt; 2e &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;31&lt;/span&gt; 2e &lt;span class=&#34;m&#34;&gt;33&lt;/span&gt; 2e &lt;span class=&#34;m&#34;&gt;30&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;30&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;fg&lt;/span&gt; Sig. 1.3.00..&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;m&#34;&gt;00000020&lt;/span&gt;  cc c0 3d de &lt;span class=&#34;m&#34;&gt;48&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;02&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;40&lt;/span&gt; d5 &lt;span class=&#34;m&#34;&gt;11&lt;/span&gt; d4 &lt;span class=&#34;m&#34;&gt;09&lt;/span&gt; ae &lt;span class=&#34;m&#34;&gt;19&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;..&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;.H...@.......&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;m&#34;&gt;00000030&lt;/span&gt;  f8 &lt;span class=&#34;m&#34;&gt;11&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; a0  &lt;span class=&#34;m&#34;&gt;04&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;01&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;02&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;................&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;m&#34;&gt;00000040&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;40&lt;/span&gt; d5 &lt;span class=&#34;m&#34;&gt;11&lt;/span&gt; d4 &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;@...............&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;m&#34;&gt;00000050&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;................&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+*
+000000d0  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;53&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;31&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;33&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;55&lt;/span&gt; 4a &lt;span class=&#34;m&#34;&gt;31&lt;/span&gt; 4b &lt;span class=&#34;m&#34;&gt;51&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;........S13UJ1KQ&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+000000e0  &lt;span class=&#34;m&#34;&gt;34&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;30&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;33&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;33&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;33&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;37&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  f0 &lt;span class=&#34;m&#34;&gt;66&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;54&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;57&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;01&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;403337...fTW....&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+000000f0  3a &lt;span class=&#34;m&#34;&gt;01&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;:...............&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;m&#34;&gt;00000100&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;53&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;31&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;33&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;55&lt;/span&gt; 4a &lt;span class=&#34;m&#34;&gt;44&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;57&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;51&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;........S13UJDWQ&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;m&#34;&gt;00000110&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;33&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;34&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;36&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;34&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;35&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;37&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  f0 &lt;span class=&#34;m&#34;&gt;66&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;54&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;57&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;02&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;346457...fTW....&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;m&#34;&gt;00000120&lt;/span&gt;  3a &lt;span class=&#34;m&#34;&gt;01&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;:...............&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;m&#34;&gt;00000130&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;53&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;31&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;33&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;55&lt;/span&gt; 4a &lt;span class=&#34;m&#34;&gt;44&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;57&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;51&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;........S13UJDWQ&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;m&#34;&gt;00000140&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;33&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;34&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;36&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;36&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;36&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;38&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  f0 &lt;span class=&#34;m&#34;&gt;66&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;54&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;57&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;03&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;346668...fTW....&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;m&#34;&gt;00000150&lt;/span&gt;  3a &lt;span class=&#34;m&#34;&gt;01&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;:...............&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;m&#34;&gt;00000160&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;53&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;31&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;33&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;55&lt;/span&gt; 4a &lt;span class=&#34;m&#34;&gt;31&lt;/span&gt; 4b &lt;span class=&#34;m&#34;&gt;51&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;........S13UJ1KQ&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;m&#34;&gt;00000170&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;34&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;30&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;33&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;33&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;32&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;34&lt;/span&gt; 3a &lt;span class=&#34;m&#34;&gt;30&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;66&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;54&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;57&lt;/span&gt; ff ff ff ff  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;403324:0.fTW....&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;m&#34;&gt;00000180&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;02&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;................&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;m&#34;&gt;00000190&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;52&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;41&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;49&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;44&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;........RAID....&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+000001a0  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; f8 &lt;span class=&#34;nb&#34;&gt;fc&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;05&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;01&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;................&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+000001b0  8c &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;01&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;................&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+000001c0  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;................&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+*
+000001e0  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  a6 a8 ae &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;................&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+000001f0  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;02&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; ff &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;................&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;m&#34;&gt;00000200&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;00&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;................&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;
+*
+&lt;span class=&#34;m&#34;&gt;00000400&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Boom, the super block was there, started with a valid header, and even had other fields that looked correct (e.g S13UJ1KQ being a serial number of the drive).&lt;/p&gt;
+&lt;p&gt;Ok, so now I’m confused about what is wrong, and I wondered if this was a bug in &lt;code&gt;mdadm&lt;/code&gt;. Going back I remember the first error I got contained &lt;code&gt;Failed to retrieve serial&lt;/code&gt;, and I noticed the serial numbers were in the super block (e.g S13UJ1KQ). It then occurred to me, that once I imaged the hard drives, the images don’t contain the serial numbers!&lt;/p&gt;
+&lt;p&gt;Inspecting the code some more, it would fail with that error if it was unable to read the drive’s serial number. The loopback device doesn’t support serial numbers, so this started to make sense. I did however found a undocumented environment variable &lt;code&gt;IMSM_DEVNAME_AS_SERIAL&lt;/code&gt;, which would instead of reading the serial number from the hardware, just use the name of the device as the serial (e.g &lt;code&gt;/dev/loop31&lt;/code&gt;). This feature seems explicitly designed to help testing the &lt;code&gt;mdadm&lt;/code&gt; codebase.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo &lt;span class=&#34;nv&#34;&gt;IMSM_DEVNAME_AS_SERIAL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;IMSM_NO_PLATFORM&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; mdadm --examine -e imsm /dev/loop31 /dev/loop32 /dev/loop33 /dev/loop34
+…
+/dev/loop31:
+          Magic : Intel Raid ISM Cfg Sig.
+        Version : 1.3.00
+    Orig Family : d411d540
+         Family : d411d540
+     Generation : 0019ae09
+     Attributes : All supported
+           UUID : ff44bc31:56060902:afb34379:b0faf183
+       Checksum : de3dc0cc correct
+    MPB Sectors : &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+          Disks : &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;
+   RAID Devices : &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;RAID&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;:
+           UUID : 676c222f:760eaf46:97bd30b8:989d2470
+     RAID Level : &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;
+        Members : &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;
+          Slots : &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;UUU_&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+    Failed disk : &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;
+      This Slot : ?
+    Sector Size : &lt;span class=&#34;m&#34;&gt;512&lt;/span&gt;
+     Array Size : &lt;span class=&#34;m&#34;&gt;4395431936&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;2095.91 GiB 2250.46 GB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+   Per Dev Size : &lt;span class=&#34;m&#34;&gt;1465144328&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;698.64 GiB 750.15 GB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+  Sector Offset : &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
+    Num Stripes : &lt;span class=&#34;m&#34;&gt;11446438&lt;/span&gt;
+     Chunk Size : &lt;span class=&#34;m&#34;&gt;64&lt;/span&gt; KiB
+       Reserved : &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
+  Migrate State : idle
+      Map State : degraded
+    Dirty State : clean
+     RWH Policy : off
+
+  Disk00 Serial : S13UJ1KQ403337
+          State : active
+             Id : &lt;span class=&#34;m&#34;&gt;00010000&lt;/span&gt;
+    Usable Size : &lt;span class=&#34;m&#34;&gt;1465138766&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;698.63 GiB 750.15 GB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+
+  Disk01 Serial : S13UJDWQ346457
+          State : active
+             Id : &lt;span class=&#34;m&#34;&gt;00020000&lt;/span&gt;
+    Usable Size : &lt;span class=&#34;m&#34;&gt;1465138766&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;698.63 GiB 750.15 GB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+
+  Disk02 Serial : S13UJDWQ346668
+          State : active
+             Id : &lt;span class=&#34;m&#34;&gt;00030000&lt;/span&gt;
+    Usable Size : &lt;span class=&#34;m&#34;&gt;1465138766&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;698.63 GiB 750.15 GB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+
+  Disk03 Serial : S13UJ1KQ403324:0
+          State : active
+             Id : ffffffff
+    Usable Size : &lt;span class=&#34;m&#34;&gt;1465138526&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;698.63 GiB 750.15 GB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Ok, slowly making progress! Now it lists all the superblock information, and I was happy to see &lt;code&gt;Checksum : de3dc0cc correct&lt;/code&gt;, etc. However, it listed &lt;code&gt;Failed disk : 3&lt;/code&gt;, and &lt;code&gt;This Slot : ?&lt;/code&gt;. It made me think without the valid serial numbers, it didn’t know which drive was which, and thus couldn’t assemble the array.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This made me ponder that if I was ever going to create a RAID array implementation, I would not make it depend on information from the hardware. How do folks re-image disks? What is wrong with some GUID in the superblock to identify the disk? Ok digression aside.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;To move forward, I needed to trick &lt;code&gt;mdadm&lt;/code&gt; to think that serial &lt;code&gt;/dev/loop31&lt;/code&gt; was actually the real hardware. I went back to my drives, and visibility inspected them to check the serial numbers.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  Disk00 Serial : S13UJ1KQ403337   1.raw
+  Disk01 Serial : S13UJDWQ346457   2.raw
+  Disk02 Serial : S13UJDWQ346668   4.raw
+  Disk03 Serial : S13UJ1KQ403324   3.raw
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;At this point, I realised I had accidentally swapped drives 3 and 4. Quickly renaming them got them into the correct order.&lt;/p&gt;
+&lt;p&gt;Since I had already looked over the mdadm source code, it seemed a simple clean codebase, so I decided to change it to accept serial numbers. After a little while I did the hackiest thing possible:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-diff&#34; data-lang=&#34;diff&#34;&gt;&lt;span class=&#34;gh&#34;&gt;diff --git a/super-intel.c b/super-intel.c
+&lt;/span&gt;&lt;span class=&#34;gh&#34;&gt;index da376251..d466d911 100644
+&lt;/span&gt;&lt;span class=&#34;gh&#34;&gt;&lt;/span&gt;&lt;span class=&#34;gd&#34;&gt;--- a/super-intel.c
+&lt;/span&gt;&lt;span class=&#34;gd&#34;&gt;&lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;+++ b/super-intel.c
+&lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;&lt;/span&gt;&lt;span class=&#34;gu&#34;&gt;@@ -3994,6 +3994,20 @@ static int nvme_get_serial(int fd, void *buf, size_t buf_len)
+&lt;/span&gt;&lt;span class=&#34;gu&#34;&gt;&lt;/span&gt;        if (!name)
+                return 1;
+
+&lt;span class=&#34;gi&#34;&gt;+       if (strcmp(name, &amp;#34;loop31&amp;#34;) == 0) {
+&lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;+               strcpy((char *)buf, &amp;#34;S13UJ1KQ403337&amp;#34;);
+&lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;+               return 0;
+&lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;+       } else if (strcmp(name, &amp;#34;loop32&amp;#34;) == 0) {
+&lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;+               strcpy((char *)buf, &amp;#34;S13UJDWQ346457&amp;#34;);
+&lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;+               return 0;
+&lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;+       } else if (strcmp(name, &amp;#34;loop33&amp;#34;) == 0) {
+&lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;+               strcpy((char *)buf, &amp;#34;S13UJDWQ346668&amp;#34;);
+&lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;+               return 0;
+&lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;+       } else if (strcmp(name, &amp;#34;loop34&amp;#34;) == 0) {
+&lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;+               strcpy((char *)buf, &amp;#34;S13UJ1KQ403324&amp;#34;);
+&lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;+               return 0;
+&lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;+       }
+&lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;+
+&lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;&lt;/span&gt;        if (strncmp(name, &amp;#34;nvme&amp;#34;, 4) != 0)
+                return 1;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;nvme_get_serial&lt;/code&gt; function now had hard coded serial numbers when reading loop3[1234]. This obviously isn’t a generalised solution, but worked for me. Go open source!.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ make mdadm
+…
+
+$ sudo &lt;span class=&#34;nv&#34;&gt;IMSM_NO_PLATFORM&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; ./mdadm --examine -e imsm /dev/loop31 /dev/loop32 /dev/loop33 /dev/loop34
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Examine looked good, so the moment of truth, let’s assemble.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo &lt;span class=&#34;nv&#34;&gt;IMSM_NO_PLATFORM&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; ./mdadm --assemble --readonly -e imsm /dev/md0 /dev/loop31 /dev/loop32 /dev/loop33 /dev/loop34
+mdadm: Container /dev/md0 has been assembled with &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; drives
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Ok mixed success, it says 3 drives, but I would expect 4… But let’s keep going&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo ./mdadm --assemble --scan
+mdadm: Started /dev/md/RAID_0 with &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt; devices
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;W00t! It Started without errors!&lt;/p&gt;
+&lt;p&gt;I now have a &lt;code&gt;/dev/md0&lt;/code&gt;, &lt;code&gt;/dev/md127&lt;/code&gt; and &lt;code&gt;/dev/md127p1&lt;/code&gt; devices.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo mount -o ro /dev/md127p1 /mnt/raid5
+
+$ ls /mnt/raid5
+… lots of old files...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;YAY. Finished!&lt;/p&gt;
+&lt;p&gt;Ok, I’m not sure why it says three drives not four.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo ./mdadm --detail /dev/md127
+/dev/md127:
+         Container : /dev/md0, member &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
+        Raid Level : raid5
+        Array Size : &lt;span class=&#34;m&#34;&gt;2197715968&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;2.05 TiB 2.25 TB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+     Used Dev Size : &lt;span class=&#34;m&#34;&gt;732572032&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;698.64 GiB 750.15 GB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+      Raid Devices : &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;
+     Total Devices : &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;
+
+             State : clean, degraded
+    Active Devices : &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;
+   Working Devices : &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;
+    Failed Devices : &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
+
+            Layout : left-asymmetric
+        Chunk Size : 64K
+
+Consistency Policy : resync
+
+
+              UUID : 676c222f:760eaf46:97bd30b8:989d2470
+    Number   Major   Minor   RaidDevice State
+       &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;       &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt;       &lt;span class=&#34;m&#34;&gt;31&lt;/span&gt;        &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;      active sync   /dev/loop31
+       &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;       &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt;       &lt;span class=&#34;m&#34;&gt;32&lt;/span&gt;        &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;      active sync   /dev/loop32
+       &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;       &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt;       &lt;span class=&#34;m&#34;&gt;33&lt;/span&gt;        &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;      active sync   /dev/loop33
+       -       &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;        &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;        &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;      removed
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This does seem to imply a drive is missing. Maybe it doesn’t matter, as it mounted successfully, and I can copy all my data off the array.&lt;/p&gt;
+&lt;h1 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;This did not seem the easiest task, and there were a few road bumps along the way. Hopefully the hacks in here will help someone else out in a similar situation.&lt;/p&gt;
+&lt;p&gt;To finally clean up, you can run this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo umount /mnt/raid5
+$ sudo mdadm --stop /dev/md127
+$ sudo mdadm --stop /dev/md0
+$ sudo losetup -d /dev/loop3&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;1234&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
     
     <item>
       <title>Alternative Milks</title>
@@ -287,27 +543,25 @@
 &lt;p&gt;Many of the &lt;a href=&#34;https://matthewhoelter.com/2019/10/21/how-to-setup-https-on-your-local-development-environment-localhost-in-minutes.html&#34;&gt;instructions out there&lt;/a&gt; create a self-signed certificate, that you install to be trusted locally. I wanted my development server to be accessible from other devices on my network, and I didn&amp;rsquo;t want the hassle of installing this self-signed cert. Instead I wanted a SSL certificate that uses a real/trusted CA.&lt;/p&gt;
 &lt;p&gt;Enter &lt;a href=&#34;https://letsencrypt.org/&#34;&gt;Let&amp;rsquo;s Encrypt&lt;/a&gt;, a free service to provide SSL certificates, providing you can prove you own the domain. To go about this, I did the following on my macbook:&lt;/p&gt;
 &lt;h1 id=&#34;install-certbot-to-generate-the-cert&#34;&gt;Install Certbot (to generate the cert)&lt;/h1&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;brew install certbot
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;brew install certbot
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There are a few ways to prove you own a domain, the HTTP based ones require a public web server. Since my development server is only on my local network, I&amp;rsquo;m going to use a DNS based proof. Since I use Cloudflare for my DNS, I&amp;rsquo;ll be using their plugin.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;pip3 install certbot-dns-cloudflare
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;pip3 install certbot-dns-cloudflare
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;setup-the-domain-localbrampnet&#34;&gt;Setup the domain (local.bramp.net)&lt;/h1&gt;
 &lt;p&gt;I use cloudflare to host the DNS for my domain, so I setup a new domain, local.bramp.net, that points to an internal IP address (192.168.0.123). This domain won&amp;rsquo;t actually be used via the Internet, but will happily work for any devices on my local network.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;setup-dns.png&#34; width=&#34;720&#34; height=&#34;208&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;setup-dns.png&#34; width=&#34;720&#34; height=&#34;208&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Setup DNS record for local.bramp.net&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;You&amp;rsquo;ll also need a &lt;a href=&#34;https://support.cloudflare.com/hc/en-us/articles/200167836-Where-do-I-find-my-Cloudflare-API-key-&#34;&gt;API key from Cloudflare&lt;/a&gt;. They allow you to scope the key to only access this test domain. For example:&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;create-token.png&#34; width=&#34;720&#34; height=&#34;304&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;create-token.png&#34; width=&#34;720&#34; height=&#34;304&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Create a API token&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;That will give you a token, that is a long string of letters and numbers.&lt;/p&gt;
 &lt;h1 id=&#34;configure-certbot&#34;&gt;Configure Certbot&lt;/h1&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Create a place to store your secrets, that only you can access&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Create a place to store your secrets, that only you can access&lt;/span&gt;
 
 mkdir ~/.secrets
 cat &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF &amp;gt; ~/.secrets/cloudflare.ini
@@ -317,7 +571,7 @@ cat &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF &amp;gt; ~/.secrets/cloudf
 chmod &lt;span class=&#34;m&#34;&gt;0700&lt;/span&gt; ~/.secrets/
 chmod &lt;span class=&#34;m&#34;&gt;0400&lt;/span&gt; ~/.secrets/cloudflare.ini
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;generate-the-certificate&#34;&gt;Generate the Certificate&lt;/h1&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;certbot certonly &lt;span class=&#34;se&#34;&gt;\
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;certbot certonly &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --config-dir ~/.secrets/ &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --work-dir ~/.secrets/ &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --logs-dir ~/.secrets/ &lt;span class=&#34;se&#34;&gt;\
@@ -331,7 +585,7 @@ chmod &lt;span class=&#34;m&#34;&gt;0400&lt;/span&gt; ~/.secrets/cloudflare.ini
    /Users/bramp/.secrets/live/local.bramp.net/privkey.pem
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The &lt;code&gt;privkey.pem&lt;/code&gt; is important to keep secret. Normally certbot runs as root, but here we run it as your user for convenience.&lt;/p&gt;
 &lt;p&gt;If you want this to automatically renew, just run to add a renewal that occurs twice daily at a random minute after 12pm and 12am.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# List your current crontab, and append certbot renewal&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# List your current crontab, and append certbot renewal&lt;/span&gt;
 
 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;crontab -l &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$((&lt;/span&gt; RANDOM &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;60&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;))&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; 0,12 * * * &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;which certbot&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; renew -q --config-dir ~/.secrets/ --work-dir ~/.secrets/ --logs-dir ~/.secrets/&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; crontab -
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Or you can renew (all certificates) on demand with a simple:&lt;/p&gt;
@@ -341,13 +595,13 @@ chmod &lt;span class=&#34;m&#34;&gt;0400&lt;/span&gt; ~/.secrets/cloudflare.ini
   --logs-dir ~/.secrets/
 &lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;install-a-simple-https-web-server&#34;&gt;Install a simple HTTPS web server&lt;/h1&gt;
 &lt;p&gt;I use &lt;a href=&#34;https://github.com/http-party/http-server&#34;&gt;http-server&lt;/a&gt;, &amp;ldquo;a simple, zero-configuration command-line http server.&amp;rdquo;. It supports many useful features, including SSL.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;brew install http-server
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;brew install http-server
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;running-the-https-web-server&#34;&gt;Running the HTTPS web server&lt;/h1&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;http-server -S &lt;span class=&#34;se&#34;&gt;\
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;http-server -S &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -C ~/.secrets/live/local.bramp.net/fullchain.pem &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -K ~/.secrets/live/local.bramp.net/privkey.pem
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You may wish to alias this to something shorter, for example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;https&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;http-server -S \
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;https&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;http-server -S \
 &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;  -C ~/.secrets/live/local.bramp.net/fullchain.pem \
 &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;  -K ~/.secrets/live/local.bramp.net/privkey.pem&amp;#34;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now you can run &lt;code&gt;https&lt;/code&gt; from any directory and it&amp;rsquo;ll be served over SSL.&lt;/p&gt;
@@ -400,8 +654,7 @@ chmod &lt;span class=&#34;m&#34;&gt;0400&lt;/span&gt; ~/.secrets/cloudflare.ini
 &lt;/ul&gt;
 &lt;h1 id=&#34;concepts&#34;&gt;Concepts&lt;/h1&gt;
 &lt;p&gt;Beam already has good documentation, that explains all the &lt;a href=&#34;https://beam.apache.org/documentation/programming-guide/&#34;&gt;main concepts&lt;/a&gt;. We will cover some of the basics.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;design-your-pipeline-linear.png&#34; width=&#34;720&#34; height=&#34;175&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;design-your-pipeline-linear.png&#34; width=&#34;720&#34; height=&#34;175&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Pipeline stages&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
@@ -413,9 +666,9 @@ chmod &lt;span class=&#34;m&#34;&gt;0400&lt;/span&gt; ~/.secrets/cloudflare.ini
 &lt;/div&gt;
 &lt;p&gt;A classic example is counting the words in Shakespeare. In brief, the pipeline counts the number of times each word appears across Shakespeare’s works, and outputs a simple key-value list of word to word-count. There is an &lt;a href=&#34;https://github.com/apache/beam/blob/master/sdks/go/examples/minimal_wordcount/minimal_wordcount.go&#34;&gt;example&lt;/a&gt; provided with the Beam SDK, and along with a great &lt;a href=&#34;https://beam.apache.org/get-started/wordcount-example/&#34;&gt;walk through&lt;/a&gt;. I suggest you read that before continuing. I will however dive into some of the Go specifics, and add additional context.&lt;/p&gt;
 &lt;p&gt;The example begins with &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/io/textio#Read&#34;&gt;&lt;code&gt;textio.Read&lt;/code&gt;&lt;/a&gt;, which reads all the files under the shakespeare directory stored on &lt;a href=&#34;https://cloud.google.com/storage/&#34;&gt;Google Cloud Storage&lt;/a&gt; (GCS). The files are stored on GCS, so when this pipeline runs across a cluster of machines, they will all have access. &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/io/textio#Read&#34;&gt;&lt;code&gt;textio.Read&lt;/code&gt;&lt;/a&gt; always returns a &lt;code&gt;PCollection&amp;lt;string&amp;gt;&lt;/code&gt; which contains one element for every line in the given files.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;lines&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;textio&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Read&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;gs://apache-beam-samples/shakespeare/*&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;lines&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;textio&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Read&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;gs://apache-beam-samples/shakespeare/*&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;lines&lt;/code&gt; PCollection is then processed by a ParDo (&lt;strong&gt;Par&lt;/strong&gt;allel &lt;strong&gt;Do&lt;/strong&gt;), a type of PTransform. Most transforms are built with a &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#ParDo&#34;&gt;&lt;code&gt;beam.ParDo&lt;/code&gt;&lt;/a&gt;. It will execute a supplied function in parallel on the source PCollection. In this example, the function is defined inline and very simply splits the input lines into words with a regexp. Each word is then emitted to another &lt;code&gt;PCollection&amp;lt;string&amp;gt;&lt;/code&gt; named &lt;code&gt;words&lt;/code&gt;. Note how for every line, zero or more words may be emitted, making this new collection a different size to the original.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;splitFunc&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;line&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;emit&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;splitFunc&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;line&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;emit&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;word&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;range&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;wordRE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;FindAllString&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;line&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
         &lt;span class=&#34;nf&#34;&gt;emit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;word&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
     &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
@@ -423,26 +676,26 @@ chmod &lt;span class=&#34;m&#34;&gt;0400&lt;/span&gt; ~/.secrets/cloudflare.ini
 &lt;span class=&#34;nx&#34;&gt;words&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;ParDo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;splitFunc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;An interesting trick used by the Apache Beam Go API is passing functions as an &lt;code&gt;interface{}&lt;/code&gt;, and using reflection to infer the types. Specifically, since &lt;code&gt;lines&lt;/code&gt; is a &lt;code&gt;PCollection&amp;lt;string&amp;gt;&lt;/code&gt; it is expected that the first argument of &lt;code&gt;splitFunc&lt;/code&gt; is a string type. The second argument to &lt;code&gt;splitFunc&lt;/code&gt; will allow Beam to infer the type of the &lt;code&gt;words&lt;/code&gt; output PCollection. In this example it is a function with a single string argument. Thus the output type will be &lt;code&gt;PCollection&amp;lt;string&amp;gt;&lt;/code&gt;. If &lt;code&gt;emit&lt;/code&gt; was defined as &lt;code&gt;func(int)&lt;/code&gt; then the return type would be a &lt;code&gt;PCollection&amp;lt;int&amp;gt;&lt;/code&gt;, and the next PTransform would be expected to handle ints.&lt;/p&gt;
 &lt;p&gt;The next step uses one of the library’s higher level constructs.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;counted&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;stats&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Count&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;words&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;counted&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;stats&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Count&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;words&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/transforms/stats#Count&#34;&gt;&lt;code&gt;stats.Count&lt;/code&gt;&lt;/a&gt; takes a &lt;code&gt;PCollection&amp;lt;X&amp;gt;&lt;/code&gt;, counts each unique element, and outputs a key-value pair of (X, int) as a &lt;code&gt;PCollection&amp;lt;KV&amp;lt;X, int&amp;gt;&amp;gt;&lt;/code&gt;. In this specific example, the input is a &lt;code&gt;PCollection&amp;lt;string&amp;gt;&lt;/code&gt;, thus the output is &lt;code&gt;PCollection&amp;lt;KV&amp;lt;string, int&amp;gt;&amp;gt;&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Internally &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/transforms/stats#Count&#34;&gt;&lt;code&gt;stats.Count&lt;/code&gt;&lt;/a&gt; it’s made up of multiple ParDos, and a &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#GroupByKey&#34;&gt;&lt;code&gt;beam.GroupByKey&lt;/code&gt;&lt;/a&gt;, but it hides that to make it easier to use.&lt;/p&gt;
 &lt;p&gt;At this point, the counts of each word has been calculated, and the results are stored to a simple text file. To do this the &lt;code&gt;PCollection&amp;lt;KV&amp;lt;string, int&amp;gt;&amp;gt;&lt;/code&gt; is converted to a &lt;code&gt;PCollection&amp;lt;string&amp;gt;&lt;/code&gt;, containing one element for each line to be written out.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;formatFunc&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;w&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;formatFunc&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;w&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Sprintf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;%s: %v&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;w&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;nx&#34;&gt;formatted&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;ParDo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;formatFunc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;counted&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Again a &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#ParDo&#34;&gt;&lt;code&gt;beam.ParDo&lt;/code&gt;&lt;/a&gt; is used, but you’ll notice the &lt;code&gt;formatFunc&lt;/code&gt; is slightly different to the &lt;code&gt;splitFunc&lt;/code&gt; above. The &lt;code&gt;formatFunc&lt;/code&gt; takes two arguments, a string (the key), and a int (the value). These are the pairs in the &lt;code&gt;PCollection&amp;lt;KV&amp;lt;string, int&amp;gt;&amp;gt;&lt;/code&gt;. However, the &lt;code&gt;formatFunc&lt;/code&gt; does not take a &lt;code&gt;emit func(...)&lt;/code&gt; instead it simply returns a type string.&lt;/p&gt;
 &lt;p&gt;Since the PTransform outputs a single line for each input element, a simpler form of the function can be specified. One where the output element is just returned from the function. The &lt;code&gt;emit func(...)&lt;/code&gt; is useful when the number of output elements differ to the number of input elements. If its a 1:1 mapping a return makes the function easier to read. As above this is all inferred at runtime with reflection when the pipeline is being constructed..&lt;/p&gt;
 &lt;p&gt;Multiple return arguments can also be used. For example, if the output was expected to be &lt;code&gt;PCollection&amp;lt;KV&amp;lt;float64, bool&amp;gt;&amp;gt;&lt;/code&gt;, the return type could be &lt;code&gt;func(...) (float64, bool)&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;textio&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Write&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;wordcounts.txt&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;formatted&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;textio&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Write&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;wordcounts.txt&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;formatted&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Finally &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/io/textio#Write&#34;&gt;&lt;code&gt;textio.Write&lt;/code&gt;&lt;/a&gt; takes the formatted &lt;code&gt;PCollection&amp;lt;string&amp;gt;&lt;/code&gt; and writes it to a file named “wordcounts.txt&amp;quot; with one line per element.&lt;/p&gt;
 &lt;h2 id=&#34;running-the-pipeline&#34;&gt;Running the pipeline&lt;/h2&gt;
 &lt;p&gt;To test the pipeline it can easily be run locally like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;go get github.com/apache/beam/sdks/go/examples/wordcount
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;go get github.com/apache/beam/sdks/go/examples/wordcount
 &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$GOPATH&lt;/span&gt;/src/github.com/apache/beam/sdks/go/examples/wordcount
 go run wordcount.go --runner&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;direct
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To run in a more realistic way, it can be run on &lt;a href=&#34;https://cloud.google.com/dataflow/&#34;&gt;GCP Dataflow&lt;/a&gt;. Before you do so, you need to create a GCP project, create a GCS bucket, enable the Cloud Dataflow APIs, and create a service account. This is documented on the &lt;a href=&#34;https://cloud.google.com/dataflow/docs/quickstarts/quickstart-python&#34;&gt;Python quickstart guide&lt;/a&gt;, under “Before you begin”.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;GOOGLE_APPLICATION_CREDENTIALS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PWD&lt;/span&gt;/your-gcp-project.json
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;GOOGLE_APPLICATION_CREDENTIALS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PWD&lt;/span&gt;/your-gcp-project.json
 &lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;BUCKET&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;your-gcs-bucket
 &lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;PROJECT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;your-gcp-project
 
@@ -476,7 +729,7 @@ Job succeeded!
 &lt;p&gt;We will skip over the details of the color extraction algorithm, and provide that in a later article. Here we’ll focus on how to create a pipeline to accomplish this task.&lt;/p&gt;
 &lt;p&gt;We start by reading a csv file that contains metadata for each painting, such as the artist, year it was painted, and a GCS path to a jpg of the painting. The paintings will then be grouped by the decade they were painted, and then the color palette for each group will be determined. Each palette will saved to a png file (DrawColorPalette), as well as all the palette saved to a single large json file (WriteIndex). To finish it off, the pipeline will be productionised, so it easier to debug, and re-run. The full source code is &lt;a href=&#34;https://github.com/bramp/dataflow-art&#34;&gt;available here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;To start with, the main function for the pipeline looks like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
 	&lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/apache/beam/sdks/go/pkg/beam&amp;#34;&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
@@ -502,7 +755,7 @@ Job succeeded!
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That is the standard boilerplate for a Beam pipeline, it parses the flags, initialises Beam, delegates the pipeline construction to &lt;code&gt;buildPipeline&lt;/code&gt; function, and finally runs the pipeline.&lt;/p&gt;
 &lt;p&gt;The interesting code begins in the &lt;code&gt;buildPipeline&lt;/code&gt; function, which constructs the pipeline, by passing PCollections from one function to the next. To build up the tree we see in the above diagram.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildPipeline&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scope&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildPipeline&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scope&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;c1&#34;&gt;// nothing -&amp;gt; PCollection&amp;lt;Painting&amp;gt;
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;paintings&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;csvio&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Read&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;reflect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;TypeOf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Painting&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{}))&lt;/span&gt;
 
@@ -528,7 +781,7 @@ Job succeeded!
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nf&#34;&gt;WriteErrorLog&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;errors.log&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;errors1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;errors2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;errors3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To make it easy to follow, each function describes the step, and is annotated with a comment that explains what kind of PCollection is accepted and returned. Let&amp;rsquo;s highlight some interesting steps.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;flag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;index&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;art.csv&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;Index of the art.&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
@@ -551,14 +804,14 @@ Job succeeded!
 &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The very first step uses &lt;a href=&#34;https://godoc.org/github.com/bramp/morebeam/csvio#Read&#34;&gt;&lt;code&gt;csvio.Read&lt;/code&gt;&lt;/a&gt; to read the CSV file specified by the &lt;code&gt;--index&lt;/code&gt; flag, and returns a PCollection of Painting structs. In all the examples we’ve seen before the PCollections only contains basic types, e.g. strings, ints, etc. More complex types, such as a slices and structs are allowed (but not maps and interfaces). This makes it easier to pass rich information between the PTransforms. The only caveat is the type must be JSON-serialisable. This is because in a distributed pipeline, the PTransforms could be processed on different machines, and the PCollection needs to be marshalled to be passed between them.&lt;/p&gt;
 &lt;p&gt;For Beam to successfully unmarshal your data, the types must also be registered. This is typically done within the init() function, by called &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#RegisterType&#34;&gt;&lt;code&gt;beam.RegisterType&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;init&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;init&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;RegisterType&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;reflect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;TypeOf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Painting&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{}))&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you forget to register the type, a error will occur at Runtime, for example:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;java.util.concurrent.ExecutionException: java.lang.RuntimeException: Error received from SDK harness for instruction -224: execute failed: panic: reflect: Call using main.Painting as type struct { Artist string; Title string; ... } goroutine 70 [running]:
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This can be a little frustrating, as when running the pipeline locally with the &lt;code&gt;direct&lt;/code&gt; runner, it does not marshal your data, so errors like this aren’t exposed until running on Dataflow.&lt;/p&gt;
 &lt;p&gt;Now we have a collection of Paintings, we group them by decade:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// GroupByDecade takes a PCollection&amp;lt;Painting&amp;gt; and returns a 
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// GroupByDecade takes a PCollection&amp;lt;Painting&amp;gt; and returns a 
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// PCollection&amp;lt;CoGBK&amp;lt;string, Painting&amp;gt;&amp;gt; of the paintings group by decade.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;GroupByDecade&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scope&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;paintings&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;PCollection&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;PCollection&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Scope&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;GroupBy Decade&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -576,7 +829,7 @@ Job succeeded!
 &lt;p&gt;Next up is the &lt;code&gt;ExtractHistogram&lt;/code&gt;, which takes the &lt;code&gt;PCollection&amp;lt;CoGBK&amp;lt;string, Painting&amp;gt;&amp;gt;&lt;/code&gt;, and returns two PCollections. The first PCollection is a &lt;code&gt;PCollection&amp;lt;KV&amp;lt;string, Histogram&amp;gt;&amp;gt;&lt;/code&gt;, which contains a &lt;a href=&#34;https://en.wikipedia.org/wiki/Color_histogram&#34;&gt;color histogram&lt;/a&gt; for every decade of paintings. The second PCollection is related to error handling, and will be explained later.&lt;/p&gt;
 &lt;p&gt;The ExtractHistogram function demonstrates three new concepts, “Stateful functions”, “Data enrichment”, and “Error handling”.&lt;/p&gt;
 &lt;h2 id=&#34;stateful-functions&#34;&gt;Stateful functions&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;artPrefix&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;flag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;art&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;gs://mybucket/art&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;Path to where the art is kept.&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
@@ -601,14 +854,14 @@ Job succeeded!
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Instead of passing a simple function to &lt;code&gt;beam.ParDo&lt;/code&gt;, a struct containing two fields is passed. The exported field, &lt;code&gt;ArtPrefix&lt;/code&gt; is the path to where the painting jpgs are stored, and the unexported field, &lt;code&gt;fs&lt;/code&gt;, is a filesystem client for reading these jpgs.&lt;/p&gt;
 &lt;p&gt;When the pipeline runs, no global variables are allowed, including the command line flag variables. For example, when running this pipeline we may start it like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;go run main.go &lt;span class=&#34;se&#34;&gt;\
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;go run main.go &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --art gs://&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;BUCKET&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;?&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;/art/ &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --runner dataflow &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  ...
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;When the code actually runs on the Dataflow workers, the &lt;code&gt;--art&lt;/code&gt; flag is not specified. Thus the &lt;code&gt;*artPrefix&lt;/code&gt; value will use the default value. To pass this to the Dataflow workers, it must be part of the DoFn struct that is passed to &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#ParDo&#34;&gt;&lt;code&gt;beam.ParDo&lt;/code&gt;&lt;/a&gt;. So in this example, we create a &lt;code&gt;extractHistogramFn&lt;/code&gt; struct, with the exported &lt;code&gt;ArtPrefix&lt;/code&gt; field set to the value of the &lt;code&gt;--art&lt;/code&gt; flag. This &lt;code&gt;extractHistogramFn&lt;/code&gt; is then marshalled and passed to the workers. As with the unmarshalled PCollection values, the extractHistogramFn must also be registered with beam during &lt;code&gt;init&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;When the pipeline executes this step it calls the &lt;code&gt;extractHistogramFn&lt;/code&gt;’s &lt;code&gt;ProcessElement&lt;/code&gt; method. This method works in a similar way to a simple DoFn functions. The arguments and return value are reflected at runtime and mapped to the PCollections being processed and returned.&lt;/p&gt;
 &lt;h2 id=&#34;iterating-over-a-cogbk&#34;&gt;Iterating over a CoGBK&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fn&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;extractHistogramFn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;ProcessElement&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fn&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;extractHistogramFn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;ProcessElement&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
 		&lt;span class=&#34;nx&#34;&gt;ctx&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
 		&lt;span class=&#34;nx&#34;&gt;key&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;values&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Painting&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;bool&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
 		&lt;span class=&#34;nx&#34;&gt;errors&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;HistogramResult&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -632,7 +885,7 @@ Job succeeded!
 &lt;h2 id=&#34;data-enrichment&#34;&gt;Data enrichment&lt;/h2&gt;
 &lt;p&gt;Reading the paintings from an external service (such as &lt;a href=&#34;https://cloud.google.com/storage/&#34;&gt;GCS&lt;/a&gt;) demonstrates a data enrichment step. This is where an external service is used to “enrich” the dataset the pipeline is processing. You could imagine a user service being called when processing log entries, or a product service when processing purchases. It should be noted, that any external action should be &lt;a href=&#34;https://en.wikipedia.org/wiki/Idempotence&#34;&gt;idempotent&lt;/a&gt;. If a worker fails, it is possible the same element is retried, and thus processed multiple times. Dataflow keeps track of failures and ensures the final result only has each element processed once.&lt;/p&gt;
 &lt;p&gt;When calling a remote service, typically some kind of client is needed to make the request. In this pipeline we read the images from GCS, thus setting up GCS client at startup is useful. Since we are using a struct based DoFn, there are some additional methods that can be defined.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fn&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;extractHistogramFn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;Setup&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ctx&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;error&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fn&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;extractHistogramFn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;Setup&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ctx&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;error&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;error&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;filesystem&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;New&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ctx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ArtPrefix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 	&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;nil&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -646,7 +899,7 @@ Job succeeded!
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;When the DoFn is initialized on the worker, the &lt;code&gt;Setup&lt;/code&gt; method is called. Here a new &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/io/filesystem&#34;&gt;Filesystem client&lt;/a&gt; is created and store it in the struct’s &lt;code&gt;fs&lt;/code&gt; field. Later, when the DoFn is no longer needed, the &lt;code&gt;Teardown&lt;/code&gt; method is called, giving us opportunity to cleanup the client. With all things distributed, don’t expect the &lt;code&gt;Teardown&lt;/code&gt; to ever be called.&lt;/p&gt;
 &lt;p&gt;There are also some simple best practices around error handling that should be following when calling an external services.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fn&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;extractHistogramFn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;extractHistogram&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ctx&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fn&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;extractHistogramFn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;extractHistogram&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ctx&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
 &lt;span class=&#34;nx&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;filename&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;palette&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Histogram&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;ctx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;cancel&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;WithTimeout&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ctx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;time&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Second&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 	&lt;span class=&#34;k&#34;&gt;defer&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;cancel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
@@ -669,13 +922,13 @@ Job succeeded!
 &lt;p&gt;The external service, may also return permanent errors. Thus a more robust error handling pattern is needed.&lt;/p&gt;
 &lt;h2 id=&#34;error-handling-and-dead-letters&#34;&gt;Error handling and dead letters&lt;/h2&gt;
 &lt;p&gt;When Beam processes a PCollection, it bundles up multiple elements and processes one bundle at a time. If the PTransform return an error, panics, or otherwise fails (such as running out of memory), the full bundle is retried. With Dataflow, bundles are &lt;a href=&#34;https://cloud.google.com/dataflow/docs/resources/faq#how-are-java-exceptions-handled-in-cloud-dataflow&#34;&gt;retried up to four times&lt;/a&gt;, after which the entire pipeline is aborted. This can be inconvenient, so where appropriate instead of returning an error we we use a &lt;a href=&#34;https://en.wikipedia.org/wiki/Dead_letter_queue&#34;&gt;dead letter queue&lt;/a&gt;. This is a new PCollection that collects processing errors. These errors can then be persisted at the end of the pipeline, manually inspected, and processed again later.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;ParDo2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;extractHistogramFn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;ParDo2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;extractHistogramFn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;ArtPrefix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;artPrefix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;files&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;A keen observer would have noticed that &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#ParDo2&#34;&gt;&lt;code&gt;beam.ParDo2&lt;/code&gt;&lt;/a&gt; was used by ExtractHistogram, instead of &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam#ParDo&#34;&gt;&lt;code&gt;beam.ParDo&lt;/code&gt;&lt;/a&gt;. This function works the same, but returns two PCollections. In our case, the first is the normal output, and the second is a &lt;code&gt;PCollection&amp;lt;KV&amp;lt;string, string&amp;gt;&amp;gt;&lt;/code&gt;. This second collection is keyed on the unique identifer of the painting having an issue, and the value is the error message.&lt;/p&gt;
 &lt;p&gt;Since returning a error is optional, the errors PCollection was passed to &lt;code&gt;extractHistogramFn&lt;/code&gt;’s &lt;code&gt;ProcessElement&lt;/code&gt; as a &lt;code&gt;errors func(string, string)&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Throughout we use this kind of error PCollections from every stage, and at the end of the pipeline they are collected together and output to a single errors log file:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// WriteErrorLog takes multiple PCollection&amp;lt;KV&amp;lt;string,string&amp;gt;&amp;gt;s combines them
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// WriteErrorLog takes multiple PCollection&amp;lt;KV&amp;lt;string,string&amp;gt;&amp;gt;s combines them
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// and writes them to the given filename.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;WriteErrorLog&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Scope&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;filename&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;errors&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;PCollection&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Scope&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Sprintf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Write %q&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;filename&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
@@ -693,7 +946,7 @@ Job succeeded!
 &lt;h3 id=&#34;marshing&#34;&gt;Marshing&lt;/h3&gt;
 &lt;p&gt;Always remember to register the types that will be transmitted between workers. This is anything that’s inside a PCollection, as well as any DoFn. Not all types are allowed, but slices, structs, and primitives are. For other types, custom JSON marshalling can be used.&lt;/p&gt;
 &lt;p&gt;It should also be reminded that global state is not allowed. Flags and other global variables will not always be populated when running on a remote worker. Also, examples like this may catch you out:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;prefix&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;“&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;”&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;prefix&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;“&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;”&lt;/span&gt;
 &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Scope&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;“&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Prefix&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;”&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;prefix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;ParDo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;prefix&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt;
@@ -702,7 +955,7 @@ Job succeeded!
 &lt;h3 id=&#34;errors&#34;&gt;Errors&lt;/h3&gt;
 &lt;p&gt;Since the pipeline could be running across 100s of workers, errors are to be expected. Extensively using  &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/log#Infof&#34;&gt;&lt;code&gt;log.Infof&lt;/code&gt;&lt;/a&gt;, &lt;a href=&#34;https://godoc.org/github.com/apache/beam/sdks/go/pkg/beam/log#Debugf&#34;&gt;&lt;code&gt;log.Debugf&lt;/code&gt;&lt;/a&gt;, etc will make your live better. They can make it very easy to debug why the pipeline got stuck, or mysteriously failed.&lt;/p&gt;
 &lt;p&gt;While debugging this pipeline, it would occasionally fail due to exceeding the memory limits of the Dataflow worker’s. Standard Go infrastructure can be used to help debug this, such as &lt;a href=&#34;https://golang.org/pkg/net/http/pprof/&#34;&gt;pprof&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
 	&lt;span class=&#34;s&#34;&gt;&amp;#34;net/http&amp;#34;&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;_&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;net/http/pprof&amp;#34;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -733,13 +986,13 @@ Job succeeded!
       <description>&lt;p&gt;I got a &lt;a href=&#34;https://letsencrypt.org/docs/expiration-emails/&#34;&gt;nice warning email&lt;/a&gt; from &lt;a href=&#34;https://letsencrypt.org/&#34;&gt;Let&amp;rsquo;s Encrypt&lt;/a&gt; that my cert was going to expire soon, and hadn&amp;rsquo;t been renewed. I found in  &lt;code&gt;/var/log/letsencrypt/letsencrypt.log&lt;/code&gt; the following error:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Renewal configuration file /etc/letsencrypt/renewal/mydomain.bramp.net.conf (cert: mydomain.bramp.net) produced an unexpected error: &#39;Namespace&#39; object has no attribute &#39;dns_cloudflare_credentials&#39;. Skipping.
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I manually ran certbot in dry-run mode and it worked fine:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo certbot renew --dry-run
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo certbot renew --dry-run
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So this error only occurs when certbot is running as a cron job. Looking at &lt;code&gt;/etc/cron.d/certbot&lt;/code&gt; I see the user runs as root, so I tried the &lt;code&gt;certbot renew --dry-run&lt;/code&gt; again, but this time as the root user:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo su
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo su
 root@:~$ sudo certbot renew --dry-run
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and bam, the same error. This error somehow related to the &lt;a href=&#34;https://certbot-dns-cloudflare.readthedocs.io/en/latest/&#34;&gt;certbot-dns-cloudflare plugin&lt;/a&gt;, which proves the ownership of the domain with a &lt;a href=&#34;https://acme-python.readthedocs.io/en/latest/api/challenges.html#acme.challenges.DNS01&#34;&gt;DNS01 challenge&lt;/a&gt; via Cloudflare&amp;rsquo;s DNS. I use this form of challenge, because the domain in question is internal and not available on the Internet.&lt;/p&gt;
 &lt;p&gt;I had forgotten how I installed the plugin, but searching Google, it seems to be via &lt;code&gt;pip3&lt;/code&gt;. Clearly something was different between my root and normal user w/ sudo environments. So I did the following&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo pip3 list &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep certbot
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo pip3 list &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep certbot
 certbot &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;0.23.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
 certbot-apache &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;0.23.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
 certbot-dns-cloudflare &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;0.24.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
@@ -789,28 +1042,25 @@ certbot-apache &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;0.23.0&lt;span class=
 &lt;p&gt;&lt;strong&gt;tl;dr Google Fonts doesn&amp;rsquo;t supply fonts with OpenType features (such as old-style figures, or small-caps), but you can build and host the fonts yourself to support everything you need.&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;I recently posted a &lt;a href=&#34;https://blog.bramp.net/post/2018/01/16/measuring-percentile-latency/&#34;&gt;article which contained lots of numbers&lt;/a&gt;. While I was proofreading the article, I didn’t quite liked how the numbers looked, sometime the digits were below the baseline, for example:&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;oldstyle.png&#34; width=&#34;760&#34; height=&#34;157&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;oldstyle.png&#34; width=&#34;760&#34; height=&#34;157&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Oldstyle figures&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;Where I would have expected the top and bottom of each digit to be aligned:&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;lining.png&#34; width=&#34;760&#34; height=&#34;152&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;lining.png&#34; width=&#34;760&#34; height=&#34;152&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Lining figures&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;This made me flashback to all the typography I learnt when &lt;a href=&#34;https://github.com/bramp/publication&#34;&gt;working with LaTeX&lt;/a&gt;. These two styles of figures are called old-style, and lining (or sometimes lowercase and uppercase numbers). The theory is that old-style numbers flow better when mixed with text. Recall, letters like q, j and p, all drop below the baseline, which makes the text nicer to read:&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;quickbrownfox.png&#34; width=&#34;760&#34; height=&#34;100&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;quickbrownfox.png&#34; width=&#34;760&#34; height=&#34;100&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Example with characters below the baseline&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;However, my article had many numbers on the page, sometimes within tables, where old-style just made the numbers look odd. I looked for a way to force the lining style throughout. I quickly found the CSS styling:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span class=&#34;nt&#34;&gt;body&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span class=&#34;nt&#34;&gt;body&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
            &lt;span class=&#34;k&#34;&gt;font-variant-numeric&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lining-nums&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; 
   &lt;span class=&#34;kp&#34;&gt;-webkit-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;font-feature-settings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;lnum&amp;#34;&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
      &lt;span class=&#34;kp&#34;&gt;-moz-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;font-feature-settings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;lnum&amp;#34;&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
@@ -821,14 +1071,14 @@ certbot-apache &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;0.23.0&lt;span class=
 &lt;p&gt;So I went deeper down the rabbit hole to figure out what was going wrong. I wanted to confirm for myself that the font supported lining figures. I searched for a while for a simple CLI that would inspect the &lt;a href=&#34;https://en.wikipedia.org/wiki/Web_Open_Font_Format&#34;&gt;WOFF&lt;/a&gt;/&lt;a href=&#34;https://en.wikipedia.org/wiki/TrueType&#34;&gt;TTF&lt;/a&gt; files and tell me what they contained. Sadly, the best I could find was &lt;a href=&#34;https://fontforge.github.io/&#34;&gt;FontForge&lt;/a&gt;, a GUI. That worked, and confirmed the fonts being served by Google did not contain the lining feature, or in fact any feature other than basic ligatures.&lt;/p&gt;
 &lt;p&gt;Later I found this &lt;a href=&#34;https://github.com/google/fonts/issues/1335&#34;&gt;GitHub issue&lt;/a&gt; which confirmed all features were stripped from the font. So I sought out a way to rebuild the Google font to keep the lining figures.&lt;/p&gt;
 &lt;p&gt;Before that, I started to &lt;a href=&#34;http://sethgodin.typepad.com/seths_blog/2005/03/dont_shave_that.html&#34;&gt;shave another yak&lt;/a&gt;, and decided to create a CLI tool that would easily display the font features. I came across a Go library, &lt;a href=&#34;https://github.com/ConradIrwin/font&#34;&gt;SFNT&lt;/a&gt; that can parse OpenType fonts. Sadly it didn’t implement the parsing of the features. A few hours later, I read the &lt;a href=&#34;http://www.adobe.com/devnet/opentype/afdko/topic_feature_file_syntax.html&#34;&gt;OpenType spec&lt;/a&gt; and sent them a &lt;a href=&#34;https://github.com/ConradIrwin/font/pull/3&#34;&gt;pull request&lt;/a&gt; to add this functionality. Now I can easily confirm from the command line what features are supported.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ font features raleway-v12-latin-ext_latin-regular.woff
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ font features raleway-v12-latin-ext_latin-regular.woff
 Glyph Substitution Table &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;GSUB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
 	Script &lt;span class=&#34;s2&#34;&gt;&amp;#34;latn&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Latin&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
 		Default Language:
 			Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;liga&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Standard Ligatures&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I decided to play around with &lt;a href=&#34;https://developers.google.com/fonts/docs/developer_api&#34;&gt;Google Font API&lt;/a&gt;, and then eventually the unoffical (but awesome) &lt;a href=&#34;https://google-webfonts-helper.herokuapp.com/fonts/raleway&#34;&gt;google-webfonts-helper&lt;/a&gt; (a hassle-free way to self-host Google Fonts). However, no combination of options would make the font contain the lining figures.&lt;/p&gt;
 &lt;p&gt;Since the Google Fonts are open source, I downloaded the &lt;a href=&#34;https://github.com/google/fonts/tree/master/ofl/raleway&#34;&gt;source TTF of the font&lt;/a&gt;, and double-checked it did indeed contain the feature:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ font features Raleway-Regular.ttf 
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ font features Raleway-Regular.ttf 
 Glyph Substitution Table &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;GSUB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
   Script &lt;span class=&#34;s2&#34;&gt;&amp;#34;latn&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Latin&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
     Default Language:
@@ -843,10 +1093,10 @@ Glyph Substitution Table &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;GSUB&lt;spa
       Feature &lt;span class=&#34;s2&#34;&gt;&amp;#34;ss02&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Stylistic Set 2&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So my next idea was to take the original Raleway-Regular.ttf and convert it to &lt;a href=&#34;https://en.wikipedia.org/wiki/Web_Open_Font_Format&#34;&gt;WOFF&lt;/a&gt; and &lt;a href=&#34;https://www.w3.org/TR/WOFF2/&#34;&gt;WOFF2&lt;/a&gt;, and strip out the bits I don’t need. Just how Google Fonts does, to ensure the resulting files are lean and performant.&lt;/p&gt;
 &lt;p&gt;I couldn’t find the pipeline Google Fonts uses to process the files, so I instead took it upon myself to figure this out. I started by using &lt;code&gt;pyftsubset&lt;/code&gt; (part of &lt;a href=&#34;https://github.com/fonttools/fonttools&#34;&gt;FontTools&lt;/a&gt;) to remove unneeded character sets, features, and other parts from the original TTF file.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ pip install fonttools
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ pip install fonttools
 $ pyftsubset Raleway-Regular.ttf --layout-features&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;*&amp;#39;&lt;/span&gt; --unicodes&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;U+0000-00FF, U+0100-024F, U+0131, U+0152-0153, U+02DA, U+02DC, U+02BB-02BC, U+02C6, U+0259, U+0370-03FF, U+1E00-1EFF, U+2000-206F, U+2070-209F, U+2074, U+20A0-20CF, U+2122, U+2150-218F, U+2200-22FF, U+2C60-2C7F, U+A720-A7FF&amp;#34;&lt;/span&gt; --output-file&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Raleway-Regular.subset.ttf
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now I had a TTF file with all the features, but only the subset of characters I use on my site. Next I needed to convert this this file to all the &lt;a href=&#34;https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization&#34;&gt;recommended font formats&lt;/a&gt;, so my site would look nice in IE, Chrome, Android and iOS. The resulting CSS would look like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span class=&#34;p&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;font-face&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span class=&#34;p&#34;&gt;@&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;font-face&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;font-family&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Raleway&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;raleway-regular.subset.eot&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;                           &lt;span class=&#34;c&#34;&gt;/* IE9 Compat Modes */&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Raleway&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;local&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Raleway-Regular&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt;
@@ -859,13 +1109,13 @@ $ pyftsubset Raleway-Regular.ttf --layout-features&lt;span class=&#34;o&#34;&gt;
   &lt;span class=&#34;nt&#34;&gt;font-weight&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;400&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I again tried to use &lt;code&gt;pyftsubset&lt;/code&gt; to save the files in the required formats. This worked well for TTF, WOFF, and WOFF2. But didn’t support &lt;a href=&#34;https://en.wikipedia.org/wiki/Embedded_OpenType&#34;&gt;EOT&lt;/a&gt; or &lt;a href=&#34;http://caniuse.com/svg-fonts&#34;&gt;SVG&lt;/a&gt; fonts:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ pip install zopfli
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ pip install zopfli
 $ pip install brotli
 $ pyftsubset ... --flavor&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;woff --with-zopfli --output-file&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Raleway-Regular.subset.woff
 $ pyftsubset ... --flavor&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;woff2 --output-file&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Raleway-Regular.subset.woff2
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So instead I searched for a all-in-one solution to converting fonts. I found numerous websites that offered to do it, the one I settled on was &lt;a href=&#34;https://www.fontsquirrel.com/tools/webfont-generator&#34;&gt;fontsquirrel.com&lt;/a&gt;. Here I used the expert feature, to control exactly what was in the font, and to produce compressed versions in all file formats. I originally tried to use the subsetting feature on fontsquirrel, but I couldn’t get it to maintain all the features I needed, so I used &lt;code&gt;pyftsubset&lt;/code&gt; locally instead.&lt;/p&gt;
 &lt;p&gt;After fontsquirrel.com produced the fonts, I checked it contained the features, and compared the resulting file sizes:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ls -ltr
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ls -ltr
 
 &lt;span class=&#34;c1&#34;&gt;# Google Fonts&lt;/span&gt;
  96K  raleway-v12-latin-ext_latin-regular.ttf
@@ -1308,7 +1558,7 @@ required. The ANTLR site has
 [documentation](&lt;a href=&#34;https://github.com/antlr/antlr4/blob/master/doc/getting-&#34;&gt;https://github.com/antlr/antlr4/blob/master/doc/getting-&lt;/a&gt;
 started.md) on how to install this on multiple platforms, but in brief,
 you can do the following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ wget http://www.antlr.org/download/antlr-4.7-complete.jar
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ wget http://www.antlr.org/download/antlr-4.7-complete.jar
 $ &lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;java -jar $PWD/antlr-4.7-complete.jar&amp;#39;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;antlr&lt;/code&gt; command is now available in your shell. If you prefer, the
 .jar file can be placed into a &lt;code&gt;~/bin&lt;/code&gt; directory, and the alias can be
@@ -1348,14 +1598,14 @@ terminal states made up of tokens and/or other rules.&lt;/p&gt;
 &lt;p&gt;By convention this grammar must be saved with a filename that matches
 the name of the grammar, in this case “Calc.g4” . To process this file,
 and generate the Go parser, we run the &lt;code&gt;antlr&lt;/code&gt; command like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ antlr -Dlanguage&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Go -o parser Calc.g4 
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ antlr -Dlanguage&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Go -o parser Calc.g4 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will generate a set of Go files in the “parser” package and
 subdirectory. It is possible to place the generated code in a different
 package by using the &lt;code&gt;-package &amp;lt;name&amp;gt;&lt;/code&gt; argument. This is useful if your
 project has multiple parsers, or you just want a more descriptive
 package name for the parser. The generated files will look like the
 following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ tree
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ tree
 ├── Calc.g4
 └── parser
     ├── calc_lexer.go
@@ -1379,7 +1629,7 @@ before and after every rule is encountered in the parsed input.&lt;/p&gt;
 &lt;h2 id=&#34;using-the-lexer&#34;&gt;Using the Lexer&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s move onto an example of using this generated code, starting with
 the Lexer.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// example1.go
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// example1.go
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;main&lt;/span&gt;
 
 &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
@@ -1409,7 +1659,7 @@ the Lexer.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To begin with, the generated parser is imported from the local
 subdirectory &lt;code&gt;import &amp;quot;./parser&amp;quot;&lt;/code&gt;. Next the Lexer is created with some
 input:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;	&lt;span class=&#34;c1&#34;&gt;// Setup the input
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;	&lt;span class=&#34;c1&#34;&gt;// Setup the input
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;NewInputStream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;1 + 2 * 3&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
 	&lt;span class=&#34;c1&#34;&gt;// Create the Lexer
@@ -1423,7 +1673,7 @@ matches the grammar’s name defined in the Calc.g4.&lt;/p&gt;
 &lt;p&gt;The lexer is then used to consume all the tokens from the input,
 printing them one by one. This wouldn’t normally be necessary but we do
 this for demonstrative purposes.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt; 	&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt; 	&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 		&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;NextToken&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
 		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;GetTokenType&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;TokenEOF&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 			&lt;span class=&#34;k&#34;&gt;break&lt;/span&gt;
@@ -1436,7 +1686,7 @@ TokenType is a simple integer representing the type of token, while the
 Text is literally the text that made up this token. All the TokenTypes
 are defined at the end of calc_lexer.go, with their string names stored
 in the SymbolicNames slice:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// calc_lexer.go
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// calc_lexer.go
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;CalcLexerMUL&lt;/span&gt;        &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;CalcLexerDIV&lt;/span&gt;        &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;
@@ -1451,7 +1701,7 @@ designed to skip (i.e. discard) the whitespace &lt;code&gt;WHITESPACE: [ \r\n\t]
 &lt;h2 id=&#34;using-the-parser&#34;&gt;Using the Parser&lt;/h2&gt;
 &lt;p&gt;The Lexer on its own is not very useful, so the example can be modified
 to also use the Parser and Listener:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// example2.go
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// example2.go
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;main&lt;/span&gt;
 
 &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
@@ -1500,7 +1750,7 @@ can be parsed without error. To add logic, we must extend the
 &lt;code&gt;BaseCalcListener&lt;/code&gt;, which is a helper type, that provides empty methods
 for all those defined in in the &lt;code&gt;CalcListener&lt;/code&gt; interface. That interface
 looks like:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// parser/calc_listener.go
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// parser/calc_listener.go
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// CalcListener is a complete listener for a parse tree produced by CalcParser.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;CalcListener&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ParseTreeListener&lt;/span&gt;
@@ -1551,7 +1801,7 @@ expressed before the &lt;code&gt;AddSub&lt;/code&gt; expression.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;The code for a listener that implements this stack of value
 implementation is relatively simple:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;calcListener&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;calcListener&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;BaseCalcListener&lt;/span&gt;
 
 	&lt;span class=&#34;nx&#34;&gt;stack&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;
@@ -1611,7 +1861,7 @@ implementation is relatively simple:&lt;/p&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Finally this listener would be used like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// calc takes a string expression and returns the evaluated result.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// calc takes a string expression and returns the evaluated result.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;calc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;c1&#34;&gt;// Setup the input
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;NewInputStream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;input&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -1653,7 +1903,7 @@ languages. To make it easier, I have &lt;a href=&#34;https://github.com/bramp/an
 parsers&lt;/a&gt; for all those
 available grammars, making them as easy to use just by importing.&lt;/p&gt;
 &lt;p&gt;A quick example of using one of the pre-generated grammars:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
 	&lt;span class=&#34;s&#34;&gt;&amp;#34;bramp.net/antlr4/json&amp;#34;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// The parser
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
 	&lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/antlr/antlr4/runtime/Go/antlr&amp;#34;&lt;/span&gt;
@@ -1700,12 +1950,12 @@ which explains the various InputStream, Lexer, Parser, etc interfaces.&lt;/p&gt;
       <description>&lt;p&gt;When using third-party packages in Go, they are imported by a path that represents
 how to download that package from the Internet. For example, to use the
 popular structured logging library, &lt;a href=&#34;https://github.com/sirupsen/logrus&#34;&gt;Logrus&lt;/a&gt;, it would imported at the top of the Go program like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
   &lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/sirupsen/logrus&amp;#34;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;When &lt;code&gt;go get&lt;/code&gt; is then executed, it fetches the Logrus source code from GitHub
 and places the code in the &lt;code&gt;$GOPATH/src&lt;/code&gt; directory. Take a look for yourself:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ tree &lt;span class=&#34;nv&#34;&gt;$GOPATH&lt;/span&gt;/src
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ tree &lt;span class=&#34;nv&#34;&gt;$GOPATH&lt;/span&gt;/src
 ...
 ├── github.com
 │   ├── Sirupsen
@@ -1714,23 +1964,23 @@ and places the code in the &lt;code&gt;$GOPATH/src&lt;/code&gt; directory. Take 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;An astute reader may wonder, how exactly does &lt;code&gt;go get&lt;/code&gt; know that &lt;code&gt;github.com/sirupsen/logrus&lt;/code&gt; is a Git repository, and that it can be fetched via the git protocol from that URL. The &lt;code&gt;go get&lt;/code&gt; binary could have some smarts in it, that knows about GitHub, and does the right thing. But that seems inflexible, and problematic if new sites want to be supported. Instead the Go developers built a layer of indirection that allows the &lt;code&gt;go get&lt;/code&gt; tool to discover the correct source repo.&lt;/p&gt;
 &lt;p&gt;As outlined in the &lt;a href=&#34;https://golang.org/cmd/go/#hdr-Remote_import_paths&#34;&gt;Remote Import Paths&lt;/a&gt; docs,  the &lt;code&gt;go get&lt;/code&gt; binary will make a normal HTTP request to &lt;code&gt;https://github.com/sirupsen/logrus&lt;/code&gt; (falling back to http if needed) and look at the returned HTML for a &lt;code&gt;&amp;lt;meta name=&amp;quot;go-import&amp;quot;&lt;/code&gt; tag. This meta tag, can then redirect the &lt;code&gt;go get&lt;/code&gt; binary to the correct source code repository for the package.&lt;/p&gt;
 &lt;p&gt;This meta tag can been seen with &lt;code&gt;curl&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl https://github.com/sirupsen/logrus &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep meta &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep go-import
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;meta&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;go-import&amp;#34;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl https://github.com/sirupsen/logrus &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep meta &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep go-import
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;meta&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;go-import&amp;#34;&lt;/span&gt;
   &lt;span class=&#34;na&#34;&gt;content&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/sirupsen/logrus git https://github.com/sirupsen/logrus.git&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That tag says, the package rooted at &lt;code&gt;github.com/sirupsen/logrus&lt;/code&gt; can be fetched with git, at the
 URL &lt;code&gt;https://github.com/sirupsen/logrus.git&lt;/code&gt;. The meta tag can express other source control systems, e.g Mercurial, Bazaar, Subversion.&lt;/p&gt;
 &lt;p&gt;GitHub is a very convenient place to host source code, but the GitHub URL is generic. Instead it is possible to use the &lt;code&gt;&amp;lt;meta&amp;gt;&lt;/code&gt; tag to create vanity domains to host projects. For example, the package hosted at &lt;a href=&#34;https://github.com/bramp/goredirects&#34;&gt;github.com/bramp/goredirects&lt;/a&gt; could instead be imported as &lt;code&gt;bramp.net/goredirects&lt;/code&gt;. All that is needed is a static HTML page at &lt;code&gt;bramp.net/goredirects&lt;/code&gt;, containing the following &lt;code&gt;&amp;lt;meta&amp;gt;&lt;/code&gt; tag pointing at GitHub.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;meta&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;go-import&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;meta&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;go-import&lt;/span&gt;
   &lt;span class=&#34;na&#34;&gt;content&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;bramp.net/goredirects git https://github.com/bramp/goredirects.git&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Incase a user attempted to visit that page directly with their web browser, it is worthwhile
 placing more information about the project on the page, or simply making the page redirect.&lt;/p&gt;
 &lt;p&gt;To help make these redirect pages, I wrote a simple go tool, &lt;a href=&#34;https://github.com/bramp/goredirects&#34;&gt;&lt;code&gt;goredirects&lt;/code&gt;&lt;/a&gt;, that inspects all local repositories under a vanity domain directory in the local &lt;code&gt;$GOPATH/src/&lt;/code&gt; and outputs static HTML pages that can be hosted on that domain.&lt;/p&gt;
 &lt;p&gt;For example, create your new project on GitHub, but check out the project under &lt;code&gt;$GOPATH/src/example.com/project&lt;/code&gt;. Then run the tool:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ go install bramp.net/goredirects
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ go install bramp.net/goredirects
 $ goredirects example.com outputdir
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The directory &lt;code&gt;outputdir&lt;/code&gt; will now contain multiple directories and html files, one for each project under &lt;code&gt;$GOPATH/src/example.com&lt;/code&gt;. These HTML files contain the appropriate goimports meta tag to redirect the download of source code from the vanity name, to GitHub. Just upload these files to your website, voilà you are done. Examples of these vanity redirect files can be found on bramp.net, e.g &lt;a href=&#34;https://bramp.net/goredirects/index.html&#34;&gt;bramp.net/goredirects/index.html&lt;/a&gt;. This tool even works for packages with sub-packages under the main root.&lt;/p&gt;
 &lt;p&gt;Finally, it is possible to ensure that if someone finds your project via GitHub, that &lt;code&gt;go get&lt;/code&gt; will always place it under your vanity domain. This be can be achieved with an &lt;a href=&#34;https://golang.org/cmd/go/#hdr-Import_path_checking&#34;&gt;import comment&lt;/a&gt;. Within the source code, ensure that at least one of the files in your page has a comment like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;project&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// import &amp;#34;example.com/project&amp;#34;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;project&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// import &amp;#34;example.com/project&amp;#34;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then &lt;code&gt;go get&lt;/code&gt; will enforce the correct/vanity URL to use, instead of the true location.&lt;/p&gt;
 &lt;p&gt;More helpful links on the topic:&lt;/p&gt;
 &lt;ul&gt;
@@ -1799,7 +2049,7 @@ $ goredirects example.com outputdir
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;or&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;An API incompatibility was encountered while executing org.apache.maven.plugins:maven-compiler-plugin:3.5.1:compile: java.lang.UnsupportedClassVersionError: javax/tools/DiagnosticListener : Unsupported major.minor version 52.0
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Please update to JDK 1.8, or update your Maven configuration to restrict these plugins to when run on a modern JDK:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;project&amp;gt;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;project&amp;gt;&lt;/span&gt;
 ...
     &lt;span class=&#34;nt&#34;&gt;&amp;lt;profiles&amp;gt;&lt;/span&gt;
         &lt;span class=&#34;nt&#34;&gt;&amp;lt;profile&amp;gt;&lt;/span&gt;
@@ -1873,7 +2123,7 @@ Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&am
 &lt;h2 id=&#34;how-to-get-both-ipv4-and-ipv6-address&#34;&gt;How to get both IPv4 and IPv6 address?&lt;/h2&gt;
 &lt;p&gt;When navigating to a website your browser makes a connection, normally over one of IPv4, or IPv6. Which one is based on the DNS records available for the website’s domain, and the preference of your OS and browser. Thus your web server sees a single incoming connection, with a single remote address. This address is typically stored in a variable named REMOTE_ADDR. Most &amp;ldquo;What’s my IP&amp;rdquo; sites then display this variable back to the user as their IP address. However, as I’d like to see both IPv4 and IPv6 addresses, I need to somehow force the browser to make two requests, one over each.&lt;/p&gt;
 &lt;p&gt;There is no API to tell a browser to use IPv6 over IPv4, however, I use a trick with two domain names. Namely, I have ip4.bramp.net, and ip6.bramp.net. Both resolve to the same web server, but the former only has &lt;a href=&#34;https://tools.ietf.org/html/rfc1035&#34;&gt;DNS A records&lt;/a&gt;, and the latter only &lt;a href=&#34;https://tools.ietf.org/html/rfc3596&#34;&gt;DNS AAAA records&lt;/a&gt;. For example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ dig ip4.bramp.net
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ dig ip4.bramp.net
 ip4.bramp.net.		300	IN	A	216.239.32.21
 
 $ dig AAAA ip6.bramp.net
@@ -1897,13 +2147,13 @@ ip6.bramp.net-&gt;user: {address: 2001:db8::1}
 ```
 --&gt;
 &lt;p&gt;These AJAX queries return a simple JSON object, containing information about the requesting user. In my application an example response may look like:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddrFamily&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;IPv6&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddr&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;       &lt;span class=&#34;s2&#34;&gt;&amp;#34;2601:646:c200:b466:b446:ff32:b227:a53c&amp;#34;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This response can then be used to update the page, to display the appropriate address.&lt;/p&gt;
 &lt;p&gt;An experienced reader may be aware of some security issues with making AJAX request to a different domain. In particular, there are subtle ways in which a malicious site could abuse your AJAX endpoints. This is easily fixed by using cross-origin resource sharing (&lt;a href=&#34;https://en.wikipedia.org/wiki/Cross-origin_resource_sharing&#34;&gt;CORS&lt;/a&gt;) headers, in particular ip4.bramp.net, and ip6.bramp.net return the following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl -v ip4.bramp.net/json
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl -v ip4.bramp.net/json
 
 &amp;lt; HTTP/1.1 &lt;span class=&#34;m&#34;&gt;200&lt;/span&gt; OK
 &amp;lt; Content-Type: application/json
@@ -1912,12 +2162,12 @@ ip6.bramp.net-&gt;user: {address: 2001:db8::1}
 &lt;h2 id=&#34;what-about-the-reverse-dns-and-whois&#34;&gt;What about the reverse DNS and WHOIS?&lt;/h2&gt;
 &lt;p&gt;I noted I wanted to display both the reverse DNS, and WHOIS records. This is something the browser doesn’t support, but the server side could. Thus as part of processing the /json AJAX request, the application makes various additional requests to remote DNS and WHOIS servers.&lt;/p&gt;
 &lt;p&gt;To reverse lookup a IP address, you need to issue a &lt;a href=&#34;https://tools.ietf.org/html/rfc1035&#34;&gt;PTR DNS request&lt;/a&gt;. This is a special DNS request which requires the IP address to be formatted as a in-addr.arpa or ip6.arpa name. For example, the IP address 1.2.3.4, would become 4.3.2.1.in-addr.arpa. Then when a request is sent for that in-addr.arpa. name, the reverse DNS is returned.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ dig PTR 4.3.2.1.in-addr.arpa.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ dig PTR 4.3.2.1.in-addr.arpa.
 
 4.3.2.1.in-addr.arpa.	74312	IN	PTR	c-1-2-3-4.example.com.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The in-addr.arpa transformation, and lookup is commonly provided by &lt;a href=&#34;https://linux.die.net/man/3/getaddrinfo&#34;&gt;getaddrinfo(3)&lt;/a&gt; function, which makes this easy to do.&lt;/p&gt;
 &lt;p&gt;The WHOIS lookup is a little bit more complex. Each domain is represented by a different WHOIS server, that can be determined by the ccTLD or TLD of the domain. However, with IP addresses, you must identify the Regional Internet Registry (&lt;a href=&#34;https://en.wikipedia.org/wiki/Regional_Internet_registry&#34;&gt;RIR&lt;/a&gt;) that owns the IP space. Sadly there is not a trivial mapping, so instead I issue a WHOIS query to the Internet Assigned Numbers Authority (&lt;a href=&#34;https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority&#34;&gt;IANA&lt;/a&gt;), who replies with the RIR which owns the IP address. From there, I can query the correct registry directly, typically one of &lt;a href=&#34;https://en.wikipedia.org/wiki/AFRINIC&#34;&gt;AFRINIC&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/American_Registry_for_Internet_Numbers&#34;&gt;ARIN&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Asia-Pacific_Network_Information_Centre&#34;&gt;APNIC&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Latin_America_and_Caribbean_Network_Information_Centre&#34;&gt;LACNIC&lt;/a&gt;, or &lt;a href=&#34;https://en.wikipedia.org/wiki/R%C3%A9seaux_IP_Europ%C3%A9ens_Network_Coordination_Centre&#34;&gt;RIPE NCC&lt;/a&gt;. Thus a typical WHOIS request looks like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ whois -h whois.iana.org 1.2.3.4
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ whois -h whois.iana.org 1.2.3.4
 
 % IANA WHOIS server
 % &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; more information on IANA, visit http://www.iana.org
@@ -1929,7 +2179,7 @@ status:       ALLOCATED
 whois:        whois.apnic.net
 changed:      2010-01
 source:       IANA
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ whois -h whois.apnic.net 1.2.3.4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ whois -h whois.apnic.net 1.2.3.4
 
 % &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;whois.apnic.net&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
 % Whois data copyright terms    http://www.apnic.net/db/dbcopyright.html
@@ -1942,7 +2192,7 @@ descr:          APNIC Example Project
 
 % This query was served by the APNIC Whois Service version 1.69.1-APNICv1r0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Both the reverse DNS and WHOIS response is returned as part of the AJAX JSON response.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddrFamily&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;  &lt;span class=&#34;s2&#34;&gt;&amp;#34;IPv4&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddr&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;        &lt;span class=&#34;s2&#34;&gt;&amp;#34;1.2.3.4&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
   &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddrReverse&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;c-1-2-3-4.example.com.&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
@@ -1974,60 +2224,11 @@ descr:          APNIC Example Project
       
       <guid>https://blog.bramp.net/post/2016/08/08/peano-curves/</guid>
       <description>&lt;p&gt;My latest addition to the &lt;a href=&#34;https://github.com/google/hilbert&#34;&gt;hilbert go library&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Peano_curve&#34;&gt;Peano Curves&lt;/a&gt;. The original space-filing curve, similar to the Hilbert curve, but a little more complex.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;peano_animation.gif&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;peano_animation.gif&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Animation of Peano curve with N in the range 1..5&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-</description>
-    </item>
-    
-    <item>
-      <title>Introducing Prob.js</title>
-      <link>https://blog.bramp.net/post/2016/08/08/introducing-prob.js/</link>
-      <pubDate>Mon, 08 Aug 2016 21:33:33 -0700</pubDate>
-      
-      <guid>https://blog.bramp.net/post/2016/08/08/introducing-prob.js/</guid>
-      <description>&lt;h2 id=&#34;generate-random-numbers-from-different-probability-distributions&#34;&gt;Generate random numbers from different probability distributions&lt;/h2&gt;
-&lt;p&gt;There are multiple libraries for generating random numbers from a uniform, and sometimes normal distributions. However,
-I needed code to generate them from a expontential or lognormal distribution. I had written code to do this ~10 years ago
-in Java, but I needed a more modern Javascript solution.&lt;/p&gt;
-&lt;p&gt;Introducing &lt;a href=&#34;https://github.com/bramp/prob.js&#34;&gt;Prob.js&lt;/a&gt;, a javascript library to generate random numbers from different probability distributions. Avaiable via both bower and NPM, prob.js can generate random numbers from the following distrubtions:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;uniform&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;min&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// Uniform distribution in range [min, max).
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;normal&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;μ&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;σ&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;// Normal distribution with mean and standard deviation.
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;exponential&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;λ&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;// Exponential distribution with lambda.
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;lognormal&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;μ&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;σ&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;   &lt;span class=&#34;c1&#34;&gt;// Log-normal distribution defined as ln(normal(μ, σ)).
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;poisson&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;λ&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;// Poisson distribution returning integers &amp;gt;= 0.
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;zipf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;// Zipf&amp;#39;s distribution returning integers in range [1, N].
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;After&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;generating&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;distribution&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;the&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;following&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;methods&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;are&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;available&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;With a very simple to use API:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Prob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;exponential&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;1.0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// Create a distribution.
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;// Generates a number within the distribution.
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;// Generates a number using a `src` of random numbers. (See note below.)
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Min&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;// The min random number which could be returned by `r()` (inclusive).
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Max&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;// The max random number which could be returned by `r()` (exclusive).
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Mean&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;// The expected mean for this distribution.
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Variance&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// The expected variance for this distribution.
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I created a &lt;a href=&#34;https://bramp.github.io/prob.js/&#34;&gt;quick demo site&lt;/a&gt; that generates 1 million random numbers from each distribution in the browser, and plots the PDF as it goes. Same samples:&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-    &lt;img src=&#34;normal.png&#34;/&gt; &lt;figcaption&gt;
-            &lt;h4&gt;Normal (μ = 0, σ = 1.0)&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;figure&gt;
-    &lt;img src=&#34;lognormal.png&#34;/&gt; &lt;figcaption&gt;
-            &lt;h4&gt;Log-normal (μ = 0, σ = 1.0)&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;figure&gt;
-    &lt;img src=&#34;zipf.png&#34;/&gt; &lt;figcaption&gt;
-            &lt;h4&gt;Zipf (s = 1, N = 100)&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
 </description>
     </item>
     

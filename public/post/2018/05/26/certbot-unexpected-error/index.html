@@ -25,7 +25,7 @@ Renewal …" name=description itemprop=description>
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -106,13 +106,13 @@ Renewal …" property=og:description />
 <p>I got a <a href=https://letsencrypt.org/docs/expiration-emails/ >nice warning email</a> from <a href=https://letsencrypt.org/ >Let&rsquo;s Encrypt</a> that my cert was going to expire soon, and hadn&rsquo;t been renewed. I found in <code>/var/log/letsencrypt/letsencrypt.log</code> the following error:</p>
 <pre><code>Renewal configuration file /etc/letsencrypt/renewal/mydomain.bramp.net.conf (cert: mydomain.bramp.net) produced an unexpected error: 'Namespace' object has no attribute 'dns_cloudflare_credentials'. Skipping.
 </code></pre><p>I manually ran certbot in dry-run mode and it worked fine:</p>
-<div class=highlight><pre class=chroma><code class=language-shell data-lang=shell>$ sudo certbot renew --dry-run
+<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ sudo certbot renew --dry-run
 </code></pre></div><p>So this error only occurs when certbot is running as a cron job. Looking at <code>/etc/cron.d/certbot</code> I see the user runs as root, so I tried the <code>certbot renew --dry-run</code> again, but this time as the root user:</p>
-<div class=highlight><pre class=chroma><code class=language-shell data-lang=shell>$ sudo su
+<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ sudo su
 root@:~$ sudo certbot renew --dry-run
 </code></pre></div><p>and bam, the same error. This error somehow related to the <a href=https://certbot-dns-cloudflare.readthedocs.io/en/latest/ >certbot-dns-cloudflare plugin</a>, which proves the ownership of the domain with a <a href=https://acme-python.readthedocs.io/en/latest/api/challenges.html#acme.challenges.DNS01>DNS01 challenge</a> via Cloudflare&rsquo;s DNS. I use this form of challenge, because the domain in question is internal and not available on the Internet.</p>
 <p>I had forgotten how I installed the plugin, but searching Google, it seems to be via <code>pip3</code>. Clearly something was different between my root and normal user w/ sudo environments. So I did the following</p>
-<div class=highlight><pre class=chroma><code class=language-shell data-lang=shell>$ sudo pip3 list <span class=p>|</span> grep certbot
+<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ sudo pip3 list <span class=p>|</span> grep certbot
 certbot <span class=o>(</span>0.23.0<span class=o>)</span>
 certbot-apache <span class=o>(</span>0.23.0<span class=o>)</span>
 certbot-dns-cloudflare <span class=o>(</span>0.24.0<span class=o>)</span>

@@ -25,7 +25,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -109,25 +109,22 @@ window.dataLayer = window.dataLayer || [];
 <p><strong>tl;dr Google Fonts doesn&rsquo;t supply fonts with OpenType features (such as old-style figures, or small-caps), but you can build and host the fonts yourself to support everything you need.</strong></p>
 </blockquote>
 <p>I recently posted a <a href=https://blog.bramp.net/post/2018/01/16/measuring-percentile-latency/ >article which contained lots of numbers</a>. While I was proofreading the article, I didn’t quite liked how the numbers looked, sometime the digits were below the baseline, for example:</p>
-<figure>
-<img height=157 src=oldstyle.png width=760 /><figcaption>
+<figure><img height=157 src=oldstyle.png width=760 /><figcaption>
 <h4>Oldstyle figures</h4>
 </figcaption>
 </figure>
 <p>Where I would have expected the top and bottom of each digit to be aligned:</p>
-<figure>
-<img height=152 src=lining.png width=760 /><figcaption>
+<figure><img height=152 src=lining.png width=760 /><figcaption>
 <h4>Lining figures</h4>
 </figcaption>
 </figure>
 <p>This made me flashback to all the typography I learnt when <a href=https://github.com/bramp/publication>working with LaTeX</a>. These two styles of figures are called old-style, and lining (or sometimes lowercase and uppercase numbers). The theory is that old-style numbers flow better when mixed with text. Recall, letters like q, j and p, all drop below the baseline, which makes the text nicer to read:</p>
-<figure>
-<img height=100 src=quickbrownfox.png width=760 /><figcaption>
+<figure><img height=100 src=quickbrownfox.png width=760 /><figcaption>
 <h4>Example with characters below the baseline</h4>
 </figcaption>
 </figure>
 <p>However, my article had many numbers on the page, sometimes within tables, where old-style just made the numbers look odd. I looked for a way to force the lining style throughout. I quickly found the CSS styling:</p>
-<div class=highlight><pre class=chroma><code class=language-css data-lang=css><span class=nt>body</span> <span class=p>{</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-css data-lang=css><span class=nt>body</span> <span class=p>{</span>
            <span class=k>font-variant-numeric</span><span class=p>:</span> <span class=n>lining-nums</span><span class=p>;</span> 
   <span class=kp>-webkit-</span><span class=k>font-feature-settings</span><span class=p>:</span> <span class=s2>&#34;lnum&#34;</span> <span class=kc>on</span><span class=p>;</span>
      <span class=kp>-moz-</span><span class=k>font-feature-settings</span><span class=p>:</span> <span class=s2>&#34;lnum&#34;</span> <span class=kc>on</span><span class=p>;</span>
@@ -138,14 +135,14 @@ window.dataLayer = window.dataLayer || [];
 <p>So I went deeper down the rabbit hole to figure out what was going wrong. I wanted to confirm for myself that the font supported lining figures. I searched for a while for a simple CLI that would inspect the <a href=https://en.wikipedia.org/wiki/Web_Open_Font_Format>WOFF</a>/<a href=https://en.wikipedia.org/wiki/TrueType>TTF</a> files and tell me what they contained. Sadly, the best I could find was <a href=https://fontforge.github.io/ >FontForge</a>, a GUI. That worked, and confirmed the fonts being served by Google did not contain the lining feature, or in fact any feature other than basic ligatures.</p>
 <p>Later I found this <a href=https://github.com/google/fonts/issues/1335>GitHub issue</a> which confirmed all features were stripped from the font. So I sought out a way to rebuild the Google font to keep the lining figures.</p>
 <p>Before that, I started to <a href=http://sethgodin.typepad.com/seths_blog/2005/03/dont_shave_that.html>shave another yak</a>, and decided to create a CLI tool that would easily display the font features. I came across a Go library, <a href=https://github.com/ConradIrwin/font>SFNT</a> that can parse OpenType fonts. Sadly it didn’t implement the parsing of the features. A few hours later, I read the <a href=http://www.adobe.com/devnet/opentype/afdko/topic_feature_file_syntax.html>OpenType spec</a> and sent them a <a href=https://github.com/ConradIrwin/font/pull/3>pull request</a> to add this functionality. Now I can easily confirm from the command line what features are supported.</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ font features raleway-v12-latin-ext_latin-regular.woff
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>$ font features raleway-v12-latin-ext_latin-regular.woff
 Glyph Substitution Table <span class=o>(</span>GSUB<span class=o>)</span>:
 	Script <span class=s2>&#34;latn&#34;</span> <span class=o>(</span>Latin<span class=o>)</span>:
 		Default Language:
 			Feature <span class=s2>&#34;liga&#34;</span> <span class=o>(</span>Standard Ligatures<span class=o>)</span>
 </code></pre></div><p>I decided to play around with <a href=https://developers.google.com/fonts/docs/developer_api>Google Font API</a>, and then eventually the unoffical (but awesome) <a href=https://google-webfonts-helper.herokuapp.com/fonts/raleway>google-webfonts-helper</a> (a hassle-free way to self-host Google Fonts). However, no combination of options would make the font contain the lining figures.</p>
 <p>Since the Google Fonts are open source, I downloaded the <a href=https://github.com/google/fonts/tree/master/ofl/raleway>source TTF of the font</a>, and double-checked it did indeed contain the feature:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ font features Raleway-Regular.ttf 
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>$ font features Raleway-Regular.ttf 
 Glyph Substitution Table <span class=o>(</span>GSUB<span class=o>)</span>:
   Script <span class=s2>&#34;latn&#34;</span> <span class=o>(</span>Latin<span class=o>)</span>:
     Default Language:
@@ -160,10 +157,10 @@ Glyph Substitution Table <span class=o>(</span>GSUB<span class=o>)</span>:
       Feature <span class=s2>&#34;ss02&#34;</span> <span class=o>(</span>Stylistic Set 2<span class=o>)</span>
 </code></pre></div><p>So my next idea was to take the original Raleway-Regular.ttf and convert it to <a href=https://en.wikipedia.org/wiki/Web_Open_Font_Format>WOFF</a> and <a href=https://www.w3.org/TR/WOFF2/ >WOFF2</a>, and strip out the bits I don’t need. Just how Google Fonts does, to ensure the resulting files are lean and performant.</p>
 <p>I couldn’t find the pipeline Google Fonts uses to process the files, so I instead took it upon myself to figure this out. I started by using <code>pyftsubset</code> (part of <a href=https://github.com/fonttools/fonttools>FontTools</a>) to remove unneeded character sets, features, and other parts from the original TTF file.</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ pip install fonttools
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>$ pip install fonttools
 $ pyftsubset Raleway-Regular.ttf --layout-features<span class=o>=</span><span class=s1>&#39;*&#39;</span> --unicodes<span class=o>=</span><span class=s2>&#34;U+0000-00FF, U+0100-024F, U+0131, U+0152-0153, U+02DA, U+02DC, U+02BB-02BC, U+02C6, U+0259, U+0370-03FF, U+1E00-1EFF, U+2000-206F, U+2070-209F, U+2074, U+20A0-20CF, U+2122, U+2150-218F, U+2200-22FF, U+2C60-2C7F, U+A720-A7FF&#34;</span> --output-file<span class=o>=</span>Raleway-Regular.subset.ttf
 </code></pre></div><p>Now I had a TTF file with all the features, but only the subset of characters I use on my site. Next I needed to convert this this file to all the <a href=https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization>recommended font formats</a>, so my site would look nice in IE, Chrome, Android and iOS. The resulting CSS would look like this:</p>
-<div class=highlight><pre class=chroma><code class=language-css data-lang=css><span class=p>@</span><span class=k>font-face</span> <span class=p>{</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-css data-lang=css><span class=p>@</span><span class=k>font-face</span> <span class=p>{</span>
   <span class=nt>font-family</span><span class=o>:</span> <span class=s1>&#39;Raleway&#39;</span><span class=o>;</span>
   <span class=nt>src</span><span class=o>:</span> <span class=nt>url</span><span class=o>(</span><span class=s1>&#39;raleway-regular.subset.eot&#39;</span><span class=o>);</span>                           <span class=c>/* IE9 Compat Modes */</span>
   <span class=nt>src</span><span class=o>:</span> <span class=nt>local</span><span class=o>(</span><span class=s1>&#39;Raleway&#39;</span><span class=o>),</span> <span class=nt>local</span><span class=o>(</span><span class=s1>&#39;Raleway-Regular&#39;</span><span class=o>),</span>
@@ -176,13 +173,13 @@ $ pyftsubset Raleway-Regular.ttf --layout-features<span class=o>=</span><span cl
   <span class=nt>font-weight</span><span class=o>:</span> <span class=nt>400</span><span class=o>;</span>
 <span class=p>}</span>
 </code></pre></div><p>I again tried to use <code>pyftsubset</code> to save the files in the required formats. This worked well for TTF, WOFF, and WOFF2. But didn’t support <a href=https://en.wikipedia.org/wiki/Embedded_OpenType>EOT</a> or <a href=http://caniuse.com/svg-fonts>SVG</a> fonts:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ pip install zopfli
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>$ pip install zopfli
 $ pip install brotli
 $ pyftsubset ... --flavor<span class=o>=</span>woff --with-zopfli --output-file<span class=o>=</span>Raleway-Regular.subset.woff
 $ pyftsubset ... --flavor<span class=o>=</span>woff2 --output-file<span class=o>=</span>Raleway-Regular.subset.woff2
 </code></pre></div><p>So instead I searched for a all-in-one solution to converting fonts. I found numerous websites that offered to do it, the one I settled on was <a href=https://www.fontsquirrel.com/tools/webfont-generator>fontsquirrel.com</a>. Here I used the expert feature, to control exactly what was in the font, and to produce compressed versions in all file formats. I originally tried to use the subsetting feature on fontsquirrel, but I couldn’t get it to maintain all the features I needed, so I used <code>pyftsubset</code> locally instead.</p>
 <p>After fontsquirrel.com produced the fonts, I checked it contained the features, and compared the resulting file sizes:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ ls -ltr
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>$ ls -ltr
 
 <span class=c1># Google Fonts</span>
  96K  raleway-v12-latin-ext_latin-regular.ttf

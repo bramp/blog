@@ -39,9 +39,9 @@
 &lt;h4 id=&#34;usage&#34;&gt;Usage&lt;/h4&gt;
 &lt;p&gt;flvtool++ is used from the command line, so far it has a few simple parameters&lt;/p&gt;
 &lt;p&gt;Takes the input file, indexes it and writes it out to the output file. The start and end times may optionally specify timecodes in seconds that are used to chop the FLV file.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;flvtool++ &amp;lt;input file&amp;gt; &amp;lt;output file&amp;gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&amp;lt;start time&amp;gt; &amp;lt;end time&amp;gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;flvtool++ &amp;lt;input file&amp;gt; &amp;lt;output file&amp;gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&amp;lt;start time&amp;gt; &amp;lt;end time&amp;gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Displays all the metadata and tag information about the input file.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;flvtool++ -i &amp;lt;input file&amp;gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;flvtool++ -i &amp;lt;input file&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;compiling&#34;&gt;Compiling&lt;/h4&gt;
 &lt;p&gt;&lt;strong&gt;Windows:&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Download the source package and locate the flvtool++.sln file. This is a Visual Studio 2003 solution and should build cleanly without modification. I have not tested this under Visual Studio 2005 or later, but I believe it should compile fine.&lt;/p&gt;

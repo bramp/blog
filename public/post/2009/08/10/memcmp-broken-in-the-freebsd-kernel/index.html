@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -103,13 +103,13 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p>I’ve spent a day tracking down a bug in a FreeBSD kernel module I’m developing, and to my surprise the bug was due to memcmp being broken! For those that don’t know, memcmp is used to compare two byte strings and returns 0 if they are identical, a negative number of the first string is less than the second, and a positive number of the first string is greater than the second.</p>
 <p>However, the implementation of memcmp in the FreeBSD kernel looks like this:</p>
-<div class=highlight><pre class=chroma><code class=language-c data-lang=c><span class=k>static</span> <span class=kr>__inline</span> <span class=kt>int</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-c data-lang=c><span class=k>static</span> <span class=kr>__inline</span> <span class=kt>int</span>
 <span class=nf>memcmp</span><span class=p>(</span><span class=k>const</span> <span class=kt>void</span> <span class=o>*</span><span class=n>b1</span><span class=p>,</span> <span class=k>const</span> <span class=kt>void</span> <span class=o>*</span><span class=n>b2</span><span class=p>,</span> <span class=n>size_t</span> <span class=n>len</span><span class=p>)</span> <span class=p>{</span>
     <span class=k>return</span> <span class=p>(</span><span class=n>bcmp</span><span class=p>(</span><span class=n>b1</span><span class=p>,</span> <span class=n>b2</span><span class=p>,</span> <span class=n>len</span><span class=p>));</span>
 <span class=p>}</span>
 </code></pre></div><p>The problem with this is that bcmp is defined to return 0 if the strings are identical, otherwise returns a non-zero integer. This is not the same as memcmp, and you would only notice this if you are testing the signedness of the return value. I suspect this has not been noticed because traditionally FreeBSD has favoured bcmp, and in the few cases it does uses memcmp it only compares it with zero.</p>
 <p>There is some good news, obrien@ noticed this problem in September 2008 and commited a patch (svn r183299). However, it looks like this fix won’t be included until FreeBSD 8.0. In the mean time I’m implementing a minor hack to fix this.</p>
-<div class=highlight><pre class=chroma><code class=language-c data-lang=c><span class=kt>int</span> <span class=nf>my_memcmp</span><span class=p>(</span><span class=k>const</span> <span class=kt>void</span> <span class=o>*</span><span class=n>s1</span><span class=p>,</span> <span class=k>const</span> <span class=kt>void</span> <span class=o>*</span><span class=n>s2</span><span class=p>,</span> <span class=n>size_t</span> <span class=n>n</span><span class=p>)</span> <span class=p>{</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-c data-lang=c><span class=kt>int</span> <span class=nf>my_memcmp</span><span class=p>(</span><span class=k>const</span> <span class=kt>void</span> <span class=o>*</span><span class=n>s1</span><span class=p>,</span> <span class=k>const</span> <span class=kt>void</span> <span class=o>*</span><span class=n>s2</span><span class=p>,</span> <span class=n>size_t</span> <span class=n>n</span><span class=p>)</span> <span class=p>{</span>
 	<span class=k>if</span> <span class=p>(</span><span class=n>n</span> <span class=o>!=</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
 		<span class=k>const</span> <span class=kt>unsigned</span> <span class=kt>char</span> <span class=o>*</span><span class=n>p1</span> <span class=o>=</span> <span class=n>s1</span><span class=p>,</span> <span class=o>*</span><span class=n>p2</span> <span class=o>=</span> <span class=n>s2</span><span class=p>;</span>
 

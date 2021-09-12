@@ -26,7 +26,7 @@ $ file …" name=description itemprop=description>
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -109,11 +109,11 @@ $ file …" property=og:description />
 <div class=post itemprop=articleBody>
 <p>In a previous post I <a href=/post/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/ >obtained the Linksys E4200v2 firmware</a>, now I plan to break it apart and see what I can find.</p>
 <p>I start off by simplying using “file” on the firmware:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ file FW_E4200_2.0.36.126507.SSA 
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>$ file FW_E4200_2.0.36.126507.SSA 
 
 FW_E4200_2.0.36.126507.SSA: u-boot legacy uImage, Linux-2.6.35.8, Linux/ARM, OS Kernel Image <span class=o>(</span>Not compressed<span class=o>)</span>, <span class=m>2677476</span> bytes, Thu Dec <span class=m>22</span> 19:40:21 2011, Load Address: 0x00008000, Entry Point: 0x00008000, Header CRC: 0x6ADD9801, Data CRC: 0xB010442D
 </code></pre></div><p>Well this is a great start. We know we are dealing with Linux, and that this is a normal uImage. I then move on to use a neat little tool called <a href=https://github.com/devttys0/binwalk>binwalk</a>. By using libmagic, binwalk tries to find interesting sections of the file.</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ /usr/local/bin/binwalk FW_E4200_2.0.36.126507.SSA 
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>$ /usr/local/bin/binwalk FW_E4200_2.0.36.126507.SSA 
 
 DECIMAL   	HEX       	DESCRIPTION
 -------------------------------------------------------------------------------------------------------
@@ -125,12 +125,12 @@ DECIMAL   	HEX       	DESCRIPTION
 <span class=m>20974612</span>  	0x1400C14 	JFFS2 filesystem data little endian, JFFS node length: <span class=m>51</span>
 <span class=m>20974664</span>  	0x1400C48 	JFFS2 filesystem data little endian, JFFS node length: <span class=m>193</span>
 </code></pre></div><p>We find a small LZMA section, and large gzip section, and lots of JFFS2 sections. JFFS2 is a popular embedded file system, so we can guess the bulk of the file system is here. Next we can extract each section using dd:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>dd <span class=nv>bs</span><span class=o>=</span><span class=m>1</span> <span class=nv>skip</span><span class=o>=</span><span class=m>1124</span>  <span class=nv>count</span><span class=o>=</span><span class=m>15512</span>   <span class=k>if</span><span class=o>=</span>FW_E4200_2.0.36.126507.SSA <span class=nv>of</span><span class=o>=</span>image-1.lzma
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>dd <span class=nv>bs</span><span class=o>=</span><span class=m>1</span> <span class=nv>skip</span><span class=o>=</span><span class=m>1124</span>  <span class=nv>count</span><span class=o>=</span><span class=m>15512</span>   <span class=k>if</span><span class=o>=</span>FW_E4200_2.0.36.126507.SSA <span class=nv>of</span><span class=o>=</span>image-1.lzma
 dd <span class=nv>bs</span><span class=o>=</span><span class=m>1</span> <span class=nv>skip</span><span class=o>=</span><span class=m>16636</span> <span class=nv>count</span><span class=o>=</span><span class=m>2735876</span> <span class=k>if</span><span class=o>=</span>FW_E4200_2.0.36.126507.SSA <span class=nv>of</span><span class=o>=</span>image-2.gz
 dd <span class=nv>bs</span><span class=o>=</span><span class=m>1</span> <span class=nv>skip</span><span class=o>=</span><span class=m>2752512</span> <span class=k>if</span><span class=o>=</span>FW_E4200_2.0.36.126507.SSA <span class=nv>of</span><span class=o>=</span>image-3.jffs2
 </code></pre></div><p>Notice we are using a block size of 1 (so we can count in bytes), and we skip the offset into the file. Then we manually work out the sizes for the lzma and gzip sections. They can be no larger than their start until the next section. If they don’t fill that full space, then not to worry as these tools will normally ignore trailing data.</p>
 <p>As I’m interested to see what’s in the JFFS filesystem, we should mount it. You can’t mount JFFS like a normal loopback device, you have to create a fake flash device. The following set of command can solve that:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>sudo modprobe mtdram <span class=nv>total_size</span><span class=o>=</span><span class=m>32768</span> <span class=nv>erase_size</span><span class=o>=</span><span class=m>256</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>sudo modprobe mtdram <span class=nv>total_size</span><span class=o>=</span><span class=m>32768</span> <span class=nv>erase_size</span><span class=o>=</span><span class=m>256</span>
 sudo modprobe mtdblock
 sudo modprobe mtdchar
 <span class=c1># sudo mknod /dev/mtdblock0 b 31 0</span>
@@ -138,15 +138,15 @@ dd <span class=k>if</span><span class=o>=</span>image-3.jffs2 <span class=nv>of<
 mount -t jffs2 /dev/mtdblock0 /mnt/disk
 </code></pre></div><p>The mknod line is only needed if you don’t already have a /dev/mtdblock0. Also a /mnt/disk needs to be created ahead of time so the mounting works. Anyway once that was done, I cd /mnt/disk and found that it does appear to contain most of the file system. There are all the HTML pages, and binaries (for example busybox).</p>
 <p>Now we should go back to image-1.lzma and image-2.gz. Well straight away trying to decompress image-1</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ lzma -dc image-1.lzma &gt; image-1
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>$ lzma -dc image-1.lzma &gt; image-1
 lzma: Decoder error
 </code></pre></div><p>results in a error. So we can assume that was a incorrectly detected by binwalk. Lets now try and decompress image-2.gz:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ gzip -dc image-2.gz &gt; image-2
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>$ gzip -dc image-2.gz &gt; image-2
 gzip: image-2.gz: decompression OK, trailing garbage ignored
 </code></pre></div><p>So that does indeed produce a large image-2 file, so we can ignore the trailing garbage warning. A quick “file” on image-2 doesn’t reveal anything useful, so I run binwalk on it. This turns up a set of false positives. So I take a different approach. I run:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ strings image-2
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>$ strings image-2
 </code></pre></div><p>This produces a whole host of valid looking strings. From the contents of the strings it makes me think it’s the actual kernel. A line like this:</p>
-<div class=highlight><pre class=chroma><code class=language-text data-lang=text>Linux version 2.6.35.8 (root@ubuntu) (gcc version 4.2.0 20070413 (prerelease) (CodeSourcery Sourcery G++ Lite 2007q1-21)) #1 Thu Dec 22 16:40:10 PST 2011
+<div class=highlight><pre class=chroma tabindex=0><code class=language-text data-lang=text>Linux version 2.6.35.8 (root@ubuntu) (gcc version 4.2.0 20070413 (prerelease) (CodeSourcery Sourcery G++ Lite 2007q1-21)) #1 Thu Dec 22 16:40:10 PST 2011
 </code></pre></div><p>helps me come to that conclusion.</p>
 <p>I haven’t finished poking around image-2.gz, but I suspect the interesting parts are mostly in the JFFS2 filesystem. Hopefully this will lead to me getting ssh access to the router, and eventually being able to customise the firmware.</p>
 </div>

@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -103,7 +103,7 @@ window.dataLayer = window.dataLayer || [];
 </div>
 <p>In this I’m drawing text with it’s bounding box show, and a cross over the x,y coordinates the text is meant to appear. As you can see <a href=http://raphaeljs.com/reference.html#Paper.text>Paper.text(…)</a> defaults to centre aligning vertically and horizontally. <a href=http://raphaeljs.com/reference.html#Paper.print>Paper.print(…)</a> aligns with the baseline of the first line, and I’m guess horizontally with the left edge (with a small amount of padding). The last example I wrote a simple method to centre <a href=http://raphaeljs.com/reference.html#Paper.print>Paper.print(…)</a> so it acts like <a href=http://raphaeljs.com/reference.html#Paper.text>Paper.text(…)</a></p>
 <p>Code to draw this SVG is below, with my normalised print method named print_center.</p>
-<div class=highlight><pre class=chroma><code class=language-javascript data-lang=javascript><span class=nx>Raphael</span><span class=p>.</span><span class=nx>fn</span><span class=p>.</span><span class=nx>line</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(</span><span class=nx>x1</span><span class=p>,</span> <span class=nx>y1</span><span class=p>,</span> <span class=nx>x2</span><span class=p>,</span> <span class=nx>y2</span><span class=p>)</span> <span class=p>{</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-javascript data-lang=javascript><span class=nx>Raphael</span><span class=p>.</span><span class=nx>fn</span><span class=p>.</span><span class=nx>line</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(</span><span class=nx>x1</span><span class=p>,</span> <span class=nx>y1</span><span class=p>,</span> <span class=nx>x2</span><span class=p>,</span> <span class=nx>y2</span><span class=p>)</span> <span class=p>{</span>
     <span class=c1>//assert(_.all([x1,x2,y1,y2], _.isFinite), &#34;x1,x2,y1,y2 must be numeric&#34;);
 </span><span class=c1></span>    <span class=k>return</span> <span class=k>this</span><span class=p>.</span><span class=nx>path</span><span class=p>(</span><span class=s2>&#34;M{0},{1} L{2},{3}&#34;</span><span class=p>,</span> <span class=nx>x1</span><span class=p>,</span> <span class=nx>y1</span><span class=p>,</span> <span class=nx>x2</span><span class=p>,</span> <span class=nx>y2</span><span class=p>);</span>
 <span class=p>};</span>

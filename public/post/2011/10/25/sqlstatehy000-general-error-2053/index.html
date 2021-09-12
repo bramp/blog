@@ -25,7 +25,7 @@ PHP Fatal error: Uncaught exception &#39;PDOException&#39; with message &#39;SQL
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -104,17 +104,17 @@ PHP Fatal error: Uncaught exception &#39;PDOException&#39; with message &#39;SQL
 </p>
 <div class=post itemprop=articleBody>
 <p>I encountered the following odd exception:</p>
-<div class=highlight><pre class=chroma><code class=language-text data-lang=text>PHP Fatal error:  Uncaught exception &#39;PDOException&#39; with message &#39;SQLSTATE[HY000]: General error: 2053 &#39; in /home/bramp/my.php:29
+<div class=highlight><pre class=chroma tabindex=0><code class=language-text data-lang=text>PHP Fatal error:  Uncaught exception &#39;PDOException&#39; with message &#39;SQLSTATE[HY000]: General error: 2053 &#39; in /home/bramp/my.php:29
 Stack trace:
 #0 /home/bramp/my.php(29): PDOStatement-&gt;fetch(2)
 </code></pre></div><p>Searching on Google didn’t reveal much help, but I eventually figure out the root cause. Spot the mistake:</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=o>...</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=o>...</span>
 <span class=nv>$sql</span> <span class=o>=</span> <span class=s1>&#39;SELECT TRIGGER_NAME, TRIGGER_GROUP, JOB_NAME FROM QRTZ_TRIGGERS&#39;</span><span class=p>;</span>
 <span class=nv>$sth</span> <span class=o>=</span> <span class=nv>$dbh</span><span class=o>-&gt;</span><span class=na>prepare</span><span class=p>(</span><span class=nv>$sql</span><span class=p>)</span> <span class=k>or</span> <span class=k>die</span><span class=p>(</span><span class=s1>&#39;Failed to prepare SELECT TRIGGER query&#39;</span><span class=p>);</span>
 <span class=k>while</span> <span class=p>(</span><span class=nv>$row</span> <span class=o>=</span> <span class=nv>$sth</span><span class=o>-&gt;</span><span class=na>fetch</span><span class=p>(</span><span class=nx>PDO</span><span class=o>::</span><span class=na>FETCH_ASSOC</span><span class=p>))</span> <span class=p>{</span>
 <span class=o>...</span>
 </code></pre></div><p>I am missing a</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=nv>$sth</span><span class=o>-&gt;</span><span class=na>execute</span><span class=p>();</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=nv>$sth</span><span class=o>-&gt;</span><span class=na>execute</span><span class=p>();</span>
 </code></pre></div><p>in between the prepare and the fetch. Easy fix. For reference I’m using a old version of PHP 5.1.6, and MySQL client 5.0.45.</p>
 </div>
 </article>

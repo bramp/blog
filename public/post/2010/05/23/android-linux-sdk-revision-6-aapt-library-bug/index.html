@@ -25,7 +25,7 @@ Android 2.2 just came out and along with it came a updated set of SDK tools. I�
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -108,11 +108,11 @@ Android 2.2 just came out and along with it came a updated set of SDK tools. I�
 <p><strong>UPDATE – I <a href="http://code.google.com/p/android/issues/detail?id=8498">reported this bug</a> and it was promptly fixed the next day. Read the <a href="http://code.google.com/p/android/issues/detail?id=8498">bug report</a> for solution on how to fix.</strong></p>
 <p><a href=http://android-developers.blogspot.com/2010/05/android-22-and-developers-goodies.html>Android 2.2</a> just came out and along with it came a updated set of <a href=http://developer.android.com/sdk/tools-notes.html>SDK tools</a>. I’ve been using these tools on Windows, but today I took my Linux laptop out and I’ve been sat in a <a href=http://www.juicafe.co.uk/ >coffee shop</a> hyped up on caffeine but completely unproductive because I’m going round in circles with what I think is a bug.</p>
 <p>So, I’m trying the <a href=http://developer.android.com/guide/developing/other-ide.html#libraryProject>new library feature</a>, where you can have a Android library project, which is referenced by one or more Android projects. This allows multiple projects to easily share the same code. The problem is when I set-up my Android project to use a library project I get the following error printed in my eclipse console:</p>
-<div class=highlight><pre class=chroma><code class=language-text data-lang=text>ERROR: Unknown option &#39;--auto-add-overlay&#39;
+<div class=highlight><pre class=chroma tabindex=0><code class=language-text data-lang=text>ERROR: Unknown option &#39;--auto-add-overlay&#39;
 Android Asset Packaging Tool
 </code></pre></div><p>and the code fails to compile. If I remove the reference to the library project this error goes away.</p>
 <p>The error is coming from the aapt command, which seems to be installed multiple times, once for each SDK version:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ locate -r <span class=s2>&#34;aapt</span>$<span class=s2>&#34;</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>$ locate -r <span class=s2>&#34;aapt</span>$<span class=s2>&#34;</span>
 /home/bramp/android-sdk-linux_86/platforms/android-3/tools/aapt
 /home/bramp/android-sdk-linux_86/platforms/android-4/tools/aapt
 /home/bramp/android-sdk-linux_86/platforms/android-7/tools/aapt

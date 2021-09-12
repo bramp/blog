@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -97,14 +97,14 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p>I had two files, one large CSV file (10million rows), and another file (600K rows). I wanted to find all the lines in the large CSV file that contained a word in the smaller file. The smaller file was a simple text with one word per line.</p>
 <p>I found that grep could do:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>grep -f smallfile largefile &gt; results.csv
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>grep -f smallfile largefile &gt; results.csv
 </code></pre></div><p>Which would build a list of patterns from the contents of the smallfile. This seemed simple enough, however it didn’t work. Some investiagtion showed that the smallfile had windows<br>
 new lines, and grep assumed the \r was part of the pattern. Using <a href=http://linux.die.net/man/1/dos2unix>dos2unix</a> fixed my problem.</p>
 <p>However, new problem, grep used 100% of my CPU and 2GB of my RAM and took over 5 hours. I actually gave up before I let it finish. I assume it was building a large regexp parse tree.<br>
 So I figured to allow it to make a simpler tree I would alter my smallfile to contain “^keyword”, instead of just “keyword”. I could do this because I knew the keyword would always<br>
 be at the beginning of the line. So <strong>awk ‘{print “^”$1} smallfile</strong> allowed me to do that. I tried grep again but it seemed to again be taking a long time.</p>
 <p>While waiting for grep to finish, I started to write a PHP script:</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=o>&lt;?</span><span class=nx>php</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=o>&lt;?</span><span class=nx>php</span>
 <span class=c1>// Prints out each line from a CSV where the first entry is in another list
 </span><span class=c1>// By Andrew Brampton March 2011
 </span><span class=c1>// php inlist.php bigfile smallfile

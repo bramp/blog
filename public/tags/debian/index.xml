@@ -33,13 +33,13 @@ LaTeX Error: File `algorithm.sty&#39; not found. solution: apt-get install texli
       <guid>https://blog.bramp.net/post/2011/11/22/building-phps-debian-package-nightmare/</guid>
       <description>&lt;p&gt;I just tried to compile the Debian PHP packages, so I could make some &lt;a href=&#34;http://www.howtoforge.com/recompiling-php5-with-bundled-support-for-gd-on-ubuntu&#34;&gt;minor tweaks&lt;/a&gt; to the source, to fix a bug I’m hopefully going to document shortly. This turned out to be very problematic, mainly due to the testing phase!&lt;/p&gt;
 &lt;p&gt;To build the Debian packages you typically do the following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mkdir php
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;mkdir php
 &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; php
 apt-get &lt;span class=&#34;nb&#34;&gt;source&lt;/span&gt; php5
 &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; php5-*
 debuild -us -uc -j4
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;While testing, the debian/setup_mysql.sh script is called, to create a temporary MySQL database. This however failed to execute correctly because I had some custom options in my &lt;a href=&#34;http://dev.mysql.com/doc/refman/5.1/en/option-files.html&#34;&gt;~/.my.cnf&lt;/a&gt;. Thus it failed like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# start our own mysql server for the tests&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# start our own mysql server for the tests&lt;/span&gt;
 /bin/sh debian/setup-mysql.sh &lt;span class=&#34;m&#34;&gt;1029&lt;/span&gt; /home/bramp/vendor/php/php5-5.3.8.0/mysql_db
 mysqladmin: connect to server at &lt;span class=&#34;s1&#34;&gt;&amp;#39;localhost&amp;#39;&lt;/span&gt; failed
 error: &lt;span class=&#34;s1&#34;&gt;&amp;#39;Access denied for user &amp;#39;&lt;/span&gt;root&lt;span class=&#34;s1&#34;&gt;&amp;#39;@&amp;#39;&lt;/span&gt;localhost&lt;span class=&#34;s1&#34;&gt;&amp;#39; (using password: YES)&amp;#39;&lt;/span&gt;
@@ -48,7 +48,7 @@ dpkg-buildpackage: error: debian/rules build gave error &lt;span class=&#34;nb&#
 debuild: fatal error at line 1348:
 dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After removing the my.cnf things were ok. The below patch fixes it in a more general way:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-diff&#34; data-lang=&#34;diff&#34;&gt;&lt;span class=&#34;gd&#34;&gt;-- debian/setup-mysql.sh.org	2011-11-21 21:57:07.244481175 -0500
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-diff&#34; data-lang=&#34;diff&#34;&gt;&lt;span class=&#34;gd&#34;&gt;-- debian/setup-mysql.sh.org	2011-11-21 21:57:07.244481175 -0500
 &lt;/span&gt;&lt;span class=&#34;gd&#34;&gt;&lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;+++ debian/setup-mysql.sh	2011-11-21 21:40:39.384455880 -0500
 &lt;/span&gt;&lt;span class=&#34;gi&#34;&gt;&lt;/span&gt;&lt;span class=&#34;gu&#34;&gt;@@ -16,7 +16,7 @@
 &lt;/span&gt;&lt;span class=&#34;gu&#34;&gt;&lt;/span&gt; 
@@ -60,7 +60,7 @@ dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed
  
  # Main code #
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The next problem I encountered is that all the automated PHP unit tests were failing, and they would eventually get stuck and use all my RAM and swap space (at least 16GiB of it) :( I’m not sure what made the machine run out of RAM, but the tests were failing because the version of PHP that was running the tests was incorrectly loading extensions from my system. The quick fix for this was to disable any extensions I had installed to my system. I just&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo mv /etc/php5/conf.d /etc/php5/conf.d.tmp
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo mv /etc/php5/conf.d /etc/php5/conf.d.tmp
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;to do that.&lt;/p&gt;
 &lt;p&gt;This made me think that in future I should perhaps find a cleaner environment to build these packages. In fact, it makes me wonder if the builds are just broken if my environment clearly impacts the successful run of tests.&lt;/p&gt;
 &lt;p&gt;One trick I found while building again and again, is that you can pass “-nc” to debuild so that it does not clean, and thus reuses the existing build materials for a faster build. Either way, I now have my own version of PHP built and installed! Next time I might just ignore the .deb files and build direct from source.&lt;/p&gt;
@@ -74,7 +74,7 @@ dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed
       
       <guid>https://blog.bramp.net/post/2009/09/10/grub2-and-windows/</guid>
       <description>&lt;p&gt;I’ve just installed grub2 on my Debian laptop, and I wanted to write a quick note on how to get dual booting working. Grub2 seems to have a far more complex configuration system than grub, this may be a good or a bad thing. One feature of this is a /etc/grub.d directory which contains a set of scripts to configure what items should be listed on the boot menu.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ls /etc/grub.d/
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ls /etc/grub.d/
 00_header  05_debian_theme  10_linux  30_os-prober  40_custom  README
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The scripts get run in order, each adding features to the boot menu. To dual boot Windows you can acheive this in two ways.&lt;/p&gt;
 &lt;ol&gt;
@@ -82,9 +82,9 @@ dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed
 &lt;li&gt;Use the os-prober script.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;I opted for option 2 since it seemed the easiest. However, this os-prober script does not work unless the package os-prober is installed. So:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo apt-get install os-prober
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo apt-get install os-prober
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Once that is installed you can reconfigure grub by doing:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo update-grub2
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo update-grub2
 Generating grub.cfg ...
 Found Debian background: moreblue-orbit-grub.png
 Found linux image: /boot/vmlinuz-2.6.30-1-amd64

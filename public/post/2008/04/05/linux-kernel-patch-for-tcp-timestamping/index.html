@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -102,14 +102,14 @@ window.dataLayer = window.dataLayer || [];
 </p>
 <div class=post itemprop=articleBody>
 <p>Recently I needed to measure the time it takes a packet to travel though the Linux network stack. To begin with I thought I’ll hack the kernel to add my own timing measurements, but then I found this was already built in! I could use the SIOCGSTAMP or SIOCGSTAMPNS ioctl calls to retrieve the timestamp assigned by the network driver when the packet first enters the stack.</p>
-<div class=highlight><pre class=chroma><code class=language-c data-lang=c><span class=n>SOCKET</span> <span class=n>s</span><span class=p>;</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-c data-lang=c><span class=n>SOCKET</span> <span class=n>s</span><span class=p>;</span>
 <span class=k>struct</span> <span class=n>timeval</span> <span class=n>tv</span> <span class=o>=</span> <span class=p>{</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>};</span>
 <span class=k>if</span> <span class=p>(</span> <span class=n>ioctl</span><span class=p>(</span><span class=n>s</span><span class=p>,</span> <span class=n>SIOCGSTAMP</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>tv</span><span class=p>)</span> <span class=p>)</span>
    <span class=k>return</span> <span class=mi>0</span><span class=p>;</span> <span class=c1>// error
 </span><span class=c1></span><span class=n>printf</span><span class=p>(</span> <span class=s>&#34;%ld seconds and %ld nanoseconds&#34;</span><span class=p>,</span>  <span class=n>tv</span><span class=p>.</span><span class=n>tv_sec</span><span class=p>,</span>  <span class=n>tv</span><span class=p>.</span><span class=n>tv_usec</span> <span class=p>);</span>
 </code></pre></div><p>This works great for UDP packets or RAW sockets, but does not work for TCP. There are many good reasons why TCP isn’t supported, mainly because TCP is a stream protocol, whereas UDP and RAW sockets typically operate on discrete packets.</p>
 <p>Ignoring this fact I decided to hack the kernel anyway to record the timestamps for TCP. It is a simple patch which hopefully others might find useful if they ever need to profile the TCP stack. It applys cleanly to 2.6.24 kernels.</p>
-<div class=highlight><pre class=chroma><code class=language-diff data-lang=diff><span class=gd>--- a/linux-2.6.24/net/ipv4/tcp.c	2008-01-24 22:58:37.000000000 +0000
+<div class=highlight><pre class=chroma tabindex=0><code class=language-diff data-lang=diff><span class=gd>--- a/linux-2.6.24/net/ipv4/tcp.c	2008-01-24 22:58:37.000000000 +0000
 </span><span class=gd></span><span class=gi>+++ b/linux-2.6.24/net/ipv4/tcp.c	2008-02-11 19:40:41.000000000 +0000
 </span><span class=gi></span><span class=gu>@@ -1180,6 +1180,10 @@
 </span><span class=gu></span> 		/* Next get a buffer. */

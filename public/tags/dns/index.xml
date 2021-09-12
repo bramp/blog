@@ -18,7 +18,7 @@
 &lt;h3 id=&#34;methodology&#34;&gt;Methodology&lt;/h3&gt;
 &lt;p&gt;Firstly I found a &lt;a href=&#34;http://www.quantcast.com/top-sites-1&#34;&gt;list of the 1 million most popular sites&lt;/a&gt;. I then picked a number of DNS servers to test against. I chose &lt;a href=&#34;http://code.google.com/speed/public-dns/&#34;&gt;Google&lt;/a&gt;‘s, &lt;a href=&#34;http://www.opendns.com/&#34;&gt;OpenDNS&lt;/a&gt;‘s, my ISP (&lt;a href=&#34;http://broadband.sky.com/&#34;&gt;Sky/Easynet&lt;/a&gt;) and my old ISP’s (&lt;a href=&#34;http://www.plus.net/&#34;&gt;Plus.net&lt;/a&gt;).&lt;/p&gt;
 &lt;p&gt;I decided I would query an &lt;a href=&#34;http://en.wikipedia.org/wiki/List_of_DNS_record_types&#34;&gt;A record&lt;/a&gt; for each of the domains in the list, one at a time, starting with the most popular. I would query each server three times for the same domain name. The ordering was like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;k&#34;&gt;foreach&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;domain&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;k&#34;&gt;foreach&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;domain&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
       &lt;span class=&#34;k&#34;&gt;foreach&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;server&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
          &lt;span class=&#34;nx&#34;&gt;query&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;server&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;domain&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -121,8 +121,7 @@
 &lt;/table&gt;
 
 &lt;p&gt;From this table of results, we can see that Google&amp;rsquo;s median response time is 41-42ms, however, OpenDNS performs much better with a result of ~31ms. Both my current ISP and my old ISP don&amp;rsquo;t perform as well and each achieved a result between 42ms and 61ms. To get a better feel for the data I plotted an empirical CDF of the lookup times for each server.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;ecdf_overview.pdf&#34;&gt;&lt;figure&gt;
-    &lt;img src=&#34;ecdf_overview.png&#34; width=&#34;700&#34; height=&#34;700&#34;/&gt; &lt;figcaption&gt;
+&lt;p&gt;&lt;a href=&#34;ecdf_overview.pdf&#34;&gt;&lt;figure&gt;&lt;img src=&#34;ecdf_overview.png&#34; width=&#34;700&#34; height=&#34;700&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Click for a larger PDF version&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
@@ -131,8 +130,7 @@
 &lt;p&gt;The minimum lookup time for each pair of DNS servers seems to be the same, most likely caused by the network latency between me and the servers. Even so, if we normalise all the data by taking the servers&#39; minimum value away from each sample, we still find that OpenDNS performs better than Google, and Google performs slightly better than Plus.net and quite a bit better than my current ISP, Easynet.&lt;/p&gt;
 &lt;p&gt;Rather worryingly is that the latency to OpenDNS is smaller than the latency to my own ISP&amp;rsquo;s DNS servers. This makes me wonder where the hell my ISP hosts their DNS servers. Also, the ~38ms minimum time with Google indicates that at least some of their DNS servers are hosted in Europe, and possibly the UK.&lt;/p&gt;
 &lt;p&gt;SInce I ran each lookup three times, I wanted to compare the lookup times for each request. This time I plotted the empirical CDF of each iteration of request.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;ecdf_requests.pdf&#34;&gt;&lt;figure&gt;
-    &lt;img src=&#34;ecdf_requests.png&#34; width=&#34;700&#34; height=&#34;700&#34;/&gt; &lt;figcaption&gt;
+&lt;p&gt;&lt;a href=&#34;ecdf_requests.pdf&#34;&gt;&lt;figure&gt;&lt;img src=&#34;ecdf_requests.png&#34; width=&#34;700&#34; height=&#34;700&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Click for a larger PDF version&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;

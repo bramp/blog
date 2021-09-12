@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -106,7 +106,7 @@ window.dataLayer = window.dataLayer || [];
 </p>
 <div class=post itemprop=articleBody>
 <p>Recently I had the need to convert Ordnance Survey East/North coordinates to Latitude and Longitude. By using the resources available on the OS site I wrote the following piece of PHP code:</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=o>&amp;</span><span class=nx>lt</span><span class=p>;</span><span class=o>?</span><span class=nx>php</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=o>&amp;</span><span class=nx>lt</span><span class=p>;</span><span class=o>?</span><span class=nx>php</span>
 <span class=c1>// Converts OS Easting/Northing to Lat/Long
 </span><span class=c1>// by bramp
 </span><span class=c1></span>	
@@ -216,7 +216,7 @@ window.dataLayer = window.dataLayer || [];
 <span class=p>}</span>
 <span class=o>?&amp;</span><span class=nx>gt</span><span class=p>;;</span>
 </code></pre></div><p>it is used in the following way:</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=nv>$e</span> <span class=o>=</span> <span class=mi>349000</span><span class=p>;</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=nv>$e</span> <span class=o>=</span> <span class=mi>349000</span><span class=p>;</span>
 <span class=nv>$n</span> <span class=o>=</span> <span class=mi>461000</span><span class=p>;</span>
 
 <span class=nx>print_r</span><span class=p>(</span> <span class=nx>E_N_to_Lat_Long</span><span class=p>(</span> <span class=nv>$e</span><span class=p>,</span> <span class=nv>$n</span><span class=p>)</span> <span class=p>);</span>

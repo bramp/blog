@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -105,15 +105,15 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p>Does your Linux 64bit version of Flash now make anonying beeping/distortion noises while playing videos? Well it turns out a recent “<a href=http://lwn.net/Articles/414467/ >improvement</a>” to glibc has caused some programs to now crash or do weird things. This is to do with an improvement of <a href=http://linux.die.net/man/3/memcpy>memcpy</a>, which makes its use more strict, causing those applications that incorrectly used it to now crash.</p>
 <p>On Debian, there is a simple a fix that allows you to use the original memcpy. You can load the application using an additional .so file:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=nv>LD_PRELOAD</span><span class=o>=</span>/usr/lib/libc/memcpy-preload.so /path/to/your/program
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=nv>LD_PRELOAD</span><span class=o>=</span>/usr/lib/libc/memcpy-preload.so /path/to/your/program
 </code></pre></div><p>As I use Google Chrome when using Flash I had to do the following:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=nv>LD_PRELOAD</span><span class=o>=</span>/usr/lib/libc/memcpy-preload.so /usr/bin/google-chrome
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=nv>LD_PRELOAD</span><span class=o>=</span>/usr/lib/libc/memcpy-preload.so /usr/bin/google-chrome
 </code></pre></div><p>but if you want to fix chrome on a system level, you can edit the Chrome Wrapper used to launch it.</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>sudo nano /opt/google/chrome/google-chrome
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>sudo nano /opt/google/chrome/google-chrome
 </code></pre></div><p>add the following line</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=nb>export</span> <span class=nv>LD_PRELOAD</span><span class=o>=</span><span class=s2>&#34;/usr/lib/libc/memcpy-preload.so&#34;</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=nb>export</span> <span class=nv>LD_PRELOAD</span><span class=o>=</span><span class=s2>&#34;/usr/lib/libc/memcpy-preload.so&#34;</span>
 </code></pre></div><p>for example</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=nb>export</span> LD_LIBRARY_PATH
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=nb>export</span> LD_LIBRARY_PATH
 <span class=nb>export</span> <span class=nv>LD_PRELOAD</span><span class=o>=</span><span class=s2>&#34;/usr/lib/libc/memcpy-preload.so&#34;</span>
 
 <span class=nb>export</span> <span class=nv>CHROME_VERSION_EXTRA</span><span class=o>=</span><span class=s2>&#34;beta&#34;</span>

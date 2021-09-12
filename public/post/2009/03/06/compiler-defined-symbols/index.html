@@ -25,7 +25,7 @@ gcc -dM -E - &gt; /dev/null This can help if you aren&rsquo;t quite sure which d
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -106,9 +106,9 @@ gcc -dM -E - &gt; /dev/null This can help if you aren&rsquo;t quite sure which d
 </p>
 <div class=post itemprop=articleBody>
 <p>I found this neat little command to list all the GCC compiler defined symbols</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>gcc -dM -E - &gt; /dev/null
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>gcc -dM -E - &gt; /dev/null
 </code></pre></div><p>This can help if you aren&rsquo;t quite sure which defines are used on your systems. For example my FreeBSD 7.1 machine outputs this:</p>
-<div class=highlight><pre class=chroma><code class=language-c data-lang=c><span class=cp>#define __DBL_MIN_EXP__ (-1021)
+<div class=highlight><pre class=chroma tabindex=0><code class=language-c data-lang=c><span class=cp>#define __DBL_MIN_EXP__ (-1021)
 </span><span class=cp>#define __FLT_MIN__ 1.17549435e-38F
 </span><span class=cp>#define __DEC64_DEN__ 0.000000000000001E-383DD
 </span><span class=cp>#define __CHAR_BIT__ 8
@@ -220,7 +220,7 @@ gcc -dM -E - &gt; /dev/null This can help if you aren&rsquo;t quite sure which d
 </span><span class=cp>#define __LDBL_MIN_10_EXP__ (-4931)
 </span><span class=cp>#define __GNUC_GNU_INLINE__ 1
 </span></code></pre></div><p>and my Debian Linux machine outputs this:</p>
-<div class=highlight><pre class=chroma><code class=language-c data-lang=c><span class=cp>#define __DBL_MIN_EXP__ (-1021)
+<div class=highlight><pre class=chroma tabindex=0><code class=language-c data-lang=c><span class=cp>#define __DBL_MIN_EXP__ (-1021)
 </span><span class=cp>#define __FLT_MIN__ 1.17549435e-38F
 </span><span class=cp>#define __DEC64_DEN__ 0.000000000000001E-383DD
 </span><span class=cp>#define __CHAR_BIT__ 8

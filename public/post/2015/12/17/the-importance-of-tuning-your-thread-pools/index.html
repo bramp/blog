@@ -25,7 +25,7 @@ Whether you know it or not, your Java web application is most likely using a thr
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -108,7 +108,7 @@ Whether you know it or not, your Java web application is most likely using a thr
 <h2 id=single-threaded>Single Threaded</h2>
 <p>Let us start with some basics, and progress with the evolution of the threaded model. No matter which application server or framework you use, <a href=https://tomcat.apache.org/ >Tomcat</a>, <a href=http://www.dropwizard.io/ >Dropwizard</a>, <a href=https://eclipse.org/jetty/ >Jetty</a>, they all use the same fundamental approach. Buried deep inside the web server is a socket. This socket is listening for incoming TCP connections, and accepting them. Once accepted, data can be read from the newly established TCP connection, parsed, and turned into a HTTP request. This request is then handed off to the web application, to do with what it wants.</p>
 <p>To provide an understanding of the role of threads, we won’t use an application server, instead we will build a simple server from scratch. This server mirrors what most application servers do under the hood. To start with, a single threaded web server may look like this:</p>
-<div class=highlight><pre class=chroma><code class=language-java data-lang=java><span class=n>ServerSocket</span> <span class=n>listener</span> <span class=o>=</span> <span class=k>new</span> <span class=n>ServerSocket</span><span class=o>(</span><span class=n>8080</span><span class=o>);</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-java data-lang=java><span class=n>ServerSocket</span> <span class=n>listener</span> <span class=o>=</span> <span class=k>new</span> <span class=n>ServerSocket</span><span class=o>(</span><span class=n>8080</span><span class=o>);</span>
 <span class=k>try</span> <span class=o>{</span>
 	<span class=k>while</span> <span class=o>(</span><span class=kc>true</span><span class=o>)</span> <span class=o>{</span>
 		<span class=n>Socket</span> <span class=n>socket</span> <span class=o>=</span> <span class=n>listener</span><span class=o>.</span><span class=na>accept</span><span class=o>();</span>
@@ -123,7 +123,7 @@ Whether you know it or not, your Java web application is most likely using a thr
 <span class=o>}</span>
 
 </code></pre></div><p>This code creates a <a href=https://docs.oracle.com/javase/7/docs/api/java/net/ServerSocket.html>ServerSocket</a> on port 8080, then in a tight loop the ServerSocket checks for new connections to accept. Once accepted the socket is passed to a handleRequest method. That method would typically read the HTTP request, do whatever process is needed, and write a response. In this simple example, handleRequest reads a single line, and returns a short HTTP response. It would be normal for handleRequest to do something more complex, such as reading from a database, or conducting some other kind of IO.</p>
-<div class=highlight><pre class=chroma><code class=language-java data-lang=java><span class=kd>final</span> <span class=kd>static</span> <span class=n>String</span> <span class=n>response</span> <span class=o>=</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-java data-lang=java><span class=kd>final</span> <span class=kd>static</span> <span class=n>String</span> <span class=n>response</span> <span class=o>=</span>
 	<span class=s>&#34;HTTP/1.0 200 OK\r\n&#34;</span> <span class=o>+</span>
 	<span class=s>&#34;Content-type: text/plain\r\n&#34;</span> <span class=o>+</span>
 	<span class=s>&#34;\r\n&#34;</span> <span class=o>+</span>
@@ -146,7 +146,7 @@ Whether you know it or not, your Java web application is most likely using a thr
 </code></pre></div><p>As there is only a single thread handling all accepted sockets, each request must be fully handled, before accepting the next. In a real application it could be normal for the equivalent handleRequest method to take on the order of 100 milliseconds to return. If this was the case, the server would be limited to handling only 10 requests per second, one after the other.</p>
 <h2 id=multi-threaded>Multi-threaded</h2>
 <p>Even though handleRequest may be blocked on IO, the CPU is free to handle more requests. With a single threaded approach this is not possible. Thus this server can be improved to allow concurrent operations, via creating multiple threads:</p>
-<div class=highlight><pre class=chroma><code class=language-java data-lang=java><span class=kd>public</span> <span class=kd>static</span> <span class=kd>class</span> <span class=nc>HandleRequestRunnable</span> <span class=kd>implements</span> <span class=n>Runnable</span> <span class=o>{</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-java data-lang=java><span class=kd>public</span> <span class=kd>static</span> <span class=kd>class</span> <span class=nc>HandleRequestRunnable</span> <span class=kd>implements</span> <span class=n>Runnable</span> <span class=o>{</span>
 	<span class=kd>final</span> <span class=n>Socket</span> <span class=n>socket</span><span class=o>;</span>
 
 	<span class=kd>public</span> <span class=nf>HandleRequestRunnable</span><span class=o>(</span><span class=n>Socket</span> <span class=n>socket</span><span class=o>)</span> <span class=o>{</span>
@@ -181,7 +181,7 @@ Whether you know it or not, your Java web application is most likely using a thr
 <p>Not a panacea, but the stack size issue can be somewhat mitigated by tuning the stack size with the -Xss flag. A smaller stack will reduce the per thread overhead, but potentially leads to <a href=https://docs.oracle.com/javase/7/docs/api/java/lang/StackOverflowError.html>StackOverflowErrors</a>. Your mileage will vary, but for many applications the default 1024KB is excessive, and smaller 256KB or 512KB values might be more appropriate. The smallest value Java will allow is 160KB.</p>
 <h2 id=thread-pool>Thread pool</h2>
 <p>To avoid continuously creating new threads, and to bound the maximum number, a simple thread pool can be used. Simply put, the pool keeps track of all threads, creating new ones when needed up to an upper bound, and where possible reusing idle threads.</p>
-<div class=highlight><pre class=chroma><code class=language-java data-lang=java><span class=n>ServerSocket</span> <span class=n>listener</span> <span class=o>=</span> <span class=k>new</span> <span class=n>ServerSocket</span><span class=o>(</span><span class=n>8080</span><span class=o>);</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-java data-lang=java><span class=n>ServerSocket</span> <span class=n>listener</span> <span class=o>=</span> <span class=k>new</span> <span class=n>ServerSocket</span><span class=o>(</span><span class=n>8080</span><span class=o>);</span>
 <span class=n>ExecutorService</span> <span class=n>executor</span> <span class=o>=</span> <span class=n>Executors</span><span class=o>.</span><span class=na>newFixedThreadPool</span><span class=o>(</span><span class=n>4</span><span class=o>);</span>
 <span class=k>try</span> <span class=o>{</span>
 	<span class=k>while</span> <span class=o>(</span><span class=kc>true</span><span class=o>)</span> <span class=o>{</span>
@@ -196,7 +196,7 @@ Whether you know it or not, your Java web application is most likely using a thr
 <p><a href=https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ThreadPoolExecutor.html>ThreadPoolExecutors</a> can be constructed directly, allowing for its behaviour to be customised. For example, the min and max number of threads within the pool can be defined, as well as policies for when threads are created and destroyed. An example of this is shown shortly.</p>
 <h2 id=work-queue>Work queue</h2>
 <p>In the fixed thread pool case, the observant reader may wonder what happens if all threads are busy, and a new request comes in. Well the ThreadPoolExecutor may use a queue to hold pending requests before a thread becomes available. The Executors.newFixedThreadPool by default use an unbounded LinkedList. Again this leads to the resource exhaustion problem, albeit much slower since each queued request is smaller than a full thread, and will typically not be using as many resources. However, in our examples, each queued request is holding a socket which (depending on OS) would be consuming a file handle. This is the kind of resource that the operating system will limit, so it may not be best to hold on to it unless needed. Therefore it also makes sense to bound the size of the work queue.</p>
-<div class=highlight><pre class=chroma><code class=language-java data-lang=java><span class=kd>public</span> <span class=kd>static</span> <span class=n>ExecutorService</span> <span class=nf>newBoundedFixedThreadPool</span><span class=o>(</span><span class=kt>int</span> <span class=n>nThreads</span><span class=o>,</span> <span class=kt>int</span> <span class=n>capacity</span><span class=o>)</span> <span class=o>{</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-java data-lang=java><span class=kd>public</span> <span class=kd>static</span> <span class=n>ExecutorService</span> <span class=nf>newBoundedFixedThreadPool</span><span class=o>(</span><span class=kt>int</span> <span class=n>nThreads</span><span class=o>,</span> <span class=kt>int</span> <span class=n>capacity</span><span class=o>)</span> <span class=o>{</span>
 	<span class=k>return</span> <span class=k>new</span> <span class=n>ThreadPoolExecutor</span><span class=o>(</span><span class=n>nThreads</span><span class=o>,</span> <span class=n>nThreads</span><span class=o>,</span>
 		<span class=n>0L</span><span class=o>,</span> <span class=n>TimeUnit</span><span class=o>.</span><span class=na>MILLISECONDS</span><span class=o>,</span>
 		<span class=k>new</span> <span class=n>LinkedBlockingQueue</span><span class=o>&lt;</span><span class=n>Runnable</span><span class=o>&gt;(</span><span class=n>capacity</span><span class=o>),</span>
@@ -222,8 +222,7 @@ Whether you know it or not, your Java web application is most likely using a thr
 <p>Now we understand how to create a thread pool, the hard question is how many threads should be available? We have determined that the maximum number should be bounded to not cause resource exhaustion. This includes all types of resources, memory (stack and heap), open file handles, open TCP connections, the number of connections a remote database can handle, and any other finite resource. Conversely, if the threads are CPU bound instead of IO bound, then the number of physical cores should be considered finite, and perhaps no more than one thread per core should be created.</p>
 <p>This all depends on the work the application is doing. A user should run load tests using various pool sizes, and a realistic mix of requests. Each time increasing their thread pool size until breaking point. This makes it possible to find the upper bound, for when resources are exhausted. In some cases it may be prudent to increase the number of available resources, for example making more RAM available to the JVM, or tuning the OS to allow for more file handles. However, at some point the theoretical upper bound will be reached, and should be noted, but this is not the end of the story.</p>
 <h2 id=littles-law>Little’s Law</h2>
-<figure>
-<img src=littlelaw.png /><figcaption>
+<figure><img src=littlelaw.png /><figcaption>
 <h4>Little&#39;s Law equation</h4>
 </figcaption>
 </figure>

@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -103,14 +103,13 @@ window.dataLayer = window.dataLayer || [];
 </p>
 <div class=post itemprop=articleBody>
 <p>A <a href=https://en.wikipedia.org/wiki/Hilbert_curve>Hilbert curve</a> is a space-filling (snakey) curve through a 2D space:</p>
-<figure>
-<img src=hilbert.png /><figcaption>
+<figure><img src=hilbert.png /><figcaption>
 <h4>Image of 8 by 8 Hilbert curve</h4>
 </figcaption>
 </figure>
 <p>This can be very useful for mapping a 1D value, into a 2D space. For example, it is commonly used to <a href=https://xkcd.com/195/ >map IP addresses into a 2D space</a>.</p>
 <p>I recently created a library for <a href=https://golang.org/ >Go</a> that can map to and from a curve. The project is <a href=http://github.com/google/hilbert>hosted on Github</a>, and can be used like so:</p>
-<div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=kn>import</span> <span class=s>&#34;github.com/google/hilbert&#34;</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-go data-lang=go><span class=kn>import</span> <span class=s>&#34;github.com/google/hilbert&#34;</span>
 
 <span class=c1>// Create a Hilbert curve for mapping to and from a 16 by 16 space.
 </span><span class=c1></span><span class=nx>s</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>hilbert</span><span class=p>.</span><span class=nf>New</span><span class=p>(</span><span class=mi>16</span><span class=p>)</span>
@@ -122,8 +121,7 @@ window.dataLayer = window.dataLayer || [];
 <span class=c1>// Also map back from (x,y) to t.
 </span><span class=c1></span><span class=nx>t</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>s</span><span class=p>.</span><span class=nf>MapInverse</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>)</span>
 </code></pre></div><p>The project contains some demos, such as this cool animations:</p>
-<figure>
-<img src=hilbert_animation.gif /><figcaption>
+<figure><img src=hilbert_animation.gif /><figcaption>
 <h4>Hilbert curve animation</h4>
 </figcaption>
 </figure>

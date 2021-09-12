@@ -18,27 +18,25 @@
 &lt;p&gt;Many of the &lt;a href=&#34;https://matthewhoelter.com/2019/10/21/how-to-setup-https-on-your-local-development-environment-localhost-in-minutes.html&#34;&gt;instructions out there&lt;/a&gt; create a self-signed certificate, that you install to be trusted locally. I wanted my development server to be accessible from other devices on my network, and I didn&amp;rsquo;t want the hassle of installing this self-signed cert. Instead I wanted a SSL certificate that uses a real/trusted CA.&lt;/p&gt;
 &lt;p&gt;Enter &lt;a href=&#34;https://letsencrypt.org/&#34;&gt;Let&amp;rsquo;s Encrypt&lt;/a&gt;, a free service to provide SSL certificates, providing you can prove you own the domain. To go about this, I did the following on my macbook:&lt;/p&gt;
 &lt;h1 id=&#34;install-certbot-to-generate-the-cert&#34;&gt;Install Certbot (to generate the cert)&lt;/h1&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;brew install certbot
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;brew install certbot
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There are a few ways to prove you own a domain, the HTTP based ones require a public web server. Since my development server is only on my local network, I&amp;rsquo;m going to use a DNS based proof. Since I use Cloudflare for my DNS, I&amp;rsquo;ll be using their plugin.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;pip3 install certbot-dns-cloudflare
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;pip3 install certbot-dns-cloudflare
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;setup-the-domain-localbrampnet&#34;&gt;Setup the domain (local.bramp.net)&lt;/h1&gt;
 &lt;p&gt;I use cloudflare to host the DNS for my domain, so I setup a new domain, local.bramp.net, that points to an internal IP address (192.168.0.123). This domain won&amp;rsquo;t actually be used via the Internet, but will happily work for any devices on my local network.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;setup-dns.png&#34; width=&#34;720&#34; height=&#34;208&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;setup-dns.png&#34; width=&#34;720&#34; height=&#34;208&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Setup DNS record for local.bramp.net&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;You&amp;rsquo;ll also need a &lt;a href=&#34;https://support.cloudflare.com/hc/en-us/articles/200167836-Where-do-I-find-my-Cloudflare-API-key-&#34;&gt;API key from Cloudflare&lt;/a&gt;. They allow you to scope the key to only access this test domain. For example:&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;create-token.png&#34; width=&#34;720&#34; height=&#34;304&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;create-token.png&#34; width=&#34;720&#34; height=&#34;304&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Create a API token&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;That will give you a token, that is a long string of letters and numbers.&lt;/p&gt;
 &lt;h1 id=&#34;configure-certbot&#34;&gt;Configure Certbot&lt;/h1&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Create a place to store your secrets, that only you can access&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Create a place to store your secrets, that only you can access&lt;/span&gt;
 
 mkdir ~/.secrets
 cat &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF &amp;gt; ~/.secrets/cloudflare.ini
@@ -48,7 +46,7 @@ cat &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF &amp;gt; ~/.secrets/cloudf
 chmod &lt;span class=&#34;m&#34;&gt;0700&lt;/span&gt; ~/.secrets/
 chmod &lt;span class=&#34;m&#34;&gt;0400&lt;/span&gt; ~/.secrets/cloudflare.ini
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;generate-the-certificate&#34;&gt;Generate the Certificate&lt;/h1&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;certbot certonly &lt;span class=&#34;se&#34;&gt;\
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;certbot certonly &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --config-dir ~/.secrets/ &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --work-dir ~/.secrets/ &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --logs-dir ~/.secrets/ &lt;span class=&#34;se&#34;&gt;\
@@ -62,7 +60,7 @@ chmod &lt;span class=&#34;m&#34;&gt;0400&lt;/span&gt; ~/.secrets/cloudflare.ini
    /Users/bramp/.secrets/live/local.bramp.net/privkey.pem
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The &lt;code&gt;privkey.pem&lt;/code&gt; is important to keep secret. Normally certbot runs as root, but here we run it as your user for convenience.&lt;/p&gt;
 &lt;p&gt;If you want this to automatically renew, just run to add a renewal that occurs twice daily at a random minute after 12pm and 12am.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# List your current crontab, and append certbot renewal&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# List your current crontab, and append certbot renewal&lt;/span&gt;
 
 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;crontab -l &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$((&lt;/span&gt; RANDOM &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;60&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;))&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; 0,12 * * * &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;which certbot&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; renew -q --config-dir ~/.secrets/ --work-dir ~/.secrets/ --logs-dir ~/.secrets/&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; crontab -
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Or you can renew (all certificates) on demand with a simple:&lt;/p&gt;
@@ -72,13 +70,13 @@ chmod &lt;span class=&#34;m&#34;&gt;0400&lt;/span&gt; ~/.secrets/cloudflare.ini
   --logs-dir ~/.secrets/
 &lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;install-a-simple-https-web-server&#34;&gt;Install a simple HTTPS web server&lt;/h1&gt;
 &lt;p&gt;I use &lt;a href=&#34;https://github.com/http-party/http-server&#34;&gt;http-server&lt;/a&gt;, &amp;ldquo;a simple, zero-configuration command-line http server.&amp;rdquo;. It supports many useful features, including SSL.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;brew install http-server
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;brew install http-server
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;running-the-https-web-server&#34;&gt;Running the HTTPS web server&lt;/h1&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;http-server -S &lt;span class=&#34;se&#34;&gt;\
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;http-server -S &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -C ~/.secrets/live/local.bramp.net/fullchain.pem &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -K ~/.secrets/live/local.bramp.net/privkey.pem
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You may wish to alias this to something shorter, for example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;https&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;http-server -S \
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;https&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;http-server -S \
 &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;  -C ~/.secrets/live/local.bramp.net/fullchain.pem \
 &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;  -K ~/.secrets/live/local.bramp.net/privkey.pem&amp;#34;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now you can run &lt;code&gt;https&lt;/code&gt; from any directory and it&amp;rsquo;ll be served over SSL.&lt;/p&gt;
@@ -102,7 +100,7 @@ chmod &lt;span class=&#34;m&#34;&gt;0400&lt;/span&gt; ~/.secrets/cloudflare.ini
       <description>&lt;p&gt;GitHub just &lt;a href=&#34;https://github.com/blog/2186-https-for-github-pages&#34;&gt;announced&lt;/a&gt; that all github.io sites can enforce the use of HTTPS. Previously GitHub supported HTTPS on these sites, but you couldn&amp;rsquo;t force users to use HTTPS other than using a &lt;a href=&#34;https://gist.github.com/konklone/9968713&#34;&gt;javascript redirect hack&lt;/a&gt;, or putting a CDN infront of GitHub. Now by checking a single box you can force users to the secure version:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;checkbox.png&#34; alt=&#34;Enforce HTTPS Checkbox&#34;&gt;&lt;/img&gt;&lt;/p&gt;
 &lt;p&gt;Sadly I have far too many repositories, and I don&amp;rsquo;t recall which one uses pages. I figured it would be easy to hit &lt;a href=&#34;https://developer.github.com/v3/&#34;&gt;GitHub&amp;rsquo;s API&lt;/a&gt; and enabled this. The API doesn&amp;rsquo;t directly support enabling HTTPS, so instead I wrote a quick script to list all repos with GitHub pages:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;ch&#34;&gt;#!/usr/bin/env python&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;ch&#34;&gt;#!/usr/bin/env python&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;# Prints a list of all owned repositories with pages.&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;# by Andrew Brampton 2016 https://bramp.net&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;#&lt;/span&gt;
@@ -111,7 +109,7 @@ chmod &lt;span class=&#34;m&#34;&gt;0400&lt;/span&gt; ~/.secrets/cloudflare.ini
 &lt;span class=&#34;n&#34;&gt;headers&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Authorization&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;token XXXXX&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Replace XXXX with a token from https://github.com/settings/tokens&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;params&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;type&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;owner&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;page&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
-&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;True&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;True&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
 	&lt;span class=&#34;n&#34;&gt;r&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;requests&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;https://api.github.com/user/repos&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;headers&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;headers&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 	&lt;span class=&#34;n&#34;&gt;repos&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;json&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
 	&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;repos&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
@@ -119,12 +117,12 @@ chmod &lt;span class=&#34;m&#34;&gt;0400&lt;/span&gt; ~/.secrets/cloudflare.ini
 
 	&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;repo&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;repos&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
 		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;repo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;has_pages&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]:&lt;/span&gt;
-			&lt;span class=&#34;k&#34;&gt;print&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;%32s&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;%s&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/settings&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;repo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;name&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;repo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;html_url&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
+			&lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;%32s&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;%s&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/settings&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;repo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;name&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;repo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;html_url&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
 
 	&lt;span class=&#34;n&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;page&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Download &lt;a href=&#34;turn-on-github-ssl.py&#34;&gt;turn-on-github-ssl.py&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;This print out something like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ./turn-on-github-ssl.py
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ./turn-on-github-ssl.py
 
                 blog https://github.com/bramp/blog/settings
   ffmpeg-cli-wrapper https://github.com/bramp/ffmpeg-cli-wrapper/settings
