@@ -1,0 +1,32 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>backup on bramp.net</title>
+    <link>https://blog.bramp.net</link>
+    <description>Recent content in backup on bramp.net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en_GB</language>
+    <lastBuildDate>Sun, 12 Sep 2021 13:45:51 -0700</lastBuildDate>
+    <atom:link href="https://blog.bramp.net/tags/backup/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Compress and Backup</title>
+      <link>https://blog.bramp.net/post/2021/09/12/compress-and-backup/</link>
+      <pubDate>Sun, 12 Sep 2021 13:45:51 -0700</pubDate>
+      
+      <guid>https://blog.bramp.net/post/2021/09/12/compress-and-backup/</guid>
+      <description>&lt;p&gt;In my &lt;a href=&#34;https://blog.bramp.net/post/2021/09/12/recovering-a-raid-5-intel-storage-matrix-on-linux-without-the-hardware/&#34;&gt;last article&lt;/a&gt; I discussed recovering a old RAID-5 disk array. Here I&amp;rsquo;m going to quickly list what I did to back up what I recovered.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Create a zstd compressed tar file&lt;/span&gt;
+$ tar -c -v -I&lt;span class=&#34;s2&#34;&gt;&amp;#34;zstd -19 -T0&amp;#34;&lt;/span&gt; -f raid5-my-projects.tar.zstd My&lt;span class=&#34;se&#34;&gt;\ &lt;/span&gt;Projects
+
+&lt;span class=&#34;c1&#34;&gt;# Create a text based index for the tar&lt;/span&gt;
+$ tar -t -f raid5-my-projects.tar.zstd &amp;gt; raid5-my-projects.index
+
+&lt;span class=&#34;c1&#34;&gt;# Backup to Google Cloud&lt;/span&gt;
+$ gsutil cp raid5* gs://backup.bramp.net/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Maybe I should be using a proper backup solution, but this was quick and easy. I used &lt;a href=&#34;http://facebook.github.io/zstd/&#34;&gt;Zstandard&lt;/a&gt; to compress the tar file since it gives &lt;a href=&#34;https://linuxreviews.org/Comparison_of_Compression_Algorithms&#34;&gt;impressive compression results&lt;/a&gt;, speed, and is modern.&lt;/p&gt;
+&lt;p&gt;I uploaded the results to a &lt;a href=&#34;https://cloud.google.com/storage/docs/storage-classes&#34;&gt;Archive bucket&lt;/a&gt; on Google&amp;rsquo;s Cloud Storage.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

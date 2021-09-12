@@ -5,14 +5,29 @@
     <loc>https://blog.bramp.net/publication/</loc>
     <lastmod>2013-02-16T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://blog.bramp.net/tags/backup/</loc>
+    <lastmod>2021-09-12T13:45:51-07:00</lastmod>
+  </url><url>
     <loc>https://blog.bramp.net/categories/blog/</loc>
-    <lastmod>2021-09-12T13:09:07-07:00</lastmod>
+    <lastmod>2021-09-12T13:45:51-07:00</lastmod>
   </url><url>
     <loc>https://blog.bramp.net/</loc>
-    <lastmod>2021-09-12T13:09:07-07:00</lastmod>
+    <lastmod>2021-09-12T13:45:51-07:00</lastmod>
   </url><url>
     <loc>https://blog.bramp.net/categories/</loc>
-    <lastmod>2021-09-12T13:09:07-07:00</lastmod>
+    <lastmod>2021-09-12T13:45:51-07:00</lastmod>
+  </url><url>
+    <loc>https://blog.bramp.net/post/2021/09/12/compress-and-backup/</loc>
+    <lastmod>2021-09-12T13:45:51-07:00</lastmod>
+  </url><url>
+    <loc>https://blog.bramp.net/tags/gcs/</loc>
+    <lastmod>2021-09-12T13:45:51-07:00</lastmod>
+  </url><url>
+    <loc>https://blog.bramp.net/post/</loc>
+    <lastmod>2021-09-12T13:45:51-07:00</lastmod>
+  </url><url>
+    <loc>https://blog.bramp.net/tags/</loc>
+    <lastmod>2021-09-12T13:45:51-07:00</lastmod>
   </url><url>
     <loc>https://blog.bramp.net/tags/intel/</loc>
     <lastmod>2021-09-12T13:09:07-07:00</lastmod>
@@ -23,16 +38,10 @@
     <loc>https://blog.bramp.net/tags/mdadm/</loc>
     <lastmod>2021-09-12T13:09:07-07:00</lastmod>
   </url><url>
-    <loc>https://blog.bramp.net/post/</loc>
-    <lastmod>2021-09-12T13:09:07-07:00</lastmod>
-  </url><url>
     <loc>https://blog.bramp.net/tags/raid/</loc>
     <lastmod>2021-09-12T13:09:07-07:00</lastmod>
   </url><url>
     <loc>https://blog.bramp.net/post/2021/09/12/recovering-a-raid-5-intel-storage-matrix-on-linux-without-the-hardware/</loc>
-    <lastmod>2021-09-12T13:09:07-07:00</lastmod>
-  </url><url>
-    <loc>https://blog.bramp.net/tags/</loc>
     <lastmod>2021-09-12T13:09:07-07:00</lastmod>
   </url><url>
     <loc>https://blog.bramp.net/post/2021/04/03/alternative-milks/</loc>
