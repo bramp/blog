@@ -18,7 +18,7 @@ body {
   margin: 0;
 }
 
-article,details,figcaption,figure,footer,header,main,nav,section,summary {
+article,aside,details,figcaption,figure,footer,header,main,nav,section,summary {
   display: block;
 }
 
@@ -462,6 +462,14 @@ a.text-primary:hover {
   color: #1863e6;
 }
 
+.text-success {
+  color: #3fad46;
+}
+
+a.text-success:hover {
+  color: #318837;
+}
+
 .text-info {
   color: #5bc0de;
 }
@@ -485,6 +493,14 @@ a.text-warning:hover {
 
 a.bg-primary:hover {
   background-color: #1863e6;
+}
+
+.bg-success {
+  background-color: #dff0d8;
+}
+
+a.bg-success:hover {
+  background-color: #c1e2b3;
 }
 
 .bg-info {
@@ -1171,6 +1187,14 @@ table td[class*="col-"],table th[class*="col-"] {
   background-color: #e8e8e8;
 }
 
+.table > thead > tr > td.success,.table > tbody > tr > td.success,.table > tfoot > tr > td.success,.table > thead > tr > th.success,.table > tbody > tr > th.success,.table > tfoot > tr > th.success,.table > thead > tr.success > td,.table > tbody > tr.success > td,.table > tfoot > tr.success > td,.table > thead > tr.success > th,.table > tbody > tr.success > th,.table > tfoot > tr.success > th {
+  background-color: #dff0d8;
+}
+
+.table-hover > tbody > tr > td.success:hover,.table-hover > tbody > tr > th.success:hover,.table-hover > tbody > tr.success:hover > td,.table-hover > tbody > tr:hover > .success,.table-hover > tbody > tr.success:hover > th {
+  background-color: #d0e9c6;
+}
+
 .table > thead > tr > td.info,.table > tbody > tr > td.info,.table > tfoot > tr > td.info,.table > thead > tr > th.info,.table > tbody > tr > th.info,.table > tfoot > tr > th.info,.table > thead > tr.info > td,.table > tbody > tr.info > td,.table > tfoot > tr.info > td,.table > thead > tr.info > th,.table > tbody > tr.info > th,.table > tfoot > tr.info > th {
   background-color: #d9edf7;
 }
@@ -1440,6 +1464,32 @@ textarea.input-sm,select[multiple].input-sm {
   line-height: 33px;
 }
 
+.has-success .help-block,.has-success .control-label,.has-success .radio,.has-success .checkbox,.has-success .radio-inline,.has-success .checkbox-inline {
+  color: #3fad46;
+}
+
+.has-success .form-control {
+  border-color: #3fad46;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.has-success .form-control:focus {
+  border-color: #318837;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #81d186;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #81d186;
+}
+
+.has-success .input-group-addon {
+  color: #3fad46;
+  border-color: #3fad46;
+  background-color: #dff0d8;
+}
+
+.has-success .form-control-feedback {
+  color: #3fad46;
+}
+
 .has-warning .help-block,.has-warning .control-label,.has-warning .radio,.has-warning .checkbox,.has-warning .radio-inline,.has-warning .checkbox-inline {
   color: #f0ad4e;
 }
@@ -1676,6 +1726,27 @@ textarea.input-sm,select[multiple].input-sm {
 .btn-primary.disabled,.btn-primary[disabled],.btn-primary.disabled:hover,.btn-primary[disabled]:hover,.btn-primary.disabled:focus,.btn-primary[disabled]:focus,.btn-primary.disabled:active,.btn-primary[disabled]:active,.btn-primary.disabled.active,.btn-primary[disabled].active {
   background-color: #4582ec;
   border-color: #4582ec;
+}
+
+.btn-success {
+  color: #ffffff;
+  background-color: #3fad46;
+  border-color: #3fad46;
+}
+
+.btn-success:hover,.btn-success:focus,.btn-success:active,.btn-success.active {
+  color: #ffffff;
+  background-color: #318837;
+  border-color: #2f8034;
+}
+
+.btn-success:active,.btn-success.active {
+  background-image: none;
+}
+
+.btn-success.disabled,.btn-success[disabled],.btn-success.disabled:hover,.btn-success[disabled]:hover,.btn-success.disabled:focus,.btn-success[disabled]:focus,.btn-success.disabled:active,.btn-success[disabled]:active,.btn-success.disabled.active,.btn-success[disabled].active {
+  background-color: #3fad46;
+  border-color: #3fad46;
 }
 
 .btn-info {
@@ -2634,6 +2705,14 @@ a.label:hover,a.label:focus {
   background-color: #1863e6;
 }
 
+.label-success {
+  background-color: #3fad46;
+}
+
+.label-success[href]:hover,.label-success[href]:focus {
+  background-color: #318837;
+}
+
 .label-info {
   background-color: #5bc0de;
 }
@@ -2741,6 +2820,20 @@ a.thumbnail:hover,a.thumbnail:focus,a.thumbnail.active {
   margin-top: 5px;
 }
 
+.alert-success {
+  background-color: #3fad46;
+  border-color: #3fad46;
+  color: #ffffff;
+}
+
+.alert-success hr {
+  border-top-color: #389a3e;
+}
+
+.alert-success .alert-link {
+  color: #e6e6e6;
+}
+
 .alert-info {
   background-color: #5bc0de;
   border-color: #5bc0de;
@@ -2838,6 +2931,16 @@ a.thumbnail:hover,a.thumbnail:focus,a.thumbnail.active {
   background-color: transparent;
   background-image: none;
   box-shadow: none;
+}
+
+.progress-bar-success {
+  background-color: #3fad46;
+}
+
+.progress-striped .progress-bar-success {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 
 .progress-bar-info {
@@ -2959,6 +3062,30 @@ a.list-group-item:hover,a.list-group-item:focus {
 
 .list-group-item.active .list-group-item-text,.list-group-item.active:hover .list-group-item-text,.list-group-item.active:focus .list-group-item-text {
   color: #fefeff;
+}
+
+.list-group-item-success {
+  color: #3fad46;
+  background-color: #dff0d8;
+}
+
+a.list-group-item-success {
+  color: #3fad46;
+}
+
+a.list-group-item-success .list-group-item-heading {
+  color: inherit;
+}
+
+a.list-group-item-success:hover,a.list-group-item-success:focus {
+  color: #3fad46;
+  background-color: #d0e9c6;
+}
+
+a.list-group-item-success.active,a.list-group-item-success.active:hover,a.list-group-item-success.active:focus {
+  color: #fff;
+  background-color: #3fad46;
+  border-color: #3fad46;
 }
 
 .list-group-item-info {

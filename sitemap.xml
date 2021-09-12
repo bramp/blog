@@ -5,25 +5,40 @@
     <loc>https://blog.bramp.net/publication/</loc>
     <lastmod>2013-02-16T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://blog.bramp.net/categories/blog/</loc>
+    <lastmod>2021-09-12T13:09:07-07:00</lastmod>
+  </url><url>
+    <loc>https://blog.bramp.net/</loc>
+    <lastmod>2021-09-12T13:09:07-07:00</lastmod>
+  </url><url>
+    <loc>https://blog.bramp.net/categories/</loc>
+    <lastmod>2021-09-12T13:09:07-07:00</lastmod>
+  </url><url>
+    <loc>https://blog.bramp.net/tags/intel/</loc>
+    <lastmod>2021-09-12T13:09:07-07:00</lastmod>
+  </url><url>
+    <loc>https://blog.bramp.net/tags/linux/</loc>
+    <lastmod>2021-09-12T13:09:07-07:00</lastmod>
+  </url><url>
+    <loc>https://blog.bramp.net/tags/mdadm/</loc>
+    <lastmod>2021-09-12T13:09:07-07:00</lastmod>
+  </url><url>
+    <loc>https://blog.bramp.net/post/</loc>
+    <lastmod>2021-09-12T13:09:07-07:00</lastmod>
+  </url><url>
+    <loc>https://blog.bramp.net/tags/raid/</loc>
+    <lastmod>2021-09-12T13:09:07-07:00</lastmod>
+  </url><url>
+    <loc>https://blog.bramp.net/post/2021/09/12/recovering-a-raid-5-intel-storage-matrix-on-linux-without-the-hardware/</loc>
+    <lastmod>2021-09-12T13:09:07-07:00</lastmod>
+  </url><url>
+    <loc>https://blog.bramp.net/tags/</loc>
+    <lastmod>2021-09-12T13:09:07-07:00</lastmod>
+  </url><url>
     <loc>https://blog.bramp.net/post/2021/04/03/alternative-milks/</loc>
     <lastmod>2021-04-03T12:44:51-07:00</lastmod>
   </url><url>
-    <loc>https://blog.bramp.net/categories/blog/</loc>
-    <lastmod>2021-04-03T12:44:51-07:00</lastmod>
-  </url><url>
-    <loc>https://blog.bramp.net/</loc>
-    <lastmod>2021-04-03T12:44:51-07:00</lastmod>
-  </url><url>
-    <loc>https://blog.bramp.net/categories/</loc>
-    <lastmod>2021-04-03T12:44:51-07:00</lastmod>
-  </url><url>
     <loc>https://blog.bramp.net/tags/milk/</loc>
-    <lastmod>2021-04-03T12:44:51-07:00</lastmod>
-  </url><url>
-    <loc>https://blog.bramp.net/post/</loc>
-    <lastmod>2021-04-03T12:44:51-07:00</lastmod>
-  </url><url>
-    <loc>https://blog.bramp.net/tags/</loc>
     <lastmod>2021-04-03T12:44:51-07:00</lastmod>
   </url><url>
     <loc>https://blog.bramp.net/tags/certbot/</loc>
@@ -54,9 +69,6 @@
     <lastmod>2019-01-05T07:59:08-08:00</lastmod>
   </url><url>
     <loc>https://blog.bramp.net/post/2018/05/26/certbot-unexpected-error/</loc>
-    <lastmod>2018-05-26T11:28:44-07:00</lastmod>
-  </url><url>
-    <loc>https://blog.bramp.net/tags/linux/</loc>
     <lastmod>2018-05-26T11:28:44-07:00</lastmod>
   </url><url>
     <loc>https://blog.bramp.net/tags/d3.js/</loc>
@@ -1092,9 +1104,6 @@
     <lastmod>2008-06-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.bramp.net/post/2008/06/20/2tb-is-too-much-for-xp/</loc>
-    <lastmod>2008-06-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.bramp.net/tags/raid/</loc>
     <lastmod>2008-06-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.bramp.net/tags/windows-xp/</loc>

@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -102,7 +102,7 @@ window.dataLayer = window.dataLayer || [];
 </p>
 <div class=post itemprop=articleBody>
 <p>I recently had the need to install Windows Server 2008 from a USB stick. This was because I didn’t have a working DVD drive to hand. I found a couple of <a href=http://blogs.dirteam.com/blogs/sanderberkouwer/archive/2008/05/01/installing-windows-server-2008.aspx>tutorials</a> <a href=http://www.jesscoburn.com/archives/2007/10/15/installing-windows-2008-via-usb-thumbdrive/ >online</a> explaining how to create the disk. They generally explained this technique:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>C:<span class=se>\&gt;</span> diskpart
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>C:<span class=se>\&gt;</span> diskpart
 
 DISKPART&gt; list disk
 
@@ -124,7 +124,7 @@ xcopy X:<span class=se>\*</span>.* /s/e/f Y:<span class=se>\
      device
 </code></pre></div><p>However it appears diskpart is unable to see USB sticks under Windows XP. I have later tried on Vista and this limitation appears removed. But for those using Windows XP I have found an alternative method.</p>
 <p>Firstly find the bootsect.exe tool on the Windows Server disc (in the boot directory). Then run this command where U is the drive letter of the USB stick.</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>D:<span class=se>\b</span>oot&gt; bootsect.exe /nt60 U:
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>D:<span class=se>\b</span>oot&gt; bootsect.exe /nt60 U:
 </code></pre></div><p>Now copy all the files from the Windows Server disc onto the USB stick. This can be done by dragging in the GUI or using the xcopy method shown previously.</p>
 <p>I have yet to repeat this procedure and I might have previous partitioned or formatted my USB stick in a unique way. So if this method doesn’t work <a href=/about-me/ >drop me a mail</a> and I’ll see what I can do.</p>
 </div>

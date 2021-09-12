@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -107,18 +107,18 @@ window.dataLayer = window.dataLayer || [];
 <p>After some searching I found that you could <a href="https://bbs.archlinux.org/viewtopic.php?id=62984">convert the disk non-destructively on Linux</a>, but due to various reasons, my RAID <a href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=411172">does not work</a> inside my Debian Linux :( I had also read a <a href=http://www.rodsbooks.com/gdisk/mbr2gpt.html>document outlining how to the conversion works</a>, and it seems such a simple process I was surprised that Microsoft didn’t support it.</p>
 <p>Some more searching and I found a Linux/Windows tool that will convert MBR to GPT quite easily. <a href=http://sourceforge.net/projects/gptgen/ >Gptgen</a> is a simple command line tool that seemed to work like a charm. I will quickly outline the steps I took to use it “safely”.</p>
 <p>Firstly I identified with disk I wanted to alter. This is done by looking at which number the disk is in Disk Management. I then quickly tested the tool without writing the changes</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>gptgen.exe <span class=se>\\</span>.<span class=se>\\</span>physicaldrive1
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>gptgen.exe <span class=se>\\</span>.<span class=se>\\</span>physicaldrive1
 </code></pre></div><p>This outputted quite a few lines, including the following:</p>
-<div class=highlight><pre class=chroma><code class=language-text data-lang=text>Write primary.img to LBA address 0.
+<div class=highlight><pre class=chroma tabindex=0><code class=language-text data-lang=text>Write primary.img to LBA address 0.
 Write secondary.img to LBA address 4395431903.
 </code></pre></div><p>When you don’t write the changes to disk, gptgen creates two binary files “primary.img”, and “secondary.img”, which contain what it would have written to disk. The console output from gptgen tells me it would have written primary to <a href=http://en.wikipedia.org/wiki/Logical_block_addressing>LBA address</a> 0, and secondary.img to LBA address 4395431903. So I figured it was a good idea to make a backup of those sections first. To do this I use the <a href=http://www.chrysocome.net/dd>Windows version of the classic tool dd</a></p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>dd <span class=k>if</span><span class=o>=</span><span class=se>\\</span>.<span class=se>\\</span>physicaldrive1 <span class=nv>of</span><span class=o>=</span>primary-backup.img <span class=nv>bs</span><span class=o>=</span><span class=m>512</span> <span class=nv>count</span><span class=o>=</span><span class=m>34</span> 
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>dd <span class=k>if</span><span class=o>=</span><span class=se>\\</span>.<span class=se>\\</span>physicaldrive1 <span class=nv>of</span><span class=o>=</span>primary-backup.img <span class=nv>bs</span><span class=o>=</span><span class=m>512</span> <span class=nv>count</span><span class=o>=</span><span class=m>34</span> 
 dd <span class=k>if</span><span class=o>=</span><span class=se>\\</span>.<span class=se>\\</span>physicaldrive1 <span class=nv>of</span><span class=o>=</span>secondary-backup.img <span class=nv>bs</span><span class=o>=</span><span class=m>512</span> <span class=nv>count</span><span class=o>=</span><span class=m>33</span> <span class=nv>skip</span><span class=o>=</span><span class=m>4395431903</span>
 </code></pre></div><p>The count and skip values might have to change. The two count values relate to the file sizes of primary.img and secondary.img. Find their file sizes and divide them by 512. In my case, primary.img was exactly 17,408 bytes, so 17408 / 512 = 34. Do the same for secondary.img. The skip number is the LBA address shown by gptgen just a minute ago.</p>
 <p>Ok, if you have run dd ok, you should have backups of the two sections it is going to overwrite. Now you can tell gptgen to actually make the changes:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>gptgen.exe -w <span class=se>\\</span>.<span class=se>\\</span>physicaldrive1
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>gptgen.exe -w <span class=se>\\</span>.<span class=se>\\</span>physicaldrive1
 </code></pre></div><p>That should be it, BUT if you need to (for whatever reason) restore the backups issue these commands:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>dd <span class=k>if</span><span class=o>=</span>primary-backup.img   <span class=nv>of</span><span class=o>=</span><span class=se>\\</span>.<span class=se>\\</span>physicaldrive1 <span class=nv>bs</span><span class=o>=</span><span class=m>512</span> <span class=nv>count</span><span class=o>=</span><span class=m>34</span> 
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>dd <span class=k>if</span><span class=o>=</span>primary-backup.img   <span class=nv>of</span><span class=o>=</span><span class=se>\\</span>.<span class=se>\\</span>physicaldrive1 <span class=nv>bs</span><span class=o>=</span><span class=m>512</span> <span class=nv>count</span><span class=o>=</span><span class=m>34</span> 
 dd <span class=k>if</span><span class=o>=</span>secondary-backup.img <span class=nv>of</span><span class=o>=</span><span class=se>\\</span>.<span class=se>\\</span>physicaldrive1 <span class=nv>bs</span><span class=o>=</span><span class=m>512</span> <span class=nv>count</span><span class=o>=</span><span class=m>33</span> <span class=nv>seek</span><span class=o>=</span><span class=m>4395431903</span>
 </code></pre></div><p>(notice how the “if” and “of” arguments have swapped, and the word “skip” has changed to “seek”.)</p>
 </div>

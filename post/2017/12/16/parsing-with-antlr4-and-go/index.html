@@ -25,7 +25,7 @@ What is ANTLR? ANTLR (ANother Tool for Language Recognition), is an ALL(*) parse
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -139,7 +139,7 @@ syntax to define the grammar, instead of a bespoke configuration language.</p>
 <h2 id=installing-antlr-v4>Installing ANTLR v4</h2>
 <p>ANTLR is a Java 1.7 application, that generates the Go code needed to parse your language. During development Java is needed, but once the parser is built only Go and the <a href=https://godoc.org/github.com/antlr/antlr4/runtime/Go/antlr>ANTLR runtime library</a> is required. The ANTLR site has [documentation](<a href=https://github.com/antlr/antlr4/blob/master/doc/getting->https://github.com/antlr/antlr4/blob/master/doc/getting-</a>
 started.md) on how to install this on multiple platforms, but in brief, you can do the following:</p>
-<div class=highlight><pre class=chroma><code class=language-shell data-lang=shell>$ wget http://www.antlr.org/download/antlr-4.7-complete.jar
+<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ wget http://www.antlr.org/download/antlr-4.7-complete.jar
 $ <span class=nb>alias</span> <span class=nv>antlr</span><span class=o>=</span><span class=s1>&#39;java -jar $PWD/antlr-4.7-complete.jar&#39;</span>
 </code></pre></div><p>The <code>antlr</code> command is now available in your shell. If you prefer, the .jar file can be placed into a <code>~/bin</code> directory, and the alias can be stored in your <code>~/.bash_profile</code>.</p>
 <h2 id=classic-calculator-example>Classic calculator example</h2>
@@ -167,9 +167,9 @@ expression
 </code></pre><p>The above is a simple grammar split into two sections, <em>tokens</em>, and
 <em>rules</em>. The tokens are terminal symbols in the grammar, that is, they are made up of nothing but literal characters. Whereas rules are non- terminal states made up of tokens and/or other rules.</p>
 <p>By convention this grammar must be saved with a filename that matches the name of the grammar, in this case “Calc.g4” . To process this file, and generate the Go parser, we run the <code>antlr</code> command like so:</p>
-<div class=highlight><pre class=chroma><code class=language-shell data-lang=shell>$ antlr -Dlanguage<span class=o>=</span>Go -o parser Calc.g4 
+<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ antlr -Dlanguage<span class=o>=</span>Go -o parser Calc.g4 
 </code></pre></div><p>This will generate a set of Go files in the “parser” package and subdirectory. It is possible to place the generated code in a different package by using the <code>-package &lt;name&gt;</code> argument. This is useful if your project has multiple parsers, or you just want a more descriptive package name for the parser. The generated files will look like the following:</p>
-<div class=highlight><pre class=chroma><code class=language-shell data-lang=shell>$ tree
+<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ tree
 ├── Calc.g4
 └── parser
     ├── calc_lexer.go
@@ -183,7 +183,7 @@ expression
 <p>The Listener then allows us to make use of the the parsed input. As mentioned earlier, yacc requires language specific code to be embedded with the grammar. However, ANTLR separates this concern, allowing the grammar to be agnostic to the target programming language. It does this through use of listeners, which effectively allows hooks to be placed before and after every rule is encountered in the parsed input.</p>
 <h2 id=using-the-lexer>Using the Lexer</h2>
 <p>Let&rsquo;s move onto an example of using this generated code, starting with the Lexer.</p>
-<div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=c1>// example1.go
+<div class=highlight><pre class=chroma tabindex=0><code class=language-go data-lang=go><span class=c1>// example1.go
 </span><span class=c1></span><span class=kn>package</span> <span class=nx>main</span>
 
 <span class=kn>import</span> <span class=p>(</span>
@@ -211,7 +211,7 @@ expression
 	<span class=p>}</span>
 <span class=p>}</span>
 </code></pre></div><p>To begin with, the generated parser is imported from the local subdirectory <code>import &quot;./parser&quot;</code>. Next the Lexer is created with some input:</p>
-<div class=highlight><pre class=chroma><code class=language-go data-lang=go>	<span class=c1>// Setup the input
+<div class=highlight><pre class=chroma tabindex=0><code class=language-go data-lang=go>	<span class=c1>// Setup the input
 </span><span class=c1></span>	<span class=nx>is</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nf>NewInputStream</span><span class=p>(</span><span class=s>&#34;1 + 2 * 3&#34;</span><span class=p>)</span>
 
 	<span class=c1>// Create the Lexer
@@ -220,7 +220,7 @@ expression
 4/runtime/Go/antlr#InputStream)s, for example, the <a href=https://godoc.org/github.com/antlr/antlr4/runtime/Go/antlr#FileStream><code>antlr.FileStream</code></a>
 type can read directly from a file. The <code>InputStream</code> is then passed to a newly created Lexer. Note the name of the Lexer is <code>CalcLexer</code> which matches the grammar’s name defined in the Calc.g4.</p>
 <p>The lexer is then used to consume all the tokens from the input, printing them one by one. This wouldn’t normally be necessary but we do this for demonstrative purposes.</p>
-<div class=highlight><pre class=chroma><code class=language-go data-lang=go> 	<span class=k>for</span> <span class=p>{</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-go data-lang=go> 	<span class=k>for</span> <span class=p>{</span>
 		<span class=nx>t</span> <span class=o>:=</span> <span class=nx>lexer</span><span class=p>.</span><span class=nf>NextToken</span><span class=p>()</span>
 		<span class=k>if</span> <span class=nx>t</span><span class=p>.</span><span class=nf>GetTokenType</span><span class=p>()</span> <span class=o>==</span> <span class=nx>antlr</span><span class=p>.</span><span class=nx>TokenEOF</span> <span class=p>{</span>
 			<span class=k>break</span>
@@ -229,7 +229,7 @@ type can read directly from a file. The <code>InputStream</code> is then passed 
 			<span class=nx>lexer</span><span class=p>.</span><span class=nx>SymbolicNames</span><span class=p>[</span><span class=nx>t</span><span class=p>.</span><span class=nf>GetTokenType</span><span class=p>()],</span> <span class=nx>t</span><span class=p>.</span><span class=nf>GetText</span><span class=p>())</span>
 	<span class=p>}</span>
 </code></pre></div><p>Each token has two main components, the TokenType, and the Text. The TokenType is a simple integer representing the type of token, while the Text is literally the text that made up this token. All the TokenTypes are defined at the end of calc_lexer.go, with their string names stored in the SymbolicNames slice:</p>
-<div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=c1>// calc_lexer.go
+<div class=highlight><pre class=chroma tabindex=0><code class=language-go data-lang=go><span class=c1>// calc_lexer.go
 </span><span class=c1></span><span class=kd>const</span> <span class=p>(</span>
 	<span class=nx>CalcLexerMUL</span>        <span class=p>=</span> <span class=mi>1</span>
 	<span class=nx>CalcLexerDIV</span>        <span class=p>=</span> <span class=mi>2</span>
@@ -241,7 +241,7 @@ type can read directly from a file. The <code>InputStream</code> is then passed 
 </code></pre></div><p>You may also note, that the Whitespace token is not printed, even though the input clearly had whitespace. This is because the grammar was designed to skip (i.e. discard) the whitespace <code>WHITESPACE: [ \r\n\t]+ -&gt; skip;</code>.</p>
 <h2 id=using-the-parser>Using the Parser</h2>
 <p>The Lexer on its own is not very useful, so the example can be modified to also use the Parser and Listener:</p>
-<div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=c1>// example2.go
+<div class=highlight><pre class=chroma tabindex=0><code class=language-go data-lang=go><span class=c1>// example2.go
 </span><span class=c1></span><span class=kn>package</span> <span class=nx>main</span>
 
 <span class=kn>import</span> <span class=p>(</span>
@@ -275,7 +275,7 @@ antlr#ParseTreeWalker.Walk) function does not return anything. Some may have exp
 <p>But so far, this example doesn’t do anything beyond ensuring the input can be parsed without error. To add logic, we must extend the
 <code>calcListener</code> type. The <code>calcListener</code> has an embedded
 <code>BaseCalcListener</code>, which is a helper type, that provides empty methods for all those defined in in the <code>CalcListener</code> interface. That interface looks like:</p>
-<div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=c1>// parser/calc_listener.go
+<div class=highlight><pre class=chroma tabindex=0><code class=language-go data-lang=go><span class=c1>// parser/calc_listener.go
 </span><span class=c1>// CalcListener is a complete listener for a parse tree produced by CalcParser.
 </span><span class=c1></span><span class=kd>type</span> <span class=nx>CalcListener</span> <span class=kd>interface</span> <span class=p>{</span>
 	<span class=nx>antlr</span><span class=p>.</span><span class=nx>ParseTreeListener</span>
@@ -313,7 +313,7 @@ expressed before the <code>AddSub</code> expression.</p>
 <img src=parse-tree.svg>
 </div>
 <p>The code for a listener that implements this stack of value implementation is relatively simple:</p>
-<div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=kd>type</span> <span class=nx>calcListener</span> <span class=kd>struct</span> <span class=p>{</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-go data-lang=go><span class=kd>type</span> <span class=nx>calcListener</span> <span class=kd>struct</span> <span class=p>{</span>
 	<span class=o>*</span><span class=nx>parser</span><span class=p>.</span><span class=nx>BaseCalcListener</span>
 
 	<span class=nx>stack</span> <span class=p>[]</span><span class=kt>int</span>
@@ -373,7 +373,7 @@ expressed before the <code>AddSub</code> expression.</p>
 <span class=p>}</span>
 
 </code></pre></div><p>Finally this listener would be used like so:</p>
-<div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=c1>// calc takes a string expression and returns the evaluated result.
+<div class=highlight><pre class=chroma tabindex=0><code class=language-go data-lang=go><span class=c1>// calc takes a string expression and returns the evaluated result.
 </span><span class=c1></span><span class=kd>func</span> <span class=nf>calc</span><span class=p>(</span><span class=nx>input</span> <span class=kt>string</span><span class=p>)</span> <span class=kt>int</span> <span class=p>{</span>
 	<span class=c1>// Setup the input
 </span><span class=c1></span>	<span class=nx>is</span> <span class=o>:=</span> <span class=nx>antlr</span><span class=p>.</span><span class=nf>NewInputStream</span><span class=p>(</span><span class=nx>input</span><span class=p>)</span>
@@ -403,7 +403,7 @@ expressed before the <code>AddSub</code> expression.</p>
 <p>Learning how to write a grammar may be daunting, but there are many resources for help. The author of ANTLR, <a href=http://parrt.cs.usfca.edu/ >Terence Parr</a>, has <a href=https://pragprog.com/book/tpantlr2/the-definitive-antlr-4-reference>published a book</a>, with some of the content freely available on <a href=http://antlr.org>antlr.org</a>.</p>
 <p>If you don’t want to write your own grammar, there are many <a href=https://github.com/antlr/grammars-v4>pre-written grammars available</a>. Including grammars for CSS, HTML, SQL, etc, as well many popular programming languages. To make it easier, I have <a href=https://github.com/bramp/antlr4-grammars>generated parsers</a> for all those available grammars, making them as easy to use just by importing.</p>
 <p>A quick example of using one of the pre-generated grammars:</p>
-<div class=highlight><pre class=chroma><code class=language-go data-lang=go><span class=kn>import</span> <span class=p>(</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-go data-lang=go><span class=kn>import</span> <span class=p>(</span>
 	<span class=s>&#34;bramp.net/antlr4/json&#34;</span> <span class=c1>// The parser
 </span><span class=c1></span>
 	<span class=s>&#34;github.com/antlr/antlr4/runtime/Go/antlr&#34;</span>

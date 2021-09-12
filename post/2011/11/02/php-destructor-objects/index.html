@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -101,14 +101,14 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p>PHP’s lack of a finally keyword is apalling, and even though there seems to be some hacks around it, I have come up with own today. I’m following the C++ concept of allocating objects on the stack, and letting them cleanup any resources when the stack is rolled back.</p>
 <p>Take an example. I am creating some files that I want to always be deleted after the script has finished. In any sane language (that has Exceptions) I would write:</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=k>try</span> <span class=p>{</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=k>try</span> <span class=p>{</span>
   <span class=c1>// Create files
 </span><span class=c1></span>  <span class=c1>// Do something with the files
 </span><span class=c1></span><span class=p>}</span> <span class=k>finally</span> <span class=p>{</span>
   <span class=c1>// Delete files - This code will run no matter what exceptions or errors occur while creating the files.
 </span><span class=c1></span><span class=p>}</span>
 </code></pre></div><p>However, this is the hack I’ve managed with PHP:</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=k>class</span> <span class=nc>UnlinkMe</span> <span class=p>{</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=k>class</span> <span class=nc>UnlinkMe</span> <span class=p>{</span>
 	<span class=k>var</span> <span class=nv>$filename</span><span class=p>;</span>
 
 	<span class=k>function</span> <span class=fm>__construct</span><span class=p>(</span><span class=nv>$filename</span><span class=p>)</span> <span class=p>{</span>

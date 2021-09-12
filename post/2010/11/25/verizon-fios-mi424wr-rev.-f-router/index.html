@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -102,7 +102,7 @@ window.dataLayer = window.dataLayer || [];
 </p>
 <div class=post itemprop=articleBody>
 <p>I just got a FiOS wifi router and I must say I really like it. The web interface has many more options than any home router I’ve ever played with, and it seems like it’d be easy for a beginner but doesn’t get in the way of an expert. It also telnet access (optionally over SSL), which puts you into a custom shell. Poking around the commands I find one awesome one:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>Wireless Broadband Router&gt; <span class=nb>help</span> system shell
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>Wireless Broadband Router&gt; <span class=nb>help</span> system shell
 shell   Spawn busybox shell in foreground
 
 Wireless Broadband Router&gt; system shell
@@ -111,10 +111,10 @@ Enter <span class=s1>&#39;help&#39;</span> <span class=k>for</span> a list of bu
 
 / <span class=c1># </span>
 </code></pre></div><p>This is very clearly running Linux, with BusyBox. For those interested here are some interesting bits of information:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>/ <span class=c1># cat /proc/version </span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>/ <span class=c1># cat /proc/version </span>
 Linux version 2.6.16.14 <span class=c1>#1 SMP Sat Nov 28 00:38:50 PST 2009</span>
 </code></pre></div><p>A four year old kernel. Well what do you expect from this kind of device :)</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>/ <span class=c1># cat /proc/cpuinfo </span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>/ <span class=c1># cat /proc/cpuinfo </span>
 system <span class=nb>type</span>		: MC524WR
 processor		: <span class=m>0</span>
 cpu model		: Cavium Networks Octeon CN50XX V0.1
@@ -139,7 +139,7 @@ ASEs implemented	:
 VCED exceptions		: not available
 VCEI exceptions		: not available
 </code></pre></div><p>w00t, a <a href=http://www.caviumnetworks.com/OCTEON-Plus_CN50XX.html>Dual Cores 64bit MIPS chip</a></p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>/ <span class=c1># cat /proc/meminfo </span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>/ <span class=c1># cat /proc/meminfo </span>
 MemTotal:        <span class=m>53200</span> kB
 MemFree:         <span class=m>11588</span> kB
 Buffers:          <span class=m>9252</span> kB

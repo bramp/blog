@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -109,7 +109,7 @@ window.dataLayer = window.dataLayer || [];
 <h3 id=methodology>Methodology</h3>
 <p>Firstly I found a <a href=http://www.quantcast.com/top-sites-1>list of the 1 million most popular sites</a>. I then picked a number of DNS servers to test against. I chose <a href=http://code.google.com/speed/public-dns/ >Google</a>‘s, <a href=http://www.opendns.com/ >OpenDNS</a>‘s, my ISP (<a href=http://broadband.sky.com/ >Sky/Easynet</a>) and my old ISP’s (<a href=http://www.plus.net/ >Plus.net</a>).</p>
 <p>I decided I would query an <a href=http://en.wikipedia.org/wiki/List_of_DNS_record_types>A record</a> for each of the domains in the list, one at a time, starting with the most popular. I would query each server three times for the same domain name. The ordering was like this:</p>
-<div class=highlight><pre class=chroma><code class=language-php data-lang=php><span class=k>foreach</span> <span class=p>(</span><span class=nx>domain</span><span class=p>)</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=k>foreach</span> <span class=p>(</span><span class=nx>domain</span><span class=p>)</span>
    <span class=k>for</span> <span class=p>(</span><span class=nx>i</span> <span class=o>=</span><span class=mi>0</span><span class=p>;</span> <span class=nx>i</span><span class=o>&lt;</span><span class=mi>3</span><span class=p>;</span><span class=nx>i</span><span class=o>++</span><span class=p>)</span>
       <span class=k>foreach</span> <span class=p>(</span><span class=nx>server</span><span class=p>)</span>
          <span class=nx>query</span><span class=p>(</span><span class=nx>server</span><span class=p>,</span> <span class=nx>domain</span><span class=p>)</span>
@@ -196,8 +196,7 @@ window.dataLayer = window.dataLayer || [];
 </tbody>
 </table>
 <p>From this table of results, we can see that Google&rsquo;s median response time is 41-42ms, however, OpenDNS performs much better with a result of ~31ms. Both my current ISP and my old ISP don&rsquo;t perform as well and each achieved a result between 42ms and 61ms. To get a better feel for the data I plotted an empirical CDF of the lookup times for each server.</p>
-<p><a href=ecdf_overview.pdf><figure>
-<img height=700 src=ecdf_overview.png width=700 /><figcaption>
+<p><a href=ecdf_overview.pdf><figure><img height=700 src=ecdf_overview.png width=700 /><figcaption>
 <h4>Click for a larger PDF version</h4>
 </figcaption>
 </figure>
@@ -206,8 +205,7 @@ window.dataLayer = window.dataLayer || [];
 <p>The minimum lookup time for each pair of DNS servers seems to be the same, most likely caused by the network latency between me and the servers. Even so, if we normalise all the data by taking the servers' minimum value away from each sample, we still find that OpenDNS performs better than Google, and Google performs slightly better than Plus.net and quite a bit better than my current ISP, Easynet.</p>
 <p>Rather worryingly is that the latency to OpenDNS is smaller than the latency to my own ISP&rsquo;s DNS servers. This makes me wonder where the hell my ISP hosts their DNS servers. Also, the ~38ms minimum time with Google indicates that at least some of their DNS servers are hosted in Europe, and possibly the UK.</p>
 <p>SInce I ran each lookup three times, I wanted to compare the lookup times for each request. This time I plotted the empirical CDF of each iteration of request.</p>
-<p><a href=ecdf_requests.pdf><figure>
-<img height=700 src=ecdf_requests.png width=700 /><figcaption>
+<p><a href=ecdf_requests.pdf><figure><img height=700 src=ecdf_requests.png width=700 /><figcaption>
 <h4>Click for a larger PDF version</h4>
 </figcaption>
 </figure>

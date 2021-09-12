@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -107,7 +107,7 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p>I was using <a href=http://www.wireshark.org/ >Wireshark</a> to capture an exchange of HTTP packets, however, some of the HTTP responses were using “content-encoding: gzip”, which meant I couldn’t view them decompressed in the “Follow TCP Stream”. Wireshark does decompress them in Packet Details view, but it is hard to follow the full stream like this.</p>
 <p>The solution was to write some <a href=http://www.python.org/ >Python</a> which made use of the <a href=http://code.google.com/p/dpkt/ >dpkt library</a>. My code naively reassembles the TCP flow and then assumes traffic on port 80 is HTTP. Therefore there is much room for improvement, but here is the code anyway.</p>
-<div class=highlight><pre class=chroma><code class=language-python data-lang=python><span class=ch>#!/usr/bin/env python</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-python data-lang=python><span class=ch>#!/usr/bin/env python</span>
 <span class=c1># Turns a pcap file with http gzip compressed data into plain text, making it</span>
 <span class=c1># easier to follow.</span>
 
@@ -138,10 +138,10 @@ window.dataLayer = window.dataLayer || [];
 	<span class=k>while</span> <span class=nb>len</span><span class=p>(</span><span class=n>stream</span><span class=p>)</span> <span class=o>&amp;</span><span class=n>gt</span><span class=p>;</span> <span class=mi>0</span><span class=p>:</span>
 		<span class=k>if</span> <span class=n>stream</span><span class=p>[:</span><span class=mi>4</span><span class=p>]</span> <span class=o>==</span> <span class=s1>&#39;HTTP&#39;</span><span class=p>:</span>
 			<span class=n>http</span> <span class=o>=</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>http</span><span class=o>.</span><span class=n>Response</span><span class=p>(</span><span class=n>stream</span><span class=p>)</span>
-			<span class=k>print</span> <span class=n>http</span><span class=o>.</span><span class=n>status</span>
+			<span class=nb>print</span> <span class=n>http</span><span class=o>.</span><span class=n>status</span>
 		<span class=k>else</span><span class=p>:</span>
 			<span class=n>http</span> <span class=o>=</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>http</span><span class=o>.</span><span class=n>Request</span><span class=p>(</span><span class=n>stream</span><span class=p>)</span>
-			<span class=k>print</span> <span class=n>http</span><span class=o>.</span><span class=n>method</span><span class=p>,</span> <span class=n>http</span><span class=o>.</span><span class=n>uri</span>
+			<span class=nb>print</span> <span class=n>http</span><span class=o>.</span><span class=n>method</span><span class=p>,</span> <span class=n>http</span><span class=o>.</span><span class=n>uri</span>
 		<span class=n>stream</span> <span class=o>=</span> <span class=n>stream</span><span class=p>[</span><span class=nb>len</span><span class=p>(</span><span class=n>http</span><span class=p>):]</span>
 
 <span class=k>def</span> <span class=nf>parse_pcap_file</span><span class=p>(</span><span class=n>filename</span><span class=p>):</span>
@@ -183,8 +183,8 @@ window.dataLayer = window.dataLayer || [];
 				<span class=n>http</span> <span class=o>=</span> <span class=n>dpkt</span><span class=o>.</span><span class=n>http</span><span class=o>.</span><span class=n>Request</span><span class=p>(</span><span class=n>stream</span><span class=p>)</span>
 				<span class=c1>#print http.method, http.uri</span>
 	
-			<span class=k>print</span> <span class=n>http</span>
-			<span class=k>print</span>
+			<span class=nb>print</span> <span class=n>http</span>
+			<span class=nb>print</span>
 
 			<span class=c1># If we reached this part an exception hasn&#39;t been thrown</span>
 			<span class=n>stream</span> <span class=o>=</span> <span class=n>stream</span><span class=p>[</span><span class=nb>len</span><span class=p>(</span><span class=n>http</span><span class=p>):]</span>
@@ -200,7 +200,7 @@ window.dataLayer = window.dataLayer || [];
 <span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s1>&#39;__main__&#39;</span><span class=p>:</span>
 	<span class=kn>import</span> <span class=nn>sys</span>
 	<span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>)</span> <span class=o>&amp;</span><span class=n>lt</span><span class=p>;</span><span class=o>=</span> <span class=mi>1</span><span class=p>:</span>
-		<span class=k>print</span> <span class=s2>&#34;</span><span class=si>%s</span><span class=s2> &amp;lt;pcap filename&amp;gt;&#34;</span> <span class=o>%</span> <span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span>
+		<span class=nb>print</span> <span class=s2>&#34;</span><span class=si>%s</span><span class=s2> &amp;lt;pcap filename&amp;gt;&#34;</span> <span class=o>%</span> <span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span>
 		<span class=n>sys</span><span class=o>.</span><span class=n>exit</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span>
 
 	<span class=n>parse_pcap_file</span><span class=p>(</span><span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span>

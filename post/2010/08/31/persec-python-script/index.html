@@ -26,7 +26,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -106,11 +106,11 @@ window.dataLayer = window.dataLayer || [];
 </p>
 <div class=post itemprop=articleBody>
 <p>A while ago I wrote a python script that does a similar job to GNU’s <a href=http://linux.die.net/man/1/watch>watch</a> command. You use it like so:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>./persec.py <span class=o>[</span>--interval<span class=o>=</span><span class=p>&amp;</span>lt<span class=p>;</span>n<span class=p>&amp;</span>gt<span class=p>;</span><span class=o>]</span> <span class=p>&amp;</span>lt<span class=p>;</span>command<span class=p>&amp;</span>gt<span class=p>;</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>./persec.py <span class=o>[</span>--interval<span class=o>=</span><span class=p>&amp;</span>lt<span class=p>;</span>n<span class=p>&amp;</span>gt<span class=p>;</span><span class=o>]</span> <span class=p>&amp;</span>lt<span class=p>;</span>command<span class=p>&amp;</span>gt<span class=p>;</span>
 </code></pre></div><p>so for example</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>./persec.py ifconfig
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>./persec.py ifconfig
 </code></pre></div><p>Now in a similar way to watch, it executes the command every second, and highlights the differences between each execution. However, in addition to this it finds any numbers that have changed and works out the rate at which they are changing. So for example, ifconfig would typically output this:</p>
-<div class=highlight><pre class=chroma><code class=language-text data-lang=text>usb0      Link encap:Ethernet  HWaddr 02:04:4b:00:d3:cf
+<div class=highlight><pre class=chroma tabindex=0><code class=language-text data-lang=text>usb0      Link encap:Ethernet  HWaddr 02:04:4b:00:d3:cf
           inet addr:10.0.0.2  Bcast:10.0.0.255  Mask:255.255.255.0
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:1017422291 errors:0 dropped:0 overruns:0 frame:0
@@ -118,7 +118,7 @@ window.dataLayer = window.dataLayer || [];
           collisions:0 txqueuelen:1000
           RX bytes:1910704266 (1.9 GB)  TX bytes:1834667124 (1.8 GB)
 </code></pre></div><p>but now outputs something like:</p>
-<div class=highlight><pre class=chroma><code class=language-text data-lang=text>usb0      Link encap:Ethernet  HWaddr 02:04:4b:00:d3:cf
+<div class=highlight><pre class=chroma tabindex=0><code class=language-text data-lang=text>usb0      Link encap:Ethernet  HWaddr 02:04:4b:00:d3:cf
           inet addr:10.0.0.2  Bcast:10.0.0.255  Mask:255.255.255.0
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:&lt;b&gt;2001/s&lt;/b&gt; errors:0 dropped:0 overruns:0 frame:0
@@ -126,7 +126,7 @@ window.dataLayer = window.dataLayer || [];
           collisions:0 txqueuelen:1000
           RX bytes:&lt;b&gt;168120/s&lt;/b&gt; (1.9 GB)  TX bytes:&lt;b&gt;217144/s&lt;/b&gt; (1.8 GB)
 </code></pre></div><p>Notice the per second (/s) values for RX/TX packets and RX/TX bytes. I have found this quite useful many times in the past, on commands such as:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>./persec.py cat /proc/interrupts
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>./persec.py cat /proc/interrupts
 ./persec.py df
 ./persec.py ls -l somefile
 </code></pre></div><p><a href=https://raw.githubusercontent.com/bramp/handy-tools/master/persec.py>Download version 1.1</a> or <a href=https://github.com/bramp/handy-tools/blob/master/persec.py>View on Github</a></p>

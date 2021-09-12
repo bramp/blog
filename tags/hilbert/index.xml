@@ -15,8 +15,7 @@
       
       <guid>https://blog.bramp.net/post/2016/08/08/peano-curves/</guid>
       <description>&lt;p&gt;My latest addition to the &lt;a href=&#34;https://github.com/google/hilbert&#34;&gt;hilbert go library&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Peano_curve&#34;&gt;Peano Curves&lt;/a&gt;. The original space-filing curve, similar to the Hilbert curve, but a little more complex.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;peano_animation.gif&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;peano_animation.gif&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Animation of Peano curve with N in the range 1..5&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
@@ -31,15 +30,14 @@
       
       <guid>https://blog.bramp.net/post/2015/08/07/introducing-hilbert/</guid>
       <description>&lt;p&gt;A &lt;a href=&#34;https://en.wikipedia.org/wiki/Hilbert_curve&#34;&gt;Hilbert curve&lt;/a&gt; is a space-filling (snakey) curve through a 2D space:&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;hilbert.png&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;hilbert.png&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Image of 8 by 8 Hilbert curve&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;This can be very useful for mapping a 1D value, into a 2D space. For example, it is commonly used to &lt;a href=&#34;https://xkcd.com/195/&#34;&gt;map IP addresses into a 2D space&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;I recently created a library for &lt;a href=&#34;https://golang.org/&#34;&gt;Go&lt;/a&gt; that can map to and from a curve. The project is &lt;a href=&#34;http://github.com/google/hilbert&#34;&gt;hosted on Github&lt;/a&gt;, and can be used like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/google/hilbert&amp;#34;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/google/hilbert&amp;#34;&lt;/span&gt;
 
 &lt;span class=&#34;c1&#34;&gt;// Create a Hilbert curve for mapping to and from a 16 by 16 space.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;hilbert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;New&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -51,8 +49,7 @@
 &lt;span class=&#34;c1&#34;&gt;// Also map back from (x,y) to t.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;MapInverse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The project contains some demos, such as this cool animations:&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;hilbert_animation.gif&#34;/&gt; &lt;figcaption&gt;
+&lt;figure&gt;&lt;img src=&#34;hilbert_animation.gif&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Hilbert curve animation&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;

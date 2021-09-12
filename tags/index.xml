@@ -5,8 +5,44 @@
     <description>Recent content in Tags on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Sat, 03 Apr 2021 12:44:51 -0700</lastBuildDate>
+    <lastBuildDate>Sun, 12 Sep 2021 13:09:07 -0700</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>intel</title>
+      <link>https://blog.bramp.net/tags/intel/</link>
+      <pubDate>Sun, 12 Sep 2021 13:09:07 -0700</pubDate>
+      
+      <guid>https://blog.bramp.net/tags/intel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://blog.bramp.net/tags/linux/</link>
+      <pubDate>Sun, 12 Sep 2021 13:09:07 -0700</pubDate>
+      
+      <guid>https://blog.bramp.net/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mdadm</title>
+      <link>https://blog.bramp.net/tags/mdadm/</link>
+      <pubDate>Sun, 12 Sep 2021 13:09:07 -0700</pubDate>
+      
+      <guid>https://blog.bramp.net/tags/mdadm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RAID</title>
+      <link>https://blog.bramp.net/tags/raid/</link>
+      <pubDate>Sun, 12 Sep 2021 13:09:07 -0700</pubDate>
+      
+      <guid>https://blog.bramp.net/tags/raid/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>milk</title>
@@ -81,15 +117,6 @@
     </item>
     
     <item>
-      <title>Linux</title>
-      <link>https://blog.bramp.net/tags/linux/</link>
-      <pubDate>Sat, 26 May 2018 11:28:44 -0700</pubDate>
-      
-      <guid>https://blog.bramp.net/tags/linux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>d3.js</title>
       <link>https://blog.bramp.net/tags/d3.js/</link>
       <pubDate>Sun, 08 Apr 2018 21:46:21 -0700</pubDate>
@@ -113,33 +140,6 @@
       <pubDate>Sun, 08 Apr 2018 21:46:21 -0700</pubDate>
       
       <guid>https://blog.bramp.net/tags/netflix/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>svg</title>
-      <link>https://blog.bramp.net/tags/svg/</link>
-      <pubDate>Sun, 08 Apr 2018 21:46:21 -0700</pubDate>
-      
-      <guid>https://blog.bramp.net/tags/svg/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>fonts</title>
-      <link>https://blog.bramp.net/tags/fonts/</link>
-      <pubDate>Sun, 21 Jan 2018 16:03:36 -0800</pubDate>
-      
-      <guid>https://blog.bramp.net/tags/fonts/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Google</title>
-      <link>https://blog.bramp.net/tags/google/</link>
-      <pubDate>Sun, 21 Jan 2018 16:03:36 -0800</pubDate>
-      
-      <guid>https://blog.bramp.net/tags/google/</guid>
       <description></description>
     </item>
     

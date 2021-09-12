@@ -15,7 +15,7 @@
       
       <guid>https://blog.bramp.net/post/2009/09/10/grub2-and-windows/</guid>
       <description>&lt;p&gt;I’ve just installed grub2 on my Debian laptop, and I wanted to write a quick note on how to get dual booting working. Grub2 seems to have a far more complex configuration system than grub, this may be a good or a bad thing. One feature of this is a /etc/grub.d directory which contains a set of scripts to configure what items should be listed on the boot menu.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ls /etc/grub.d/
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ls /etc/grub.d/
 00_header  05_debian_theme  10_linux  30_os-prober  40_custom  README
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The scripts get run in order, each adding features to the boot menu. To dual boot Windows you can acheive this in two ways.&lt;/p&gt;
 &lt;ol&gt;
@@ -23,9 +23,9 @@
 &lt;li&gt;Use the os-prober script.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;I opted for option 2 since it seemed the easiest. However, this os-prober script does not work unless the package os-prober is installed. So:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo apt-get install os-prober
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo apt-get install os-prober
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Once that is installed you can reconfigure grub by doing:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo update-grub2
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo update-grub2
 Generating grub.cfg ...
 Found Debian background: moreblue-orbit-grub.png
 Found linux image: /boot/vmlinuz-2.6.30-1-amd64

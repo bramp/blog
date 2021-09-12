@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -102,13 +102,12 @@ window.dataLayer = window.dataLayer || [];
 </p>
 <div class=post itemprop=articleBody>
 <p>I recently found <a href=http://forthescience.org/blog/2010/02/02/my-business-card-with-qr-code-geeky/ >this blog</a> which shows a business card with a QR card. I thought I’d create a business card with LaTeX with a similar QR code. I took a LaTeX template from <a href=http://blog.widmann.org.uk/2009/05/27/1297/ >here</a>, found out about the <a href=http://www.tug.org/texmf-dist/doc/generic/pst-barcode/pst-barcode-doc.pdf>pst-barcode pacakge</a>, learnt the <a href=https://www.nttdocomo.co.jp/english/service/developer/make/content/barcode/function/application/addressbook/ >MECARD format</a>, and combined them to make this:</p>
-<figure>
-<img height=496 src=card-1.png width=756 /><figcaption>
+<figure><img height=496 src=card-1.png width=756 /><figcaption>
 <h4>My QR Business Card</h4>
 </figcaption>
 </figure>
 <p>I doubt I’ll print this card, but just in case you want to make a similar one, here is the LaTeX source:</p>
-<div class=highlight><pre class=chroma><code class=language-latex data-lang=latex><span class=k>\documentclass</span><span class=na>[11pt,a4paper]</span><span class=nb>{</span>memoir<span class=nb>}</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-latex data-lang=latex><span class=k>\documentclass</span><span class=na>[11pt,a4paper]</span><span class=nb>{</span>memoir<span class=nb>}</span>
 
 <span class=k>\setstocksize</span><span class=nb>{</span>55mm<span class=nb>}{</span>85mm<span class=nb>}</span> <span class=c>% UK Stock size
 </span><span class=c></span><span class=k>\setpagecc</span><span class=nb>{</span>55mm<span class=nb>}{</span>85mm<span class=nb>}{</span>*<span class=nb>}</span>

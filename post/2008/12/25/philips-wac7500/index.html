@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -103,7 +103,7 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p>I’m at home for Christmas and I’ve found my parents have brought a Philips WAC7500, a fancy hi-fi which has far more features than people would ever need. It can play music from its internal hard drive, iPod/USB, UPnP (via wired or wireless), and radio from either FM or Internet.</p>
 <p>So needless to say it is a tad fancy, so I started to play with it and quickly found out it is an embedded Linux running on a ARM processor. You can download a full copy of the software as a firmware update. The firmware is actually a cramfs file system which I was easily able to mount.</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>mkdir /mnt/wac7500
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>mkdir /mnt/wac7500
 mount -t cramfs -o loop wac7500_update.bin /mnt/wac7500
 </code></pre></div><p>I’m going to spend some time trying to hack it apart. So far I’ve found it is running a simple webserver, which allows you to access all you music via a URL such as: <code>http://&lt;ip&gt;/media/</code></p>
 <p>It also has a nvram to store all the settings, and one of those settings is dbg_startsshd which if enabled seems to start a dropbear SSH server. I’ve yet to figure out how to edit nvram or enable the sshd, but I’m sure I will soon.</p>

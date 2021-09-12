@@ -15,7 +15,7 @@
       
       <guid>https://blog.bramp.net/post/2012/09/30/pt-kill-centos-init.d-script/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://www.percona.com/doc/percona-toolkit/2.1/pt-kill.html&#34;&gt;pt-kill&lt;/a&gt; is a neat little application that can stop long running MySQL queries. It was formally know as &lt;a href=&#34;http://www.maatkit.org/doc/mk-kill.html&#34;&gt;mk-kill&lt;/a&gt; before &lt;a href=&#34;http://www.Percona.com&#34;&gt;Percona&lt;/a&gt; took over the project. Here is the init.d script I use (as one doesn’t seem provided by the project):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/sh
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/sh
 &lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;# pt-kill	This shell script takes care of starting and stopping&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;#               the pt-kill services.&lt;/span&gt;
@@ -83,17 +83,17 @@
       
       <guid>https://blog.bramp.net/post/2011/10/25/sqlstatehy000-general-error-2053/</guid>
       <description>&lt;p&gt;I encountered the following odd exception:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;PHP Fatal error:  Uncaught exception &amp;#39;PDOException&amp;#39; with message &amp;#39;SQLSTATE[HY000]: General error: 2053 &amp;#39; in /home/bramp/my.php:29
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;PHP Fatal error:  Uncaught exception &amp;#39;PDOException&amp;#39; with message &amp;#39;SQLSTATE[HY000]: General error: 2053 &amp;#39; in /home/bramp/my.php:29
 Stack trace:
 #0 /home/bramp/my.php(29): PDOStatement-&amp;gt;fetch(2)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Searching on Google didn’t reveal much help, but I eventually figure out the root cause. Spot the mistake:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
 &lt;span class=&#34;nv&#34;&gt;$sql&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;SELECT TRIGGER_NAME, TRIGGER_GROUP, JOB_NAME FROM QRTZ_TRIGGERS&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;nv&#34;&gt;$sth&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$dbh&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;prepare&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$sql&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;or&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;die&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Failed to prepare SELECT TRIGGER query&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$row&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$sth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;fetch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;PDO&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;FETCH_ASSOC&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I am missing a&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$sth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;execute&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$sth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;execute&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;in between the prepare and the fetch. Easy fix. For reference I’m using a old version of PHP 5.1.6, and MySQL client 5.0.45.&lt;/p&gt;
 </description>
     </item>

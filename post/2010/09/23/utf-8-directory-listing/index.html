@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -105,7 +105,7 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p>I had a need to create a directory listing with all the UTF-8 characters intact. This seems quite a chore on Windows, as doing anything via the shell seems to mangle the characters and show ???? instead of the real characters. For example, both the built in <strong>dir</strong> and Cygwin <strong>ls</strong> or <strong>find</strong> seemed affected. This turns out to be a <a href=http://stackoverflow.com/questions/379240/is-there-a-windows-command-shell-that-will-display-unicode-characters>limitation in the windows shell</a>.</p>
 <p>To solve this problem I wrote a bit of python to read the file names in full UTF-8 and output the results directly to a file (and not via a pipe, which would again be via the shell). The resulting very simple script is as follows:</p>
-<div class=highlight><pre class=chroma><code class=language-python data-lang=python><span class=kn>import</span> <span class=nn>os</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-python data-lang=python><span class=kn>import</span> <span class=nn>os</span>
 <span class=kn>import</span> <span class=nn>codecs</span>
 
 <span class=n>log</span> <span class=o>=</span> <span class=n>codecs</span><span class=o>.</span><span class=n>open</span><span class=p>(</span><span class=s1>&#39;listing&#39;</span><span class=p>,</span> <span class=n>mode</span><span class=o>=</span><span class=s1>&#39;w&#39;</span><span class=p>,</span> <span class=n>encoding</span><span class=o>=</span><span class=s2>&#34;utf-8&#34;</span><span class=p>)</span>
@@ -113,8 +113,8 @@ window.dataLayer = window.dataLayer || [];
 <span class=k>for</span> <span class=n>root</span><span class=p>,</span> <span class=n>dirs</span><span class=p>,</span> <span class=n>files</span> <span class=ow>in</span> <span class=n>os</span><span class=o>.</span><span class=n>walk</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;.&#39;</span><span class=p>):</span>
 	<span class=n>log</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>root</span> <span class=o>+</span> <span class=sa>u</span><span class=s2>&#34;</span><span class=se>\n</span><span class=s2>&#34;</span><span class=p>)</span>
 
-	<span class=k>for</span> <span class=nb>file</span> <span class=ow>in</span> <span class=nb>sorted</span><span class=p>(</span><span class=n>files</span><span class=p>):</span>
-		<span class=n>log</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=n>root</span><span class=p>,</span> <span class=nb>file</span><span class=p>)</span> <span class=o>+</span> <span class=sa>u</span><span class=s2>&#34;</span><span class=se>\n</span><span class=s2>&#34;</span><span class=p>)</span>
+	<span class=k>for</span> <span class=n>file</span> <span class=ow>in</span> <span class=nb>sorted</span><span class=p>(</span><span class=n>files</span><span class=p>):</span>
+		<span class=n>log</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=n>root</span><span class=p>,</span> <span class=n>file</span><span class=p>)</span> <span class=o>+</span> <span class=sa>u</span><span class=s2>&#34;</span><span class=se>\n</span><span class=s2>&#34;</span><span class=p>)</span>
 
 <span class=n>log</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
 </code></pre></div>

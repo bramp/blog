@@ -30,7 +30,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;or&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;An API incompatibility was encountered while executing org.apache.maven.plugins:maven-compiler-plugin:3.5.1:compile: java.lang.UnsupportedClassVersionError: javax/tools/DiagnosticListener : Unsupported major.minor version 52.0
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Please update to JDK 1.8, or update your Maven configuration to restrict these plugins to when run on a modern JDK:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;project&amp;gt;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;project&amp;gt;&lt;/span&gt;
 ...
     &lt;span class=&#34;nt&#34;&gt;&amp;lt;profiles&amp;gt;&lt;/span&gt;
         &lt;span class=&#34;nt&#34;&gt;&amp;lt;profile&amp;gt;&lt;/span&gt;

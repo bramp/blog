@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -109,7 +109,7 @@ window.dataLayer = window.dataLayer || [];
 <p>Firstly I saw two DNS requests, one for the AAAA (IPv6) record for update.linksys.com, then a A request for update.linksys.com. Clearly the updates are coming from there. Secondly I saw a HTTPS connection form to that domain. That makes this a little more complex, as I am unable to see the encrypted traffic, and thus see what is being transferred.</p>
 <p>So, I grabbed a <a href=http://code.activestate.com/recipes/491264-mini-fake-dns-server/ >simple DNS server</a>, and set up a simple SSL server following <a href=http://wirewatcher.wordpress.com/2010/07/20/decrypting-ssl-traffic-with-wireshark-and-ways-to-prevent-it/ >these instructions</a>.</p>
 <p>Now with DNS spoofing, and a fake SSL server, I could intercept encrypted traffic from the router, as long as it does not validate the SSL certificate. Luckily it didn’t check the validity, and thus I was able to capture the request: (BTW Not checking the cert completely defeats the point of using SSL… bad Linksys!).</p>
-<div class=highlight><pre class=chroma><code class=language-http data-lang=http><span class=nf>POST</span> <span class=nn>/cds/update</span> <span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-http data-lang=http><span class=nf>POST</span> <span class=nn>/cds/update</span> <span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span>
 <span class=n>Host</span><span class=o>:</span> <span class=l>update.linksys.com</span>
 <span class=n>Accept</span><span class=o>:</span> <span class=l>*/*</span>
 <span class=n>Content-Type</span><span class=o>:</span> <span class=l>text/xml</span>
@@ -129,7 +129,7 @@ window.dataLayer = window.dataLayer || [];
   <span class=ni>&amp;lt;</span>/SOAP-ENV:Body<span class=ni>&amp;gt;</span>
 <span class=ni>&amp;lt;</span>/SOAP-ENV:Envelope<span class=ni>&amp;gt;</span>
 </code></pre></div><p>and the response:</p>
-<div class=highlight><pre class=chroma><code class=language-http data-lang=http><span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span> <span class=m>200</span> <span class=ne>OK</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-http data-lang=http><span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span> <span class=m>200</span> <span class=ne>OK</span>
 <span class=n>Content-Language</span><span class=o>:</span> <span class=l>en-US</span>
 <span class=n>Content-Type</span><span class=o>:</span> <span class=l>text/xml</span>
 <span class=n>SOAPAction</span><span class=o>:</span> <span class=l>&#34;&#34;</span>
@@ -157,9 +157,9 @@ window.dataLayer = window.dataLayer || [];
 <span class=ni>&amp;lt;</span>/soapenv:Envelope<span class=ni>&amp;gt;</span>
 </code></pre></div><p>(I slightly modified portions of the request and response to hide the identify of my router.).</p>
 <p>I might write a script to make fake requests, but until then you can easily create a request with curl:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>curl -d @request.raw https://update.linksys.com/cds/update
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>curl -d @request.raw https://update.linksys.com/cds/update
 </code></pre></div><p>Then you just extract the DownloadURI and</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA
 </code></pre></div><p>Voila I now have the firmware. Now I need to figure out what to do with it.</p>
 <p><strong>Update</strong>: As requested I fetched the more recent version of the file:<br>
 2.0.37.131047 – <a href=http://download.linksys.com/updates/to0040829450.pdx/FW>http://download.linksys.com/updates/to0040829450.pdx/FW</a>_E4200_2.0.37.131047.SSA</p>

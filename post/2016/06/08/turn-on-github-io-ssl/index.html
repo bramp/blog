@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -102,7 +102,7 @@ window.dataLayer = window.dataLayer || [];
 <p>GitHub just <a href=https://github.com/blog/2186-https-for-github-pages>announced</a> that all github.io sites can enforce the use of HTTPS. Previously GitHub supported HTTPS on these sites, but you couldn&rsquo;t force users to use HTTPS other than using a <a href=https://gist.github.com/konklone/9968713>javascript redirect hack</a>, or putting a CDN infront of GitHub. Now by checking a single box you can force users to the secure version:</p>
 <p><img alt="Enforce HTTPS Checkbox" src=checkbox.png></p>
 <p>Sadly I have far too many repositories, and I don&rsquo;t recall which one uses pages. I figured it would be easy to hit <a href=https://developer.github.com/v3/ >GitHub&rsquo;s API</a> and enabled this. The API doesn&rsquo;t directly support enabling HTTPS, so instead I wrote a quick script to list all repos with GitHub pages:</p>
-<div class=highlight><pre class=chroma><code class=language-python data-lang=python><span class=ch>#!/usr/bin/env python</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-python data-lang=python><span class=ch>#!/usr/bin/env python</span>
 <span class=c1># Prints a list of all owned repositories with pages.</span>
 <span class=c1># by Andrew Brampton 2016 https://bramp.net</span>
 <span class=c1>#</span>
@@ -111,7 +111,7 @@ window.dataLayer = window.dataLayer || [];
 <span class=n>headers</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;Authorization&#39;</span><span class=p>:</span> <span class=s1>&#39;token XXXXX&#39;</span><span class=p>}</span> <span class=c1># Replace XXXX with a token from https://github.com/settings/tokens</span>
 <span class=n>params</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;type&#39;</span><span class=p>:</span> <span class=s1>&#39;owner&#39;</span><span class=p>,</span> <span class=s1>&#39;page&#39;</span><span class=p>:</span> <span class=mi>1</span><span class=p>}</span>
 
-<span class=k>while</span> <span class=bp>True</span><span class=p>:</span>
+<span class=k>while</span> <span class=kc>True</span><span class=p>:</span>
 	<span class=n>r</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s1>&#39;https://api.github.com/user/repos&#39;</span><span class=p>,</span> <span class=n>params</span><span class=o>=</span><span class=n>params</span><span class=p>,</span> <span class=n>headers</span><span class=o>=</span><span class=n>headers</span><span class=p>)</span>
 	<span class=n>repos</span> <span class=o>=</span> <span class=n>r</span><span class=o>.</span><span class=n>json</span><span class=p>()</span>
 	<span class=k>if</span> <span class=ow>not</span> <span class=n>repos</span><span class=p>:</span>
@@ -119,12 +119,12 @@ window.dataLayer = window.dataLayer || [];
 
 	<span class=k>for</span> <span class=n>repo</span> <span class=ow>in</span> <span class=n>repos</span><span class=p>:</span>
 		<span class=k>if</span> <span class=n>repo</span><span class=p>[</span><span class=s1>&#39;has_pages&#39;</span><span class=p>]:</span>
-			<span class=k>print</span> <span class=s2>&#34;</span><span class=si>%32s</span><span class=s2> </span><span class=si>%s</span><span class=s2>/settings&#34;</span> <span class=o>%</span><span class=p>(</span><span class=n>repo</span><span class=p>[</span><span class=s1>&#39;name&#39;</span><span class=p>],</span> <span class=n>repo</span><span class=p>[</span><span class=s1>&#39;html_url&#39;</span><span class=p>])</span>
+			<span class=nb>print</span> <span class=s2>&#34;</span><span class=si>%32s</span><span class=s2> </span><span class=si>%s</span><span class=s2>/settings&#34;</span> <span class=o>%</span><span class=p>(</span><span class=n>repo</span><span class=p>[</span><span class=s1>&#39;name&#39;</span><span class=p>],</span> <span class=n>repo</span><span class=p>[</span><span class=s1>&#39;html_url&#39;</span><span class=p>])</span>
 
 	<span class=n>params</span><span class=p>[</span><span class=s1>&#39;page&#39;</span><span class=p>]</span> <span class=o>+=</span> <span class=mi>1</span>
 </code></pre></div><p>Download <a href=turn-on-github-ssl.py>turn-on-github-ssl.py</a></p>
 <p>This print out something like so:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ ./turn-on-github-ssl.py
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>$ ./turn-on-github-ssl.py
 
                 blog https://github.com/bramp/blog/settings
   ffmpeg-cli-wrapper https://github.com/bramp/ffmpeg-cli-wrapper/settings

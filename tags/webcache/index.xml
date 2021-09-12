@@ -46,7 +46,7 @@ There is also the added inconvenience that if you take a Laptop between home and
       
       <guid>https://blog.bramp.net/post/2010/01/26/redirect-local-traffic-to-a-web-cache-with-iptables/</guid>
       <description>&lt;p&gt;Very occasionally I come across a Linux application that does not respect the http_proxy variable. This stops the application from working while I’m at university as they forbid traffic on port 80 unless it goes via their webcache. So today I came up with a hack of a solution that involves iptables:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# IP address and port number of the webcache&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# IP address and port number of the webcache&lt;/span&gt;
 &lt;span class=&#34;nv&#34;&gt;WEBCACHE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;194.80.32.10:8080
 
 &lt;span class=&#34;c1&#34;&gt;# Flush any previous rules&lt;/span&gt;

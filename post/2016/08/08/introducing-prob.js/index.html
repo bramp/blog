@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -108,7 +108,7 @@ window.dataLayer = window.dataLayer || [];
 <h2 id=generate-random-numbers-from-different-probability-distributions>Generate random numbers from different probability distributions</h2>
 <p>There are multiple libraries for generating random numbers from a uniform, and sometimes normal distributions. However, I needed code to generate them from a expontential or lognormal distribution. I had written code to do this ~10 years ago in Java, but I needed a more modern Javascript solution.</p>
 <p>Introducing <a href=https://github.com/bramp/prob.js>Prob.js</a>, a javascript library to generate random numbers from different probability distributions. Avaiable via both bower and NPM, prob.js can generate random numbers from the following distrubtions:</p>
-<div class=highlight><pre class=chroma><code class=language-javascript data-lang=javascript><span class=nx>Prob</span><span class=p>.</span><span class=nx>uniform</span><span class=p>(</span><span class=nx>min</span><span class=p>,</span> <span class=nx>max</span><span class=p>)</span> <span class=c1>// Uniform distribution in range [min, max).
+<div class=highlight><pre class=chroma tabindex=0><code class=language-javascript data-lang=javascript><span class=nx>Prob</span><span class=p>.</span><span class=nx>uniform</span><span class=p>(</span><span class=nx>min</span><span class=p>,</span> <span class=nx>max</span><span class=p>)</span> <span class=c1>// Uniform distribution in range [min, max).
 </span><span class=c1></span><span class=nx>Prob</span><span class=p>.</span><span class=nx>normal</span><span class=p>(</span><span class=nx>μ</span><span class=p>,</span> <span class=nx>σ</span><span class=p>)</span>      <span class=c1>// Normal distribution with mean and standard deviation.
 </span><span class=c1></span><span class=nx>Prob</span><span class=p>.</span><span class=nx>exponential</span><span class=p>(</span><span class=nx>λ</span><span class=p>)</span>    <span class=c1>// Exponential distribution with lambda.
 </span><span class=c1></span><span class=nx>Prob</span><span class=p>.</span><span class=nx>lognormal</span><span class=p>(</span><span class=nx>μ</span><span class=p>,</span> <span class=nx>σ</span><span class=p>)</span>   <span class=c1>// Log-normal distribution defined as ln(normal(μ, σ)).
@@ -116,7 +116,7 @@ window.dataLayer = window.dataLayer || [];
 </span><span class=c1></span><span class=nx>Prob</span><span class=p>.</span><span class=nx>zipf</span><span class=p>(</span><span class=nx>s</span><span class=p>,</span> <span class=nx>N</span><span class=p>)</span>        <span class=c1>// Zipf&#39;s distribution returning integers in range [1, N].
 </span><span class=c1></span><span class=nx>After</span> <span class=nx>generating</span> <span class=nx>a</span> <span class=nx>distribution</span><span class=p>,</span> <span class=nx>the</span> <span class=nx>following</span> <span class=nx>methods</span> <span class=nx>are</span> <span class=nx>available</span><span class=o>:</span>
 </code></pre></div><p>With a very simple to use API:</p>
-<div class=highlight><pre class=chroma><code class=language-javascript data-lang=javascript><span class=kd>var</span> <span class=nx>r</span> <span class=o>=</span> <span class=nx>Prob</span><span class=p>.</span><span class=nx>exponential</span><span class=p>(</span><span class=mf>1.0</span><span class=p>);</span> <span class=c1>// Create a distribution.
+<div class=highlight><pre class=chroma tabindex=0><code class=language-javascript data-lang=javascript><span class=kd>var</span> <span class=nx>r</span> <span class=o>=</span> <span class=nx>Prob</span><span class=p>.</span><span class=nx>exponential</span><span class=p>(</span><span class=mf>1.0</span><span class=p>);</span> <span class=c1>// Create a distribution.
 </span><span class=c1></span><span class=nx>r</span><span class=p>()</span>        <span class=c1>// Generates a number within the distribution.
 </span><span class=c1></span><span class=nx>r</span><span class=p>(</span><span class=nx>src</span><span class=p>)</span>     <span class=c1>// Generates a number using a `src` of random numbers. (See note below.)
 </span><span class=c1></span><span class=nx>r</span><span class=p>.</span><span class=nx>Min</span>      <span class=c1>// The min random number which could be returned by `r()` (inclusive).
@@ -124,18 +124,15 @@ window.dataLayer = window.dataLayer || [];
 </span><span class=c1></span><span class=nx>r</span><span class=p>.</span><span class=nx>Mean</span>     <span class=c1>// The expected mean for this distribution.
 </span><span class=c1></span><span class=nx>r</span><span class=p>.</span><span class=nx>Variance</span> <span class=c1>// The expected variance for this distribution.
 </span></code></pre></div><p>I created a <a href=https://bramp.github.io/prob.js/ >quick demo site</a> that generates 1 million random numbers from each distribution in the browser, and plots the PDF as it goes. Same samples:</p>
-<p></p><figure>
-<img src=normal.png /><figcaption>
+<p></p><figure><img src=normal.png /><figcaption>
 <h4>Normal (μ = 0, σ = 1.0)</h4>
 </figcaption>
 </figure>
-<figure>
-<img src=lognormal.png /><figcaption>
+<figure><img src=lognormal.png /><figcaption>
 <h4>Log-normal (μ = 0, σ = 1.0)</h4>
 </figcaption>
 </figure>
-<figure>
-<img src=zipf.png /><figcaption>
+<figure><img src=zipf.png /><figcaption>
 <h4>Zipf (s = 1, N = 100)</h4>
 </figcaption>
 </figure>

@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -105,13 +105,13 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p>I just tried to compile the Debian PHP packages, so I could make some <a href=http://www.howtoforge.com/recompiling-php5-with-bundled-support-for-gd-on-ubuntu>minor tweaks</a> to the source, to fix a bug I’m hopefully going to document shortly. This turned out to be very problematic, mainly due to the testing phase!</p>
 <p>To build the Debian packages you typically do the following:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>mkdir php
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>mkdir php
 <span class=nb>cd</span> php
 apt-get <span class=nb>source</span> php5
 <span class=nb>cd</span> php5-*
 debuild -us -uc -j4
 </code></pre></div><p>While testing, the debian/setup_mysql.sh script is called, to create a temporary MySQL database. This however failed to execute correctly because I had some custom options in my <a href=http://dev.mysql.com/doc/refman/5.1/en/option-files.html>~/.my.cnf</a>. Thus it failed like so:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=c1># start our own mysql server for the tests</span>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=c1># start our own mysql server for the tests</span>
 /bin/sh debian/setup-mysql.sh <span class=m>1029</span> /home/bramp/vendor/php/php5-5.3.8.0/mysql_db
 mysqladmin: connect to server at <span class=s1>&#39;localhost&#39;</span> failed
 error: <span class=s1>&#39;Access denied for user &#39;</span>root<span class=s1>&#39;@&#39;</span>localhost<span class=s1>&#39; (using password: YES)&#39;</span>
@@ -120,7 +120,7 @@ dpkg-buildpackage: error: debian/rules build gave error <span class=nb>exit</spa
 debuild: fatal error at line 1348:
 dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed
 </code></pre></div><p>After removing the my.cnf things were ok. The below patch fixes it in a more general way:</p>
-<div class=highlight><pre class=chroma><code class=language-diff data-lang=diff><span class=gd>-- debian/setup-mysql.sh.org	2011-11-21 21:57:07.244481175 -0500
+<div class=highlight><pre class=chroma tabindex=0><code class=language-diff data-lang=diff><span class=gd>-- debian/setup-mysql.sh.org	2011-11-21 21:57:07.244481175 -0500
 </span><span class=gd></span><span class=gi>+++ debian/setup-mysql.sh	2011-11-21 21:40:39.384455880 -0500
 </span><span class=gi></span><span class=gu>@@ -16,7 +16,7 @@
 </span><span class=gu></span> 
@@ -132,7 +132,7 @@ dpkg-buildpackage -rfakeroot -D -us -uc -j8 failed
  
  # Main code #
 </code></pre></div><p>The next problem I encountered is that all the automated PHP unit tests were failing, and they would eventually get stuck and use all my RAM and swap space (at least 16GiB of it) :( I’m not sure what made the machine run out of RAM, but the tests were failing because the version of PHP that was running the tests was incorrectly loading extensions from my system. The quick fix for this was to disable any extensions I had installed to my system. I just</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>sudo mv /etc/php5/conf.d /etc/php5/conf.d.tmp
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>sudo mv /etc/php5/conf.d /etc/php5/conf.d.tmp
 </code></pre></div><p>to do that.</p>
 <p>This made me think that in future I should perhaps find a cleaner environment to build these packages. In fact, it makes me wonder if the builds are just broken if my environment clearly impacts the successful run of tests.</p>
 <p>One trick I found while building again and again, is that you can pass “-nc” to debuild so that it does not clean, and thus reuses the existing build materials for a faster build. Either way, I now have my own version of PHP built and installed! Next time I might just ignore the .deb files and build direct from source.</p>

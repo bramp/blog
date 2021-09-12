@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -103,7 +103,7 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p>I really like <a href=http://www.bitwizard.nl/mtr/ >mtr</a> (the traceroute tool), however, it always bugged me that it launches a GUI app instead of using the <a href=http://en.wikipedia.org/wiki/Curses_(programming_library)>curses</a> interface. You can easily pass the “-t” or “–curses” flag to default to the curses interface, but I always forget.</p>
 <p>So today I set about writing a patch for mtr to read a environment varable to force the curses interface. While I was reading the source I noticed there was already a simple undocumented way!</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash><span class=nb>export</span> <span class=nv>MTR_OPTIONS</span><span class=o>=</span>-t
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=nb>export</span> <span class=nv>MTR_OPTIONS</span><span class=o>=</span>-t
 </code></pre></div><p>Voila the curses interface is now used by default. This is certainly going into my ~/.bashrc</p>
 </div>
 </article>

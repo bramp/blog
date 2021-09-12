@@ -15,7 +15,7 @@
       
       <guid>https://blog.bramp.net/post/2010/03/19/vmware-breaks-shift-key/</guid>
       <description>&lt;p&gt;I came into my office today to find that my keyboard would no longer type capital letters. The shift, caps lock, and even num lock keys seemed to be broken. After a quick WTF &lt;a href=&#34;http://www.evolution-systems.co.uk/blogs/matt/view_post&amp;amp;id=37/&#34;&gt;it was pointed out to me&lt;/a&gt; that VMWare occasionally does this to Linux machines. Thanks to &lt;a href=&#34;http://twitter.com/bigkebabman&#34;&gt;Matt&lt;/a&gt; who showed me a quick solution. In a terminal just type:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;setxkbmap
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;setxkbmap
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And everything should be back to normal. After using VMWare on Linux for a couple of years I’ve never encountered this problem!&lt;/p&gt;
 </description>
     </item>

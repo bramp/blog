@@ -24,7 +24,7 @@
 <meta content=#4582EC name=msapplication-TileColor>
 <meta content=/images/favicon-144x144.png name=msapplication-TileImage>
 <link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
-<link href=/css/all.8552e60cc1cd059f570fddaa29e58121.min.css rel=stylesheet>
+<link href=/css/all.885e47b0e9c2ef50f1c1d670c33d8ed7.min.css rel=stylesheet>
 <link href=/css/sortable-theme-minimal.css rel=stylesheet />
 <link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
 <script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
@@ -104,7 +104,7 @@ window.dataLayer = window.dataLayer || [];
 </p>
 <div class=post itemprop=articleBody>
 <p>I’ve just installed grub2 on my Debian laptop, and I wanted to write a quick note on how to get dual booting working. Grub2 seems to have a far more complex configuration system than grub, this may be a good or a bad thing. One feature of this is a /etc/grub.d directory which contains a set of scripts to configure what items should be listed on the boot menu.</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ ls /etc/grub.d/
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>$ ls /etc/grub.d/
 00_header  05_debian_theme  10_linux  30_os-prober  40_custom  README
 </code></pre></div><p>The scripts get run in order, each adding features to the boot menu. To dual boot Windows you can acheive this in two ways.</p>
 <ol>
@@ -112,9 +112,9 @@ window.dataLayer = window.dataLayer || [];
 <li>Use the os-prober script.</li>
 </ol>
 <p>I opted for option 2 since it seemed the easiest. However, this os-prober script does not work unless the package os-prober is installed. So:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ sudo apt-get install os-prober
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>$ sudo apt-get install os-prober
 </code></pre></div><p>Once that is installed you can reconfigure grub by doing:</p>
-<div class=highlight><pre class=chroma><code class=language-bash data-lang=bash>$ sudo update-grub2
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>$ sudo update-grub2
 Generating grub.cfg ...
 Found Debian background: moreblue-orbit-grub.png
 Found linux image: /boot/vmlinuz-2.6.30-1-amd64

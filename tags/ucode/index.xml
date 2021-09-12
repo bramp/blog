@@ -17,7 +17,7 @@
       <description>&lt;p&gt;Out of fun I wrote a simple Python script to pull the version number out of Intel’s ucode firmware, for example, the firmware used by my wifi driver. I needed this so I could see what version I was running versus a new version I had downloaded from &lt;a href=&#34;http://intellinuxwireless.org/?n=Downloads&#34;&gt;Intel’s Linux Wireless site&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;So here is the code if anyone finds it interesting:&lt;/p&gt;
 &lt;p&gt;and example of using it is:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ./ucode.py /lib/firmware/*.ucode
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ ./ucode.py /lib/firmware/*.ucode
 iwlwifi-1000-3.ucode    : ver 128.50.3.1
 iwlwifi-3945-1.ucode    : ver 15.28.1.6
 iwlwifi-3945-2.ucode    : ver 15.32.2.9

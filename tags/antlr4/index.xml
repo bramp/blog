@@ -87,7 +87,7 @@ required. The ANTLR site has
 [documentation](&lt;a href=&#34;https://github.com/antlr/antlr4/blob/master/doc/getting-&#34;&gt;https://github.com/antlr/antlr4/blob/master/doc/getting-&lt;/a&gt;
 started.md) on how to install this on multiple platforms, but in brief,
 you can do the following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ wget http://www.antlr.org/download/antlr-4.7-complete.jar
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ wget http://www.antlr.org/download/antlr-4.7-complete.jar
 $ &lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;java -jar $PWD/antlr-4.7-complete.jar&amp;#39;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;antlr&lt;/code&gt; command is now available in your shell. If you prefer, the
 .jar file can be placed into a &lt;code&gt;~/bin&lt;/code&gt; directory, and the alias can be
@@ -127,14 +127,14 @@ terminal states made up of tokens and/or other rules.&lt;/p&gt;
 &lt;p&gt;By convention this grammar must be saved with a filename that matches
 the name of the grammar, in this case “Calc.g4” . To process this file,
 and generate the Go parser, we run the &lt;code&gt;antlr&lt;/code&gt; command like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ antlr -Dlanguage&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Go -o parser Calc.g4 
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ antlr -Dlanguage&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Go -o parser Calc.g4 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will generate a set of Go files in the “parser” package and
 subdirectory. It is possible to place the generated code in a different
 package by using the &lt;code&gt;-package &amp;lt;name&amp;gt;&lt;/code&gt; argument. This is useful if your
 project has multiple parsers, or you just want a more descriptive
 package name for the parser. The generated files will look like the
 following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ tree
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ tree
 ├── Calc.g4
 └── parser
     ├── calc_lexer.go
@@ -158,7 +158,7 @@ before and after every rule is encountered in the parsed input.&lt;/p&gt;
 &lt;h2 id=&#34;using-the-lexer&#34;&gt;Using the Lexer&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s move onto an example of using this generated code, starting with
 the Lexer.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// example1.go
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// example1.go
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;main&lt;/span&gt;
 
 &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
@@ -188,7 +188,7 @@ the Lexer.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To begin with, the generated parser is imported from the local
 subdirectory &lt;code&gt;import &amp;quot;./parser&amp;quot;&lt;/code&gt;. Next the Lexer is created with some
 input:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;	&lt;span class=&#34;c1&#34;&gt;// Setup the input
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;	&lt;span class=&#34;c1&#34;&gt;// Setup the input
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;NewInputStream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;1 + 2 * 3&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
 	&lt;span class=&#34;c1&#34;&gt;// Create the Lexer
@@ -202,7 +202,7 @@ matches the grammar’s name defined in the Calc.g4.&lt;/p&gt;
 &lt;p&gt;The lexer is then used to consume all the tokens from the input,
 printing them one by one. This wouldn’t normally be necessary but we do
 this for demonstrative purposes.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt; 	&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt; 	&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 		&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;lexer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;NextToken&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
 		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;GetTokenType&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;TokenEOF&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 			&lt;span class=&#34;k&#34;&gt;break&lt;/span&gt;
@@ -215,7 +215,7 @@ TokenType is a simple integer representing the type of token, while the
 Text is literally the text that made up this token. All the TokenTypes
 are defined at the end of calc_lexer.go, with their string names stored
 in the SymbolicNames slice:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// calc_lexer.go
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// calc_lexer.go
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;CalcLexerMUL&lt;/span&gt;        &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;CalcLexerDIV&lt;/span&gt;        &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;
@@ -230,7 +230,7 @@ designed to skip (i.e. discard) the whitespace &lt;code&gt;WHITESPACE: [ \r\n\t]
 &lt;h2 id=&#34;using-the-parser&#34;&gt;Using the Parser&lt;/h2&gt;
 &lt;p&gt;The Lexer on its own is not very useful, so the example can be modified
 to also use the Parser and Listener:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// example2.go
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// example2.go
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;main&lt;/span&gt;
 
 &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
@@ -279,7 +279,7 @@ can be parsed without error. To add logic, we must extend the
 &lt;code&gt;BaseCalcListener&lt;/code&gt;, which is a helper type, that provides empty methods
 for all those defined in in the &lt;code&gt;CalcListener&lt;/code&gt; interface. That interface
 looks like:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// parser/calc_listener.go
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// parser/calc_listener.go
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// CalcListener is a complete listener for a parse tree produced by CalcParser.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;CalcListener&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ParseTreeListener&lt;/span&gt;
@@ -330,7 +330,7 @@ expressed before the &lt;code&gt;AddSub&lt;/code&gt; expression.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;The code for a listener that implements this stack of value
 implementation is relatively simple:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;calcListener&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;calcListener&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;parser&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;BaseCalcListener&lt;/span&gt;
 
 	&lt;span class=&#34;nx&#34;&gt;stack&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;
@@ -390,7 +390,7 @@ implementation is relatively simple:&lt;/p&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Finally this listener would be used like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// calc takes a string expression and returns the evaluated result.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// calc takes a string expression and returns the evaluated result.
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;calc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 	&lt;span class=&#34;c1&#34;&gt;// Setup the input
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;antlr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;NewInputStream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;input&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -432,7 +432,7 @@ languages. To make it easier, I have &lt;a href=&#34;https://github.com/bramp/an
 parsers&lt;/a&gt; for all those
 available grammars, making them as easy to use just by importing.&lt;/p&gt;
 &lt;p&gt;A quick example of using one of the pre-generated grammars:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
 	&lt;span class=&#34;s&#34;&gt;&amp;#34;bramp.net/antlr4/json&amp;#34;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// The parser
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
 	&lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/antlr/antlr4/runtime/Go/antlr&amp;#34;&lt;/span&gt;
