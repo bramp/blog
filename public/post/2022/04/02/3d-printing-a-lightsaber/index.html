@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang=en>
+<head itemscope itemtype=http://schema.org/WebSite>
+<meta charset=utf-8>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<link href=https://blog.bramp.net/post/2022/04/02/3d-printing-a-lightsaber/ rel=canonical itemprop=url />
+<title>3D Printing a Lightsaber</title>
+<meta content="I came across these cool 3D printable Light Sabers by 3dprintingworld, but I couldn&rsquo;t get the blade to print well. So here is a write up of my experience, and the modifications I made. …" name=description itemprop=description>
+<meta content="Andrew Brampton" name=author itemprop=creator>
+<meta content="" name=generator />
+<link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
+<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
+<meta content=#4582EC name=theme-color>
+<link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
+<link href=/images/favicon.png rel=apple-touch-icon />
+<link href=/images/favicon-57x57.png rel=apple-touch-icon sizes=57x57 />
+<link href=/images/favicon-72x72.png rel=apple-touch-icon sizes=72x72 />
+<link href=/images/favicon-76x76.png rel=apple-touch-icon sizes=76x76 />
+<link href=/images/favicon-114x114.png rel=apple-touch-icon sizes=114x114 />
+<link href=/images/favicon-120x120.png rel=apple-touch-icon sizes=120x120 />
+<link href=/images/favicon-144x144.png rel=apple-touch-icon sizes=144x144 />
+<link href=/images/favicon-152x152.png rel=apple-touch-icon sizes=152x152 />
+<link href=/images/favicon-180x180.png rel=apple-touch-icon sizes=180x180 />
+<meta content=#4582EC name=msapplication-TileColor>
+<meta content=/images/favicon-144x144.png name=msapplication-TileImage>
+<link href=/images/favicon-192x192.png rel=icon sizes=192x192 />
+<link href=/css/all.03f9eb5fa3699df284dc54d37c8e72a9.min.css rel=stylesheet>
+<link href=/css/sortable-theme-minimal.css rel=stylesheet />
+<link href=https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css rel=stylesheet>
+<script src="https://www.googletagmanager.com/gtag/js?id=UA-136478-5" async></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-136478-5');
+</script>
+<meta content=summary name=twitter:card />
+<meta content=@TheBramp name=twitter:site />
+<meta content=@TheBramp name=twitter:creator />
+<meta content=article property=og:type />
+<meta content=https://www.facebook.com/bramp property=article:author />
+<meta content=2022-04-02T20:03:52&#43;07:00 property=article:published_time />
+<meta content=Lightsaber property=article:tag />
+<meta content="3d Printing" property=article:tag />
+<meta content=Prusa property=article:tag />
+<meta content=https://blog.bramp.net/post/2022/04/02/3d-printing-a-lightsaber/ property=og:url />
+<meta content=bramp.net property=og:site_name />
+<meta content="3D Printing a Lightsaber" property=og:title />
+<meta content="I came across these cool 3D printable Light Sabers by 3dprintingworld, but I couldn&rsquo;t get the blade to print well. So here is a write up of my experience, and the modifications I made. …" property=og:description />
+<meta content=2022-04-02T20:03:52-07:00 property=og:updated_time />
+<meta content=en_GB property=og:locale />
+<meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
+</head>
+<body itemscope itemtype=Blog>
+<div id=wrapper>
+<nav class="navbar navbar-default">
+<div class=container>
+<div class=navbar-header>
+<button class=navbar-toggle data-target=.navbar-collapse data-toggle=collapse type=button>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<div class=navbar-brand aria-label="About Andrew Brampton">
+<a href=/ >
+<img src=/images/favicon-72x72.png width=72 alt=Home class=profile-image height=72 srcset="/images/favicon-72x72.png, /images/favicon-144x144.png 2x">
+</a>
+<div itemprop=author itemscope itemtype=https://schema.org/Person>
+<a href=/about-me/ itemprop=name>Andrew Brampton</a>
+<div id=social-wrapper>
+<a href=https://twitter.com/TheBramp aria-label=Twitter><svg class="icon icon-twitter-square"><use xlink:href=/images/icons.svg#icon-twitter-square></use></svg></a>
+<a href=https://www.linkedin.com/in/bramp aria-label=LinkedIn><svg class="icon icon-linkedin-square"><use xlink:href=/images/icons.svg#icon-linkedin-square></use></svg></a>
+<a href=https://www.facebook.com/bramp aria-label=Facebook><svg class="icon icon-facebook-square"><use xlink:href=/images/icons.svg#icon-facebook-square></use></svg></a>
+<a href=https://github.com/bramp aria-label=GitHub><svg class="icon icon-github-square"><use xlink:href=/images/icons.svg#icon-github-square></use></svg></a>
+<a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed"><svg class="icon icon-github-square"><use xlink:href=/images/icons.svg#icon-rss-square></use></svg></a>
+</div>
+</div>
+</div>
+</div>
+<div class="collapse navbar-collapse">
+<ul class="nav navbar-nav" role=navigation>
+<li><a href=/ >Articles</a></li>
+<li><a href=/about-me/ >About Me</a></li>
+<li><a href=/android-app/ >Android Apps</a></li>
+<li><a href=/opensource/ >Open Source</a></li>
+<li><a href=/publication/ >Publications</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<div class="container main">
+<main>
+<article id=article itemProp=blogPost itemscope itemtype=http://schema.org/BlogPosting>
+<h1 itemprop=headline>3D Printing a Lightsaber</h1>
+<p class=meta>
+<svg class="icon icon-calendar"><use xlink:href=/images/icons.svg#icon-calendar></use></svg> <time itemprop=datePublished>2022-04-02</time>
+| <a href=https://blog.bramp.net/tags/lightsaber/ >Lightsaber</a>
+| <a href=https://blog.bramp.net/tags/3d-printing/ >3d Printing</a>
+| <a href=https://blog.bramp.net/tags/prusa/ >Prusa</a>
+</p>
+<div class=post itemprop=articleBody>
+<p>I came across these cool 3D printable Light Sabers by <a href=https://thangs.com/designer/3dprintingworld>3dprintingworld</a>, but I couldn&rsquo;t get the blade to print well. So here is a write up of my experience, and the modifications I made.</p>
+<p></p><figure><img src=saber.jpg width=720 /><figcaption>
+<h4>Lightsaber</h4>
+</figcaption>
+</figure>
+<figure><img src=saber-on.jpg width=720 /><figcaption>
+<h4>Lightsaber with blade</h4>
+</figcaption>
+</figure>
+<figure><img src=saber-parts.jpg width=720 /><figcaption>
+<h4>Lightsaber in parts</h4>
+</figcaption>
+</figure>
+<p></p>
+<h1 id=hilt>Hilt</h1>
+<p>The hilt printed well, I used <a href=https://www.prusa3d.com/product/silver-pla-filament-1kg/ >Prusa Silver PLA</a>, and nothing special needed to be done. There are many to pick from online:</p>
+<style>.image-grid{display:flex;align-items:center;justify-content:center}.background-1{background:linear-gradient(180deg,rgba(228,196,215,.5) 0,rgba(196,196,196,0) 100%);margin:10px}.background-2{background:linear-gradient(180deg,rgba(197,196,228,.5) 0,rgba(196,196,196,0) 100%);margin:10px}.background-3{background:linear-gradient(180deg,rgba(196,228,201,.5) 0,rgba(196,196,196,0) 100%);margin:10px}</style>
+<div class=image-grid>
+<figure class=background-2><img src=saber-2.png width=200>
+<figcaption><h4>Darth Vadar</h4>
+<a href=https://www.thingiverse.com/thing:3668138>thingiverse</a> |
+<a href=https://thangs.com/3dprintingworld/Collapsing-Sith-Lightsaber-23598>thangs.com</a>
+</figcaption>
+</figure>
+<figure class=background-1><img src=saber-1.png width=200>
+<figcaption><h4>Return of the Jedi</h4>
+<a href=https://www.thingiverse.com/thing:3606120>thingiverse</a> |
+<a href=https://thangs.com/designer/3dprintingworld/3d-model/Collapsing-LightsaberPNP-23596>thangs.com</a>
+</figcaption>
+</figure>
+<figure class=background-3><img src=saber-3.png width=200>
+<figcaption><h4>Leia's</h4>
+<a href="https://thangs.com/designer/3dprintingworld/3d-model/Leia's%20Dual%20Extrusion%20Collapsing%20Lightsaber%20-25509">thangs.com</a>
+</figcaption>
+</figure>
+</div>
+<p>There are slightly different versions of these files on thingiverse and thangs.com. The thingiverse versions seem to be the easiest to work with.</p>
+<h1 id=blade>Blade</h1>
+<video autoplay height=136 loop muted width=720>
+<source src=blade-extending.mp4 type=video/mp4 />
+<source src=blade-extending.webm type=video/webm />
+Your browser does not support the video tag.
+</video>
+<p>The Collapsing Blade is where I had problems. These are sets of concentric telescoping tubes that taper inwards allowing them to fit within each other but not slide out all the way. 3dprintingworld offered two techniques, <a href=https://thangs.com/designer/3dprintingworld/3d-model/SwordSaber-Test-Print-23601>print-in-place</a>, and vase printing. The former would print the multiple tubes at the same time layer by layer. Whereas vase prints each tube individually as one continuous motion from top to bottom. The vase technique produced nicer looking blades, that were thinner yet strong. However, I couldn&rsquo;t get the <a href=https://www.thingiverse.com/thing:3606120>provided vase mode models</a> to work, so I made my own in Fusion 360 (STL and Fusion files available here TODO).</p>
+<p>The end result is ~110cm long, with five separate tubes. These are printed with 0.65mm extrusion width, and no top or bottom layers. I printed them all with the wider end of the tube as the base, but for the thinest one I found printing that upside down made for a cleaner end. I used <a href="https://overture3d.com/products/overture-petg-3d-printer-filament-1?variant=42224802922750">Overture Purple PETG</a>, which gave a very nice <a href=https://www.giantfreakinrobot.com/scifi/samuel-jackson-claims-bad-motherfcker-star-wars-lightsaber.html>Samuel L. Jackson lightsaber</a>.</p>
+<figure><img src=blade-settings-1.png width=720 /><figcaption>
+<h4>Vase mode settings for the blade</h4>
+</figcaption>
+</figure>
+<figure><img src=blade-settings-2.png width=528 /><figcaption>
+<h4>Extrusion width settings for the blade</h4>
+</figcaption>
+</figure>
+<h1 id=blade-cover>Blade Cover</h1>
+<p>The blade fitted well, but I wanted to stop it falling out so I printed a snug fitting cover. Again this was printed in vase mode, but with a 0.55mm extrusion width, and 17 solid bottom layers (to fill up to the thin tube part). Again the STL and Fusion files available.</p>
+<div class=image-grid>
+<figure><img src=cap.png width=300 /><figcaption>
+<h4>Cover Model</h4>
+</figcaption>
+</figure>
+<figure><img src=cap.jpg width=300 /><figcaption>
+<h4>Printed Cover</h4>
+</figcaption>
+</figure>
+</div>
+<figure><img src=cap-settings.png width=710 /><figcaption>
+<h4>Extrusion width settings for the cap</h4>
+</figcaption>
+</figure>
+<h1 id=finished>Finished</h1>
+<ul>
+<li><b>Hilt</b> - Silver PLA - Normal Settings
+<ul>
+<li><a href=https://www.thingiverse.com/thing:3606120/files>LIGHTSABER-CAP.stl</a> and <a href=https://www.thingiverse.com/thing:3606120/files>LIGHTSABER-HILT.stl</a>.</li>
+</ul>
+</li>
+<li><b>Blade Cover</b> - Silver PLA - Vase Mode
+<ul>
+<li><a href=https://www.printables.com/model/161150/files>LightSaber_Cap_v12.stl</a></li>
+</ul>
+</li>
+<li><b>Blade</b> - Purple PETG - Vase Mode
+<ul>
+<li><a href=https://www.printables.com/model/161151/files>LightSaber_Blade_v4_1.stl - LightSaber_Blade_v4_5.stl</a>
+}</li>
+</ul>
+</li>
+</ul>
+<figure>
+<video autoplay height=406 loop muted width=720>
+<source src=saber-fun.mp4 type=video/mp4 />
+<source src=saber-fun.webm type=video/webm />
+Your browser does not support the video tag.
+</video>
+<figcaption><h4>Lightsaber in action</h4></figcaption>
+</figure>
+</div>
+</article>
+<div class=row>
+<hr/>
+<div class=col-sm-6>
+</div>
+<div class=col-sm-6>
+<div class=btn-toolbar>
+<div class=btn-group>
+<a href=https://feeds.feedburner.com/brampnet aria-label="RSS feed" class="btn btn-sm btn-soundcloud"><svg class="icon icon-rss"><use xlink:href=/images/icons.svg#icon-rss></use></svg> Subscribe via RSS</a>
+</div>
+<div class=btn-group>
+<a href=https://twitter.com/TheBramp class="btn btn-sm btn-twitter"><svg class="icon icon-twitter"><use xlink:href=/images/icons.svg#icon-twitter></use></svg> Follow @TheBramp</a>
+</div>
+</div>
+</div>
+</div>
+<ul class=pager>
+&nbsp;<li class=previous><a href=/post/2021/09/12/compress-and-backup/ >&larr; Compress and Backup</a></li>
+</ul>
+</main>
+<br/>
+<footer>
+<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
+</footer>
+</div>
+</div>
+<script src=/js/all.421bdc0798a792d922b399e8180168e3.min.js></script>
+<script src=/js/sortable.min.js></script>
+</body>
+</html>

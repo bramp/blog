@@ -5,8 +5,35 @@
     <description>Recent content in Tags on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Sun, 12 Sep 2021 13:45:51 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 02 Apr 2022 20:03:52 -0700</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>3d Printing</title>
+      <link>https://blog.bramp.net/tags/3d-printing/</link>
+      <pubDate>Sat, 02 Apr 2022 20:03:52 -0700</pubDate>
+      
+      <guid>https://blog.bramp.net/tags/3d-printing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Lightsaber</title>
+      <link>https://blog.bramp.net/tags/lightsaber/</link>
+      <pubDate>Sat, 02 Apr 2022 20:03:52 -0700</pubDate>
+      
+      <guid>https://blog.bramp.net/tags/lightsaber/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Prusa</title>
+      <link>https://blog.bramp.net/tags/prusa/</link>
+      <pubDate>Sat, 02 Apr 2022 20:03:52 -0700</pubDate>
+      
+      <guid>https://blog.bramp.net/tags/prusa/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>backup</title>
@@ -113,33 +140,6 @@
       <pubDate>Sat, 05 Jan 2019 07:59:08 -0800</pubDate>
       
       <guid>https://blog.bramp.net/tags/apache-beam/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Dataflow</title>
-      <link>https://blog.bramp.net/tags/dataflow/</link>
-      <pubDate>Sat, 05 Jan 2019 07:59:08 -0800</pubDate>
-      
-      <guid>https://blog.bramp.net/tags/dataflow/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>go</title>
-      <link>https://blog.bramp.net/tags/go/</link>
-      <pubDate>Sat, 05 Jan 2019 07:59:08 -0800</pubDate>
-      
-      <guid>https://blog.bramp.net/tags/go/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>d3.js</title>
-      <link>https://blog.bramp.net/tags/d3.js/</link>
-      <pubDate>Sun, 08 Apr 2018 21:46:21 -0700</pubDate>
-      
-      <guid>https://blog.bramp.net/tags/d3.js/</guid>
       <description></description>
     </item>
     
