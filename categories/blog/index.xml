@@ -5,8 +5,168 @@
     <description>Recent content in Blog on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_GB</language>
-    <lastBuildDate>Sun, 12 Sep 2021 13:45:51 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 02 Apr 2022 20:03:52 -0700</lastBuildDate>
     <atom:link href="https://blog.bramp.net/categories/blog/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>3D Printing a Lightsaber</title>
+      <link>https://blog.bramp.net/post/2022/04/02/3d-printing-a-lightsaber/</link>
+      <pubDate>Sat, 02 Apr 2022 20:03:52 -0700</pubDate>
+      
+      <guid>https://blog.bramp.net/post/2022/04/02/3d-printing-a-lightsaber/</guid>
+      <description>&lt;p&gt;I came across these cool 3D printable Light Sabers by &lt;a href=&#34;https://thangs.com/designer/3dprintingworld&#34;&gt;3dprintingworld&lt;/a&gt;, but I couldn&amp;rsquo;t get the blade to print well. So here is a write up of my experience, and the modifications I made.&lt;/p&gt;
+&lt;!--
+  convert saber-orig.jpg -resize 720x saber.jpg
+  convert saber-on-orig.jpg -resize 720x saber-on.jpg
+  convert saber-parts-orig.jpg -resize 720x saber-parts.jpg
+--&gt;
+&lt;p&gt;&lt;figure&gt;&lt;img src=&#34;saber.jpg&#34; width=&#34;720&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Lightsaber&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;saber-on.jpg&#34; width=&#34;720&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Lightsaber with blade&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;saber-parts.jpg&#34; width=&#34;720&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Lightsaber in parts&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h1 id=&#34;hilt&#34;&gt;Hilt&lt;/h1&gt;
+&lt;p&gt;The hilt printed well, I used &lt;a href=&#34;https://www.prusa3d.com/product/silver-pla-filament-1kg/&#34;&gt;Prusa Silver PLA&lt;/a&gt;, and nothing special needed to be done. There are many to pick from online:&lt;/p&gt;
+&lt;!-- Move this kind of thing into the main css --&gt;
+&lt;style&gt;
+  .image-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .background-1 {
+    background: linear-gradient(180deg, rgba(228, 196, 215, .5) 0%, rgba(196, 196, 196, 0) 100%);
+    margin:  10px;
+  }
+  .background-2 {
+    background: linear-gradient(180deg, rgba(197, 196, 228, .5) 0%, rgba(196, 196, 196, 0) 100%);
+    margin:  10px;
+  }
+  .background-3 {
+    background: linear-gradient(180deg, rgba(196, 228, 201, .5) 0%, rgba(196, 196, 196, 0) 100%);
+    margin:  10px;
+  }
+&lt;/style&gt;
+&lt;!--
+  convert saber-1-orig.webp -resize 200x saber-1.png
+  convert saber-2-orig.webp -resize 200x saber-2.png
+  convert saber-3-orig.webp -resize 200x saber-3.png
+--&gt;
+&lt;div class=&#34;image-grid&#34;&gt;
+  &lt;figure class=&#34;background-2&#34;&gt;&lt;img src=&#34;saber-2.png&#34; width=&#34;200&#34;&gt;
+    &lt;figcaption&gt;&lt;h4&gt;Darth Vadar&lt;/h4&gt;
+        &lt;a href=&#34;https://www.thingiverse.com/thing:3668138&#34;&gt;thingiverse&lt;/a&gt; | 
+        &lt;a href=&#34;https://thangs.com/3dprintingworld/Collapsing-Sith-Lightsaber-23598&#34;&gt;thangs.com&lt;/a&gt;
+      &lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;figure class=&#34;background-1&#34;&gt;&lt;img src=&#34;saber-1.png&#34; width=&#34;200&#34;&gt;
+    &lt;figcaption&gt;&lt;h4&gt;Return of the Jedi&lt;/h4&gt;
+        &lt;a href=&#34;https://www.thingiverse.com/thing:3606120&#34;&gt;thingiverse&lt;/a&gt; | 
+        &lt;a href=&#34;https://thangs.com/designer/3dprintingworld/3d-model/Collapsing-LightsaberPNP-23596&#34;&gt;thangs.com&lt;/a&gt;
+    &lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;figure class=&#34;background-3&#34;&gt;&lt;img src=&#34;saber-3.png&#34; width=&#34;200&#34;&gt;
+    &lt;figcaption&gt;&lt;h4&gt;Leia&#39;s&lt;/h4&gt;
+        &lt;a href=&#34;https://thangs.com/designer/3dprintingworld/3d-model/Leia&#39;s%20Dual%20Extrusion%20Collapsing%20Lightsaber%20-25509&#34;&gt;thangs.com&lt;/a&gt;
+    &lt;/figcaption&gt;
+  &lt;/figure&gt;
+&lt;/div&gt;
+&lt;p&gt;There are slightly different versions of these files on thingiverse and thangs.com. The thingiverse versions seem to be the easiest to work with.&lt;/p&gt;
+&lt;h1 id=&#34;blade&#34;&gt;Blade&lt;/h1&gt;
+&lt;!--
+ffmpeg -i &#34;blade-extending-orig.mp4&#34; -filter:v &#34;crop=1920:360:0:360,scale=720:136&#34; &#34;blade-extending.mp4&#34;
+ffmpeg -i &#34;blade-extending-orig.mp4&#34; -filter:v &#34;crop=1920:360:0:360,scale=720:136&#34; &#34;blade-extending.webm&#34;
+--&gt;
+&lt;video width=&#34;720&#34; height=&#34;136&#34; loop muted autoplay&gt;
+  &lt;source src=&#34;blade-extending.mp4&#34; type=&#34;video/mp4&#34; /&gt;
+  &lt;source src=&#34;blade-extending.webm&#34; type=&#34;video/webm&#34; /&gt;
+  Your browser does not support the video tag.
+&lt;/video&gt;
+&lt;p&gt;The Collapsing Blade is where I had problems. These are sets of concentric telescoping tubes that taper inwards allowing them to fit within each other but not slide out all the way. 3dprintingworld offered two techniques, &lt;a href=&#34;https://thangs.com/designer/3dprintingworld/3d-model/SwordSaber-Test-Print-23601&#34;&gt;print-in-place&lt;/a&gt;, and vase printing. The former would print the multiple tubes at the same time layer by layer. Whereas vase prints each tube individually as one continuous motion from top to bottom. The vase technique produced nicer looking blades, that were thinner yet strong. However, I couldn&amp;rsquo;t get the &lt;a href=&#34;https://www.thingiverse.com/thing:3606120&#34;&gt;provided vase mode models&lt;/a&gt; to work, so I made my own in Fusion 360 (STL and Fusion files available here TODO).&lt;/p&gt;
+&lt;p&gt;The end result is ~110cm long, with five separate tubes. These are printed with 0.65mm extrusion width, and no top or bottom layers. I printed them all with the wider end of the tube as the base, but for the thinest one I found printing that upside down made for a cleaner end. I used &lt;a href=&#34;https://overture3d.com/products/overture-petg-3d-printer-filament-1?variant=42224802922750&#34;&gt;Overture Purple PETG&lt;/a&gt;, which gave a very nice &lt;a href=&#34;https://www.giantfreakinrobot.com/scifi/samuel-jackson-claims-bad-motherfcker-star-wars-lightsaber.html&#34;&gt;Samuel L. Jackson lightsaber&lt;/a&gt;.&lt;/p&gt;
+&lt;!--
+convert blade-settings-1-orig.png -resize 720x blade-settings-1.png
+convert blade-settings-2-orig.png -resize 528x blade-settings-2.png
+--&gt;
+&lt;figure&gt;&lt;img src=&#34;blade-settings-1.png&#34; width=&#34;720&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Vase mode settings for the blade&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;blade-settings-2.png&#34; width=&#34;528&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Extrusion width settings for the blade&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h1 id=&#34;blade-cover&#34;&gt;Blade Cover&lt;/h1&gt;
+&lt;p&gt;The blade fitted well, but I wanted to stop it falling out so I printed a snug fitting cover. Again this was printed in vase mode, but with a 0.55mm extrusion width, and 17 solid bottom layers (to fill up to the thin tube part). Again the STL and Fusion files available.&lt;/p&gt;
+&lt;!--
+convert cap-orig.png -resize 300x cap.png
+convert cap-orig.jpg -resize 300x cap.jpg
+--&gt;
+&lt;div class=&#34;image-grid&#34;&gt;
+&lt;figure&gt;&lt;img src=&#34;cap.png&#34; width=&#34;300&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Cover Model&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;cap.jpg&#34; width=&#34;300&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Printed Cover&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;/div&gt;
+&lt;!--
+convert cap-settings-orig.png -resize 710x cap-settings.png
+--&gt;
+&lt;figure&gt;&lt;img src=&#34;cap-settings.png&#34; width=&#34;710&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Extrusion width settings for the cap&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h1 id=&#34;finished&#34;&gt;Finished&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;b&gt;Hilt&lt;/b&gt; - Silver PLA - Normal Settings
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.thingiverse.com/thing:3606120/files&#34;&gt;LIGHTSABER-CAP.stl&lt;/a&gt; and &lt;a href=&#34;https://www.thingiverse.com/thing:3606120/files&#34;&gt;LIGHTSABER-HILT.stl&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;Blade Cover&lt;/b&gt; - Silver PLA - Vase Mode
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.printables.com/model/161150/files&#34;&gt;LightSaber_Cap_v12.stl&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;Blade&lt;/b&gt; - Purple PETG - Vase Mode
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.printables.com/model/161151/files&#34;&gt;LightSaber_Blade_v4_1.stl - LightSaber_Blade_v4_5.stl&lt;/a&gt;
+}&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!--
+ffmpeg -i &#34;saber-fun-orig.mp4&#34; -filter:v &#34;scale=720:406&#34; &#34;saber-fun.mp4&#34;
+ffmpeg -i &#34;saber-fun-orig.mp4&#34; -filter:v &#34;scale=720:406&#34; &#34;saber-fun.webm&#34;
+--&gt;
+&lt;figure&gt;
+&lt;video width=&#34;720&#34; height=&#34;406&#34; loop muted autoplay&gt;
+  &lt;source src=&#34;saber-fun.mp4&#34; type=&#34;video/mp4&#34; /&gt;
+  &lt;source src=&#34;saber-fun.webm&#34; type=&#34;video/webm&#34; /&gt;
+  Your browser does not support the video tag.
+&lt;/video&gt;
+ &lt;figcaption&gt;&lt;h4&gt;Lightsaber in action&lt;/h4&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+</description>
+    </item>
     
     <item>
       <title>Compress and Backup</title>
@@ -2125,115 +2285,6 @@ $ goredirects example.com outputdir
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This defines a new profile, that is only &amp;ldquo;activated&amp;rdquo; under Java 1.8. When activated the &lt;code&gt;&amp;lt;build&amp;gt;&lt;/code&gt; section has the two additional plugins added.
 Ensure that these plugins are no longer mentioned in the regular &lt;code&gt;&amp;lt;build&amp;gt;&lt;/code&gt; section, and only in the &lt;code&gt;&amp;lt;profile&amp;gt;&amp;lt;build&amp;gt;&lt;/code&gt; section.&lt;/p&gt;
 &lt;p&gt;An example of this change can be found in &lt;a href=&#34;https://github.com/bramp/ffmpeg-cli-wrapper/commit/4985ba3ab3ef84839bc0f4ca8b63573b77e33c67&#34;&gt;recent commit&lt;/a&gt;.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Building a better “What&#39;s My IP?” site</title>
-      <link>https://blog.bramp.net/post/2017/02/20/building-a-better-whats-my-ip-site/</link>
-      <pubDate>Mon, 20 Feb 2017 12:50:31 -0800</pubDate>
-      
-      <guid>https://blog.bramp.net/post/2017/02/20/building-a-better-whats-my-ip-site/</guid>
-      <description>&lt;p&gt;Occasionally I’m curious to know what network my device is using, if it has a IPv6 address, and who owns the address space. For example, when in a coffee shop I’m curious to know their ISP, or when roaming internationally I’m always curious to understand which mobile operator’s IP address gets assigned to device.&lt;/p&gt;
-&lt;p&gt;Most &amp;ldquo;&lt;a href=&#34;https://www.google.com/search?q=What%E2%80%99s+my+IP+address&#34;&gt;What’s my IP address&lt;/a&gt;&amp;rdquo; sites, will either only show you one of your IPv4, or IPv6. It won’t do a DNS lookup, and they rarely do a WHOIS lookup.  Doing all these things, shouldn’t be too hard, so I figured in a weekend I could hack together a site to do this.&lt;/p&gt;
-&lt;p&gt;This blog post explains the creation of &lt;a href=&#34;http://ip.bramp.net&#34;&gt;ip.bramp.net&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&#34;text-center&#34;&gt;
-  &lt;img src=&#34;screenshot.png&#34; alt=&#34;Screenshot of ip.bramp.net in action&#34;&gt;&lt;/img&gt;
-&lt;/div&gt;
-&lt;h2 id=&#34;how-to-get-both-ipv4-and-ipv6-address&#34;&gt;How to get both IPv4 and IPv6 address?&lt;/h2&gt;
-&lt;p&gt;When navigating to a website your browser makes a connection, normally over one of IPv4, or IPv6. Which one is based on the DNS records available for the website’s domain, and the preference of your OS and browser. Thus your web server sees a single incoming connection, with a single remote address. This address is typically stored in a variable named REMOTE_ADDR. Most &amp;ldquo;What’s my IP&amp;rdquo; sites then display this variable back to the user as their IP address. However, as I’d like to see both IPv4 and IPv6 addresses, I need to somehow force the browser to make two requests, one over each.&lt;/p&gt;
-&lt;p&gt;There is no API to tell a browser to use IPv6 over IPv4, however, I use a trick with two domain names. Namely, I have ip4.bramp.net, and ip6.bramp.net. Both resolve to the same web server, but the former only has &lt;a href=&#34;https://tools.ietf.org/html/rfc1035&#34;&gt;DNS A records&lt;/a&gt;, and the latter only &lt;a href=&#34;https://tools.ietf.org/html/rfc3596&#34;&gt;DNS AAAA records&lt;/a&gt;. For example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ dig ip4.bramp.net
-ip4.bramp.net.		300	IN	A	216.239.32.21
-
-$ dig AAAA ip6.bramp.net
-ip6.bramp.net.		291	IN	AAAA	2001:4860:4802:32::15
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This forces the connection to be over either IPv4, or IPv6. If a browser doesn’t support IPv6, then the connection is never made, and an error is returned. Interesting side note, some browsers uses a technique called &lt;a href=&#34;https://en.wikipedia.org/wiki/Happy_Eyeballs&#34;&gt;Happy Eyeballs&lt;/a&gt;, which tries to connect over both concurrently, but abandons the slower or worse behaving of the two connections.&lt;/p&gt;
-&lt;h2 id=&#34;how-do-you-make-two-requests-from-one-page&#34;&gt;How do you make two requests from one page?&lt;/h2&gt;
-&lt;p&gt;To force the site to make requests to both of these domains, I issue two &lt;a href=&#34;https://en.wikipedia.org/wiki/Ajax_(programming)&#34;&gt;AJAX&lt;/a&gt; queries. The typical flow looks like:&lt;/p&gt;
-&lt;div class=&#34;text-center&#34;&gt;
-  &lt;object data=&#34;diagram.svg&#34; type=&#34;image/svg+xml&#34; height=&#34;364&#34; width=&#34;583&#34; alt=&#34;diagram of AJAX calls&#34;&gt;
-    &lt;img src=&#34;diagram.png&#34; /&gt;
-  &lt;/object&gt;
-&lt;/div&gt;
-&lt;!--
-```
-user-&gt;ip.bramp.net: GET /
-ip.bramp.net-&gt;user: &lt;html...&gt;
-user-&gt;ip4.bramp.net: GET ip4.bramp.net/json
-ip4.bramp.net-&gt;user: {address: 1.2.3.4}
-user-&gt;ip6.bramp.net: GET ip6.bramp.net/json
-ip6.bramp.net-&gt;user: {address: 2001:db8::1}
-```
---&gt;
-&lt;p&gt;These AJAX queries return a simple JSON object, containing information about the requesting user. In my application an example response may look like:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddrFamily&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;IPv6&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddr&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;       &lt;span class=&#34;s2&#34;&gt;&amp;#34;2601:646:c200:b466:b446:ff32:b227:a53c&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This response can then be used to update the page, to display the appropriate address.&lt;/p&gt;
-&lt;p&gt;An experienced reader may be aware of some security issues with making AJAX request to a different domain. In particular, there are subtle ways in which a malicious site could abuse your AJAX endpoints. This is easily fixed by using cross-origin resource sharing (&lt;a href=&#34;https://en.wikipedia.org/wiki/Cross-origin_resource_sharing&#34;&gt;CORS&lt;/a&gt;) headers, in particular ip4.bramp.net, and ip6.bramp.net return the following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ curl -v ip4.bramp.net/json
-
-&amp;lt; HTTP/1.1 &lt;span class=&#34;m&#34;&gt;200&lt;/span&gt; OK
-&amp;lt; Content-Type: application/json
-&amp;lt; Access-Control-Allow-Origin: http://ip.bramp.net
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The last header, explicitly allows requests from ip.bramp.net only, and thus forbids requests from other sites. Without this header, the AJAX request would be issued, but then rejected by the browser.&lt;/p&gt;
-&lt;h2 id=&#34;what-about-the-reverse-dns-and-whois&#34;&gt;What about the reverse DNS and WHOIS?&lt;/h2&gt;
-&lt;p&gt;I noted I wanted to display both the reverse DNS, and WHOIS records. This is something the browser doesn’t support, but the server side could. Thus as part of processing the /json AJAX request, the application makes various additional requests to remote DNS and WHOIS servers.&lt;/p&gt;
-&lt;p&gt;To reverse lookup a IP address, you need to issue a &lt;a href=&#34;https://tools.ietf.org/html/rfc1035&#34;&gt;PTR DNS request&lt;/a&gt;. This is a special DNS request which requires the IP address to be formatted as a in-addr.arpa or ip6.arpa name. For example, the IP address 1.2.3.4, would become 4.3.2.1.in-addr.arpa. Then when a request is sent for that in-addr.arpa. name, the reverse DNS is returned.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ dig PTR 4.3.2.1.in-addr.arpa.
-
-4.3.2.1.in-addr.arpa.	74312	IN	PTR	c-1-2-3-4.example.com.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The in-addr.arpa transformation, and lookup is commonly provided by &lt;a href=&#34;https://linux.die.net/man/3/getaddrinfo&#34;&gt;getaddrinfo(3)&lt;/a&gt; function, which makes this easy to do.&lt;/p&gt;
-&lt;p&gt;The WHOIS lookup is a little bit more complex. Each domain is represented by a different WHOIS server, that can be determined by the ccTLD or TLD of the domain. However, with IP addresses, you must identify the Regional Internet Registry (&lt;a href=&#34;https://en.wikipedia.org/wiki/Regional_Internet_registry&#34;&gt;RIR&lt;/a&gt;) that owns the IP space. Sadly there is not a trivial mapping, so instead I issue a WHOIS query to the Internet Assigned Numbers Authority (&lt;a href=&#34;https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority&#34;&gt;IANA&lt;/a&gt;), who replies with the RIR which owns the IP address. From there, I can query the correct registry directly, typically one of &lt;a href=&#34;https://en.wikipedia.org/wiki/AFRINIC&#34;&gt;AFRINIC&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/American_Registry_for_Internet_Numbers&#34;&gt;ARIN&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Asia-Pacific_Network_Information_Centre&#34;&gt;APNIC&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Latin_America_and_Caribbean_Network_Information_Centre&#34;&gt;LACNIC&lt;/a&gt;, or &lt;a href=&#34;https://en.wikipedia.org/wiki/R%C3%A9seaux_IP_Europ%C3%A9ens_Network_Coordination_Centre&#34;&gt;RIPE NCC&lt;/a&gt;. Thus a typical WHOIS request looks like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ whois -h whois.iana.org 1.2.3.4
-
-% IANA WHOIS server
-% &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; more information on IANA, visit http://www.iana.org
-% This query returned &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; object
-refer:        whois.apnic.net
-inetnum:      1.0.0.0 - 1.255.255.255
-organisation: APNIC
-status:       ALLOCATED
-whois:        whois.apnic.net
-changed:      2010-01
-source:       IANA
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ whois -h whois.apnic.net 1.2.3.4
-
-% &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;whois.apnic.net&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
-% Whois data copyright terms    http://www.apnic.net/db/dbcopyright.html
-% Information related to &lt;span class=&#34;s1&#34;&gt;&amp;#39;1.2.3.0 - 1.2.3.255&amp;#39;&lt;/span&gt;
-inetnum:        1.2.3.0 - 1.2.3.255
-netname:        Example-prefix
-descr:          APNIC Example Project
-
-...
-
-% This query was served by the APNIC Whois Service version 1.69.1-APNICv1r0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Both the reverse DNS and WHOIS response is returned as part of the AJAX JSON response.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddrFamily&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;  &lt;span class=&#34;s2&#34;&gt;&amp;#34;IPv4&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddr&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;        &lt;span class=&#34;s2&#34;&gt;&amp;#34;1.2.3.4&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddrReverse&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;c-1-2-3-4.example.com.&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-  &lt;span class=&#34;nt&#34;&gt;&amp;#34;RemoteAddrWhois&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;   &lt;span class=&#34;s2&#34;&gt;&amp;#34;
-&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    % IANA WHOIS server
-&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    % for more information on IANA, visit http://www.iana.org
-&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    % This query returned 1 object
-&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    refer:        whois.apnic.net
-&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    inetnum:      1.0.0.0 - 1.255.255.255
-&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    organisation: APNIC
-&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    status:       ALLOCATED
-&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    ...
-&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;  &amp;#34;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;what-about-proxies&#34;&gt;What about proxies?&lt;/h2&gt;
-&lt;p&gt;Many users are behind proxies, which connects to the webserver on the user’s behalf. Thus the REMOTE_ADDR is the address of the proxy, not the actual user.  Some proxies have a workaround for this, by placing the user’s real IP address in the &lt;a href=&#34;https://en.wikipedia.org/wiki/X-Forwarded-For&#34;&gt;X-Forwarded-For&lt;/a&gt; (XFF), or newer &lt;a href=&#34;https://tools.ietf.org/html/rfc7239&#34;&gt;Forwarded&lt;/a&gt; HTTP header. However, these headers are easily set by the user, so can not be trusted. Thus for the moment I ignore these headers, and will instead display the proxy’s IP address. It is conceivable to create a whitelist of proxies, that I would trust the XFF header, but for now I didn’t want that headache. Especially since the server side issues requests to external hosts, if I trusted the XFF header, an abusive user could use my site as a proxy, or even use my site as a relay to &lt;a href=&#34;https://en.wikipedia.org/wiki/Denial-of-service_attack&#34;&gt;denial of service&lt;/a&gt; these remote servers.&lt;/p&gt;
-&lt;h2 id=&#34;tying-this-all-together&#34;&gt;Tying this all together&lt;/h2&gt;
-&lt;p&gt;Server side I use &lt;a href=&#34;https://cloud.google.com/appengine/&#34;&gt;App Engine&lt;/a&gt;, and &lt;a href=&#34;https://golang.org/&#34;&gt;Go&lt;/a&gt;. Why? Because I wanted to play with App Engine, and I’m a fan of Go right now. On the client side I use &lt;a href=&#34;http://getbootstrap.com&#34;&gt;Bootstrap&lt;/a&gt; to make the page look nice, and &lt;a href=&#34;https://angularjs.org&#34;&gt;AngularJS&lt;/a&gt;. AngularJS because I’m familiar with it, and because it is really easy to issue an AJAX requests and transform the result into a web page.&lt;/p&gt;
-&lt;p&gt;I like App Engine, because of the &lt;a href=&#34;https://en.wikipedia.org/wiki/Platform_as_a_service&#34;&gt;PaaS&lt;/a&gt; model. It keeps my costs down, and I don’t need to setup a virtual machine, or create docker images. Instead I just write a single binary and upload it. However, App Engine does place some restrictions on what I can do, in particular limiting outbound connections to ones made via its own library. Thus I had to jump through a few hoops to make the reverse DNS and WHOIS requests. Instead of using &lt;a href=&#34;https://linux.die.net/man/3/getaddrinfo&#34;&gt;getaddrinfo(3)&lt;/a&gt;, I had to issue DNS requests myself using App Engine’s socket library and my own UDP packets on port 53. Luckily the Go DNS library, &lt;a href=&#34;https://github.com/miekg/dns&#34;&gt;miekg/dns&lt;/a&gt;, makes this relatively easy.  Similarly I had to implement the WHOIS lookup by hand, but again aided by a library, this time &lt;a href=&#34;https://github.com/domainr/whois&#34;&gt;domainr/whois&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;In conclusion, though the use of multiple domain names, some AJAX queries, and server side support. I was able to make &amp;ldquo;(a better) What&amp;rsquo;s My IP Address?&amp;rdquo; site in under a weekend.&lt;/p&gt;
-&lt;p&gt;Check out the &lt;a href=&#34;https://github.com/bramp/myip&#34;&gt;full source on github&lt;/a&gt;, or view the site at &lt;a href=&#34;http://ip.bramp.net/&#34;&gt;ip.bramp.net&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
