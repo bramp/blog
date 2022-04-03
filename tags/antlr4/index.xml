@@ -101,7 +101,7 @@ detail, but the ANTLR site has [compressive documentation](https://githu
 b.com/antlr/antlr4/blob/master/doc/grammars.md).&lt;/p&gt;
 &lt;p&gt;As we go along, the &lt;a href=&#34;https://github.com/bramp/goadvent-antlr&#34;&gt;source is available to all
 examples&lt;/a&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;// Calc.g4
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;// Calc.g4
 grammar Calc;
 
 // Tokens

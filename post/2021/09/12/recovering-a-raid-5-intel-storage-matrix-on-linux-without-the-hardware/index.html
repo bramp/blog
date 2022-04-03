@@ -113,19 +113,19 @@ window.dataLayer = window.dataLayer || [];
 </ol>
 <h1 id=1-create-disk-images>1. Create disk images</h1>
 <p>I have a <a href="https://www.google.com/search?q=usb+sata+adapter">USB SATA adapter</a>, and connected one drive at a time to my PC. This computer has a single local 12 TB drive, which I would store the disk images to. I start to create the disk images using:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ sudo dd <span class=k>if</span><span class=o>=</span>/dev/sdc <span class=nv>of</span><span class=o>=</span>1.raw
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>$ sudo dd <span class=k>if</span><span class=o>=</span>/dev/sdc <span class=nv>of</span><span class=o>=</span>1.raw
 </code></pre></div><p>This worked great for the first disk, but the 2nd disk fail around the 600GB point. It seems this drive has developed bad blocks, but I kept my fingers crossed that this was still recoverable since this was RAID-5 after all. I switched up to using <a href=https://www.gnu.org/software/ddrescue/ ><code>ddrescue</code></a>.</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ sudo ddrescue /dev/sdc 2.raw 2.log --try-again --force --verbose
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>$ sudo ddrescue /dev/sdc 2.raw 2.log --try-again --force --verbose
 </code></pre></div><p>This worked great, and was able to create a full 750GB image, slowly retiring the failed blocks, recovering as much as possible. After about a week of copying I had four disk images, <code>1.raw</code>, <code>2.raw</code>, <code>3.raw</code>, <code>4.raw</code>, with only the 2nd disk having problems.</p>
 <p>I now, <code>chmod -w *.raw</code> to remove write permissions to the images, helping to prevent a future step accidently altered the images.</p>
 <h1 id=2-mounting-the-images>2. Mounting the images</h1>
 <p>To mount the images I use <code>losetup</code> (roughly following instructions <a href=https://askubuntu.com/questions/663027/create-raid-array-of-image-files>here</a>), specifically:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ sudo losetup -r /dev/loop31 1.raw
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>$ sudo losetup -r /dev/loop31 1.raw
 $ sudo losetup -r /dev/loop32 2.raw
 $ sudo losetup -r /dev/loop33 3.raw
 $ sudo losetup -r /dev/loop34 4.raw
 </code></pre></div><p>Later I would use <code>sudo losetup -d /dev/loop3[1234]</code> to unmount these images. I then decided to inspect these drives, to see what partitions were on them:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ sudo fdisk -l /dev/loop31
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>$ sudo fdisk -l /dev/loop31
 
 Disk /dev/loop31: 698.65 GiB, <span class=m>750156374016</span> bytes, <span class=m>1465149168</span> sectors
 Units: sectors of <span class=m>1</span> * <span class=nv>512</span> <span class=o>=</span> <span class=m>512</span> bytes
@@ -136,13 +136,13 @@ Disk identifier: 0xd204616a
 
 Device        Boot Start        End    Sectors Size Id Type
 /dev/loop31p1          <span class=m>1</span> <span class=m>4294967295</span> <span class=m>4294967295</span>   2T ee GPT
-</code></pre></div><div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ sudo fdisk -l /dev/loop32
+</code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>$ sudo fdisk -l /dev/loop32
 
 Disk /dev/loop32: 698.65 GiB, <span class=m>750156374016</span> bytes, <span class=m>1465149168</span> sectors
 Units: sectors of <span class=m>1</span> * <span class=nv>512</span> <span class=o>=</span> <span class=m>512</span> bytes
 Sector size <span class=o>(</span>logical/physical<span class=o>)</span>: <span class=m>512</span> bytes / <span class=m>512</span> bytes
 I/O size <span class=o>(</span>minimum/optimal<span class=o>)</span>: <span class=m>512</span> bytes / <span class=m>512</span> bytes
-</code></pre></div><div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ sudo fdisk -l /dev/loop33
+</code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>$ sudo fdisk -l /dev/loop33
 
 Disk /dev/loop33: 698.65 GiB, <span class=m>750156374016</span> bytes, <span class=m>1465149168</span> sectors
 Units: sectors of <span class=m>1</span> * <span class=nv>512</span> <span class=o>=</span> <span class=m>512</span> bytes
@@ -160,12 +160,12 @@ Device        Boot      Start        End    Sectors   Size Id Type
 <h1 id=3-use-mdadm-to-construct-an-array>3. Use <code>mdadm</code> to construct an array.</h1>
 <p>This is where it got difficult, due to limitations of mounting local disks, and the Intel Storage Matrix support.</p>
 <p>I started by asking <code>mdadm</code> to examine the images (telling it to use <code>imsm</code>):</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ sudo mdadm --examine -e imsm /dev/loop31
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>$ sudo mdadm --examine -e imsm /dev/loop31
 mdadm: /dev/loop31 is not attached to Intel<span class=o>(</span>R<span class=o>)</span> RAID controller.
 mdadm: Failed to retrieve serial <span class=k>for</span> /dev/loop31
 mdadm: Failed to load all information sections on /dev/loop31
 </code></pre></div><p>Well that’s not a great start. If I understand the error <code>/dev/loop31 is not attached to Intel(R) RAID controller</code> it implies I need to connect my drive (or in this case loopback disk image) via a real RAID controller. Well that defeats my whole plan. After some googling, I found this <a href=https://askubuntu.com/questions/1239082/reassemble-intel-rst-raid-on-another-mainboard>stackoverflow post</a> pointing out there is a <code>IMSM_NO_PLATFORM=1</code> environment various I could set. The messaging <code>is not attached to Intel(R) RAID controller</code> was really a warning, and had no actual bearing on the problem.</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ sudo <span class=nv>IMSM_NO_PLATFORM</span><span class=o>=</span><span class=m>1</span> mdadm --examine -e imsm <span class=se>\
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>$ sudo <span class=nv>IMSM_NO_PLATFORM</span><span class=o>=</span><span class=m>1</span> mdadm --examine -e imsm <span class=se>\
 </span><span class=se></span>  /dev/loop31 /dev/loop32 /dev/loop33 /dev/loop34
 mdadm: no recogniseable superblock on /dev/loop34
 mdadm: Cannot assemble mbr metadata on /dev/loop33
@@ -174,7 +174,7 @@ mdadm: Cannot assemble mbr metadata on /dev/loop31
 </code></pre></div><p>A new set of errors, but they did not look promising. More head scratching, and I hit a bit of a dead end. I now wondered if the drives were corrupt, making the superblocks unreadable. I decided to start to read the source code for <code>mdadm</code> to try and understand the superblock format, and see what was wrong.</p>
 <p>It indicated the <a href=https://github.com/neilbrown/mdadm/blob/5f4184557a98bb641a7889e280265109c73e2f43/super-intel.c#L242>superblock</a> (the data structure containing information about the array) was two sectors from the end of the disk, starting with the string <code>Intel Raid ISM Cfg Sig.</code>.</p>
 <p>Guessing that a sector is 512 bytes long, I did the following:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ tail -c <span class=m>1024</span> 3.raw  <span class=p>|</span> hd
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>$ tail -c <span class=m>1024</span> 3.raw  <span class=p>|</span> hd
 
 <span class=m>00000000</span>  <span class=m>49</span> 6e <span class=m>74</span> <span class=m>65</span> 6c <span class=m>20</span> <span class=m>52</span> <span class=m>61</span>  <span class=m>69</span> <span class=m>64</span> <span class=m>20</span> <span class=m>49</span> <span class=m>53</span> 4d <span class=m>20</span> <span class=m>43</span>  <span class=p>|</span>Intel Raid ISM C<span class=p>|</span>
 <span class=m>00000010</span>  <span class=m>66</span> <span class=m>67</span> <span class=m>20</span> <span class=m>53</span> <span class=m>69</span> <span class=m>67</span> 2e <span class=m>20</span>  <span class=m>31</span> 2e <span class=m>33</span> 2e <span class=m>30</span> <span class=m>30</span> <span class=m>00</span> <span class=m>00</span>  <span class=p>|</span><span class=nb>fg</span> Sig. 1.3.00..<span class=p>|</span>
@@ -208,7 +208,7 @@ mdadm: Cannot assemble mbr metadata on /dev/loop31
 </code></pre></div><p>Boom, the super block was there, started with a valid header, and even had other fields that looked correct (e.g S13UJ1KQ being a serial number of the drive).</p>
 <p>Ok, so now I’m confused about what is wrong, and I wondered if this was a bug in <code>mdadm</code>. Going back I remember the first error I got contained <code>Failed to retrieve serial</code>, and I noticed the serial numbers were in the super block (e.g S13UJ1KQ). It then occurred to me, that once I imaged the hard drives, the images don’t contain the serial numbers!</p>
 <p>Inspecting the code some more, it would fail with that error if it was unable to read the drive’s serial number. The loopback device doesn’t support serial numbers, so this started to make sense. I did however found a undocumented environment variable <code>IMSM_DEVNAME_AS_SERIAL</code>, which would instead of reading the serial number from the hardware, just use the name of the device as the serial (e.g <code>/dev/loop31</code>). This feature seems explicitly designed to help testing the <code>mdadm</code> codebase.</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ sudo <span class=nv>IMSM_DEVNAME_AS_SERIAL</span><span class=o>=</span><span class=m>1</span> <span class=nv>IMSM_NO_PLATFORM</span><span class=o>=</span><span class=m>1</span> mdadm --examine -e imsm /dev/loop31 /dev/loop32 /dev/loop33 /dev/loop34
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>$ sudo <span class=nv>IMSM_DEVNAME_AS_SERIAL</span><span class=o>=</span><span class=m>1</span> <span class=nv>IMSM_NO_PLATFORM</span><span class=o>=</span><span class=m>1</span> mdadm --examine -e imsm /dev/loop31 /dev/loop32 /dev/loop33 /dev/loop34
 …
 /dev/loop31:
           Magic : Intel Raid ISM Cfg Sig.
@@ -267,13 +267,13 @@ mdadm: Cannot assemble mbr metadata on /dev/loop31
 <p>This made me ponder that if I was ever going to create a RAID array implementation, I would not make it depend on information from the hardware. How do folks re-image disks? What is wrong with some GUID in the superblock to identify the disk? Ok digression aside.</p>
 </blockquote>
 <p>To move forward, I needed to trick <code>mdadm</code> to think that serial <code>/dev/loop31</code> was actually the real hardware. I went back to my drives, and visibility inspected them to check the serial numbers.</p>
-<pre><code>  Disk00 Serial : S13UJ1KQ403337   1.raw
+<pre tabindex=0><code>  Disk00 Serial : S13UJ1KQ403337   1.raw
   Disk01 Serial : S13UJDWQ346457   2.raw
   Disk02 Serial : S13UJDWQ346668   4.raw
   Disk03 Serial : S13UJ1KQ403324   3.raw
 </code></pre><p>At this point, I realised I had accidentally swapped drives 3 and 4. Quickly renaming them got them into the correct order.</p>
 <p>Since I had already looked over the mdadm source code, it seemed a simple clean codebase, so I decided to change it to accept serial numbers. After a little while I did the hackiest thing possible:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-diff data-lang=diff><span class=gh>diff --git a/super-intel.c b/super-intel.c
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-diff data-lang=diff><span class=gh>diff --git a/super-intel.c b/super-intel.c
 </span><span class=gh>index da376251..d466d911 100644
 </span><span class=gh></span><span class=gd>--- a/super-intel.c
 </span><span class=gd></span><span class=gi>+++ b/super-intel.c
@@ -298,25 +298,25 @@ mdadm: Cannot assemble mbr metadata on /dev/loop31
 </span><span class=gi></span>        if (strncmp(name, &#34;nvme&#34;, 4) != 0)
                 return 1;
 </code></pre></div><p>The <code>nvme_get_serial</code> function now had hard coded serial numbers when reading loop3[1234]. This obviously isn’t a generalised solution, but worked for me. Go open source!.</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ make mdadm
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>$ make mdadm
 …
 
 $ sudo <span class=nv>IMSM_NO_PLATFORM</span><span class=o>=</span><span class=m>1</span> ./mdadm --examine -e imsm /dev/loop31 /dev/loop32 /dev/loop33 /dev/loop34
 </code></pre></div><p>Examine looked good, so the moment of truth, let’s assemble.</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ sudo <span class=nv>IMSM_NO_PLATFORM</span><span class=o>=</span><span class=m>1</span> ./mdadm --assemble --readonly -e imsm /dev/md0 /dev/loop31 /dev/loop32 /dev/loop33 /dev/loop34
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>$ sudo <span class=nv>IMSM_NO_PLATFORM</span><span class=o>=</span><span class=m>1</span> ./mdadm --assemble --readonly -e imsm /dev/md0 /dev/loop31 /dev/loop32 /dev/loop33 /dev/loop34
 mdadm: Container /dev/md0 has been assembled with <span class=m>3</span> drives
 </code></pre></div><p>Ok mixed success, it says 3 drives, but I would expect 4… But let’s keep going</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ sudo ./mdadm --assemble --scan
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>$ sudo ./mdadm --assemble --scan
 mdadm: Started /dev/md/RAID_0 with <span class=m>3</span> devices
 </code></pre></div><p>W00t! It Started without errors!</p>
 <p>I now have a <code>/dev/md0</code>, <code>/dev/md127</code> and <code>/dev/md127p1</code> devices.</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ sudo mount -o ro /dev/md127p1 /mnt/raid5
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>$ sudo mount -o ro /dev/md127p1 /mnt/raid5
 
 $ ls /mnt/raid5
 … lots of old files...
 </code></pre></div><p>YAY. Finished!</p>
 <p>Ok, I’m not sure why it says three drives not four.</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ sudo ./mdadm --detail /dev/md127
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>$ sudo ./mdadm --detail /dev/md127
 /dev/md127:
          Container : /dev/md0, member <span class=m>0</span>
         Raid Level : raid5
@@ -346,7 +346,7 @@ Consistency Policy : resync
 <h1 id=conclusion>Conclusion</h1>
 <p>This did not seem the easiest task, and there were a few road bumps along the way. Hopefully the hacks in here will help someone else out in a similar situation.</p>
 <p>To finally clean up, you can run this:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>$ sudo umount /mnt/raid5
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>$ sudo umount /mnt/raid5
 $ sudo mdadm --stop /dev/md127
 $ sudo mdadm --stop /dev/md0
 $ sudo losetup -d /dev/loop3<span class=o>[</span>1234<span class=o>]</span>
@@ -375,7 +375,7 @@ $ sudo losetup -d /dev/loop3<span class=o>[</span>1234<span class=o>]</span>
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2021. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
 </footer>
 </div>
 </div>

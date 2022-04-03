@@ -178,7 +178,7 @@ mdadm: Cannot assemble mbr metadata on /dev/loop31
 &lt;p&gt;This made me ponder that if I was ever going to create a RAID array implementation, I would not make it depend on information from the hardware. How do folks re-image disks? What is wrong with some GUID in the superblock to identify the disk? Ok digression aside.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;To move forward, I needed to trick &lt;code&gt;mdadm&lt;/code&gt; to think that serial &lt;code&gt;/dev/loop31&lt;/code&gt; was actually the real hardware. I went back to my drives, and visibility inspected them to check the serial numbers.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  Disk00 Serial : S13UJ1KQ403337   1.raw
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;  Disk00 Serial : S13UJ1KQ403337   1.raw
   Disk01 Serial : S13UJDWQ346457   2.raw
   Disk02 Serial : S13UJDWQ346668   4.raw
   Disk03 Serial : S13UJ1KQ403324   3.raw

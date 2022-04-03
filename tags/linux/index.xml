@@ -178,7 +178,7 @@ mdadm: Cannot assemble mbr metadata on /dev/loop31
 &lt;p&gt;This made me ponder that if I was ever going to create a RAID array implementation, I would not make it depend on information from the hardware. How do folks re-image disks? What is wrong with some GUID in the superblock to identify the disk? Ok digression aside.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;To move forward, I needed to trick &lt;code&gt;mdadm&lt;/code&gt; to think that serial &lt;code&gt;/dev/loop31&lt;/code&gt; was actually the real hardware. I went back to my drives, and visibility inspected them to check the serial numbers.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  Disk00 Serial : S13UJ1KQ403337   1.raw
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;  Disk00 Serial : S13UJ1KQ403337   1.raw
   Disk01 Serial : S13UJDWQ346457   2.raw
   Disk02 Serial : S13UJDWQ346668   4.raw
   Disk03 Serial : S13UJ1KQ403324   3.raw
@@ -271,7 +271,7 @@ $ sudo losetup -d /dev/loop3&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;1234&lt;
       
       <guid>https://blog.bramp.net/post/2018/05/26/certbot-unexpected-error/</guid>
       <description>&lt;p&gt;I got a &lt;a href=&#34;https://letsencrypt.org/docs/expiration-emails/&#34;&gt;nice warning email&lt;/a&gt; from &lt;a href=&#34;https://letsencrypt.org/&#34;&gt;Let&amp;rsquo;s Encrypt&lt;/a&gt; that my cert was going to expire soon, and hadn&amp;rsquo;t been renewed. I found in  &lt;code&gt;/var/log/letsencrypt/letsencrypt.log&lt;/code&gt; the following error:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Renewal configuration file /etc/letsencrypt/renewal/mydomain.bramp.net.conf (cert: mydomain.bramp.net) produced an unexpected error: &#39;Namespace&#39; object has no attribute &#39;dns_cloudflare_credentials&#39;. Skipping.
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Renewal configuration file /etc/letsencrypt/renewal/mydomain.bramp.net.conf (cert: mydomain.bramp.net) produced an unexpected error: &#39;Namespace&#39; object has no attribute &#39;dns_cloudflare_credentials&#39;. Skipping.
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I manually ran certbot in dry-run mode and it worked fine:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo certbot renew --dry-run
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So this error only occurs when certbot is running as a cron job. Looking at &lt;code&gt;/etc/cron.d/certbot&lt;/code&gt; I see the user runs as root, so I tried the &lt;code&gt;certbot renew --dry-run&lt;/code&gt; again, but this time as the root user:&lt;/p&gt;
