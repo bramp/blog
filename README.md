@@ -61,11 +61,11 @@ or any of the [other styles](https://bootstrapdocs.com/v3.2.0/docs/css/#tables),
 Resize Images
 ---------------
 ```bash
-# Ensure the images are at a resonable size
-convert orig.png -resize 200x resize.png
+# Ensure the images are at a resonable size (720px wide by whatever height)
+convert orig.png -resize 720x resize.png
 
 # Consider retina displays
-convert orig.png -resize 400x resize@2x.png
+convert orig.png -resize 1440x resize@2x.png
 ```
 
 Optimise Images
