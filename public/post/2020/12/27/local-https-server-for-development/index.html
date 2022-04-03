@@ -107,9 +107,9 @@ window.dataLayer = window.dataLayer || [];
 <p>Many of the <a href=https://matthewhoelter.com/2019/10/21/how-to-setup-https-on-your-local-development-environment-localhost-in-minutes.html>instructions out there</a> create a self-signed certificate, that you install to be trusted locally. I wanted my development server to be accessible from other devices on my network, and I didn&rsquo;t want the hassle of installing this self-signed cert. Instead I wanted a SSL certificate that uses a real/trusted CA.</p>
 <p>Enter <a href=https://letsencrypt.org/ >Let&rsquo;s Encrypt</a>, a free service to provide SSL certificates, providing you can prove you own the domain. To go about this, I did the following on my macbook:</p>
 <h1 id=install-certbot-to-generate-the-cert>Install Certbot (to generate the cert)</h1>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>brew install certbot
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>brew install certbot
 </code></pre></div><p>There are a few ways to prove you own a domain, the HTTP based ones require a public web server. Since my development server is only on my local network, I&rsquo;m going to use a DNS based proof. Since I use Cloudflare for my DNS, I&rsquo;ll be using their plugin.</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>pip3 install certbot-dns-cloudflare
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>pip3 install certbot-dns-cloudflare
 </code></pre></div><h1 id=setup-the-domain-localbrampnet>Setup the domain (local.bramp.net)</h1>
 <p>I use cloudflare to host the DNS for my domain, so I setup a new domain, local.bramp.net, that points to an internal IP address (192.168.0.123). This domain won&rsquo;t actually be used via the Internet, but will happily work for any devices on my local network.</p>
 <figure><img height=208 src=setup-dns.png width=720 /><figcaption>
@@ -123,7 +123,7 @@ window.dataLayer = window.dataLayer || [];
 </figure>
 <p>That will give you a token, that is a long string of letters and numbers.</p>
 <h1 id=configure-certbot>Configure Certbot</h1>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell><span class=c1># Create a place to store your secrets, that only you can access</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=c1># Create a place to store your secrets, that only you can access</span>
 
 mkdir ~/.secrets
 cat <span class=s>&lt;&lt;EOF &gt; ~/.secrets/cloudflare.ini
@@ -133,7 +133,7 @@ cat <span class=s>&lt;&lt;EOF &gt; ~/.secrets/cloudflare.ini
 chmod <span class=m>0700</span> ~/.secrets/
 chmod <span class=m>0400</span> ~/.secrets/cloudflare.ini
 </code></pre></div><h1 id=generate-the-certificate>Generate the Certificate</h1>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>certbot certonly <span class=se>\
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>certbot certonly <span class=se>\
 </span><span class=se></span>  --config-dir ~/.secrets/ <span class=se>\
 </span><span class=se></span>  --work-dir ~/.secrets/ <span class=se>\
 </span><span class=se></span>  --logs-dir ~/.secrets/ <span class=se>\
@@ -141,29 +141,29 @@ chmod <span class=m>0400</span> ~/.secrets/cloudflare.ini
 </span><span class=se></span>  --dns-cloudflare-credentials ~/.secrets/cloudflare.ini <span class=se>\
 </span><span class=se></span>  -d local.bramp.net
 </code></pre></div><p>and voila:</p>
-<pre><code> - Congratulations! Your certificate and chain have been saved at:
+<pre tabindex=0><code> - Congratulations! Your certificate and chain have been saved at:
    /Users/bramp/.secrets/live/local.bramp.net/fullchain.pem
    Your key file has been saved at:
    /Users/bramp/.secrets/live/local.bramp.net/privkey.pem
 </code></pre><p>The <code>privkey.pem</code> is important to keep secret. Normally certbot runs as root, but here we run it as your user for convenience.</p>
 <p>If you want this to automatically renew, just run to add a renewal that occurs twice daily at a random minute after 12pm and 12am.</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell><span class=c1># List your current crontab, and append certbot renewal</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=c1># List your current crontab, and append certbot renewal</span>
 
 <span class=o>(</span>crontab -l <span class=p>;</span> <span class=nb>echo</span> <span class=s2>&#34;</span><span class=k>$((</span> RANDOM <span class=o>%</span> <span class=m>60</span> <span class=k>))</span><span class=s2> 0,12 * * * </span><span class=k>$(</span>which certbot<span class=k>)</span><span class=s2> renew -q --config-dir ~/.secrets/ --work-dir ~/.secrets/ --logs-dir ~/.secrets/&#34;</span><span class=o>)</span> <span class=p>|</span> crontab -
 </code></pre></div><p>Or you can renew (all certificates) on demand with a simple:</p>
-<pre><code>certbot renew \
+<pre tabindex=0><code>certbot renew \
   --config-dir ~/.secrets/ \
   --work-dir ~/.secrets/ \
   --logs-dir ~/.secrets/
 </code></pre><h1 id=install-a-simple-https-web-server>Install a simple HTTPS web server</h1>
 <p>I use <a href=https://github.com/http-party/http-server>http-server</a>, &ldquo;a simple, zero-configuration command-line http server.&rdquo;. It supports many useful features, including SSL.</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>brew install http-server
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>brew install http-server
 </code></pre></div><h1 id=running-the-https-web-server>Running the HTTPS web server</h1>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell>http-server -S <span class=se>\
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>http-server -S <span class=se>\
 </span><span class=se></span>  -C ~/.secrets/live/local.bramp.net/fullchain.pem <span class=se>\
 </span><span class=se></span>  -K ~/.secrets/live/local.bramp.net/privkey.pem
 </code></pre></div><p>You may wish to alias this to something shorter, for example:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell><span class=nb>alias</span> <span class=nv>https</span><span class=o>=</span><span class=s2>&#34;http-server -S \
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=nb>alias</span> <span class=nv>https</span><span class=o>=</span><span class=s2>&#34;http-server -S \
 </span><span class=s2>  -C ~/.secrets/live/local.bramp.net/fullchain.pem \
 </span><span class=s2>  -K ~/.secrets/live/local.bramp.net/privkey.pem&#34;</span>
 </code></pre></div><p>Now you can run <code>https</code> from any directory and it&rsquo;ll be served over SSL.</p>
@@ -199,7 +199,7 @@ chmod <span class=m>0400</span> ~/.secrets/cloudflare.ini
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2021. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
 </footer>
 </div>
 </div>

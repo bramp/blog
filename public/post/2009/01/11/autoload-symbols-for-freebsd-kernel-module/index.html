@@ -106,10 +106,10 @@ window.dataLayer = window.dataLayer || [];
 </p>
 <div class=post itemprop=articleBody>
 <p>When debugging FreeBSD kernel modules with GDB, you have to tell GDB the correct symbols for the module, and the location the module is loaded in RAM. This is helpfully explained in the <a href=http://www.freebsd.org/doc/en/books/developers-handbook/kerneldebug-kld.html>FreeBSD Developers’ Handbook</a>. First you must load the module, then run kldstat, note down the address the module is loaded at, and finally execute a command in GDB that looks like the following.</p>
-<pre><code>add-symbol-file /sys/modules/linux/linux.ko 0xc0ae22d0
+<pre tabindex=0><code>add-symbol-file /sys/modules/linux/linux.ko 0xc0ae22d0
 </code></pre><p>However, I find this process tedious, so instead I wrote a quick python script which can be used with an <a href=http://sourceware.org/gdb/wiki/PythonGdb>experimental gdb built with python scripting support</a>.</p>
 <p>So here is the script:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-python data-lang=python><span class=kn>import</span> <span class=nn>gdb</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=kn>import</span> <span class=nn>gdb</span>
 <span class=k>class</span> <span class=nc>FreeBSD_ReloadModuleSymbols</span> <span class=p>(</span><span class=n>gdb</span><span class=o>.</span><span class=n>Command</span><span class=p>):</span>
 	<span class=s2>&#34;Reloads the symbol files for all loaded kernel modules&#34;</span>
 
@@ -130,7 +130,7 @@ window.dataLayer = window.dataLayer || [];
 
 <span class=n>FreeBSD_ReloadModuleSymbols</span> <span class=p>()</span>
 </code></pre></div><p>You load this by running the following command in GDB:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=nb>source</span> freebsd_load_modules.py
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nb>source</span> freebsd_load_modules.py
 </code></pre></div><p>Then the command <code>reload-freebsd-module-symbols</code> is magically added to GDB. Running this command will parse the linker table inside the FreeBSD kernel, determine which modules are loaded, and attempt to load their symbols.</p>
 </div>
 </article>
@@ -156,7 +156,7 @@ window.dataLayer = window.dataLayer || [];
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2021. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
 </footer>
 </div>
 </div>

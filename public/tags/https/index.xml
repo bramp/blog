@@ -54,7 +54,7 @@ chmod &lt;span class=&#34;m&#34;&gt;0400&lt;/span&gt; ~/.secrets/cloudflare.ini
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --dns-cloudflare-credentials ~/.secrets/cloudflare.ini &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -d local.bramp.net
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and voila:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt; - Congratulations! Your certificate and chain have been saved at:
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; - Congratulations! Your certificate and chain have been saved at:
    /Users/bramp/.secrets/live/local.bramp.net/fullchain.pem
    Your key file has been saved at:
    /Users/bramp/.secrets/live/local.bramp.net/privkey.pem
@@ -64,7 +64,7 @@ chmod &lt;span class=&#34;m&#34;&gt;0400&lt;/span&gt; ~/.secrets/cloudflare.ini
 
 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;crontab -l &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$((&lt;/span&gt; RANDOM &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;60&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;))&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; 0,12 * * * &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;which certbot&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; renew -q --config-dir ~/.secrets/ --work-dir ~/.secrets/ --logs-dir ~/.secrets/&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; crontab -
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Or you can renew (all certificates) on demand with a simple:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;certbot renew \
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;certbot renew \
   --config-dir ~/.secrets/ \
   --work-dir ~/.secrets/ \
   --logs-dir ~/.secrets/

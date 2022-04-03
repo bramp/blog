@@ -101,7 +101,7 @@ go run wordcount.go &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    --staging_location gs://&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;BUCKET&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;?&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;/binaries/ &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    --worker_harness_container_image&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;apache-docker-beam-snapshots-docker.bintray.io/beam/go:20180515
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If this works correctly you’ll see something similar to the following printed:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Cross-compiling .../wordcount.go as .../worker-1-1544590905654809000
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Cross-compiling .../wordcount.go as .../worker-1-1544590905654809000
 Staging worker binary:  .../worker-1-1544590905654809000
 Submitted job: 2018-12-11_21_02_29
 Console: https://console.cloud.google.com/dataflow/job/2018-12-11...
@@ -200,7 +200,7 @@ Job succeeded!
 	&lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;RegisterType&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;reflect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;TypeOf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Painting&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{}))&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you forget to register the type, a error will occur at Runtime, for example:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;java.util.concurrent.ExecutionException: java.lang.RuntimeException: Error received from SDK harness for instruction -224: execute failed: panic: reflect: Call using main.Painting as type struct { Artist string; Title string; ... } goroutine 70 [running]:
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;java.util.concurrent.ExecutionException: java.lang.RuntimeException: Error received from SDK harness for instruction -224: execute failed: panic: reflect: Call using main.Painting as type struct { Artist string; Title string; ... } goroutine 70 [running]:
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This can be a little frustrating, as when running the pipeline locally with the &lt;code&gt;direct&lt;/code&gt; runner, it does not marshal your data, so errors like this aren’t exposed until running on Dataflow.&lt;/p&gt;
 &lt;p&gt;Now we have a collection of Paintings, we group them by decade:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// GroupByDecade takes a PCollection&amp;lt;Painting&amp;gt; and returns a 

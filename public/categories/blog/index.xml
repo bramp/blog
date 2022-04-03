@@ -198,7 +198,7 @@ mdadm: Cannot assemble mbr metadata on /dev/loop31
 &lt;p&gt;This made me ponder that if I was ever going to create a RAID array implementation, I would not make it depend on information from the hardware. How do folks re-image disks? What is wrong with some GUID in the superblock to identify the disk? Ok digression aside.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;To move forward, I needed to trick &lt;code&gt;mdadm&lt;/code&gt; to think that serial &lt;code&gt;/dev/loop31&lt;/code&gt; was actually the real hardware. I went back to my drives, and visibility inspected them to check the serial numbers.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;  Disk00 Serial : S13UJ1KQ403337   1.raw
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;  Disk00 Serial : S13UJ1KQ403337   1.raw
   Disk01 Serial : S13UJDWQ346457   2.raw
   Disk02 Serial : S13UJDWQ346668   4.raw
   Disk03 Serial : S13UJ1KQ403324   3.raw
@@ -599,7 +599,7 @@ chmod &lt;span class=&#34;m&#34;&gt;0400&lt;/span&gt; ~/.secrets/cloudflare.ini
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --dns-cloudflare-credentials ~/.secrets/cloudflare.ini &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -d local.bramp.net
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and voila:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt; - Congratulations! Your certificate and chain have been saved at:
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; - Congratulations! Your certificate and chain have been saved at:
    /Users/bramp/.secrets/live/local.bramp.net/fullchain.pem
    Your key file has been saved at:
    /Users/bramp/.secrets/live/local.bramp.net/privkey.pem
@@ -609,7 +609,7 @@ chmod &lt;span class=&#34;m&#34;&gt;0400&lt;/span&gt; ~/.secrets/cloudflare.ini
 
 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;crontab -l &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$((&lt;/span&gt; RANDOM &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;60&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;))&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; 0,12 * * * &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;which certbot&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; renew -q --config-dir ~/.secrets/ --work-dir ~/.secrets/ --logs-dir ~/.secrets/&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; crontab -
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Or you can renew (all certificates) on demand with a simple:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;certbot renew \
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;certbot renew \
   --config-dir ~/.secrets/ \
   --work-dir ~/.secrets/ \
   --logs-dir ~/.secrets/
@@ -729,7 +729,7 @@ go run wordcount.go &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    --staging_location gs://&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;BUCKET&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;?&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;/binaries/ &lt;span class=&#34;se&#34;&gt;\
 &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    --worker_harness_container_image&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;apache-docker-beam-snapshots-docker.bintray.io/beam/go:20180515
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If this works correctly you’ll see something similar to the following printed:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Cross-compiling .../wordcount.go as .../worker-1-1544590905654809000
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Cross-compiling .../wordcount.go as .../worker-1-1544590905654809000
 Staging worker binary:  .../worker-1-1544590905654809000
 Submitted job: 2018-12-11_21_02_29
 Console: https://console.cloud.google.com/dataflow/job/2018-12-11...
@@ -828,7 +828,7 @@ Job succeeded!
 	&lt;span class=&#34;nx&#34;&gt;beam&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;RegisterType&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;reflect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;TypeOf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Painting&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{}))&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you forget to register the type, a error will occur at Runtime, for example:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;java.util.concurrent.ExecutionException: java.lang.RuntimeException: Error received from SDK harness for instruction -224: execute failed: panic: reflect: Call using main.Painting as type struct { Artist string; Title string; ... } goroutine 70 [running]:
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;java.util.concurrent.ExecutionException: java.lang.RuntimeException: Error received from SDK harness for instruction -224: execute failed: panic: reflect: Call using main.Painting as type struct { Artist string; Title string; ... } goroutine 70 [running]:
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This can be a little frustrating, as when running the pipeline locally with the &lt;code&gt;direct&lt;/code&gt; runner, it does not marshal your data, so errors like this aren’t exposed until running on Dataflow.&lt;/p&gt;
 &lt;p&gt;Now we have a collection of Paintings, we group them by decade:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// GroupByDecade takes a PCollection&amp;lt;Painting&amp;gt; and returns a 
@@ -1004,7 +1004,7 @@ Job succeeded!
       
       <guid>https://blog.bramp.net/post/2018/05/26/certbot-unexpected-error/</guid>
       <description>&lt;p&gt;I got a &lt;a href=&#34;https://letsencrypt.org/docs/expiration-emails/&#34;&gt;nice warning email&lt;/a&gt; from &lt;a href=&#34;https://letsencrypt.org/&#34;&gt;Let&amp;rsquo;s Encrypt&lt;/a&gt; that my cert was going to expire soon, and hadn&amp;rsquo;t been renewed. I found in  &lt;code&gt;/var/log/letsencrypt/letsencrypt.log&lt;/code&gt; the following error:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Renewal configuration file /etc/letsencrypt/renewal/mydomain.bramp.net.conf (cert: mydomain.bramp.net) produced an unexpected error: &#39;Namespace&#39; object has no attribute &#39;dns_cloudflare_credentials&#39;. Skipping.
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Renewal configuration file /etc/letsencrypt/renewal/mydomain.bramp.net.conf (cert: mydomain.bramp.net) produced an unexpected error: &#39;Namespace&#39; object has no attribute &#39;dns_cloudflare_credentials&#39;. Skipping.
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I manually ran certbot in dry-run mode and it worked fine:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo certbot renew --dry-run
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So this error only occurs when certbot is running as a cron job. Looking at &lt;code&gt;/etc/cron.d/certbot&lt;/code&gt; I see the user runs as root, so I tried the &lt;code&gt;certbot renew --dry-run&lt;/code&gt; again, but this time as the root user:&lt;/p&gt;
@@ -1032,7 +1032,7 @@ certbot-apache &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;0.23.0&lt;span class=
       
       <guid>https://blog.bramp.net/post/2018/04/08/the-mcu/</guid>
       <description>&lt;p&gt;In the run up to the &lt;a href=&#34;https://www.imdb.com/title/tt4154756/&#34;&gt;third Avengers movie&lt;/a&gt;, I was wondering which characters have appeared together, and when. With dozens of characters across eighteen &lt;a href=&#34;https://en.wikipedia.org/wiki/Marvel_Cinematic_Universe&#34;&gt;Marvel Cinematic Universe&lt;/a&gt; (MCU) movies, this will make Avengers Infinity War one huge mashup. In the style of the &lt;a href=&#34;https://xkcd.com/657/&#34;&gt;XKCD narrative diagrams&lt;/a&gt;, I plotted out the journey each character has taken across the numerous movies. I also got carried away and created a similar (yet smaller) diagram for the &lt;a href=&#34;https://en.wikipedia.org/wiki/List_of_Marvel_Cinematic_Universe_television_series#Netflix_series&#34;&gt;Netflix Marvel shows&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;br /&gt;
 &lt;p&gt;&lt;strong&gt;Marvel Cinematic Universe - Iron Man (2008) though Avengers: Infinity War (2018)&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;text-center&#34;&gt;
 &lt;a href=&#34;https://projects.bramp.net/mcu/film.html&#34;&gt;
@@ -1592,7 +1592,7 @@ detail, but the ANTLR site has [compressive documentation](https://githu
 b.com/antlr/antlr4/blob/master/doc/grammars.md).&lt;/p&gt;
 &lt;p&gt;As we go along, the &lt;a href=&#34;https://github.com/bramp/goadvent-antlr&#34;&gt;source is available to all
 examples&lt;/a&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;// Calc.g4
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;// Calc.g4
 grammar Calc;
 
 // Tokens
@@ -2065,9 +2065,9 @@ $ goredirects example.com outputdir
 &lt;/ul&gt;
 &lt;p&gt;Even though my projects typically target 1.7, these plugins require to run under 1.8. Really I&amp;rsquo;d prefer I could bump all my projects to target 1.8+, but since a few of my projects are libraries (which other people include into their projects), that is easier said than done. To deal with this, I changed my Maven configuration to only run these two plugins when run under the sufficient JDK. This means those using a older JDK don&amp;rsquo;t get the benefits, but since locally I use JDK 8, and all my open source projects use &lt;a href=&#34;https://travis-ci.org&#34;&gt;Travis CI&lt;/a&gt;, eventually these issues will be identified.&lt;/p&gt;
 &lt;p&gt;So if you get an error like&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;java.lang.UnsupportedClassVersionError: com/google/googlejavaformat/java/FormatterException : Unsupported major.minor version 52.0
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;java.lang.UnsupportedClassVersionError: com/google/googlejavaformat/java/FormatterException : Unsupported major.minor version 52.0
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;or&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;An API incompatibility was encountered while executing org.apache.maven.plugins:maven-compiler-plugin:3.5.1:compile: java.lang.UnsupportedClassVersionError: javax/tools/DiagnosticListener : Unsupported major.minor version 52.0
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;An API incompatibility was encountered while executing org.apache.maven.plugins:maven-compiler-plugin:3.5.1:compile: java.lang.UnsupportedClassVersionError: javax/tools/DiagnosticListener : Unsupported major.minor version 52.0
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Please update to JDK 1.8, or update your Maven configuration to restrict these plugins to when run on a modern JDK:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;project&amp;gt;&lt;/span&gt;
 ...

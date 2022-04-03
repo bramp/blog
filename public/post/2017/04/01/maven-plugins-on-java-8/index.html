@@ -113,11 +113,11 @@ window.dataLayer = window.dataLayer || [];
 </ul>
 <p>Even though my projects typically target 1.7, these plugins require to run under 1.8. Really I&rsquo;d prefer I could bump all my projects to target 1.8+, but since a few of my projects are libraries (which other people include into their projects), that is easier said than done. To deal with this, I changed my Maven configuration to only run these two plugins when run under the sufficient JDK. This means those using a older JDK don&rsquo;t get the benefits, but since locally I use JDK 8, and all my open source projects use <a href=https://travis-ci.org>Travis CI</a>, eventually these issues will be identified.</p>
 <p>So if you get an error like</p>
-<pre><code>java.lang.UnsupportedClassVersionError: com/google/googlejavaformat/java/FormatterException : Unsupported major.minor version 52.0
+<pre tabindex=0><code>java.lang.UnsupportedClassVersionError: com/google/googlejavaformat/java/FormatterException : Unsupported major.minor version 52.0
 </code></pre><p>or</p>
-<pre><code>An API incompatibility was encountered while executing org.apache.maven.plugins:maven-compiler-plugin:3.5.1:compile: java.lang.UnsupportedClassVersionError: javax/tools/DiagnosticListener : Unsupported major.minor version 52.0
+<pre tabindex=0><code>An API incompatibility was encountered while executing org.apache.maven.plugins:maven-compiler-plugin:3.5.1:compile: java.lang.UnsupportedClassVersionError: javax/tools/DiagnosticListener : Unsupported major.minor version 52.0
 </code></pre><p>Please update to JDK 1.8, or update your Maven configuration to restrict these plugins to when run on a modern JDK:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-xml data-lang=xml><span class=nt>&lt;project&gt;</span>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=nt>&lt;project&gt;</span>
 ...
     <span class=nt>&lt;profiles&gt;</span>
         <span class=nt>&lt;profile&gt;</span>
@@ -196,7 +196,7 @@ window.dataLayer = window.dataLayer || [];
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2021. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
 </footer>
 </div>
 </div>

@@ -18,7 +18,7 @@
 &lt;p&gt;It seems layaureo is missing from &lt;a href=&#34;http://www.tug.org/texlive/&#34; title=&#34;TeX Live&#34;&gt;TexLive&lt;/a&gt; 2009, the default on Debian at the moment (even though it’s 2012 now!). So I had to install TexLive 2011 from Debian Unstable using &lt;a href=&#34;http://wiki.debian.org/AptPreferences&#34;&gt;Apt Pinning&lt;/a&gt; to fix this problem.&lt;/p&gt;
 &lt;p&gt;Once TexLive 2011 is installed &lt;code&gt;apt-get install -t unstable texlive-lang-italian&lt;/code&gt; to bring in the layaureo package.&lt;/p&gt;
 &lt;p&gt;I also encountered the following problems that was easier to resolve:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;LaTeX Error: File `marvosym.sty&#39; not found. solution: apt-get install texlive-fonts-recommended
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;LaTeX Error: File `marvosym.sty&#39; not found. solution: apt-get install texlive-fonts-recommended
 LaTeX Error: File `fullpage.sty&#39; not found. solution: apt-get install texlive-latex-extra
 LaTeX Error: File `multibib.sty&#39; not found. solution: apt-get install texlive-bibtex-extra
 LaTeX Error: File `algorithm.sty&#39; not found. solution: apt-get install texlive-science
@@ -120,7 +120,7 @@ LaTeX Error: File `algorithm.sty&#39; not found. solution: apt-get install texli
       
       <guid>https://blog.bramp.net/post/2008/09/24/please-notify-the-author-of-the-software-that-produced-this-file/</guid>
       <description>&lt;p&gt;While compiling my LaTeX document I received a message which made me chuckle:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;**** This file had errors that were repaired or ignored.
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;**** This file had errors that were repaired or ignored.
 **** The file was produced by: 
 **** &amp;gt;&amp;gt;&amp;gt;&amp;gt; Microsoft® Office Visio® 2007 &amp;amp;lt;&amp;amp;lt;&amp;amp;lt;&amp;amp;lt;
 **** Please notify the author of the software that produced this
