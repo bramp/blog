@@ -42,7 +42,7 @@ deploy:
 minified: .minified
 
 server: public minified
-	cd public && python -m SimpleHTTPServer 1313
+	cd public && python3 -m http.server 1313
 
 watch: chromacss
 	$(HUGO) server -w -D -F -v --bind="0.0.0.0"
