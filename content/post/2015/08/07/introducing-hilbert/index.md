@@ -24,7 +24,7 @@ This can be very useful for mapping a 1D value, into a 2D space. For example, it
 I recently created a library for [Go][4] that can map to and from a curve. The project is [hosted on Github][3], and can be used like so:
 
 ```go
-import "github.com/google/hilbert"
+import "github.com/bramp/hilbert"
 
 // Create a Hilbert curve for mapping to and from a 16 by 16 space.
 s, err := hilbert.New(16)
@@ -43,5 +43,5 @@ The project contains some demos, such as this cool animations:
 
 [1]: https://en.wikipedia.org/wiki/Hilbert_curve
 [2]: https://xkcd.com/195/
-[3]: http://github.com/google/hilbert
+[3]: http://github.com/bramp/hilbert
 [4]: https://golang.org/
