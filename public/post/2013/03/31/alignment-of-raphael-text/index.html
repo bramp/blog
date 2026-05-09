@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
@@ -9,7 +9,6 @@
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
 <meta content=#4582EC name=theme-color>
 <link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
 <link href=/images/favicon.png rel=apple-touch-icon />
@@ -103,69 +102,69 @@ window.dataLayer = window.dataLayer || [];
 </div>
 <p>In this I’m drawing text with it’s bounding box show, and a cross over the x,y coordinates the text is meant to appear. As you can see <a href=http://raphaeljs.com/reference.html#Paper.text>Paper.text(…)</a> defaults to centre aligning vertically and horizontally. <a href=http://raphaeljs.com/reference.html#Paper.print>Paper.print(…)</a> aligns with the baseline of the first line, and I’m guess horizontally with the left edge (with a small amount of padding). The last example I wrote a simple method to centre <a href=http://raphaeljs.com/reference.html#Paper.print>Paper.print(…)</a> so it acts like <a href=http://raphaeljs.com/reference.html#Paper.text>Paper.text(…)</a></p>
 <p>Code to draw this SVG is below, with my normalised print method named print_center.</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-javascript data-lang=javascript><span class=nx>Raphael</span><span class=p>.</span><span class=nx>fn</span><span class=p>.</span><span class=nx>line</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(</span><span class=nx>x1</span><span class=p>,</span> <span class=nx>y1</span><span class=p>,</span> <span class=nx>x2</span><span class=p>,</span> <span class=nx>y2</span><span class=p>)</span> <span class=p>{</span>
-    <span class=c1>//assert(_.all([x1,x2,y1,y2], _.isFinite), &#34;x1,x2,y1,y2 must be numeric&#34;);
-</span><span class=c1></span>    <span class=k>return</span> <span class=k>this</span><span class=p>.</span><span class=nx>path</span><span class=p>(</span><span class=s2>&#34;M{0},{1} L{2},{3}&#34;</span><span class=p>,</span> <span class=nx>x1</span><span class=p>,</span> <span class=nx>y1</span><span class=p>,</span> <span class=nx>x2</span><span class=p>,</span> <span class=nx>y2</span><span class=p>);</span>
-<span class=p>};</span>
-
-<span class=cm>/**
-</span><span class=cm> * Prints, but aligns text in a similar way to text(...)
-</span><span class=cm> */</span>
-<span class=nx>Raphael</span><span class=p>.</span><span class=nx>fn</span><span class=p>.</span><span class=nx>print_center</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>,</span> <span class=nx>string</span><span class=p>,</span> <span class=nx>font</span><span class=p>,</span> <span class=nx>size</span><span class=p>,</span> <span class=nx>letter_spacing</span><span class=p>)</span> <span class=p>{</span>
-    <span class=kd>var</span> <span class=nx>path</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>print</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>,</span> <span class=nx>string</span><span class=p>,</span> <span class=nx>font</span><span class=p>,</span> <span class=nx>size</span><span class=p>,</span> <span class=s1>&#39;baseline&#39;</span><span class=p>,</span> <span class=nx>letter_spacing</span><span class=p>);</span>
-    <span class=kd>var</span> <span class=nx>bb</span> <span class=o>=</span> <span class=nx>path</span><span class=p>.</span><span class=nx>getBBox</span><span class=p>();</span>
-
-    <span class=kd>var</span> <span class=nx>dx</span> <span class=o>=</span> <span class=p>(</span><span class=nx>x</span> <span class=o>-</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>x</span><span class=p>)</span> <span class=o>-</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>width</span> <span class=o>/</span> <span class=mi>2</span><span class=p>;</span>
-    <span class=kd>var</span> <span class=nx>dy</span> <span class=o>=</span> <span class=p>(</span><span class=nx>y</span> <span class=o>-</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>y</span><span class=p>)</span> <span class=o>-</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>height</span> <span class=o>/</span> <span class=mi>2</span><span class=p>;</span>
-
-    <span class=k>return</span> <span class=nx>path</span><span class=p>.</span><span class=nx>transform</span><span class=p>(</span><span class=s2>&#34;t&#34;</span> <span class=o>+</span> <span class=nx>dx</span> <span class=o>+</span> <span class=s2>&#34;,&#34;</span> <span class=o>+</span> <span class=nx>dy</span><span class=p>);</span>
-<span class=p>}</span>
-
-<span class=nx>$</span><span class=p>(</span><span class=nb>document</span><span class=p>).</span><span class=nx>ready</span><span class=p>(</span><span class=kd>function</span><span class=p>(){</span>
-    <span class=kd>var</span> <span class=nx>paper</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Raphael</span><span class=p>(</span><span class=s2>&#34;diagram&#34;</span><span class=p>,</span> <span class=mi>300</span><span class=p>,</span> <span class=mi>600</span><span class=p>);</span>
-
-    <span class=kd>function</span> <span class=nx>draw_cross</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>)</span> <span class=p>{</span>
-        <span class=kd>var</span> <span class=nx>SIZE</span> <span class=o>=</span> <span class=mi>50</span><span class=p>;</span>
-        <span class=nx>paper</span><span class=p>.</span><span class=nx>line</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span> <span class=o>-</span> <span class=nx>SIZE</span><span class=p>,</span> <span class=nx>x</span><span class=p>,</span> <span class=nx>y</span> <span class=o>+</span> <span class=nx>SIZE</span><span class=p>);</span>
-        <span class=nx>paper</span><span class=p>.</span><span class=nx>line</span><span class=p>(</span><span class=nx>x</span> <span class=o>-</span> <span class=nx>SIZE</span><span class=p>,</span> <span class=nx>y</span><span class=p>,</span> <span class=nx>x</span> <span class=o>+</span> <span class=nx>SIZE</span><span class=p>,</span> <span class=nx>y</span><span class=p>);</span>
-    <span class=p>}</span>
-
-    <span class=kd>function</span> <span class=nx>draw_coord</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>)</span> <span class=p>{</span>
-        <span class=kd>var</span> <span class=nx>p</span> <span class=o>=</span> <span class=nx>paper</span><span class=p>.</span><span class=nx>text</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>,</span> <span class=nx>x</span><span class=p>.</span><span class=nx>toFixed</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span> <span class=o>+</span> <span class=s2>&#34;,&#34;</span> <span class=o>+</span> <span class=nx>y</span><span class=p>.</span><span class=nx>toFixed</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
-        <span class=nx>p</span><span class=p>.</span><span class=nx>attr</span><span class=p>({</span><span class=s1>&#39;font-size&#39;</span><span class=o>:</span> <span class=mi>10</span><span class=p>});</span>
-    <span class=p>}</span>
-
-    <span class=kd>function</span> <span class=nx>draw_bb</span><span class=p>(</span><span class=nx>bb</span><span class=p>)</span> <span class=p>{</span>
-        <span class=nx>paper</span><span class=p>.</span><span class=nx>rect</span><span class=p>(</span><span class=nx>bb</span><span class=p>.</span><span class=nx>x</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>y</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>width</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>height</span><span class=p>);</span>
-
-        <span class=nx>draw_coord</span><span class=p>(</span><span class=nx>bb</span><span class=p>.</span><span class=nx>x</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>y</span><span class=p>);</span>
-        <span class=nx>draw_coord</span><span class=p>(</span><span class=nx>bb</span><span class=p>.</span><span class=nx>x</span> <span class=o>+</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>width</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>y</span><span class=p>);</span>
-        <span class=nx>draw_coord</span><span class=p>(</span><span class=nx>bb</span><span class=p>.</span><span class=nx>x</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>y</span> <span class=o>+</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>height</span><span class=p>);</span>
-        <span class=nx>draw_coord</span><span class=p>(</span><span class=nx>bb</span><span class=p>.</span><span class=nx>x</span> <span class=o>+</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>width</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>y</span> <span class=o>+</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>height</span><span class=p>);</span>
-    <span class=p>}</span>
-
-    <span class=c1>//////////
-</span><span class=c1></span>    <span class=nx>draw_cross</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mi>100</span><span class=p>);</span>
-    <span class=kd>var</span> <span class=nx>p</span> <span class=o>=</span> <span class=nx>paper</span><span class=p>.</span><span class=nx>text</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mi>100</span><span class=p>,</span> <span class=s2>&#34;Text\n100,100\nThird&#34;</span><span class=p>);</span>
-    <span class=nx>p</span><span class=p>.</span><span class=nx>attr</span><span class=p>({</span><span class=s1>&#39;font-size&#39;</span><span class=o>:</span> <span class=mi>32</span><span class=p>});</span>
-
-    <span class=nx>draw_bb</span><span class=p>(</span> <span class=nx>p</span><span class=p>.</span><span class=nx>getBBox</span><span class=p>()</span> <span class=p>);</span>
-
-    <span class=c1>//////////
-</span><span class=c1></span>    <span class=nx>draw_cross</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mi>300</span><span class=p>);</span>
-    <span class=kd>var</span> <span class=nx>font</span> <span class=o>=</span> <span class=nx>paper</span><span class=p>.</span><span class=nx>getFont</span><span class=p>(</span><span class=s1>&#39;daniel&#39;</span><span class=p>)</span>
-    <span class=kd>var</span> <span class=nx>p</span> <span class=o>=</span> <span class=nx>paper</span><span class=p>.</span><span class=nx>print</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mi>300</span><span class=p>,</span> <span class=s2>&#34;Print\n100,300\nThird&#34;</span><span class=p>,</span> <span class=nx>font</span><span class=p>,</span> <span class=mi>32</span><span class=p>,</span> <span class=s1>&#39;baseline&#39;</span><span class=p>);</span>
-
-    <span class=nx>draw_bb</span><span class=p>(</span> <span class=nx>p</span><span class=p>.</span><span class=nx>getBBox</span><span class=p>()</span> <span class=p>);</span>
-
-    <span class=c1>//////////
-</span><span class=c1></span>    <span class=nx>draw_cross</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mi>500</span><span class=p>);</span>
-    <span class=kd>var</span> <span class=nx>font</span> <span class=o>=</span> <span class=nx>paper</span><span class=p>.</span><span class=nx>getFont</span><span class=p>(</span><span class=s1>&#39;daniel&#39;</span><span class=p>)</span>
-    <span class=kd>var</span> <span class=nx>p</span> <span class=o>=</span> <span class=nx>paper</span><span class=p>.</span><span class=nx>print_center</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mi>500</span><span class=p>,</span> <span class=s2>&#34;MyPrint\n100,500\nThird&#34;</span><span class=p>,</span> <span class=nx>font</span><span class=p>,</span> <span class=mi>32</span><span class=p>);</span>
-
-    <span class=nx>draw_bb</span><span class=p>(</span> <span class=nx>p</span><span class=p>.</span><span class=nx>getBBox</span><span class=p>()</span> <span class=p>);</span>
-<span class=p>});</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>Raphael</span><span class=p>.</span><span class=nx>fn</span><span class=p>.</span><span class=nx>line</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(</span><span class=nx>x1</span><span class=p>,</span> <span class=nx>y1</span><span class=p>,</span> <span class=nx>x2</span><span class=p>,</span> <span class=nx>y2</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>//assert(_.all([x1,x2,y1,y2], _.isFinite), &#34;x1,x2,y1,y2 must be numeric&#34;);
+</span></span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>this</span><span class=p>.</span><span class=nx>path</span><span class=p>(</span><span class=s2>&#34;M{0},{1} L{2},{3}&#34;</span><span class=p>,</span> <span class=nx>x1</span><span class=p>,</span> <span class=nx>y1</span><span class=p>,</span> <span class=nx>x2</span><span class=p>,</span> <span class=nx>y2</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Prints, but aligns text in a similar way to text(...)
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=nx>Raphael</span><span class=p>.</span><span class=nx>fn</span><span class=p>.</span><span class=nx>print_center</span> <span class=o>=</span> <span class=kd>function</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>,</span> <span class=nx>string</span><span class=p>,</span> <span class=nx>font</span><span class=p>,</span> <span class=nx>size</span><span class=p>,</span> <span class=nx>letter_spacing</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=nx>path</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>print</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>,</span> <span class=nx>string</span><span class=p>,</span> <span class=nx>font</span><span class=p>,</span> <span class=nx>size</span><span class=p>,</span> <span class=s1>&#39;baseline&#39;</span><span class=p>,</span> <span class=nx>letter_spacing</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=nx>bb</span> <span class=o>=</span> <span class=nx>path</span><span class=p>.</span><span class=nx>getBBox</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=nx>dx</span> <span class=o>=</span> <span class=p>(</span><span class=nx>x</span> <span class=o>-</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>x</span><span class=p>)</span> <span class=o>-</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>width</span> <span class=o>/</span> <span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=nx>dy</span> <span class=o>=</span> <span class=p>(</span><span class=nx>y</span> <span class=o>-</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>y</span><span class=p>)</span> <span class=o>-</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>height</span> <span class=o>/</span> <span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>path</span><span class=p>.</span><span class=nx>transform</span><span class=p>(</span><span class=s2>&#34;t&#34;</span> <span class=o>+</span> <span class=nx>dx</span> <span class=o>+</span> <span class=s2>&#34;,&#34;</span> <span class=o>+</span> <span class=nx>dy</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>$</span><span class=p>(</span><span class=nb>document</span><span class=p>).</span><span class=nx>ready</span><span class=p>(</span><span class=kd>function</span><span class=p>(){</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=nx>paper</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Raphael</span><span class=p>(</span><span class=s2>&#34;diagram&#34;</span><span class=p>,</span> <span class=mi>300</span><span class=p>,</span> <span class=mi>600</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>draw_cross</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kd>var</span> <span class=nx>SIZE</span> <span class=o>=</span> <span class=mi>50</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>paper</span><span class=p>.</span><span class=nx>line</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span> <span class=o>-</span> <span class=nx>SIZE</span><span class=p>,</span> <span class=nx>x</span><span class=p>,</span> <span class=nx>y</span> <span class=o>+</span> <span class=nx>SIZE</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=nx>paper</span><span class=p>.</span><span class=nx>line</span><span class=p>(</span><span class=nx>x</span> <span class=o>-</span> <span class=nx>SIZE</span><span class=p>,</span> <span class=nx>y</span><span class=p>,</span> <span class=nx>x</span> <span class=o>+</span> <span class=nx>SIZE</span><span class=p>,</span> <span class=nx>y</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>draw_coord</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kd>var</span> <span class=nx>p</span> <span class=o>=</span> <span class=nx>paper</span><span class=p>.</span><span class=nx>text</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>,</span> <span class=nx>x</span><span class=p>.</span><span class=nx>toFixed</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span> <span class=o>+</span> <span class=s2>&#34;,&#34;</span> <span class=o>+</span> <span class=nx>y</span><span class=p>.</span><span class=nx>toFixed</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>        <span class=nx>p</span><span class=p>.</span><span class=nx>attr</span><span class=p>({</span><span class=s1>&#39;font-size&#39;</span><span class=o>:</span> <span class=mi>10</span><span class=p>});</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kd>function</span> <span class=nx>draw_bb</span><span class=p>(</span><span class=nx>bb</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>paper</span><span class=p>.</span><span class=nx>rect</span><span class=p>(</span><span class=nx>bb</span><span class=p>.</span><span class=nx>x</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>y</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>width</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>height</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=nx>draw_coord</span><span class=p>(</span><span class=nx>bb</span><span class=p>.</span><span class=nx>x</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>y</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=nx>draw_coord</span><span class=p>(</span><span class=nx>bb</span><span class=p>.</span><span class=nx>x</span> <span class=o>+</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>width</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>y</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=nx>draw_coord</span><span class=p>(</span><span class=nx>bb</span><span class=p>.</span><span class=nx>x</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>y</span> <span class=o>+</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>height</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=nx>draw_coord</span><span class=p>(</span><span class=nx>bb</span><span class=p>.</span><span class=nx>x</span> <span class=o>+</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>width</span><span class=p>,</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>y</span> <span class=o>+</span> <span class=nx>bb</span><span class=p>.</span><span class=nx>height</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>//////////
+</span></span></span><span class=line><span class=cl>    <span class=nx>draw_cross</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mi>100</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=nx>p</span> <span class=o>=</span> <span class=nx>paper</span><span class=p>.</span><span class=nx>text</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mi>100</span><span class=p>,</span> <span class=s2>&#34;Text\n100,100\nThird&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=nx>p</span><span class=p>.</span><span class=nx>attr</span><span class=p>({</span><span class=s1>&#39;font-size&#39;</span><span class=o>:</span> <span class=mi>32</span><span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>draw_bb</span><span class=p>(</span> <span class=nx>p</span><span class=p>.</span><span class=nx>getBBox</span><span class=p>()</span> <span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>//////////
+</span></span></span><span class=line><span class=cl>    <span class=nx>draw_cross</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mi>300</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=nx>font</span> <span class=o>=</span> <span class=nx>paper</span><span class=p>.</span><span class=nx>getFont</span><span class=p>(</span><span class=s1>&#39;daniel&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=nx>p</span> <span class=o>=</span> <span class=nx>paper</span><span class=p>.</span><span class=nx>print</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mi>300</span><span class=p>,</span> <span class=s2>&#34;Print\n100,300\nThird&#34;</span><span class=p>,</span> <span class=nx>font</span><span class=p>,</span> <span class=mi>32</span><span class=p>,</span> <span class=s1>&#39;baseline&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>draw_bb</span><span class=p>(</span> <span class=nx>p</span><span class=p>.</span><span class=nx>getBBox</span><span class=p>()</span> <span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>//////////
+</span></span></span><span class=line><span class=cl>    <span class=nx>draw_cross</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mi>500</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=nx>font</span> <span class=o>=</span> <span class=nx>paper</span><span class=p>.</span><span class=nx>getFont</span><span class=p>(</span><span class=s1>&#39;daniel&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=nx>p</span> <span class=o>=</span> <span class=nx>paper</span><span class=p>.</span><span class=nx>print_center</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mi>500</span><span class=p>,</span> <span class=s2>&#34;MyPrint\n100,500\nThird&#34;</span><span class=p>,</span> <span class=nx>font</span><span class=p>,</span> <span class=mi>32</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>draw_bb</span><span class=p>(</span> <span class=nx>p</span><span class=p>.</span><span class=nx>getBBox</span><span class=p>()</span> <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span></code></pre></div>
 </div>
 </article>
 <div class=row>
@@ -190,7 +189,7 @@ window.dataLayer = window.dataLayer || [];
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2026. All rights reserved.</p>
 </footer>
 </div>
 </div>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
@@ -9,7 +9,6 @@
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
 <meta content=#4582EC name=theme-color>
 <link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
 <link href=/images/favicon.png rel=apple-touch-icon />
@@ -117,60 +116,60 @@ window.dataLayer = window.dataLayer || [];
 </code></pre><p>or</p>
 <pre tabindex=0><code>An API incompatibility was encountered while executing org.apache.maven.plugins:maven-compiler-plugin:3.5.1:compile: java.lang.UnsupportedClassVersionError: javax/tools/DiagnosticListener : Unsupported major.minor version 52.0
 </code></pre><p>Please update to JDK 1.8, or update your Maven configuration to restrict these plugins to when run on a modern JDK:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=nt>&lt;project&gt;</span>
-...
-    <span class=nt>&lt;profiles&gt;</span>
-        <span class=nt>&lt;profile&gt;</span>
-            <span class=nt>&lt;id&gt;</span>java18<span class=nt>&lt;/id&gt;</span>
-            <span class=nt>&lt;activation&gt;</span>
-                <span class=nt>&lt;jdk&gt;</span>1.8<span class=nt>&lt;/jdk&gt;</span>
-            <span class=nt>&lt;/activation&gt;</span>
-            <span class=nt>&lt;build&gt;</span>
-                <span class=nt>&lt;plugins&gt;</span>
-                    <span class=nt>&lt;plugin&gt;</span>
-                        <span class=nt>&lt;groupId&gt;</span>com.coveo<span class=nt>&lt;/groupId&gt;</span>
-                        <span class=nt>&lt;artifactId&gt;</span>fmt-maven-plugin<span class=nt>&lt;/artifactId&gt;</span>
-                        <span class=nt>&lt;executions&gt;</span>
-                            <span class=nt>&lt;execution&gt;</span>
-                                <span class=nt>&lt;goals&gt;</span>
-                                    <span class=nt>&lt;goal&gt;</span>format<span class=nt>&lt;/goal&gt;</span>
-                                <span class=nt>&lt;/goals&gt;</span>
-                            <span class=nt>&lt;/execution&gt;</span>
-                        <span class=nt>&lt;/executions&gt;</span>
-                    <span class=nt>&lt;/plugin&gt;</span>
-                    <span class=nt>&lt;plugin&gt;</span>
-                        <span class=nt>&lt;groupId&gt;</span>org.apache.maven.plugins<span class=nt>&lt;/groupId&gt;</span>
-                        <span class=nt>&lt;artifactId&gt;</span>maven-compiler-plugin<span class=nt>&lt;/artifactId&gt;</span>
-                        <span class=nt>&lt;configuration&gt;</span>
-                            <span class=nt>&lt;compilerId&gt;</span>javac-with-errorprone<span class=nt>&lt;/compilerId&gt;</span>
-                            <span class=nt>&lt;forceJavacCompilerUse&gt;</span>true<span class=nt>&lt;/forceJavacCompilerUse&gt;</span>
-                            <span class=nt>&lt;showWarnings&gt;</span>true<span class=nt>&lt;/showWarnings&gt;</span>
-                            <span class=nt>&lt;compilerArgs&gt;</span>
-                                <span class=nt>&lt;arg&gt;</span>-Xlint:all<span class=nt>&lt;/arg&gt;</span>
-                            <span class=nt>&lt;/compilerArgs&gt;</span>
-                        <span class=nt>&lt;/configuration&gt;</span>
-                        <span class=nt>&lt;dependencies&gt;</span>
-                            <span class=nt>&lt;dependency&gt;</span>
-                                <span class=nt>&lt;groupId&gt;</span>org.codehaus.plexus<span class=nt>&lt;/groupId&gt;</span>
-                                <span class=nt>&lt;artifactId&gt;</span>plexus-compiler-javac-errorprone<span class=nt>&lt;/artifactId&gt;</span>
-                                <span class=nt>&lt;version&gt;</span>2.8.1<span class=nt>&lt;/version&gt;</span>
-                            <span class=nt>&lt;/dependency&gt;</span>
-                            <span class=c>&lt;!-- override plexus-compiler-javac-errorprone&#39;s dependency on
-</span><span class=c>                                 Error Prone with the latest version --&gt;</span>
-                            <span class=nt>&lt;dependency&gt;</span>
-                                <span class=nt>&lt;groupId&gt;</span>com.google.errorprone<span class=nt>&lt;/groupId&gt;</span>
-                                <span class=nt>&lt;artifactId&gt;</span>error_prone_core<span class=nt>&lt;/artifactId&gt;</span>
-                                <span class=nt>&lt;version&gt;</span>2.0.19<span class=nt>&lt;/version&gt;</span>
-                            <span class=nt>&lt;/dependency&gt;</span>
-                        <span class=nt>&lt;/dependencies&gt;</span>
-                    <span class=nt>&lt;/plugin&gt;</span>
-                <span class=nt>&lt;/plugins&gt;</span>
-            <span class=nt>&lt;/build&gt;</span>
-        <span class=nt>&lt;/profile&gt;</span>
-    <span class=nt>&lt;/profiles&gt;</span>
-...
-<span class=nt>&lt;/project&gt;</span>
-</code></pre></div><p>This defines a new profile, that is only &ldquo;activated&rdquo; under Java 1.8. When activated the <code>&lt;build&gt;</code> section has the two additional plugins added. Ensure that these plugins are no longer mentioned in the regular <code>&lt;build&gt;</code> section, and only in the <code>&lt;profile&gt;&lt;build&gt;</code> section.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=line><span class=cl><span class=nt>&lt;project&gt;</span>
+</span></span><span class=line><span class=cl>...
+</span></span><span class=line><span class=cl>    <span class=nt>&lt;profiles&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;profile&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;id&gt;</span>java18<span class=nt>&lt;/id&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;activation&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;jdk&gt;</span>1.8<span class=nt>&lt;/jdk&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;/activation&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;build&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;plugins&gt;</span>
+</span></span><span class=line><span class=cl>                    <span class=nt>&lt;plugin&gt;</span>
+</span></span><span class=line><span class=cl>                        <span class=nt>&lt;groupId&gt;</span>com.coveo<span class=nt>&lt;/groupId&gt;</span>
+</span></span><span class=line><span class=cl>                        <span class=nt>&lt;artifactId&gt;</span>fmt-maven-plugin<span class=nt>&lt;/artifactId&gt;</span>
+</span></span><span class=line><span class=cl>                        <span class=nt>&lt;executions&gt;</span>
+</span></span><span class=line><span class=cl>                            <span class=nt>&lt;execution&gt;</span>
+</span></span><span class=line><span class=cl>                                <span class=nt>&lt;goals&gt;</span>
+</span></span><span class=line><span class=cl>                                    <span class=nt>&lt;goal&gt;</span>format<span class=nt>&lt;/goal&gt;</span>
+</span></span><span class=line><span class=cl>                                <span class=nt>&lt;/goals&gt;</span>
+</span></span><span class=line><span class=cl>                            <span class=nt>&lt;/execution&gt;</span>
+</span></span><span class=line><span class=cl>                        <span class=nt>&lt;/executions&gt;</span>
+</span></span><span class=line><span class=cl>                    <span class=nt>&lt;/plugin&gt;</span>
+</span></span><span class=line><span class=cl>                    <span class=nt>&lt;plugin&gt;</span>
+</span></span><span class=line><span class=cl>                        <span class=nt>&lt;groupId&gt;</span>org.apache.maven.plugins<span class=nt>&lt;/groupId&gt;</span>
+</span></span><span class=line><span class=cl>                        <span class=nt>&lt;artifactId&gt;</span>maven-compiler-plugin<span class=nt>&lt;/artifactId&gt;</span>
+</span></span><span class=line><span class=cl>                        <span class=nt>&lt;configuration&gt;</span>
+</span></span><span class=line><span class=cl>                            <span class=nt>&lt;compilerId&gt;</span>javac-with-errorprone<span class=nt>&lt;/compilerId&gt;</span>
+</span></span><span class=line><span class=cl>                            <span class=nt>&lt;forceJavacCompilerUse&gt;</span>true<span class=nt>&lt;/forceJavacCompilerUse&gt;</span>
+</span></span><span class=line><span class=cl>                            <span class=nt>&lt;showWarnings&gt;</span>true<span class=nt>&lt;/showWarnings&gt;</span>
+</span></span><span class=line><span class=cl>                            <span class=nt>&lt;compilerArgs&gt;</span>
+</span></span><span class=line><span class=cl>                                <span class=nt>&lt;arg&gt;</span>-Xlint:all<span class=nt>&lt;/arg&gt;</span>
+</span></span><span class=line><span class=cl>                            <span class=nt>&lt;/compilerArgs&gt;</span>
+</span></span><span class=line><span class=cl>                        <span class=nt>&lt;/configuration&gt;</span>
+</span></span><span class=line><span class=cl>                        <span class=nt>&lt;dependencies&gt;</span>
+</span></span><span class=line><span class=cl>                            <span class=nt>&lt;dependency&gt;</span>
+</span></span><span class=line><span class=cl>                                <span class=nt>&lt;groupId&gt;</span>org.codehaus.plexus<span class=nt>&lt;/groupId&gt;</span>
+</span></span><span class=line><span class=cl>                                <span class=nt>&lt;artifactId&gt;</span>plexus-compiler-javac-errorprone<span class=nt>&lt;/artifactId&gt;</span>
+</span></span><span class=line><span class=cl>                                <span class=nt>&lt;version&gt;</span>2.8.1<span class=nt>&lt;/version&gt;</span>
+</span></span><span class=line><span class=cl>                            <span class=nt>&lt;/dependency&gt;</span>
+</span></span><span class=line><span class=cl>                            <span class=c>&lt;!-- override plexus-compiler-javac-errorprone&#39;s dependency on
+</span></span></span><span class=line><span class=cl><span class=c>                                 Error Prone with the latest version --&gt;</span>
+</span></span><span class=line><span class=cl>                            <span class=nt>&lt;dependency&gt;</span>
+</span></span><span class=line><span class=cl>                                <span class=nt>&lt;groupId&gt;</span>com.google.errorprone<span class=nt>&lt;/groupId&gt;</span>
+</span></span><span class=line><span class=cl>                                <span class=nt>&lt;artifactId&gt;</span>error_prone_core<span class=nt>&lt;/artifactId&gt;</span>
+</span></span><span class=line><span class=cl>                                <span class=nt>&lt;version&gt;</span>2.0.19<span class=nt>&lt;/version&gt;</span>
+</span></span><span class=line><span class=cl>                            <span class=nt>&lt;/dependency&gt;</span>
+</span></span><span class=line><span class=cl>                        <span class=nt>&lt;/dependencies&gt;</span>
+</span></span><span class=line><span class=cl>                    <span class=nt>&lt;/plugin&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;/plugins&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;/build&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;/profile&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&lt;/profiles&gt;</span>
+</span></span><span class=line><span class=cl>...
+</span></span><span class=line><span class=cl><span class=nt>&lt;/project&gt;</span>
+</span></span></code></pre></div><p>This defines a new profile, that is only &ldquo;activated&rdquo; under Java 1.8. When activated the <code>&lt;build&gt;</code> section has the two additional plugins added. Ensure that these plugins are no longer mentioned in the regular <code>&lt;build&gt;</code> section, and only in the <code>&lt;profile&gt;&lt;build&gt;</code> section.</p>
 <p>An example of this change can be found in <a href=https://github.com/bramp/ffmpeg-cli-wrapper/commit/4985ba3ab3ef84839bc0f4ca8b63573b77e33c67>recent commit</a>.</p>
 </div>
 </article>
@@ -196,7 +195,7 @@ window.dataLayer = window.dataLayer || [];
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2026. All rights reserved.</p>
 </footer>
 </div>
 </div>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
@@ -9,7 +9,6 @@
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
 <meta content=#4582EC name=theme-color>
 <link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
 <link href=/images/favicon.png rel=apple-touch-icon />
@@ -109,58 +108,58 @@ window.dataLayer = window.dataLayer || [];
 <p>Firstly I saw two DNS requests, one for the AAAA (IPv6) record for update.linksys.com, then a A request for update.linksys.com. Clearly the updates are coming from there. Secondly I saw a HTTPS connection form to that domain. That makes this a little more complex, as I am unable to see the encrypted traffic, and thus see what is being transferred.</p>
 <p>So, I grabbed a <a href=http://code.activestate.com/recipes/491264-mini-fake-dns-server/ >simple DNS server</a>, and set up a simple SSL server following <a href=http://wirewatcher.wordpress.com/2010/07/20/decrypting-ssl-traffic-with-wireshark-and-ways-to-prevent-it/ >these instructions</a>.</p>
 <p>Now with DNS spoofing, and a fake SSL server, I could intercept encrypted traffic from the router, as long as it does not validate the SSL certificate. Luckily it didn’t check the validity, and thus I was able to capture the request: (BTW Not checking the cert completely defeats the point of using SSL… bad Linksys!).</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-http data-lang=http><span class=nf>POST</span> <span class=nn>/cds/update</span> <span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span>
-<span class=n>Host</span><span class=o>:</span> <span class=l>update.linksys.com</span>
-<span class=n>Accept</span><span class=o>:</span> <span class=l>*/*</span>
-<span class=n>Content-Type</span><span class=o>:</span> <span class=l>text/xml</span>
-<span class=n>Content-Length</span><span class=o>:</span> <span class=l>573</span>
-
-<span class=ni>&amp;lt;</span>SOAP-ENV:Envelope xmlns:SOAP-ENV=&#34;http://schemas.xmlsoap.org/soap/envelope/&#34;<span class=ni>&amp;gt;</span>
-  <span class=ni>&amp;lt;</span>SOAP-ENV:Header/<span class=ni>&amp;gt;</span>
-  <span class=ni>&amp;lt;</span>SOAP-ENV:Body<span class=ni>&amp;gt;</span>
-    <span class=ni>&amp;lt;</span>ns:GetFirmwareFromDeviceRequest xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class=ni>&amp;gt;</span>
-      <span class=ni>&amp;lt;</span>ns:LanguageCode<span class=ni>&amp;gt;</span>en<span class=ni>&amp;lt;</span>/ns:LanguageCode<span class=ni>&amp;gt;</span>
-      <span class=ni>&amp;lt;</span>ns:CountryCode<span class=ni>&amp;gt;</span>us<span class=ni>&amp;lt;</span>/ns:CountryCode<span class=ni>&amp;gt;</span>
-      <span class=ni>&amp;lt;</span>ns:MacAddress<span class=ni>&amp;gt;</span>12:34:56:78:90:ab<span class=ni>&amp;lt;</span>/ns:MacAddress<span class=ni>&amp;gt;</span>
-      <span class=ni>&amp;lt;</span>ns:ModelNo<span class=ni>&amp;gt;</span>E4200<span class=ni>&amp;lt;</span>/ns:ModelNo<span class=ni>&amp;gt;</span>
-      <span class=ni>&amp;lt;</span>ns:HardwareVersion<span class=ni>&amp;gt;</span>2<span class=ni>&amp;lt;</span>/ns:HardwareVersion<span class=ni>&amp;gt;</span>
-      <span class=ni>&amp;lt;</span>ns:CurrentFirmwareVersion<span class=ni>&amp;gt;</span>2.0.36.126507<span class=ni>&amp;lt;</span>/ns:CurrentFirmwareVersion<span class=ni>&amp;gt;</span>
-    <span class=ni>&amp;lt;</span>/ns:GetFirmwareFromDeviceRequest<span class=ni>&amp;gt;</span>
-  <span class=ni>&amp;lt;</span>/SOAP-ENV:Body<span class=ni>&amp;gt;</span>
-<span class=ni>&amp;lt;</span>/SOAP-ENV:Envelope<span class=ni>&amp;gt;</span>
-</code></pre></div><p>and the response:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-http data-lang=http><span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span> <span class=m>200</span> <span class=ne>OK</span>
-<span class=n>Content-Language</span><span class=o>:</span> <span class=l>en-US</span>
-<span class=n>Content-Type</span><span class=o>:</span> <span class=l>text/xml</span>
-<span class=n>SOAPAction</span><span class=o>:</span> <span class=l>&#34;&#34;</span>
-
-<span class=ni>&amp;lt;</span>soapenv:Envelope
- xmlns:soapenv=&#34;http://schemas.xmlsoap.org/soap/envelope/&#34;
- xmlns:soapenc=&#34;http://schemas.xmlsoap.org/soap/encoding/&#34;
- xmlns:xsd=&#34;http://www.w3.org/2001/XMLSchema&#34;
- xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;<span class=ni>&amp;gt;</span>
-  <span class=ni>&amp;lt;</span>soapenv:Header/<span class=ni>&amp;gt;</span>
-  <span class=ni>&amp;lt;</span>soapenv:Body<span class=ni>&amp;gt;</span>
-    <span class=ni>&amp;lt;</span>ns:GetFirmwareFromDeviceResponse xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class=ni>&amp;gt;</span>
-      <span class=ni>&amp;lt;</span>ns:FirmwareList xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class=ni>&amp;gt;</span>
-        <span class=ni>&amp;lt;</span>ns:Firmware xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class=ni>&amp;gt;</span>
-          <span class=ni>&amp;lt;</span>ns:Version xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class=ni>&amp;gt;</span>2.0.36.126507<span class=ni>&amp;lt;</span>/ns:Version<span class=ni>&amp;gt;</span>
-          <span class=ni>&amp;lt;</span>ns:Revision xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class=ni>&amp;gt;</span>D<span class=ni>&amp;lt;</span>/ns:Revision<span class=ni>&amp;gt;</span>
-          <span class=ni>&amp;lt;</span>ns:ReleaseDate xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class=ni>&amp;gt;</span>2012-01-06T16:48:08Z<span class=ni>&amp;lt;</span>/ns:ReleaseDate<span class=ni>&amp;gt;</span>
-          <span class=ni>&amp;lt;</span>ns:DownloadURI xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class=ni>&amp;gt;</span>http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA<span class=ni>&amp;lt;</span>/ns:DownloadURI<span class=ni>&amp;gt;</span>
-          <span class=ni>&amp;lt;</span>ns:DateFormat xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class=ni>&amp;gt;</span>yyyy-MM-dd&#39;;T&#39;;HH:mm:ss&#39;;Z&#39;;<span class=ni>&amp;lt;</span>/ns:DateFormat<span class=ni>&amp;gt;</span>
-          <span class=ni>&amp;lt;</span>ns:Checksum xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class=ni>&amp;gt;</span>1958710861<span class=ni>&amp;lt;</span>/ns:Checksum<span class=ni>&amp;gt;</span>
-        <span class=ni>&amp;lt;</span>/ns:Firmware<span class=ni>&amp;gt;</span>
-      <span class=ni>&amp;lt;</span>/ns:FirmwareList<span class=ni>&amp;gt;</span>
-    <span class=ni>&amp;lt;</span>/ns:GetFirmwareFromDeviceResponse<span class=ni>&amp;gt;</span>
-  <span class=ni>&amp;lt;</span>/soapenv:Body<span class=ni>&amp;gt;</span>
-<span class=ni>&amp;lt;</span>/soapenv:Envelope<span class=ni>&amp;gt;</span>
-</code></pre></div><p>(I slightly modified portions of the request and response to hide the identify of my router.).</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-http data-lang=http><span class=line><span class=cl><span class=nf>POST</span> <span class=nn>/cds/update</span> <span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span>
+</span></span><span class=line><span class=cl><span class=n>Host</span><span class=o>:</span> <span class=l>update.linksys.com</span>
+</span></span><span class=line><span class=cl><span class=n>Accept</span><span class=o>:</span> <span class=l>*/*</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Type</span><span class=o>:</span> <span class=l>text/xml</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Length</span><span class=o>:</span> <span class=l>573</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=ni>&amp;lt;</span>SOAP-ENV:Envelope xmlns:SOAP-ENV=&#34;http://schemas.xmlsoap.org/soap/envelope/&#34;<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>  <span class=ni>&amp;lt;</span>SOAP-ENV:Header/<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>  <span class=ni>&amp;lt;</span>SOAP-ENV:Body<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>    <span class=ni>&amp;lt;</span>ns:GetFirmwareFromDeviceRequest xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>      <span class=ni>&amp;lt;</span>ns:LanguageCode<span class=ni>&amp;gt;</span>en<span class=ni>&amp;lt;</span>/ns:LanguageCode<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>      <span class=ni>&amp;lt;</span>ns:CountryCode<span class=ni>&amp;gt;</span>us<span class=ni>&amp;lt;</span>/ns:CountryCode<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>      <span class=ni>&amp;lt;</span>ns:MacAddress<span class=ni>&amp;gt;</span>12:34:56:78:90:ab<span class=ni>&amp;lt;</span>/ns:MacAddress<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>      <span class=ni>&amp;lt;</span>ns:ModelNo<span class=ni>&amp;gt;</span>E4200<span class=ni>&amp;lt;</span>/ns:ModelNo<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>      <span class=ni>&amp;lt;</span>ns:HardwareVersion<span class=ni>&amp;gt;</span>2<span class=ni>&amp;lt;</span>/ns:HardwareVersion<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>      <span class=ni>&amp;lt;</span>ns:CurrentFirmwareVersion<span class=ni>&amp;gt;</span>2.0.36.126507<span class=ni>&amp;lt;</span>/ns:CurrentFirmwareVersion<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>    <span class=ni>&amp;lt;</span>/ns:GetFirmwareFromDeviceRequest<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>  <span class=ni>&amp;lt;</span>/SOAP-ENV:Body<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl><span class=ni>&amp;lt;</span>/SOAP-ENV:Envelope<span class=ni>&amp;gt;</span>
+</span></span></code></pre></div><p>and the response:</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-http data-lang=http><span class=line><span class=cl><span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span> <span class=m>200</span> <span class=ne>OK</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Language</span><span class=o>:</span> <span class=l>en-US</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Type</span><span class=o>:</span> <span class=l>text/xml</span>
+</span></span><span class=line><span class=cl><span class=n>SOAPAction</span><span class=o>:</span> <span class=l>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=ni>&amp;lt;</span>soapenv:Envelope
+</span></span><span class=line><span class=cl> xmlns:soapenv=&#34;http://schemas.xmlsoap.org/soap/envelope/&#34;
+</span></span><span class=line><span class=cl> xmlns:soapenc=&#34;http://schemas.xmlsoap.org/soap/encoding/&#34;
+</span></span><span class=line><span class=cl> xmlns:xsd=&#34;http://www.w3.org/2001/XMLSchema&#34;
+</span></span><span class=line><span class=cl> xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>  <span class=ni>&amp;lt;</span>soapenv:Header/<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>  <span class=ni>&amp;lt;</span>soapenv:Body<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>    <span class=ni>&amp;lt;</span>ns:GetFirmwareFromDeviceResponse xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>      <span class=ni>&amp;lt;</span>ns:FirmwareList xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>        <span class=ni>&amp;lt;</span>ns:Firmware xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>          <span class=ni>&amp;lt;</span>ns:Version xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class=ni>&amp;gt;</span>2.0.36.126507<span class=ni>&amp;lt;</span>/ns:Version<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>          <span class=ni>&amp;lt;</span>ns:Revision xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class=ni>&amp;gt;</span>D<span class=ni>&amp;lt;</span>/ns:Revision<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>          <span class=ni>&amp;lt;</span>ns:ReleaseDate xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class=ni>&amp;gt;</span>2012-01-06T16:48:08Z<span class=ni>&amp;lt;</span>/ns:ReleaseDate<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>          <span class=ni>&amp;lt;</span>ns:DownloadURI xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class=ni>&amp;gt;</span>http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA<span class=ni>&amp;lt;</span>/ns:DownloadURI<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>          <span class=ni>&amp;lt;</span>ns:DateFormat xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class=ni>&amp;gt;</span>yyyy-MM-dd&#39;;T&#39;;HH:mm:ss&#39;;Z&#39;;<span class=ni>&amp;lt;</span>/ns:DateFormat<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>          <span class=ni>&amp;lt;</span>ns:Checksum xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class=ni>&amp;gt;</span>1958710861<span class=ni>&amp;lt;</span>/ns:Checksum<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>        <span class=ni>&amp;lt;</span>/ns:Firmware<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>      <span class=ni>&amp;lt;</span>/ns:FirmwareList<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>    <span class=ni>&amp;lt;</span>/ns:GetFirmwareFromDeviceResponse<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl>  <span class=ni>&amp;lt;</span>/soapenv:Body<span class=ni>&amp;gt;</span>
+</span></span><span class=line><span class=cl><span class=ni>&amp;lt;</span>/soapenv:Envelope<span class=ni>&amp;gt;</span>
+</span></span></code></pre></div><p>(I slightly modified portions of the request and response to hide the identify of my router.).</p>
 <p>I might write a script to make fake requests, but until then you can easily create a request with curl:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>curl -d @request.raw https://update.linksys.com/cds/update
-</code></pre></div><p>Then you just extract the DownloadURI and</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA
-</code></pre></div><p>Voila I now have the firmware. Now I need to figure out what to do with it.</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=line><span class=cl>curl -d @request.raw https://update.linksys.com/cds/update
+</span></span></code></pre></div><p>Then you just extract the DownloadURI and</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=line><span class=cl>curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA
+</span></span></code></pre></div><p>Voila I now have the firmware. Now I need to figure out what to do with it.</p>
 <p><strong>Update</strong>: As requested I fetched the more recent version of the file:<br>
 2.0.37.131047 – <a href=http://download.linksys.com/updates/to0040829450.pdx/FW>http://download.linksys.com/updates/to0040829450.pdx/FW</a>_E4200_2.0.37.131047.SSA</p>
 </div>
@@ -187,7 +186,7 @@ window.dataLayer = window.dataLayer || [];
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2026. All rights reserved.</p>
 </footer>
 </div>
 </div>

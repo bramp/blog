@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
@@ -9,7 +9,6 @@
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
 <meta content=#4582EC name=theme-color>
 <link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
 <link href=/images/favicon.png rel=apple-touch-icon />
@@ -105,20 +104,20 @@ window.dataLayer = window.dataLayer || [];
 <ol>
 <li>
 <p>if you have pecl_http &gt;= 0.1.0, then</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=nx>http_date</span><span class=p>(</span><span class=nv>$timestamp</span><span class=p>)</span>
-</code></pre></div></li>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=line><span class=cl><span class=nx>http_date</span><span class=p>(</span><span class=nv>$timestamp</span><span class=p>)</span>
+</span></span></code></pre></div></li>
 <li>
 <p>or if you don’t want to use pecl</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=nx>gmdate</span><span class=p>(</span><span class=s1>&#39;D, d M Y H:i:s&#39;</span><span class=p>,</span> <span class=nv>$timestamp</span><span class=p>)</span><span class=o>.</span><span class=s1>&#39; GMT&#39;</span>
-</code></pre></div></li>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=line><span class=cl><span class=nx>gmdate</span><span class=p>(</span><span class=s1>&#39;D, d M Y H:i:s&#39;</span><span class=p>,</span> <span class=nv>$timestamp</span><span class=p>)</span><span class=o>.</span><span class=s1>&#39; GMT&#39;</span>
+</span></span></code></pre></div></li>
 <li>
 <p>or if you have PHP &gt;5.2 you can use the DateTime constant</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=nx>gmdate</span><span class=p>(</span><span class=nx>DATE_RFC2822</span><span class=p>,</span> <span class=nv>$timestamp</span><span class=p>)</span>
-</code></pre></div></li>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=line><span class=cl><span class=nx>gmdate</span><span class=p>(</span><span class=nx>DATE_RFC2822</span><span class=p>,</span> <span class=nv>$timestamp</span><span class=p>)</span>
+</span></span></code></pre></div></li>
 </ol>
 <p>an example of it’s use:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=nx>header</span><span class=p>(</span><span class=s1>&#39;Last-Modified: &#39;</span> <span class=o>.</span> <span class=nx>gmdate</span><span class=p>(</span><span class=s1>&#39;D, d M Y H:i:s&#39;</span><span class=p>,</span> <span class=nv>$lastModified</span><span class=p>)</span><span class=o>.</span><span class=s1>&#39; GMT&#39;</span><span class=p>);</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=line><span class=cl><span class=nx>header</span><span class=p>(</span><span class=s1>&#39;Last-Modified: &#39;</span> <span class=o>.</span> <span class=nx>gmdate</span><span class=p>(</span><span class=s1>&#39;D, d M Y H:i:s&#39;</span><span class=p>,</span> <span class=nv>$lastModified</span><span class=p>)</span><span class=o>.</span><span class=s1>&#39; GMT&#39;</span><span class=p>);</span>
+</span></span></code></pre></div>
 </div>
 </article>
 <div class=row>
@@ -143,7 +142,7 @@ window.dataLayer = window.dataLayer || [];
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2026. All rights reserved.</p>
 </footer>
 </div>
 </div>

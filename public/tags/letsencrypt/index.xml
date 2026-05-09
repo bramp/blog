@@ -1,10 +1,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>letsencrypt on bramp.net</title>
-    <link>https://blog.bramp.net</link>
-    <description>Recent content in letsencrypt on bramp.net</description>
+    <title>Letsencrypt on bramp.net</title>
+    <link>https://blog.bramp.net/</link>
+    <description>Recent content in Letsencrypt on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en_GB</language>
+    <language>en-GB</language>
     <lastBuildDate>Sun, 27 Dec 2020 09:14:22 -0800</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/letsencrypt/" rel="self" type="application/rss+xml" />
     
@@ -14,80 +14,80 @@
       <pubDate>Sun, 27 Dec 2020 09:14:22 -0800</pubDate>
       
       <guid>https://blog.bramp.net/post/2020/12/27/local-https-server-for-development/</guid>
-      <description>&lt;p&gt;I regularly do web development with the host localhost. Running a simple HTTP server to service my site. Recently I came across a problem where some of the newer web APIs (such as DeviceMotionEvent) do not work unless the site is served via SSL. So I went about setting up a local SSL server, and certificate.&lt;/p&gt;
-&lt;p&gt;Many of the &lt;a href=&#34;https://matthewhoelter.com/2019/10/21/how-to-setup-https-on-your-local-development-environment-localhost-in-minutes.html&#34;&gt;instructions out there&lt;/a&gt; create a self-signed certificate, that you install to be trusted locally. I wanted my development server to be accessible from other devices on my network, and I didn&amp;rsquo;t want the hassle of installing this self-signed cert. Instead I wanted a SSL certificate that uses a real/trusted CA.&lt;/p&gt;
-&lt;p&gt;Enter &lt;a href=&#34;https://letsencrypt.org/&#34;&gt;Let&amp;rsquo;s Encrypt&lt;/a&gt;, a free service to provide SSL certificates, providing you can prove you own the domain. To go about this, I did the following on my macbook:&lt;/p&gt;
-&lt;h1 id=&#34;install-certbot-to-generate-the-cert&#34;&gt;Install Certbot (to generate the cert)&lt;/h1&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;brew install certbot
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There are a few ways to prove you own a domain, the HTTP based ones require a public web server. Since my development server is only on my local network, I&amp;rsquo;m going to use a DNS based proof. Since I use Cloudflare for my DNS, I&amp;rsquo;ll be using their plugin.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;pip3 install certbot-dns-cloudflare
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;setup-the-domain-localbrampnet&#34;&gt;Setup the domain (local.bramp.net)&lt;/h1&gt;
-&lt;p&gt;I use cloudflare to host the DNS for my domain, so I setup a new domain, local.bramp.net, that points to an internal IP address (192.168.0.123). This domain won&amp;rsquo;t actually be used via the Internet, but will happily work for any devices on my local network.&lt;/p&gt;
-&lt;figure&gt;&lt;img src=&#34;setup-dns.png&#34; width=&#34;720&#34; height=&#34;208&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;Setup DNS record for local.bramp.net&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
+      <description><p>I regularly do web development with the host localhost. Running a simple HTTP server to service my site. Recently I came across a problem where some of the newer web APIs (such as DeviceMotionEvent) do not work unless the site is served via SSL. So I went about setting up a local SSL server, and certificate.</p>
+<p>Many of the <a href="https://matthewhoelter.com/2019/10/21/how-to-setup-https-on-your-local-development-environment-localhost-in-minutes.html">instructions out there</a> create a self-signed certificate, that you install to be trusted locally. I wanted my development server to be accessible from other devices on my network, and I didn&rsquo;t want the hassle of installing this self-signed cert. Instead I wanted a SSL certificate that uses a real/trusted CA.</p>
+<p>Enter <a href="https://letsencrypt.org/">Let&rsquo;s Encrypt</a>, a free service to provide SSL certificates, providing you can prove you own the domain. To go about this, I did the following on my macbook:</p>
+<h1 id="install-certbot-to-generate-the-cert">Install Certbot (to generate the cert)</h1>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">brew install certbot
+</span></span></code></pre></div><p>There are a few ways to prove you own a domain, the HTTP based ones require a public web server. Since my development server is only on my local network, I&rsquo;m going to use a DNS based proof. Since I use Cloudflare for my DNS, I&rsquo;ll be using their plugin.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pip3 install certbot-dns-cloudflare
+</span></span></code></pre></div><h1 id="setup-the-domain-localbrampnet">Setup the domain (local.bramp.net)</h1>
+<p>I use cloudflare to host the DNS for my domain, so I setup a new domain, local.bramp.net, that points to an internal IP address (192.168.0.123). This domain won&rsquo;t actually be used via the Internet, but will happily work for any devices on my local network.</p>
+<figure><img src="/post/2020/12/27/local-https-server-for-development/setup-dns.png" width="720" height="208"><figcaption>
+      <h4>Setup DNS record for local.bramp.net</h4>
+    </figcaption>
+</figure>
 
-&lt;p&gt;You&amp;rsquo;ll also need a &lt;a href=&#34;https://support.cloudflare.com/hc/en-us/articles/200167836-Where-do-I-find-my-Cloudflare-API-key-&#34;&gt;API key from Cloudflare&lt;/a&gt;. They allow you to scope the key to only access this test domain. For example:&lt;/p&gt;
-&lt;figure&gt;&lt;img src=&#34;create-token.png&#34; width=&#34;720&#34; height=&#34;304&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;Create a API token&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
+<p>You&rsquo;ll also need a <a href="https://support.cloudflare.com/hc/en-us/articles/200167836-Where-do-I-find-my-Cloudflare-API-key-">API key from Cloudflare</a>. They allow you to scope the key to only access this test domain. For example:</p>
+<figure><img src="/post/2020/12/27/local-https-server-for-development/create-token.png" width="720" height="304"><figcaption>
+      <h4>Create a API token</h4>
+    </figcaption>
+</figure>
 
-&lt;p&gt;That will give you a token, that is a long string of letters and numbers.&lt;/p&gt;
-&lt;h1 id=&#34;configure-certbot&#34;&gt;Configure Certbot&lt;/h1&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Create a place to store your secrets, that only you can access&lt;/span&gt;
-
-mkdir ~/.secrets
-cat &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF &amp;gt; ~/.secrets/cloudflare.ini
-&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;dns_cloudflare_api_token = **your_key**
-&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;EOF&lt;/span&gt;
-
-chmod &lt;span class=&#34;m&#34;&gt;0700&lt;/span&gt; ~/.secrets/
-chmod &lt;span class=&#34;m&#34;&gt;0400&lt;/span&gt; ~/.secrets/cloudflare.ini
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;generate-the-certificate&#34;&gt;Generate the Certificate&lt;/h1&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;certbot certonly &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --config-dir ~/.secrets/ &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --work-dir ~/.secrets/ &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --logs-dir ~/.secrets/ &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --dns-cloudflare &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  --dns-cloudflare-credentials ~/.secrets/cloudflare.ini &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -d local.bramp.net
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and voila:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; - Congratulations! Your certificate and chain have been saved at:
+<p>That will give you a token, that is a long string of letters and numbers.</p>
+<h1 id="configure-certbot">Configure Certbot</h1>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># Create a place to store your secrets, that only you can access</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mkdir ~/.secrets
+</span></span><span class="line"><span class="cl">cat <span class="s">&lt;&lt;EOF &gt; ~/.secrets/cloudflare.ini
+</span></span></span><span class="line"><span class="cl"><span class="s">dns_cloudflare_api_token = **your_key**
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">chmod <span class="m">0700</span> ~/.secrets/
+</span></span><span class="line"><span class="cl">chmod <span class="m">0400</span> ~/.secrets/cloudflare.ini
+</span></span></code></pre></div><h1 id="generate-the-certificate">Generate the Certificate</h1>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">certbot certonly <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --config-dir ~/.secrets/ <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --work-dir ~/.secrets/ <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --logs-dir ~/.secrets/ <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --dns-cloudflare <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --dns-cloudflare-credentials ~/.secrets/cloudflare.ini <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -d local.bramp.net
+</span></span></code></pre></div><p>and voila:</p>
+<pre tabindex="0"><code> - Congratulations! Your certificate and chain have been saved at:
    /Users/bramp/.secrets/live/local.bramp.net/fullchain.pem
    Your key file has been saved at:
    /Users/bramp/.secrets/live/local.bramp.net/privkey.pem
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The &lt;code&gt;privkey.pem&lt;/code&gt; is important to keep secret. Normally certbot runs as root, but here we run it as your user for convenience.&lt;/p&gt;
-&lt;p&gt;If you want this to automatically renew, just run to add a renewal that occurs twice daily at a random minute after 12pm and 12am.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# List your current crontab, and append certbot renewal&lt;/span&gt;
-
-&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;crontab -l &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$((&lt;/span&gt; RANDOM &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;60&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;))&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; 0,12 * * * &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;which certbot&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; renew -q --config-dir ~/.secrets/ --work-dir ~/.secrets/ --logs-dir ~/.secrets/&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; crontab -
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Or you can renew (all certificates) on demand with a simple:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;certbot renew \
+</code></pre><p>The <code>privkey.pem</code> is important to keep secret. Normally certbot runs as root, but here we run it as your user for convenience.</p>
+<p>If you want this to automatically renew, just run to add a renewal that occurs twice daily at a random minute after 12pm and 12am.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># List your current crontab, and append certbot renewal</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">(</span>crontab -l <span class="p">;</span> <span class="nb">echo</span> <span class="s2">&#34;</span><span class="k">$((</span> RANDOM <span class="o">%</span> <span class="m">60</span> <span class="k">))</span><span class="s2"> 0,12 * * * </span><span class="k">$(</span>which certbot<span class="k">)</span><span class="s2"> renew -q --config-dir ~/.secrets/ --work-dir ~/.secrets/ --logs-dir ~/.secrets/&#34;</span><span class="o">)</span> <span class="p">|</span> crontab -
+</span></span></code></pre></div><p>Or you can renew (all certificates) on demand with a simple:</p>
+<pre tabindex="0"><code>certbot renew \
   --config-dir ~/.secrets/ \
   --work-dir ~/.secrets/ \
   --logs-dir ~/.secrets/
-&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;install-a-simple-https-web-server&#34;&gt;Install a simple HTTPS web server&lt;/h1&gt;
-&lt;p&gt;I use &lt;a href=&#34;https://github.com/http-party/http-server&#34;&gt;http-server&lt;/a&gt;, &amp;ldquo;a simple, zero-configuration command-line http server.&amp;rdquo;. It supports many useful features, including SSL.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;brew install http-server
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;running-the-https-web-server&#34;&gt;Running the HTTPS web server&lt;/h1&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;http-server -S &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -C ~/.secrets/live/local.bramp.net/fullchain.pem &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -K ~/.secrets/live/local.bramp.net/privkey.pem
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You may wish to alias this to something shorter, for example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;https&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;http-server -S \
-&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;  -C ~/.secrets/live/local.bramp.net/fullchain.pem \
-&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;  -K ~/.secrets/live/local.bramp.net/privkey.pem&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now you can run &lt;code&gt;https&lt;/code&gt; from any directory and it&amp;rsquo;ll be served over SSL.&lt;/p&gt;
-&lt;h1 id=&#34;additional-reading&#34;&gt;Additional Reading&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://support.cloudflare.com/hc/en-us/articles/200167836-Where-do-I-find-my-Cloudflare-API-key-&#34;&gt;Cloudflare - Managing API Tokens and Keys&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://certbot.eff.org/lets-encrypt/osx-other&#34;&gt;certbot instructions&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://mangolassi.it/topic/18355/setup-letsencrypt-certbot-with-cloudflare-dns-authentication-ubuntu/2&#34;&gt;Setup LetsEncrypt Certbot with CLoudFlare DNS authentication (Ubuntu)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://matthewhoelter.com/2019/10/21/how-to-setup-https-on-your-local-development-environment-localhost-in-minutes.html&#34;&gt;How to setup HTTPS (SSL) on your local development environment (localhost) in minutes&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://certbot-dns-cloudflare.readthedocs.io/en/stable/&#34;&gt;certbot-dns-cloudflare’s documentation!&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+</code></pre><h1 id="install-a-simple-https-web-server">Install a simple HTTPS web server</h1>
+<p>I use <a href="https://github.com/http-party/http-server">http-server</a>, &ldquo;a simple, zero-configuration command-line http server.&rdquo;. It supports many useful features, including SSL.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">brew install http-server
+</span></span></code></pre></div><h1 id="running-the-https-web-server">Running the HTTPS web server</h1>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">http-server -S <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -C ~/.secrets/live/local.bramp.net/fullchain.pem <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -K ~/.secrets/live/local.bramp.net/privkey.pem
+</span></span></code></pre></div><p>You may wish to alias this to something shorter, for example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">https</span><span class="o">=</span><span class="s2">&#34;http-server -S \
+</span></span></span><span class="line"><span class="cl"><span class="s2">  -C ~/.secrets/live/local.bramp.net/fullchain.pem \
+</span></span></span><span class="line"><span class="cl"><span class="s2">  -K ~/.secrets/live/local.bramp.net/privkey.pem&#34;</span>
+</span></span></code></pre></div><p>Now you can run <code>https</code> from any directory and it&rsquo;ll be served over SSL.</p>
+<h1 id="additional-reading">Additional Reading</h1>
+<ul>
+<li><a href="https://support.cloudflare.com/hc/en-us/articles/200167836-Where-do-I-find-my-Cloudflare-API-key-">Cloudflare - Managing API Tokens and Keys</a></li>
+<li><a href="https://certbot.eff.org/lets-encrypt/osx-other">certbot instructions</a></li>
+<li><a href="https://mangolassi.it/topic/18355/setup-letsencrypt-certbot-with-cloudflare-dns-authentication-ubuntu/2">Setup LetsEncrypt Certbot with CLoudFlare DNS authentication (Ubuntu)</a></li>
+<li><a href="https://matthewhoelter.com/2019/10/21/how-to-setup-https-on-your-local-development-environment-localhost-in-minutes.html">How to setup HTTPS (SSL) on your local development environment (localhost) in minutes</a></li>
+<li><a href="https://certbot-dns-cloudflare.readthedocs.io/en/stable/">certbot-dns-cloudflare’s documentation!</a></li>
+</ul>
 </description>
     </item>
     
@@ -97,25 +97,25 @@ chmod &lt;span class=&#34;m&#34;&gt;0400&lt;/span&gt; ~/.secrets/cloudflare.ini
       <pubDate>Sat, 26 May 2018 11:28:44 -0700</pubDate>
       
       <guid>https://blog.bramp.net/post/2018/05/26/certbot-unexpected-error/</guid>
-      <description>&lt;p&gt;I got a &lt;a href=&#34;https://letsencrypt.org/docs/expiration-emails/&#34;&gt;nice warning email&lt;/a&gt; from &lt;a href=&#34;https://letsencrypt.org/&#34;&gt;Let&amp;rsquo;s Encrypt&lt;/a&gt; that my cert was going to expire soon, and hadn&amp;rsquo;t been renewed. I found in  &lt;code&gt;/var/log/letsencrypt/letsencrypt.log&lt;/code&gt; the following error:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Renewal configuration file /etc/letsencrypt/renewal/mydomain.bramp.net.conf (cert: mydomain.bramp.net) produced an unexpected error: &#39;Namespace&#39; object has no attribute &#39;dns_cloudflare_credentials&#39;. Skipping.
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I manually ran certbot in dry-run mode and it worked fine:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo certbot renew --dry-run
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So this error only occurs when certbot is running as a cron job. Looking at &lt;code&gt;/etc/cron.d/certbot&lt;/code&gt; I see the user runs as root, so I tried the &lt;code&gt;certbot renew --dry-run&lt;/code&gt; again, but this time as the root user:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo su
-root@:~$ sudo certbot renew --dry-run
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and bam, the same error. This error somehow related to the &lt;a href=&#34;https://certbot-dns-cloudflare.readthedocs.io/en/latest/&#34;&gt;certbot-dns-cloudflare plugin&lt;/a&gt;, which proves the ownership of the domain with a &lt;a href=&#34;https://acme-python.readthedocs.io/en/latest/api/challenges.html#acme.challenges.DNS01&#34;&gt;DNS01 challenge&lt;/a&gt; via Cloudflare&amp;rsquo;s DNS. I use this form of challenge, because the domain in question is internal and not available on the Internet.&lt;/p&gt;
-&lt;p&gt;I had forgotten how I installed the plugin, but searching Google, it seems to be via &lt;code&gt;pip3&lt;/code&gt;. Clearly something was different between my root and normal user w/ sudo environments. So I did the following&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ sudo pip3 list &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep certbot
-certbot &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;0.23.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-certbot-apache &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;0.23.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-certbot-dns-cloudflare &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;0.24.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-
-$ sudo su
-root@:~$ pip3 list &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep certbot
-certbot &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;0.23.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-certbot-apache &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;0.23.0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Aha, no certbot-dns-cloudflare when running as root. Clearly I hadn&amp;rsquo;t installed this correctly. Running &lt;code&gt;pip3 install certbot-dns-cloudflare&lt;/code&gt; as root fixed the problem, and voila, certbot correctly fetches new certs via a regular cron.&lt;/p&gt;
+      <description><p>I got a <a href="https://letsencrypt.org/docs/expiration-emails/">nice warning email</a> from <a href="https://letsencrypt.org/">Let&rsquo;s Encrypt</a> that my cert was going to expire soon, and hadn&rsquo;t been renewed. I found in  <code>/var/log/letsencrypt/letsencrypt.log</code> the following error:</p>
+<pre tabindex="0"><code>Renewal configuration file /etc/letsencrypt/renewal/mydomain.bramp.net.conf (cert: mydomain.bramp.net) produced an unexpected error: &#39;Namespace&#39; object has no attribute &#39;dns_cloudflare_credentials&#39;. Skipping.
+</code></pre><p>I manually ran certbot in dry-run mode and it worked fine:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ sudo certbot renew --dry-run
+</span></span></code></pre></div><p>So this error only occurs when certbot is running as a cron job. Looking at <code>/etc/cron.d/certbot</code> I see the user runs as root, so I tried the <code>certbot renew --dry-run</code> again, but this time as the root user:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ sudo su
+</span></span><span class="line"><span class="cl">root@:~$ sudo certbot renew --dry-run
+</span></span></code></pre></div><p>and bam, the same error. This error somehow related to the <a href="https://certbot-dns-cloudflare.readthedocs.io/en/latest/">certbot-dns-cloudflare plugin</a>, which proves the ownership of the domain with a <a href="https://acme-python.readthedocs.io/en/latest/api/challenges.html#acme.challenges.DNS01">DNS01 challenge</a> via Cloudflare&rsquo;s DNS. I use this form of challenge, because the domain in question is internal and not available on the Internet.</p>
+<p>I had forgotten how I installed the plugin, but searching Google, it seems to be via <code>pip3</code>. Clearly something was different between my root and normal user w/ sudo environments. So I did the following</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ sudo pip3 list <span class="p">|</span> grep certbot
+</span></span><span class="line"><span class="cl">certbot <span class="o">(</span>0.23.0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">certbot-apache <span class="o">(</span>0.23.0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">certbot-dns-cloudflare <span class="o">(</span>0.24.0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ sudo su
+</span></span><span class="line"><span class="cl">root@:~$ pip3 list <span class="p">|</span> grep certbot
+</span></span><span class="line"><span class="cl">certbot <span class="o">(</span>0.23.0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">certbot-apache <span class="o">(</span>0.23.0<span class="o">)</span>
+</span></span></code></pre></div><p>Aha, no certbot-dns-cloudflare when running as root. Clearly I hadn&rsquo;t installed this correctly. Running <code>pip3 install certbot-dns-cloudflare</code> as root fixed the problem, and voila, certbot correctly fetches new certs via a regular cron.</p>
 </description>
     </item>
     

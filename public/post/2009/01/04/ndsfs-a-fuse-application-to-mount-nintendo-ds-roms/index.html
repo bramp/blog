@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
@@ -9,7 +9,6 @@
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
 <meta content=#4582EC name=theme-color>
 <link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
 <link href=/images/favicon.png rel=apple-touch-icon />
@@ -106,10 +105,10 @@ window.dataLayer = window.dataLayer || [];
 <p>I brought my dad Professor Layton for the Nintendo DS this Christmas, and being a curious fellow I decided to see if I could reverse engineer the game to extract all the questions/answers. It turns out it wasn’t that hard. On my journey however I had to work out how to browse the file system stored on the rom.</p>
 <p>To do this I found a tool call <a href=http://darkfader.net/ds/ >ndstool</a>, which can browse and extract the file system in the rom image. However, being a nerd I decided to write a FUSE file system application to do the same task.</p>
 <p>The <a href=https://github.com/bramp/ndsfs>source code</a> is available on GitHub, you can compile it yourself:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>make
-</code></pre></div><p>and then run it like so:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>ndsfs <span class=p>&amp;</span>lt<span class=p>;</span>rom file<span class=p>&amp;</span>gt<span class=p>;</span> <span class=p>&amp;</span>lt<span class=p>;</span>mount point<span class=p>&amp;</span>gt<span class=p>;</span>
-</code></pre></div><p>I’m not sure it will work on all roms, but it is worth a try.</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=line><span class=cl>make
+</span></span></code></pre></div><p>and then run it like so:</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=line><span class=cl>ndsfs <span class=p>&amp;</span>lt<span class=p>;</span>rom file<span class=p>&amp;</span>gt<span class=p>;</span> <span class=p>&amp;</span>lt<span class=p>;</span>mount point<span class=p>&amp;</span>gt<span class=p>;</span>
+</span></span></code></pre></div><p>I’m not sure it will work on all roms, but it is worth a try.</p>
 </div>
 </article>
 <div class=row>
@@ -134,7 +133,7 @@ window.dataLayer = window.dataLayer || [];
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2026. All rights reserved.</p>
 </footer>
 </div>
 </div>

@@ -1,10 +1,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>firmware on bramp.net</title>
-    <link>https://blog.bramp.net</link>
-    <description>Recent content in firmware on bramp.net</description>
+    <title>Firmware on bramp.net</title>
+    <link>https://blog.bramp.net/</link>
+    <description>Recent content in Firmware on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en_GB</language>
+    <language>en-GB</language>
     <lastBuildDate>Tue, 24 Jan 2012 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/firmware/" rel="self" type="application/rss+xml" />
     
@@ -14,48 +14,48 @@
       <pubDate>Tue, 24 Jan 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2012/01/24/hacking-linksys-e4200v2-firmware/</guid>
-      <description>&lt;p&gt;In a previous post I &lt;a href=&#34;https://blog.bramp.net/post/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/&#34;&gt;obtained the Linksys E4200v2 firmware&lt;/a&gt;, now I plan to break it apart and see what I can find.&lt;/p&gt;
-&lt;p&gt;I start off by simplying using “file” on the firmware:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ file FW_E4200_2.0.36.126507.SSA 
-
-FW_E4200_2.0.36.126507.SSA: u-boot legacy uImage, Linux-2.6.35.8, Linux/ARM, OS Kernel Image &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Not compressed&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, &lt;span class=&#34;m&#34;&gt;2677476&lt;/span&gt; bytes, Thu Dec &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; 19:40:21 2011, Load Address: 0x00008000, Entry Point: 0x00008000, Header CRC: 0x6ADD9801, Data CRC: 0xB010442D
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Well this is a great start. We know we are dealing with Linux, and that this is a normal uImage. I then move on to use a neat little tool called &lt;a href=&#34;https://github.com/devttys0/binwalk&#34;&gt;binwalk&lt;/a&gt;. By using libmagic, binwalk tries to find interesting sections of the file.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ /usr/local/bin/binwalk FW_E4200_2.0.36.126507.SSA 
-
-DECIMAL   	HEX       	DESCRIPTION
--------------------------------------------------------------------------------------------------------
-&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;         	0x0       	uImage header, header size: &lt;span class=&#34;m&#34;&gt;64&lt;/span&gt; bytes, header CRC: 0x6ADD9801, created: Thu Dec &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; 19:40:21 2011, image size: &lt;span class=&#34;m&#34;&gt;2677476&lt;/span&gt; bytes, Data Address: 0x8000, Entry Point: 0x8000, data CRC: 0xB010442D, OS: Linux, CPU: ARM, image type: OS Kernel Image, compression type: none, image name: Linux-2.6.35.8
-&lt;span class=&#34;m&#34;&gt;1124&lt;/span&gt;      	0x464     	LZMA compressed data, properties: 0x87, dictionary size: &lt;span class=&#34;m&#34;&gt;250216448&lt;/span&gt; bytes, uncompressed size: &lt;span class=&#34;m&#34;&gt;14786800&lt;/span&gt; bytes
-&lt;span class=&#34;m&#34;&gt;16636&lt;/span&gt;     	0x40FC    	gzip compressed data, from Unix, last modified: Thu Dec &lt;span class=&#34;m&#34;&gt;22&lt;/span&gt; 19:40:18 2011, max compression
-&lt;span class=&#34;m&#34;&gt;2752512&lt;/span&gt;   	0x2A0000  	JFFS2 filesystem data little endian, JFFS node length: &lt;span class=&#34;m&#34;&gt;49&lt;/span&gt;
-..A whole lot of JFFS2 sections..
-&lt;span class=&#34;m&#34;&gt;20974612&lt;/span&gt;  	0x1400C14 	JFFS2 filesystem data little endian, JFFS node length: &lt;span class=&#34;m&#34;&gt;51&lt;/span&gt;
-&lt;span class=&#34;m&#34;&gt;20974664&lt;/span&gt;  	0x1400C48 	JFFS2 filesystem data little endian, JFFS node length: &lt;span class=&#34;m&#34;&gt;193&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We find a small LZMA section, and large gzip section, and lots of JFFS2 sections. JFFS2 is a popular embedded file system, so we can guess the bulk of the file system is here. Next we can extract each section using dd:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;dd &lt;span class=&#34;nv&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;skip&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1124&lt;/span&gt;  &lt;span class=&#34;nv&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;15512&lt;/span&gt;   &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;FW_E4200_2.0.36.126507.SSA &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-1.lzma
-dd &lt;span class=&#34;nv&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;skip&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;16636&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2735876&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;FW_E4200_2.0.36.126507.SSA &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-2.gz
-dd &lt;span class=&#34;nv&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;skip&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2752512&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;FW_E4200_2.0.36.126507.SSA &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-3.jffs2
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Notice we are using a block size of 1 (so we can count in bytes), and we skip the offset into the file. Then we manually work out the sizes for the lzma and gzip sections. They can be no larger than their start until the next section. If they don’t fill that full space, then not to worry as these tools will normally ignore trailing data.&lt;/p&gt;
-&lt;p&gt;As I’m interested to see what’s in the JFFS filesystem, we should mount it. You can’t mount JFFS like a normal loopback device, you have to create a fake flash device. The following set of command can solve that:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo modprobe mtdram &lt;span class=&#34;nv&#34;&gt;total_size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;32768&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;erase_size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;256&lt;/span&gt;
-sudo modprobe mtdblock
-sudo modprobe mtdchar
-&lt;span class=&#34;c1&#34;&gt;# sudo mknod /dev/mtdblock0 b 31 0&lt;/span&gt;
-dd &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;image-3.jffs2 &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/dev/mtdblock0
-mount -t jffs2 /dev/mtdblock0 /mnt/disk
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The mknod line is only needed if you don’t already have a /dev/mtdblock0. Also a /mnt/disk needs to be created ahead of time so the mounting works. Anyway once that was done, I cd /mnt/disk and found that it does appear to contain most of the file system. There are all the HTML pages, and binaries (for example busybox).&lt;/p&gt;
-&lt;p&gt;Now we should go back to image-1.lzma and image-2.gz. Well straight away trying to decompress image-1&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ lzma -dc image-1.lzma &amp;gt; image-1
-lzma: Decoder error
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;results in a error. So we can assume that was a incorrectly detected by binwalk. Lets now try and decompress image-2.gz:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ gzip -dc image-2.gz &amp;gt; image-2
-gzip: image-2.gz: decompression OK, trailing garbage ignored
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So that does indeed produce a large image-2 file, so we can ignore the trailing garbage warning. A quick “file” on image-2 doesn’t reveal anything useful, so I run binwalk on it. This turns up a set of false positives. So I take a different approach. I run:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ strings image-2
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This produces a whole host of valid looking strings. From the contents of the strings it makes me think it’s the actual kernel. A line like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;Linux version 2.6.35.8 (root@ubuntu) (gcc version 4.2.0 20070413 (prerelease) (CodeSourcery Sourcery G++ Lite 2007q1-21)) #1 Thu Dec 22 16:40:10 PST 2011
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;helps me come to that conclusion.&lt;/p&gt;
-&lt;p&gt;I haven’t finished poking around image-2.gz, but I suspect the interesting parts are mostly in the JFFS2 filesystem. Hopefully this will lead to me getting ssh access to the router, and eventually being able to customise the firmware.&lt;/p&gt;
+      <description><p>In a previous post I <a href="/post/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/">obtained the Linksys E4200v2 firmware</a>, now I plan to break it apart and see what I can find.</p>
+<p>I start off by simplying using “file” on the firmware:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ file FW_E4200_2.0.36.126507.SSA 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">FW_E4200_2.0.36.126507.SSA: u-boot legacy uImage, Linux-2.6.35.8, Linux/ARM, OS Kernel Image <span class="o">(</span>Not compressed<span class="o">)</span>, <span class="m">2677476</span> bytes, Thu Dec <span class="m">22</span> 19:40:21 2011, Load Address: 0x00008000, Entry Point: 0x00008000, Header CRC: 0x6ADD9801, Data CRC: 0xB010442D
+</span></span></code></pre></div><p>Well this is a great start. We know we are dealing with Linux, and that this is a normal uImage. I then move on to use a neat little tool called <a href="https://github.com/devttys0/binwalk">binwalk</a>. By using libmagic, binwalk tries to find interesting sections of the file.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ /usr/local/bin/binwalk FW_E4200_2.0.36.126507.SSA 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">DECIMAL   	HEX       	DESCRIPTION
+</span></span><span class="line"><span class="cl">-------------------------------------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl"><span class="m">0</span>         	0x0       	uImage header, header size: <span class="m">64</span> bytes, header CRC: 0x6ADD9801, created: Thu Dec <span class="m">22</span> 19:40:21 2011, image size: <span class="m">2677476</span> bytes, Data Address: 0x8000, Entry Point: 0x8000, data CRC: 0xB010442D, OS: Linux, CPU: ARM, image type: OS Kernel Image, compression type: none, image name: Linux-2.6.35.8
+</span></span><span class="line"><span class="cl"><span class="m">1124</span>      	0x464     	LZMA compressed data, properties: 0x87, dictionary size: <span class="m">250216448</span> bytes, uncompressed size: <span class="m">14786800</span> bytes
+</span></span><span class="line"><span class="cl"><span class="m">16636</span>     	0x40FC    	gzip compressed data, from Unix, last modified: Thu Dec <span class="m">22</span> 19:40:18 2011, max compression
+</span></span><span class="line"><span class="cl"><span class="m">2752512</span>   	0x2A0000  	JFFS2 filesystem data little endian, JFFS node length: <span class="m">49</span>
+</span></span><span class="line"><span class="cl">..A whole lot of JFFS2 sections..
+</span></span><span class="line"><span class="cl"><span class="m">20974612</span>  	0x1400C14 	JFFS2 filesystem data little endian, JFFS node length: <span class="m">51</span>
+</span></span><span class="line"><span class="cl"><span class="m">20974664</span>  	0x1400C48 	JFFS2 filesystem data little endian, JFFS node length: <span class="m">193</span>
+</span></span></code></pre></div><p>We find a small LZMA section, and large gzip section, and lots of JFFS2 sections. JFFS2 is a popular embedded file system, so we can guess the bulk of the file system is here. Next we can extract each section using dd:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">dd <span class="nv">bs</span><span class="o">=</span><span class="m">1</span> <span class="nv">skip</span><span class="o">=</span><span class="m">1124</span>  <span class="nv">count</span><span class="o">=</span><span class="m">15512</span>   <span class="k">if</span><span class="o">=</span>FW_E4200_2.0.36.126507.SSA <span class="nv">of</span><span class="o">=</span>image-1.lzma
+</span></span><span class="line"><span class="cl">dd <span class="nv">bs</span><span class="o">=</span><span class="m">1</span> <span class="nv">skip</span><span class="o">=</span><span class="m">16636</span> <span class="nv">count</span><span class="o">=</span><span class="m">2735876</span> <span class="k">if</span><span class="o">=</span>FW_E4200_2.0.36.126507.SSA <span class="nv">of</span><span class="o">=</span>image-2.gz
+</span></span><span class="line"><span class="cl">dd <span class="nv">bs</span><span class="o">=</span><span class="m">1</span> <span class="nv">skip</span><span class="o">=</span><span class="m">2752512</span> <span class="k">if</span><span class="o">=</span>FW_E4200_2.0.36.126507.SSA <span class="nv">of</span><span class="o">=</span>image-3.jffs2
+</span></span></code></pre></div><p>Notice we are using a block size of 1 (so we can count in bytes), and we skip the offset into the file. Then we manually work out the sizes for the lzma and gzip sections. They can be no larger than their start until the next section. If they don’t fill that full space, then not to worry as these tools will normally ignore trailing data.</p>
+<p>As I’m interested to see what’s in the JFFS filesystem, we should mount it. You can’t mount JFFS like a normal loopback device, you have to create a fake flash device. The following set of command can solve that:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo modprobe mtdram <span class="nv">total_size</span><span class="o">=</span><span class="m">32768</span> <span class="nv">erase_size</span><span class="o">=</span><span class="m">256</span>
+</span></span><span class="line"><span class="cl">sudo modprobe mtdblock
+</span></span><span class="line"><span class="cl">sudo modprobe mtdchar
+</span></span><span class="line"><span class="cl"><span class="c1"># sudo mknod /dev/mtdblock0 b 31 0</span>
+</span></span><span class="line"><span class="cl">dd <span class="k">if</span><span class="o">=</span>image-3.jffs2 <span class="nv">of</span><span class="o">=</span>/dev/mtdblock0
+</span></span><span class="line"><span class="cl">mount -t jffs2 /dev/mtdblock0 /mnt/disk
+</span></span></code></pre></div><p>The mknod line is only needed if you don’t already have a /dev/mtdblock0. Also a /mnt/disk needs to be created ahead of time so the mounting works. Anyway once that was done, I cd /mnt/disk and found that it does appear to contain most of the file system. There are all the HTML pages, and binaries (for example busybox).</p>
+<p>Now we should go back to image-1.lzma and image-2.gz. Well straight away trying to decompress image-1</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ lzma -dc image-1.lzma &gt; image-1
+</span></span><span class="line"><span class="cl">lzma: Decoder error
+</span></span></code></pre></div><p>results in a error. So we can assume that was a incorrectly detected by binwalk. Lets now try and decompress image-2.gz:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ gzip -dc image-2.gz &gt; image-2
+</span></span><span class="line"><span class="cl">gzip: image-2.gz: decompression OK, trailing garbage ignored
+</span></span></code></pre></div><p>So that does indeed produce a large image-2 file, so we can ignore the trailing garbage warning. A quick “file” on image-2 doesn’t reveal anything useful, so I run binwalk on it. This turns up a set of false positives. So I take a different approach. I run:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ strings image-2
+</span></span></code></pre></div><p>This produces a whole host of valid looking strings. From the contents of the strings it makes me think it’s the actual kernel. A line like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Linux version 2.6.35.8 (root@ubuntu) (gcc version 4.2.0 20070413 (prerelease) (CodeSourcery Sourcery G++ Lite 2007q1-21)) #1 Thu Dec 22 16:40:10 PST 2011
+</span></span></code></pre></div><p>helps me come to that conclusion.</p>
+<p>I haven’t finished poking around image-2.gz, but I suspect the interesting parts are mostly in the JFFS2 filesystem. Hopefully this will lead to me getting ssh access to the router, and eventually being able to customise the firmware.</p>
 </description>
     </item>
     
@@ -65,66 +65,66 @@ gzip: image-2.gz: decompression OK, trailing garbage ignored
       <pubDate>Sun, 22 Jan 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/</guid>
-      <description>&lt;p&gt;I recently got a Linksys E4200v2 wireless router. It’s pretty cool, supports IPv6, 2.4Ghz and 5Ghz wifi networks, VPN, etc. The one downside is that the firmware for the router is not available from &lt;a href=&#34;http://homesupport.cisco.com/en-us/wireless/linksys/E4200&#34;&gt;Linksys’s website&lt;/a&gt;, and the &lt;a href=&#34;http://homesupport.cisco.com/en-us/gplcodecenter&#34;&gt;GPL code&lt;/a&gt; has not been made available, yet… However, the router has been able to pull updates itself from the Internet.&lt;/p&gt;
-&lt;p&gt;So I wanted to acquire the firmware to see if I could do something fun with the router. I set about to figure out how the router does this. My plan was to set my laptop up between Internet interface on the router, and the cable modem. Since my laptop doesn’t have two network cards, I plugged into a switch and used &lt;a href=&#34;http://ettercap.sourceforge.net/&#34;&gt;Ethercap&lt;/a&gt; to ARP poison to redirect traffic via the laptop.&lt;/p&gt;
-&lt;p&gt;Then using &lt;a href=&#34;http://www.wireshark.org/&#34;&gt;Wireshark&lt;/a&gt; I could see the traffic coming out of the router. All I needed to do now was to hit the “check for updates button”.&lt;/p&gt;
-&lt;p&gt;Firstly I saw two DNS requests, one for the AAAA (IPv6) record for update.linksys.com, then a A request for update.linksys.com. Clearly the updates are coming from there. Secondly I saw a HTTPS connection form to that domain. That makes this a little more complex, as I am unable to see the encrypted traffic, and thus see what is being transferred.&lt;/p&gt;
-&lt;p&gt;So, I grabbed a &lt;a href=&#34;http://code.activestate.com/recipes/491264-mini-fake-dns-server/&#34;&gt;simple DNS server&lt;/a&gt;, and set up a simple SSL server following &lt;a href=&#34;http://wirewatcher.wordpress.com/2010/07/20/decrypting-ssl-traffic-with-wireshark-and-ways-to-prevent-it/&#34;&gt;these instructions&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Now with DNS spoofing, and a fake SSL server, I could intercept encrypted traffic from the router, as long as it does not validate the SSL certificate. Luckily it didn’t check the validity, and thus I was able to capture the request: (BTW Not checking the cert completely defeats the point of using SSL… bad Linksys!).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span class=&#34;nf&#34;&gt;POST&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;/cds/update&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;HTTP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1.1&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;Host&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;update.linksys.com&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;Accept&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;*/*&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;Content-Type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;text/xml&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;Content-Length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;573&lt;/span&gt;
-
-&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&amp;#34;http://schemas.xmlsoap.org/soap/envelope/&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;SOAP-ENV:Header/&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;SOAP-ENV:Body&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:GetFirmwareFromDeviceRequest xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:LanguageCode&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;en&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:LanguageCode&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:CountryCode&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;us&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:CountryCode&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:MacAddress&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;12:34:56:78:90:ab&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:MacAddress&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:ModelNo&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;E4200&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:ModelNo&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:HardwareVersion&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;2&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:HardwareVersion&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:CurrentFirmwareVersion&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;2.0.36.126507&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:CurrentFirmwareVersion&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:GetFirmwareFromDeviceRequest&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/SOAP-ENV:Body&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/SOAP-ENV:Envelope&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and the response:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span class=&#34;kr&#34;&gt;HTTP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1.1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;200&lt;/span&gt; &lt;span class=&#34;ne&#34;&gt;OK&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;Content-Language&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;en-US&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;Content-Type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;text/xml&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;SOAPAction&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
-
-&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;soapenv:Envelope
- xmlns:soapenv=&amp;#34;http://schemas.xmlsoap.org/soap/envelope/&amp;#34;
- xmlns:soapenc=&amp;#34;http://schemas.xmlsoap.org/soap/encoding/&amp;#34;
- xmlns:xsd=&amp;#34;http://www.w3.org/2001/XMLSchema&amp;#34;
- xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;soapenv:Header/&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;soapenv:Body&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:GetFirmwareFromDeviceResponse xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:FirmwareList xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:Firmware xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:Version xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;2.0.36.126507&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:Version&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:Revision xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;D&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:Revision&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:ReleaseDate xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;2012-01-06T16:48:08Z&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:ReleaseDate&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:DownloadURI xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:DownloadURI&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:DateFormat xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;yyyy-MM-dd&amp;#39;;T&amp;#39;;HH:mm:ss&amp;#39;;Z&amp;#39;;&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:DateFormat&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:Checksum xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;1958710861&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:Checksum&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:Firmware&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:FirmwareList&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:GetFirmwareFromDeviceResponse&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/soapenv:Body&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/soapenv:Envelope&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;(I slightly modified portions of the request and response to hide the identify of my router.).&lt;/p&gt;
-&lt;p&gt;I might write a script to make fake requests, but until then you can easily create a request with curl:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl -d @request.raw https://update.linksys.com/cds/update
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then you just extract the DownloadURI and&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Voila I now have the firmware. Now I need to figure out what to do with it.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;: As requested I fetched the more recent version of the file:&lt;br&gt;
-2.0.37.131047 – &lt;a href=&#34;http://download.linksys.com/updates/to0040829450.pdx/FW&#34;&gt;http://download.linksys.com/updates/to0040829450.pdx/FW&lt;/a&gt;_E4200_2.0.37.131047.SSA&lt;/p&gt;
+      <description><p>I recently got a Linksys E4200v2 wireless router. It’s pretty cool, supports IPv6, 2.4Ghz and 5Ghz wifi networks, VPN, etc. The one downside is that the firmware for the router is not available from <a href="http://homesupport.cisco.com/en-us/wireless/linksys/E4200">Linksys’s website</a>, and the <a href="http://homesupport.cisco.com/en-us/gplcodecenter">GPL code</a> has not been made available, yet… However, the router has been able to pull updates itself from the Internet.</p>
+<p>So I wanted to acquire the firmware to see if I could do something fun with the router. I set about to figure out how the router does this. My plan was to set my laptop up between Internet interface on the router, and the cable modem. Since my laptop doesn’t have two network cards, I plugged into a switch and used <a href="http://ettercap.sourceforge.net/">Ethercap</a> to ARP poison to redirect traffic via the laptop.</p>
+<p>Then using <a href="http://www.wireshark.org/">Wireshark</a> I could see the traffic coming out of the router. All I needed to do now was to hit the “check for updates button”.</p>
+<p>Firstly I saw two DNS requests, one for the AAAA (IPv6) record for update.linksys.com, then a A request for update.linksys.com. Clearly the updates are coming from there. Secondly I saw a HTTPS connection form to that domain. That makes this a little more complex, as I am unable to see the encrypted traffic, and thus see what is being transferred.</p>
+<p>So, I grabbed a <a href="http://code.activestate.com/recipes/491264-mini-fake-dns-server/">simple DNS server</a>, and set up a simple SSL server following <a href="http://wirewatcher.wordpress.com/2010/07/20/decrypting-ssl-traffic-with-wireshark-and-ways-to-prevent-it/">these instructions</a>.</p>
+<p>Now with DNS spoofing, and a fake SSL server, I could intercept encrypted traffic from the router, as long as it does not validate the SSL certificate. Luckily it didn’t check the validity, and thus I was able to capture the request: (BTW Not checking the cert completely defeats the point of using SSL… bad Linksys!).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-http" data-lang="http"><span class="line"><span class="cl"><span class="nf">POST</span> <span class="nn">/cds/update</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span></span><span class="line"><span class="cl"><span class="n">Host</span><span class="o">:</span> <span class="l">update.linksys.com</span>
+</span></span><span class="line"><span class="cl"><span class="n">Accept</span><span class="o">:</span> <span class="l">*/*</span>
+</span></span><span class="line"><span class="cl"><span class="n">Content-Type</span><span class="o">:</span> <span class="l">text/xml</span>
+</span></span><span class="line"><span class="cl"><span class="n">Content-Length</span><span class="o">:</span> <span class="l">573</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="ni">&amp;lt;</span>SOAP-ENV:Envelope xmlns:SOAP-ENV=&#34;http://schemas.xmlsoap.org/soap/envelope/&#34;<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="ni">&amp;lt;</span>SOAP-ENV:Header/<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="ni">&amp;lt;</span>SOAP-ENV:Body<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="ni">&amp;lt;</span>ns:GetFirmwareFromDeviceRequest xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="ni">&amp;lt;</span>ns:LanguageCode<span class="ni">&amp;gt;</span>en<span class="ni">&amp;lt;</span>/ns:LanguageCode<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="ni">&amp;lt;</span>ns:CountryCode<span class="ni">&amp;gt;</span>us<span class="ni">&amp;lt;</span>/ns:CountryCode<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="ni">&amp;lt;</span>ns:MacAddress<span class="ni">&amp;gt;</span>12:34:56:78:90:ab<span class="ni">&amp;lt;</span>/ns:MacAddress<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="ni">&amp;lt;</span>ns:ModelNo<span class="ni">&amp;gt;</span>E4200<span class="ni">&amp;lt;</span>/ns:ModelNo<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="ni">&amp;lt;</span>ns:HardwareVersion<span class="ni">&amp;gt;</span>2<span class="ni">&amp;lt;</span>/ns:HardwareVersion<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="ni">&amp;lt;</span>ns:CurrentFirmwareVersion<span class="ni">&amp;gt;</span>2.0.36.126507<span class="ni">&amp;lt;</span>/ns:CurrentFirmwareVersion<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="ni">&amp;lt;</span>/ns:GetFirmwareFromDeviceRequest<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="ni">&amp;lt;</span>/SOAP-ENV:Body<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl"><span class="ni">&amp;lt;</span>/SOAP-ENV:Envelope<span class="ni">&amp;gt;</span>
+</span></span></code></pre></div><p>and the response:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-http" data-lang="http"><span class="line"><span class="cl"><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+</span></span><span class="line"><span class="cl"><span class="n">Content-Language</span><span class="o">:</span> <span class="l">en-US</span>
+</span></span><span class="line"><span class="cl"><span class="n">Content-Type</span><span class="o">:</span> <span class="l">text/xml</span>
+</span></span><span class="line"><span class="cl"><span class="n">SOAPAction</span><span class="o">:</span> <span class="l">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="ni">&amp;lt;</span>soapenv:Envelope
+</span></span><span class="line"><span class="cl"> xmlns:soapenv=&#34;http://schemas.xmlsoap.org/soap/envelope/&#34;
+</span></span><span class="line"><span class="cl"> xmlns:soapenc=&#34;http://schemas.xmlsoap.org/soap/encoding/&#34;
+</span></span><span class="line"><span class="cl"> xmlns:xsd=&#34;http://www.w3.org/2001/XMLSchema&#34;
+</span></span><span class="line"><span class="cl"> xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="ni">&amp;lt;</span>soapenv:Header/<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="ni">&amp;lt;</span>soapenv:Body<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="ni">&amp;lt;</span>ns:GetFirmwareFromDeviceResponse xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="ni">&amp;lt;</span>ns:FirmwareList xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="ni">&amp;lt;</span>ns:Firmware xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="ni">&amp;lt;</span>ns:Version xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class="ni">&amp;gt;</span>2.0.36.126507<span class="ni">&amp;lt;</span>/ns:Version<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="ni">&amp;lt;</span>ns:Revision xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class="ni">&amp;gt;</span>D<span class="ni">&amp;lt;</span>/ns:Revision<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="ni">&amp;lt;</span>ns:ReleaseDate xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class="ni">&amp;gt;</span>2012-01-06T16:48:08Z<span class="ni">&amp;lt;</span>/ns:ReleaseDate<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="ni">&amp;lt;</span>ns:DownloadURI xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class="ni">&amp;gt;</span>http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA<span class="ni">&amp;lt;</span>/ns:DownloadURI<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="ni">&amp;lt;</span>ns:DateFormat xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class="ni">&amp;gt;</span>yyyy-MM-dd&#39;;T&#39;;HH:mm:ss&#39;;Z&#39;;<span class="ni">&amp;lt;</span>/ns:DateFormat<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="ni">&amp;lt;</span>ns:Checksum xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class="ni">&amp;gt;</span>1958710861<span class="ni">&amp;lt;</span>/ns:Checksum<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="ni">&amp;lt;</span>/ns:Firmware<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="ni">&amp;lt;</span>/ns:FirmwareList<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="ni">&amp;lt;</span>/ns:GetFirmwareFromDeviceResponse<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="ni">&amp;lt;</span>/soapenv:Body<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl"><span class="ni">&amp;lt;</span>/soapenv:Envelope<span class="ni">&amp;gt;</span>
+</span></span></code></pre></div><p>(I slightly modified portions of the request and response to hide the identify of my router.).</p>
+<p>I might write a script to make fake requests, but until then you can easily create a request with curl:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -d @request.raw https://update.linksys.com/cds/update
+</span></span></code></pre></div><p>Then you just extract the DownloadURI and</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA
+</span></span></code></pre></div><p>Voila I now have the firmware. Now I need to figure out what to do with it.</p>
+<p><strong>Update</strong>: As requested I fetched the more recent version of the file:<br>
+2.0.37.131047 – <a href="http://download.linksys.com/updates/to0040829450.pdx/FW">http://download.linksys.com/updates/to0040829450.pdx/FW</a>_E4200_2.0.37.131047.SSA</p>
 </description>
     </item>
     

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
@@ -9,7 +9,6 @@
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
 <meta content=#4582EC name=theme-color>
 <link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
 <link href=/images/favicon.png rel=apple-touch-icon />
@@ -127,35 +126,35 @@ window.dataLayer = window.dataLayer || [];
 </div>
 </div>
 <p>I don’t know the exact layout, but on the CD I seemed to have 12 different scans, each with a series of images. The name of the files were all 8 digits numbers, with the first three being the scan number (0 to 11), and the following five digits being (0 to whatever). For example:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-text data-lang=text>DICOM/185723/00000000: DICOM medical imaging data
-DICOM/185723/00000001: DICOM medical imaging data
-DICOM/185723/00000002: DICOM medical imaging data
-...
-DICOM/185723/00100000: DICOM medical imaging data
-DICOM/185723/00100001: DICOM medical imaging data
-DICOM/185723/00100002: DICOM medical imaging data
-...
-</code></pre></div><p>To create videos the first thing I did was to convert the images from DICOM to PNG</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>sudo apt-get install medcon
-mkdir png
-<span class=k>for</span> i in DICOM/185723/*<span class=p>;</span> <span class=k>do</span> medcon -f <span class=nv>$i</span> -c png -o png/<span class=sb>`</span>basename <span class=nv>$i</span><span class=sb>`</span>.png <span class=p>;</span> <span class=k>done</span><span class=p>;</span>
-</code></pre></div><p>Now to batch the images I started by creating animated gifs.</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>sudo apt-get install imagemagick
-
-<span class=c1># Create animated gifs</span>
-<span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> 011<span class=sb>`</span><span class=p>;</span> <span class=k>do</span> convert -delay <span class=m>20</span> -loop <span class=m>0</span> png/<span class=nv>$i</span>*.png <span class=nv>$i</span>.gif<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
-</code></pre></div><p>However, those gifs were huge, up to 20mb. So next I created a set of videos (that were a order of magnitude smaller than the gifs):</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>sudo apt-get install ffmpeg
-
-<span class=c1># Create MP4</span>
-<span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> 011<span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.mp4<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
-
-<span class=c1># Create webm</span>
-<span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> 011<span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.webm<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
-
-<span class=c1># Create ogg video</span>
-<span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> 011<span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.ogg<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
-</code></pre></div><p>easy!</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-text data-lang=text><span class=line><span class=cl>DICOM/185723/00000000: DICOM medical imaging data
+</span></span><span class=line><span class=cl>DICOM/185723/00000001: DICOM medical imaging data
+</span></span><span class=line><span class=cl>DICOM/185723/00000002: DICOM medical imaging data
+</span></span><span class=line><span class=cl>...
+</span></span><span class=line><span class=cl>DICOM/185723/00100000: DICOM medical imaging data
+</span></span><span class=line><span class=cl>DICOM/185723/00100001: DICOM medical imaging data
+</span></span><span class=line><span class=cl>DICOM/185723/00100002: DICOM medical imaging data
+</span></span><span class=line><span class=cl>...
+</span></span></code></pre></div><p>To create videos the first thing I did was to convert the images from DICOM to PNG</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo apt-get install medcon
+</span></span><span class=line><span class=cl>mkdir png
+</span></span><span class=line><span class=cl><span class=k>for</span> i in DICOM/185723/*<span class=p>;</span> <span class=k>do</span> medcon -f <span class=nv>$i</span> -c png -o png/<span class=sb>`</span>basename <span class=nv>$i</span><span class=sb>`</span>.png <span class=p>;</span> <span class=k>done</span><span class=p>;</span>
+</span></span></code></pre></div><p>Now to batch the images I started by creating animated gifs.</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo apt-get install imagemagick
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Create animated gifs</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> 011<span class=sb>`</span><span class=p>;</span> <span class=k>do</span> convert -delay <span class=m>20</span> -loop <span class=m>0</span> png/<span class=nv>$i</span>*.png <span class=nv>$i</span>.gif<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
+</span></span></code></pre></div><p>However, those gifs were huge, up to 20mb. So next I created a set of videos (that were a order of magnitude smaller than the gifs):</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo apt-get install ffmpeg
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Create MP4</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> 011<span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.mp4<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Create webm</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> 011<span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.webm<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Create ogg video</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> i in <span class=sb>`</span>seq -w <span class=m>000</span> 011<span class=sb>`</span><span class=p>;</span> <span class=k>do</span> avconv -r <span class=m>5</span> -i png/<span class=nv>$i</span>%05d.png -r <span class=m>24</span> <span class=nv>$i</span>.ogg<span class=p>;</span> <span class=k>done</span><span class=p>;</span>
+</span></span></code></pre></div><p>easy!</p>
 </div>
 </article>
 <div class=row>
@@ -180,7 +179,7 @@ mkdir png
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2026. All rights reserved.</p>
 </footer>
 </div>
 </div>

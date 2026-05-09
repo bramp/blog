@@ -1,10 +1,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>milk on bramp.net</title>
-    <link>https://blog.bramp.net</link>
-    <description>Recent content in milk on bramp.net</description>
+    <title>Milk on bramp.net</title>
+    <link>https://blog.bramp.net/</link>
+    <description>Recent content in Milk on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en_GB</language>
+    <language>en-GB</language>
     <lastBuildDate>Sat, 03 Apr 2021 12:44:51 -0700</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/milk/" rel="self" type="application/rss+xml" />
     
@@ -14,10 +14,10 @@
       <pubDate>Sat, 03 Apr 2021 12:44:51 -0700</pubDate>
       
       <guid>https://blog.bramp.net/post/2021/04/03/alternative-milks/</guid>
-      <description>&lt;p&gt;I&amp;rsquo;ve not been getting out as much during Covid, as such I&amp;rsquo;ve tried to reduce my caloric intake. One way I tried to do this, was to switch the kind of milk I drink. This also had a secondary impact on reducing my environmental impact. However, while researching the various milks, I couldn&amp;rsquo;t find one source that put both nutritional information, and the environmental impact of the various milks in one place. This article does just that.&lt;/p&gt;
-&lt;p&gt;During my research, I found there are minor differences in the US and UK in how they represent this data. For example, a UK serving size is 200ml, whereas in the US it&amp;rsquo;s 1 cup (or ~240ml). I&amp;rsquo;ve normalised all values to the UK serving size.&lt;/p&gt;
-&lt;!-- Generated at https://www.tablesgenerator.com/html_tables# --&gt;
-&lt;style type=&#34;text/css&#34;&gt;
+      <description><p>I&rsquo;ve not been getting out as much during Covid, as such I&rsquo;ve tried to reduce my caloric intake. One way I tried to do this, was to switch the kind of milk I drink. This also had a secondary impact on reducing my environmental impact. However, while researching the various milks, I couldn&rsquo;t find one source that put both nutritional information, and the environmental impact of the various milks in one place. This article does just that.</p>
+<p>During my research, I found there are minor differences in the US and UK in how they represent this data. For example, a UK serving size is 200ml, whereas in the US it&rsquo;s 1 cup (or ~240ml). I&rsquo;ve normalised all values to the UK serving size.</p>
+<!-- Generated at https://www.tablesgenerator.com/html_tables# -->
+<style type="text/css">
 .tg  {
 	text-align: center;
 }
@@ -31,249 +31,249 @@
 	font-weight: bold;
 }
 
-&lt;/style&gt;
-&lt;div class=&#34;overflow-center&#34;&gt;
-&lt;table class=&#34;tg table table-striped table-hover table-condensed&#34; data-sortable&gt;
-&lt;thead&gt;
-  &lt;tr&gt;
-    &lt;th class=&#34;tg-jkyp&#34;&gt;Type&lt;/th&gt;
-    &lt;th class=&#34;tg-pb0m&#34; data-sorted=&#34;true&#34; data-sorted-direction=&#34;descending&#34;&gt;Emissions&lt;br/&gt;(Kg)&lt;/th&gt;
-    &lt;th class=&#34;tg-pb0m&#34;&gt;Land Usage&lt;br/&gt;(m&lt;sup&gt;2&lt;/sup&gt;)&lt;/th&gt;
-    &lt;th class=&#34;tg-pb0m&#34;&gt;Water Usage&lt;br/&gt;(L)&lt;/th&gt;
-    &lt;th class=&#34;tg-jkyp&#34;&gt;Variant&lt;/th&gt;
-    &lt;th class=&#34;tg-pb0m&#34;&gt;Calories&lt;br/&gt;(kcals)&lt;/th&gt;
-    &lt;th class=&#34;tg-pb0m&#34;&gt;Calcium&lt;br/&gt;(mg)&lt;/th&gt;
-    &lt;th class=&#34;tg-pb0m&#34;&gt;Fat&lt;br/&gt;(g)&lt;/th&gt;
-    &lt;th class=&#34;tg-pb0m&#34;&gt;Sat Fat&lt;br/&gt;(g)&lt;/th&gt;
-    &lt;th class=&#34;tg-pb0m&#34;&gt;Sugar&lt;br/&gt;(g)&lt;/th&gt;
-    &lt;th class=&#34;tg-pb0m&#34;&gt;Protein&lt;br/&gt;(g)&lt;/th&gt;
-    &lt;th&gt;&lt;/th&gt;
-  &lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Dairy (Cow&#39;s) Milk&lt;/td&gt;
-    &lt;td&gt;0.630&lt;/td&gt;
-    &lt;td&gt;1.790&lt;/span&gt;&lt;/td&gt;
-    &lt;td&gt;125.64&lt;/span&gt;&lt;/td&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Whole&lt;/td&gt;
-    &lt;td&gt;120&lt;/td&gt;
-    &lt;td&gt;246&lt;/td&gt;
-    &lt;td&gt;6.40&lt;/td&gt;
-    &lt;td&gt;3.72&lt;/td&gt;
-    &lt;td&gt;9.62&lt;/td&gt;
-    &lt;td&gt;6.56&lt;/td&gt;
-    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097512/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Dairy (Cow&#39;s) Milk&lt;/td&gt;
-    &lt;td&gt;0.630&lt;/span&gt;&lt;/td&gt;
-    &lt;td&gt;1.790&lt;/span&gt;&lt;/td&gt;
-    &lt;td&gt;125.64&lt;/span&gt;&lt;/td&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Whole (Lactose free)&lt;/td&gt;
-    &lt;td&gt;120&lt;/td&gt;
-    &lt;td&gt;246&lt;/td&gt;
-    &lt;td&gt;6.40&lt;/td&gt;
-    &lt;td&gt;3.72&lt;/td&gt;
-    &lt;td&gt;9.62&lt;/td&gt;
-    &lt;td&gt;6.56&lt;/td&gt;
-    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097525/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Dairy (Cow&#39;s) Milk&lt;/td&gt;
-    &lt;td&gt;0.630&lt;/span&gt;&lt;/td&gt;
-    &lt;td&gt;1.790&lt;/span&gt;&lt;/td&gt;
-    &lt;td&gt;125.64&lt;/span&gt;&lt;/td&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Reduced fat (2%)&lt;/td&gt;
-    &lt;td&gt;100&lt;/td&gt;
-    &lt;td&gt;252&lt;/td&gt;
-    &lt;td&gt;3.80&lt;/td&gt;
-    &lt;td&gt;2.22&lt;/td&gt;
-    &lt;td&gt;9.78&lt;/td&gt;
-    &lt;td&gt;6.70&lt;/td&gt;
-    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097517/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Dairy (Cow&#39;s) Milk&lt;/td&gt;
-    &lt;td&gt;0.630&lt;/span&gt;&lt;/td&gt;
-    &lt;td&gt;1.790&lt;/span&gt;&lt;/td&gt;
-    &lt;td&gt;125.64&lt;/span&gt;&lt;/td&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Fat free (skim)&lt;/td&gt;
-    &lt;td&gt;68&lt;/td&gt;
-    &lt;td&gt;264&lt;/td&gt;
-    &lt;td&gt;0.16&lt;/td&gt;
-    &lt;td&gt;0.10&lt;/td&gt;
-    &lt;td&gt;10.10&lt;/td&gt;
-    &lt;td&gt;6.86&lt;/td&gt;
-    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097521/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Rice Milk&lt;/td&gt;
-    &lt;td class=&#34;tg-em69&#34;&gt;0.236&lt;/span&gt;&lt;/td&gt;
-    &lt;td class=&#34;tg-j1aw&#34;&gt;0.067&lt;/span&gt;&lt;/td&gt;
-    &lt;td class=&#34;tg-i9py&#34;&gt;53.96&lt;/span&gt;&lt;/td&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Rice Milk&lt;/td&gt;
-    &lt;td&gt;94&lt;/td&gt;
-    &lt;td&gt;236&lt;/td&gt;
-    &lt;td&gt;1.94&lt;/td&gt;
-    &lt;td&gt;0.00&lt;/td&gt;
-    &lt;td&gt;10.56&lt;/td&gt;
-    &lt;td&gt;0.56&lt;/td&gt;
-    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097552/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Soy Milk&lt;/td&gt;
-    &lt;td class=&#34;tg-wl0g&#34;&gt;0.196&lt;/span&gt;&lt;/td&gt;
-    &lt;td class=&#34;tg-aj4d&#34;&gt;0.132&lt;/span&gt;&lt;/td&gt;
-    &lt;td class=&#34;tg-j1aw&#34;&gt;5.56&lt;/span&gt;&lt;/td&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Soy Milk&lt;/td&gt;
-    &lt;td&gt;86&lt;/td&gt;
-    &lt;td&gt;246&lt;/td&gt;
-    &lt;td&gt;2.94&lt;/td&gt;
-    &lt;td&gt;0.41&lt;/td&gt;
-    &lt;td&gt;7.30&lt;/td&gt;
-    &lt;td&gt;5.20&lt;/td&gt;
-    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097542/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Oat Milk&lt;/td&gt;
-    &lt;td class=&#34;tg-a46i&#34;&gt;0.181&lt;/span&gt;&lt;/td&gt;
-    &lt;td class=&#34;tg-em69&#34;&gt;0.152&lt;/span&gt;&lt;/td&gt;
-    &lt;td class=&#34;tg-vnq0&#34;&gt;9.65&lt;/span&gt;&lt;/td&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;OATLY! (Brand)&lt;/td&gt;
-    &lt;td&gt;100&lt;/td&gt;
-    &lt;td&gt;292&lt;/td&gt;
-    &lt;td&gt;4.16&lt;/td&gt;
-    &lt;td&gt;0.42&lt;/td&gt;
-    &lt;td&gt;5.84&lt;/td&gt;
-    &lt;td&gt;2.50&lt;/td&gt;
-    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/719016/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Almond Milk&lt;/td&gt;
-    &lt;td class=&#34;tg-j1aw&#34;&gt;0.140&lt;/span&gt;&lt;/td&gt;
-    &lt;td class=&#34;tg-zomh&#34;&gt;0.099&lt;/span&gt;&lt;/td&gt;
-    &lt;td class=&#34;tg-em69&#34;&gt;74.29&lt;/span&gt;&lt;/td&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Sweetened&lt;/td&gt;
-    &lt;td&gt;60&lt;/td&gt;
-    &lt;td&gt;354&lt;/td&gt;
-    &lt;td&gt;1.86&lt;/td&gt;
-    &lt;td&gt;0.15&lt;/td&gt;
-    &lt;td&gt;9.54&lt;/td&gt;
-    &lt;td&gt;0.76&lt;/td&gt;
-    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097548/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Almond Milk&lt;/td&gt;
-    &lt;td class=&#34;tg-j1aw&#34;&gt;0.140&lt;/span&gt;&lt;/td&gt;
-    &lt;td class=&#34;tg-zomh&#34;&gt;0.099&lt;/span&gt;&lt;/td&gt;
-    &lt;td class=&#34;tg-em69&#34;&gt;74.29&lt;/span&gt;&lt;/td&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Unsweetened&lt;/td&gt;
-    &lt;td&gt;30&lt;/td&gt;
-    &lt;td&gt;368&lt;/td&gt;
-    &lt;td&gt;1.92&lt;/td&gt;
-    &lt;td&gt;0.16&lt;/td&gt;
-    &lt;td&gt;1.62&lt;/td&gt;
-    &lt;td&gt;0.80&lt;/td&gt;
-    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097550/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Goat’s Milk&lt;/td&gt;
-    &lt;td&gt;?&lt;/td&gt;
-    &lt;td&gt;?&lt;/td&gt;
-    &lt;td&gt;?&lt;/td&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Whole&lt;/td&gt;
-    &lt;td&gt;138&lt;/td&gt;
-    &lt;td&gt;268&lt;/td&gt;
-    &lt;td&gt;8.28&lt;/td&gt;
-    &lt;td&gt;5.33&lt;/td&gt;
-    &lt;td&gt;8.90&lt;/td&gt;
-    &lt;td&gt;7.12&lt;/td&gt;
-    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097531/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Coconut Milk&lt;/td&gt;
-    &lt;td&gt;?&lt;/td&gt;
-    &lt;td&gt;?&lt;/td&gt;
-    &lt;td&gt;?&lt;/td&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Coconut Milk&lt;/td&gt;
-    &lt;td&gt;62&lt;/td&gt;
-    &lt;td&gt;376&lt;/td&gt;
-    &lt;td&gt;4.16&lt;/td&gt;
-    &lt;td&gt;4.17&lt;/td&gt;
-    &lt;td&gt;5.00&lt;/td&gt;
-    &lt;td&gt;0.42&lt;/td&gt;
-    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097553/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Flax Hemp Milk&lt;/td&gt;
-    &lt;td&gt;?&lt;/td&gt;
-    &lt;td&gt;?&lt;/td&gt;
-    &lt;td&gt;?&lt;/td&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Flax Hemp Milk&lt;/td&gt;
-    &lt;td&gt;38&lt;/td&gt;
-    &lt;td&gt;24&lt;/td&gt;
-    &lt;td&gt;2.50&lt;/td&gt;
-    &lt;td&gt;0.00&lt;/td&gt;
-    &lt;td&gt;0.84&lt;/td&gt;
-    &lt;td&gt;1.66&lt;/td&gt;
-    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/468978/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Human Milk&lt;/td&gt;
-    &lt;td&gt;?&lt;/td&gt;
-    &lt;td&gt;?&lt;/td&gt;
-    &lt;td&gt;?&lt;/td&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Human Milk&lt;/td&gt;
-    &lt;td&gt;140&lt;/td&gt;
-    &lt;td&gt;64&lt;/td&gt;
-    &lt;td&gt;8.76&lt;/td&gt;
-    &lt;td&gt;0.64&lt;/td&gt;
-    &lt;td&gt;13.78&lt;/td&gt;
-    &lt;td&gt;2.06&lt;/td&gt;
-    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097510/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Chocolate Milk&lt;/td&gt;
-    &lt;td&gt;?&lt;/td&gt;
-    &lt;td&gt;?&lt;/td&gt;
-    &lt;td&gt;?&lt;/td&gt;
-    &lt;td class=&#34;tg-jkyp&#34;&gt;Chocolate Milk&lt;/td&gt;
-    &lt;td&gt;98&lt;/td&gt;
-    &lt;td&gt;200&lt;/td&gt;
-    &lt;td&gt;0.80&lt;/td&gt;
-    &lt;td&gt;0.02&lt;/td&gt;
-    &lt;td&gt;17.36&lt;/td&gt;
-    &lt;td&gt;1.28&lt;/td&gt;
-    &lt;td&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097699/nutrients&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;tfoot&gt;
-  &lt;tr&gt;
-    &lt;td class=&#34;tg-pb0m&#34; colspan=&#34;4&#34;&gt;Environment Impact per 200ml &lt;a href=&#34;https://www.bbc.com/news/science-environment-46654042&#34;&gt;(source)&lt;/a&gt;&lt;/td&gt;
-    &lt;td class=&#34;tg-pb0m&#34; colspan=&#34;8&#34;&gt;Nutritional Information per 200g (which is approx 200ml)&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tfoot&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;p&gt;I’m not going to provide any kind of editorial, I just wanted all the data in one place. The data is sourced from the following locations.&lt;/p&gt;
-&lt;p&gt;General Comparison:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.healthline.com/health/milk-almond-cow-soy-rice&#34;&gt;Heathline: Comparing Milks: Almond, Dairy, Soy, Rice, and Coconut&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.bbcgoodfood.com/howto/guide/which-milk-right-you&#34;&gt;BBC Good Food: Which milk is right for you?&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Environment:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.theguardian.com/environment/2020/jan/28/what-plant-milk-should-i-drink-almond-killing-bees-aoe&#34;&gt;The Guardian: Almonds are out. Dairy is a disaster. So what milk should we drink?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.ediblebrooklyn.com/2020/plant-milks-sustainability/&#34;&gt;Edible Brooklyn: Which Plant-Based Milk Is Best for the Environment?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.bbc.com/news/science-environment-46654042&#34;&gt;BBC: Climate change: Which vegan milk is best?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://ora.ox.ac.uk/objects/uuid:b0b53649-5e93-4415-bf07-6b0b1227172f&#34;&gt;Poore, J., &amp;amp; Nemecek, T. (2018). Reducing food’s environmental impacts through producers and consumers. Science, 360(6392), 987–992.&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Nutritional:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.gov.uk/government/publications/composition-of-foods-integrated-dataset-cofid&#34;&gt;2021 McCance and Widdowson&amp;rsquo;s Composition of Foods&lt;/a&gt; (&lt;a href=&#34;https://docs.google.com/spreadsheets/d/1aA2y5vMbS8_J8e9pUep9cPVVjrPz4NAO92nncYdoN6Y/edit#gid=1197879062&#34;&gt;Integrated Dataset&lt;/a&gt; | &lt;a href=&#34;https://docs.google.com/spreadsheets/d/1j46zZ39cPrn0wT8IGujw-USaYeTQArhLyejQcxFXsKs/edit#gid=279090816&#34;&gt;Old Foods&lt;/a&gt; )&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://fdc.nal.usda.gov/&#34;&gt;U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2021. fdc.nal.usda.gov.&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+</style>
+<div class="overflow-center">
+<table class="tg table table-striped table-hover table-condensed" data-sortable>
+<thead>
+  <tr>
+    <th class="tg-jkyp">Type</th>
+    <th class="tg-pb0m" data-sorted="true" data-sorted-direction="descending">Emissions<br/>(Kg)</th>
+    <th class="tg-pb0m">Land Usage<br/>(m<sup>2</sup>)</th>
+    <th class="tg-pb0m">Water Usage<br/>(L)</th>
+    <th class="tg-jkyp">Variant</th>
+    <th class="tg-pb0m">Calories<br/>(kcals)</th>
+    <th class="tg-pb0m">Calcium<br/>(mg)</th>
+    <th class="tg-pb0m">Fat<br/>(g)</th>
+    <th class="tg-pb0m">Sat Fat<br/>(g)</th>
+    <th class="tg-pb0m">Sugar<br/>(g)</th>
+    <th class="tg-pb0m">Protein<br/>(g)</th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-jkyp">Dairy (Cow's) Milk</td>
+    <td>0.630</td>
+    <td>1.790</span></td>
+    <td>125.64</span></td>
+    <td class="tg-jkyp">Whole</td>
+    <td>120</td>
+    <td>246</td>
+    <td>6.40</td>
+    <td>3.72</td>
+    <td>9.62</td>
+    <td>6.56</td>
+    <td><a href="https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097512/nutrients">(source)</a></td>
+  </tr>
+  <tr>
+    <td class="tg-jkyp">Dairy (Cow's) Milk</td>
+    <td>0.630</span></td>
+    <td>1.790</span></td>
+    <td>125.64</span></td>
+    <td class="tg-jkyp">Whole (Lactose free)</td>
+    <td>120</td>
+    <td>246</td>
+    <td>6.40</td>
+    <td>3.72</td>
+    <td>9.62</td>
+    <td>6.56</td>
+    <td><a href="https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097525/nutrients">(source)</a></td>
+  </tr>
+  <tr>
+    <td class="tg-jkyp">Dairy (Cow's) Milk</td>
+    <td>0.630</span></td>
+    <td>1.790</span></td>
+    <td>125.64</span></td>
+    <td class="tg-jkyp">Reduced fat (2%)</td>
+    <td>100</td>
+    <td>252</td>
+    <td>3.80</td>
+    <td>2.22</td>
+    <td>9.78</td>
+    <td>6.70</td>
+    <td><a href="https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097517/nutrients">(source)</a></td>
+  </tr>
+  <tr>
+    <td class="tg-jkyp">Dairy (Cow's) Milk</td>
+    <td>0.630</span></td>
+    <td>1.790</span></td>
+    <td>125.64</span></td>
+    <td class="tg-jkyp">Fat free (skim)</td>
+    <td>68</td>
+    <td>264</td>
+    <td>0.16</td>
+    <td>0.10</td>
+    <td>10.10</td>
+    <td>6.86</td>
+    <td><a href="https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097521/nutrients">(source)</a></td>
+  </tr>
+  <tr>
+    <td class="tg-jkyp">Rice Milk</td>
+    <td class="tg-em69">0.236</span></td>
+    <td class="tg-j1aw">0.067</span></td>
+    <td class="tg-i9py">53.96</span></td>
+    <td class="tg-jkyp">Rice Milk</td>
+    <td>94</td>
+    <td>236</td>
+    <td>1.94</td>
+    <td>0.00</td>
+    <td>10.56</td>
+    <td>0.56</td>
+    <td><a href="https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097552/nutrients">(source)</a></td>
+  </tr>
+  <tr>
+    <td class="tg-jkyp">Soy Milk</td>
+    <td class="tg-wl0g">0.196</span></td>
+    <td class="tg-aj4d">0.132</span></td>
+    <td class="tg-j1aw">5.56</span></td>
+    <td class="tg-jkyp">Soy Milk</td>
+    <td>86</td>
+    <td>246</td>
+    <td>2.94</td>
+    <td>0.41</td>
+    <td>7.30</td>
+    <td>5.20</td>
+    <td><a href="https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097542/nutrients">(source)</a></td>
+  </tr>
+  <tr>
+    <td class="tg-jkyp">Oat Milk</td>
+    <td class="tg-a46i">0.181</span></td>
+    <td class="tg-em69">0.152</span></td>
+    <td class="tg-vnq0">9.65</span></td>
+    <td class="tg-jkyp">OATLY! (Brand)</td>
+    <td>100</td>
+    <td>292</td>
+    <td>4.16</td>
+    <td>0.42</td>
+    <td>5.84</td>
+    <td>2.50</td>
+    <td><a href="https://fdc.nal.usda.gov/fdc-app.html#/food-details/719016/nutrients">(source)</a></td>
+  </tr>
+  <tr>
+    <td class="tg-jkyp">Almond Milk</td>
+    <td class="tg-j1aw">0.140</span></td>
+    <td class="tg-zomh">0.099</span></td>
+    <td class="tg-em69">74.29</span></td>
+    <td class="tg-jkyp">Sweetened</td>
+    <td>60</td>
+    <td>354</td>
+    <td>1.86</td>
+    <td>0.15</td>
+    <td>9.54</td>
+    <td>0.76</td>
+    <td><a href="https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097548/nutrients">(source)</a></td>
+  </tr>
+  <tr>
+    <td class="tg-jkyp">Almond Milk</td>
+    <td class="tg-j1aw">0.140</span></td>
+    <td class="tg-zomh">0.099</span></td>
+    <td class="tg-em69">74.29</span></td>
+    <td class="tg-jkyp">Unsweetened</td>
+    <td>30</td>
+    <td>368</td>
+    <td>1.92</td>
+    <td>0.16</td>
+    <td>1.62</td>
+    <td>0.80</td>
+    <td><a href="https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097550/nutrients">(source)</a></td>
+  </tr>
+  <tr>
+    <td class="tg-jkyp">Goat’s Milk</td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td class="tg-jkyp">Whole</td>
+    <td>138</td>
+    <td>268</td>
+    <td>8.28</td>
+    <td>5.33</td>
+    <td>8.90</td>
+    <td>7.12</td>
+    <td><a href="https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097531/nutrients">(source)</a></td>
+  </tr>
+  <tr>
+    <td class="tg-jkyp">Coconut Milk</td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td class="tg-jkyp">Coconut Milk</td>
+    <td>62</td>
+    <td>376</td>
+    <td>4.16</td>
+    <td>4.17</td>
+    <td>5.00</td>
+    <td>0.42</td>
+    <td><a href="https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097553/nutrients">(source)</a></td>
+  </tr>
+  <tr>
+    <td class="tg-jkyp">Flax Hemp Milk</td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td class="tg-jkyp">Flax Hemp Milk</td>
+    <td>38</td>
+    <td>24</td>
+    <td>2.50</td>
+    <td>0.00</td>
+    <td>0.84</td>
+    <td>1.66</td>
+    <td><a href="https://fdc.nal.usda.gov/fdc-app.html#/food-details/468978/nutrients">(source)</a></td>
+  </tr>
+  <tr>
+    <td class="tg-jkyp">Human Milk</td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td class="tg-jkyp">Human Milk</td>
+    <td>140</td>
+    <td>64</td>
+    <td>8.76</td>
+    <td>0.64</td>
+    <td>13.78</td>
+    <td>2.06</td>
+    <td><a href="https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097510/nutrients">(source)</a></td>
+  </tr>
+  <tr>
+    <td class="tg-jkyp">Chocolate Milk</td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td class="tg-jkyp">Chocolate Milk</td>
+    <td>98</td>
+    <td>200</td>
+    <td>0.80</td>
+    <td>0.02</td>
+    <td>17.36</td>
+    <td>1.28</td>
+    <td><a href="https://fdc.nal.usda.gov/fdc-app.html#/food-details/1097699/nutrients">(source)</a></td>
+  </tr>
+</tbody>
+<tfoot>
+  <tr>
+    <td class="tg-pb0m" colspan="4">Environment Impact per 200ml <a href="https://www.bbc.com/news/science-environment-46654042">(source)</a></td>
+    <td class="tg-pb0m" colspan="8">Nutritional Information per 200g (which is approx 200ml)</td>
+  </tr>
+</tfoot>
+</table>
+</div>
+<p>I’m not going to provide any kind of editorial, I just wanted all the data in one place. The data is sourced from the following locations.</p>
+<p>General Comparison:</p>
+<ul>
+<li><a href="https://www.healthline.com/health/milk-almond-cow-soy-rice">Heathline: Comparing Milks: Almond, Dairy, Soy, Rice, and Coconut</a></li>
+<li><a href="https://www.bbcgoodfood.com/howto/guide/which-milk-right-you">BBC Good Food: Which milk is right for you?</a></li>
+</ul>
+<p>Environment:</p>
+<ul>
+<li><a href="https://www.theguardian.com/environment/2020/jan/28/what-plant-milk-should-i-drink-almond-killing-bees-aoe">The Guardian: Almonds are out. Dairy is a disaster. So what milk should we drink?</a></li>
+<li><a href="https://www.ediblebrooklyn.com/2020/plant-milks-sustainability/">Edible Brooklyn: Which Plant-Based Milk Is Best for the Environment?</a></li>
+<li><a href="https://www.bbc.com/news/science-environment-46654042">BBC: Climate change: Which vegan milk is best?</a></li>
+<li><a href="https://ora.ox.ac.uk/objects/uuid:b0b53649-5e93-4415-bf07-6b0b1227172f">Poore, J., &amp; Nemecek, T. (2018). Reducing food’s environmental impacts through producers and consumers. Science, 360(6392), 987–992.</a></li>
+</ul>
+<p>Nutritional:</p>
+<ul>
+<li><a href="https://www.gov.uk/government/publications/composition-of-foods-integrated-dataset-cofid">2021 McCance and Widdowson&rsquo;s Composition of Foods</a> (<a href="https://docs.google.com/spreadsheets/d/1aA2y5vMbS8_J8e9pUep9cPVVjrPz4NAO92nncYdoN6Y/edit#gid=1197879062">Integrated Dataset</a> | <a href="https://docs.google.com/spreadsheets/d/1j46zZ39cPrn0wT8IGujw-USaYeTQArhLyejQcxFXsKs/edit#gid=279090816">Old Foods</a> )</li>
+<li><a href="https://fdc.nal.usda.gov/">U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2021. fdc.nal.usda.gov.</a></li>
+</ul>
 </description>
     </item>
     

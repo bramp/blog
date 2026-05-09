@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
@@ -6,11 +6,11 @@
 <link href=https://blog.bramp.net/post/2011/10/25/sqlstatehy000-general-error-2053/ rel=canonical itemprop=url />
 <title>SQLSTATE[HY000]: General error: 2053</title>
 <meta content="I encountered the following odd exception:
-PHP Fatal error: Uncaught exception &#39;PDOException&#39; with message &#39;SQLSTATE[HY000]: General error: 2053 &#39; in /home/bramp/my.php:29 Stack trace: …" name=description itemprop=description>
+PHP Fatal error:  Uncaught exception &#39;PDOException&#39; with message &#39;SQLSTATE[HY000]: General error: 2053 &#39; in /home/bramp/my.php:29
+Stack …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
 <meta content=#4582EC name=theme-color>
 <link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
 <link href=/images/favicon.png rel=apple-touch-icon />
@@ -49,7 +49,8 @@ window.dataLayer = window.dataLayer || [];
 <meta content=bramp.net property=og:site_name />
 <meta content="SQLSTATE[HY000]: General error: 2053" property=og:title />
 <meta content="I encountered the following odd exception:
-PHP Fatal error: Uncaught exception &#39;PDOException&#39; with message &#39;SQLSTATE[HY000]: General error: 2053 &#39; in /home/bramp/my.php:29 Stack trace: …" property=og:description />
+PHP Fatal error:  Uncaught exception &#39;PDOException&#39; with message &#39;SQLSTATE[HY000]: General error: 2053 &#39; in /home/bramp/my.php:29
+Stack …" property=og:description />
 <meta content=2011-10-25T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -104,18 +105,18 @@ PHP Fatal error: Uncaught exception &#39;PDOException&#39; with message &#39;SQL
 </p>
 <div class=post itemprop=articleBody>
 <p>I encountered the following odd exception:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-text data-lang=text>PHP Fatal error:  Uncaught exception &#39;PDOException&#39; with message &#39;SQLSTATE[HY000]: General error: 2053 &#39; in /home/bramp/my.php:29
-Stack trace:
-#0 /home/bramp/my.php(29): PDOStatement-&gt;fetch(2)
-</code></pre></div><p>Searching on Google didn’t reveal much help, but I eventually figure out the root cause. Spot the mistake:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=o>...</span>
-<span class=nv>$sql</span> <span class=o>=</span> <span class=s1>&#39;SELECT TRIGGER_NAME, TRIGGER_GROUP, JOB_NAME FROM QRTZ_TRIGGERS&#39;</span><span class=p>;</span>
-<span class=nv>$sth</span> <span class=o>=</span> <span class=nv>$dbh</span><span class=o>-&gt;</span><span class=na>prepare</span><span class=p>(</span><span class=nv>$sql</span><span class=p>)</span> <span class=k>or</span> <span class=k>die</span><span class=p>(</span><span class=s1>&#39;Failed to prepare SELECT TRIGGER query&#39;</span><span class=p>);</span>
-<span class=k>while</span> <span class=p>(</span><span class=nv>$row</span> <span class=o>=</span> <span class=nv>$sth</span><span class=o>-&gt;</span><span class=na>fetch</span><span class=p>(</span><span class=nx>PDO</span><span class=o>::</span><span class=na>FETCH_ASSOC</span><span class=p>))</span> <span class=p>{</span>
-<span class=o>...</span>
-</code></pre></div><p>I am missing a</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=nv>$sth</span><span class=o>-&gt;</span><span class=na>execute</span><span class=p>();</span>
-</code></pre></div><p>in between the prepare and the fetch. Easy fix. For reference I’m using a old version of PHP 5.1.6, and MySQL client 5.0.45.</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-text data-lang=text><span class=line><span class=cl>PHP Fatal error:  Uncaught exception &#39;PDOException&#39; with message &#39;SQLSTATE[HY000]: General error: 2053 &#39; in /home/bramp/my.php:29
+</span></span><span class=line><span class=cl>Stack trace:
+</span></span><span class=line><span class=cl>#0 /home/bramp/my.php(29): PDOStatement-&gt;fetch(2)
+</span></span></code></pre></div><p>Searching on Google didn’t reveal much help, but I eventually figure out the root cause. Spot the mistake:</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>...</span>
+</span></span><span class=line><span class=cl><span class=nv>$sql</span> <span class=o>=</span> <span class=s1>&#39;SELECT TRIGGER_NAME, TRIGGER_GROUP, JOB_NAME FROM QRTZ_TRIGGERS&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nv>$sth</span> <span class=o>=</span> <span class=nv>$dbh</span><span class=o>-&gt;</span><span class=na>prepare</span><span class=p>(</span><span class=nv>$sql</span><span class=p>)</span> <span class=k>or</span> <span class=k>die</span><span class=p>(</span><span class=s1>&#39;Failed to prepare SELECT TRIGGER query&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=p>(</span><span class=nv>$row</span> <span class=o>=</span> <span class=nv>$sth</span><span class=o>-&gt;</span><span class=na>fetch</span><span class=p>(</span><span class=nx>PDO</span><span class=o>::</span><span class=na>FETCH_ASSOC</span><span class=p>))</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>
+</span></span></code></pre></div><p>I am missing a</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=line><span class=cl><span class=nv>$sth</span><span class=o>-&gt;</span><span class=na>execute</span><span class=p>();</span>
+</span></span></code></pre></div><p>in between the prepare and the fetch. Easy fix. For reference I’m using a old version of PHP 5.1.6, and MySQL client 5.0.45.</p>
 </div>
 </article>
 <div class=row>
@@ -140,7 +141,7 @@ Stack trace:
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2026. All rights reserved.</p>
 </footer>
 </div>
 </div>

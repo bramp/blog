@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
@@ -9,7 +9,6 @@
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
 <meta content=#4582EC name=theme-color>
 <link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
 <link href=/images/favicon.png rel=apple-touch-icon />
@@ -103,8 +102,8 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p>I really like <a href=http://www.bitwizard.nl/mtr/ >mtr</a> (the traceroute tool), however, it always bugged me that it launches a GUI app instead of using the <a href=http://en.wikipedia.org/wiki/Curses_(programming_library)>curses</a> interface. You can easily pass the “-t” or “–curses” flag to default to the curses interface, but I always forget.</p>
 <p>So today I set about writing a patch for mtr to read a environment varable to force the curses interface. While I was reading the source I noticed there was already a simple undocumented way!</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=nb>export</span> <span class=nv>MTR_OPTIONS</span><span class=o>=</span>-t
-</code></pre></div><p>Voila the curses interface is now used by default. This is certainly going into my ~/.bashrc</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>export</span> <span class=nv>MTR_OPTIONS</span><span class=o>=</span>-t
+</span></span></code></pre></div><p>Voila the curses interface is now used by default. This is certainly going into my ~/.bashrc</p>
 </div>
 </article>
 <div class=row>
@@ -129,7 +128,7 @@ window.dataLayer = window.dataLayer || [];
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2026. All rights reserved.</p>
 </footer>
 </div>
 </div>

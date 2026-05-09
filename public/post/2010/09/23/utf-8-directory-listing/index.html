@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
@@ -9,7 +9,6 @@
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
 <meta content=#4582EC name=theme-color>
 <link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
 <link href=/images/favicon.png rel=apple-touch-icon />
@@ -105,19 +104,19 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p>I had a need to create a directory listing with all the UTF-8 characters intact. This seems quite a chore on Windows, as doing anything via the shell seems to mangle the characters and show ???? instead of the real characters. For example, both the built in <strong>dir</strong> and Cygwin <strong>ls</strong> or <strong>find</strong> seemed affected. This turns out to be a <a href=http://stackoverflow.com/questions/379240/is-there-a-windows-command-shell-that-will-display-unicode-characters>limitation in the windows shell</a>.</p>
 <p>To solve this problem I wrote a bit of python to read the file names in full UTF-8 and output the results directly to a file (and not via a pipe, which would again be via the shell). The resulting very simple script is as follows:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-python data-lang=python><span class=kn>import</span> <span class=nn>os</span>
-<span class=kn>import</span> <span class=nn>codecs</span>
-
-<span class=n>log</span> <span class=o>=</span> <span class=n>codecs</span><span class=o>.</span><span class=n>open</span><span class=p>(</span><span class=s1>&#39;listing&#39;</span><span class=p>,</span> <span class=n>mode</span><span class=o>=</span><span class=s1>&#39;w&#39;</span><span class=p>,</span> <span class=n>encoding</span><span class=o>=</span><span class=s2>&#34;utf-8&#34;</span><span class=p>)</span>
-
-<span class=k>for</span> <span class=n>root</span><span class=p>,</span> <span class=n>dirs</span><span class=p>,</span> <span class=n>files</span> <span class=ow>in</span> <span class=n>os</span><span class=o>.</span><span class=n>walk</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;.&#39;</span><span class=p>):</span>
-	<span class=n>log</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>root</span> <span class=o>+</span> <span class=sa>u</span><span class=s2>&#34;</span><span class=se>\n</span><span class=s2>&#34;</span><span class=p>)</span>
-
-	<span class=k>for</span> <span class=n>file</span> <span class=ow>in</span> <span class=nb>sorted</span><span class=p>(</span><span class=n>files</span><span class=p>):</span>
-		<span class=n>log</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=n>root</span><span class=p>,</span> <span class=n>file</span><span class=p>)</span> <span class=o>+</span> <span class=sa>u</span><span class=s2>&#34;</span><span class=se>\n</span><span class=s2>&#34;</span><span class=p>)</span>
-
-<span class=n>log</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
-</code></pre></div>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>os</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>codecs</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>log</span> <span class=o>=</span> <span class=n>codecs</span><span class=o>.</span><span class=n>open</span><span class=p>(</span><span class=s1>&#39;listing&#39;</span><span class=p>,</span> <span class=n>mode</span><span class=o>=</span><span class=s1>&#39;w&#39;</span><span class=p>,</span> <span class=n>encoding</span><span class=o>=</span><span class=s2>&#34;utf-8&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>root</span><span class=p>,</span> <span class=n>dirs</span><span class=p>,</span> <span class=n>files</span> <span class=ow>in</span> <span class=n>os</span><span class=o>.</span><span class=n>walk</span><span class=p>(</span><span class=sa>u</span><span class=s1>&#39;.&#39;</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>	<span class=n>log</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>root</span> <span class=o>+</span> <span class=sa>u</span><span class=s2>&#34;</span><span class=se>\n</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>for</span> <span class=n>file</span> <span class=ow>in</span> <span class=nb>sorted</span><span class=p>(</span><span class=n>files</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>		<span class=n>log</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>os</span><span class=o>.</span><span class=n>path</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=n>root</span><span class=p>,</span> <span class=n>file</span><span class=p>)</span> <span class=o>+</span> <span class=sa>u</span><span class=s2>&#34;</span><span class=se>\n</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>log</span><span class=o>.</span><span class=n>close</span><span class=p>()</span>
+</span></span></code></pre></div>
 </div>
 </article>
 <div class=row>
@@ -142,7 +141,7 @@ window.dataLayer = window.dataLayer || [];
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2026. All rights reserved.</p>
 </footer>
 </div>
 </div>

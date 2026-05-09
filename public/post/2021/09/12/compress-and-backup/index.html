@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
@@ -6,11 +6,11 @@
 <link href=https://blog.bramp.net/post/2021/09/12/compress-and-backup/ rel=canonical itemprop=url />
 <title>Compress and Backup</title>
 <meta content="In my last article I discussed recovering a old RAID-5 disk array. Here I&rsquo;m going to quickly list what I did to back up what I recovered.
-# Create a zstd compressed tar file $ tar -c -v …" name=description itemprop=description>
+# Create a zstd compressed tar file
+$ tar -c -v -I …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
 <meta content=#4582EC name=theme-color>
 <link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
 <link href=/images/favicon.png rel=apple-touch-icon />
@@ -48,7 +48,8 @@ window.dataLayer = window.dataLayer || [];
 <meta content=bramp.net property=og:site_name />
 <meta content="Compress and Backup" property=og:title />
 <meta content="In my last article I discussed recovering a old RAID-5 disk array. Here I&rsquo;m going to quickly list what I did to back up what I recovered.
-# Create a zstd compressed tar file $ tar -c -v …" property=og:description />
+# Create a zstd compressed tar file
+$ tar -c -v -I …" property=og:description />
 <meta content=2021-09-12T13:45:51-07:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -102,15 +103,15 @@ window.dataLayer = window.dataLayer || [];
 </p>
 <div class=post itemprop=articleBody>
 <p>In my <a href=https://blog.bramp.net/post/2021/09/12/recovering-a-raid-5-intel-storage-matrix-on-linux-without-the-hardware/ >last article</a> I discussed recovering a old RAID-5 disk array. Here I&rsquo;m going to quickly list what I did to back up what I recovered.</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell><span class=c1># Create a zstd compressed tar file</span>
-$ tar -c -v -I<span class=s2>&#34;zstd -19 -T0&#34;</span> -f raid5-my-projects.tar.zstd My<span class=se>\ </span>Projects
-
-<span class=c1># Create a text based index for the tar</span>
-$ tar -t -f raid5-my-projects.tar.zstd &gt; raid5-my-projects.index
-
-<span class=c1># Backup to Google Cloud</span>
-$ gsutil cp raid5* gs://backup.bramp.net/
-</code></pre></div><p>Maybe I should be using a proper backup solution, but this was quick and easy. I used <a href=http://facebook.github.io/zstd/ >Zstandard</a> to compress the tar file since it gives <a href=https://linuxreviews.org/Comparison_of_Compression_Algorithms>impressive compression results</a>, speed, and is modern.</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># Create a zstd compressed tar file</span>
+</span></span><span class=line><span class=cl>$ tar -c -v -I<span class=s2>&#34;zstd -19 -T0&#34;</span> -f raid5-my-projects.tar.zstd My<span class=se>\ </span>Projects
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Create a text based index for the tar</span>
+</span></span><span class=line><span class=cl>$ tar -t -f raid5-my-projects.tar.zstd &gt; raid5-my-projects.index
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Backup to Google Cloud</span>
+</span></span><span class=line><span class=cl>$ gsutil cp raid5* gs://backup.bramp.net/
+</span></span></code></pre></div><p>Maybe I should be using a proper backup solution, but this was quick and easy. I used <a href=http://facebook.github.io/zstd/ >Zstandard</a> to compress the tar file since it gives <a href=https://linuxreviews.org/Comparison_of_Compression_Algorithms>impressive compression results</a>, speed, and is modern.</p>
 <p>I uploaded the results to a <a href=https://cloud.google.com/storage/docs/storage-classes>Archive bucket</a> on Google&rsquo;s Cloud Storage.</p>
 </div>
 </article>
@@ -136,7 +137,7 @@ $ gsutil cp raid5* gs://backup.bramp.net/
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2026. All rights reserved.</p>
 </footer>
 </div>
 </div>

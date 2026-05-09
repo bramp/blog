@@ -1,10 +1,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>mysql on bramp.net</title>
-    <link>https://blog.bramp.net</link>
-    <description>Recent content in mysql on bramp.net</description>
+    <title>Mysql on bramp.net</title>
+    <link>https://blog.bramp.net/</link>
+    <description>Recent content in Mysql on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en_GB</language>
+    <language>en-GB</language>
     <lastBuildDate>Sun, 30 Sep 2012 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/mysql/" rel="self" type="application/rss+xml" />
     
@@ -14,66 +14,66 @@
       <pubDate>Sun, 30 Sep 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2012/09/30/pt-kill-centos-init.d-script/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://www.percona.com/doc/percona-toolkit/2.1/pt-kill.html&#34;&gt;pt-kill&lt;/a&gt; is a neat little application that can stop long running MySQL queries. It was formally know as &lt;a href=&#34;http://www.maatkit.org/doc/mk-kill.html&#34;&gt;mk-kill&lt;/a&gt; before &lt;a href=&#34;http://www.Percona.com&#34;&gt;Percona&lt;/a&gt; took over the project. Here is the init.d script I use (as one doesn’t seem provided by the project):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/sh
-&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;# pt-kill	This shell script takes care of starting and stopping&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;#               the pt-kill services.&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;#&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;# chkconfig: - 60 20&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;# description: pt-kill stops long running MySQL queries&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;#&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;# probe: true&lt;/span&gt;
-
-&lt;span class=&#34;c1&#34;&gt;# Source function library.&lt;/span&gt;
-. /etc/rc.d/init.d/functions
-
-&lt;span class=&#34;nv&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
-
-&lt;span class=&#34;c1&#34;&gt;# See how we were called.&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;case&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$1&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; in
-  start&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; -n &lt;span class=&#34;s2&#34;&gt;$&amp;#34;Starting pt-kill: &amp;#34;&lt;/span&gt;
- 
-    pt-kill &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --pid /var/run/pt-kill.pid &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --daemonize &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --interval &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --busy-time &lt;span class=&#34;m&#34;&gt;60&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --wait-after-kill &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;  &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --ignore-info &lt;span class=&#34;s1&#34;&gt;&amp;#39;(?i-smx:^insert|^update|^delete|^load)&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --match-info &lt;span class=&#34;s1&#34;&gt;&amp;#39;(?i-xsm:select)&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --ignore-user &lt;span class=&#34;s1&#34;&gt;&amp;#39;(?i-xsm:root)&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --log /var/log/mysql-kill.log &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --print &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --execute-command &lt;span class=&#34;s1&#34;&gt;&amp;#39;(echo &amp;#34;Subject: pt-kill query found on `hostname`&amp;#34;; tail -1 /var/log/mysql-kill.log)|/usr/sbin/sendmail -t you@example.com&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      --kill-query
- 
-    &lt;span class=&#34;nv&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$?&lt;/span&gt;
-    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$RETVAL&lt;/span&gt; -ne &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#038;&amp;amp;#038; exit $RETVAL&lt;/span&gt;
- 
-  &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
-  stop&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;c1&#34;&gt;# Stop daemons.&lt;/span&gt;
-       	&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; -n &lt;span class=&#34;s2&#34;&gt;$&amp;#34;Shutting down pt-kill: &amp;#34;&lt;/span&gt;
-        killproc pt-kill
-        &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt;
-	&lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
-  restart&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-	&lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt; stop
-        &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt; start
-        &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
-  *&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-    	&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;$&amp;#34;Usage: pt-kill {start|stop}&amp;#34;&lt;/span&gt;
-        &lt;span class=&#34;nv&#34;&gt;RETVAL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;
-        &lt;span class=&#34;p&#34;&gt;;;&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;esac&lt;/span&gt;
- 
-&lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$RETVAL&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Usage:&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Create the script as /etc/init.d/pt-kill, and change the pt-kill command in the middle of the script to suit your needs. Then run ‘chkconfig –level 345 pt-kill on’ to ensure this script starts up at boot. Alternatively test the script with ‘/etc/init.d/pt-kill start’ or ‘/etc/init.d/pt-kill stop’.&lt;/p&gt;
-&lt;p&gt;Thanks to &lt;a href=&#34;http://www.mysqldiary.com/you-must-have-a-killer-in-your-system/&#34;&gt;MySQL Diary&lt;/a&gt; as they provided their default pt-kill command line. Perhaps in future someone could create a more generic startup script.&lt;/p&gt;</description>
+      <description><p><a href="http://www.percona.com/doc/percona-toolkit/2.1/pt-kill.html">pt-kill</a> is a neat little application that can stop long running MySQL queries. It was formally know as <a href="http://www.maatkit.org/doc/mk-kill.html">mk-kill</a> before <a href="http://www.Percona.com">Percona</a> took over the project. Here is the init.d script I use (as one doesn’t seem provided by the project):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/sh
+</span></span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># pt-kill	This shell script takes care of starting and stopping</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#               the pt-kill services.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># chkconfig: - 60 20</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># description: pt-kill stops long running MySQL queries</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># probe: true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Source function library.</span>
+</span></span><span class="line"><span class="cl">. /etc/rc.d/init.d/functions
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">RETVAL</span><span class="o">=</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># See how we were called.</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> in
+</span></span><span class="line"><span class="cl">  start<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> -n <span class="s2">$&#34;Starting pt-kill: &#34;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    pt-kill <span class="se">\
+</span></span></span><span class="line"><span class="cl">      --pid /var/run/pt-kill.pid <span class="se">\
+</span></span></span><span class="line"><span class="cl">      --daemonize <span class="se">\
+</span></span></span><span class="line"><span class="cl">      --interval <span class="m">5</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">      --busy-time <span class="m">60</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">      --wait-after-kill <span class="m">15</span>  <span class="se">\
+</span></span></span><span class="line"><span class="cl">      --ignore-info <span class="s1">&#39;(?i-smx:^insert|^update|^delete|^load)&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">      --match-info <span class="s1">&#39;(?i-xsm:select)&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">      --ignore-user <span class="s1">&#39;(?i-xsm:root)&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">      --log /var/log/mysql-kill.log <span class="se">\
+</span></span></span><span class="line"><span class="cl">      --print <span class="se">\
+</span></span></span><span class="line"><span class="cl">      --execute-command <span class="s1">&#39;(echo &#34;Subject: pt-kill query found on `hostname`&#34;; tail -1 /var/log/mysql-kill.log)|/usr/sbin/sendmail -t you@example.com&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">      --kill-query
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="nv">RETVAL</span><span class="o">=</span><span class="nv">$?</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">    <span class="o">[</span> <span class="nv">$RETVAL</span> -ne <span class="m">0</span> <span class="o">]</span> <span class="p">&amp;</span><span class="c1">#038;&amp;#038; exit $RETVAL</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">  <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">  stop<span class="o">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># Stop daemons.</span>
+</span></span><span class="line"><span class="cl">       	<span class="nb">echo</span> -n <span class="s2">$&#34;Shutting down pt-kill: &#34;</span>
+</span></span><span class="line"><span class="cl">        killproc pt-kill
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">	<span class="p">;;</span>
+</span></span><span class="line"><span class="cl">  restart<span class="o">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$0</span> stop
+</span></span><span class="line"><span class="cl">        <span class="nv">$0</span> start
+</span></span><span class="line"><span class="cl">        <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">  *<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    	<span class="nb">echo</span> <span class="s2">$&#34;Usage: pt-kill {start|stop}&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">RETVAL</span><span class="o">=</span><span class="m">3</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;;</span>
+</span></span><span class="line"><span class="cl"><span class="k">esac</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span> <span class="nv">$RETVAL</span>
+</span></span></code></pre></div><p><strong>Usage:</strong></p>
+<p>Create the script as /etc/init.d/pt-kill, and change the pt-kill command in the middle of the script to suit your needs. Then run ‘chkconfig –level 345 pt-kill on’ to ensure this script starts up at boot. Alternatively test the script with ‘/etc/init.d/pt-kill start’ or ‘/etc/init.d/pt-kill stop’.</p>
+<p>Thanks to <a href="http://www.mysqldiary.com/you-must-have-a-killer-in-your-system/">MySQL Diary</a> as they provided their default pt-kill command line. Perhaps in future someone could create a more generic startup script.</p></description>
     </item>
     
     <item>
@@ -82,19 +82,19 @@
       <pubDate>Tue, 25 Oct 2011 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2011/10/25/sqlstatehy000-general-error-2053/</guid>
-      <description>&lt;p&gt;I encountered the following odd exception:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;PHP Fatal error:  Uncaught exception &amp;#39;PDOException&amp;#39; with message &amp;#39;SQLSTATE[HY000]: General error: 2053 &amp;#39; in /home/bramp/my.php:29
-Stack trace:
-#0 /home/bramp/my.php(29): PDOStatement-&amp;gt;fetch(2)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Searching on Google didn’t reveal much help, but I eventually figure out the root cause. Spot the mistake:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
-&lt;span class=&#34;nv&#34;&gt;$sql&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;SELECT TRIGGER_NAME, TRIGGER_GROUP, JOB_NAME FROM QRTZ_TRIGGERS&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;nv&#34;&gt;$sth&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$dbh&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;prepare&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$sql&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;or&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;die&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Failed to prepare SELECT TRIGGER query&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$row&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$sth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;fetch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;PDO&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;FETCH_ASSOC&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I am missing a&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$sth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;execute&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;in between the prepare and the fetch. Easy fix. For reference I’m using a old version of PHP 5.1.6, and MySQL client 5.0.45.&lt;/p&gt;
+      <description><p>I encountered the following odd exception:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">PHP Fatal error:  Uncaught exception &#39;PDOException&#39; with message &#39;SQLSTATE[HY000]: General error: 2053 &#39; in /home/bramp/my.php:29
+</span></span><span class="line"><span class="cl">Stack trace:
+</span></span><span class="line"><span class="cl">#0 /home/bramp/my.php(29): PDOStatement-&gt;fetch(2)
+</span></span></code></pre></div><p>Searching on Google didn’t reveal much help, but I eventually figure out the root cause. Spot the mistake:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$sql</span> <span class="o">=</span> <span class="s1">&#39;SELECT TRIGGER_NAME, TRIGGER_GROUP, JOB_NAME FROM QRTZ_TRIGGERS&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$sth</span> <span class="o">=</span> <span class="nv">$dbh</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="nv">$sql</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;Failed to prepare SELECT TRIGGER query&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="p">(</span><span class="nv">$row</span> <span class="o">=</span> <span class="nv">$sth</span><span class="o">-&gt;</span><span class="na">fetch</span><span class="p">(</span><span class="nx">PDO</span><span class="o">::</span><span class="na">FETCH_ASSOC</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></div><p>I am missing a</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$sth</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+</span></span></code></pre></div><p>in between the prepare and the fetch. Easy fix. For reference I’m using a old version of PHP 5.1.6, and MySQL client 5.0.45.</p>
 </description>
     </item>
     

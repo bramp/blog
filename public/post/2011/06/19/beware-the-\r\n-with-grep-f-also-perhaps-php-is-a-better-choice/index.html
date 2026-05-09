@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
@@ -9,7 +9,6 @@
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
 <meta content=#4582EC name=theme-color>
 <link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
 <link href=/images/favicon.png rel=apple-touch-icon />
@@ -97,43 +96,43 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p>I had two files, one large CSV file (10million rows), and another file (600K rows). I wanted to find all the lines in the large CSV file that contained a word in the smaller file. The smaller file was a simple text with one word per line.</p>
 <p>I found that grep could do:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>grep -f smallfile largefile &gt; results.csv
-</code></pre></div><p>Which would build a list of patterns from the contents of the smallfile. This seemed simple enough, however it didn’t work. Some investiagtion showed that the smallfile had windows<br>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=line><span class=cl>grep -f smallfile largefile &gt; results.csv
+</span></span></code></pre></div><p>Which would build a list of patterns from the contents of the smallfile. This seemed simple enough, however it didn’t work. Some investiagtion showed that the smallfile had windows<br>
 new lines, and grep assumed the \r was part of the pattern. Using <a href=http://linux.die.net/man/1/dos2unix>dos2unix</a> fixed my problem.</p>
 <p>However, new problem, grep used 100% of my CPU and 2GB of my RAM and took over 5 hours. I actually gave up before I let it finish. I assume it was building a large regexp parse tree.<br>
 So I figured to allow it to make a simpler tree I would alter my smallfile to contain “^keyword”, instead of just “keyword”. I could do this because I knew the keyword would always<br>
 be at the beginning of the line. So <strong>awk ‘{print “^”$1} smallfile</strong> allowed me to do that. I tried grep again but it seemed to again be taking a long time.</p>
 <p>While waiting for grep to finish, I started to write a PHP script:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=o>&lt;?</span><span class=nx>php</span>
-<span class=c1>// Prints out each line from a CSV where the first entry is in another list
-</span><span class=c1>// By Andrew Brampton March 2011
-</span><span class=c1>// php inlist.php bigfile smallfile
-</span><span class=c1>// TODO we need better names and more error checking
-</span><span class=c1></span>
-<span class=nv>$bigfile</span> <span class=o>=</span> <span class=nv>$argv</span><span class=p>[</span><span class=mi>1</span><span class=p>];</span>
-<span class=nv>$littlefile</span> <span class=o>=</span> <span class=nv>$argv</span><span class=p>[</span><span class=mi>2</span><span class=p>];</span>
-
-<span class=nv>$little</span> <span class=o>=</span> <span class=k>array</span><span class=p>();</span>
-<span class=nv>$fp</span> <span class=o>=</span> <span class=nx>fopen</span><span class=p>(</span><span class=nv>$littlefile</span><span class=p>,</span> <span class=s1>&#39;r&#39;</span><span class=p>)</span> <span class=k>or</span> <span class=k>die</span><span class=p>(</span><span class=s1>&#39;Failed to open little file&#39;</span><span class=p>);</span>
-<span class=k>while</span> <span class=p>(</span><span class=nv>$line</span> <span class=o>=</span> <span class=nx>fgets</span><span class=p>(</span><span class=nv>$fp</span><span class=p>))</span> <span class=p>{</span>
-        <span class=nv>$line</span> <span class=o>=</span> <span class=nx>trim</span><span class=p>(</span><span class=nv>$line</span><span class=p>);</span>
-        <span class=nv>$little</span><span class=p>[</span> <span class=nv>$line</span> <span class=p>]</span> <span class=o>=</span> <span class=k>true</span><span class=p>;</span>
-<span class=p>}</span>
-<span class=nx>fclose</span><span class=p>(</span><span class=nv>$fp</span><span class=p>);</span>
-
-<span class=nv>$fp</span> <span class=o>=</span> <span class=nx>fopen</span><span class=p>(</span><span class=nv>$bigfile</span><span class=p>,</span> <span class=s1>&#39;r&#39;</span><span class=p>)</span> <span class=k>or</span> <span class=k>die</span> <span class=p>(</span><span class=s1>&#39;Failed to open big file&#39;</span><span class=p>);</span>
-<span class=k>while</span> <span class=p>(</span><span class=nv>$line</span> <span class=o>=</span> <span class=nx>fgets</span><span class=p>(</span><span class=nv>$fp</span><span class=p>))</span> <span class=p>{</span>
-        <span class=nv>$num</span> <span class=o>=</span> <span class=nx>strpos</span><span class=p>(</span><span class=nv>$line</span><span class=p>,</span> <span class=s1>&#39;,&#39;</span><span class=p>);</span>
-        <span class=nv>$num</span> <span class=o>=</span> <span class=nx>substr</span><span class=p>(</span><span class=nv>$line</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=nv>$num</span><span class=p>);</span>
-
-        <span class=k>if</span> <span class=p>(</span><span class=nx>isset</span><span class=p>(</span><span class=nv>$little</span><span class=p>[</span><span class=nv>$num</span><span class=p>]))</span> <span class=p>{</span>
-                <span class=nx>unset</span><span class=p>(</span><span class=nv>$little</span><span class=p>[</span><span class=nv>$num</span><span class=p>]);</span> <span class=c1>// We unset so we can get a count/list of all those not in the list
-</span><span class=c1></span>                <span class=k>echo</span> <span class=nv>$line</span><span class=p>;</span>
-        <span class=p>}</span>
-<span class=p>}</span>
-<span class=nx>fclose</span><span class=p>(</span><span class=nv>$fp</span><span class=p>);</span>
-<span class=cp>?&gt;</span><span class=err>
-</span></code></pre></div><p>It took me 10 minutes to write this. I quickly ran it, and it completed within 20seconds. Looks like this is a far more efficient way to do it :)</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-php data-lang=php><span class=line><span class=cl><span class=o>&lt;?</span><span class=nx>php</span>
+</span></span><span class=line><span class=cl><span class=c1>// Prints out each line from a CSV where the first entry is in another list
+</span></span></span><span class=line><span class=cl><span class=c1>// By Andrew Brampton March 2011
+</span></span></span><span class=line><span class=cl><span class=c1>// php inlist.php bigfile smallfile
+</span></span></span><span class=line><span class=cl><span class=c1>// TODO we need better names and more error checking
+</span></span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nv>$bigfile</span> <span class=o>=</span> <span class=nv>$argv</span><span class=p>[</span><span class=mi>1</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=nv>$littlefile</span> <span class=o>=</span> <span class=nv>$argv</span><span class=p>[</span><span class=mi>2</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nv>$little</span> <span class=o>=</span> <span class=k>array</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=nv>$fp</span> <span class=o>=</span> <span class=nx>fopen</span><span class=p>(</span><span class=nv>$littlefile</span><span class=p>,</span> <span class=s1>&#39;r&#39;</span><span class=p>)</span> <span class=k>or</span> <span class=k>die</span><span class=p>(</span><span class=s1>&#39;Failed to open little file&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=p>(</span><span class=nv>$line</span> <span class=o>=</span> <span class=nx>fgets</span><span class=p>(</span><span class=nv>$fp</span><span class=p>))</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nv>$line</span> <span class=o>=</span> <span class=nx>trim</span><span class=p>(</span><span class=nv>$line</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=nv>$little</span><span class=p>[</span> <span class=nv>$line</span> <span class=p>]</span> <span class=o>=</span> <span class=k>true</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=nx>fclose</span><span class=p>(</span><span class=nv>$fp</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nv>$fp</span> <span class=o>=</span> <span class=nx>fopen</span><span class=p>(</span><span class=nv>$bigfile</span><span class=p>,</span> <span class=s1>&#39;r&#39;</span><span class=p>)</span> <span class=k>or</span> <span class=k>die</span> <span class=p>(</span><span class=s1>&#39;Failed to open big file&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=p>(</span><span class=nv>$line</span> <span class=o>=</span> <span class=nx>fgets</span><span class=p>(</span><span class=nv>$fp</span><span class=p>))</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nv>$num</span> <span class=o>=</span> <span class=nx>strpos</span><span class=p>(</span><span class=nv>$line</span><span class=p>,</span> <span class=s1>&#39;,&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=nv>$num</span> <span class=o>=</span> <span class=nx>substr</span><span class=p>(</span><span class=nv>$line</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=nv>$num</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nx>isset</span><span class=p>(</span><span class=nv>$little</span><span class=p>[</span><span class=nv>$num</span><span class=p>]))</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>unset</span><span class=p>(</span><span class=nv>$little</span><span class=p>[</span><span class=nv>$num</span><span class=p>]);</span> <span class=c1>// We unset so we can get a count/list of all those not in the list
+</span></span></span><span class=line><span class=cl>                <span class=k>echo</span> <span class=nv>$line</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=nx>fclose</span><span class=p>(</span><span class=nv>$fp</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=cp>?&gt;</span><span class=err>
+</span></span></span></code></pre></div><p>It took me 10 minutes to write this. I quickly ran it, and it completed within 20seconds. Looks like this is a far more efficient way to do it :)</p>
 </div>
 </article>
 <div class=row>
@@ -158,7 +157,7 @@ be at the beginning of the line. So <strong>awk ‘{print “^”$1} smallfile</
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2026. All rights reserved.</p>
 </footer>
 </div>
 </div>

@@ -1,10 +1,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>router on bramp.net</title>
-    <link>https://blog.bramp.net</link>
-    <description>Recent content in router on bramp.net</description>
+    <title>Router on bramp.net</title>
+    <link>https://blog.bramp.net/</link>
+    <description>Recent content in Router on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en_GB</language>
+    <language>en-GB</language>
     <lastBuildDate>Sun, 22 Jan 2012 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/router/" rel="self" type="application/rss+xml" />
     
@@ -14,66 +14,66 @@
       <pubDate>Sun, 22 Jan 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2012/01/22/obtaining-the-firmware-for-linksys-e4200v2/</guid>
-      <description>&lt;p&gt;I recently got a Linksys E4200v2 wireless router. It’s pretty cool, supports IPv6, 2.4Ghz and 5Ghz wifi networks, VPN, etc. The one downside is that the firmware for the router is not available from &lt;a href=&#34;http://homesupport.cisco.com/en-us/wireless/linksys/E4200&#34;&gt;Linksys’s website&lt;/a&gt;, and the &lt;a href=&#34;http://homesupport.cisco.com/en-us/gplcodecenter&#34;&gt;GPL code&lt;/a&gt; has not been made available, yet… However, the router has been able to pull updates itself from the Internet.&lt;/p&gt;
-&lt;p&gt;So I wanted to acquire the firmware to see if I could do something fun with the router. I set about to figure out how the router does this. My plan was to set my laptop up between Internet interface on the router, and the cable modem. Since my laptop doesn’t have two network cards, I plugged into a switch and used &lt;a href=&#34;http://ettercap.sourceforge.net/&#34;&gt;Ethercap&lt;/a&gt; to ARP poison to redirect traffic via the laptop.&lt;/p&gt;
-&lt;p&gt;Then using &lt;a href=&#34;http://www.wireshark.org/&#34;&gt;Wireshark&lt;/a&gt; I could see the traffic coming out of the router. All I needed to do now was to hit the “check for updates button”.&lt;/p&gt;
-&lt;p&gt;Firstly I saw two DNS requests, one for the AAAA (IPv6) record for update.linksys.com, then a A request for update.linksys.com. Clearly the updates are coming from there. Secondly I saw a HTTPS connection form to that domain. That makes this a little more complex, as I am unable to see the encrypted traffic, and thus see what is being transferred.&lt;/p&gt;
-&lt;p&gt;So, I grabbed a &lt;a href=&#34;http://code.activestate.com/recipes/491264-mini-fake-dns-server/&#34;&gt;simple DNS server&lt;/a&gt;, and set up a simple SSL server following &lt;a href=&#34;http://wirewatcher.wordpress.com/2010/07/20/decrypting-ssl-traffic-with-wireshark-and-ways-to-prevent-it/&#34;&gt;these instructions&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Now with DNS spoofing, and a fake SSL server, I could intercept encrypted traffic from the router, as long as it does not validate the SSL certificate. Luckily it didn’t check the validity, and thus I was able to capture the request: (BTW Not checking the cert completely defeats the point of using SSL… bad Linksys!).&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span class=&#34;nf&#34;&gt;POST&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;/cds/update&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;HTTP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1.1&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;Host&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;update.linksys.com&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;Accept&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;*/*&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;Content-Type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;text/xml&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;Content-Length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;573&lt;/span&gt;
-
-&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&amp;#34;http://schemas.xmlsoap.org/soap/envelope/&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;SOAP-ENV:Header/&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;SOAP-ENV:Body&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:GetFirmwareFromDeviceRequest xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:LanguageCode&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;en&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:LanguageCode&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:CountryCode&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;us&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:CountryCode&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:MacAddress&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;12:34:56:78:90:ab&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:MacAddress&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:ModelNo&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;E4200&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:ModelNo&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:HardwareVersion&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;2&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:HardwareVersion&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:CurrentFirmwareVersion&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;2.0.36.126507&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:CurrentFirmwareVersion&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:GetFirmwareFromDeviceRequest&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/SOAP-ENV:Body&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/SOAP-ENV:Envelope&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and the response:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-http&#34; data-lang=&#34;http&#34;&gt;&lt;span class=&#34;kr&#34;&gt;HTTP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1.1&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;200&lt;/span&gt; &lt;span class=&#34;ne&#34;&gt;OK&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;Content-Language&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;en-US&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;Content-Type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;text/xml&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;SOAPAction&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;l&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;
-
-&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;soapenv:Envelope
- xmlns:soapenv=&amp;#34;http://schemas.xmlsoap.org/soap/envelope/&amp;#34;
- xmlns:soapenc=&amp;#34;http://schemas.xmlsoap.org/soap/encoding/&amp;#34;
- xmlns:xsd=&amp;#34;http://www.w3.org/2001/XMLSchema&amp;#34;
- xmlns:xsi=&amp;#34;http://www.w3.org/2001/XMLSchema-instance&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;soapenv:Header/&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;soapenv:Body&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:GetFirmwareFromDeviceResponse xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:FirmwareList xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:Firmware xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:Version xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;2.0.36.126507&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:Version&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:Revision xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;D&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:Revision&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:ReleaseDate xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;2012-01-06T16:48:08Z&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:ReleaseDate&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:DownloadURI xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:DownloadURI&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:DateFormat xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;yyyy-MM-dd&amp;#39;;T&amp;#39;;HH:mm:ss&amp;#39;;Z&amp;#39;;&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:DateFormat&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-          &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;ns:Checksum xmlns:ns=&amp;#34;http://cisco.com/schemas&amp;#34;&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;1958710861&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:Checksum&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-        &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:Firmware&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-      &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:FirmwareList&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/ns:GetFirmwareFromDeviceResponse&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-  &lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/soapenv:Body&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-&lt;span class=&#34;ni&#34;&gt;&amp;amp;lt;&lt;/span&gt;/soapenv:Envelope&lt;span class=&#34;ni&#34;&gt;&amp;amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;(I slightly modified portions of the request and response to hide the identify of my router.).&lt;/p&gt;
-&lt;p&gt;I might write a script to make fake requests, but until then you can easily create a request with curl:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl -d @request.raw https://update.linksys.com/cds/update
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then you just extract the DownloadURI and&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Voila I now have the firmware. Now I need to figure out what to do with it.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;: As requested I fetched the more recent version of the file:&lt;br&gt;
-2.0.37.131047 – &lt;a href=&#34;http://download.linksys.com/updates/to0040829450.pdx/FW&#34;&gt;http://download.linksys.com/updates/to0040829450.pdx/FW&lt;/a&gt;_E4200_2.0.37.131047.SSA&lt;/p&gt;
+      <description><p>I recently got a Linksys E4200v2 wireless router. It’s pretty cool, supports IPv6, 2.4Ghz and 5Ghz wifi networks, VPN, etc. The one downside is that the firmware for the router is not available from <a href="http://homesupport.cisco.com/en-us/wireless/linksys/E4200">Linksys’s website</a>, and the <a href="http://homesupport.cisco.com/en-us/gplcodecenter">GPL code</a> has not been made available, yet… However, the router has been able to pull updates itself from the Internet.</p>
+<p>So I wanted to acquire the firmware to see if I could do something fun with the router. I set about to figure out how the router does this. My plan was to set my laptop up between Internet interface on the router, and the cable modem. Since my laptop doesn’t have two network cards, I plugged into a switch and used <a href="http://ettercap.sourceforge.net/">Ethercap</a> to ARP poison to redirect traffic via the laptop.</p>
+<p>Then using <a href="http://www.wireshark.org/">Wireshark</a> I could see the traffic coming out of the router. All I needed to do now was to hit the “check for updates button”.</p>
+<p>Firstly I saw two DNS requests, one for the AAAA (IPv6) record for update.linksys.com, then a A request for update.linksys.com. Clearly the updates are coming from there. Secondly I saw a HTTPS connection form to that domain. That makes this a little more complex, as I am unable to see the encrypted traffic, and thus see what is being transferred.</p>
+<p>So, I grabbed a <a href="http://code.activestate.com/recipes/491264-mini-fake-dns-server/">simple DNS server</a>, and set up a simple SSL server following <a href="http://wirewatcher.wordpress.com/2010/07/20/decrypting-ssl-traffic-with-wireshark-and-ways-to-prevent-it/">these instructions</a>.</p>
+<p>Now with DNS spoofing, and a fake SSL server, I could intercept encrypted traffic from the router, as long as it does not validate the SSL certificate. Luckily it didn’t check the validity, and thus I was able to capture the request: (BTW Not checking the cert completely defeats the point of using SSL… bad Linksys!).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-http" data-lang="http"><span class="line"><span class="cl"><span class="nf">POST</span> <span class="nn">/cds/update</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span></span><span class="line"><span class="cl"><span class="n">Host</span><span class="o">:</span> <span class="l">update.linksys.com</span>
+</span></span><span class="line"><span class="cl"><span class="n">Accept</span><span class="o">:</span> <span class="l">*/*</span>
+</span></span><span class="line"><span class="cl"><span class="n">Content-Type</span><span class="o">:</span> <span class="l">text/xml</span>
+</span></span><span class="line"><span class="cl"><span class="n">Content-Length</span><span class="o">:</span> <span class="l">573</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="ni">&amp;lt;</span>SOAP-ENV:Envelope xmlns:SOAP-ENV=&#34;http://schemas.xmlsoap.org/soap/envelope/&#34;<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="ni">&amp;lt;</span>SOAP-ENV:Header/<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="ni">&amp;lt;</span>SOAP-ENV:Body<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="ni">&amp;lt;</span>ns:GetFirmwareFromDeviceRequest xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="ni">&amp;lt;</span>ns:LanguageCode<span class="ni">&amp;gt;</span>en<span class="ni">&amp;lt;</span>/ns:LanguageCode<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="ni">&amp;lt;</span>ns:CountryCode<span class="ni">&amp;gt;</span>us<span class="ni">&amp;lt;</span>/ns:CountryCode<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="ni">&amp;lt;</span>ns:MacAddress<span class="ni">&amp;gt;</span>12:34:56:78:90:ab<span class="ni">&amp;lt;</span>/ns:MacAddress<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="ni">&amp;lt;</span>ns:ModelNo<span class="ni">&amp;gt;</span>E4200<span class="ni">&amp;lt;</span>/ns:ModelNo<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="ni">&amp;lt;</span>ns:HardwareVersion<span class="ni">&amp;gt;</span>2<span class="ni">&amp;lt;</span>/ns:HardwareVersion<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="ni">&amp;lt;</span>ns:CurrentFirmwareVersion<span class="ni">&amp;gt;</span>2.0.36.126507<span class="ni">&amp;lt;</span>/ns:CurrentFirmwareVersion<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="ni">&amp;lt;</span>/ns:GetFirmwareFromDeviceRequest<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="ni">&amp;lt;</span>/SOAP-ENV:Body<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl"><span class="ni">&amp;lt;</span>/SOAP-ENV:Envelope<span class="ni">&amp;gt;</span>
+</span></span></code></pre></div><p>and the response:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-http" data-lang="http"><span class="line"><span class="cl"><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+</span></span><span class="line"><span class="cl"><span class="n">Content-Language</span><span class="o">:</span> <span class="l">en-US</span>
+</span></span><span class="line"><span class="cl"><span class="n">Content-Type</span><span class="o">:</span> <span class="l">text/xml</span>
+</span></span><span class="line"><span class="cl"><span class="n">SOAPAction</span><span class="o">:</span> <span class="l">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="ni">&amp;lt;</span>soapenv:Envelope
+</span></span><span class="line"><span class="cl"> xmlns:soapenv=&#34;http://schemas.xmlsoap.org/soap/envelope/&#34;
+</span></span><span class="line"><span class="cl"> xmlns:soapenc=&#34;http://schemas.xmlsoap.org/soap/encoding/&#34;
+</span></span><span class="line"><span class="cl"> xmlns:xsd=&#34;http://www.w3.org/2001/XMLSchema&#34;
+</span></span><span class="line"><span class="cl"> xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="ni">&amp;lt;</span>soapenv:Header/<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="ni">&amp;lt;</span>soapenv:Body<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="ni">&amp;lt;</span>ns:GetFirmwareFromDeviceResponse xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="ni">&amp;lt;</span>ns:FirmwareList xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="ni">&amp;lt;</span>ns:Firmware xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="ni">&amp;lt;</span>ns:Version xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class="ni">&amp;gt;</span>2.0.36.126507<span class="ni">&amp;lt;</span>/ns:Version<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="ni">&amp;lt;</span>ns:Revision xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class="ni">&amp;gt;</span>D<span class="ni">&amp;lt;</span>/ns:Revision<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="ni">&amp;lt;</span>ns:ReleaseDate xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class="ni">&amp;gt;</span>2012-01-06T16:48:08Z<span class="ni">&amp;lt;</span>/ns:ReleaseDate<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="ni">&amp;lt;</span>ns:DownloadURI xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class="ni">&amp;gt;</span>http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA<span class="ni">&amp;lt;</span>/ns:DownloadURI<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="ni">&amp;lt;</span>ns:DateFormat xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class="ni">&amp;gt;</span>yyyy-MM-dd&#39;;T&#39;;HH:mm:ss&#39;;Z&#39;;<span class="ni">&amp;lt;</span>/ns:DateFormat<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="ni">&amp;lt;</span>ns:Checksum xmlns:ns=&#34;http://cisco.com/schemas&#34;<span class="ni">&amp;gt;</span>1958710861<span class="ni">&amp;lt;</span>/ns:Checksum<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="ni">&amp;lt;</span>/ns:Firmware<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="ni">&amp;lt;</span>/ns:FirmwareList<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="ni">&amp;lt;</span>/ns:GetFirmwareFromDeviceResponse<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="ni">&amp;lt;</span>/soapenv:Body<span class="ni">&amp;gt;</span>
+</span></span><span class="line"><span class="cl"><span class="ni">&amp;lt;</span>/soapenv:Envelope<span class="ni">&amp;gt;</span>
+</span></span></code></pre></div><p>(I slightly modified portions of the request and response to hide the identify of my router.).</p>
+<p>I might write a script to make fake requests, but until then you can easily create a request with curl:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -d @request.raw https://update.linksys.com/cds/update
+</span></span></code></pre></div><p>Then you just extract the DownloadURI and</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl http://download.linksys.com/updates/to0037258865.pdx/FW_E4200_2.0.36.126507.SSA
+</span></span></code></pre></div><p>Voila I now have the firmware. Now I need to figure out what to do with it.</p>
+<p><strong>Update</strong>: As requested I fetched the more recent version of the file:<br>
+2.0.37.131047 – <a href="http://download.linksys.com/updates/to0040829450.pdx/FW">http://download.linksys.com/updates/to0040829450.pdx/FW</a>_E4200_2.0.37.131047.SSA</p>
 </description>
     </item>
     
@@ -83,75 +83,75 @@
       <pubDate>Thu, 25 Nov 2010 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2010/11/25/verizon-fios-mi424wr-rev.-f-router/</guid>
-      <description>&lt;p&gt;I just got a FiOS wifi router and I must say I really like it. The web interface has many more options than any home router I’ve ever played with, and it seems like it’d be easy for a beginner but doesn’t get in the way of an expert. It also telnet access (optionally over SSL), which puts you into a custom shell. Poking around the commands I find one awesome one:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Wireless Broadband Router&amp;gt; &lt;span class=&#34;nb&#34;&gt;help&lt;/span&gt; system shell
-shell   Spawn busybox shell in foreground
-
-Wireless Broadband Router&amp;gt; system shell
-BusyBox v1.01 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;2005.09.07-07:38+0000&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; Built-in shell &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;lash&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-Enter &lt;span class=&#34;s1&#34;&gt;&amp;#39;help&amp;#39;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; a list of built-in commands.
-
-/ &lt;span class=&#34;c1&#34;&gt;# &lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This is very clearly running Linux, with BusyBox. For those interested here are some interesting bits of information:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/ &lt;span class=&#34;c1&#34;&gt;# cat /proc/version &lt;/span&gt;
-Linux version 2.6.16.14 &lt;span class=&#34;c1&#34;&gt;#1 SMP Sat Nov 28 00:38:50 PST 2009&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;A four year old kernel. Well what do you expect from this kind of device :)&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/ &lt;span class=&#34;c1&#34;&gt;# cat /proc/cpuinfo &lt;/span&gt;
-system &lt;span class=&#34;nb&#34;&gt;type&lt;/span&gt;		: MC524WR
-processor		: &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
-cpu model		: Cavium Networks Octeon CN50XX V0.1
-BogoMIPS		: 1000.48
-&lt;span class=&#34;nb&#34;&gt;wait&lt;/span&gt; instruction	: yes
-microsecond timers	: yes
-tlb_entries		: &lt;span class=&#34;m&#34;&gt;64&lt;/span&gt;
-extra interrupt vector	: yes
-hardware watchpoint	: yes
-ASEs implemented	:
-VCED exceptions		: not available
-VCEI exceptions		: not available
-processor		: &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
-cpu model		: Cavium Networks Octeon CN50XX V0.1
-BogoMIPS		: 1000.48
-&lt;span class=&#34;nb&#34;&gt;wait&lt;/span&gt; instruction	: yes
-microsecond timers	: yes
-tlb_entries		: &lt;span class=&#34;m&#34;&gt;64&lt;/span&gt;
-extra interrupt vector	: yes
-hardware watchpoint	: yes
-ASEs implemented	:
-VCED exceptions		: not available
-VCEI exceptions		: not available
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;w00t, a &lt;a href=&#34;http://www.caviumnetworks.com/OCTEON-Plus_CN50XX.html&#34;&gt;Dual Cores 64bit MIPS chip&lt;/a&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/ &lt;span class=&#34;c1&#34;&gt;# cat /proc/meminfo &lt;/span&gt;
-MemTotal:        &lt;span class=&#34;m&#34;&gt;53200&lt;/span&gt; kB
-MemFree:         &lt;span class=&#34;m&#34;&gt;11588&lt;/span&gt; kB
-Buffers:          &lt;span class=&#34;m&#34;&gt;9252&lt;/span&gt; kB
-Cached:           &lt;span class=&#34;m&#34;&gt;9228&lt;/span&gt; kB
-SwapCached:          &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; kB
-Active:           &lt;span class=&#34;m&#34;&gt;7796&lt;/span&gt; kB
-Inactive:        &lt;span class=&#34;m&#34;&gt;16220&lt;/span&gt; kB
-HighTotal:           &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; kB
-HighFree:            &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; kB
-LowTotal:        &lt;span class=&#34;m&#34;&gt;53200&lt;/span&gt; kB
-LowFree:         &lt;span class=&#34;m&#34;&gt;11588&lt;/span&gt; kB
-SwapTotal:           &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; kB
-SwapFree:            &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; kB
-Dirty:               &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; kB
-Writeback:           &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; kB
-Mapped:          &lt;span class=&#34;m&#34;&gt;11272&lt;/span&gt; kB
-Slab:            &lt;span class=&#34;m&#34;&gt;13700&lt;/span&gt; kB
-CommitLimit:     &lt;span class=&#34;m&#34;&gt;26600&lt;/span&gt; kB
-Committed_AS:    &lt;span class=&#34;m&#34;&gt;11384&lt;/span&gt; kB
-PageTables:        &lt;span class=&#34;m&#34;&gt;196&lt;/span&gt; kB
-VmallocTotal: &lt;span class=&#34;m&#34;&gt;1073741824&lt;/span&gt; kB
-VmallocUsed:      &lt;span class=&#34;m&#34;&gt;2752&lt;/span&gt; kB
-VmallocChunk: &lt;span class=&#34;m&#34;&gt;1073738692&lt;/span&gt; kB
-HugePages_Total:     &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
-HugePages_Free:      &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
-Hugepagesize:     &lt;span class=&#34;m&#34;&gt;2048&lt;/span&gt; kB
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Only ~53MB of RAM if I’m reading that right. Seems most likely to be 64MB to me, but I will investigate further.&lt;/p&gt;
-&lt;p&gt;Also, as this is Linux, the &lt;a href=&#34;http://opensource.actiontec.com/&#34;&gt;source code&lt;/a&gt; has been made available. The &lt;a href=&#34;http://opensource.actiontec.com/sourcecode/mi424wr/rev_ef/mi424wr-fw-20.10.7.5_readme&#34;&gt;README&lt;/a&gt; reveals it is a MC524 Router (MI424WR-GEN2 REV E/F).&lt;/p&gt;
-&lt;p&gt;The device doesn’t seem to have many of the standard Linux tools, no doubt to save space. It does however have an external USB port. My plan is to compile more of busybox, as well as some other binaries, and run them from an external USB stick.&lt;/p&gt;
-&lt;p&gt;Hacking an router has never been so easy! I’ll post more when I know more!&lt;/p&gt;
+      <description><p>I just got a FiOS wifi router and I must say I really like it. The web interface has many more options than any home router I’ve ever played with, and it seems like it’d be easy for a beginner but doesn’t get in the way of an expert. It also telnet access (optionally over SSL), which puts you into a custom shell. Poking around the commands I find one awesome one:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Wireless Broadband Router&gt; <span class="nb">help</span> system shell
+</span></span><span class="line"><span class="cl">shell   Spawn busybox shell in foreground
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Wireless Broadband Router&gt; system shell
+</span></span><span class="line"><span class="cl">BusyBox v1.01 <span class="o">(</span>2005.09.07-07:38+0000<span class="o">)</span> Built-in shell <span class="o">(</span>lash<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Enter <span class="s1">&#39;help&#39;</span> <span class="k">for</span> a list of built-in commands.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/ <span class="c1"># </span>
+</span></span></code></pre></div><p>This is very clearly running Linux, with BusyBox. For those interested here are some interesting bits of information:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/ <span class="c1"># cat /proc/version </span>
+</span></span><span class="line"><span class="cl">Linux version 2.6.16.14 <span class="c1">#1 SMP Sat Nov 28 00:38:50 PST 2009</span>
+</span></span></code></pre></div><p>A four year old kernel. Well what do you expect from this kind of device :)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/ <span class="c1"># cat /proc/cpuinfo </span>
+</span></span><span class="line"><span class="cl">system <span class="nb">type</span>		: MC524WR
+</span></span><span class="line"><span class="cl">processor		: <span class="m">0</span>
+</span></span><span class="line"><span class="cl">cpu model		: Cavium Networks Octeon CN50XX V0.1
+</span></span><span class="line"><span class="cl">BogoMIPS		: 1000.48
+</span></span><span class="line"><span class="cl"><span class="nb">wait</span> instruction	: yes
+</span></span><span class="line"><span class="cl">microsecond timers	: yes
+</span></span><span class="line"><span class="cl">tlb_entries		: <span class="m">64</span>
+</span></span><span class="line"><span class="cl">extra interrupt vector	: yes
+</span></span><span class="line"><span class="cl">hardware watchpoint	: yes
+</span></span><span class="line"><span class="cl">ASEs implemented	:
+</span></span><span class="line"><span class="cl">VCED exceptions		: not available
+</span></span><span class="line"><span class="cl">VCEI exceptions		: not available
+</span></span><span class="line"><span class="cl">processor		: <span class="m">1</span>
+</span></span><span class="line"><span class="cl">cpu model		: Cavium Networks Octeon CN50XX V0.1
+</span></span><span class="line"><span class="cl">BogoMIPS		: 1000.48
+</span></span><span class="line"><span class="cl"><span class="nb">wait</span> instruction	: yes
+</span></span><span class="line"><span class="cl">microsecond timers	: yes
+</span></span><span class="line"><span class="cl">tlb_entries		: <span class="m">64</span>
+</span></span><span class="line"><span class="cl">extra interrupt vector	: yes
+</span></span><span class="line"><span class="cl">hardware watchpoint	: yes
+</span></span><span class="line"><span class="cl">ASEs implemented	:
+</span></span><span class="line"><span class="cl">VCED exceptions		: not available
+</span></span><span class="line"><span class="cl">VCEI exceptions		: not available
+</span></span></code></pre></div><p>w00t, a <a href="http://www.caviumnetworks.com/OCTEON-Plus_CN50XX.html">Dual Cores 64bit MIPS chip</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/ <span class="c1"># cat /proc/meminfo </span>
+</span></span><span class="line"><span class="cl">MemTotal:        <span class="m">53200</span> kB
+</span></span><span class="line"><span class="cl">MemFree:         <span class="m">11588</span> kB
+</span></span><span class="line"><span class="cl">Buffers:          <span class="m">9252</span> kB
+</span></span><span class="line"><span class="cl">Cached:           <span class="m">9228</span> kB
+</span></span><span class="line"><span class="cl">SwapCached:          <span class="m">0</span> kB
+</span></span><span class="line"><span class="cl">Active:           <span class="m">7796</span> kB
+</span></span><span class="line"><span class="cl">Inactive:        <span class="m">16220</span> kB
+</span></span><span class="line"><span class="cl">HighTotal:           <span class="m">0</span> kB
+</span></span><span class="line"><span class="cl">HighFree:            <span class="m">0</span> kB
+</span></span><span class="line"><span class="cl">LowTotal:        <span class="m">53200</span> kB
+</span></span><span class="line"><span class="cl">LowFree:         <span class="m">11588</span> kB
+</span></span><span class="line"><span class="cl">SwapTotal:           <span class="m">0</span> kB
+</span></span><span class="line"><span class="cl">SwapFree:            <span class="m">0</span> kB
+</span></span><span class="line"><span class="cl">Dirty:               <span class="m">0</span> kB
+</span></span><span class="line"><span class="cl">Writeback:           <span class="m">0</span> kB
+</span></span><span class="line"><span class="cl">Mapped:          <span class="m">11272</span> kB
+</span></span><span class="line"><span class="cl">Slab:            <span class="m">13700</span> kB
+</span></span><span class="line"><span class="cl">CommitLimit:     <span class="m">26600</span> kB
+</span></span><span class="line"><span class="cl">Committed_AS:    <span class="m">11384</span> kB
+</span></span><span class="line"><span class="cl">PageTables:        <span class="m">196</span> kB
+</span></span><span class="line"><span class="cl">VmallocTotal: <span class="m">1073741824</span> kB
+</span></span><span class="line"><span class="cl">VmallocUsed:      <span class="m">2752</span> kB
+</span></span><span class="line"><span class="cl">VmallocChunk: <span class="m">1073738692</span> kB
+</span></span><span class="line"><span class="cl">HugePages_Total:     <span class="m">0</span>
+</span></span><span class="line"><span class="cl">HugePages_Free:      <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Hugepagesize:     <span class="m">2048</span> kB
+</span></span></code></pre></div><p>Only ~53MB of RAM if I’m reading that right. Seems most likely to be 64MB to me, but I will investigate further.</p>
+<p>Also, as this is Linux, the <a href="http://opensource.actiontec.com/">source code</a> has been made available. The <a href="http://opensource.actiontec.com/sourcecode/mi424wr/rev_ef/mi424wr-fw-20.10.7.5_readme">README</a> reveals it is a MC524 Router (MI424WR-GEN2 REV E/F).</p>
+<p>The device doesn’t seem to have many of the standard Linux tools, no doubt to save space. It does however have an external USB port. My plan is to compile more of busybox, as well as some other binaries, and run them from an external USB stick.</p>
+<p>Hacking an router has never been so easy! I’ll post more when I know more!</p>
 </description>
     </item>
     

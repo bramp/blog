@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
@@ -9,7 +9,6 @@
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
 <meta content=#4582EC name=theme-color>
 <link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
 <link href=/images/favicon.png rel=apple-touch-icon />
@@ -103,9 +102,9 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p>I’m at home for Christmas and I’ve found my parents have brought a Philips WAC7500, a fancy hi-fi which has far more features than people would ever need. It can play music from its internal hard drive, iPod/USB, UPnP (via wired or wireless), and radio from either FM or Internet.</p>
 <p>So needless to say it is a tad fancy, so I started to play with it and quickly found out it is an embedded Linux running on a ARM processor. You can download a full copy of the software as a firmware update. The firmware is actually a cramfs file system which I was easily able to mount.</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>mkdir /mnt/wac7500
-mount -t cramfs -o loop wac7500_update.bin /mnt/wac7500
-</code></pre></div><p>I’m going to spend some time trying to hack it apart. So far I’ve found it is running a simple webserver, which allows you to access all you music via a URL such as: <code>http://&lt;ip&gt;/media/</code></p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=line><span class=cl>mkdir /mnt/wac7500
+</span></span><span class=line><span class=cl>mount -t cramfs -o loop wac7500_update.bin /mnt/wac7500
+</span></span></code></pre></div><p>I’m going to spend some time trying to hack it apart. So far I’ve found it is running a simple webserver, which allows you to access all you music via a URL such as: <code>http://&lt;ip&gt;/media/</code></p>
 <p>It also has a nvram to store all the settings, and one of those settings is dbg_startsshd which if enabled seems to start a dropbear SSH server. I’ve yet to figure out how to edit nvram or enable the sshd, but I’m sure I will soon.</p>
 </div>
 </article>
@@ -131,7 +130,7 @@ mount -t cramfs -o loop wac7500_update.bin /mnt/wac7500
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2026. All rights reserved.</p>
 </footer>
 </div>
 </div>

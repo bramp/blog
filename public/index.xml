@@ -1,10 +1,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>bramp.net</title>
-    <link>https://blog.bramp.net</link>
+    <link>https://blog.bramp.net/</link>
     <description>Recent content on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en_GB</language>
+    <language>en-GB</language>
     <lastBuildDate>Sat, 02 Apr 2022 20:03:52 -0700</lastBuildDate>
     <atom:link href="https://blog.bramp.net/" rel="self" type="application/rss+xml" />
     
@@ -14,148 +14,148 @@
       <pubDate>Sat, 16 Feb 2013 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/publication/</guid>
-      <description>&lt;p&gt;Here are all my publications from when I was a PhD student, and later a research associate. I haven&amp;rsquo;t published in a while :(&lt;/p&gt;
-&lt;p&gt;Most of the LaTeX for these publications, as well as associated conference presentations can be found at &lt;a href=&#34;https://github.com/bramp/publication&#34;&gt;github.com/bramp/publication&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;phd-thesis&#34;&gt;PhD Thesis&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.bramp.net/publication/the-impact-of-highly-interactive-workloads-on-video-on-demand-systems/&#34;&gt;The Impact of Highly Interactive Workloads on Video-on-Demand Systems&lt;/a&gt; – 2008&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;networking&#34;&gt;Networking&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.bramp.net/publication/facilitating-network-auto-configuration-in-next-generation-internet-protocols/&#34;&gt;Facilitating Network Auto Configuration In Next Generation Internet Protocols&lt;/a&gt; – GLOBECOM 2009&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.bramp.net/publication/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/&#34;&gt;Evaluating the Performance of Network Protocol Processing on Multi-core Systems&lt;/a&gt; – AINA 2009&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;content-distribution-networks--video-on-demand&#34;&gt;Content Distribution Networks / Video-on-demand&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.bramp.net/publication/characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand/&#34;&gt;Characterising and Exploiting Workloads of Highly Interactive Video-on-Demand&lt;/a&gt; – Multimedia Systems Journal 2009&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.bramp.net/publication/a-case-for-hybrid-content-distribution-for-interactive-video-on-demand/&#34;&gt;A case for hybrid content distribution for interactive video-on-demand&lt;/a&gt; – Future Multimedia&lt;br&gt;
-Networking 2008&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.bramp.net/publication/characterising-user-interactivity-for-sports-video-on-demand/&#34;&gt;Characterising user interactivity for sports video-on-demand&lt;/a&gt; – NOSSDAV 2007&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;distributed-hash-table--peer-to-peer&#34;&gt;Distributed Hash Table / Peer-to-peer&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.bramp.net/publication/performance-modelling-of-peer-to-peer-routing/&#34;&gt;Performance modelling of peer-to-peer routing&lt;/a&gt; – HOTP2P 2007&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.bramp.net/publication/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/&#34;&gt;Stealth Distributed Hash Table: A robust and flexible super-peered DHT&lt;/a&gt; – CoNEXT 2006&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.bramp.net/publication/authentication-in-stealth-distributed-hash-tables/&#34;&gt;Authentication in Stealth Distributed Hash Tables&lt;/a&gt; – Euromicro 2006&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.bramp.net/publication/performance-analysis-of-stealth-dht-with-mobile-nodes./&#34;&gt;Performance analysis of Stealth DHT with mobile nodes&lt;/a&gt; – MP2P 2006&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.bramp.net/publication/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/&#34;&gt;Stealth Distributed Hash Table: Unleashing the Real Potential of Peer-to-Peer&lt;/a&gt; – CoNEXT 2005&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;bibtex&#34;&gt;BibTeX&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://raw.githubusercontent.com/bramp/curriculum-vitae/master/publications.bib&#34;&gt;Download&lt;/a&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bibtex&#34; data-lang=&#34;bibtex&#34;&gt;&lt;span class=&#34;nc&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;brampton2005sdh&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-       &lt;span class=&#34;na&#34;&gt;booktitle&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{ACM Conference on Emerging Network Experiments and Technology (CoNEXT) (Student Workshop Session)}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;month&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{October}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Stealth Distributed Hash Table: Unleashing the Real Potential of Peer-to-Peer}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Andrew Brampton and Andrew MacQuire and Idris Rai and Nicholas J. P. Race and Laurent Mathy}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{2005}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-             &lt;span class=&#34;na&#34;&gt;url&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{http://eprints.comp.lancs.ac.uk/1199/}&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;nc&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;macquire2006pas&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-       &lt;span class=&#34;na&#34;&gt;booktitle&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{3rd International Workshop on Mobile Peer-to-Peer Computing (MP2P)}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;month&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{March}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Performance Analysis of Stealth DHT with Mobile Nodes}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Andrew MacQuire and Andrew Brampton and Idris Rai and Laurent Mathy}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{2006}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;pages&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{184--189}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-             &lt;span class=&#34;na&#34;&gt;url&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{http://eprints.comp.lancs.ac.uk/1248/}&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;nc&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;macquire2006asd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-       &lt;span class=&#34;na&#34;&gt;booktitle&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{32nd Euromicro Conference on Software Engineering and Advanced Applications}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;month&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{August}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Authentication in Stealth Distributed Hash Tables}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Andrew MacQuire and Andrew Brampton and Idris Rai and Nicholas J. P. Race and Laurent Mathy}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{2006}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-             &lt;span class=&#34;na&#34;&gt;url&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{http://eprints.comp.lancs.ac.uk/1297/}&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;nc&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;brampton2006sdh&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-       &lt;span class=&#34;na&#34;&gt;booktitle&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{2nd Conference on Future Networking Technologies (CoNEXT)}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;month&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{December}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Stealth Distributed Hash Table: A Robust and Flexible Super-Peered DHT}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Andrew Brampton and Andrew MacQuire and Idris Rai and Nicholas J. P. Race and Laurent Mathy}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{2006}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-             &lt;span class=&#34;na&#34;&gt;url&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{http://eprints.comp.lancs.ac.uk/830/}&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;nc&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;rai2007pmp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-       &lt;span class=&#34;na&#34;&gt;booktitle&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{4th International Workshop on Peer-to-Peer Systems (HOTP2P)}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;month&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{March}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Performance Modelling of Peer-to-Peer Routing}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Idris Rai and Andrew Brampton and Andrew MacQuire and Laurent Mathy}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{2007}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-             &lt;span class=&#34;na&#34;&gt;url&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{http://eprints.comp.lancs.ac.uk/1344/}&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;nc&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;brampton2007cui&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-       &lt;span class=&#34;na&#34;&gt;booktitle&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{International workshop on Network and Operating Systems Support for Digital Audio \&amp;amp; Video (NOSSDAV)}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Characterising User Interactivity for Sports Video-on-Demand}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Andrew Brampton and Andrew MacQuire and Idris Rai and Nicholas J. P. Race and Laurent Mathy and Michael Fry}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-             &lt;span class=&#34;na&#34;&gt;url&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{http://eprints.comp.lancs.ac.uk/1464/}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{2007}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;month&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{June}&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;nc&#34;&gt;@article&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;macquire2008asd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Authentication in stealth distributed hash tables}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-         &lt;span class=&#34;na&#34;&gt;journal&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Journal of Systems Architecture}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-          &lt;span class=&#34;na&#34;&gt;volume&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{54}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-          &lt;span class=&#34;na&#34;&gt;number&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{6}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;pages&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{607 - 618}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{2008}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;na&#34;&gt;note&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Selection of best papers from the 32nd EUROMICRO Conference on [`]Software Engineering and Advanced Applications&amp;#39; (SEAA 2006)}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;na&#34;&gt;issn&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{1383-7621}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-             &lt;span class=&#34;na&#34;&gt;doi&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{DOI: 10.1016/j.sysarc.2008.01.004}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-             &lt;span class=&#34;na&#34;&gt;url&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{http://www.sciencedirect.com/science/article/B6V1F-4RRFNJ5-2/2/52b536d2a682f07d8f6ae7b74f474390}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Andrew MacQuire and Andrew Brampton and Idris A. Rai and Nicholas J.P. Race and Laurent Mathy}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-        &lt;span class=&#34;na&#34;&gt;keywords&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Distributed hash table}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-        &lt;span class=&#34;na&#34;&gt;keywords&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Peer-to-peer}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-        &lt;span class=&#34;na&#34;&gt;keywords&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Security}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-        &lt;span class=&#34;na&#34;&gt;keywords&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Public key infrastructure}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-        &lt;span class=&#34;na&#34;&gt;keywords&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Stealth DHT}&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;nc&#34;&gt;@article&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;brampton2008cew&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Characterising and Exploiting Workloads of Highly Interactive Video-on-Demand}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Andrew Brampton and Andrew MacQuire and Michael Fry and Idris Rai and Nicholas J. P. Race and Laurent Mathy}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-       &lt;span class=&#34;na&#34;&gt;publisher&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Springer-Verlag}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{2008}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-         &lt;span class=&#34;na&#34;&gt;journal&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Multimedia Systems Journal}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-             &lt;span class=&#34;na&#34;&gt;url&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{http://eprints.comp.lancs.ac.uk/1465/}&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;nc&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;macquire2008acf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-       &lt;span class=&#34;na&#34;&gt;booktitle&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{International workshop on Future Multimedia Networking (FMN)}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{A Case for Hybrid Content Distribution for Interactive Video-on-Demand}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Andrew MacQuire and Andrew Brampton and Michael Fry and Nicholas Race and Laurent Mathy}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{2008}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;month&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{September}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;nc&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;faulkner2009epn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-       &lt;span class=&#34;na&#34;&gt;booktitle&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{International Conference on Advanced Information Networking and Applications (AINA)}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Evaluating the Performance of Network Protocol Processing on Multi-core Systems}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Matthew Faulkner and Andrew Brampton and Stephen Pink}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{2009}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;month&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{May}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;nc&#34;&gt;@inproceedings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;jakeman2009fna&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-       &lt;span class=&#34;na&#34;&gt;booktitle&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{FutureNet II - Second international workshop on the network of the future in conjunction with IEEE Globecom}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Facilitating Network Auto Configuration In Next Generation Internet Protocols}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Matthew Jakeman and Andrew Brampton and Stephen Pink}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{2009}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;month&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{December}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;nc&#34;&gt;@phdthesis&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nl&#34;&gt;brampton2008thesis&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-          &lt;span class=&#34;na&#34;&gt;author&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Andrew Brampton}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-           &lt;span class=&#34;na&#34;&gt;title&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{The Impact of Highly Interactive Workloads on Video-on-Demand Systems}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-          &lt;span class=&#34;na&#34;&gt;school&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{Lancaster University, UK}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-            &lt;span class=&#34;na&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;{2008}&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+      <description><p>Here are all my publications from when I was a PhD student, and later a research associate. I haven&rsquo;t published in a while :(</p>
+<p>Most of the LaTeX for these publications, as well as associated conference presentations can be found at <a href="https://github.com/bramp/publication">github.com/bramp/publication</a>.</p>
+<h2 id="phd-thesis">PhD Thesis</h2>
+<ul>
+<li><a href="/publication/the-impact-of-highly-interactive-workloads-on-video-on-demand-systems/">The Impact of Highly Interactive Workloads on Video-on-Demand Systems</a> – 2008</li>
+</ul>
+<h2 id="networking">Networking</h2>
+<ul>
+<li><a href="/publication/facilitating-network-auto-configuration-in-next-generation-internet-protocols/">Facilitating Network Auto Configuration In Next Generation Internet Protocols</a> – GLOBECOM 2009</li>
+<li><a href="/publication/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/">Evaluating the Performance of Network Protocol Processing on Multi-core Systems</a> – AINA 2009</li>
+</ul>
+<h2 id="content-distribution-networks--video-on-demand">Content Distribution Networks / Video-on-demand</h2>
+<ul>
+<li><a href="/publication/characterising-and-exploiting-workloads-of-highly-interactive-video-on-demand/">Characterising and Exploiting Workloads of Highly Interactive Video-on-Demand</a> – Multimedia Systems Journal 2009</li>
+<li><a href="/publication/a-case-for-hybrid-content-distribution-for-interactive-video-on-demand/">A case for hybrid content distribution for interactive video-on-demand</a> – Future Multimedia<br>
+Networking 2008</li>
+<li><a href="/publication/characterising-user-interactivity-for-sports-video-on-demand/">Characterising user interactivity for sports video-on-demand</a> – NOSSDAV 2007</li>
+</ul>
+<h2 id="distributed-hash-table--peer-to-peer">Distributed Hash Table / Peer-to-peer</h2>
+<ul>
+<li><a href="/publication/performance-modelling-of-peer-to-peer-routing/">Performance modelling of peer-to-peer routing</a> – HOTP2P 2007</li>
+<li><a href="/publication/stealth-distributed-hash-table-a-robust-and-flexible-super-peered-dht/">Stealth Distributed Hash Table: A robust and flexible super-peered DHT</a> – CoNEXT 2006</li>
+<li><a href="/publication/authentication-in-stealth-distributed-hash-tables/">Authentication in Stealth Distributed Hash Tables</a> – Euromicro 2006</li>
+<li><a href="/publication/performance-analysis-of-stealth-dht-with-mobile-nodes./">Performance analysis of Stealth DHT with mobile nodes</a> – MP2P 2006</li>
+<li><a href="/publication/stealth-distributed-hash-table-unleashing-the-real-potential-of-peer-to-peer/">Stealth Distributed Hash Table: Unleashing the Real Potential of Peer-to-Peer</a> – CoNEXT 2005</li>
+</ul>
+<h2 id="bibtex">BibTeX</h2>
+<p><a href="https://raw.githubusercontent.com/bramp/curriculum-vitae/master/publications.bib">Download</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bibtex" data-lang="bibtex"><span class="line"><span class="cl"><span class="nc">@inproceedings</span><span class="p">{</span><span class="nl">brampton2005sdh</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="na">booktitle</span> <span class="p">=</span> <span class="s">{ACM Conference on Emerging Network Experiments and Technology (CoNEXT) (Student Workshop Session)}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">month</span> <span class="p">=</span> <span class="s">{October}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">title</span> <span class="p">=</span> <span class="s">{Stealth Distributed Hash Table: Unleashing the Real Potential of Peer-to-Peer}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="na">author</span> <span class="p">=</span> <span class="s">{Andrew Brampton and Andrew MacQuire and Idris Rai and Nicholas J. P. Race and Laurent Mathy}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="na">year</span> <span class="p">=</span> <span class="s">{2005}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="na">url</span> <span class="p">=</span> <span class="s">{http://eprints.comp.lancs.ac.uk/1199/}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nc">@inproceedings</span><span class="p">{</span><span class="nl">macquire2006pas</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="na">booktitle</span> <span class="p">=</span> <span class="s">{3rd International Workshop on Mobile Peer-to-Peer Computing (MP2P)}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">month</span> <span class="p">=</span> <span class="s">{March}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">title</span> <span class="p">=</span> <span class="s">{Performance Analysis of Stealth DHT with Mobile Nodes}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="na">author</span> <span class="p">=</span> <span class="s">{Andrew MacQuire and Andrew Brampton and Idris Rai and Laurent Mathy}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="na">year</span> <span class="p">=</span> <span class="s">{2006}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">pages</span> <span class="p">=</span> <span class="s">{184--189}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="na">url</span> <span class="p">=</span> <span class="s">{http://eprints.comp.lancs.ac.uk/1248/}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nc">@inproceedings</span><span class="p">{</span><span class="nl">macquire2006asd</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="na">booktitle</span> <span class="p">=</span> <span class="s">{32nd Euromicro Conference on Software Engineering and Advanced Applications}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">month</span> <span class="p">=</span> <span class="s">{August}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">title</span> <span class="p">=</span> <span class="s">{Authentication in Stealth Distributed Hash Tables}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="na">author</span> <span class="p">=</span> <span class="s">{Andrew MacQuire and Andrew Brampton and Idris Rai and Nicholas J. P. Race and Laurent Mathy}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="na">year</span> <span class="p">=</span> <span class="s">{2006}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="na">url</span> <span class="p">=</span> <span class="s">{http://eprints.comp.lancs.ac.uk/1297/}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nc">@inproceedings</span><span class="p">{</span><span class="nl">brampton2006sdh</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="na">booktitle</span> <span class="p">=</span> <span class="s">{2nd Conference on Future Networking Technologies (CoNEXT)}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">month</span> <span class="p">=</span> <span class="s">{December}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">title</span> <span class="p">=</span> <span class="s">{Stealth Distributed Hash Table: A Robust and Flexible Super-Peered DHT}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="na">author</span> <span class="p">=</span> <span class="s">{Andrew Brampton and Andrew MacQuire and Idris Rai and Nicholas J. P. Race and Laurent Mathy}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="na">year</span> <span class="p">=</span> <span class="s">{2006}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="na">url</span> <span class="p">=</span> <span class="s">{http://eprints.comp.lancs.ac.uk/830/}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nc">@inproceedings</span><span class="p">{</span><span class="nl">rai2007pmp</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="na">booktitle</span> <span class="p">=</span> <span class="s">{4th International Workshop on Peer-to-Peer Systems (HOTP2P)}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">month</span> <span class="p">=</span> <span class="s">{March}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">title</span> <span class="p">=</span> <span class="s">{Performance Modelling of Peer-to-Peer Routing}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="na">author</span> <span class="p">=</span> <span class="s">{Idris Rai and Andrew Brampton and Andrew MacQuire and Laurent Mathy}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="na">year</span> <span class="p">=</span> <span class="s">{2007}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="na">url</span> <span class="p">=</span> <span class="s">{http://eprints.comp.lancs.ac.uk/1344/}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nc">@inproceedings</span><span class="p">{</span><span class="nl">brampton2007cui</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="na">booktitle</span> <span class="p">=</span> <span class="s">{International workshop on Network and Operating Systems Support for Digital Audio \&amp; Video (NOSSDAV)}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">title</span> <span class="p">=</span> <span class="s">{Characterising User Interactivity for Sports Video-on-Demand}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="na">author</span> <span class="p">=</span> <span class="s">{Andrew Brampton and Andrew MacQuire and Idris Rai and Nicholas J. P. Race and Laurent Mathy and Michael Fry}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="na">url</span> <span class="p">=</span> <span class="s">{http://eprints.comp.lancs.ac.uk/1464/}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="na">year</span> <span class="p">=</span> <span class="s">{2007}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">month</span> <span class="p">=</span> <span class="s">{June}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nc">@article</span><span class="p">{</span><span class="nl">macquire2008asd</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">title</span> <span class="p">=</span> <span class="s">{Authentication in stealth distributed hash tables}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">         <span class="na">journal</span> <span class="p">=</span> <span class="s">{Journal of Systems Architecture}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="na">volume</span> <span class="p">=</span> <span class="s">{54}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="na">number</span> <span class="p">=</span> <span class="s">{6}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">pages</span> <span class="p">=</span> <span class="s">{607 - 618}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="na">year</span> <span class="p">=</span> <span class="s">{2008}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="na">note</span> <span class="p">=</span> <span class="s">{Selection of best papers from the 32nd EUROMICRO Conference on [`]Software Engineering and Advanced Applications&#39; (SEAA 2006)}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="na">issn</span> <span class="p">=</span> <span class="s">{1383-7621}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="na">doi</span> <span class="p">=</span> <span class="s">{DOI: 10.1016/j.sysarc.2008.01.004}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="na">url</span> <span class="p">=</span> <span class="s">{http://www.sciencedirect.com/science/article/B6V1F-4RRFNJ5-2/2/52b536d2a682f07d8f6ae7b74f474390}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="na">author</span> <span class="p">=</span> <span class="s">{Andrew MacQuire and Andrew Brampton and Idris A. Rai and Nicholas J.P. Race and Laurent Mathy}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="na">keywords</span> <span class="p">=</span> <span class="s">{Distributed hash table}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="na">keywords</span> <span class="p">=</span> <span class="s">{Peer-to-peer}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="na">keywords</span> <span class="p">=</span> <span class="s">{Security}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="na">keywords</span> <span class="p">=</span> <span class="s">{Public key infrastructure}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="na">keywords</span> <span class="p">=</span> <span class="s">{Stealth DHT}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nc">@article</span><span class="p">{</span><span class="nl">brampton2008cew</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">title</span> <span class="p">=</span> <span class="s">{Characterising and Exploiting Workloads of Highly Interactive Video-on-Demand}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="na">author</span> <span class="p">=</span> <span class="s">{Andrew Brampton and Andrew MacQuire and Michael Fry and Idris Rai and Nicholas J. P. Race and Laurent Mathy}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="na">publisher</span> <span class="p">=</span> <span class="s">{Springer-Verlag}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="na">year</span> <span class="p">=</span> <span class="s">{2008}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">         <span class="na">journal</span> <span class="p">=</span> <span class="s">{Multimedia Systems Journal}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">             <span class="na">url</span> <span class="p">=</span> <span class="s">{http://eprints.comp.lancs.ac.uk/1465/}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nc">@inproceedings</span><span class="p">{</span><span class="nl">macquire2008acf</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="na">booktitle</span> <span class="p">=</span> <span class="s">{International workshop on Future Multimedia Networking (FMN)}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">title</span> <span class="p">=</span> <span class="s">{A Case for Hybrid Content Distribution for Interactive Video-on-Demand}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="na">author</span> <span class="p">=</span> <span class="s">{Andrew MacQuire and Andrew Brampton and Michael Fry and Nicholas Race and Laurent Mathy}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="na">year</span> <span class="p">=</span> <span class="s">{2008}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">month</span> <span class="p">=</span> <span class="s">{September}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nc">@inproceedings</span><span class="p">{</span><span class="nl">faulkner2009epn</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="na">booktitle</span> <span class="p">=</span> <span class="s">{International Conference on Advanced Information Networking and Applications (AINA)}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">title</span> <span class="p">=</span> <span class="s">{Evaluating the Performance of Network Protocol Processing on Multi-core Systems}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="na">author</span> <span class="p">=</span> <span class="s">{Matthew Faulkner and Andrew Brampton and Stephen Pink}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="na">year</span> <span class="p">=</span> <span class="s">{2009}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">month</span> <span class="p">=</span> <span class="s">{May}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nc">@inproceedings</span><span class="p">{</span><span class="nl">jakeman2009fna</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="na">booktitle</span> <span class="p">=</span> <span class="s">{FutureNet II - Second international workshop on the network of the future in conjunction with IEEE Globecom}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">title</span> <span class="p">=</span> <span class="s">{Facilitating Network Auto Configuration In Next Generation Internet Protocols}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="na">author</span> <span class="p">=</span> <span class="s">{Matthew Jakeman and Andrew Brampton and Stephen Pink}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="na">year</span> <span class="p">=</span> <span class="s">{2009}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">month</span> <span class="p">=</span> <span class="s">{December}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nc">@phdthesis</span><span class="p">{</span><span class="nl">brampton2008thesis</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="na">author</span> <span class="p">=</span> <span class="s">{Andrew Brampton}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="na">title</span> <span class="p">=</span> <span class="s">{The Impact of Highly Interactive Workloads on Video-on-Demand Systems}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="na">school</span> <span class="p">=</span> <span class="s">{Lancaster University, UK}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="na">year</span> <span class="p">=</span> <span class="s">{2008}</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></description>
     </item>
     
     <item>
@@ -173,87 +173,87 @@ Networking 2008&lt;/li&gt;
       <pubDate>Sat, 16 Feb 2013 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/opensource/</guid>
-      <description>&lt;p&gt;I’ve always been a big fan of open source, and always try and contribute where I can. In addition over the years I have created multiple small projects that I give back to the community. Here are the ones I have on GitHub:&lt;/p&gt;
-&lt;!-- TODO Change this to be data driven --&gt;
-&lt;div class=&#34;row&#34;&gt;
-  &lt;div class=&#34;col-md-4&#34;&gt;
-    &lt;p&gt;
-      &lt;b&gt;&lt;a href=&#34;https://github.com/bramp/libcec-daemon&#34;&gt;libcec-daemon&lt;/a&gt; &amp;#8211; c++ libcec uinput&lt;/b&gt;&lt;br /&gt;
+      <description><p>I’ve always been a big fan of open source, and always try and contribute where I can. In addition over the years I have created multiple small projects that I give back to the community. Here are the ones I have on GitHub:</p>
+<!-- TODO Change this to be data driven -->
+<div class="row">
+  <div class="col-md-4">
+    <p>
+      <b><a href="https://github.com/bramp/libcec-daemon">libcec-daemon</a> &#8211; c++ libcec uinput</b><br />
       A Linux daemon for connecting libcec to uinput. That is, using your TV to control your PC over HDMI!
-    &lt;/p&gt;
-    &lt;p&gt;
-      &lt;b&gt;&lt;a href=&#34;https://github.com/bramp/threadnetperf&#34;&gt;threadnetperf&lt;/a&gt; &amp;#8211; c epoll&lt;/b&gt;&lt;br /&gt;
-      A highly customisable high performance multi-threaded network benchmarking tool. This tool was able to max out 20Gbit/s of bandwidth using commodity multi-core hardware. This supported &lt;a href=&#34;https://blog.bramp.net/publication/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/&#34;&gt;research&lt;/a&gt; that existing &lt;a href=&#34;http://www.netperf.org/&#34;&gt;benchmarking tools&lt;/a&gt; were unable to.&lt;/i&gt;
-    &lt;/p&gt;
-    &lt;p&gt;
-      &lt;b&gt;&lt;a href=&#34;https://github.com/bramp/js-sequence-diagrams&#34;&gt;js-sequence-diagrams&lt;/a&gt; &amp;#8211; javascript&lt;/b&gt;&lt;br /&gt;
+    </p>
+    <p>
+      <b><a href="https://github.com/bramp/threadnetperf">threadnetperf</a> &#8211; c epoll</b><br />
+      A highly customisable high performance multi-threaded network benchmarking tool. This tool was able to max out 20Gbit/s of bandwidth using commodity multi-core hardware. This supported <a href="/publication/evaluating-the-performance-of-network-protocol-processing-on-multi-core-systems/">research</a> that existing <a href="http://www.netperf.org/">benchmarking tools</a> were unable to.</i>
+    </p>
+    <p>
+      <b><a href="https://github.com/bramp/js-sequence-diagrams">js-sequence-diagrams</a> &#8211; javascript</b><br />
       Draws simple SVG sequence diagrams from textual representation of the diagram.
-    &lt;/p&gt;
-    &lt;p&gt;
-      &lt;b&gt;&lt;a href=&#34;https://github.com/bramp/hessian.js&#34;&gt;hessian.js&lt;/a&gt; &amp;#8211; node.js javascript&lt;/b&gt;&lt;br /&gt;
-      Node.js support for the &lt;a href=&#34;http://hessian.caucho.com/&#34;&gt;Hessian&lt;/a&gt; binary web service protocol written in pure javascript. This was implemented to interface with a legacy Java service. Hessian.js is available from &lt;a href=&#34;https://npmjs.org/package/hessian&#34;&gt;npm&lt;/a&gt;.
-    &lt;/p&gt;
-    &lt;p&gt;
-      &lt;b&gt;&lt;a href=&#34;https://github.com/bramp/handy-tools&#34;&gt;handy-tools&lt;/a&gt; &amp;#8211; python&lt;/b&gt;&lt;br /&gt;
+    </p>
+    <p>
+      <b><a href="https://github.com/bramp/hessian.js">hessian.js</a> &#8211; node.js javascript</b><br />
+      Node.js support for the <a href="http://hessian.caucho.com/">Hessian</a> binary web service protocol written in pure javascript. This was implemented to interface with a legacy Java service. Hessian.js is available from <a href="https://npmjs.org/package/hessian">npm</a>.
+    </p>
+    <p>
+      <b><a href="https://github.com/bramp/handy-tools">handy-tools</a> &#8211; python</b><br />
       A collection of helpful cli tools written in python. Create histograms from raw data, create heatmaps of performance, or monitor applications with ease.
-    &lt;/p&gt;
-  &lt;/div&gt;
-  &lt;div class=&#34;col-md-4&#34;&gt;
-    &lt;p&gt;
-      &lt;b&gt;&lt;a href=&#34;https://github.com/bramp/protoc-gen-php&#34;&gt;protoc-gen-php&lt;/a&gt; &amp;#8211; c++ protobuf php&lt;/b&gt;&lt;br /&gt;
+    </p>
+  </div>
+  <div class="col-md-4">
+    <p>
+      <b><a href="https://github.com/bramp/protoc-gen-php">protoc-gen-php</a> &#8211; c++ protobuf php</b><br />
       A PHP Protocol Buffer Generator Plugin for protoc.
-    &lt;/p&gt;
-    &lt;p&gt;
-      &lt;b&gt;&lt;a href=&#34;https://github.com/bramp/nodewii&#34;&gt;nodewii&lt;/a&gt; &amp;#8211; c++ node.js wii&lt;/b&gt;&lt;br /&gt;
-      Bindings for node.js to speak to a Wiimote. This includes a socket.io demo, of the Wiimote controlling a webpage in realtime. Read the &lt;a href=&#34;https://blog.bramp.net/post/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/&#34; title=&#34;My experiences with developing multi-threaded nodejs addon&#34;&gt;blog article&lt;/a&gt;, or view my &lt;a href=&#34;https://blog.bramp.net/post/2014/12/21/nationjs-talk-on-nodejs-now-on-vimeo/&#34; title=&#34;NationJS talk&#34;&gt;NationJS talk&lt;/a&gt;
-    &lt;/p&gt;
-    &lt;p&gt;
-      &lt;b&gt;&lt;a href=&#34;https://github.com/bramp/jambox&#34;&gt;jambox&lt;/a&gt; &amp;#8211; c&lt;/b&gt;&lt;br /&gt;
-      A Linux implementation of the protocol used to communicate with the &lt;a href=&#34;https://jawbone.com/speakers/jambox/overview&#34;&gt;Jambox by Jawbone&lt;/a&gt;. This was reverse engineered from the Bluetooth protocol the official Windows application used.
-    &lt;/p&gt;
-    &lt;p&gt;
-      &lt;b&gt;&lt;a href=&#34;https://github.com/bramp/libmintchip&#34;&gt;libmintchip&lt;/a&gt; &amp;#8211; c&lt;/b&gt;&lt;br /&gt;
-      Unofficial C library for interfacing with &lt;a href=&#34;http://mintchipchallenge.com/&#34;&gt;MintChips&lt;/a&gt; &amp;#8211; Unfinished, and mostly an exercise in reverse engineering a protocol.
-    &lt;/p&gt;
-    &lt;p&gt;
-      &lt;b&gt;&lt;a href=&#34;https://github.com/bramp/Connected-component-labelling&#34;&gt;Connected-component-labelling&lt;/a&gt; &amp;#8211; javascript&lt;/b&gt;&lt;br /&gt;
-      Simple JavaScript library that does connected-component labelling (aka blob extraction). It uses the Algorithm described in the paper &amp;#8220;A linear-time component labelling algorithm using contour tracing technique&amp;#8221;. This is useful for Computer Vision problems, such as identifying objects in a photo. Originally written to support a JavaScript sudoku solver (that solves directly from a photo of a puzzle).
-    &lt;/p&gt;
-  &lt;/div&gt;
-  &lt;div class=&#34;col-md-4&#34;&gt;
-    &lt;p&gt;
-      &lt;b&gt;&lt;a href=&#34;https://github.com/bramp/p2psim&#34;&gt;p2psim&lt;/a&gt; &amp;#8211; java&lt;/b&gt;&lt;br /&gt;
-      A peer-to-peer distributed hash table (DHT) simulator. This was created to support some of my &lt;a href=&#34;https://blog.bramp.net/tags/stealthdht&#34;&gt;distributed systems research&lt;/a&gt; simulating 1000 node networks.
-    &lt;/p&gt;
-    &lt;p&gt;
-      &lt;b&gt;&lt;a href=&#34;https://github.com/bramp/ByteTorrent&#34;&gt;ByteTorrent&lt;/a&gt; &amp;#8211; c++&lt;/b&gt;&lt;br /&gt;
+    </p>
+    <p>
+      <b><a href="https://github.com/bramp/nodewii">nodewii</a> &#8211; c++ node.js wii</b><br />
+      Bindings for node.js to speak to a Wiimote. This includes a socket.io demo, of the Wiimote controlling a webpage in realtime. Read the <a href="/post/2011/10/17/my-experiences-with-developing-multi-threaded-nodejs-addon/" title="My experiences with developing multi-threaded nodejs addon">blog article</a>, or view my <a href="/post/2014/12/21/nationjs-talk-on-nodejs-now-on-vimeo/" title="NationJS talk">NationJS talk</a>
+    </p>
+    <p>
+      <b><a href="https://github.com/bramp/jambox">jambox</a> &#8211; c</b><br />
+      A Linux implementation of the protocol used to communicate with the <a href="https://jawbone.com/speakers/jambox/overview">Jambox by Jawbone</a>. This was reverse engineered from the Bluetooth protocol the official Windows application used.
+    </p>
+    <p>
+      <b><a href="https://github.com/bramp/libmintchip">libmintchip</a> &#8211; c</b><br />
+      Unofficial C library for interfacing with <a href="http://mintchipchallenge.com/">MintChips</a> &#8211; Unfinished, and mostly an exercise in reverse engineering a protocol.
+    </p>
+    <p>
+      <b><a href="https://github.com/bramp/Connected-component-labelling">Connected-component-labelling</a> &#8211; javascript</b><br />
+      Simple JavaScript library that does connected-component labelling (aka blob extraction). It uses the Algorithm described in the paper &#8220;A linear-time component labelling algorithm using contour tracing technique&#8221;. This is useful for Computer Vision problems, such as identifying objects in a photo. Originally written to support a JavaScript sudoku solver (that solves directly from a photo of a puzzle).
+    </p>
+  </div>
+  <div class="col-md-4">
+    <p>
+      <b><a href="https://github.com/bramp/p2psim">p2psim</a> &#8211; java</b><br />
+      A peer-to-peer distributed hash table (DHT) simulator. This was created to support some of my <a href="/tags/stealthdht">distributed systems research</a> simulating 1000 node networks.
+    </p>
+    <p>
+      <b><a href="https://github.com/bramp/ByteTorrent">ByteTorrent</a> &#8211; c++</b><br />
       A pure C++ implementation of the BitTorrent protocol. This was a project I wrote 11 years ago, and was used by atleast one complete BitTorrent client.
-    &lt;/p&gt;
-    &lt;p&gt;
-      &lt;b&gt;&lt;a href=&#34;https://github.com/bramp/php5-spotify&#34;&gt;php5-spotify&lt;/a&gt; &amp;#8211; php c&lt;/b&gt;&lt;br /&gt;
-      This is a simple PHP extension that wraps some of the functionality of the C library &lt;a href=&#34;https://developer.spotify.com/technologies/libspotify/&#34;&gt;libspotify&lt;/a&gt;.
-    &lt;/p&gt;
-    &lt;p&gt;
-      &lt;b&gt;&lt;a href=&#34;https://github.com/bramp/ndsfs&#34;&gt;ndsfs&lt;/a&gt; &amp;#8211; c fuse&lt;/b&gt;&lt;br /&gt;
+    </p>
+    <p>
+      <b><a href="https://github.com/bramp/php5-spotify">php5-spotify</a> &#8211; php c</b><br />
+      This is a simple PHP extension that wraps some of the functionality of the C library <a href="https://developer.spotify.com/technologies/libspotify/">libspotify</a>.
+    </p>
+    <p>
+      <b><a href="https://github.com/bramp/ndsfs">ndsfs</a> &#8211; c fuse</b><br />
       A FUSE application to mount Nintendo DS roms,
-    &lt;/p&gt;
-    &lt;p&gt;
-      &lt;b&gt;&lt;a href=&#34;https://github.com/bramp/us-census-tools&#34;&gt;us-census-tools&lt;/a&gt; &amp;#8211; php&lt;/b&gt;&lt;br /&gt;
-      A collection of scripts I&amp;#8217;ve written to handle US Census data. For example, importing the American Community Survey (ACS) data into various databases, or converting the Census TIGER/Line® Shapefiles so they can easily be displayed on maps.
-    &lt;/p&gt;
-    &lt;p&gt;
-      &lt;b&gt;&lt;a href=&#34;https://github.com/bramp/jPsyScript&#34;&gt;jPsyScript&lt;/a&gt; &amp;#8211; java objective-C&lt;/b&gt;&lt;br /&gt;
-      A java implementation of &lt;a href=&#34;http://www.psych.lancs.ac.uk/people/simon-slavin&#34;&gt;PsyScript&lt;/a&gt; a simple programming languge for psychologists to run experiments. The original version was written in Objective-C, and I reimplementation in Java so it was portable, and could be run from within a webpage.
-    &lt;/p&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;As well as creating projects, I have made contributions to at least the following projects:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;http://www.kernel.org/&#34;&gt;Linux Kernel&lt;/a&gt;, &lt;a href=&#34;http://www.freebsd.org/&#34;&gt;FreeBSD&lt;/a&gt;, &lt;a href=&#34;http://php.net/&#34;&gt;PHP&lt;/a&gt;, &lt;a href=&#34;http://www.python.org/&#34;&gt;Python&lt;/a&gt;, &lt;a href=&#34;http://redis.io/&#34;&gt;Redis&lt;/a&gt;, &lt;a href=&#34;http://www.nih.at/libzip/&#34;&gt;libzip&lt;/a&gt;, &lt;a href=&#34;http://www.read.cs.ucla.edu/click/click&#34;&gt;Click&lt;/a&gt;, &lt;a href=&#34;http://www.chromium.org/&#34;&gt;Chromium&lt;/a&gt;, &lt;a href=&#34;https://github.com/bramp/archivemount&#34;&gt;archivemount&lt;/a&gt;, &lt;a href=&#34;https://github.com/bramp/NanoHTTPd&#34;&gt;NanoHTTPd&lt;/a&gt; and more I just don’t remember.&lt;/p&gt;
+    </p>
+    <p>
+      <b><a href="https://github.com/bramp/us-census-tools">us-census-tools</a> &#8211; php</b><br />
+      A collection of scripts I&#8217;ve written to handle US Census data. For example, importing the American Community Survey (ACS) data into various databases, or converting the Census TIGER/Line® Shapefiles so they can easily be displayed on maps.
+    </p>
+    <p>
+      <b><a href="https://github.com/bramp/jPsyScript">jPsyScript</a> &#8211; java objective-C</b><br />
+      A java implementation of <a href="http://www.psych.lancs.ac.uk/people/simon-slavin">PsyScript</a> a simple programming languge for psychologists to run experiments. The original version was written in Objective-C, and I reimplementation in Java so it was portable, and could be run from within a webpage.
+    </p>
+  </div>
+</div>
+<p>As well as creating projects, I have made contributions to at least the following projects:</p>
+<p><a href="http://www.kernel.org/">Linux Kernel</a>, <a href="http://www.freebsd.org/">FreeBSD</a>, <a href="http://php.net/">PHP</a>, <a href="http://www.python.org/">Python</a>, <a href="http://redis.io/">Redis</a>, <a href="http://www.nih.at/libzip/">libzip</a>, <a href="http://www.read.cs.ucla.edu/click/click">Click</a>, <a href="http://www.chromium.org/">Chromium</a>, <a href="https://github.com/bramp/archivemount">archivemount</a>, <a href="https://github.com/bramp/NanoHTTPd">NanoHTTPd</a> and more I just don’t remember.</p>
 </description>
     </item>
     
     <item>
-      <title>Android-apps</title>
+      <title>Android-Apps</title>
       <link>https://blog.bramp.net/android-app/</link>
       <pubDate>Wed, 02 May 2012 00:00:00 +0000</pubDate>
       
@@ -267,13 +267,13 @@ Networking 2008&lt;/li&gt;
       <pubDate>Sun, 20 Sep 2009 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/about-me/</guid>
-      <description>&lt;p&gt;Andrew Brampton Ph.D lives in the Bay Area, previously lived in Washington DC, but is originally from the United Kingdom. Enjoys playing with new technologies, loves working on large scale, high performance applications. Currently works at Google on the Android/Play SRE teams.&lt;/p&gt;
-&lt;p&gt;Spends his weekends working on fun and novel projects, most of which he &lt;a href=&#34;https://blog.bramp.net/opensource/&#34;&gt;open sources&lt;/a&gt;. He can occasionally be found at tech &lt;a href=&#34;http://www.meetup.com/&#34;&gt;Meetups&lt;/a&gt;, and sometimes he even speaks.&lt;/p&gt;
-&lt;p&gt;Previously he was a researcher within the computer science department at &lt;a href=&#34;http://www.lancs.ac.uk/&#34;&gt;Lancaster University&lt;/a&gt;, where he obtained his Ph.D at age 26. His &lt;a href=&#34;https://blog.bramp.net/publication/&#34;&gt;areas of research&lt;/a&gt; revolve around distributed systems, in particular peer-to-peer, distributed hash tables (DHTs), and content distribution networks (CDNs).&lt;/p&gt;
-&lt;h2 id=&#34;my-curricula-vitae--résumé&#34;&gt;My Curricula Vitae / Résumé&lt;/h2&gt;
-&lt;p&gt;This may be a little out of date since I only it when needed. If you require a more up to date copy then please contact me – &lt;a href=&#34;https://github.com/bramp/curriculum-vitae/blob/master/cv.pdf?raw=true&#34;&gt;PDF&lt;/a&gt; – &lt;a href=&#34;https://github.com/bramp/curriculum-vitae/&#34;&gt;LaTeX source&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;contact-me&#34;&gt;Contact Me&lt;/h2&gt;
-&lt;p&gt;I can be reached at &lt;a href=&#34;mailto:me AT bramp.net&#34;&gt;me &lt;img src=&#34;a.png&#34; alt=&#34;&#34;&gt; bramp.net&lt;/a&gt;&lt;/p&gt;
+      <description><p>Andrew Brampton Ph.D lives in the Bay Area, previously lived in Washington DC, but is originally from the United Kingdom. Enjoys playing with new technologies, loves working on large scale, high performance applications. Currently works at Google on the Android/Play SRE teams.</p>
+<p>Spends his weekends working on fun and novel projects, most of which he <a href="/opensource/">open sources</a>. He can occasionally be found at tech <a href="http://www.meetup.com/">Meetups</a>, and sometimes he even speaks.</p>
+<p>Previously he was a researcher within the computer science department at <a href="http://www.lancs.ac.uk/">Lancaster University</a>, where he obtained his Ph.D at age 26. His <a href="/publication/">areas of research</a> revolve around distributed systems, in particular peer-to-peer, distributed hash tables (DHTs), and content distribution networks (CDNs).</p>
+<h2 id="my-curricula-vitae--résumé">My Curricula Vitae / Résumé</h2>
+<p>This may be a little out of date since I only it when needed. If you require a more up to date copy then please contact me – <a href="https://github.com/bramp/curriculum-vitae/blob/master/cv.pdf?raw=true">PDF</a> – <a href="https://github.com/bramp/curriculum-vitae/">LaTeX source</a></p>
+<h2 id="contact-me">Contact Me</h2>
+<p>I can be reached at <a href="mailto:me AT bramp.net">me <img src="a.png" alt=""> bramp.net</a></p>
 </description>
     </item>
     

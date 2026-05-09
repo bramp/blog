@@ -1,10 +1,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Chrome on bramp.net</title>
-    <link>https://blog.bramp.net</link>
+    <link>https://blog.bramp.net/</link>
     <description>Recent content in Chrome on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en_GB</language>
+    <language>en-GB</language>
     <lastBuildDate>Tue, 02 Aug 2011 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/chrome/" rel="self" type="application/rss+xml" />
     
@@ -14,46 +14,46 @@
       <pubDate>Tue, 02 Aug 2011 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2011/08/02/google-chrome-javascript-console.log-bug/</guid>
-      <description>&lt;p&gt;I recently stumbled across this issue while debugging some Javascript. Take the following example code:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;array&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
-&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-	&lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-	&lt;span class=&#34;c1&#34;&gt;//alert(&amp;#34;pause&amp;#34;);
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;pop&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you run it in your browser you would expect to see the following printed (in your Javascript console):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;0 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-1 [1, 2, 3, 4, 5, 6, 7, 8, 9]
-2 [1, 2, 3, 4, 5, 6, 7, 8]
-3 [1, 2, 3, 4, 5, 6, 7]
-4 [1, 2, 3, 4, 5, 6]
-5 [1, 2, 3, 4, 5]
-6 [1, 2, 3, 4]
-7 [1, 2, 3]
-8 [1, 2]
-9 [1]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;However, I instead saw:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;1 []
-2 []
-3 []
-4 []
-5 []
-6 []
-7 []
-8 []
-9 []
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The issue seems to be that console.log() does not log straight away. In fact it most likely logs in a background thread for performance reasons. Thus by the time it actually logs the array it has changed. I tested this in Firefox (with Firebug) and it logged everything correctly. I also tried slowing down the loop by adding a alert() call. That fixed the issue at the cost of a popup every iterations.&lt;/p&gt;
-&lt;p&gt;What really should happen is either&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;console.log()&lt;/code&gt; should block until the logging is complete&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;console.log()&lt;/code&gt; should copy all objects to avoid them being changed after log() returns but before they are printed.&lt;/li&gt;
-&lt;li&gt;add a &lt;code&gt;console.flush()&lt;/code&gt; and make me aware this race condition could occur.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;I filed this as a &lt;a href=&#34;https://code.google.com/p/chromium/issues/detail?id=91303&#34;&gt;bug report&lt;/a&gt; on the Chromium site, but I suspect I should have filed it over at the Webkit site.&lt;/p&gt;
-&lt;p&gt;For the moment I came up with a “fix”. I copy the array before I log it, so in this case I do the following:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;slice&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; I previously searched for this bug, but didn’t find it before writing this article. However, I have just found someone else had &lt;a href=&#34;https://code.google.com/p/chromium/issues/detail?id=50316&#34;&gt;reported&lt;/a&gt; it a few days ago:&lt;/p&gt;
+      <description><p>I recently stumbled across this issue while debugging some Javascript. Take the following example code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span><span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="o">++</span><span class="p">,</span> <span class="nx">array</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//alert(&#34;pause&#34;);
+</span></span></span><span class="line"><span class="cl">	<span class="nx">array</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>If you run it in your browser you would expect to see the following printed (in your Javascript console):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">0 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+</span></span><span class="line"><span class="cl">1 [1, 2, 3, 4, 5, 6, 7, 8, 9]
+</span></span><span class="line"><span class="cl">2 [1, 2, 3, 4, 5, 6, 7, 8]
+</span></span><span class="line"><span class="cl">3 [1, 2, 3, 4, 5, 6, 7]
+</span></span><span class="line"><span class="cl">4 [1, 2, 3, 4, 5, 6]
+</span></span><span class="line"><span class="cl">5 [1, 2, 3, 4, 5]
+</span></span><span class="line"><span class="cl">6 [1, 2, 3, 4]
+</span></span><span class="line"><span class="cl">7 [1, 2, 3]
+</span></span><span class="line"><span class="cl">8 [1, 2]
+</span></span><span class="line"><span class="cl">9 [1]
+</span></span></code></pre></div><p>However, I instead saw:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">1 []
+</span></span><span class="line"><span class="cl">2 []
+</span></span><span class="line"><span class="cl">3 []
+</span></span><span class="line"><span class="cl">4 []
+</span></span><span class="line"><span class="cl">5 []
+</span></span><span class="line"><span class="cl">6 []
+</span></span><span class="line"><span class="cl">7 []
+</span></span><span class="line"><span class="cl">8 []
+</span></span><span class="line"><span class="cl">9 []
+</span></span></code></pre></div><p>The issue seems to be that console.log() does not log straight away. In fact it most likely logs in a background thread for performance reasons. Thus by the time it actually logs the array it has changed. I tested this in Firefox (with Firebug) and it logged everything correctly. I also tried slowing down the loop by adding a alert() call. That fixed the issue at the cost of a popup every iterations.</p>
+<p>What really should happen is either</p>
+<ul>
+<li><code>console.log()</code> should block until the logging is complete</li>
+<li><code>console.log()</code> should copy all objects to avoid them being changed after log() returns but before they are printed.</li>
+<li>add a <code>console.flush()</code> and make me aware this race condition could occur.</li>
+</ul>
+<p>I filed this as a <a href="https://code.google.com/p/chromium/issues/detail?id=91303">bug report</a> on the Chromium site, but I suspect I should have filed it over at the Webkit site.</p>
+<p>For the moment I came up with a “fix”. I copy the array before I log it, so in this case I do the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="o">++</span><span class="p">,</span> <span class="nx">array</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+</span></span></code></pre></div><p><strong>Update:</strong> I previously searched for this bug, but didn’t find it before writing this article. However, I have just found someone else had <a href="https://code.google.com/p/chromium/issues/detail?id=50316">reported</a> it a few days ago:</p>
 </description>
     </item>
     
@@ -63,14 +63,14 @@
       <pubDate>Wed, 09 Jun 2010 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2010/06/09/old-schools-not-cool/</guid>
-      <description>&lt;p&gt;Google Chrome today pestered me with a message which I thought was quite funny. It reads:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Old school’s not cool. Google Chrome is woefully out of date because it hasn’t crashed or restarted in at least two weeks. Restart to apply update.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;figure&gt;&lt;img src=&#34;chrome-old-school.jpg&#34; width=&#34;665&#34; height=&#34;410&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;Old school&amp;#39;s not cool&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
+      <description><p>Google Chrome today pestered me with a message which I thought was quite funny. It reads:</p>
+<blockquote>
+<p>Old school’s not cool. Google Chrome is woefully out of date because it hasn’t crashed or restarted in at least two weeks. Restart to apply update.</p>
+</blockquote>
+<figure><img src="/post/2010/06/09/old-schools-not-cool/chrome-old-school.jpg" width="665" height="410"><figcaption>
+      <h4>Old school&#39;s not cool</h4>
+    </figcaption>
+</figure>
 
 </description>
     </item>

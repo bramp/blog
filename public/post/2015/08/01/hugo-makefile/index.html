@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
@@ -9,7 +9,6 @@
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
 <meta content=#4582EC name=theme-color>
 <link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
 <link href=/images/favicon.png rel=apple-touch-icon />
@@ -101,62 +100,62 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p>While developing my blog using <a href=https://gohugo.io/ >Hugo</a>, I created a simple Makefile to help automate some steps. Hopefully someone else will find this useful</p>
 <p>:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-make data-lang=make><span class=nf>.PHONY</span><span class=o>:</span> <span class=n>all</span> <span class=n>clean</span> <span class=n>minified</span> <span class=n>server</span> <span class=n>watch</span> <span class=n>help</span>
-
-<span class=nv>HUGO</span> <span class=o>:=</span> hugo
-<span class=nv>HTML_MINIFIER</span> <span class=o>:=</span> html-minifier -c html-minifier.conf
-
-<span class=c># All input files
-</span><span class=c></span><span class=nv>FILES</span><span class=o>=</span><span class=k>$(</span>shell find content layouts static themes -type f<span class=k>)</span>
-
-<span class=c># Below are PHONY targets
-</span><span class=c></span><span class=nf>all</span><span class=o>:</span> <span class=n>public</span> <span class=n>minified</span>
-
-<span class=nf>help</span><span class=o>:</span>
-	@echo <span class=s2>&#34;Usage: make &lt;command&gt;&#34;</span>
-	@echo <span class=s2>&#34;  all     Builds the blog and minifies it&#34;</span>
-	@echo <span class=s2>&#34;  clean   Cleans all build files&#34;</span>
-	@echo <span class=s2>&#34;  server  Runs a webserver on port 1313 to test the final minified result&#34;</span>
-	@echo <span class=s2>&#34;  watch   Runs hugo in watch mode, waiting for changes&#34;</span>
-	@echo <span class=s2>&#34;&#34;</span>
-	@echo <span class=s2>&#34;New article:&#34;</span>
-	@echo <span class=s2>&#34;  hugo new post/the_title&#34;</span>
-	@echo <span class=s2>&#34;  </span><span class=nv>$$</span><span class=s2>EDITOR content/post/the_title.md&#34;</span>
-	@echo <span class=s2>&#34;  make watch&#34;</span>
-	@echo <span class=s2>&#34;  open &#34;</span>
-
-<span class=nf>clean</span><span class=o>:</span>
-	-rm -rf public
-	-rm .minified
-
-<span class=nf>minified</span><span class=o>:</span> .<span class=n>minified</span>
-
-<span class=nf>server</span><span class=o>:</span> <span class=n>public</span>
-	<span class=nb>cd</span> public <span class=o>&amp;&amp;</span> python -m SimpleHTTPServer <span class=m>1313</span>
-
-<span class=nf>watch</span><span class=o>:</span> <span class=n>clean</span>
-	<span class=k>$(</span>HUGO<span class=k>)</span> server -w
-
-<span class=c># Below are file based targets
-</span><span class=c></span><span class=nf>public</span><span class=o>:</span> <span class=k>$(</span><span class=nv>FILES</span><span class=k>)</span> <span class=n>config</span>.<span class=n>yaml</span>
-	<span class=k>$(</span>HUGO<span class=k>)</span>
-
-	<span class=c1># Post process some files (to make the HTML more bootstrap friendly)</span>
-	<span class=c1># Add a table class to all tables</span>
-	grep -IR --include<span class=o>=</span>*.html --null -l -- <span class=s2>&#34;&lt;table&#34;</span> public/ <span class=p>|</span> xargs -0 sed -i <span class=s1>&#39;&#39;</span> <span class=s1>&#39;s/&lt;table/&lt;table class=&#34;table&#34;/g&#39;</span>
-
-	<span class=c1># Replace &#34;align=...&#34;&#34; with class=&#34;test-...&#34;</span>
-	grep -IR --include<span class=o>=</span>*.html --null -l -- <span class=s2>&#34;&lt;th&#34;</span> public/ <span class=p>|</span> xargs -0 sed -i <span class=s1>&#39;&#39;</span> <span class=s1>&#39;s/&lt;th align=&#34;/&lt;th class=&#34;text-/g&#39;</span>
-	grep -IR --include<span class=o>=</span>*.html --null -l -- <span class=s2>&#34;&lt;td&#34;</span> public/ <span class=p>|</span> xargs -0 sed -i <span class=s1>&#39;&#39;</span> <span class=s1>&#39;s/&lt;td align=&#34;/&lt;td class=&#34;text-/g&#39;</span>
-
-	<span class=c1># Ensure the public folder has it&#39;s mtime updated.</span>
-	touch <span class=nv>$@</span>
-
-<span class=nf>.minified</span><span class=o>:</span> <span class=n>public</span> <span class=n>html</span>-<span class=n>minifier</span>.<span class=n>conf</span>
-	<span class=c1># Find all HTML and in parallel run the minifier</span>
-	find public -type f -iname <span class=s1>&#39;*.html&#39;</span> <span class=p>|</span> parallel --tag <span class=k>$(</span>HTML_MINIFIER<span class=k>)</span> <span class=s2>&#34;{}&#34;</span> -o <span class=s2>&#34;{}&#34;</span>
-	touch .minified
-</code></pre></div><p>The latest version is always checked into github <a href=https://github.com/bramp/blog>with my blog</a>, but the above is easy to copy and paste.</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-make data-lang=make><span class=line><span class=cl><span class=nf>.PHONY</span><span class=o>:</span> <span class=n>all</span> <span class=n>clean</span> <span class=n>minified</span> <span class=n>server</span> <span class=n>watch</span> <span class=n>help</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nv>HUGO</span> <span class=o>:=</span> hugo
+</span></span><span class=line><span class=cl><span class=nv>HTML_MINIFIER</span> <span class=o>:=</span> html-minifier -c html-minifier.conf
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># All input files
+</span></span></span><span class=line><span class=cl><span class=nv>FILES</span><span class=o>=</span><span class=k>$(</span>shell find content layouts static themes -type f<span class=k>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># Below are PHONY targets
+</span></span></span><span class=line><span class=cl><span class=nf>all</span><span class=o>:</span> <span class=n>public</span> <span class=n>minified</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nf>help</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>	@echo <span class=s2>&#34;Usage: make &lt;command&gt;&#34;</span>
+</span></span><span class=line><span class=cl>	@echo <span class=s2>&#34;  all     Builds the blog and minifies it&#34;</span>
+</span></span><span class=line><span class=cl>	@echo <span class=s2>&#34;  clean   Cleans all build files&#34;</span>
+</span></span><span class=line><span class=cl>	@echo <span class=s2>&#34;  server  Runs a webserver on port 1313 to test the final minified result&#34;</span>
+</span></span><span class=line><span class=cl>	@echo <span class=s2>&#34;  watch   Runs hugo in watch mode, waiting for changes&#34;</span>
+</span></span><span class=line><span class=cl>	@echo <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>	@echo <span class=s2>&#34;New article:&#34;</span>
+</span></span><span class=line><span class=cl>	@echo <span class=s2>&#34;  hugo new post/the_title&#34;</span>
+</span></span><span class=line><span class=cl>	@echo <span class=s2>&#34;  </span><span class=nv>$$</span><span class=s2>EDITOR content/post/the_title.md&#34;</span>
+</span></span><span class=line><span class=cl>	@echo <span class=s2>&#34;  make watch&#34;</span>
+</span></span><span class=line><span class=cl>	@echo <span class=s2>&#34;  open &#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nf>clean</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>	-rm -rf public
+</span></span><span class=line><span class=cl>	-rm .minified
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nf>minified</span><span class=o>:</span> .<span class=n>minified</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nf>server</span><span class=o>:</span> <span class=n>public</span>
+</span></span><span class=line><span class=cl>	<span class=nb>cd</span> public <span class=o>&amp;&amp;</span> python -m SimpleHTTPServer <span class=m>1313</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nf>watch</span><span class=o>:</span> <span class=n>clean</span>
+</span></span><span class=line><span class=cl>	<span class=k>$(</span>HUGO<span class=k>)</span> server -w
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c># Below are file based targets
+</span></span></span><span class=line><span class=cl><span class=nf>public</span><span class=o>:</span> <span class=k>$(</span><span class=nv>FILES</span><span class=k>)</span> <span class=n>config</span>.<span class=n>yaml</span>
+</span></span><span class=line><span class=cl>	<span class=k>$(</span>HUGO<span class=k>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=c1># Post process some files (to make the HTML more bootstrap friendly)</span>
+</span></span><span class=line><span class=cl>	<span class=c1># Add a table class to all tables</span>
+</span></span><span class=line><span class=cl>	grep -IR --include<span class=o>=</span>*.html --null -l -- <span class=s2>&#34;&lt;table&#34;</span> public/ <span class=p>|</span> xargs -0 sed -i <span class=s1>&#39;&#39;</span> <span class=s1>&#39;s/&lt;table/&lt;table class=&#34;table&#34;/g&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=c1># Replace &#34;align=...&#34;&#34; with class=&#34;test-...&#34;</span>
+</span></span><span class=line><span class=cl>	grep -IR --include<span class=o>=</span>*.html --null -l -- <span class=s2>&#34;&lt;th&#34;</span> public/ <span class=p>|</span> xargs -0 sed -i <span class=s1>&#39;&#39;</span> <span class=s1>&#39;s/&lt;th align=&#34;/&lt;th class=&#34;text-/g&#39;</span>
+</span></span><span class=line><span class=cl>	grep -IR --include<span class=o>=</span>*.html --null -l -- <span class=s2>&#34;&lt;td&#34;</span> public/ <span class=p>|</span> xargs -0 sed -i <span class=s1>&#39;&#39;</span> <span class=s1>&#39;s/&lt;td align=&#34;/&lt;td class=&#34;text-/g&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=c1># Ensure the public folder has it&#39;s mtime updated.</span>
+</span></span><span class=line><span class=cl>	touch <span class=nv>$@</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nf>.minified</span><span class=o>:</span> <span class=n>public</span> <span class=n>html</span>-<span class=n>minifier</span>.<span class=n>conf</span>
+</span></span><span class=line><span class=cl>	<span class=c1># Find all HTML and in parallel run the minifier</span>
+</span></span><span class=line><span class=cl>	find public -type f -iname <span class=s1>&#39;*.html&#39;</span> <span class=p>|</span> parallel --tag <span class=k>$(</span>HTML_MINIFIER<span class=k>)</span> <span class=s2>&#34;{}&#34;</span> -o <span class=s2>&#34;{}&#34;</span>
+</span></span><span class=line><span class=cl>	touch .minified
+</span></span></code></pre></div><p>The latest version is always checked into github <a href=https://github.com/bramp/blog>with my blog</a>, but the above is easy to copy and paste.</p>
 <ul>
 <li><code>make help</code> reminds me of the commands when I need it.</li>
 <li><code>make all</code> executes hugo to build the site, then I run the generated HTML through a <a href=https://www.npmjs.com/package/html-minifier>minifier</a>, and do some other minor tweaks.</li>
@@ -188,7 +187,7 @@ window.dataLayer = window.dataLayer || [];
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2026. All rights reserved.</p>
 </footer>
 </div>
 </div>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
@@ -6,11 +6,13 @@
 <link href=https://blog.bramp.net/post/2011/08/02/google-chrome-javascript-console.log-bug/ rel=canonical itemprop=url />
 <title>Google Chrome Javascript console.log bug?</title>
 <meta content="I recently stumbled across this issue while debugging some Javascript. Take the following example code:
-var array = [1,2,3,4,5,6,7,8,9,10]; var i = 0; while(array.length &gt; 0) { console.log(i&#43;&#43;, …" name=description itemprop=description>
+var array = [1,2,3,4,5,6,7,8,9,10];
+var i = 0;
+while(array.length &gt; 0) {
+	console.log(i&#43;&#43;, …" name=description itemprop=description>
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
 <meta content=#4582EC name=theme-color>
 <link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
 <link href=/images/favicon.png rel=apple-touch-icon />
@@ -49,7 +51,10 @@ window.dataLayer = window.dataLayer || [];
 <meta content=bramp.net property=og:site_name />
 <meta content="Google Chrome Javascript console.log bug?" property=og:title />
 <meta content="I recently stumbled across this issue while debugging some Javascript. Take the following example code:
-var array = [1,2,3,4,5,6,7,8,9,10]; var i = 0; while(array.length &gt; 0) { console.log(i&#43;&#43;, …" property=og:description />
+var array = [1,2,3,4,5,6,7,8,9,10];
+var i = 0;
+while(array.length &gt; 0) {
+	console.log(i&#43;&#43;, …" property=og:description />
 <meta content=2011-08-02T00:00:00&#43;00:00 property=og:updated_time />
 <meta content=en_GB property=og:locale />
 <meta content=RXqIC-7spNUYReoHFlubz8Fbqsg1fC1pE6FSgSnCNjQ name=google-site-verification />
@@ -104,35 +109,35 @@ var array = [1,2,3,4,5,6,7,8,9,10]; var i = 0; while(array.length &gt; 0) { cons
 </p>
 <div class=post itemprop=articleBody>
 <p>I recently stumbled across this issue while debugging some Javascript. Take the following example code:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-javascript data-lang=javascript><span class=kd>var</span> <span class=nx>array</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span><span class=mi>6</span><span class=p>,</span><span class=mi>7</span><span class=p>,</span><span class=mi>8</span><span class=p>,</span><span class=mi>9</span><span class=p>,</span><span class=mi>10</span><span class=p>];</span>
-<span class=kd>var</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
-<span class=k>while</span><span class=p>(</span><span class=nx>array</span><span class=p>.</span><span class=nx>length</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
-	<span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>i</span><span class=o>++</span><span class=p>,</span> <span class=nx>array</span><span class=p>);</span>
-	<span class=c1>//alert(&#34;pause&#34;);
-</span><span class=c1></span>	<span class=nx>array</span><span class=p>.</span><span class=nx>pop</span><span class=p>();</span>
-<span class=p>}</span>
-</code></pre></div><p>If you run it in your browser you would expect to see the following printed (in your Javascript console):</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-text data-lang=text>0 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-1 [1, 2, 3, 4, 5, 6, 7, 8, 9]
-2 [1, 2, 3, 4, 5, 6, 7, 8]
-3 [1, 2, 3, 4, 5, 6, 7]
-4 [1, 2, 3, 4, 5, 6]
-5 [1, 2, 3, 4, 5]
-6 [1, 2, 3, 4]
-7 [1, 2, 3]
-8 [1, 2]
-9 [1]
-</code></pre></div><p>However, I instead saw:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-text data-lang=text>1 []
-2 []
-3 []
-4 []
-5 []
-6 []
-7 []
-8 []
-9 []
-</code></pre></div><p>The issue seems to be that console.log() does not log straight away. In fact it most likely logs in a background thread for performance reasons. Thus by the time it actually logs the array it has changed. I tested this in Firefox (with Firebug) and it logged everything correctly. I also tried slowing down the loop by adding a alert() call. That fixed the issue at the cost of a popup every iterations.</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kd>var</span> <span class=nx>array</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span><span class=mi>6</span><span class=p>,</span><span class=mi>7</span><span class=p>,</span><span class=mi>8</span><span class=p>,</span><span class=mi>9</span><span class=p>,</span><span class=mi>10</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=k>while</span><span class=p>(</span><span class=nx>array</span><span class=p>.</span><span class=nx>length</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>i</span><span class=o>++</span><span class=p>,</span> <span class=nx>array</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>	<span class=c1>//alert(&#34;pause&#34;);
+</span></span></span><span class=line><span class=cl>	<span class=nx>array</span><span class=p>.</span><span class=nx>pop</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>If you run it in your browser you would expect to see the following printed (in your Javascript console):</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-text data-lang=text><span class=line><span class=cl>0 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+</span></span><span class=line><span class=cl>1 [1, 2, 3, 4, 5, 6, 7, 8, 9]
+</span></span><span class=line><span class=cl>2 [1, 2, 3, 4, 5, 6, 7, 8]
+</span></span><span class=line><span class=cl>3 [1, 2, 3, 4, 5, 6, 7]
+</span></span><span class=line><span class=cl>4 [1, 2, 3, 4, 5, 6]
+</span></span><span class=line><span class=cl>5 [1, 2, 3, 4, 5]
+</span></span><span class=line><span class=cl>6 [1, 2, 3, 4]
+</span></span><span class=line><span class=cl>7 [1, 2, 3]
+</span></span><span class=line><span class=cl>8 [1, 2]
+</span></span><span class=line><span class=cl>9 [1]
+</span></span></code></pre></div><p>However, I instead saw:</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-text data-lang=text><span class=line><span class=cl>1 []
+</span></span><span class=line><span class=cl>2 []
+</span></span><span class=line><span class=cl>3 []
+</span></span><span class=line><span class=cl>4 []
+</span></span><span class=line><span class=cl>5 []
+</span></span><span class=line><span class=cl>6 []
+</span></span><span class=line><span class=cl>7 []
+</span></span><span class=line><span class=cl>8 []
+</span></span><span class=line><span class=cl>9 []
+</span></span></code></pre></div><p>The issue seems to be that console.log() does not log straight away. In fact it most likely logs in a background thread for performance reasons. Thus by the time it actually logs the array it has changed. I tested this in Firefox (with Firebug) and it logged everything correctly. I also tried slowing down the loop by adding a alert() call. That fixed the issue at the cost of a popup every iterations.</p>
 <p>What really should happen is either</p>
 <ul>
 <li><code>console.log()</code> should block until the logging is complete</li>
@@ -141,8 +146,8 @@ var array = [1,2,3,4,5,6,7,8,9,10]; var i = 0; while(array.length &gt; 0) { cons
 </ul>
 <p>I filed this as a <a href="https://code.google.com/p/chromium/issues/detail?id=91303">bug report</a> on the Chromium site, but I suspect I should have filed it over at the Webkit site.</p>
 <p>For the moment I came up with a “fix”. I copy the array before I log it, so in this case I do the following:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-javascript data-lang=javascript><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>i</span><span class=o>++</span><span class=p>,</span> <span class=nx>array</span><span class=p>.</span><span class=nx>slice</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
-</code></pre></div><p><strong>Update:</strong> I previously searched for this bug, but didn’t find it before writing this article. However, I have just found someone else had <a href="https://code.google.com/p/chromium/issues/detail?id=50316">reported</a> it a few days ago:</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>i</span><span class=o>++</span><span class=p>,</span> <span class=nx>array</span><span class=p>.</span><span class=nx>slice</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>
+</span></span></code></pre></div><p><strong>Update:</strong> I previously searched for this bug, but didn’t find it before writing this article. However, I have just found someone else had <a href="https://code.google.com/p/chromium/issues/detail?id=50316">reported</a> it a few days ago:</p>
 </div>
 </article>
 <div class=row>
@@ -167,7 +172,7 @@ var array = [1,2,3,4,5,6,7,8,9,10]; var i = 0; while(array.length &gt; 0) { cons
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2026. All rights reserved.</p>
 </footer>
 </div>
 </div>

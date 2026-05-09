@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
@@ -9,7 +9,6 @@
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
 <meta content=#4582EC name=theme-color>
 <link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
 <link href=/images/favicon.png rel=apple-touch-icon />
@@ -103,25 +102,25 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p>I’ve spent a day tracking down a bug in a FreeBSD kernel module I’m developing, and to my surprise the bug was due to memcmp being broken! For those that don’t know, memcmp is used to compare two byte strings and returns 0 if they are identical, a negative number of the first string is less than the second, and a positive number of the first string is greater than the second.</p>
 <p>However, the implementation of memcmp in the FreeBSD kernel looks like this:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-c data-lang=c><span class=k>static</span> <span class=kr>__inline</span> <span class=kt>int</span>
-<span class=nf>memcmp</span><span class=p>(</span><span class=k>const</span> <span class=kt>void</span> <span class=o>*</span><span class=n>b1</span><span class=p>,</span> <span class=k>const</span> <span class=kt>void</span> <span class=o>*</span><span class=n>b2</span><span class=p>,</span> <span class=n>size_t</span> <span class=n>len</span><span class=p>)</span> <span class=p>{</span>
-    <span class=k>return</span> <span class=p>(</span><span class=n>bcmp</span><span class=p>(</span><span class=n>b1</span><span class=p>,</span> <span class=n>b2</span><span class=p>,</span> <span class=n>len</span><span class=p>));</span>
-<span class=p>}</span>
-</code></pre></div><p>The problem with this is that bcmp is defined to return 0 if the strings are identical, otherwise returns a non-zero integer. This is not the same as memcmp, and you would only notice this if you are testing the signedness of the return value. I suspect this has not been noticed because traditionally FreeBSD has favoured bcmp, and in the few cases it does uses memcmp it only compares it with zero.</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-c data-lang=c><span class=line><span class=cl><span class=k>static</span> <span class=kr>__inline</span> <span class=kt>int</span>
+</span></span><span class=line><span class=cl><span class=nf>memcmp</span><span class=p>(</span><span class=k>const</span> <span class=kt>void</span> <span class=o>*</span><span class=n>b1</span><span class=p>,</span> <span class=k>const</span> <span class=kt>void</span> <span class=o>*</span><span class=n>b2</span><span class=p>,</span> <span class=kt>size_t</span> <span class=n>len</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span><span class=nf>bcmp</span><span class=p>(</span><span class=n>b1</span><span class=p>,</span> <span class=n>b2</span><span class=p>,</span> <span class=n>len</span><span class=p>));</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>The problem with this is that bcmp is defined to return 0 if the strings are identical, otherwise returns a non-zero integer. This is not the same as memcmp, and you would only notice this if you are testing the signedness of the return value. I suspect this has not been noticed because traditionally FreeBSD has favoured bcmp, and in the few cases it does uses memcmp it only compares it with zero.</p>
 <p>There is some good news, obrien@ noticed this problem in September 2008 and commited a patch (svn r183299). However, it looks like this fix won’t be included until FreeBSD 8.0. In the mean time I’m implementing a minor hack to fix this.</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-c data-lang=c><span class=kt>int</span> <span class=nf>my_memcmp</span><span class=p>(</span><span class=k>const</span> <span class=kt>void</span> <span class=o>*</span><span class=n>s1</span><span class=p>,</span> <span class=k>const</span> <span class=kt>void</span> <span class=o>*</span><span class=n>s2</span><span class=p>,</span> <span class=n>size_t</span> <span class=n>n</span><span class=p>)</span> <span class=p>{</span>
-	<span class=k>if</span> <span class=p>(</span><span class=n>n</span> <span class=o>!=</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
-		<span class=k>const</span> <span class=kt>unsigned</span> <span class=kt>char</span> <span class=o>*</span><span class=n>p1</span> <span class=o>=</span> <span class=n>s1</span><span class=p>,</span> <span class=o>*</span><span class=n>p2</span> <span class=o>=</span> <span class=n>s2</span><span class=p>;</span>
-
-		<span class=k>do</span> <span class=p>{</span>
-			<span class=k>if</span> <span class=p>(</span><span class=o>*</span><span class=n>p1</span><span class=o>++</span> <span class=o>!=</span> <span class=o>*</span><span class=n>p2</span><span class=o>++</span><span class=p>)</span>
-				<span class=k>return</span> <span class=p>(</span><span class=o>*--</span><span class=n>p1</span> <span class=o>-</span> <span class=o>*--</span><span class=n>p2</span><span class=p>);</span>
-		<span class=p>}</span> <span class=k>while</span> <span class=p>(</span><span class=o>--</span><span class=n>n</span> <span class=o>!=</span> <span class=mi>0</span><span class=p>);</span>
-	<span class=p>}</span>
-	<span class=k>return</span> <span class=p>(</span><span class=mi>0</span><span class=p>);</span>
-<span class=p>}</span>
-<span class=cp>#define memcmp my_memcmp
-</span></code></pre></div>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-c data-lang=c><span class=line><span class=cl><span class=kt>int</span> <span class=nf>my_memcmp</span><span class=p>(</span><span class=k>const</span> <span class=kt>void</span> <span class=o>*</span><span class=n>s1</span><span class=p>,</span> <span class=k>const</span> <span class=kt>void</span> <span class=o>*</span><span class=n>s2</span><span class=p>,</span> <span class=kt>size_t</span> <span class=n>n</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=p>(</span><span class=n>n</span> <span class=o>!=</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>const</span> <span class=kt>unsigned</span> <span class=kt>char</span> <span class=o>*</span><span class=n>p1</span> <span class=o>=</span> <span class=n>s1</span><span class=p>,</span> <span class=o>*</span><span class=n>p2</span> <span class=o>=</span> <span class=n>s2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=k>do</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=k>if</span> <span class=p>(</span><span class=o>*</span><span class=n>p1</span><span class=o>++</span> <span class=o>!=</span> <span class=o>*</span><span class=n>p2</span><span class=o>++</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>				<span class=k>return</span> <span class=p>(</span><span class=o>*--</span><span class=n>p1</span> <span class=o>-</span> <span class=o>*--</span><span class=n>p2</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span> <span class=k>while</span> <span class=p>(</span><span class=o>--</span><span class=n>n</span> <span class=o>!=</span> <span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=cp>#define memcmp my_memcmp
+</span></span></span></code></pre></div>
 </div>
 </article>
 <div class=row>
@@ -146,7 +145,7 @@ window.dataLayer = window.dataLayer || [];
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2026. All rights reserved.</p>
 </footer>
 </div>
 </div>

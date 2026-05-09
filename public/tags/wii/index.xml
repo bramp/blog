@@ -1,10 +1,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>wii on bramp.net</title>
-    <link>https://blog.bramp.net</link>
-    <description>Recent content in wii on bramp.net</description>
+    <title>Wii on bramp.net</title>
+    <link>https://blog.bramp.net/</link>
+    <description>Recent content in Wii on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en_GB</language>
+    <language>en-GB</language>
     <lastBuildDate>Wed, 14 Nov 2012 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/wii/" rel="self" type="application/rss+xml" />
     
@@ -14,12 +14,12 @@
       <pubDate>Wed, 14 Nov 2012 00:00:00 +0000</pubDate>
       
       <guid>https://blog.bramp.net/post/2012/11/14/nodewii-talk-at-node-dc/</guid>
-      <description>&lt;p&gt;Last night I gave a short talk at &lt;a href=&#34;http://nodedc.github.com/&#34;&gt;NodeDC&lt;/a&gt;, on how to use Node.js with a wiimote. The offical title was “Controlling Node.js with a wiimote – My experiences with developing multi-threaded nodejs addon”. I’d like to thank the NodeDC guys for arranging everything last night, it was a great night, with some great talks.&lt;/p&gt;
-&lt;div class=&#34;text-center&#34;&gt;
-    &lt;a href=&#34;https://bramp.github.io/nodewii-talk/&#34;&gt;
-		&lt;img src=&#34;nodewii-talk.png&#34; alt=&#34;&#34; title=&#34;nodewii-talk&#34; width=&#34;981&#34; height=&#34;763&#34;/&gt;
-	&lt;/a&gt;
-&lt;/div&gt;
+      <description><p>Last night I gave a short talk at <a href="http://nodedc.github.com/">NodeDC</a>, on how to use Node.js with a wiimote. The offical title was “Controlling Node.js with a wiimote – My experiences with developing multi-threaded nodejs addon”. I’d like to thank the NodeDC guys for arranging everything last night, it was a great night, with some great talks.</p>
+<div class="text-center">
+    <a href="https://bramp.github.io/nodewii-talk/">
+		<img src="nodewii-talk.png" alt="" title="nodewii-talk" width="981" height="763"/>
+	</a>
+</div>
 The slides can be found here: [https://bramp.github.io/nodewii-talk/][2]
 </description>
     </item>

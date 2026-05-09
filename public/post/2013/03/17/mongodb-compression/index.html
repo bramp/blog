@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
@@ -9,7 +9,6 @@
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
 <meta content=#4582EC name=theme-color>
 <link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
 <link href=/images/favicon.png rel=apple-touch-icon />
@@ -101,44 +100,44 @@ window.dataLayer = window.dataLayer || [];
 <div class=post itemprop=articleBody>
 <p>For a while people have wanted MongoDB to <a href=https://jira.mongodb.org/browse/SERVER-164>compress their data</a>, or at least <a href=https://jira.mongodb.org/browse/SERVER-863>compress their field names</a>. This would be beneficial in not only reducing the amount of disk space required, but also in theory improving performance as we trade disk IO with CPU IO. I thought this be a fun project to investigate, so I started by working out if this would actually be useful.</p>
 <p>Lets start with compressing the data. I’ve taken a project I’ve been working on, where most of the records have the similar set of fields. An example record may look like (which across the database had an average size of 547 bytes):</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-javascript data-lang=javascript><span class=p>{</span>
-	<span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=nx>ObjectId</span><span class=p>(</span><span class=s2>&#34;5134b1c644ae658fc8c050c0&#34;</span><span class=p>),</span>
-	<span class=s2>&#34;version&#34;</span> <span class=o>:</span> <span class=nx>NumberLong</span><span class=p>(</span><span class=mi>0</span><span class=p>),</span>
-	<span class=s2>&#34;attributes&#34;</span> <span class=o>:</span> <span class=p>{</span>
-		<span class=s2>&#34;firstName&#34;</span> <span class=o>:</span> <span class=s2>&#34;Andrew&#34;</span><span class=p>,</span>
-		<span class=s2>&#34;lastName&#34;</span> <span class=o>:</span> <span class=s2>&#34;Brampton&#34;</span><span class=p>,</span>
-		<span class=s2>&#34;birthday&#34;</span> <span class=o>:</span> <span class=s2>&#34;1982-01-01T00:18:00.000-05:00&#34;</span><span class=p>,</span>		
-	<span class=p>},</span>
-	<span class=s2>&#34;tags&#34;</span> <span class=o>:</span> <span class=p>[</span><span class=s2>&#34;25-30 years&#34;</span><span class=p>,</span> <span class=s2>&#34;dc&#34;</span><span class=p>,</span> <span class=s2>&#34;male&#34;</span> <span class=p>],</span>
-	<span class=s2>&#34;contactPoints&#34;</span> <span class=o>:</span> <span class=p>[{</span>
-		<span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;+11235551234&#34;</span><span class=p>,</span>
-		<span class=s2>&#34;type&#34;</span> <span class=o>:</span> <span class=s2>&#34;sms&#34;</span><span class=p>,</span>
-		<span class=s2>&#34;number&#34;</span> <span class=o>:</span> <span class=p>{</span>
-			<span class=s2>&#34;E164&#34;</span> <span class=o>:</span> <span class=s2>&#34;+11235551234&#34;</span>
-		<span class=p>},</span>
-		<span class=s2>&#34;version&#34;</span> <span class=o>:</span> <span class=nx>NumberLong</span><span class=p>(</span><span class=mi>0</span><span class=p>),</span>
-		<span class=s2>&#34;subscriptions&#34;</span> <span class=o>:</span> <span class=p>[{</span>
-			<span class=s2>&#34;version&#34;</span> <span class=o>:</span> <span class=nx>NumberLong</span><span class=p>(</span><span class=mi>0</span><span class=p>),</span>
-			<span class=s2>&#34;event&#34;</span> <span class=o>:</span> <span class=nx>ObjectId</span><span class=p>(</span><span class=s2>&#34;5134b1c644ae658fc8c050aa&#34;</span><span class=p>),</span>
-			<span class=s2>&#34;status&#34;</span> <span class=o>:</span> <span class=s2>&#34;ACTIVE&#34;</span>
-		<span class=p>}]</span>
-	<span class=p>},{</span>
-		<span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;a@b.com&#34;</span><span class=p>,</span>
-		<span class=s2>&#34;type&#34;</span> <span class=o>:</span> <span class=s2>&#34;email&#34;</span><span class=p>,</span>
-		<span class=s2>&#34;email&#34;</span> <span class=o>:</span> <span class=s2>&#34;a@b.com&#34;</span><span class=p>,</span>
-		<span class=s2>&#34;version&#34;</span> <span class=o>:</span> <span class=nx>NumberLong</span><span class=p>(</span><span class=mi>0</span><span class=p>),</span>
-		<span class=s2>&#34;subscriptions&#34;</span> <span class=o>:</span> <span class=p>[</span> <span class=p>]</span>
-	<span class=p>}]</span>
-<span class=p>}</span>
-</code></pre></div><p>There are some excellent <a href=http://www.10gen.com/presentations/mongosv-2011/mongodb-storage-engine-bit-by-bit>presentations</a> and <a href=https://dzone.com/articles/mongodb%E2%80%99s-storage-engine-bit>articles</a> on how MongoDB structures the data on the disk. For the sake of this investigation I took a single data file (of size 2 GiB) that was full of just these kinds of records.</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=nx>ObjectId</span><span class=p>(</span><span class=s2>&#34;5134b1c644ae658fc8c050c0&#34;</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>	<span class=s2>&#34;version&#34;</span> <span class=o>:</span> <span class=nx>NumberLong</span><span class=p>(</span><span class=mi>0</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>	<span class=s2>&#34;attributes&#34;</span> <span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=s2>&#34;firstName&#34;</span> <span class=o>:</span> <span class=s2>&#34;Andrew&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=s2>&#34;lastName&#34;</span> <span class=o>:</span> <span class=s2>&#34;Brampton&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=s2>&#34;birthday&#34;</span> <span class=o>:</span> <span class=s2>&#34;1982-01-01T00:18:00.000-05:00&#34;</span><span class=p>,</span>		
+</span></span><span class=line><span class=cl>	<span class=p>},</span>
+</span></span><span class=line><span class=cl>	<span class=s2>&#34;tags&#34;</span> <span class=o>:</span> <span class=p>[</span><span class=s2>&#34;25-30 years&#34;</span><span class=p>,</span> <span class=s2>&#34;dc&#34;</span><span class=p>,</span> <span class=s2>&#34;male&#34;</span> <span class=p>],</span>
+</span></span><span class=line><span class=cl>	<span class=s2>&#34;contactPoints&#34;</span> <span class=o>:</span> <span class=p>[{</span>
+</span></span><span class=line><span class=cl>		<span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;+11235551234&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=s2>&#34;type&#34;</span> <span class=o>:</span> <span class=s2>&#34;sms&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=s2>&#34;number&#34;</span> <span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=s2>&#34;E164&#34;</span> <span class=o>:</span> <span class=s2>&#34;+11235551234&#34;</span>
+</span></span><span class=line><span class=cl>		<span class=p>},</span>
+</span></span><span class=line><span class=cl>		<span class=s2>&#34;version&#34;</span> <span class=o>:</span> <span class=nx>NumberLong</span><span class=p>(</span><span class=mi>0</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>		<span class=s2>&#34;subscriptions&#34;</span> <span class=o>:</span> <span class=p>[{</span>
+</span></span><span class=line><span class=cl>			<span class=s2>&#34;version&#34;</span> <span class=o>:</span> <span class=nx>NumberLong</span><span class=p>(</span><span class=mi>0</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>			<span class=s2>&#34;event&#34;</span> <span class=o>:</span> <span class=nx>ObjectId</span><span class=p>(</span><span class=s2>&#34;5134b1c644ae658fc8c050aa&#34;</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>			<span class=s2>&#34;status&#34;</span> <span class=o>:</span> <span class=s2>&#34;ACTIVE&#34;</span>
+</span></span><span class=line><span class=cl>		<span class=p>}]</span>
+</span></span><span class=line><span class=cl>	<span class=p>},{</span>
+</span></span><span class=line><span class=cl>		<span class=s2>&#34;_id&#34;</span> <span class=o>:</span> <span class=s2>&#34;a@b.com&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=s2>&#34;type&#34;</span> <span class=o>:</span> <span class=s2>&#34;email&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=s2>&#34;email&#34;</span> <span class=o>:</span> <span class=s2>&#34;a@b.com&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=s2>&#34;version&#34;</span> <span class=o>:</span> <span class=nx>NumberLong</span><span class=p>(</span><span class=mi>0</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>		<span class=s2>&#34;subscriptions&#34;</span> <span class=o>:</span> <span class=p>[</span> <span class=p>]</span>
+</span></span><span class=line><span class=cl>	<span class=p>}]</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>There are some excellent <a href=http://www.10gen.com/presentations/mongosv-2011/mongodb-storage-engine-bit-by-bit>presentations</a> and <a href=https://dzone.com/articles/mongodb%E2%80%99s-storage-engine-bit>articles</a> on how MongoDB structures the data on the disk. For the sake of this investigation I took a single data file (of size 2 GiB) that was full of just these kinds of records.</p>
 <h2 id=full-compression>Full Compression</h2>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>$ gzip datafile.5
-</code></pre></div><p><strong>Original size:</strong> 2,146,435,072 bytes (2.0 GiB)<br>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=line><span class=cl>$ gzip datafile.5
+</span></span></code></pre></div><p><strong>Original size:</strong> 2,146,435,072 bytes (2.0 GiB)<br>
 <strong>Compressed gzip size:</strong> 453,359,908 bytes (432 MiB) / 21% of the original size</p>
 <p>Simple gzip across the whole file gave a 4.7x saving in file size. This is obviously best case, as it covers the full file. Next lets look at the savings from compressing the field names.</p>
 <h2 id=field-name-compression>Field name Compression</h2>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>$ strings -n3 datafile.5 <span class=p>|</span> sort <span class=p>|</span> uniq -c <span class=p>|</span> sort -n <span class=p>|</span> tail -n20
-</code></pre></div><p>That prints out a list of the most popular strings in the data file, sorted by frequency. From those stats we can infer</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=line><span class=cl>$ strings -n3 datafile.5 <span class=p>|</span> sort <span class=p>|</span> uniq -c <span class=p>|</span> sort -n <span class=p>|</span> tail -n20
+</span></span></code></pre></div><p>That prints out a list of the most popular strings in the data file, sorted by frequency. From those stats we can infer</p>
 <p><strong>Unique fields:</strong> 14<br>
 <strong>Fields:</strong> 75,764,300<br>
 <strong>Field bytes:</strong> 506,244,611 bytes (482 MiB) / 23% of the total data file size</p>
@@ -179,7 +178,7 @@ window.dataLayer = window.dataLayer || [];
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2026. All rights reserved.</p>
 </footer>
 </div>
 </div>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
@@ -9,7 +9,6 @@
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
 <meta content=#4582EC name=theme-color>
 <link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
 <link href=/images/favicon.png rel=apple-touch-icon />
@@ -102,35 +101,35 @@ window.dataLayer = window.dataLayer || [];
 </p>
 <div class=post itemprop=articleBody>
 <p>Very occasionally I come across a Linux application that does not respect the http_proxy variable. This stops the application from working while I’m at university as they forbid traffic on port 80 unless it goes via their webcache. So today I came up with a hack of a solution that involves iptables:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=c1># IP address and port number of the webcache</span>
-<span class=nv>WEBCACHE</span><span class=o>=</span>194.80.32.10:8080
-
-<span class=c1># Flush any previous rules</span>
-iptables -t nat --flush
-
-<span class=c1># Delete and recreate the chain</span>
-iptables -t nat -X HTTPFORCE
-iptables -t nat -N HTTPFORCE
-
-<span class=c1># Don&#39;t touch local traffic (localhost and internal network)</span>
-iptables -t nat -A HTTPFORCE -o lo -j RETURN
-iptables -t nat -A HTTPFORCE --dst 127.0.0.1/8 -j RETURN
-iptables -t nat -A HTTPFORCE --dst 10.0.0.0/8 -j RETURN
-<span class=c1># Add any other local networks here.</span>
-
-<span class=c1># Now we have two options. Please uncomment out one of them</span>
-<span class=c1># 1) Redirect packets on port 80 to the webcache</span>
-<span class=c1>#    This may not work unless the webcache is generous with its input</span>
-<span class=c1>#iptables -t nat -A HTTPFORCE -p tcp --dport 80 -j DNAT --to $WEBCACHE</span>
-
-<span class=c1># 2) Redirect packets on port 80 to localhost port 1234</span>
-<span class=c1>#    On port 1234 you need to run a local web proxy, which forwards </span>
-<span class=c1>#    requests to the real webcache</span>
-<span class=c1>#iptables -t nat -A HTTPFORCE -p tcp --dport 80 -j REDIRECT --to-port 1234</span>
-
-<span class=c1># Capture all outgoing TCP syns</span>
-iptables -t nat -A OUTPUT -p tcp --syn -j HTTPFORCE
-</code></pre></div><p>All outgoing TCP packets on port 80 which are not destined for a local network are captured and changed in one of two ways. The first option just manipulates the IP/TCP header, and the second redirects the traffic to a proxy running on localhost. The reason for the two options was that my university’s webcache seemed unable to deal with HTTP requests without the full URL in the GET line, even though the request contains a valid Host header. I think this is a misconfiguration of their squid proxy, so instead you can redirect to a local proxy which forwards the request on to the webcache.</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># IP address and port number of the webcache</span>
+</span></span><span class=line><span class=cl><span class=nv>WEBCACHE</span><span class=o>=</span>194.80.32.10:8080
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Flush any previous rules</span>
+</span></span><span class=line><span class=cl>iptables -t nat --flush
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Delete and recreate the chain</span>
+</span></span><span class=line><span class=cl>iptables -t nat -X HTTPFORCE
+</span></span><span class=line><span class=cl>iptables -t nat -N HTTPFORCE
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Don&#39;t touch local traffic (localhost and internal network)</span>
+</span></span><span class=line><span class=cl>iptables -t nat -A HTTPFORCE -o lo -j RETURN
+</span></span><span class=line><span class=cl>iptables -t nat -A HTTPFORCE --dst 127.0.0.1/8 -j RETURN
+</span></span><span class=line><span class=cl>iptables -t nat -A HTTPFORCE --dst 10.0.0.0/8 -j RETURN
+</span></span><span class=line><span class=cl><span class=c1># Add any other local networks here.</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Now we have two options. Please uncomment out one of them</span>
+</span></span><span class=line><span class=cl><span class=c1># 1) Redirect packets on port 80 to the webcache</span>
+</span></span><span class=line><span class=cl><span class=c1>#    This may not work unless the webcache is generous with its input</span>
+</span></span><span class=line><span class=cl><span class=c1>#iptables -t nat -A HTTPFORCE -p tcp --dport 80 -j DNAT --to $WEBCACHE</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 2) Redirect packets on port 80 to localhost port 1234</span>
+</span></span><span class=line><span class=cl><span class=c1>#    On port 1234 you need to run a local web proxy, which forwards </span>
+</span></span><span class=line><span class=cl><span class=c1>#    requests to the real webcache</span>
+</span></span><span class=line><span class=cl><span class=c1>#iptables -t nat -A HTTPFORCE -p tcp --dport 80 -j REDIRECT --to-port 1234</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Capture all outgoing TCP syns</span>
+</span></span><span class=line><span class=cl>iptables -t nat -A OUTPUT -p tcp --syn -j HTTPFORCE
+</span></span></code></pre></div><p>All outgoing TCP packets on port 80 which are not destined for a local network are captured and changed in one of two ways. The first option just manipulates the IP/TCP header, and the second redirects the traffic to a proxy running on localhost. The reason for the two options was that my university’s webcache seemed unable to deal with HTTP requests without the full URL in the GET line, even though the request contains a valid Host header. I think this is a misconfiguration of their squid proxy, so instead you can redirect to a local proxy which forwards the request on to the webcache.</p>
 <p>This all seems a hassle but sometimes it is needed when a application does not respect the http_proxy environment. On a good note all libcurl applications should respect it by default.</p>
 </div>
 </article>
@@ -156,7 +155,7 @@ iptables -t nat -A OUTPUT -p tcp --syn -j HTTPFORCE
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2026. All rights reserved.</p>
 </footer>
 </div>
 </div>

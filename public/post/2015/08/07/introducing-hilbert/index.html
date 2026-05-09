@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
@@ -9,7 +9,6 @@
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
 <meta content=#4582EC name=theme-color>
 <link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
 <link href=/images/favicon.png rel=apple-touch-icon />
@@ -103,25 +102,25 @@ window.dataLayer = window.dataLayer || [];
 </p>
 <div class=post itemprop=articleBody>
 <p>A <a href=https://en.wikipedia.org/wiki/Hilbert_curve>Hilbert curve</a> is a space-filling (snakey) curve through a 2D space:</p>
-<figure><img src=hilbert.png /><figcaption>
+<figure><img src=/post/2015/08/07/introducing-hilbert/hilbert.png><figcaption>
 <h4>Image of 8 by 8 Hilbert curve</h4>
 </figcaption>
 </figure>
 <p>This can be very useful for mapping a 1D value, into a 2D space. For example, it is commonly used to <a href=https://xkcd.com/195/ >map IP addresses into a 2D space</a>.</p>
-<p>I recently created a library for <a href=https://golang.org/ >Go</a> that can map to and from a curve. The project is <a href=http://github.com/google/hilbert>hosted on Github</a>, and can be used like so:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-go data-lang=go><span class=kn>import</span> <span class=s>&#34;github.com/google/hilbert&#34;</span>
-
-<span class=c1>// Create a Hilbert curve for mapping to and from a 16 by 16 space.
-</span><span class=c1></span><span class=nx>s</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>hilbert</span><span class=p>.</span><span class=nf>New</span><span class=p>(</span><span class=mi>16</span><span class=p>)</span>
-
-<span class=c1>// Now map one dimension numbers in the range [0, N*N-1], to an x,y
-</span><span class=c1>// coordinate on the curve where both x and y are in the range [0, N-1].
-</span><span class=c1></span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>s</span><span class=p>.</span><span class=nf>Map</span><span class=p>(</span><span class=nx>t</span><span class=p>)</span>
-
-<span class=c1>// Also map back from (x,y) to t.
-</span><span class=c1></span><span class=nx>t</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>s</span><span class=p>.</span><span class=nf>MapInverse</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>)</span>
-</code></pre></div><p>The project contains some demos, such as this cool animations:</p>
-<figure><img src=hilbert_animation.gif /><figcaption>
+<p>I recently created a library for <a href=https://golang.org/ >Go</a> that can map to and from a curve. The project is <a href=http://github.com/bramp/hilbert>hosted on Github</a>, and can be used like so:</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=s>&#34;github.com/bramp/hilbert&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// Create a Hilbert curve for mapping to and from a 16 by 16 space.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>s</span><span class=p>,</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>hilbert</span><span class=p>.</span><span class=nf>New</span><span class=p>(</span><span class=mi>16</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// Now map one dimension numbers in the range [0, N*N-1], to an x,y</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// coordinate on the curve where both x and y are in the range [0, N-1].</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>x</span><span class=p>,</span><span class=w> </span><span class=nx>y</span><span class=p>,</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>s</span><span class=p>.</span><span class=nf>Map</span><span class=p>(</span><span class=nx>t</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// Also map back from (x,y) to t.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>t</span><span class=p>,</span><span class=w> </span><span class=nx>err</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>s</span><span class=p>.</span><span class=nf>MapInverse</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span><span class=w> </span><span class=nx>y</span><span class=p>)</span><span class=w>
+</span></span></span></code></pre></div><p>The project contains some demos, such as this cool animations:</p>
+<figure><img src=/post/2015/08/07/introducing-hilbert/hilbert_animation.gif><figcaption>
 <h4>Hilbert curve animation</h4>
 </figcaption>
 </figure>
@@ -149,7 +148,7 @@ window.dataLayer = window.dataLayer || [];
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2026. All rights reserved.</p>
 </footer>
 </div>
 </div>

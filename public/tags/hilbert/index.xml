@@ -1,10 +1,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>hilbert on bramp.net</title>
-    <link>https://blog.bramp.net</link>
-    <description>Recent content in hilbert on bramp.net</description>
+    <title>Hilbert on bramp.net</title>
+    <link>https://blog.bramp.net/</link>
+    <description>Recent content in Hilbert on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en_GB</language>
+    <language>en-GB</language>
     <lastBuildDate>Mon, 08 Aug 2016 21:35:35 -0700</lastBuildDate>
     <atom:link href="https://blog.bramp.net/tags/hilbert/" rel="self" type="application/rss+xml" />
     
@@ -14,11 +14,11 @@
       <pubDate>Mon, 08 Aug 2016 21:35:35 -0700</pubDate>
       
       <guid>https://blog.bramp.net/post/2016/08/08/peano-curves/</guid>
-      <description>&lt;p&gt;My latest addition to the &lt;a href=&#34;https://github.com/google/hilbert&#34;&gt;hilbert go library&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Peano_curve&#34;&gt;Peano Curves&lt;/a&gt;. The original space-filing curve, similar to the Hilbert curve, but a little more complex.&lt;/p&gt;
-&lt;figure&gt;&lt;img src=&#34;peano_animation.gif&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;Animation of Peano curve with N in the range 1..5&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
+      <description><p>My latest addition to the <a href="https://github.com/bramp/hilbert">hilbert go library</a>, <a href="https://en.wikipedia.org/wiki/Peano_curve">Peano Curves</a>. The original space-filing curve, similar to the Hilbert curve, but a little more complex.</p>
+<figure><img src="/post/2016/08/08/peano-curves/peano_animation.gif"><figcaption>
+      <h4>Animation of Peano curve with N in the range 1..5</h4>
+    </figcaption>
+</figure>
 
 </description>
     </item>
@@ -29,30 +29,30 @@
       <pubDate>Fri, 07 Aug 2015 20:53:41 -0700</pubDate>
       
       <guid>https://blog.bramp.net/post/2015/08/07/introducing-hilbert/</guid>
-      <description>&lt;p&gt;A &lt;a href=&#34;https://en.wikipedia.org/wiki/Hilbert_curve&#34;&gt;Hilbert curve&lt;/a&gt; is a space-filling (snakey) curve through a 2D space:&lt;/p&gt;
-&lt;figure&gt;&lt;img src=&#34;hilbert.png&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;Image of 8 by 8 Hilbert curve&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
+      <description><p>A <a href="https://en.wikipedia.org/wiki/Hilbert_curve">Hilbert curve</a> is a space-filling (snakey) curve through a 2D space:</p>
+<figure><img src="/post/2015/08/07/introducing-hilbert/hilbert.png"><figcaption>
+      <h4>Image of 8 by 8 Hilbert curve</h4>
+    </figcaption>
+</figure>
 
-&lt;p&gt;This can be very useful for mapping a 1D value, into a 2D space. For example, it is commonly used to &lt;a href=&#34;https://xkcd.com/195/&#34;&gt;map IP addresses into a 2D space&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;I recently created a library for &lt;a href=&#34;https://golang.org/&#34;&gt;Go&lt;/a&gt; that can map to and from a curve. The project is &lt;a href=&#34;http://github.com/google/hilbert&#34;&gt;hosted on Github&lt;/a&gt;, and can be used like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;github.com/google/hilbert&amp;#34;&lt;/span&gt;
-
-&lt;span class=&#34;c1&#34;&gt;// Create a Hilbert curve for mapping to and from a 16 by 16 space.
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;hilbert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;New&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-
-&lt;span class=&#34;c1&#34;&gt;// Now map one dimension numbers in the range [0, N*N-1], to an x,y
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// coordinate on the curve where both x and y are in the range [0, N-1].
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-
-&lt;span class=&#34;c1&#34;&gt;// Also map back from (x,y) to t.
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;MapInverse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The project contains some demos, such as this cool animations:&lt;/p&gt;
-&lt;figure&gt;&lt;img src=&#34;hilbert_animation.gif&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;Hilbert curve animation&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
+<p>This can be very useful for mapping a 1D value, into a 2D space. For example, it is commonly used to <a href="https://xkcd.com/195/">map IP addresses into a 2D space</a>.</p>
+<p>I recently created a library for <a href="https://golang.org/">Go</a> that can map to and from a curve. The project is <a href="http://github.com/bramp/hilbert">hosted on Github</a>, and can be used like so:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="s">&#34;github.com/bramp/hilbert&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Create a Hilbert curve for mapping to and from a 16 by 16 space.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nx">s</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">hilbert</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Now map one dimension numbers in the range [0, N*N-1], to an x,y</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// coordinate on the curve where both x and y are in the range [0, N-1].</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nf">Map</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Also map back from (x,y) to t.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nf">MapInverse</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></div><p>The project contains some demos, such as this cool animations:</p>
+<figure><img src="/post/2015/08/07/introducing-hilbert/hilbert_animation.gif"><figcaption>
+      <h4>Hilbert curve animation</h4>
+    </figcaption>
+</figure>
 
 </description>
     </item>

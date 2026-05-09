@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang=en>
 <head itemscope itemtype=http://schema.org/WebSite>
 <meta charset=utf-8>
@@ -9,7 +9,6 @@
 <meta content="Andrew Brampton" name=author itemprop=creator>
 <meta content="" name=generator />
 <link href=https://blog.bramp.net/index.xml rel=alternate type=application/rss+xml title=bramp.net />
-<link href=https://blog.bramp.net/index.xml rel=feed type=application/rss+xml title=bramp.net />
 <meta content=#4582EC name=theme-color>
 <link href=/favicon.ico rel="shortcut icon" type=image/x-icon />
 <link href=/images/favicon.png rel=apple-touch-icon />
@@ -104,24 +103,24 @@ window.dataLayer = window.dataLayer || [];
 </p>
 <div class=post itemprop=articleBody>
 <p>I’ve just installed grub2 on my Debian laptop, and I wanted to write a quick note on how to get dual booting working. Grub2 seems to have a far more complex configuration system than grub, this may be a good or a bad thing. One feature of this is a /etc/grub.d directory which contains a set of scripts to configure what items should be listed on the boot menu.</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>$ ls /etc/grub.d/
-00_header  05_debian_theme  10_linux  30_os-prober  40_custom  README
-</code></pre></div><p>The scripts get run in order, each adding features to the boot menu. To dual boot Windows you can acheive this in two ways.</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=line><span class=cl>$ ls /etc/grub.d/
+</span></span><span class=line><span class=cl>00_header  05_debian_theme  10_linux  30_os-prober  40_custom  README
+</span></span></code></pre></div><p>The scripts get run in order, each adding features to the boot menu. To dual boot Windows you can acheive this in two ways.</p>
 <ol>
 <li>Write a script which manual adds windows</li>
 <li>Use the os-prober script.</li>
 </ol>
 <p>I opted for option 2 since it seemed the easiest. However, this os-prober script does not work unless the package os-prober is installed. So:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>$ sudo apt-get install os-prober
-</code></pre></div><p>Once that is installed you can reconfigure grub by doing:</p>
-<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash>$ sudo update-grub2
-Generating grub.cfg ...
-Found Debian background: moreblue-orbit-grub.png
-Found linux image: /boot/vmlinuz-2.6.30-1-amd64
-Found initrd image: /boot/initrd.img-2.6.30-1-amd64
-Found Microsoft Windows XP Professional on /dev/sda1
-<span class=k>done</span>
-</code></pre></div><p>When you reboot you should now have Windows on your boot menu.</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sudo apt-get install os-prober
+</span></span></code></pre></div><p>Once that is installed you can reconfigure grub by doing:</p>
+<div class=highlight><pre class=chroma tabindex=0><code class=language-bash data-lang=bash><span class=line><span class=cl>$ sudo update-grub2
+</span></span><span class=line><span class=cl>Generating grub.cfg ...
+</span></span><span class=line><span class=cl>Found Debian background: moreblue-orbit-grub.png
+</span></span><span class=line><span class=cl>Found linux image: /boot/vmlinuz-2.6.30-1-amd64
+</span></span><span class=line><span class=cl>Found initrd image: /boot/initrd.img-2.6.30-1-amd64
+</span></span><span class=line><span class=cl>Found Microsoft Windows XP Professional on /dev/sda1
+</span></span><span class=line><span class=cl><span class=k>done</span>
+</span></span></code></pre></div><p>When you reboot you should now have Windows on your boot menu.</p>
 </div>
 </article>
 <div class=row>
@@ -146,7 +145,7 @@ Found Microsoft Windows XP Professional on /dev/sda1
 </main>
 <br/>
 <footer>
-<p class="credit text-muted">&copy; 2022. All rights reserved.</p>
+<p class="credit text-muted">&copy; 2026. All rights reserved.</p>
 </footer>
 </div>
 </div>
