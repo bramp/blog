@@ -1,0 +1,23 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+    cooldown:
+      default-days: 7
+      semver-major-days: 30
+      semver-minor-days: 14
+      semver-patch-days: 3
+
+  - package-ecosystem: "npm"
+    directory: "/blog" # Assuming it's in a subdirectory in the repo
+    schedule:
+      interval: "weekly"
+      day: "friday"
+    cooldown:
+      default-days: 7
+      semver-major-days: 30
+      semver-minor-days: 14
+      semver-patch-days: 3
