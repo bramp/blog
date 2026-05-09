@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>GitHub on bramp.net</title>
+    <title>Github on bramp.net</title>
     <link>https://blog.bramp.net/</link>
-    <description>Recent content in GitHub on bramp.net</description>
+    <description>Recent content in Github on bramp.net</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-GB</language>
     <lastBuildDate>Mon, 02 Oct 2017 07:48:23 -0700</lastBuildDate>
