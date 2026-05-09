@@ -28,13 +28,21 @@ jobs:
 
       - name: Read Hugo version
         id: hugo-version
-        run: echo "HUGO_VERSION=$(cat .hugo-version)" >> $GITHUB_ENV
+        run: |
+          VERSION=$(tr -d '[:space:]' < .hugo-version)
+          echo "HUGO_VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Detected Hugo version: $VERSION"
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: ${{ env.HUGO_VERSION }}
           extended: true
+
+      - name: Check Hugo installation
+        run: |
+          hugo version
+          ./hugo.sh version
 
       - name: Setup Node
         uses: actions/setup-node@v4
