@@ -4,7 +4,6 @@ slug: old-schools-not-cool
 author: bramp
 layout: post
 date: 2010-06-09
-slug: old-schools-not-cool
 categories:
   - Blog
 tags:

@@ -1,19 +1,17 @@
-baseurl: "https://blog.bramp.net"
-languageCode: "en_GB"
+baseURL: "https://blog.bramp.net"
+locale: "en-GB"
 title: "bramp.net"
 
 MetaDataFormat: "yaml"
 
 theme: "bramp"
-author:
-  name: "Andrew Brampton"
-
-# Disabled because it didn't provide a lot of value, and was SLOW.
-#DisqusShortname: "bramp"
-
-GoogleAnalytics: "UA-136478-5"
 
 params:
+  # Disabled because it didn't provide a lot of value, and was SLOW.
+  # disqusShortname: "bramp"
+  googleAnalytics: "UA-136478-5"
+  author:
+    name: "Andrew Brampton"
   Description: "Andrew Brampton's Tech blog"
   github: "bramp"
   twitter: "TheBramp"
