@@ -39,16 +39,16 @@ jobs:
           hugo-version: ${{ env.HUGO_VERSION }}
           extended: true
 
-      - name: Check Hugo installation
-        run: |
-          hugo version
-          ./hugo.sh version
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '24'
           cache: 'npm'
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 'stable'
 
       - name: Install dependencies
         run: npm install
@@ -56,10 +56,19 @@ jobs:
       - name: Install goredirects
         run: go install bramp.net/goredirects@latest
 
-      - name: Build
+      - name: Build CSS (Chroma)
+        run: make chromacss
+
+      - name: Build Hugo Site
+        run: ./hugo.sh
+
+      - name: Generate Go Redirects
         run: |
           export PATH=$PATH:$(go env GOPATH)/bin
-          make all
+          make goredirects
+
+      - name: Minify HTML/JS/CSS
+        run: make minified
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
