@@ -12,6 +12,24 @@ MD5LN := ./md5ln.sh
 # All input files
 FILES=$(shell find content static themes -type f)
 
+# Standard targets
+format:
+	@echo "No format target implemented"
+
+analyze:
+	@echo "No analyze target implemented"
+
+test:
+	./test_urls.sh
+
+test-ci: all test
+
+fix:
+	@echo "No fix target implemented"
+
+upgrade:
+	npm upgrade
+
 # Below are PHONY targets
 all: public minified
 
