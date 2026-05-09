@@ -101,9 +101,10 @@ Info: https://usolved.net/blog/post/switch-from-icon-fonts-to-svg-icons
 TODO (Modernization)
 --------------------
 - [ ] Use **Hugo Image Processing** to automate WebP conversion and responsive resizing (`srcset`).
-- [ ] Migrate CSS/JS minification and fingerprinting to **Hugo Pipes** to remove Node.js dependency.
+- [ ] Migrate CSS/JS minification and fingerprinting to **Hugo Pipes** to remove Node.js and custom `md5ln.sh` dependencies.
 - [ ] Explore **Hugo Modules** for managing `goredirects` and other external build components.
 - [ ] Consolidate the parallel image optimization scripts into a single GitHub Action or Hugo build hook.
+- [ ] Add a **Build Validation Step** to the CI pipeline to ensure no critical files (redirects, legacy assets) are missing from the `public/` directory before deployment.
 
 TODO (nice to have)
 - [ ] Amazon code
