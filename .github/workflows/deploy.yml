@@ -70,6 +70,12 @@ jobs:
       - name: Minify Site
         run: make minified
 
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Build Validation
+        run: make validate
+
       - name: Verify Artifacts
         run: |
           ls -R public/css/
