@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 # Path to the version file
 VERSION_FILE=".hugo-version"
@@ -16,9 +15,9 @@ REQUIRED_VERSION=$(cat "$VERSION_FILE" | tr -d '[:space:]')
 check_version() {
     local cmd=$1
     if command -v "$cmd" >/dev/null 2>&1; then
-        # Hugo version output format: "hugo v0.123.4+extended ..."
-        # We extract the version part and strip anything after '+'
-        local version=$("$cmd" version | awk '{print $2}' | sed 's/v//' | cut -d'+' -f1)
+        # Hugo version output format: "hugo v0.160.1-d6bc8165...+extended ..."
+        # We extract the version part (e.g. 0.160.1)
+        local version=$("$cmd" version | awk '{print $2}' | sed 's/v//' | sed 's/-.*//' | cut -d'+' -f1)
         if [[ "$version" == "$REQUIRED_VERSION" ]]; then
             echo "$cmd"
             return 0
@@ -28,7 +27,8 @@ check_version() {
 }
 
 # 1. Check if 'hugo' is the right version
-HUGO_CMD=$(check_version "hugo")
+# We use || true to avoid failing if the version doesn't match
+HUGO_CMD=$(check_version "hugo" || true)
 
 if [ -z "$HUGO_CMD" ]; then
     echo "Warning: System 'hugo' version does not match REQUIRED_VERSION ($REQUIRED_VERSION)"
@@ -37,5 +37,4 @@ if [ -z "$HUGO_CMD" ]; then
     HUGO_CMD="hugo"
 fi
 
-echo "Using Hugo: $HUGO_CMD"
 exec $HUGO_CMD "$@"
