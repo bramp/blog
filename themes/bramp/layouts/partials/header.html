@@ -31,13 +31,15 @@
 {{ with $description }}
   <meta itemprop="description" name="description" content="{{ . | truncate 200 }}">
 {{ end }}
-  <meta itemprop="creator" name="author" content="{{ .Site.Author.name }}">
+  <meta itemprop="creator" name="author" content="{{ .Site.Params.author.name }}">
   <meta name="generator" content="{{ hugo.Generator }}"/>
 
-{{ if .Site.RSSLink  }}
-  <link href="{{ .Site.RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
-  <link href="{{ .Site.RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" />
-{{ end }}
+{{ range .AlternativeOutputFormats -}}
+  <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}" title="{{ $.Site.Title }}" />
+{{ end -}}
+{{ if and .IsPage .Site.Config.Services.RSS.Limit -}}
+  <link rel="alternate" type="application/rss+xml" href="{{ "index.xml" | absURL }}" title="{{ .Site.Title }}" />
+{{ end -}}
 
   <meta name="theme-color" content="#4582EC">
 
@@ -81,7 +83,7 @@
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css">
 
-  {{ template "partials/googleanalytics.html" . }}
+  {{ partial "googleanalytics.html" . }}
 
   <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
   <!--[if lt IE 9]>
@@ -120,7 +122,7 @@
 {{ if not .Date.IsZero }}
   <meta property="og:updated_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}"/>
 {{ end }}
-  <meta property="og:locale" content="{{ .Site.LanguageCode }}" /><!-- TODO should it be LanguageCode or .Site.locale? -->
+  <meta property="og:locale" content="{{ replace .Site.Language.Locale "-" "_" }}" />
   {{ with .Params.images }}{{ range first 6 . }}
     <meta property="og:image" content="{{ $.Permalink }}{{ . }}" />
   {{ end }}{{ end }}
@@ -149,7 +151,7 @@
               src="/images/favicon-72x72.png" width=72 height=72 class="profile-image" alt="Home">
           </a>
           <div itemprop="author" itemscope itemtype="https://schema.org/Person">
-            <a href="/about-me/" itemprop="name">{{ .Site.Author.name }}</a>
+            <a href="/about-me/" itemprop="name">{{ .Site.Params.author.name }}</a>
 
             <div id="social-wrapper">
             {{ with .Site.Params.twitter }}
