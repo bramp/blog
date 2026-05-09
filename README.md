@@ -98,14 +98,12 @@ Font Awesome
 Font Awesome contains some awesome icons, but sadly is huge! So I used icomoon to make a svg sprite of the icons I want, and use slightly different options to display them on the screen.
 Info: https://usolved.net/blog/post/switch-from-icon-fonts-to-svg-icons
 
-TODO
-----
-- [ ] Fix disqus (dsq_thread_id). Have to update URLs on disque
-- [x] Problem parsing last link in markdown. (e.g [N] doesn't work) Fix at https://github.com/russross/blackfriday/issues/180
-- [x] Check the links haven't changed. Write script to check all URLs on bramp.net still exist
-- [x] Test 404
-- [x] Center all tables
-- [x] Ensure no broken links
+TODO (Modernization)
+--------------------
+- [ ] Use **Hugo Image Processing** to automate WebP conversion and responsive resizing (`srcset`).
+- [ ] Migrate CSS/JS minification and fingerprinting to **Hugo Pipes** to remove Node.js dependency.
+- [ ] Explore **Hugo Modules** for managing `goredirects` and other external build components.
+- [ ] Consolidate the parallel image optimization scripts into a single GitHub Action or Hugo build hook.
 
 TODO (nice to have)
 - [ ] Amazon code
