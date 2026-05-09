@@ -56,21 +56,21 @@ jobs:
       - name: Install goredirects
         run: go install bramp.net/goredirects@latest
 
-      - name: Build CSS (Chroma)
+      - name: Build CSS
         run: make chromacss
 
-      - name: Step 1: Initial Hugo Build
+      - name: Initial Build
         run: make public
 
-      - name: Step 2: Generate Go Redirects
+      - name: Generate Redirects
         run: |
           export PATH=$PATH:$(go env GOPATH)/bin
           make goredirects
 
-      - name: Step 3: Asset Minification & Re-build
+      - name: Minify Site
         run: make minified
 
-      - name: Verify Build Artifacts
+      - name: Verify Artifacts
         run: |
           ls -R public/css/
           ls -R public/js/
