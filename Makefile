@@ -92,7 +92,7 @@ $(EXTERNAL_REPOS_DIR):
 	# HACK: After public/css/all.min.css public/js/all.min.js is calculated, we have to
 	# make public again. That's because public needs the CSS to work out its hash, where
 	# the css needs public to find which classes are unused.
-	make public
+	$(HUGO)
 
 	# Find all HTML and in parallel run the minifier
 	$(HTML_MINIFIER) --input-dir public --file-ext html --output-dir public

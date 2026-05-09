@@ -59,16 +59,21 @@ jobs:
       - name: Build CSS (Chroma)
         run: make chromacss
 
-      - name: Build Hugo Site
-        run: ./hugo.sh
+      - name: Step 1: Initial Hugo Build
+        run: make public
 
-      - name: Generate Go Redirects
+      - name: Step 2: Generate Go Redirects
         run: |
           export PATH=$PATH:$(go env GOPATH)/bin
           make goredirects
 
-      - name: Minify HTML/JS/CSS
+      - name: Step 3: Asset Minification & Re-build
         run: make minified
+
+      - name: Verify Build Artifacts
+        run: |
+          ls -R public/css/
+          ls -R public/js/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
