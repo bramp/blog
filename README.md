@@ -11,34 +11,31 @@ New Features
 
 Dependencies
 ------------
+This project uses a locked Hugo version defined in `.hugo-version`.
+
 ```bash
-# Install hugo (Mac)
-brew install hugo@v0.82
+# To run locally, ensure you have the correct Hugo version.
+# You can use the wrapper script:
+./hugo.sh version
 
-# Install hugo (Linux)
-sudo apt-get install hugo
-
-# Install hugo (Other)
-go get github.com/kardianos/govendor
-govendor get github.com/spf13/hugo@v0.82
-
-# For minifiying/linting
-npm install clean-css-cli@4.1.10 uglify-js@3.2.1 html-minifier@3.5.7 purify-css@1.2.5
-brew install parallel # or sudo apt-get install parallel
-brew install zopfli
+# For minifiying/linting (handled automatically in CI)
+npm install
 ```
 
 New Article
 -----------
 ```bash
-# `make help` shows the example:
-hugo new post/2017-07-15-the-title.md
-nano content/post/2017-07-15-the-title.md
+# Create a new post
+./hugo.sh new post/$(date +%Y-%m-%d)-the-title.md
+
+# Preview locally
 make watch
 
-# Once done commit your changes
-git add content/post/2017-07-15-the-title.md
-git commit
+# Once done, commit and push to master. 
+# GitHub Actions will automatically build and deploy the site.
+git add content/post/...
+git commit -m "Add new post"
+git push origin master
 ```
 
 Tables
@@ -76,11 +73,17 @@ find content static -name '*.gif' | parallel --no-notice --tag gifsicle -O -o "{
 ```
 
 
-Deploy
------
-```bash
-./deploy.sh
-```
+Deployment
+----------
+Deployment is handled automatically by **GitHub Actions** whenever changes are pushed to the `master` branch. 
+
+The workflow:
+1. Installs the Hugo version specified in `.hugo-version`.
+2. Clones external Go repositories listed in `repos.txt` for `goredirects`.
+3. Builds and minifies the site.
+4. Deploys to GitHub Pages.
+
+You can monitor the status in the **Actions** tab of the GitHub repository.
 
 
 Checks
