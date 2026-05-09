@@ -7,6 +7,7 @@ UGLIFYJS := $(NODE_MODULES)/uglifyjs
 CLEANCSS := $(NODE_MODULES)/cleancss
 PURIFYCSS := $(NODE_MODULES)/purifycss
 GOREDIRECTS := goredirects
+EXTERNAL_REPOS_DIR := external
 MD5LN := ./md5ln.sh
 
 # All input files
@@ -66,16 +67,28 @@ watch: chromacss
 	$(HUGO) server -w -D -F -v --bind="0.0.0.0"
 
 # Below are file based targets
-public: $(FILES) config.yaml goredirects chromacss
+public: $(FILES) config.yaml chromacss
 	$(HUGO)
 
 	# Ensure the public folder has it's mtime updated.
 	touch $@
 
-goredirects:
-	$(GOREDIRECTS) bramp.net public
+goredirects: public $(EXTERNAL_REPOS_DIR)
+	@# For each repo in repos.txt, clone it if it doesn't exist
+	@if [ -f repos.txt ]; then \
+		while read -r url; do \
+			repo=$$(basename $$url .git); \
+			if [ ! -d $(EXTERNAL_REPOS_DIR)/$$repo ]; then \
+				git clone --depth 1 --no-tags --single-branch $$url $(EXTERNAL_REPOS_DIR)/$$repo; \
+			fi; \
+		done < repos.txt; \
+	fi
+	$(GOREDIRECTS) bramp.net $(EXTERNAL_REPOS_DIR) public
 
-.minified: public html-minifier.conf public/css/all.min.css public/js/all.min.js
+$(EXTERNAL_REPOS_DIR):
+	mkdir -p $@
+
+.minified: public goredirects html-minifier.conf public/css/all.min.css public/js/all.min.js
 	# HACK: After public/css/all.min.css public/js/all.min.js is calculated, we have to
 	# make public again. That's because public needs the CSS to work out its hash, where
 	# the css needs public to find which classes are unused.
