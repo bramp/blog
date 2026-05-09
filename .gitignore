@@ -1,3 +1,5 @@
 .minified
 node_modules
 external/
+test-results/
+playwright-report/

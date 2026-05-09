@@ -22,6 +22,10 @@ analyze:
 
 test:
 	./test_urls.sh
+	npm test
+
+validate:
+	npm test
 
 test-ci: all test
 
