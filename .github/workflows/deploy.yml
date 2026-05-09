@@ -51,12 +51,26 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: 'stable'
+          cache: true
+
+      - name: Cache Playwright Browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
 
       - name: Install dependencies
         run: npm install
 
       - name: Install goredirects
         run: go install bramp.net/goredirects@latest
+
+      - name: Install Playwright Browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
 
       - name: Build CSS
         run: make chromacss
@@ -72,16 +86,8 @@ jobs:
       - name: Minify Site
         run: make minified
 
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps chromium
-
       - name: Run Build Validation
         run: make validate
-
-      - name: Verify Artifacts
-        run: |
-          ls -R public/css/
-          ls -R public/js/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
