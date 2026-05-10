@@ -1,5 +1,7 @@
 .minified
 node_modules
 external/
+public/
+resources/
 test-results/
 playwright-report/

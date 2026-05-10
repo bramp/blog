@@ -1,8 +1,0 @@
-Andrew Brampton's Blog
-https://github.com/bramp/blog
-   
-Using:
- Hugo
- Bootstrap
- and others
-
