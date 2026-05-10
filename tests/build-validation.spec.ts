@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { existsSync } from 'fs';
+import { existsSync, readdirSync } from 'fs';
 import { join } from 'path';
 
 // --- File Existence Checks ---
@@ -31,6 +31,17 @@ test.describe('Static Site Build Validation', () => {
   test('Critical files should exist', async () => {
     for (const file of criticalFiles) {
       const path = join(process.cwd(), file);
+      // For assets, we expect a hash in the filename, so we check the directory
+      if (file.includes('.min.js') || file.includes('.min.css')) {
+          const dir = join(process.cwd(), file.split('/').slice(0, -1).join('/'));
+          const fileName = file.split('/').pop() || '';
+          const namePart = fileName.split('.').slice(0, -2).join('.'); // e.g. "all" from "all.min.js"
+          const files = readdirSync(dir);
+          if (!files.some(f => f.startsWith(namePart + '.') && (f.endsWith('.js') || f.endsWith('.css')))) {
+              throw new Error(`Asset missing in ${dir}: ${file} (found: ${files.join(', ')})`);
+          }
+          continue;
+      }
       if (!existsSync(path)) {
         throw new Error(`Critical file missing: ${file}`);
       }

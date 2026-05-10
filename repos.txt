@@ -1,16 +1,16 @@
-https://github.com/bramp/antlr4-grammars.git
-https://github.com/bramp/archivemount.git
-https://github.com/bramp/binpack.git
-https://github.com/bramp/connected-component-labelling.git
-https://github.com/bramp/ffmpeg-cli-wrapper.git
-https://github.com/bramp/flutter_gen_linter.git
-https://github.com/bramp/goredirects.git
-https://github.com/bramp/hilbert.git
-https://github.com/bramp/js-sequence-diagrams.git
-https://github.com/bramp/libcec-daemon.git
-https://github.com/bramp/myip.git
-https://github.com/bramp/ninaandandrew.com.git
-https://github.com/bramp/prob.js.git
-https://github.com/bramp/protoc-gen-php.git
-https://github.com/bramp/svg_path_transform.git
-https://github.com/bramp/unsafe.git
+https://github.com/bramp/antlr4-grammars.git antlr4
+https://github.com/bramp/archivemount.git archivemount
+https://github.com/bramp/binpack.git binpack
+https://github.com/bramp/connected-component-labelling.git connected-component-labelling
+https://github.com/bramp/ffmpeg-cli-wrapper.git ffmpeg-cli-wrapper
+https://github.com/bramp/flutter_gen_linter.git flutter_gen_linter
+https://github.com/bramp/goredirects.git goredirects
+https://github.com/bramp/hilbert.git hilbert
+https://github.com/bramp/js-sequence-diagrams.git js-sequence-diagrams
+https://github.com/bramp/libcec-daemon.git libcec-daemon
+https://github.com/bramp/myip.git myip
+https://github.com/bramp/ninaandandrew.com.git ninaandandrew.com
+https://github.com/bramp/prob.js.git prob.js
+https://github.com/bramp/protoc-gen-php.git protoc-gen-php
+https://github.com/bramp/svg_path_transform.git svg_path_transform
+https://github.com/bramp/unsafe.git unsafe

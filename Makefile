@@ -65,10 +65,10 @@ public: $(FILES) config.yaml chromacss
 goredirects: public $(EXTERNAL_REPOS_DIR)
 	@# For each repo in repos.txt, clone it if it doesn't exist
 	@if [ -f repos.txt ]; then \
-		while read -r url; do \
-			repo=$$(basename $$url .git); \
-			if [ ! -d $(EXTERNAL_REPOS_DIR)/$$repo ]; then \
-				git clone --depth 1 --no-tags --single-branch $$url $(EXTERNAL_REPOS_DIR)/$$repo; \
+		while read -r url dir; do \
+			if [ -z "$$dir" ]; then dir=$$(basename $$url .git); fi; \
+			if [ ! -d $(EXTERNAL_REPOS_DIR)/$$dir ]; then \
+				git clone --depth 1 --no-tags --single-branch $$url $(EXTERNAL_REPOS_DIR)/$$dir; \
 			fi; \
 		done < repos.txt; \
 	fi
