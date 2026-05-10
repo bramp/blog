@@ -1,0 +1,25 @@
+# This file contains a list of GitHub repositories that host Go modules
+# using the bramp.net vanity import path.
+#
+# These are used by goredirects to generate the static HTML files for
+# Go vanity import redirects.
+#
+# Format: <git_url> <directory_name>
+#
+# Search queries used to identify these:
+# https://github.com/search?q=owner%3Abramp%20%22module%20bramp.net%2F%22&type=code
+https://github.com/bramp/antlr4-grammars.git antlr4
+https://github.com/bramp/myip.git myip
+https://github.com/bramp/goredirects.git goredirects
+https://github.com/bramp/brampx.git brampx
+
+# https://github.com/search?q=owner%3Abramp+package+bramp.net+path%3A*.go&type=code
+https://github.com/bramp/dsector.git dsector
+https://github.com/bramp/morebeam.git morebeam
+https://github.com/bramp/mysqldump2csv.git mysqldump2csv
+https://github.com/bramp/ircsockets.git ircsockets
+https://github.com/bramp/dataflow-art.git dataflow-art
+https://github.com/bramp/sftp.git sftp
+https://github.com/bramp/health.git health
+https://github.com/bramp/mathsolver.git mathsolver
+https://github.com/bramp/hilbert.git hilbert

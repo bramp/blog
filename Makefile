@@ -39,41 +39,46 @@ help:
 	@echo "  open "
 
 clean:
-	-rm -rf public
-	-rm themes/bramp/assets/css/chroma-monokai.css themes/bramp/assets/css/chroma-friendly.css
-	-rm .minified
-	-rm -rf $(TMPDIR)/hugo_cache
+        -rm -rf public
+        -rm themes/bramp/assets/css/chroma-monokai.css themes/bramp/assets/css/chroma-friendly.css
+        -rm .minified
+        -rm -rf $(TMPDIR)/hugo_cache
+        @# Remove all directories in EXTERNAL_REPOS_DIR, but keep the dir itself and repos.txt
+        -find $(EXTERNAL_REPOS_DIR) -mindepth 1 -maxdepth 1 -type d -exec rm -rf {} +
 
 deploy:
-	./deploy.sh
+        ./deploy.sh
 
 minified: .minified
 
 server: public minified
-	cd public && python3 -m http.server 1313
+        cd public && python3 -m http.server 1313
 
 watch: chromacss
-	$(HUGO) server -w -D -F -v --bind="0.0.0.0"
+        $(HUGO) server -w -D -F -v --bind="0.0.0.0"
 
 # Below are file based targets
 public: $(FILES) config.yaml chromacss
-	$(HUGO)
+        $(HUGO)
 
-	# Ensure the public folder has it's mtime updated.
-	touch $@
+        # Ensure the public folder has it's mtime updated.
+        touch $@
+
+REPOS_FILE := $(EXTERNAL_REPOS_DIR)/repos.txt
 
 goredirects: public $(EXTERNAL_REPOS_DIR)
-	@# For each repo in repos.txt, clone it if it doesn't exist
-	@if [ -f repos.txt ]; then \
-		while read -r url dir; do \
-			if [ -z "$$dir" ]; then dir=$$(basename $$url .git); fi; \
-			if [ ! -d $(EXTERNAL_REPOS_DIR)/$$dir ]; then \
-				git clone --depth 1 --no-tags --single-branch $$url $(EXTERNAL_REPOS_DIR)/$$dir; \
-			fi; \
-		done < repos.txt; \
-	fi
-	$(GOREDIRECTS) bramp.net $(EXTERNAL_REPOS_DIR) public
-
+        @# For each repo in repos.txt, clone it if it doesn't exist
+        @if [ -f $(REPOS_FILE) ]; then \
+                while read -r url dir; do \
+                        case "$$url" in \#*) continue ;; esac; \
+                        if [ -z "$$url" ]; then continue; fi; \
+                        if [ -z "$$dir" ]; then dir=$$(basename $$url .git); fi; \
+                        if [ ! -d $(EXTERNAL_REPOS_DIR)/$$dir ]; then \
+                                git clone --depth 1 --no-tags --single-branch $$url $(EXTERNAL_REPOS_DIR)/$$dir; \
+                        fi; \
+                done < $(REPOS_FILE); \
+        fi
+        $(GOREDIRECTS) bramp.net $(EXTERNAL_REPOS_DIR) public
 $(EXTERNAL_REPOS_DIR):
 	mkdir -p $@
 
