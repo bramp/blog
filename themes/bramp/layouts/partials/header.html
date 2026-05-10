@@ -63,23 +63,7 @@
 <!-- we use printf "%s"... because BaseURL is a URL, not a String. This should be fixed in Hugo
      at some point. http://discuss.gohugo.io/t/implementing-breadcrumb-navigation-in-hugo/1048/5
      and https://github.com/spf13/cast/issues/13 -->
-{{ if in (printf "%s" .Site.BaseURL) "localhost" }}
-  <link rel="stylesheet" href="/css/bootstrap.css">
-  <link rel="stylesheet" href="/css/bootstrap-social.css">
-  <link rel="stylesheet" href="/css/chroma-friendly.css">
-  <link rel="stylesheet" href="/css/fonts.css">
-  <link rel="stylesheet" href="/css/bramp.css">
-  <link rel="stylesheet" href="/css/icons.css">
-{{ else }}
-  <!-- TODO Turn this into a hugo template -->
-  {{ if (fileExists "public/css/all.min.css") }}
-  <link rel="stylesheet" href="/css/all.{{ readFile "public/css/all.min.css" | md5}}.min.css">
-  {{ else }}
-  <link rel="stylesheet" href="/css/all.min.css">
-  {{ end }}
-{{ end }}
-  <!-- Sortable HTML tables -->
-  <link rel="stylesheet" href="/css/sortable-theme-minimal.css" />
+{{ partial "head_css.html" . }}
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/font-hack/2.010/css/hack.min.css">
 

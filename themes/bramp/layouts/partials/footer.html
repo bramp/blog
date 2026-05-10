@@ -7,19 +7,7 @@
     </div> <!-- .container -->
     </div> <!-- .wrapper-->
 
-	<!-- Bootstrap core JavaScript-->
-{{ if in (printf "%s" .Site.BaseURL) "localhost" }}
-    <script src="/js/jquery-1.10.2.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/svgxuse.min.js" defer></script>
-{{ else }}
-  {{ if (fileExists "public/js/all.min.js") }}
-    <script src="/js/all.{{ readFile "public/js/all.min.js" | md5}}.min.js"></script>
-  {{ else }}
-    <script src="/js/all.min.js" defer></script>
-  {{ end }}
-{{ end }}
-    <script src="/js/sortable.min.js"></script>
+{{ partial "foot_js.html" . }}
     {{ template "partials/addthis.html" . }}
   </body>
 </html>

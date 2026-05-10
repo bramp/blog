@@ -1,0 +1,22 @@
+{{- $styles := slice -}}
+{{- $cssFiles := slice "css/bootstrap.css" "css/bootstrap-social.css" "css/chroma-friendly.css" "css/fonts.css" "css/bramp.css" "css/icons.css" -}}
+{{- range $cssFiles -}}
+  {{- $res := resources.Get . -}}
+  {{- if $res -}}
+    {{- $styles = $styles | append $res -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if hugo.IsServer -}}
+  {{- range $styles -}}
+    <link rel="stylesheet" href="{{ .RelPermalink }}">
+  {{- end -}}
+{{- else -}}
+  {{- $bundle := $styles | resources.Concat "css/all.css" | resources.Minify | resources.Fingerprint -}}
+  <link rel="stylesheet" href="{{ $bundle.RelPermalink }}" integrity="{{ $bundle.Data.Integrity }}" crossorigin="anonymous">
+{{- end -}}
+
+<!-- Sortable HTML tables -->
+{{- with resources.Get "css/sortable-theme-minimal.css" -}}
+<link rel="stylesheet" href="{{ (. | resources.Minify).RelPermalink }}">
+{{- end -}}
